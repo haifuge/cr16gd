@@ -55,6 +55,7 @@
     <Compile Include="Models\SystemSetup.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\WorkHistory.cs" />
+    <Compile Include="Tools\Caching.cs" />
     <Compile Include="Tools\DBHelper.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
