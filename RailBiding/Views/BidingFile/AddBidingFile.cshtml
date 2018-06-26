@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "新建招标文件";
+}
+
+<link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
+<link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/select/easydropdown.metro.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>招标文件</h1>
+        <ul class="left-nav-list">
+            <li><a href="/BidingFile" class="active"><i class="icon icon-eye1"></i>招标文件</a></li>
+            <li><a href="/BidingFile/FileApplication"><i class="icon icon-hand2"></i>文件申请</a></li>
+            <li><a href="/BidingFile/FileApprove"><i class="icon icon-hand3"></i>文件审批</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top ">
+            <span class="page-title">招标文件详情</span>
+        </div>
+        <div class="wc-container app-dt">
+            <div class="wc-nav">
+            </div>
+            <form action="" method="post" class="js-form">
+                <table class="meet-form meet-form7">
+                    <tbody>
+                        <tr class="form-tr">
+                            <td class="form-lable"><span class="red-word">*</span>项目名称：</td>
+                            <td>
+                                <input name="roomInfoName" type="text" value=""
+                                       class="has-clear-input input input3" />
+
+                            </td>
+                        </tr>
+
+                        <tr class="form-tr">
+                            <td class="form-lable"><span class="red-word">*</span>招标文件 <br>&nbsp;内容简述</td>
+                            <td>
+                                <textarea class="wjsq">温州市域铁路S1线轨道区间Ⅱ标地下空间开发三轴搅拌桩（基底抽条+裙边加固、重力式挡墙、主体及附属交接处阴角加固、三轴搅拌桩止水桩等）、工法桩及钻孔灌注桩工程施工劳务招标。
+招标工程量：三轴搅拌桩空桩：5000m3，实桩：9000m3，SMW工法桩3000m3，型钢插拔400t；钻孔灌注桩空桩350m，实桩1400m、钢筋笼制安110t。
+甲供材料及约定：水泥、商品混凝土、钢筋为甲供材料，损耗系数按定额计算。
+温州市域铁路S1线轨道区间Ⅱ标地下空间开发三轴搅拌桩（基底抽条+裙边加固、重力式挡墙、主体及附属交接处阴角加固、三轴搅拌桩止水桩等）、工法桩及钻孔灌注桩工程施工劳务招标。
+招标工程量：三轴搅拌桩空桩：5000m3，实桩：9000m3，SMW工法桩3000m3，型钢插拔400t；钻孔灌注桩空桩350m，实桩1400m、钢筋笼制安110t。
+甲供材料及约定：水泥、商品混凝土、钢筋为甲供材料，损耗系数按定额计算。</textarea>
+
+                            </td>
+                        </tr>
+
+                        <tr class="form-tr tr2">
+                            <td class="form-lable">附件文档：</td>
+                            <td>
+                                <div class="upload-btn upload-btn2" style="top:0;text-align: left">
+                                    <img src="img/icon-fj.png" alt="" style="vertical-align: middle">附件：&nbsp;&nbsp;
+                                    <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                           id="allfileInput" style="cursor: pointer;left:80px;width: 40px;height: 40px;">
+                                    <img src="img/icon-add4.png" alt="" class="up up2" style="left:80px;">
+                                </div>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-tr-btn">
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">提交</button>
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
+                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
+                </div>
+            </form>
+
+        </div>
+        </div>
+    </div>
+
+
+
+        <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+        <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
+        <script type="text/javascript" src="~/js/ztree/jquery.ztree.core.js"></script>
+        <script type="text/javascript" src="~/js/ztree/jquery.ztree.excheck.js"></script>
+        <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+        <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+        <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+        <script type="text/javascript" src="~/js/select/jquery.easydropdown.js"></script>
+        <script type="text/javascript" src="~/js/upload.js"></script>
+        <script type="text/javascript" src="~/js/js.js"></script>
+

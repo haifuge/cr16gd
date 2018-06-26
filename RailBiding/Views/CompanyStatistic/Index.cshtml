@@ -1,0 +1,267 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>招标管理</title>
+    <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+    <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+        <div class="main-container">
+            <div class="container">
+                <div class="left-nav">
+                </div>
+                <div class="main-con">
+                    <div class="main-wrap">
+                        <div class="main-top">
+                            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+                            <select class="meet-select js-meet-state">
+                                <option value="all">项目类型</option>
+                                <option value="1">围护结构工程</option>
+                                <option value="2">围护结构工程</option>
+                            </select>
+                            <select class="meet-select js-meet-state">
+                                <option value="all">状态</option>
+                                <option value="1">发布中</option>
+                                <option value="2">已结束</option>
+                            </select>
+                            <div class="search-con2">
+                                <input type="text" name="keyname" placeholder="请输入关键字">
+                                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+                            </div>
+                            <a class="meet-btn red-btn small-size sm-btn" href="tender_application.html">
+                                <i class="xs-meet-icon icon-add"></i>添加
+                            </a>
+                        </div>
+                        <div class="wc-container">
+
+                            <table class="meet-table text-left">
+                                <thead class="wc-header">
+                                    <tr>
+                                        <td class="check-color" style="width: 80px;">
+                                            <span class="table-all-check">
+                                                <input type="checkbox"
+                                                       class="icheck"
+                                                       name="all-check"
+                                                       id="all-check" />
+                                            </span>
+                                        </td>
+                                        <td>项目名称</td>
+                                        <td>项目地点</td>
+                                        <td>招标内容</td>
+                                        <td>发布人</td>
+                                        <td>发布时间</td>
+                                        <td>报名时间</td>
+                                        <td style="width: 120px;">预计开标时间</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                    <tr class="white-bg" onclick="location.href='tendering_content_detail.html';">
+                                        <td class="check-color">
+                                            <input class="icheck" name="id" type="checkbox" value="1"
+                                                   id="checkbox-1" />
+                                        </td>
+                                        <td>上海思尧建设集团有限公司</td>
+                                        <td>北京市</td>
+                                        <td>地基与基础工程专业承包壹级</td>
+                                        <td>甘霞</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-time">2017年4月5日</td>
+                                        <td class="gray-word gray-time">2017年5月5日</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="page">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="foot-con">
+                        <div class="foot-wrap">
+                            <p>
+                                © 版权所有：中铁十六局集团轨道公司 010-69526115 技术支持:传晨赛博 <a href=" http://www.saibo.net.cn">www.saibo.net.cn</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script>
+    //左侧菜单
+    function leftnav_htm(index) {
+        var htm = '<div class="left-nav-con">' +
+            '<h1>招标管理</h1>' +
+            '<ul class="left-nav-list">' +
+            '<li><a href="tendering_content.html" class="' + (index == 1 ? "active" : "") + '"><i class="icon icon-eye1"></i>招标信息</a></li>' +
+            '<li><a href="application_bidding.html" class="' + (index == 2 ? "active" : "") + '"><i class="icon icon-hand1"></i>招标申请</a></li>' +
+            '<li><a href="approval.html" class="' + (index == 3 ? "active" : "") + '"><i class="icon icon-user1"></i>招标审批</a></li>' +
+            // '<li><a href="winning_bid.html" class="'+ (index==4?"active":"") +'"><i class="icon icon-edit1"></i>中标公告</a></li>'+
+            // '<li><a href="abandoned_tender.html" class="'+ (index==5?"active":"") +'"><i class="icon icon-fet1"></i>废标</a></li>'+
+
+            '</ul>' +
+            '</div>';
+        $(".left-nav").append(htm);
+    }
+
+    $(function () {
+        leftnav_htm(1);
+        pages(1, 2, 12, 5)
+    })
+</script>
+</html>

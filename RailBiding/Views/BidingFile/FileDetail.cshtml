@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "招标文件详情";
+}
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>招标文件</h1>
+        <ul class="left-nav-list">
+            <li><a href="/BidingFile" class="active"><i class="icon icon-eye1"></i>招标文件</a></li>
+            <li><a href="/BidingFile/FileApplication"><i class="icon icon-hand2"></i>文件申请</a></li>
+            <li><a href="/BidingFile/FileApprove"><i class="icon icon-hand3"></i>文件审批</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top top-bottom">
+
+            <span class="js-page-name">招标文件详情</span>
+            <div class="apply-opt">
+
+                <a href="#" class="js-cancle-meet" title="返回" onclick="window.history.go(-1)">
+                    <i class="meet-icon icon-del icon-tb">返回</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container  ccata">
+
+            <div class="detail-wrap detail-con">
+                <table class="meet-form meet-form8">
+                    <tbody>
+                        <tr class="form-tr form-tr-title-bg">
+                            <td>
+                                <h2>@ViewBag.BidFileName</h2>
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td>
+                                <div class="art-tit">
+                                    <span>发布人：</span>@ViewBag.BidFileUserName <span>发布时间：</span> @ViewBag.BidFilePublishDate
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td><h3>招标文件内容简述</h3></td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="art-con">
+                                @Html.Raw(ViewBag.BidFileContent)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="download">
+                                <div><i class="meet-icon icon-file"></i></div>
+                                <div class="cc">
+                                    温州市域铁路S1线轨道区间Ⅱ标.doc
+                                    <div class="dowl"><a href="">下载</a>&nbsp;&nbsp;1.2M</div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+
+<script>
+
+    $(function () {
+        pages(1, 2, 12, 5)
+    })
+</script>

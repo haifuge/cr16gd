@@ -1,0 +1,153 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>劳务招标系统</title>
+    <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+    <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <div class=" index-bg index-bg2">
+        <div class="main-header main-header2">
+            <h1 class="logo">
+                <img src="~/img/lw-logo.png" alt="">
+            </h1>
+            <div class="header-right header-right2">
+                <div class="user-face">
+                    <ul>
+                        <li class="nav-help"><a href="" style="color: #fff">帮助</a></li>
+                        <li class="nav-user-name"><a href="" style="color: #fff">@ViewBag.UserDepartment <i>@ViewBag.UserName</i></a></li>
+                    </ul>
+                </div>
+                <div class="web-home"><a href="#"><i class="home-icon-white"></i></a></div>
+            </div>
+        </div>
+        <div class="index-center">
+            <div class="index-box">
+                <div class="in-box-top">
+                    <ul>
+                        <li>
+                            <div class="sp-list">
+                                <div class="sp-list-left">
+                                    <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
+                                    <p>名录外单位审批</p>
+                                </div>
+                                <div class="sp-list-right">
+                                    7
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sp-list">
+                                <div class="sp-list-left">
+                                    <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
+                                    <p>招标审批</p>
+                                </div>
+                                <div class="sp-list-right">
+                                    3
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sp-list">
+                                <div class="sp-list-left">
+                                    <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
+                                    <p>定标审批</p>
+                                </div>
+                                <div class="sp-list-right">
+                                    3
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sp-list">
+                                <div class="sp-list-left">
+                                    <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
+                                    <p>招标文件审批</p>
+                                </div>
+                                <div class="sp-list-right">
+                                    3
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="in-box-bottom">
+                    <div class="bot-left">
+
+                        <ul>
+                            <li>
+                                <a href="/Companys?activeMenu=itemC">
+                                    <dl>
+                                        <dt><img src="~/img/icon-index1.png" alt=""></dt>
+                                        <dd>单位管理</dd>
+                                    </dl>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Bidings?activeMenu=itemB">
+                                    <dl>
+                                        <dt><img src="~/img/icon-index2.png" alt=""></dt>
+                                        <dd>招标管理</dd>
+                                    </dl>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/SystemSetup?activeMenu=itemSS">
+                                    <dl>
+                                        <dt><img src="~/img/icon-index3.png" alt=""></dt>
+                                        <dd>系统设置</dd>
+                                    </dl>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bot-center"><img src="~/img/index-bg.jpg" alt=""></div>
+                    <div class="bot-left bot-right">
+                        <ul>
+                            <li>
+                                <a href="/BidingFile?activeMenu=itemF">
+                                    <dl>
+                                        <dt><img src="~/img/icon-index4.png" alt=""></dt>
+                                        <dd>招标文件</dd>
+                                    </dl>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/MakeBidFile?activeMenu=itemM">
+                                    <dl>
+                                        <dt><img src="~/img/icon-index5.png" alt=""></dt>
+                                        <dd>定标管理</dd>
+                                    </dl>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Statistic?activeMenu=itemS">
+                                    <dl>
+                                        <dt><img src="~/img/icon-index6.png" alt=""></dt>
+                                        <dd>统计分析</dd>
+                                    </dl>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="login-foot">
+        <span class="copyright">© 版权所有：中铁十六局集团轨道公司  （010）010-69526115</span><span class="support">
+            技术支持:传晨赛博  <a href="http://www.saibo.net.cn">www.saibo.net.cn</a>
+        </span>
+    </div>
+</body>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>

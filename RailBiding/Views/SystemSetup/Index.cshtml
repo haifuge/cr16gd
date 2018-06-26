@@ -1,0 +1,298 @@
+﻿
+@{
+    ViewBag.Title = "系统设置";
+}
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel='stylesheet' href='~/js/ztree/css/zTreeStyle/zTreeStyle.css' />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>系统设置</h1>
+        <ul class="left-nav-list">
+            <li><a href="SystemSetup" class="active"><i class="icon icon-eye1"></i>组织结构</a></li>
+            <li><a href="SystemSetup/PersonalCenter"><i class="icon icon-hand2"></i>个人中心</a></li>
+            <li><a href="SystemSetup/SystemLog"><i class="icon icon-hand3"></i>系统日志</a></li>
+            <li><a href="SystemSetup/CategoryManagement"><i class="icon icon-hand4"></i>类别管理</a></li>
+            <li><a href="SystemSetup/SystemUser"><i class="icon icon-hand5"></i>系统用户</a></li>
+            <li><a href="SystemSetup/ApproveProcessManagement"><i class="icon icon-hand4"></i>审核流程</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+
+    <div class="main-wrap">
+        <div class="main-top">
+            <!--<a class="meet-btn blue-btn sm-btn" href="#">全部</a>-->
+            <div class="search-con2" style="margin-right: 15px;">
+                <input type="text" name="keyname" placeholder="请输入关键字">
+                <a class="search-btn" style="background: none"></a>
+            </div>
+            <a class="meet-btn blue-btn sm-btn" href="#">搜索</a>
+            <div class="apply-opt">
+                <a href="add_people.html" class="js-cancle-meet" title="">
+                    <i class="meet-icon icon-cancel iconc" style="">添加人员</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container" style="border: 1px solid #ececec;overflow: hidden">
+            <div class="dc-left">
+                <h3>
+                    组织机构信息 <a href="add_system_users.html"
+                              class="meet-icon icon-cancel iconc iconc2 ">添加</a>
+                </h3>
+                <div class="content_wrap">
+                    <div class="zTreeDemoBackground left">
+                        <ul id="treeDemo" class="ztree"></ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="dc-right">
+                <table class="meet-table text-left">
+                    <thead class="wc-header">
+                    <td class="check-color" style="width: 80px;">
+                        用户名
+                    </td>
+                    <td>姓名</td>
+                    <td>部门</td>
+                    <td>手机</td>
+                    <td>邮箱</td>
+                    <td>操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">zhangsan</td>
+                            <td>张三</td>
+                            <td>经理管理部</td>
+                            <td>18522254222</td>
+                            <td>2546632@qq.com</td>
+                            <td style="width: 100px;">
+                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="page" style="width: 100%;float:left">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script src="~/js/ztree/js/jquery.ztree.core.js"></script>
+<script src="~/js/ztree/js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="~/js/ztree/js/jquery.ztree.excheck.js"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        pages(1, 2, 12, 5)
+    })
+    var setting = {
+        view: {
+            // addHoverDom: addHoverDom,
+            removeHoverDom: removeHoverDom,
+            selectedMulti: false
+        },
+        check: {
+            enable: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        edit: {
+            enable: true
+        },
+
+    };
+
+    var zNodes = [
+        { id: 1, pId: 0, name: "中国铁建地产集团", open: true },
+        { id: 11, pId: 1, name: "开发测试", open: true },
+        { id: 111, pId: 11, name: "董事会" },
+        { id: 112, pId: 12, name: "总经理" },
+        { id: 12, pId: 1, name: "集团总部", open: true },
+        { id: 121, pId: 12, name: "董事会" },
+        { id: 122, pId: 12, name: "总经理" },
+        { id: 2, pId: 0, name: "集团总部", open: true },
+        { id: 21, pId: 2, name: "公司领导" },
+        { id: 22, pId: 2, name: "总经理办公室", open: true },
+        { id: 221, pId: 22, name: "董事会" },
+        { id: 222, pId: 22, name: "总经理办公室" },
+        { id: 23, pId: 2, name: "部级以上领导" },
+        { id: 231, pId: 23, name: "董事会" },
+        { id: 24, pId: 2, name: "企业改革与发展管理中心" },
+        { id: 241, pId: 24, name: "董事会" },
+        { id: 25, pId: 2, name: "土地经营管理中心" },
+        { id: 251, pId: 25, name: "董事会" },
+        { id: 26, pId: 2, name: "人力资源部（党委干部部）" },
+        { id: 261, pId: 26, name: "董事会" },
+        { id: 27, pId: 2, name: "财务会计部" },
+        { id: 271, pId: 27, name: "董事会" },
+        { id: 28, pId: 2, name: " 审计监事部" },
+        { id: 281, pId: 28, name: "董事会" },
+        { id: 29, pId: 2, name: "  其他人员" },
+        { id: 291, pId: 29, name: "董事会", },
+        { id: 292, pId: 29, name: "总经理办公室" },
+        { id: 3, pId: 0, name: "华南地区" },
+        { id: 31, pId: 3, name: "董事会" },
+        { id: 32, pId: 3, name: "总经理办公室" },
+        { id: 4, pId: 0, name: "东南地区" },
+        { id: 41, pId: 4, name: "董事会" },
+        { id: 42, pId: 4, name: "总经理办公室" },
+        { id: 5, pId: 0, name: "西南地区" },
+        { id: 51, pId: 5, name: "董事会" },
+        { id: 52, pId: 5, name: "总经理办公室" },
+
+    ];
+
+    $(document).ready(function () {
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+
+    var newCount = 1;
+
+    function addHoverDom(treeId, treeNode) {
+        var sObj = $("#" + treeNode.tId + "_span");
+        if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+            + "' title='add node' onfocus='this.blur();'></span>";
+        sObj.after(addStr);
+        var btn = $("#addBtn_" + treeNode.tId);
+        if (btn) btn.bind("click", function () {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.addNodes(treeNode, { id: (100 + newCount), pId: treeNode.id, name: "new node" + (newCount++) });
+            return false;
+        });
+    };
+
+    function removeHoverDom(treeId, treeNode) {
+        $("#addBtn_" + treeNode.tId).unbind().remove();
+    };
+
+</script>

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "审批流程管理";
+}
+
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>系统设置</h1>
+        <ul class="left-nav-list">
+            <li><a href="/SystemSetup"><i class="icon icon-eye1"></i>组织结构</a></li>
+            <li><a href="PersonalCenter"><i class="icon icon-hand2"></i>个人中心</a></li>
+            <li><a href="SystemLog"><i class="icon icon-hand3"></i>系统日志</a></li>
+            <li><a href="CategoryManagement"><i class="icon icon-hand4"></i>类别管理</a></li>
+            <li><a href="SystemUser"><i class="icon icon-hand5"></i>系统用户</a></li>
+            <li><a href="ApproveProcessManagement" class="active"><i class="icon icon-hand4"></i>审核流程</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main-con">
+
+    <div class="main-wrap">
+        <div class="main-top">
+            <span class="js-page-name">审核流程配置</span>
+        </div>
+        <div class="wc-container">
+            <table class="meet-table text-left">
+                <thead class="wc-header">
+                <td>序号</td>
+                <td>流程名称</td>
+                <td>状态</td>
+                <td>操作</td>
+                </tr>
+                </thead>
+                <tbody id="apbody">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </div>
+    <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+    <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+    <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+    <script type='text/javascript' src='~/js/js.js'></script>
+    <script>
+        $(function () {
+            $.post("/SystemSetup/GetApproveProcesses", {}, function (data) {
+                var obj = JSON.parse(data);
+                var htm = "";
+                for (var i = 0; i < obj.length; i++) {
+                    o = obj[i];
+                    var ss = "";
+                    switch (o.status) {
+                        case "1":
+                            ss = "正常";
+                            break;
+                        case "0":
+                            ss = "停用";
+                            break;
+                    }
+                    htm += '<tr class="white-bg">'+
+                        '<td>'+o.id+'</td >'+
+                            '<td>'+o.name+'</td>'+
+                        '<td>' + ss +'</td>'+
+                        '<td><a href="/SystemSetup/ApproveProcessDetail?apid='+o.id+'" class="xg">修改</a></td>'+
+                    '</tr >';
+                }
+                $("#apbody").html(htm);
+            });
+        })
+    </script>

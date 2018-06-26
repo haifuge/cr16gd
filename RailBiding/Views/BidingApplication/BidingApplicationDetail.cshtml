@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewBag.Title = "招标详情";
+}
+
+
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>招标管理</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Bidings"><i class="icon icon-eye1"></i>招标信息</a></li>
+            <li><a href="/BidingApplication" class="active"><i class="icon icon-hand1"></i>招标申请</a></li>
+            <li><a href="/BidingApprove"><i class="icon icon-user1"></i>招标审批</a></li>
+            @*<li><a href="winning_bid.html" class="'+ (index==4?" active":"") +'"><i class="icon icon-edit1"></i>中标公告</a></li>
+                <li><a href="abandoned_tender.html" class="'+ (index==5?" active":"") +'"><i class="icon icon-fet1"></i>废标</a></li>*@
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <span class="js-page-name">招标详情</span>
+            <div class="apply-opt">
+                <a href="javascript:;" class="js-cancle-meet" title="撤回">
+                    <i class="meet-icon icon-cancel icon-bh">撤回</i>
+                </a>
+                <a href="#" class="js-cancle-meet" title="返回" onclick="window.history.go(-1)">
+                    <i class="meet-icon icon-del icon-tb">返回</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container">
+            <div class="wc-nav">
+            </div>
+            <div class="detail-wrap detail-con">
+
+                <div class="block-left block-left2 block-left4">
+                    <div class="detail-fb">
+                        发布人：<span>@ViewBag.Publisher</span>发布时间：<span>@ViewBag.PublishDate</span>
+                    </div>
+                    <table class="meet-form meet-form7">
+                        <tbody>
+                            <tr class="form-tr form-tr-title-bg">
+                                <td class="blue-word form-lable">项目名称：</td>
+                                <td>@ViewBag.Name</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">招标内容：</td>
+                                <td>@ViewBag.Content</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">项目地点：</td>
+                                <td>@ViewBag.Location</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">项目类型：</td>
+                                <td>@ViewBag.Type</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">报名时间：</td>
+                                <td>@ViewBag.ApplyDate</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">预计开标时间：</td>
+                                <td>@ViewBag.OpenDate</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">拟中标单位数量：</td>
+                                <td>@ViewBag.BidingNum</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">项目说明：</td>
+                                <td>@ViewBag.ProjDescription</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">招标文档：</td>
+                                <td>
+                                    <i class="meet-icon icon-file"></i>
+                                    <a href="#" target="_blank" class="form-border-btn  bttn2">附件预览</a>
+                                </td>
+                            </tr>
+
+                            <tr class="form-tr detail-user-con tr-border">
+                                <td class="form-lable label2">
+                                    <span style="color: #008cd6">参与单位：</span>
+                                </td>
+                                <td>
+                                    <div class="detail-user">
+                                        <a class="meet-btn medium-btn active">参加<span>@ViewBag.joinNum</span></a>
+                                        <a class="meet-btn medium-btn">不参加<span>@ViewBag.noJoinNum</span></a>
+                                        <a class="meet-btn medium-btn">未响应<span>@ViewBag.noResponseNum</span></a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr class="form-tr detail-user-con">
+                                <td colspan="2">
+                                    <div class="detail-user-list detail-user-list6" style="min-height:215px;overflow: auto;">
+                                        <div class="meet-user-span" style="display: block;">
+                                            @Html.Raw(ViewBag.JoinCompanys)
+                                        </div>
+                                        <div class="meet-user-span">
+                                            @Html.Raw(ViewBag.NoJoinCompanys)
+                                        </div>
+                                        <div class="meet-user-span">
+                                            @Html.Raw(ViewBag.NoResponseCompanys)
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="block-right block-right2">
+                    <div class="block-rigt">
+                        <div class="detail-user2">
+                            <a class="meet-btn2 medium-btn">审核意见</a>
+                            <a class="meet-btn2 medium-btn active">流转信息</a>
+                        </div>
+                        <div class="detail-user-list2 right-ss" style="min-height:215px;overflow: auto;">
+                            <div class="meet-user-span2" style="display: none;">
+                                <div class="feedback-con feedback-con2">
+                                    <div class="feedback-item">
+                                        <div class="feedback-item-title">
+                                            <i class="meet-icon icon-message-on"></i>
+                                            驳回理由
+                                        </div>
+                                        <ul class="feedback-list feedback-admin">
+                                            <li>
+                                                <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
+                                                <p class="bjg">业绩信息不合格，请重新上传</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="feedback-item js-myattend">
+                                        <div class="feedback-item-title">
+                                            <i class="meet-icon icon-message"></i>
+                                            共<span class="js-feed-count">4</span>条回复消息
+                                        </div>
+                                        <ul class="feedback-list feedback-users">
+                                            <li>
+                                                <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
+                                                <p>资料合格，同意</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="meet-user-span2" style="display: block;">
+                                <h4 class="cp01"><span></span>指挥部</h4>
+                                <ul>
+                                    <li>
+                                        <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                </ul>
+                                <h4><span></span>管理员</h4>
+                                <ul>
+                                    <li>
+                                        <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
+                                    </li>
+
+                                </ul>
+                                <h4 class="cp02"><span></span>总公司</h4>
+                                <ul class="uc02">
+                                    <li><span class="yj01">计划合同部</span></li>
+                                    <li><span class="yj01">财务室</span></li>
+                                    <li><span class="yj01">施工技术部</span></li>
+                                    <li><span class="yj01">分公司总经济师</span></li>
+                                    <li><span class="yj01">分公司总经理</span></li>
+                                    <li><span class="yj01">计划合同部</span></li>
+                                    <li><span class="yj01">财务室</span></li>
+                                    <li><span class="yj01">施工技术部</span></li>
+                                    <li><span class="yj01">分公司总经济师</span></li>
+                                    <li><span class="yj01">分公司总经理</span></li>
+                                </ul>
+                                <h4 class="cp02"><span></span>结束</h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script>
+    $(function () {
+        @*$.post("/BidingApplication/BidingApplicationDetail/GetBidApplicationDetail?bid="+@ViewBag.bid, {}, function (data) {
+            console.log(data);
+        });
+        $.post("/BidingApplication/BidingApplicationDetail/GetBidApplicationAuditComment?bid="+@ViewBag.bid, {}, function (data) {
+            console.log(data);
+        });
+        $.post("/BidingApplication/BidingApplicationDetail/GetBidApplicationTransferInfo?bid="+@ViewBag.bid, {}, function (data) {
+            console.log(data);
+        });*@
+        pages(1, 2, 12, 5)
+
+    })
+</script>

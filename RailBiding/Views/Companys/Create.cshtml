@@ -1,0 +1,335 @@
+﻿
+@{
+    ViewBag.Title = "添加企业";
+}
+<link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
+<link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/select/easydropdown.metro.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+<style>
+    .block-left {
+        padding-right: 0;
+    }
+
+    .meet-form.meet-form9.meet-form3 .form-tr:hover {
+        background: #eaf6fd;
+    }
+</style>
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>劳务承分包企业</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Companys" class="active"><i class="icon icon-eye"></i>名录内单位</a></li>
+            <li><a href="/Companys/CompanysOut"><i class="icon icon-hand"></i>名录外单位</a></li>
+            <li><a href="/Companys/MyRecommend"><i class="icon icon-user"></i>我推荐的</a></li>
+            <li><a href="/Companys/MyAudit"><i class="icon icon-edit"></i>我审核的</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top top-bottom">
+            <span class="left-line"></span>
+            <span class="page-title">添加企业</span>
+        </div>
+        <div class="wc-container app-dt">
+            <div class="wc-nav">
+            </div>
+            <div class="block-left ">
+                <form action="" name="form1" method="post" class="js-form">
+                    <table class="meet-form meet-form9 meet-form3">
+                        <tbody>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="red-word">*</span>企业名称：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input3" />
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable">业务类型：</td>
+                                <td>
+                                    <div class="form-item  sel-required">
+                                        <select class="select radius-sel dropdown" name="iofnName"
+                                                id="iofnName">
+                                            <option value="">围护结构工程</option>
+                                            <option value="">围护结构工程</option>
+                                        </select>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="red-word">*</span>推荐人：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input3 input4" />
+                                    <span class="td-cer">推荐书：</span>
+                                    <div class="upload-btn upload-btn2 upload-btn3">
+                                        <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                               id="allfileInput">
+                                        <img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">推荐书扫描件.jpg</span>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr class="form-tr ">
+                                <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
+                                <td>
+                                    <div class="upload-btn upload-btn2 upload-btn4">
+                                        <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                               id="allfileInput">
+                                        <img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>
+                                    </div>
+                                    <span style="font-size: 14px;"> 统一社会信用代码号：</span><input name="youziz" id="3" type="text"
+                                                                                            class="has-clear-input input input3 input4"
+                                                                                            onBlur="checkpsd2()"
+                                                                                            required><span class="tips" id="zizhi"></span>
+
+                                </td>
+                            </tr>
+                            <tr class="form-tr ">
+                                <td class="form-lable"><span class="red-word">*</span>资质等级：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input5" />
+
+                                </td>
+                            </tr>
+                            <tr class="form-tr tr-pic2">
+                                <td class="form-lable"></td>
+                                <td>
+                                    <div class="aui-form-input">
+                                        <div class="aui-content-img-box aui-content-full">
+                                            <div class="aui-photo aui-up-img ">
+                                                <section class="aui-file-up fl">
+                                                    <img src="~/img/up.png" class="add-img">
+                                                    <input type="file" name="file" id="file" class="file"
+                                                           value=""
+                                                           accept="image/jpg,image/jpeg,image/png,image/bmp"
+                                                           multiple="">
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="form-tr ">
+                                <td class="form-lable"><span class="red-word">*</span>安全证书：</td>
+                                <td>
+                                    <div class="upload-btn upload-btn2 upload-btn4">
+                                        <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                               id="allfileInput">
+                                        <img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>
+                                    </div>
+                                    <span style="font-size: 14px;">证件编号：</span><input name="youbh" type="text" value=""
+                                                                                      class="has-clear-input input input3 input4 "
+                                                                                      onBlur="checkpsd1()"
+                                                                                      required><span class="tips " id="zjbh"></span>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="white-word">*</span>业务范围：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input3 input6" />
+                                    <span class="td-cer">注册资金： </span><input name="roomInfoName" type="text"
+                                                                             value=""
+                                                                             class="has-clear-input input input3 input4" />万元
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="red-word">*</span>法人代表：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input3 input4" />
+                                    <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
+                                                                             value=""
+                                                                             class="has-clear-input input input3 input4" />
+                                    <span class="td-cer">身份证扫描：</span>
+                                    <div class="upload-btn upload-btn2 upload-btn3">
+                                        <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                               id="allfileInput">
+                                        <img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="red-word">*</span>联系人：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input3 input4" />
+                                    <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
+                                                                             value=""
+                                                                             class="has-clear-input input input3 input4" />
+                                    <span class="td-cer">身份证扫描：</span>
+                                    <div class="upload-btn upload-btn2 upload-btn3">
+                                        <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                               id="allfileInput">
+                                        <img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="white-word">*</span>联系地址：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input3" />
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable">施工内容：</td>
+                                <td>
+                                    <textarea name="roomInfoName" type="text" value=""
+                                              class="has-clear-input input input3" placeholder="输入推荐参与施工内容">
+                                            </textarea>
+                                </td>
+                            </tr>
+
+                            <tr class="form-tr">
+                                <td class="form-lable">备注：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value=""
+                                           class="has-clear-input input input7" placeholder="输入推荐参与施工内容">
+                                </td>
+                            </tr>
+                            <tr class="form-tr detail-user-con gzyj">
+                                <td colspan="2">
+                                    <h3 class="yj-tit">工作业绩:</h3>
+                                    <table style="width: 100%" class="table01">
+                                        <thead class="wc-header">
+                                            <tr>
+                                                <td class="check-color" style="width: 80px;">
+                                                    序号
+                                                </td>
+                                                <td>承包内容</td>
+                                                <td>合同金额</td>
+                                                <td>开工日期</td>
+                                                <td>竣工日期</td>
+                                                <td>状态</td>
+                                                <td>结算金额</td>
+                                                <td>操作</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="white-bg">
+                                                <td>01</td>
+                                                <td>上海思尧建设集团有限公司</td>
+                                                <td>500万</td>
+                                                <td>2015年5月30号</td>
+                                                <td>2015年8月30号</td>
+                                                <td class="gray-time">工期延误</td>
+                                                <td class="gray-time">500万</td>
+                                                <td><a href="" class="color01">删除</a></td>
+
+                                            </tr>
+                                            <tr class="white-bg">
+                                                <td>02</td>
+                                                <td>上海思尧建设集团有限公司</td>
+                                                <td>500万</td>
+                                                <td>2015年5月30号</td>
+                                                <td>2015年8月30号</td>
+                                                <td class="gray-time">工期延误</td>
+                                                <td class="gray-time">500万</td>
+                                                <td><a href="" class="color01">删除</a></td>
+                                            </tr>
+                                            <tr class="white-bg">
+                                                <td>03</td>
+                                                <td>上海思尧建设集团有限公司</td>
+                                                <td>500万</td>
+                                                <td>2015年5月30号</td>
+                                                <td>2015年8月30号</td>
+                                                <td class="gray-time">工期延误</td>
+                                                <td class="gray-time">500万</td>
+                                                <td><a href="" class="color01">删除</a></td>
+                                            </tr>
+                                            <tr class="white-bg">
+                                                <td>04</td>
+                                                <td>上海思尧建设集团有限公司</td>
+                                                <td>500万</td>
+                                                <td>2015年5月30号</td>
+                                                <td>2015年8月30号</td>
+                                                <td class="gray-time">工期延误</td>
+                                                <td class="gray-time">500万</td>
+                                                <td><a href="" class="color01">删除</a></td>
+                                            </tr>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <!-- mask begin -->
+                    <div class="aui-mask aui-works-mask">
+                        <div class="aui-mask-content">
+                            <p class="aui-delete-text">确定要删除你上传的资料？</p>
+                            <p class="aui-check-text">
+                                <span class="aui-delete aui-accept-ok">确定</span>
+                                <span class="aui-accept-no">取消</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- mask end -->
+                    <div class="add-yej">
+                        <h3>添加业绩</h3>
+                        <div class="cb">
+                            <label for="">承包内容：</label> <textarea name="roomInfoName" type="text"
+                                                                  value=""
+                                                                  class="has-clear-input input input3"
+                                                                  placeholder="输入推荐参与施工内容">
+                                            </textarea>
+                        </div>
+                        <div class="cb">
+                            <label for="">合同金额：</label><input type="text" class="input8">&nbsp;万
+                            <span>状态：</span><select class="select radius-sel dropdown"
+                                                    name="iofnName" id="iofnName">
+                                <option value="">正常</option>
+                                <option value="">正常</option>
+                            </select><span>开工时间：</span><input name="userTimeBegin" id="userTimeBegin"
+                                                              class="date-input radius-sel Wdate"
+                                                              type="text" value=""
+                                                              placeholder="开工日期"
+                                                              onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d',maxDate:''})"><span>竣工时间：</span><input name="userTimeBegin" id="userTimeBegin"
+                                                                                                                                                                         class="date-input radius-sel Wdate"
+                                                                                                                                                                         type="text" value="" placeholder="竣工日期"
+                                                                                                                                                                         onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d',maxDate:''})">
+                            <span>结算金额：</span><input type="text" class="input8">&nbsp;万元
+                        </div>
+                        <div class="btn-add">
+                            <button type="submit" class="">添加</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-tr-btn">
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">提交</button>
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
+                    <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="~/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="~/js/ztree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/js/select/jquery.easydropdown.js"></script>
+<script type="text/javascript" src="~/js/upload.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript" src="~/js/up.js"></script>
+<script type='text/javascript'>
+    $(function () {
+        pages(1, 2, 12, 5)
+    });
+</script>

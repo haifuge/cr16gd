@@ -1,0 +1,204 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>劳务招标系统</title>
+    <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+    <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <div class=" index-bg">
+        <img src="~/img/lw-bg.jpg" src="~/img/lw-bg.jpg" alt="">
+        <div class="logobar">
+            <img src="~/img/lw-logo.png" alt="">
+        </div>
+        <div class="login-center2">
+            <div class="login-zx">
+                <div class="login-zx-left">
+                    <img src="~/img/login-01.png" alt="">
+                </div>
+                <div class="login-zx-right">
+                    <div class="loginbar">
+                        <div class="loginbar-re">
+                            <h3>账号登录</h3>
+                            <ul>
+                                <li>
+                                    <input id="txtUserName" name="txtUserName" type="text" placeholder="用户名"><label id="nameErr"></label>
+                                </li>
+                                <li>
+                                    <input id="txtPassword" name="txtPassword" type="password" placeholder="密码"><label id="passwordErr"></label>
+                                </li>
+                                <li>
+                                    <input id="txtCode" name="txtCode" type="text" placeholder="验证码" class="txtcode">
+                                    <span>
+                                        @*<input type="txt" name="" value="获取验证码" class="getCode">*@
+                                        <img id="imgVerifyCode" src="Login/GenerateVerifyCode" alt='换一张图' style="display: block; cursor: pointer;" onclick="this.src = 'Login/GenerateVerifyCode?tmp=' + Math.random();" width='75' height='30' style="cursor: pointer; margin-left: 10px;" />
+                                    </span>
+                                </li>
+                            </ul>
+                            <div class="btn-box">
+                                <div class="col">
+                                    <input id="btnSubmit" name="btnSubmit" class="submit" type="submit" onclick="checkForm()" value="登 录">
+                                </div>
+                            </div>
+                            <div class="oauth-box">
+                                <a href="\ForgetPassword" class="regi">忘记密码</a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="login-foot">
+            <span class="copyright">© 版权所有：中铁十六局集团轨道公司  （010）010-69526115</span><span class="support">
+                技术支持:传晨赛博  <a href="http://www.saibo.net.cn">www.saibo.net.cn</a>
+            </span>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function checkForm() {
+        var nametip = checkUserName();
+        var passtip = checkPassword();
+        //var conpasstip = ConfirmPassword();
+        //var phonetip = checkPhone();
+        //return nametip && passtip && conpasstip && phonetip;
+        var username = document.getElementById('txtUserName');
+        var userpasswd = document.getElementById('txtPassword');
+        if (nametip && passtip) {
+            var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
+            $.post("Login/Login", { account: username.value, psd: userpasswd.value}, function (data) {
+                if (data == "1")
+                    window.location = "/Main";
+                else
+                    alert("用户名或密码错误!");
+            });
+        }
+        else {
+            alert('fail')
+        }
+    }
+
+    //验证用户名
+    function checkUserName() {
+        var username = document.getElementById('txtUserName');
+        var errname = document.getElementById('nameErr');
+        var pattern = /^\w{3,}$/;  //用户名格式正则表达式：用户名要至少三位
+        console.log(username);
+        if (username.value.length == 0) {
+            errname.innerHTML = "用户名不能为空"
+            errname.className = "error"
+            return false;
+        }
+        if (!pattern.test(username.value)) {
+            errname.innerHTML = "用户名不规范"
+            errname.className = "error"
+            return false;
+        }
+        else {
+            errname.innerHTML = "OK"
+            errname.className = "success";
+            return true;
+        }
+    }
+
+    //验证密码
+    function checkPassword() {
+        var userpasswd = document.getElementById('txtPassword');
+        var errPasswd = document.getElementById('passwordErr');
+        var pattern = /^\w{8,16}$/; //密码要在4-8位
+        if (!pattern.test(userpasswd.value)) {
+            errPasswd.innerHTML = "请输入8到16位字母和数字的组合"
+            errPasswd.className = "error"
+            return false;
+        }
+        else {
+            errPasswd.innerHTML = "OK"
+            errPasswd.className = "success";
+            return true;
+        }
+    }
+
+    //确认密码
+    function ConfirmPassword() {
+        var userpasswd = document.getElementById('userPasword');
+        var userConPassword = document.getElementById('userConfirmPasword');
+        var errConPasswd = document.getElementById('conPasswordErr');
+        if ((userpasswd.value) != (userConPassword.value) || userConPassword.value.length == 0) {
+            errConPasswd.innerHTML = "上下密码不一致"
+            errConPasswd.className = "error"
+            return false;
+        }
+        else {
+            errConPasswd.innerHTML = "OK"
+            errConPasswd.className = "success";
+            return true;
+        }
+    }
+
+    //验证手机号
+    function checkPhone() {
+        var userphone = document.getElementById('userPhone');
+        var phonrErr = document.getElementById('phoneErr');
+        var pattern = /^1[34578]\d{9}$/; //验证手机号正则表达式
+        if (!pattern.test(userphone.value)) {
+            phonrErr.innerHTML = "手机号码不合规范"
+            phonrErr.className = "error"
+            return false;
+        }
+        else {
+            phonrErr.innerHTML = "OK"
+            phonrErr.className = "success";
+            return true;
+        }
+    }
+    function keyup() {
+        var vcode = $("#vCode").val().toUpperCase();
+        $("#vCode").val(vcode);
+        if (vcode.length == 5) {
+            $.ajax({
+                url: "Login/GetVerifyCode?id=" + Math.random(), //url  action是方法的名称
+                data: {},
+                type: 'GET',
+                dataType: "text", //可以是text，如果用text，返回的结果为字符串；如果需要json格式的，可是设置为json
+                ContentType: "application/json; charset=utf-8",
+                async: true,
+                success: function (data) {
+                    if (vcode == $.trim(data)) {
+                        $("#txtCheckCode>").removeClass("imgNO");
+                        $("#txtCheckCode").addClass("imgYES");
+                        return false;
+                    }
+                    else {
+                        $("#txtCheckCode").removeClass("imgYES");
+                        $("#txtCheckCode").addClass("imgNO");
+                        return true;
+                    }
+                },
+                error: function (msg) {
+                    //alert("数据加载失败！");
+                }
+            });
+        }
+        else {
+            $("#txtCheckCode").removeClass("imgYES");
+            $("#txtCheckCode").removeClass("imgNO");
+        }
+    }
+</script>

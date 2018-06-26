@@ -1,0 +1,358 @@
+﻿
+@{
+    ViewBag.Title = "统计分析详情";
+}
+
+
+<link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
+<link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/select/easydropdown.metro.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>统计分析</h1>
+        <ul class="left-nav-list">
+            <li><a href="#" class="active"><i class="icon icon-eye1"></i>统计分析</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main-con">
+    <div class="main-wrap main-wrap2">
+        <span class="js-page-name" style="font-weight: bold">统计分析详情</span>
+        <div class="apply-opt">
+
+            <a href="statistical_analysis.html" class="js-cancle-meet" title="返回">
+                <i class="meet-icon icon-del icon-tb">返回</i>
+            </a>
+        </div>
+        <div style="margin-top: 10px;">
+            <a class="meet-btn blue-btn sm-btn" href="#" style="text-align: center;padding-left: 0">全部</a>&nbsp;&nbsp;<input name="userTimeBegin" id="userTimeBegin" class="date-input radius-sel Wdate" type="text"
+                                                                                                                             value="" placeholder=""
+                                                                                                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d',maxDate:''})">&nbsp;&nbsp;至&nbsp;&nbsp;<input name="userTimeEnd" id="userTimeEnd" class="date-input radius-sel Wdate" type="text" value=""
+                                                                                                                                                                                                                                         placeholder="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd ',minDate:'%y-%M-%d',maxDate:''})">
+            &nbsp;&nbsp;<a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
+                <i class="xs-meet-icon icon-daoout"></i>导出
+            </a>
+        </div>
+        <h3 class="fx_tit">上海思尧建设集团有限公司</h3>
+    </div>
+    <div class="wc-container">
+        <div class="detail-user detail-user2 detail-user3">
+            <a class="meet-btn medium-btn">
+                全部<span>20</span>
+            </a>
+            <a class="meet-btn medium-btn active">
+                参加<span>20</span>
+            </a>
+            <a class="meet-btn medium-btn">不参加<span>2</span></a>
+            <a class="meet-btn medium-btn">未响应<span>4</span></a>
+            <a class="meet-btn medium-btn">未中标<span>2</span></a>
+            <a class="meet-btn medium-btn">中标<span>4</span></a>
+        </div>
+        <div style="position: absolute;right: 30px;top:10px;font-weight: bold">
+            总中金额：<span style="color: #008cd6">3000万</span>
+        </div>
+        <div class="detail-user-list" style="min-height:215px;overflow: auto;padding-top: 10px;">
+            <div class="meet-user-span" style="display: block;">
+                <table class="meet-table text-left meet-table2">
+                    <thead class="wc-header wc-header2">
+                        <tr>
+                            <td class="check-color" style="width: 80px;">
+                                序号
+                            </td>
+                            <td>项目名称</td>
+                            <td>时间</td>
+                            <td>招标内容</td>
+                            <td>项目地点</td>
+                            <td>金额</td>
+                            <td>参与状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">2</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">3</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="meet-user-span">
+                <table class="meet-table text-left">
+                    <thead class="wc-header wc-header2">
+                        <tr>
+                            <td class="check-color" style="width: 80px;">
+                                序号
+                            </td>
+                            <td>项目名称</td>
+                            <td>时间</td>
+                            <td>招标内容</td>
+                            <td>项目地点</td>
+                            <td>金额</td>
+                            <td>参与状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>北京地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="meet-user-span">
+                <table class="meet-table text-left">
+                    <thead class="wc-header wc-header2">
+                        <tr>
+                            <td class="check-color" style="width: 80px;">
+                                序号
+                            </td>
+                            <td>项目名称</td>
+                            <td>时间</td>
+                            <td>招标内容</td>
+                            <td>项目地点</td>
+                            <td>金额</td>
+                            <td>参与状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="meet-user-span">
+                <table class="meet-table text-left">
+                    <thead class="wc-header wc-header2">
+                        <tr>
+                            <td class="check-color" style="width: 80px;">
+                                序号
+                            </td>
+                            <td>项目名称</td>
+                            <td>时间</td>
+                            <td>招标内容</td>
+                            <td>项目地点</td>
+                            <td>金额</td>
+                            <td>参与状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>北京地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="meet-user-span">
+                <table class="meet-table text-left">
+                    <thead class="wc-header wc-header2">
+                        <tr>
+                            <td class="check-color" style="width: 80px;">
+                                序号
+                            </td>
+                            <td>项目名称</td>
+                            <td>时间</td>
+                            <td>招标内容</td>
+                            <td>项目地点</td>
+                            <td>金额</td>
+                            <td>参与状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="meet-user-span">
+                <table class="meet-table text-left">
+                    <thead class="wc-header wc-header2">
+                        <tr>
+                            <td class="check-color" style="width: 80px;">
+                                序号
+                            </td>
+                            <td>项目名称</td>
+                            <td>时间</td>
+                            <td>招标内容</td>
+                            <td>项目地点</td>
+                            <td>金额</td>
+                            <td>参与状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>北京地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td class="check-color">1</td>
+                            <td>上海地铁隧道建设项目</td>
+                            <td>2017年4月5日</td>
+                            <td>中铁十六局隧道建设项目</td>
+                            <td>上海</td>
+                            <td class="gray-time">500万</td>
+                            <td class="gray-time">中标</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="~/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="~/js/ztree/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/js/select/jquery.easydropdown.js"></script>
+<script type="text/javascript" src="~/js/upload.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+
+
+<script>
+    $(function () {
+        pages(1, 2, 12, 5)
+    })
+</script>

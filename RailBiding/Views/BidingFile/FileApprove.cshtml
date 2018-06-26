@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "文件审批";
+}
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>招标文件</h1>
+        <ul class="left-nav-list">
+            <li><a href="/BidingFile"><i class="icon icon-eye1"></i>招标文件</a></li>
+            <li><a href="/BidingFile/FileApplication"><i class="icon icon-hand2"></i>文件申请</a></li>
+            <li><a href="/BidingFile/FileApprove" class="active"><i class="icon icon-hand3"></i>文件审批</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <select class="meet-select js-meet-state">
+                <option value="all">状态</option>
+                <option value="2">已通过</option>
+                <option value="3">被驳回</option>
+                <option value="4">待审核</option>
+            </select>
+            <div class="search-con2">
+                <input type="text" name="keyname" placeholder="请输入关键字">
+                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+            </div>
+        </div>
+        <div class="wc-container">
+            <table class="meet-table text-left meet-table3">
+                <thead class="wc-header">
+                    <tr>
+                        <td class="check-color" style="width: 5%;">
+                            <span class="table-all-check">
+                                <input type="checkbox"
+                                       class="icheck"
+                                       name="all-check"
+                                       id="all-check" />
+                            </span>
+                        </td>
+                        <td style="width: 25%">项目名称</td>
+                        <td style="width: 40%">招标文件内容概述</td>
+                        <td style="width: 20%">提交人</td>
+                        <td style="width: 10%">发布时间</td>
+                        <td style="width: 10%">状态</td>
+                    </tr>
+                </thead>
+                <tbody id="tbBidingFiles">
+                </tbody>
+            </table>
+            <div class="page">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.post("/BidingFile/GetBidingFiles", {}, function (data) {
+            if (data == 'no session') {
+                location.href = "/Login";
+            }
+            var obj = JSON.parse(data);
+            var htm = "";
+            var applyStatus = "";
+            var applyStyle = "";
+            
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                switch (o.status) {
+                    case "0":
+                        applyStatus = "未发布";
+                        applyStyle = "status-wcl status-wfb";
+                        break;
+                    case "1":
+                        applyStatus = "审核中";
+                        applyStyle = "status-wcl status-shz";
+                        break;
+                    case "2":
+                        applyStatus = "已通过";
+                        applyStyle = "status-wcl status-ytg";
+                        break;
+                    case "3":
+                        applyStatus = "被驳回";
+                        applyStyle = "status-wcl status-bbh";
+                        break;
+                    case "4":
+                        applyStatus = "被暂停";
+                        applyStyle = "status-wcl status-bzt";
+                        break;
+                }
+                htm += '<tr class="white-bg" onclick = "location.href=\'/BidingFile/FileApproveDetail?fid=' + o.id + '\';" >' +
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td>' +
+                    '<td>' + o.name + '</td>' +
+                    '<td>' + o.content + '</td>' +
+                    '<td>' + o.username + '</td>' +
+                    '<td>' + o.publishdate + '</td>' +
+                    '<td><i class="' + applyStyle+'">' + applyStatus+'</i></td>'+
+                    '</tr >'
+            }
+            $("#tbBidingFiles").html(htm);
+        });
+        pages(1, 2, 12, 5)
+    });
+</script>

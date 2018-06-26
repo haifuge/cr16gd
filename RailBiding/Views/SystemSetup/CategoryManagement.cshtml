@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "类别管理";
+}
+
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>系统设置</h1>
+        <ul class="left-nav-list">
+            <li><a href="/SystemSetup"><i class="icon icon-eye1"></i>组织结构</a></li>
+            <li><a href="PersonalCenter"><i class="icon icon-hand2"></i>个人中心</a></li>
+            <li><a href="SystemLog"><i class="icon icon-hand3"></i>系统日志</a></li>
+            <li><a href="CategoryManagement" class="active"><i class="icon icon-hand4"></i>类别管理</a></li>
+            <li><a href="SystemUser"><i class="icon icon-hand5"></i>系统用户</a></li>
+            <li><a href="ApproveProcessManagement"><i class="icon icon-hand4"></i>审核流程</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <a href="#" class="col6">
+                <span class="table-all-check" style="width: 30px;">
+                    <input type="checkbox" class="icheck" name="all-check" id="all-check" />
+                </span>全选
+            </a>
+            <a href="#" class="meet-btn small-size sm-btn js-output-excle del03">删除</a>
+            <a href="#" class="bmgl">业务类型</a>
+        </div>
+        <div class="wc-container">
+            <table class="meet-table text-left">
+                <thead class="wc-header">
+                <td class="check-color" style="width: 80px;">
+                    选择
+                </td>
+                <td>类型名称</td>
+                </tr>
+                </thead>
+                <tbody id="tbType">
+                </tbody>
+            </table>
+
+            <div class="page">
+            </div>
+        </div>
+        <div class="catt">
+            <span>输入名称：<input name="roomInfoName" type="text" value="" class="has-clear-input input input3"></span>
+            <a href="#" class="bmgl">添加</a>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+    <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+    <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+    <script type='text/javascript' src='~/js/js.js'></script>
+    <script>
+        $(function () {
+            $.post("/SystemSetup/GetSystemTypes", {}, function (data) {
+                var obj = JSON.parse(data);
+                var htm = ""
+                for (var i = 0; i < obj.length; i++) {
+                    var o = obj[i]
+                    htm += '<tr class="white-bg">'+
+                        '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1"/></td>'+
+                        '<td>'+o.name+'</td>'+
+                    '</tr>';
+                }
+                $("#tbType").html(htm)
+            });
+            pages(1, 2, 12, 5);
+        })
+    </script>

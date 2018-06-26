@@ -1,0 +1,454 @@
+﻿
+@{
+    ViewBag.Title = "招标详情";
+}
+
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>招标管理</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Bidings"><i class="icon icon-eye1"></i>招标信息</a></li>
+            <li><a href="/BidingApplication"><i class="icon icon-hand1"></i>招标申请</a></li>
+            <li><a href="/BidingApprove" class="active"><i class="icon icon-user1"></i>招标审批</a></li>
+            @*<li><a href="winning_bid.html" class="'+ (index==4?" active":"") +'"><i class="icon icon-edit1"></i>中标公告</a></li>
+                <li><a href="abandoned_tender.html" class="'+ (index==5?" active":"") +'"><i class="icon icon-fet1"></i>废标</a></li>*@
+        </ul>
+    </div>
+</div>
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <span class="js-page-name">招标详情</span>
+            <div class="apply-opt">
+                <a href="javascript:;" class="js-cancle-meet" title="发送">
+                    <i class="meet-icon icon-cancel ">发送</i>
+                </a>
+                <a href="javascript:;" class="js-cancle-meet" title="驳回">
+                    <i class="meet-icon icon-cancel icon-bh">驳回</i>
+                </a>
+                <a href="#" class="js-cancle-meet" onclick="window.history.go(-1)" title="返回">
+                    <i class="meet-icon icon-del icon-tb">返回</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container">
+            <div class="wc-nav">
+            </div>
+            <div class="detail-wrap detail-con">
+
+                <div class="block-left block-left2 block-left4">
+                    <div class="detail-fb">
+                        发布人：<span>@ViewBag.Publisher</span>发布时间：<span>@ViewBag.PublishDate</span>
+                    </div>
+                    <table class="meet-form meet-form7">
+                        <tbody>
+                            <tr class="form-tr form-tr-title-bg">
+                                <td class="blue-word form-lable">项目名称：</td>
+                                <td>@ViewBag.Name</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">招标内容：</td>
+                                <td>@ViewBag.Content</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">项目地点：</td>
+                                <td>@ViewBag.Location</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">项目类型：</td>
+                                <td>@ViewBag.Type</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">报名时间：</td>
+                                <td>@ViewBag.ApplyDate</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">预计开标时间：</td>
+                                <td>@ViewBag.OpenDate</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">拟中标单位数量：</td>
+                                <td>@ViewBag.BidingNum</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">项目说明：</td>
+                                <td>@ViewBag.ProjDescription</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">招标文档：</td>
+                                <td>
+                                    <i class="meet-icon icon-file"></i>
+                                    <a href="#" target="_blank" class="form-border-btn  bttn2">附件预览</a>
+                                </td>
+                            </tr>
+                            <tr class="form-tr detail-user-con tr-border">
+                                <td class="form-lable label2">
+                                    <span style="color: #008cd6">参与单位：</span>
+                                </td>
+                                <td>
+                                    <div class="detail-user">
+                                        <button type="submit" class="add-qy" style="width: 80px;">
+                                            <a href="#" onclick="ShowDiv('MyDiv','fade')" style="color: #fff">
+                                                <img src="img/icon-add3.png" style="vertical-align: middle" alt="">添加企业
+                                            </a>
+                                        </button>
+                                    </div>
+                                    <!--弹出层 begin-->
+                                    <div id="fade" class="black_overlay">
+                                        <div id="MyDiv" class="white_content white_content3">
+                                            <div class="btn-close"
+                                                 style="text-align: right;  height: 20px;">
+                                                <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
+                                                    <img src="img/btn-close.png"
+                                                         alt="">
+                                                </span>
+                                            </div>
+                                            <h3>劳务单位</h3>
+                                            <div style="margin:10px ;">
+                                                <select class="meet-select js-meet-state">
+                                                    <option value="all">推荐企业</option>
+                                                    <option value="2">中铁十六局</option>
+                                                    <option value="3">上海轨道交通</option>
+
+                                                </select>
+                                                <select class="meet-select js-meet-state">
+                                                    <option value="all">业务类型</option>
+                                                    <option value="2">围护结构工程</option>
+                                                    <option value="3">围护结构工程</option>
+
+                                                </select>
+                                            </div>
+                                            <div class="search-con2">
+                                                <input type="text" name="keyname" placeholder="请输入关键字">
+                                                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+                                            </div>
+                                            <table class="meet-table text-left">
+
+                                                <tbody>
+                                                    <tr class="white-bg">
+                                                        <td class="check-color">
+                                                            <input class="icheck" name="id"
+                                                                   type="checkbox" value="1"
+                                                                   id="checkbox-1" />
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                        </td>
+                                                        <td>李功明</td>
+                                                        <td>1854258612</td>
+                                                    </tr>
+                                                    <tr class="white-bg">
+                                                        <td class="check-color">
+                                                            <input class="icheck" name="id"
+                                                                   type="checkbox" value="1"
+                                                                   id="checkbox-1" />
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                        </td>
+                                                        <td>李功明</td>
+                                                        <td>1854258612</td>
+                                                    </tr>
+
+                                                    <tr class="white-bg">
+                                                        <td class="check-color">
+                                                            <input class="icheck" name="id"
+                                                                   type="checkbox" value="1"
+                                                                   id="checkbox-1" />
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                        </td>
+                                                        <td>李功明</td>
+                                                        <td>1854258612</td>
+                                                    </tr>
+
+                                                    <tr class="white-bg">
+                                                        <td class="check-color">
+                                                            <input class="icheck" name="id"
+                                                                   type="checkbox" value="1"
+                                                                   id="checkbox-1" />
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                        </td>
+                                                        <td>李功明</td>
+                                                        <td>1854258612</td>
+                                                    </tr>
+
+                                                    <tr class="white-bg">
+                                                        <td class="check-color">
+                                                            <input class="icheck" name="id"
+                                                                   type="checkbox" value="1"
+                                                                   id="checkbox-1" />
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                        </td>
+                                                        <td>李功明</td>
+                                                        <td>1854258612</td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+                                            <div style="position: absolute;bottom:10px;left:50%;margin-left: -123px;">
+                                                <div class="page">
+                                                </div>
+                                                <div class="form-tr-btn">
+                                                    <button type="submit"
+                                                            class="meet-btn big-btn lightblue-btn js-submit">
+                                                        确定
+                                                    </button>
+                                                    <button type="reset" class="meet-btn big-btn gray-btn">
+                                                        取消
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--弹出层 end-->
+                                </td>
+
+                            </tr>
+                            <tr class="form-tr detail-user-con">
+                                <td colspan="2">
+                                    <div class="detail-user-list" style="min-height:215px;overflow: auto;">
+                                        <div class="meet-user-span">
+                                            @Html.Raw(ViewBag.JoinCompanys)
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="block-right block-right2">
+                    <div class="block-right-wrap">
+                        <div class="right-block">
+                            <div class="right-block-title">
+                                <div class="feedback-area-head">
+                                    <i class="meet-icon icon-message-opt"></i>
+                                    <span class="right-block-title">请输入您的驳回理由：</span>
+                                </div>
+                            </div>
+                            <div class="feedback-area-wrap">
+                                <div class="feedback-area-con">
+                                    <textarea name="reasons" style="min-height: 50px;" id="feedback-area"
+                                              placeholder="请输入"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deal-apply-btn deal-apply-btn2">
+                            <a class="meet-btn big-btn blue-btn js-deal green-btn blue-btn2">审核通过</a>
+
+                        </div>
+
+                        <div class="block-rigt">
+                            <div class="detail-user2">
+                                <a class="meet-btn2 medium-btn">审核意见</a>
+                                <a class="meet-btn2 medium-btn active">流转信息</a>
+                            </div>
+                            <div class="detail-user-list2 right-ss"
+                                 style="min-height:215px;overflow: auto;">
+                                <div class="meet-user-span2" style="display: none;">
+                                    <div class="feedback-con feedback-con2">
+                                        <div class="feedback-item">
+                                            <div class="feedback-item-title">
+                                                <i class="meet-icon icon-message-on"></i>
+                                                驳回理由
+                                            </div>
+                                            <ul class="feedback-list feedback-admin">
+                                                <li>
+                                                    <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
+                                                    <p class="bjg">业绩信息不合格，请重新上传</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="feedback-item js-myattend">
+                                            <div class="feedback-item-title">
+                                                <i class="meet-icon icon-message"></i>
+                                                共<span class="js-feed-count">4</span>条回复消息
+                                            </div>
+                                            <ul class="feedback-list feedback-users">
+                                                <li>
+                                                    <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
+                                                    <p>资料合格，同意</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="meet-user-span2" style="display: block;">
+                                    <h4 class="cp01"><span></span>指挥部</h4>
+                                    <ul>
+                                        <li>
+                                            <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
+                                        </li>
+                                        <li>
+                                            <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                        </li>
+                                        <li>
+                                            <span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                        </li>
+                                        <li>
+                                            <span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                        </li>
+                                        <li>
+                                            <span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                        </li>
+                                    </ul>
+                                    <h4><span></span>管理员</h4>
+                                    <ul>
+                                        <li>
+                                            <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
+                                        </li>
+
+                                    </ul>
+                                    <h4 class="cp02"><span></span>轨道公司</h4>
+                                    <ul class="uc02">
+                                        <li><span class="yj01">计划合同部</span></li>
+                                        <li><span class="yj01">财务室</span></li>
+                                        <li><span class="yj01">施工技术部</span></li>
+                                        <li><span class="yj01">分公司总经济师</span></li>
+                                        <li><span class="yj01">分公司总经理</span></li>
+                                        <li><span class="yj01">计划合同部</span></li>
+                                        <li><span class="yj01">财务室</span></li>
+                                        <li><span class="yj01">施工技术部</span></li>
+                                        <li><span class="yj01">分公司总经济师</span></li>
+                                        <li><span class="yj01">分公司总经理</span></li>
+                                    </ul>
+                                    <h4 class="cp02"><span></span>结束</h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript">
+    $(function () {
+        @*$.post("/BidingApprove/GetBidingApproveDetail?bid="@ViewBag.bid, {}, function (data) {
+            console.log(data)
+        });*@
+        pages(1, 2, 12, 5)
+    });
+</script>
+<script>
+    //弹出隐藏层
+    function ShowDiv(show_div, bg_div) {
+        document.getElementById(show_div).style.display = 'block';
+        document.getElementById(bg_div).style.display = 'block';
+        var bgdiv = document.getElementById(bg_div);
+        bgdiv.style.width = document.body.scrollWidth;
+        // bgdiv.style.height = $(document).height();
+        $("#" + bg_div).height($(window).height());
+        // $(".white_content").css("-webkit-transition","All 1s ");
+        // $(".white_content").css("opacity","1")
+
+    }
+    ;
+
+    //关闭弹出层
+    function CloseDiv(show_div, bg_div) {
+        document.getElementById(show_div).style.display = 'none';
+        document.getElementById(bg_div).style.display = 'none';
+        // $(".white_content").css("-webkit-transition","All 1s ");
+        // $(".white_content").css("opacity","0")
+    }
+    ;
+</script>
+<script>
+    //分页
+    function pages(cur, totalPage, totalRows, setNum) {
+        if (!totalPage) return false;
+        var url = window.location.href;
+        var url_arr = url.split("?");
+        var url = url_arr[0];
+        var htm = '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>' +
+            '<a class="js-page-num page-num num-left" data-cur="' + (cur > 1 ? (cur - 1) : 1) + '">&lt;</a>';
+        if (totalPage != 1) {
+            htm += '<a data-cur="' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? (cur - 1) : cur) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '</a>';
+        }
+
+        htm += '<a data-cur="' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? totalPage : (cur + 1)) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '</a>' +
+            '<a class="js-page-num num-right page-num" data-cur="' + (cur < totalPage ? (cur + 1) : totalPage) + '">&gt;</a>' +
+            '<a data-cur="' + totalPage + '" class="js-page-num page-num">》</a>' +
+            '<a class="page-num page-input"><input type="text" value=""/></a>' +
+            '<a class="js-page-num page-num num-go active" data-cur="' + ((cur + 2) > totalPage ? cur : (cur + 2)) + '">GO</a>';
+        $(".page").append(htm);
+
+        //分页点击
+        $(".page>a.js-page-num").on("click", function () {
+            var url = window.location.href;
+            var cur_num = $(this).data("cur");
+            if ($(this).hasClass("num-go")) {
+                cur_num = ($(".page-input input").val() ? $(".page-input input").val() : 1);
+            }
+            if (url.indexOf("?") == -1) {
+                url += "?";
+            }
+            if (!$.getUrlParam("curPage")) {
+                url = url + '&curPage=' + cur_num;
+                $(this).attr("href", url);
+            } else {
+                replaceParamVal("curPage", cur_num);
+            }
+        });
+
+        $(".page-sel").change(function () {
+            var url = window.location.href;
+            var page_len = $(this).val();
+            if (url.indexOf("?") == -1) {
+                url += "?";
+            }
+            if (!$.getUrlParam("Length")) {
+                url = url + '&Length=' + page_len;
+                window.location.href = url;
+            } else {
+                replaceParamValNo("curPage", 1);
+                replaceParamVal("Length", page_len);
+            }
+        });
+
+    }
+</script>
+<script>
+    //参与单位移除
+    $(".meet-user-span span i").click(function () {
+        $(this).parent(".meet-user-span span").hide();
+    });
+
+</script>
+<script>
+    var ss;
+    window.onload = function () {
+        var h = document.documentElement.clientHeight;//可见区域高度
+        ss = document.getElementById('MyDiv');
+        ss.style.height = h - 90 + "px";
+    }
+</script>

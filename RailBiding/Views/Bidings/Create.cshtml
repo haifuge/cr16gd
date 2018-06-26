@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "新建招标申请";
+}
+
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>招标管理</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Bidings" class="active"><i class="icon icon-eye1"></i>招标信息</a></li>
+            <li><a href="/BidingApplication"><i class="icon icon-hand1"></i>招标申请</a></li>
+            <li><a href="/BidingApprove"><i class="icon icon-user1"></i>招标审批</a></li>
+            @*<li><a href="winning_bid.html" class="'+ (index==4?" active":"") +'"><i class="icon icon-edit1"></i>中标公告</a></li>
+                <li><a href="abandoned_tender.html" class="'+ (index==5?" active":"") +'"><i class="icon icon-fet1"></i>废标</a></li>*@
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top ">
+            <span class="page-title">招标申请</span>
+        </div>
+        <div class="wc-container app-dt">
+            <div class="wc-nav">
+            </div>
+            <form action="" method="post" class="js-form">
+                <table class="meet-form meet-form7">
+                    <tbody>
+                        <tr class="form-tr">
+                            <td class="form-lable"><span class="red-word">*</span>项目名称：</td>
+                            <td>
+                                <input name="roomInfoName" type="text" value=""
+                                       class="has-clear-input input input3" />
+
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable">业务类型：</td>
+                            <td>
+                                <div class="form-item  sel-required">
+                                    <select class="select radius-sel dropdown" name="iofnName" id="iofnName">
+                                        <option value="">围护结构工程</option>
+                                        <option value="">围护结构工程</option>
+                                    </select>
+                                </div>
+
+
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable"><span class="red-word">*</span>招标内容：</td>
+                            <td>
+                                <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
+
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable"><span class="red-word">*</span>报名时间：</td>
+                            <td>
+                                <input name="userTimeBegin" id="userTimeBegin"
+                                       class="date-input radius-sel Wdate" type="text" value=""
+                                       placeholder="报名时间"
+                                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d',maxDate:''})" />
+                                <span class="zb-tit">预计开标时间：</span>
+                                <input name="userTimeEnd" id="userTimeEnd" class="date-input radius-sel Wdate"
+                                       type="text" value="" placeholder="预计开标时间时间"
+                                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'%y-%M-%d',maxDate:''})" />
+                                <span class="zb-tit">拟中标数量：</span><input name="roomInfoName" type="text"
+                                                                         value=""
+                                                                         class="has-clear-input input input2" />
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable"><span class="red-word">*</span>项目地点：</td>
+                            <td>
+                                <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
+
+                            </td>
+                        </tr>
+
+                        <tr class="form-tr">
+                            <td class="form-lable"><span class="white-word">*</span>项目说明：</td>
+                            <td>
+                                <input name="roomInfoName" type="text" value=""
+                                       class="has-clear-input input input3" />
+                            </td>
+                        </tr>
+                        <tr class="form-tr tr2">
+                            <td class="form-lable">招标文档：</td>
+                            <td>
+                                <div class="upload-btn upload-btn2" style="top:0">
+                                    <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                           id="allfileInput" style="cursor: pointer">
+                                    <img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;添加附件</span>
+                                </div>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-tr-btn">
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">提交</button>
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
+                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>

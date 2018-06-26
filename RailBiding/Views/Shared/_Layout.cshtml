@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 劳务招标系统</title>
+    <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+    <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <div class="main-header">
+        <h1 class="logo">
+            <div class="logo-img"></div>
+            <h1 class="web-title">|<span>劳务招标系统</span></h1>
+            <div class="search-con">
+                <img src="~/img/nav-icon-tit.png" alt="">
+            </div>
+            <div class="header-right">
+                <div class="user-face">
+                    <ul>
+                        <li class="nav-help"><a href="">帮助</a></li>
+                        <li class="nav-wel"><a href="/Main">首页</a></li>
+                        <li class="nav-user-name"><a href="">@ViewBag.UserDepartment<i>@ViewBag.UserName</i></a></li>
+                    </ul>
+                </div>
+                <div class="web-home"><a href="#" onclick="logout()"><i class="home-icon-white"></i></a></div>
+            </div>
+        </h1>
+    </div>
+    <div class="main-nav">
+        <div class="js-nav-open"><i class="icon-control"></i></div>
+        <ul>
+            <li id="itemC">
+                <a href="/Companys?activeMenu=itemC"><i class="parent-nav-icon icon-waitread"></i><span class="span2">劳务成分包企业</span></a>
+            </li>
+            <li id="itemB">
+                <a href="/Bidings?activeMenu=itemB"><i class="parent-nav-icon icon-meetroom"></i><span>招标管理</span></a>
+            </li>
+            <li id="itemF">
+                <a href="/BidingFile?activeMenu=itemF"><i class="parent-nav-icon icon-carmanage"></i><span>招标文件</span></a>
+            </li>
+            <li id="itemM">
+                <a href="/MakeBidFile?activeMenu=itemM"><i class="parent-nav-icon icon-cardprint"></i><span>定标管理</span></a>
+            </li>
+            <li id="itemS">
+                <a href="/Statistic?activeMenu=itemS"><i class="parent-nav-icon icon-sealapply"></i><span>统计分析</span></a>
+            </li>
+            <li id="itemSS">
+                <a href="/SystemSetup?activeMenu=itemSS"><i class="parent-nav-icon icon-sysset"></i><span>系统设置</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="main-container">
+            <div class="container">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <div class="foot-con" style="z-index:10">
+                        <div class="foot-wrap">
+                            <p>
+                                © 版权所有：中铁十六局集团轨道公司 010-69526115 技术支持:传晨赛博 <a href=" http://www.saibo.net.cn">www.saibo.net.cn</a>
+                            </p>
+                        </div>
+                    </div>
+
+                </footer>
+            </div>
+        </div>
+</body>
+</html>
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script>
+    $(function () {
+        var activeM =@ViewBag.ActiveMenu;
+        activeM.className = "active"
+    });
+
+    function logout() {
+        if (confirm("要确定系统么？")) {
+            window.location.href = "/Login";
+        }
+    }
+    
+</script>

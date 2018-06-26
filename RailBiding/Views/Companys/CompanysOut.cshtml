@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "名录外单位";
+}
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>劳务承分包企业</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Companys"><i class="icon icon-eye"></i>名录内单位</a></li>
+            <li><a href="CompanysOut" class="active"><i class="icon icon-hand"></i>名录外单位</a></li>
+            <li><a href="MyRecommend"><i class="icon icon-user"></i>我推荐的</a></li>
+            <li><a href="MyAudit"><i class="icon icon-edit"></i>我审核的</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <select class="meet-select js-meet-state" id="bType"></select>
+            <div class="search-con2">
+                <input type="text" name="keyname" placeholder="请输入关键字">
+                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+            </div>
+            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
+                <i class="xs-meet-icon icon-daoout"></i>导出
+            </a>
+            <a class="meet-btn red-btn small-size sm-btn" href="Create">
+                <i class="xs-meet-icon icon-add"></i>添加
+            </a>
+
+        </div>
+        <div class="wc-container">
+            <table class="meet-table text-left">
+                <thead class="wc-header">
+                    <tr>
+                        <td class="check-color" style="width: 80px;">
+                            <span class="table-all-check">
+                                <input type="checkbox"
+                                       class="icheck"
+                                       name="all-check"
+                                       id="all-check" />
+                            </span>
+                        </td>
+                        <td>劳务承包企业名称</td>
+                        <td>资质等级</td>
+                        <td>注册资本</td>
+                        <td>业务类型</td>
+                        <td>法人代表</td>
+                        <td>联系人</td>
+                        <td>联系电话</td>
+                        <td>联系地址</td>
+                        <td>状态</td>
+                    </tr>
+                </thead>
+                <tbody id="tbCompany"></tbody>
+            </table>
+            <div class="page">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+
+
+<script type='text/javascript'>
+    $(function () {
+        pages(1, 2, 12, 5)
+    });
+    $.post("/Companys/GetCompanies?ctype=0", {}, function (data) {
+        var obj = JSON.parse(data);
+        var htm = "";
+        for (var i = 0; i < obj.length;i++) {
+            var o = obj[i]
+            htm += "<tr class='white-bg'>"+
+                '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >'+
+                '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id='+o.id+'\';\">'+o.name+'</td>'+
+                '<td>' + o.qualificationlevel+'</td>'+
+                '<td>' + o.registeredcapital +'万元</td>' +
+                '<td>' + o.businesstype+'</td>' +
+                '<td>' + o.corporaterepresentative +'</td>' +
+                '<td>' + o.contact +'</td>' +
+                '<td>' + o.contactphone +'</td>' +
+                '<td class="gray-word">' + o.contactaddress +'</td>' +
+                '<td class="gray-word"><div class="model-15"><div class="checkbox-switch"><input type="checkbox"><label></label></div></div></td></tr>';
+        }
+        var tbody = $("#tbCompany")
+        //tbody.empty();
+        tbody.html(htm)
+    });
+    $.post("/Companys/GetBusinessType", {}, function (data) {
+        var obj = JSON.parse(data);
+        var btype = $("#bType");
+        btype.append("<option value='All'>业务类型</option>"); 
+        for (var i = 0; i < obj.length; i++) {
+            var o=obj[i]
+            btype.append("<option value='"+o.id+"'>"+o.name+"</option>")
+        }
+    });
+</script>

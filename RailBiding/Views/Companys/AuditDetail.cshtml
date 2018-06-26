@@ -1,0 +1,389 @@
+﻿
+@{
+    ViewBag.Title = "公司审批详情";
+}
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<style>
+    .black_overlay {
+        display: none;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1001;
+        -moz-opacity: 0.8;
+        opacity: .50;
+        filter: alpha(opacity=50);
+    }
+
+    .white_content {
+        display: none;
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        margin-left: -200px;
+        width: 400px;
+        height: 100px;
+        border: 2px solid #d3d3d3;
+        background-color: white;
+        z-index: 1002;
+        /* overflow: auto; */
+    }
+
+    .white_content_small {
+        display: none;
+        position: absolute;
+        top: 20%;
+        left: 30%;
+        width: 40%;
+        height: 50%;
+        border: 16px solid lightblue;
+        background-color: white;
+        z-index: 1002;
+        overflow: auto;
+    }
+
+    .yj {
+        font-size: 18px;
+        text-align: center;
+        color: #008cd6;
+    }
+</style>
+
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>劳务承分包企业</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Companys"><i class="icon icon-eye"></i>名录内单位</a></li>
+            <li><a href="CompanysOut"><i class="icon icon-hand"></i>名录外单位</a></li>
+            <li><a href="MyRecommend"><i class="icon icon-user"></i>我推荐的</a></li>
+            <li><a href="MyAudit" class="active"><i class="icon icon-edit"></i>我审核的</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top top-bottom">
+            <span class="left-line"></span>
+            <span class="js-page-name">查看企业</span>
+            <div class="apply-opt">
+                <!--<a href='javascript:;' class='js-cancle-meet' title='撤回'><i-->
+                <!--class='meet-icon icon-cancel'>撤回</i></a>-->
+                <a href='javascript:;' class='js-cancle-meet' title='驳回' onclick="javasrcipt:ShowDiv('MyDiv','fade')">
+                    <i class='meet-icon icon-cancel icon-bh'>驳回</i>
+                </a>
+                <!--弹出层时背景层DIV---start-->
+                <div id="fade" class="black_overlay"></div>
+                <div id="MyDiv" class="white_content">
+                    <div style="text-align: right; cursor: default; margin-bottom:10px;">
+                        <span style="font-size: 16px; color: #56BE2D; font-weight: 600;cursor:pointer;" onclick="CloseDiv2('MyDiv','fade')">
+                            <img src="~/img/icon-close.png" alt="">
+                        </span>
+                    </div>
+                    <div class="yj">必须填写意见</div>
+                </div>
+                <!--弹出层时背景层DIV---end-->
+                <a href="#" onclick="window.history.go(-1)" class='js-cancle-meet' title='返回'>
+                    <i class='meet-icon icon-del icon-tb'>返回</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container  ccata">
+            <div class="wc-nav">
+            </div>
+            <div class="detail-wrap detail-con">
+                <div class="block-left block-left2  block-left3 block-left4">
+                    <div class="detail-fb">
+                        统一社会信用代码号：<span>@ViewBag.CreditNo</span>
+                    </div>
+                    <table class="meet-form">
+                        <tbody>
+                            <tr class="form-tr form-tr-title-bg">
+                                <td class="blue-word form-lable">企业名称：</td>
+                                <td colspan="5">@ViewBag.Name</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">法人代表：</td>
+                                <td>@ViewBag.CorporateRepresentative</td>
+                                <td class="blue-word form-lable">联系电话：</td>
+                                <td>@ViewBag.RepPhone</td>
+                                <td class="blue-word form-lable">注册资金：</td>
+                                <td>
+                                    @ViewBag.RegisteredCapital 万元
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">联系人：</td>
+                                <td>@ViewBag.Contact</td>
+                                <td class="blue-word form-lable">联系电话：</td>
+                                <td>@ViewBag.ContactPhone</td>
+                                <td class="blue-word form-lable">业务类型：</td>
+                                <td>@ViewBag.BusinessType</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">联系地址：</td>
+                                <td colspan="5">@ViewBag.ContactAddress</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">资质等级：</td>
+                                <td colspan="5">@ViewBag.QualificationLevel</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">业务范围：</td>
+                                <td colspan="5">@ViewBag.BusinessScope</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">施工内容：</td>
+                                <td class="f14" colspan="5">@ViewBag.ConstructionContent</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">备注：</td>
+                                <td colspan="5">@ViewBag.Note</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable  ab_con" colspan="6">
+                                    <div class="ab_con">
+                                        <div class="ab_con_tip">提示：方向键切换图片，点击外侧关闭图片。</div>
+                                        <div class="ab_tab2_img">
+                                            <p style="text-align: center;margin-bottom: 8px;">安全证书</p>
+                                            <div>
+                                                <a href="~/img/zzry1.png" rel="group" class="pirobox_gall"
+                                                   title="f法人身份证">
+                                                    <img src="~/img/zzry1.png" alt="">
+                                                </a>
+                                            </div>
+                                            <i>585555555555</i>
+                                        </div>
+                                        <div class="ab_tab2_img">
+                                            <p style="text-align: center;margin-bottom: 8px;">营业执照</p>
+                                            <div>
+
+                                                <a href="~/img/zzry2.png" rel="group" class="pirobox_gall"
+                                                   title="f法人身份证">
+                                                    <img src="~/img/zzry2.png" alt="">
+                                                </a>
+                                            </div>
+                                            <i>f法人身份证</i>
+                                        </div>
+                                        <div class="ab_tab2_img">
+                                            <p style="text-align: center;margin-bottom: 8px;">安全证书</p>
+                                            <div>
+
+                                                <a href="~/img/pic01.jpg" rel="group" class="pirobox_gall"
+                                                   title="f法人身份证">
+                                                    <img src="~/img/pic01.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <i>f法人身份证</i>
+                                        </div>
+                                        <div class="ab_tab2_img">
+                                            <p style="text-align: center;margin-bottom: 8px;">安全证书</p>
+                                            <div>
+
+                                                <a href="~/img/pic01.jpg" rel="group" class="pirobox_gall"
+                                                   title="f法人身份证">
+                                                    <img src="~/img/pic01.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <i>f法人身份证</i>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr class="form-tr detail-user-con gzyj">
+                                <td colspan="6">
+                                    <h3 class="yj-tit" style="color: #008cd6">工作业绩</h3>
+                                    <table style="width: 100%;border:none" class="atg">
+                                        <thead class="wc-header">
+                                            <tr>
+                                                <td class="check-color" style="width: 80px;">
+                                                    序号
+                                                </td>
+                                                <td>承包内容</td>
+                                                <td>合同金额</td>
+                                                <td>开工日期</td>
+                                                <td>竣工日期</td>
+                                                <td>状态</td>
+                                                <td>结算金额</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @Html.Raw(ViewBag.WorkHistory)
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                  <div style="margin-top: 10px;">
+                        <p>
+                            <span style="color: #666">推荐人：</span>李功明 &nbsp;&nbsp;&nbsp;<span style="color: #666">推荐书：</span>推荐书扫描件.jpg
+                        </p>
+                    </div>
+                </div>
+                <div class="block-right block-right2">
+                    <div class="right-block">
+                        <div class="right-block-title">
+                            <div class="feedback-area-head">
+                                <i class="meet-icon icon-message-opt"></i>
+                                <span class="right-block-title">请输入您的驳回理由：</span>
+                            </div>
+                        </div>
+                        <div class="feedback-area-wrap">
+                            <div class="feedback-area-con">
+                                <textarea name="reasons" style="min-height: 50px;" id="feedback-area"
+                                          placeholder="请输入"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="deal-apply-btn deal-apply-btn2">
+                        <a class="meet-btn big-btn blue-btn js-deal green-btn blue-btn2">通过申请</a>
+
+                    </div>
+                    <div class="block-rigt">
+                        <div class="detail-user">
+                            <a class="meet-btn medium-btn">审核意见</a>
+                            <a class="meet-btn medium-btn active">流转信息</a>
+                        </div>
+                        <div class="detail-user-list right-ss" style="min-height:215px;overflow: auto;">
+                            <div class="meet-user-span" style="display: none;">
+                                <div class="feedback-con feedback-con2">
+                                    <div class="feedback-item">
+                                        <div class="feedback-item-title">
+
+
+                                        </div>
+                                        <ul class="feedback-list feedback-admin">
+                                            <li>
+                                                <h3><i class="meet-icon icon-message-on"></i>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
+                                                <p class="bjg">业绩信息不合格，请重新上传</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="meet-user-span" style="display: block;">
+                                <h4 class="cp01"><span></span>指挥部</h4>
+                                <ul>
+
+                                    <li>
+                                        <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                    <li>
+                                        <span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+                                    </li>
+                                </ul>
+                                <h4><span></span>管理员</h4>
+                                <ul>
+                                    <li>
+                                        <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
+                                    </li>
+
+                                </ul>
+                                <h4 class="cp02"><span></span>轨道公司</h4>
+                                <ul class="uc02">
+                                    <li><span class="yj01">计划合同部</span></li>
+                                    <li><span class="yj01">财务室</span></li>
+                                    <li><span class="yj01">施工技术部</span></li>
+                                    <li><span class="yj01">分公司总经济师</span></li>
+                                    <li><span class="yj01">分公司总经理</span></li>
+                                    <li><span class="yj01">计划合同部</span></li>
+                                    <li><span class="yj01">财务室</span></li>
+                                    <li><span class="yj01">施工技术部</span></li>
+                                    <li><span class="yj01">分公司总经济师</span></li>
+                                    <li><span class="yj01">分公司总经理</span></li>
+                                </ul>
+                                <h4 class="cp02"><span></span>结束</h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+    <script type='text/javascript' src="~/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+    <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+    <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+    <script type='text/javascript' src="~/js/js.js"></script>
+    <script type='text/javascript'>
+        $(function () {
+            pages(1, 2, 12, 5)
+        });
+    </script>
+    <script>
+
+        //资质荣誉 图片放大
+        $(function () {
+            var abtab2_img = 1;
+            $("a[rel=group]").fancybox({
+                'titlePosition': 'over',
+                'cyclic': true,
+                'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
+                    return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
+                },
+                onComplete: function () {
+                    var w = $(window).width(),
+                        pc = w > 1200 ? 1 : 2;
+                    if (abtab2_img && pc === 1) {
+                        abtab2_img = 0;
+                        $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
+                    }
+                    if (abtab2_img && pc === 2) {
+                        abtab2_img = 0;
+                        $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({ 'margin-left': -140 }).fadeIn().delay(2000).fadeOut();
+                    }
+
+                }
+            });
+        });
+
+
+    </script>
+    <script>
+        //弹出隐藏层
+        function ShowDiv(show_div, bg_div) {
+            var scrollHeight = document.body.scrollHeight; //文档高度
+            document.getElementById(bg_div).style.height = scrollHeight + 'px';
+
+            document.getElementById(show_div).style.display = 'block';
+            document.getElementById(bg_div).style.display = 'block';
+        };
+        //关闭弹出层
+        function CloseDiv(show_div, bg_div) {
+            document.getElementById("label").value = '';
+            document.getElementById(show_div).style.display = 'none';
+            document.getElementById(bg_div).style.display = 'none';
+        };
+        //关闭弹出层
+        function CloseDiv2() {
+            document.getElementById("MyDiv").style.display = 'none';
+            document.getElementById("fade").style.display = 'none';
+        };
+    </script>

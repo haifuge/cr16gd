@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>劳务招标系统</title>
+    <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+    <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <div class=" repass-body in_bg">
+        <img src="~/img/lw-bg.jpg" alt="">
+        <div class="logobar">
+            <img src="~/img/lw-logo.png" alt="">
+        </div>
+        <div class="login-center">
+            <div class="login-tit" style="text-align: left;padding-left: 485px;">
+                找回密码
+            </div>
+            <form action="#" onSubmit="return checkForm()">
+                <div id="form-itemGroup">
+                    <label for="userName">用户名：</label>
+                    <input type="text" id="userName" class="userName" onBlur="checkUserName()" oninput="checkUserName()">
+                    <span class="default" id="nameErr"></span>
+                </div>
+
+                <div id="form-itemGroup">
+                    <label for="userPhone">手机验证：</label>
+                    <input type="text" id="userPhone" class="userName" onBlur="checkPhone()" oninput="checkPhone()">
+                    <span class="default" id="phoneErr"></span>
+                </div>
+                <div id="form-itemGroup">
+                    <label for="userPhone">验证码：</label>
+                    <input type="text" id="userPhone" class="userName user2" onBlur="checkPhone()" oninput="checkPhone()">
+                    <i>获取验证码</i>
+                </div>
+            </form>
+            <div class="next-step">
+                <a href="#" onclick="checkNext()">下一步</a>
+            </div>
+        </div>
+        <div class="login-foot">
+            <span class="copyright">© 版权所有：中铁十六局集团轨道公司  （010）010-69526115</span><span class="support">
+                技术支持:传晨赛博  <a href="http://www.saibo.net.cn">www.saibo.net.cn</a>
+            </span>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript">
+    function checkSendMessage() {
+
+    }
+    function checkNext() {
+
+    }
+</script>
