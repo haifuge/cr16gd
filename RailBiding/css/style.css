@@ -2999,9 +2999,10 @@ input[name=keyname] {
     width: 80%;
     height: 40px;
     background: #0383d4;
-    position: absolute;
+    position: fixed;
+    left:0;
     bottom: 0;
-    z-index: 10000;
+    z-index: 999;
     color: #fff;
     padding: 0 10%;
     padding-top: 40px;
@@ -3241,16 +3242,17 @@ input[name=keyname] {
     /*background: #39bdf7;*/
     width: 100%;
     overflow: hidden;
-    position: fixed;
+     position: fixed;
     height: 100%;
 }
 
 .index-bg2 {
     width: 100%;
     overflow: hidden;
-    position: fixed;
+    /*position: fixed;*/
     height: 100%;
     background: #39bdf7;
+    padding-bottom:110px;
 }
 
 .main-header2 {
@@ -3279,6 +3281,7 @@ input[name=keyname] {
     background: #39bdf7;
     padding-top: 110px;
     margin-top: 80px;
+    margin-bottom:80px;
     width: 100%;
 }
 
