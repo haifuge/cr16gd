@@ -22,7 +22,7 @@
                     <ul>
                         <li class="nav-help"><a href="">帮助</a></li>
                         <li class="nav-wel"><a href="/Main">首页</a></li>
-                        <li class="nav-user-name"><label id="department"></label><label id="name">@ViewBag.UserName</label></li>
+                        <li class="nav-user-name"><label id="department"></label>&nbsp;&nbsp;<label id="name">@ViewBag.UserName</label></li>
                     </ul>
                 </div>
                 <div class="web-home"><a href="#" onclick="logout()"><i class="home-icon-white"></i></a></div>
@@ -36,21 +36,21 @@
         </ul>
     </div>
     <div class="main-container">
-            <div class="container">
-                @RenderBody()
-                <hr />
-                <footer>
-                    <div class="foot-con" style="z-index:10">
-                        <div class="foot-wrap">
-                            <p>
-                                © 版权所有：中铁十六局集团轨道公司 010-69526115 技术支持:传晨赛博 <a href=" http://www.saibo.net.cn">www.saibo.net.cn</a>
-                            </p>
-                        </div>
+        <div class="container">
+            @RenderBody()
+            <hr />
+            <footer>
+                <div class="foot-con" style="z-index:10">
+                    <div class="foot-wrap">
+                        <p>
+                            © 版权所有：中铁十六局集团轨道公司 010-69526115 技术支持:传晨赛博 <a href=" http://www.saibo.net.cn">www.saibo.net.cn</a>
+                        </p>
                     </div>
+                </div>
 
-                </footer>
-            </div>
+            </footer>
         </div>
+    </div>
 </body>
 </html>
 
@@ -61,14 +61,14 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
+<script src="~/js/jquery.cookie.js"></script>
+
 <script>
     $(function () {
         var activeM =@ViewBag.ActiveMenu;
         activeM.className = "active"
-        console.log($.cookie("UserDepartment"))
-        console.log($.cookie("UserName"))
-        $("#department").val = $.cookie("UserDepartment")
-        $("#name").val = $.cookie("UserName")
+        $("#department").text($.cookie("UserDepartment"))
+        $("#name").text($.cookie("UserName"))
     });
 
     function logout() {
@@ -76,5 +76,5 @@
             window.location.href = "/Login";
         }
     }
-    
+
 </script>

@@ -22,7 +22,7 @@
                 <div class="user-face">
                     <ul>
                         <li class="nav-help"><a href="" style="color: #fff">帮助</a></li>
-                        <li class="nav-user-name"><a href="" style="color: #fff">@ViewBag.UserDepartment <i>@ViewBag.UserName</i></a></li>
+                        <li class="nav-user-name"><label id="department"></label>&nbsp;&nbsp;<label id="name">@ViewBag.UserName</label></li>
                     </ul>
                 </div>
                 <div class="web-home"><a href="#"><i class="home-icon-white"></i></a></div>
@@ -151,3 +151,11 @@
 </body>
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+
+<script src="~/js/jquery.cookie.js"></script>
+<script>
+    $(function () {
+        $("#department").text($.cookie("UserDepartment"))
+        $("#name").text($.cookie("UserName"))
+    });
+</script>
