@@ -30,4 +30,15 @@ namespace RailBiding.Common
         }
     }
 
+    public class ActiveMenuFilter:ActionFilterAttribute
+    {
+        public string MenuName { get; set; }
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+            if (MenuName == null || MenuName == "")
+                MenuName = "ItemC";
+            filterContext.Controller.ViewBag.ActiveMenu = MenuName;
+        }
+    }
 }

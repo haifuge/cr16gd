@@ -16,9 +16,9 @@ namespace RailBiding.Controllers
     {
         // GET: Companys
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName= "itemC")]
         public ActionResult Index()
         {
-            ViewBag.ActiveMenu = "itemC";
             ViewBag.UserName = Session["UserName"];
             ViewBag.UserDepartment = Session["UserDepartment"];
             ViewBag.MainMenuList = Session["MenuList"].ToString();
@@ -27,6 +27,7 @@ namespace RailBiding.Controllers
 
         // GET: Companys/Details/5
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult Details(int id)
         {
             CompanyContext cc = new CompanyContext();
@@ -62,6 +63,7 @@ namespace RailBiding.Controllers
             return View();
         }
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult OutCompanyDetail(int id)
         {
             CompanyContext cc = new CompanyContext();
@@ -98,16 +100,19 @@ namespace RailBiding.Controllers
         }
 
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult CompanysOut()
         {
             return View();
         }
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult MyRecommend()
         {
             return View();
         }
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult RecommendDetail(int id)
         {
             CompanyContext cc = new CompanyContext();
@@ -144,11 +149,13 @@ namespace RailBiding.Controllers
             return View();
         }
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult MyAudit()
         {
             return View();
         }
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult AuditDetail(int id)
         {
             CompanyContext cc = new CompanyContext();
