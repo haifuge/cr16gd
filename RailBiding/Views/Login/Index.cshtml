@@ -108,9 +108,10 @@
                             var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
                             $.post("Login/Login", { account: username.value, psd: userpasswd.value }, function (data) {
                                 console.log(data);
-                                if (data == "1")
+                                if (data == "1") {
                                     window.location = "/Main";
                                     //console.log("成功");
+                                    }
                                 else
                                     alert("用户名或密码错误!");
                             });

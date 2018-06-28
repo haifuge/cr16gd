@@ -6,12 +6,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using RailBiding.Common;
 
 namespace RailBiding.Controllers
 {
     public class BidingsController : Controller
     {
         // GET: Bidings
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult Index()
         {
             ViewBag.ActiveMenu = Request["activeMenu"].ToString();
@@ -25,7 +28,8 @@ namespace RailBiding.Controllers
             DataTable dt = bc.GetAllBids();
             return JsonHelper.DataTableToJSON(dt);
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult BidDetail(string bid)
         {
             if (bid == null)
@@ -86,12 +90,16 @@ namespace RailBiding.Controllers
         }
 
         // GET: Bidings/Details/5
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Bidings/Create
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult Create()
         {
             return View();

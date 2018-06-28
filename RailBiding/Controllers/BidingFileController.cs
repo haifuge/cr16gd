@@ -6,15 +6,17 @@ using System.Web;
 using System.Web.Mvc;
 using DAL.Models;
 using DAL.Tools;
+using RailBiding.Common;
 
 namespace RailBiding.Controllers
 {
     public class BidingFileController : Controller
     {
         // GET: 招标文件
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult Index()
         {
-            ViewBag.ActiveMenu = Request["activeMenu"].ToString();
             ViewBag.UserName = Session["UserName"];
             ViewBag.UserDepartment = Session["UserDepartment"];
             return View();
@@ -25,12 +27,14 @@ namespace RailBiding.Controllers
             string str = JsonHelper.DataTableToJSON(dt);
             return str;
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileApplication()
         {
             return View();
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileApplicationDetail(string fid)
         {
             if (fid == null)
@@ -45,7 +49,8 @@ namespace RailBiding.Controllers
 
             return View();
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileDetail(string fid)
         {
             if (fid == null)
@@ -60,12 +65,14 @@ namespace RailBiding.Controllers
 
             return View();
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileApprove()
         {
             return View();
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileApproveDetail(string fid)
         {
             if (fid == null)
@@ -80,7 +87,8 @@ namespace RailBiding.Controllers
 
             return View();
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult AddBidingFile()
         {
             return View();

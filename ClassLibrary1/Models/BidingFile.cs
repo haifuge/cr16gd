@@ -25,29 +25,31 @@ namespace DAL.Models
     {
         public DataTable GetBidingFiles()
         {
-            string sql = @"select bf.Id, bf.Name, bf.Content, isnull(d.Name,'')+' '+ui.UserName as UserName, CONVERT(varchar(20),bf.PublishDate, 23) as PublishDate, bf.Status
+            string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
                             from BidingFile bf 
-                            left join UserInfo ui on bf.PublisherId=ui.id
-                            left join Department d on ui.DepartmentId=d.ID and d.Status=1 
-                            order by bf.Id desc";
+                            inner join Project p on bf.ProjId=p.Id
+                            left join UserInfo ui on ui.ID=bf.PublisherId
+                            left join Department d on ui.DepartmentId=d.ID
+                            order by bf.ProjId desc";
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }
 
-        public DataTable getBidingFileDetail(string fid)
+        public DataTable getBidingFileDetail(string pid)
         {
-            string sql = @"select bf.Name, bf.Content, isnull(d.Name,'')+' '+ui.UserName as UserName, CONVERT(varchar(20),bf.PublishDate, 23) as PublishDate
+            string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
                             from BidingFile bf 
-                            left join UserInfo ui on bf.PublisherId=ui.id
-                            left join Department d on ui.DepartmentId=d.ID and d.Status=1
-                            where bf.Id="+fid;
+                            inner join Project p on bf.ProjId=p.Id
+                            left join UserInfo ui on ui.ID=bf.PublisherId
+                            left join Department d on ui.DepartmentId=d.ID
+                            where bf.Id=" + pid;
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }
 
         public bool AddBidingFile(BidingFile bf)
         {
-            string sql = @"insert into BidingFile values('"+bf.Name+"', '"+bf.Content+"', "+bf.Publisher+", getdate(), 0)";
+            string sql = @"insert into BidingFile values("+bf.Id+",'"+bf.Content+"', "+bf.Publisher+", getdate(), 0)";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -57,7 +59,7 @@ namespace DAL.Models
 
         public bool UpdateBidingFile(BidingFile bf)
         {
-            string sql = @"update BidingFile set Name ='" + bf.Name + "', Content = '" + bf.Content + "' where Id =" + bf.Id;
+            string sql = @"update BidingFile set Content = '" + bf.Content + "' where Id =" + bf.Id;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;

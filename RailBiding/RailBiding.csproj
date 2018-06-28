@@ -181,6 +181,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\MakeBidFileController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Controllers\SystemSetupController.cs" />
     <Compile Include="Global.asax.cs">
@@ -414,6 +415,7 @@
     <Content Include="js\icheck\icheck.min.js" />
     <Content Include="js\jquery-1.11.0.js" />
     <Content Include="js\jquery-ui.min.js" />
+    <Content Include="js\jquery.cookie.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\jquery.ztree.core.js" />
     <Content Include="js\jquery.ztree.excheck.js" />
@@ -587,6 +589,9 @@
     <Content Include="Views\SystemSetup\ApproveProcessDetail.cshtml" />
     <Content Include="Views\ForgetPassword\Index.cshtml" />
     <Content Include="Views\ForgetPassword\ResetPassword.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\Detail.cshtml" />
+    <Content Include="Views\Projects\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

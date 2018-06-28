@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DAL.Models;
+using DAL.Tools;
 
 namespace RailBiding.Controllers
 {
@@ -27,10 +28,19 @@ namespace RailBiding.Controllers
                 return "0";
             }
             Session["UserId"] = ui.ID;
-            Session["UserName"] = ui.UserName;
-            Session["UserDepartment"] = uc.GetUserDepartment(ui.DepartmentId);
-            Session["RoleId"] = ui.RoleId;
-            Session["MenuList"] = DAL.Tools.MenuHelper.GetMainMenu(ui.RoleId);
+            Session["MenuList"]=MenuHelper.GetMainMenu(ui.RoleId);
+            HttpCookie c1 = new HttpCookie("UserName");
+            c1.Value= ui.UserName;
+            c1.Expires = DateTime.Now.AddHours(3);
+            Response.Cookies.Add(c1);
+            HttpCookie c2 = new HttpCookie("UserDepartment");
+            c2.Value= uc.GetUserDepartment(ui.DepartmentId); 
+            c2.Expires = DateTime.Now.AddHours(3);
+            Response.Cookies.Add(c2);
+            HttpCookie c3 = new HttpCookie("RoleId");
+            c3.Value= ui.RoleId.ToString();
+            c3.Expires = DateTime.Now.AddHours(3);
+            Response.Cookies.Add(c3);
             return "1";
         }
 

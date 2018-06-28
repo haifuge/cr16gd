@@ -19,9 +19,6 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName= "itemC")]
         public ActionResult Index()
         {
-            ViewBag.UserName = Session["UserName"];
-            ViewBag.UserDepartment = Session["UserDepartment"];
-            ViewBag.MainMenuList = Session["MenuList"].ToString();
             return View();
         }
 
