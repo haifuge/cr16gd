@@ -8,21 +8,25 @@ using System.Data;
 using DAL.Models;
 using DAL.Tools;
 using System.Text;
+using RailBiding.Common;
 
 namespace RailBiding.Controllers
 {
     public class CompanysController : Controller
     {
         // GET: Companys
+        [VerifyLoginFilter]
         public ActionResult Index()
         {
-            ViewBag.ActiveMenu = Request["activeMenu"].ToString();
+            ViewBag.ActiveMenu = "itemC";
             ViewBag.UserName = Session["UserName"];
             ViewBag.UserDepartment = Session["UserDepartment"];
+            ViewBag.MainMenuList = Session["MenuList"].ToString();
             return View();
         }
 
         // GET: Companys/Details/5
+        [VerifyLoginFilter]
         public ActionResult Details(int id)
         {
             CompanyContext cc = new CompanyContext();
@@ -57,7 +61,7 @@ namespace RailBiding.Controllers
             ViewBag.WorkHistory = sb.ToString();
             return View();
         }
-
+        [VerifyLoginFilter]
         public ActionResult OutCompanyDetail(int id)
         {
             CompanyContext cc = new CompanyContext();
@@ -93,16 +97,17 @@ namespace RailBiding.Controllers
             return View();
         }
 
+        [VerifyLoginFilter]
         public ActionResult CompanysOut()
         {
             return View();
         }
-
+        [VerifyLoginFilter]
         public ActionResult MyRecommend()
         {
             return View();
         }
-
+        [VerifyLoginFilter]
         public ActionResult RecommendDetail(int id)
         {
             CompanyContext cc = new CompanyContext();
@@ -138,12 +143,12 @@ namespace RailBiding.Controllers
             ViewBag.WorkHistory = sb.ToString();
             return View();
         }
-
+        [VerifyLoginFilter]
         public ActionResult MyAudit()
         {
             return View();
         }
-
+        [VerifyLoginFilter]
         public ActionResult AuditDetail(int id)
         {
             CompanyContext cc = new CompanyContext();
@@ -216,8 +221,9 @@ namespace RailBiding.Controllers
             string json = JsonHelper.DataTableToJSON(companies);
             return json;
         }
-        
+
         // GET: Companys/Create
+        [VerifyLoginFilter]
         public ActionResult Create()
         {
             ViewBag.UserName = Session["UserName"];

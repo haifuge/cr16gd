@@ -29,6 +29,8 @@ namespace RailBiding.Controllers
             Session["UserId"] = ui.ID;
             Session["UserName"] = ui.UserName;
             Session["UserDepartment"] = uc.GetUserDepartment(ui.DepartmentId);
+            Session["RoleId"] = ui.RoleId;
+            Session["MenuList"] = DAL.Tools.MenuHelper.GetMainMenu(ui.RoleId);
             return "1";
         }
 
@@ -105,10 +107,6 @@ namespace RailBiding.Controllers
                 g.DrawRectangle(new Pen(Brushes.Gray), 0, 0, image.Width - 1, image.Height - 1);
                 System.IO.MemoryStream ms = new System.IO.MemoryStream();
                 image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                //Response.ClearContent();
-                //Response.ContentType = "image/Gif";
-
-                //Response.BinaryWrite(ms.ToArray());
                 return ms.ToArray();
             }
             finally

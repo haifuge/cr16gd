@@ -20,6 +20,7 @@ namespace DAL.Models
         public string Email { get; set; }
         //public string CreateDate { get; set; }
         public int Status { get; set; }
+        public int RoleId { get; set; }
 
     }
 
