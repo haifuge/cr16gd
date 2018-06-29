@@ -4,3 +4,523 @@
 }
 
 
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000000;
+    }
+
+    .icon-sq {
+        width: 135px;
+        background-image: url(img/icon-dc.png);
+        background-repeat: no-repeat;
+        background-position: 3px center;
+        /*color: #008cd6;*/
+    }
+
+    .project_details {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        display: block;
+        background: #eaf6fd;
+        font-size: 16px;
+        position: relative;
+    }
+
+    .title_txt {
+        color: #999999;
+        margin-left: 50px;
+    }
+
+    .content_txt {
+        color: #000000;
+    }
+
+    .Transformation {
+        color: #008cd6;
+        position: absolute;
+        right: 10px;
+        top: 1px;
+        font-size: 40px;
+    }
+
+    .clearfix:after {
+        display: block;
+        visibility: hidden;
+        clear: both;
+        height: 0;
+        content: ".";
+    }
+
+    .wc-details {
+        width: 100%;
+        background: #f2f2f2;
+        font-size: 16px;
+        margin-top: 5px;
+        padding: 10px 8px;
+        box-sizing: border-box;
+        position: relative;
+        display: none;
+    }
+
+        .wc-details dl {
+            width: 100%;
+        }
+
+            .wc-details dl dt {
+                width: 10%;
+                float: left;
+                margin: 0 auto;
+                text-align: center;
+                vertical-align: middle;
+                position: absolute;
+                top: 45%;
+                color: #999999;
+            }
+
+            .wc-details dl dd {
+                width: 90%;
+                float: left;
+                margin-left: 10%;
+                line-height: 25px;
+                font-size: 14px;
+            }
+
+    .state_bidding {
+        margin-top: 10px;
+    }
+
+    .state_bidding_list dl dt {
+        color: #29a9ef;
+        font-size: 16px;
+    }
+
+        .state_bidding_list dl dt span {
+            color: #999999;
+            font-size: 14px;
+        }
+
+    .state_bidding_list dl dd {
+        height: 85px;
+        border: 1px solid #b3b3b3;
+        margin-top: 10px;
+    }
+
+        .state_bidding_list dl dd div {
+            border-right: 1px solid #b3b3b3;
+            padding: 10px;
+            height: 100%;
+            float: left;
+            box-sizing: border-box;
+        }
+
+        .state_bidding_list dl dd .state_bidding_con {
+            width: 65%;
+        }
+
+        .state_bidding_list dl dd .state_bidding_enclosure {
+            width: 25%;
+        }
+
+            .state_bidding_list dl dd .state_bidding_enclosure ul li {
+                line-height: 20px;
+                background: url(img/icon-file.png) no-repeat;
+                padding-left: 20px;
+                vertical-align: middle;
+            }
+
+        .state_bidding_list dl dd .state_bidding_show {
+            width: 10%;
+            padding-top: 34px;
+            text-align: center;
+        }
+
+            .state_bidding_list dl dd.state_bidding_show span {
+                display: inline-block;
+            }
+    /*审核中*/
+    .to_examine {
+        color: #e60012;
+        border: 1px solid #f99377;
+        padding: 5px 10px;
+    }
+    /*被驳回*/
+    .reject {
+        color: #e60012;
+        border: 1px solid #e60012;
+        padding: 5px 10px;
+    }
+    /*未提交*/
+    .Unsubmitted {
+        color: #ff931e;
+        border: 1px solid #ff931e;
+        padding: 5px 10px;
+    }
+    /*通过*/
+    .adopt {
+        color: #11b114;
+        border: 1px solid #11b114;
+        padding: 5px 10px;
+    }
+
+
+    /*招标文件申请*/
+    .tendering_apply {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(188,199,210,.5);
+        z-index: 9999;
+        display: none;
+    }
+
+    .tendering_content {
+        width: 650px;
+        height: 450px;
+        background: #ffffff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+    .tendering_nav {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        background: #eaf6fd;
+        position: relative;
+        /*padding:5px;*/
+        box-sizing: border-box;
+    }
+
+        .tendering_nav span {
+            display: inline-block;
+        }
+
+        .tendering_nav .tendering_nav_title {
+            color: #29a9ef;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+
+    .tendering_close {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        /*background: url(img/btn-close.png) no-repeat;*/
+        right: 0;
+        top: 0;
+        text-align: center;
+        cursor: pointer;
+        color: #29a9ef;
+        font-size: 35px;
+    }
+
+    .tendering_describe {
+        width: 100%;
+        height: 200px;
+        padding-top: 20px;
+    }
+
+        .tendering_describe dl {
+            width: 100%;
+        }
+
+            .tendering_describe dl dt {
+                width: 10%;
+                float: left;
+                /*display: inline-block;*/
+                padding: 5px;
+                margin-right: 10px;
+            }
+
+            .tendering_describe dl dd {
+                width: 80%;
+                float: left;
+                border: 1px solid #d7d7d7;
+                border-radius: 5px;
+                padding: 10px;
+                /*display: inline-block;*/
+            }
+
+    .tendering_file .bidding_documents {
+        width: 10%;
+        float: left;
+        text-align: center;
+        background: url(img/icon-fj.png) no-repeat;
+        padding-left: 15px;
+        margin-left: 5px;
+    }
+
+    .tendering_file .bidding_documents_details {
+        width: 80%;
+        float: left;
+        margin-left: 10px;
+    }
+
+    .bidding_documents_details input[type="file"] {
+        opacity: 0;
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        left: 0;
+        cursor: pointer;
+    }
+
+    .bidding_documents_details .uploading_files {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        width: 35px;
+        height: 35px;
+        /*line-height: 30px;*/
+        background: url(img/icon-add2.png) no-repeat;
+        cursor: pointer;
+    }
+
+    .bidding_documents_details ul li > a {
+        margin-left: 5px;
+        color: #29a9ef;
+    }
+
+    .tendering_btn {
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 50px;
+        margin-top: 20px;
+    }
+
+        .tendering_btn a {
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            color: #ffffff;
+            margin: 0 5px;
+        }
+
+        .tendering_btn .submission_btn, .preservation_btn {
+            background: #29a9ef;
+        }
+
+        .tendering_btn .return_btn {
+            background: #bfbdba;
+        }
+</style>
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>项目管理</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Projects" class="active"><i class="icon icon-eye1"></i>项目列表</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <span class="js-page-name">项目详情</span>
+            <div class="apply-opt">
+                <a href="javascript:;" class="js-cancle-meet" title="招标文件申请">
+                    <i class="meet-icon icon-cancel icon-sq">招标文件申请</i>
+                </a>
+                <a href="javascript:history.go(-1);" class="js-cancle-meet" title="返回">
+                    <i class="meet-icon icon-del icon-tb">返回</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container">
+            <a href="javascript:;" class="project_details">
+                <span class="title_txt">项目名称： <span class="content_txt">穗莞深城际SZH-9标项目部污水管改迁工程</span></span>
+                <span class="title_txt">项目类型： <span class="content_txt">围护结构工程</span></span>
+                <span class="title_txt">项目地点： <span class="content_txt">深圳市</span></span>
+                <span class="Transformation" style="display: none">∨</span>
+                <span class="Transformation">></span>
+            </a>
+        </div>
+        <div class="wc-details clearfix">
+            <dl class=" clearfix">
+                <dt>工程介绍：</dt>
+                <dd>
+                    穗莞深城际轨道交通SZH-9标位于深圳市，线路自长安金沙站（不含）深圳端引出，终点为深圳机场站，本标段线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。本段共设1个明挖区间隧道、2个盾构区间隧道、两个地下车站（深圳机场北站及深圳机场站）。 <br>
+                    线路在宝安区松福路与蚝业路路口位置入地，沿松福路中央绿化带向南延伸，下穿福海大道及福永河后，进入机场预留用地(现状为水田、鱼塘，部分已回填)，下穿老福永码头水域，后接入城际机场北站，出机场北站后，经过R1100m的S反弯后下穿机坪及滑行道后接入深圳机场T3航站楼站前高架桥西侧的深圳机场城际地下站。线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。 <br>
+                    工程内容包括改移道路、改移沟渠、“三电”(含站后工程涉及的迁改项目，不含10KV及以上电力迁改)迁改、管线迁改、隧道、地下车站、无砟轨道道床(含双块式轨枕)、综合接地贯通线(至接线端子)、大临工程(便道、拌合站、电力线等)。 <br>
+                    因穗莞深城际铁路隧道结构与福永污水处理厂进场污水干管高程冲突原因，需要将福洲大道与松福大道交叉口路段管径为DN1600mm污水管进行永久迁改。本次劳务竞选范围为污水管改迁工程，主要包括：705米顶管，4座工作井、5座接收井等相关施工内容。 <br>
+                </dd>
+            </dl>
+        </div>
+        <div class="state_bidding">
+            <div class="state_bidding_list clearfix">
+                <dl>
+                    <dt>招标文件 <span>2018-06-29</span></dt>
+                    <dd class="clearfix">
+                        <a href="#">
+                            <div class="state_bidding_con">施工前期准备，符合设计图纸要求的局域二次破碎功能的顶管机及配套设备的进场、维护保养、组装、调试、下井及顶进，专场运输，设备拆除及运输。管道吊装，中继间安装与拆除，你讲拌制及装车外运，顶管过程地下障碍清楚德国工作。工作井接受井工作内容：现场清理</div>
+                            <div class="state_bidding_enclosure">
+                                <ul>
+                                    <li>污水管改迁劳务竞选文件.doc</li>
+                                    <li>温州市域铁路S1线轨道区间.pdf</li>
+                                    <li>温州市域铁路S1线轨道区间.zip</li>
+                                </ul>
+                            </div>
+                            <div class="state_bidding_show" style="border-right: none">
+                                <span class="to_examine">审核中</span>
+                            </div>
+                        </a>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+        <div class="state_bidding">
+            <div class="state_bidding_list clearfix">
+                <dl>
+                    <dt>招标文件 <span>2018-06-29</span></dt>
+                    <dd class="clearfix">
+                        <a href="#">
+                            <div class="state_bidding_con">施工前期准备，符合设计图纸要求的局域二次破碎功能的顶管机及配套设备的进场、维护保养、组装、调试、下井及顶进，专场运输，设备拆除及运输。管道吊装，中继间安装与拆除，你讲拌制及装车外运，顶管过程地下障碍清楚德国工作。工作井接受井工作内容：现场清理</div>
+                            <div class="state_bidding_enclosure">
+                                <ul>
+                                    <li>污水管改迁劳务竞选文件.doc</li>
+                                    <li>温州市域铁路S1线轨道区间.pdf</li>
+                                    <li>温州市域铁路S1线轨道区间.zip</li>
+                                </ul>
+                            </div>
+                            <div class="state_bidding_show" style="border-right: none">
+                                <span class="reject">被驳回</span>
+                            </div>
+                        </a>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+        <div class="state_bidding">
+            <div class="state_bidding_list clearfix">
+                <dl>
+                    <dt>招标文件 <span>2018-06-29</span></dt>
+                    <dd class="clearfix">
+                        <a href="#">
+                            <div class="state_bidding_con">施工前期准备，符合设计图纸要求的局域二次破碎功能的顶管机及配套设备的进场、维护保养、组装、调试、下井及顶进，专场运输，设备拆除及运输。管道吊装，中继间安装与拆除，你讲拌制及装车外运，顶管过程地下障碍清楚德国工作。工作井接受井工作内容：现场清理</div>
+                            <div class="state_bidding_enclosure">
+                                <ul>
+                                    <li>污水管改迁劳务竞选文件.doc</li>
+                                    <li>温州市域铁路S1线轨道区间.pdf</li>
+                                    <li>温州市域铁路S1线轨道区间.zip</li>
+                                </ul>
+                            </div>
+                            <div class="state_bidding_show" style="border-right: none">
+                                <span class="Unsubmitted">未提交</span>
+                            </div>
+                        </a>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+        <div class="state_bidding">
+            <div class="state_bidding_list clearfix">
+                <dl>
+                    <dt>招标文件 <span>2018-06-29</span></dt>
+                    <dd class="clearfix">
+                        <a href="#">
+                            <div class="state_bidding_con">施工前期准备，符合设计图纸要求的局域二次破碎功能的顶管机及配套设备的进场、维护保养、组装、调试、下井及顶进，专场运输，设备拆除及运输。管道吊装，中继间安装与拆除，你讲拌制及装车外运，顶管过程地下障碍清楚德国工作。工作井接受井工作内容：现场清理</div>
+                            <div class="state_bidding_enclosure">
+                                <ul>
+                                    <li>污水管改迁劳务竞选文件.doc</li>
+                                    <li>温州市域铁路S1线轨道区间.pdf</li>
+                                    <li>温州市域铁路S1线轨道区间.zip</li>
+                                </ul>
+                            </div>
+                            <div class="state_bidding_show" style="border-right: none">
+                                <span class="adopt">已通过</span>
+                            </div>
+                        </a>
+                    </dd>
+                </dl>
+
+            </div>
+        </div>
+
+        <!-- 招标文件申请 -->
+        <div class="tendering_apply">
+            <div class="tendering_content">
+                <div class="tendering_nav">
+                    <span class="tendering_nav_title">招标文件申请</span>
+                    <span class="tendering_close">×</span>
+                </div>
+                <div class="tendering_describe clearfix">
+                    <dl>
+                        <dt>招标文件内容简述</dt>
+                        <dd>
+                            穗莞深城际轨道交通SZH-9标位于深圳市，线路自长安金沙站（不含）深圳端引出，终点为深圳机场站，本标段线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。本段共设1个明挖区间隧道、2个盾构区间隧道、两个地下车站（深圳机场北站及深圳机场站）。 <br>
+                            线路在宝安区松福路与蚝业路路口位置入地，沿松福路中央绿化带向南延伸，下穿福海大道及福永河后，进入机场预留用地(现状为水田、鱼塘，部分已回填)，下穿老福永码头水域，后接入城际机场北站，出机场北站后，经过R1100m的S反弯后下穿机坪及滑行道后接入深圳机场T3航站楼站前高架桥西侧的深圳机场城际地下站。线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。 <br>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="tendering_file clearfix">
+                    <div class="bidding_documents"><span>招标文件</span></div>
+                    <div class="bidding_documents_details">
+                        <a class="uploading_files">
+                            <input type="file">
+                        </a>
+                        <ul>
+                            <li>污水管道改迁劳务竞选文件 <a href="#">删除</a></li>
+                            <li>温州市域铁路S1线轨道区间 <a href="#">删除</a></li>
+                            <li>温州市域铁路S1线轨道区间 <a href="#">删除</a></li>
+                            <li>温州市域铁路S1线轨道区间 <a href="#">删除</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tendering_btn">
+                    <a href="javascript:;" class="submission_btn">提交</a>
+                    <a href="javascript:;" class="preservation_btn">保存</a>
+                    <a href="list_management_detail.html" class="return_btn">返回</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script>
+    // 伸缩详情页内容
+    $(".project_details").on("click", function () {
+        $(".wc-details").toggle();
+        $(".Transformation").toggle();
+    })
+    // 招标文件申请
+    $(".tendering_close").on("click", function () {
+        $(".tendering_apply").hide();
+    })
+    $(".js-cancle-meet").on("click", function () {
+        $(".tendering_apply").show();
+    })
+    $(function () {
+        pages(1, 2, 12, 5)
+    });
+</script>

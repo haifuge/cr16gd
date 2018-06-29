@@ -3,5 +3,216 @@
     ViewBag.Title = "项目列表";
 }
 
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
 
 
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>项目管理</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Projects" class="active"><i class="icon icon-eye1"></i>项目列表</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <select class="meet-select js-meet-state">
+                <option value="all">项目类型</option>
+                <option value="1">已使用</option>
+                <option value="2">被预定</option>
+            </select>
+            <select class="meet-select js-meet-state">
+                <option value="all">项目状态 </option>
+                <option value="1">已结束</option>
+                <option value="2">审核中</option>
+                <option value="2">未启动</option>
+            </select>
+            <div class="search-con2">
+                <input type="text" name="keyname" placeholder="请输入关键字">
+                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+            </div>
+            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
+                <i class="xs-meet-icon icon-daoout"></i>导出
+            </a>
+            <a class="meet-btn red-btn small-size sm-btn" href="/Projects/Add">
+                <i class="xs-meet-icon icon-add"></i>添加
+            </a>
+
+        </div>
+        <div class="wc-container">
+            <table class="meet-table text-left">
+                <thead class="wc-header">
+                    <tr>
+                        <td class="check-color" style="width: 80px;">
+                            <span class="table-all-check">
+                                <input type="checkbox"
+                                       class="icheck"
+                                       name="all-check"
+                                       id="all-check" />
+                            </span>
+                        </td>
+                        <td>项目名称</td>
+                        <td>项目地点</td>
+                        <td>提交人</td>
+                        <td>发布时间</td>
+                        <td>项目状态</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #ea6307">招标文件审核中</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #b3b3b3">已结束</td>
+                    </tr>
+                    <tr class="white-bg" onclick="location.href='/Projects/Detail?pid=1';">
+                        <td class="check-color">
+                            <input class="icheck" name="id" type="checkbox" value="1"
+                                   id="checkbox-1" />
+                        </td>
+                        <td>莞深城际SZH-9标项目经理部污水管改迁工程</td>
+                        <td>深圳市</td>
+                        <td>穗莞深城深城际SZH-9标 项目经理部</td>
+                        <td>2017-04-05</td>
+                        <td style="color: #29abe2">未启动</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="page">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script type='text/javascript'>
+    $(function () {
+        pages(1, 2, 12, 5)
+    });
+</script>
