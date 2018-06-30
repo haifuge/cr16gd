@@ -3,6 +3,26 @@
     Layout = null;
 }
 
+<style>
+    .img-container {
+        width: 293px;
+        height: 150px;
+        background: #F2F2F2;
+        margin-bottom: 35px;
+        overflow: hidden;
+        border: 1px solid #000;
+    }
+
+        .img-container > img {
+            width: 293px;
+            height: 150px;
+        }
+
+    .img {
+        width: 293px;
+        height: 150px;
+    }
+</style>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,6 +46,11 @@
                     }
                 });
             });
+
+            $("#fup").change(function () {
+                $("#fupform").ajaxSubmit(function () {  
+                });
+            })
         })
     </script>
 
@@ -37,7 +62,7 @@
         并且不会产生当前页面跳转!
      -->
     <form id='formFile' name='formFile' method="post" target='frameFile' action="ImgUpload" enctype="multipart/form-data">
-        <input type='file' id='fileUp' name='fileUp' value="IamPic"/>
+        <input type='file' id='fileUp' name='fileUp' value="IamPic" />
         <div>
             <input type="text" id="companyName" name="companyName" width="20" />
             <br />
@@ -50,11 +75,80 @@
         <br />
         <img width='200' src='' height='200' id='imgShow' alt='缩略图' />
     </form>
+    <form id='fupform' name='fupform' method="post" target='frameFile' action="FileUpload" enctype="multipart/form-data">
+        <input type='file' id='fup' name='fup' value="IamPic" />
+
+    </form>
     <!--
         这个iframe拿到post过来的表单数据后会开始在自身内部访问post过来的页面地址,在内部中它会刷新页面，
         但是这已不重要了，因为当前的iframe已经被我display:none隐藏了！所以这样给用户看起来像是无刷新的
         页面文件上传，其实只是做一个一个小小的技巧！
     -->
     <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
+    <form name="/" class="card-form">
+        <div>
+            <div class="img-container"></div>
+            <input class="img-btn" type="file" id="drivingLicence" name="drivingLicence">
+        </div>
+    </form>
 </body>
 </html>
+<script>
+    /**
+     * Created by Administrator on 2016/4/28.
+     */
+    //上传图片并预览
+    function previewImg(fileInput, imgDiv) {
+        if (window.FileReader) {//支持FileReader的时候
+            var reader = new FileReader();
+            reader.readAsDataURL(fileInput.files[0]);
+            reader.onload = function (evt) {
+                imgDiv.innerHTML = "\<img src=" + evt.target.result + "\>";
+            }
+        } else {//兼容ie9-
+            imgDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + fileInput.value + '\)\';"></div>';
+        }
+    }
+    function selectImg(fileInputs, imgDivs) {
+        var checkImg = new RegExp("(.jpg$)|(.png$)|(.bmp$)|(.jpeg$)", "i");
+        var i = 0;
+        for (; i < fileInputs.length && i < imgDivs.length; i++) {
+            (function (i) {//立即执行函数；保存i
+                fileInputs[i].onchange = function () {
+                    if (checkImg.test(fileInputs[i].value)) {
+                        previewImg(this, imgDivs[i]);
+                    } else {
+                        alert("只支持上传.jpg .png .bmp .jpeg;你的选择有误");
+                    }
+                };
+            })(i);
+        }
+
+    }
+    /* 为IE6 IE7 IE8增加document.getElementsByClassName函数 */
+    /MSIE\s*(\d+)/i.test(navigator.userAgent);
+    var isIE = parseInt(RegExp.$1 ? RegExp.$1 : 0);
+    if (isIE > 0 && isIE < 9) {
+        document.getElementsByClassName = function (cls) {
+            var els = this.getElementsByTagName('*');
+            var ell = els.length;
+            var elements = [];
+            for (var n = 0; n < ell; n++) {
+                var oCls = els[n].className || '';
+                if (oCls.indexOf(cls) < 0) continue;
+                oCls = oCls.split(/\s+/);
+                var oCll = oCls.length;
+                for (var j = 0; j < oCll; j++) {
+                    if (cls == oCls[j]) {
+                        elements.push(els[n]);
+                        break;
+                    }
+                }
+            }
+            return elements;
+        }
+    }
+    var fileInputs = document.getElementsByClassName("img-btn");//文件选择按钮
+    var imgDivs = document.getElementsByClassName("img-container");//图片容器
+    selectImg(fileInputs, imgDivs);
+</script>

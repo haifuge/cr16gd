@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
 <link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
@@ -45,7 +44,7 @@
                             <tr class="form-tr">
                                 <td class="form-lable"><span class="red-word">*</span>项目名称：</td>
                                 <td>
-                                    <input name="roomInfoName" type="text" value=""
+                                    <input name="roomInfoName" type="text" value="" id="pname"
                                            class="has-clear-input input input3" />
                                 </td>
                             </tr>
@@ -53,35 +52,29 @@
                                 <td class="form-lable"><span class="red-word">*</span>项目类型：</td>
                                 <td>
                                     <div class="form-item  sel-required">
-                                        <select class="select radius-sel dropdown" name="iofnName"
-                                                id="iofnName">
-                                            <option value="">围护结构工程</option>
-                                            <option value="">围护结构工程</option>
-                                        </select>
-
+                                        <select class="meet-select js-meet-state" id="bType"></select>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="form-lable"><span class="red-word">*</span>项目地点：</td>
                                 <td>
-                                    <input name="roomInfoName" type="text" value=""
+                                    <input name="roomInfoName" type="text" value="" id="plocation"
                                            class="has-clear-input input input5" />
                                 </td>
                             </tr>
                             <tr class="form-tr ">
                                 <td class="form-lable">工程介绍：</td>
                                 <td>
-                                    <textarea class="txt02" style="padding: 0 5px;"></textarea>
-
+                                    <textarea class="txt02" style="padding: 0 5px;" id="pdescription"></textarea>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </form>
                 <div class="form-tr-btn">
-                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">提交</button>
-                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="submitP()">提交</button>
+                    <button type="reset" class="meet-btn big-btn lightblue-btn j-cancel">取消</button>
                 </div>
             </div>
         </div>
@@ -100,3 +93,27 @@
 <script type="text/javascript" src="~/js/upload.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
+
+<script>
+    $(function () {
+        $.post("/Common/GetBusinessType", {}, function (data) {
+            var obj = JSON.parse(data);
+            var btype = $("#bType");
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
+            }
+        });
+    });
+
+    function submitP() {
+        var pname = document.getElementById("pname").value;
+        var ptype = document.getElementById("bType");
+        var tt = ptype.options[ptype.selectedIndex].innerText
+        var plocation = document.getElementById("plocation").value;
+        var pdescription = document.getElementById("pdescription").value;
+        $.post("/Projects/AddProject", { name:pname, type:tt, location:plocation, description:pdescription}, function (data) {
+            console.log(data);
+        })
+    }
+</script>

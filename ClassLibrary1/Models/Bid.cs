@@ -10,22 +10,10 @@ namespace DAL.Models
 {
     public class Bid
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Content { get; set; }
-        public string Location { get; set; }
-        public string Type { get; set; }
+        public int ProjId { get; set; }
         public string ApplyDate { get; set; }
         public string OpenDate { get; set; }
-        public int BidingNum { get; set; }
-        public string ProjDescription { get; set; }
-        public string DocName { get; set; }
-        public string DocPath { get; set; }
-        public int WinnerCompanyId { get; set; }
-        public string WinnerCompanyName { get; set; }
-        public int WinnerAmount { get; set; }
-        public int PublisherId { get; set; }
-        public string Publisher { get; set; }
+        public string BidingNum { get; set; }
         public string PublishDate { get; set; }
         public string Status { get; set; }
     }
@@ -34,20 +22,20 @@ namespace DAL.Models
     {
         public DataTable GetAllBids()
         {
-            string sql = @"select ID, Name, Location, Content, Publisher, convert(varchar(20), PublishDate, 23) as PublishDate,
-                            CONVERT(varchar(20), applydate, 23) as ApplyDate, CONVERT(varchar(20), OpenDate, 23) as OpenDate 
-                            from Bid order by ID desc;";
+            string sql = @"select p.Name, p.Location, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
+                            from project p inner join Bid b on p.Id=b.ProjId
+                            left join UserInfo ui on p.PublisherId=ui.ID
+                            left join Department d on ui.DepartmentId=d.ID
+                            order by p.Id desc";
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }
 
         public bool AddBid(Bid bid)
         {
-            string sql = @"insert into Bid(Name, Type, Content, ApplyDate, OpenDate, BidingNum, Location, ProjDescription, 
-                                           DocName, DocPath, WinnerAmount, PublisherId, Publisher, PublishDate)
-                            values('" + bid.Name+"', '"+bid.Type+"', '"+bid.Content+"', '"+bid.ApplyDate+"', '"+bid.OpenDate+"', "+bid.BidingNum+
-                            ", '"+bid.Location+"', '"+bid.ProjDescription+"', '"+bid.DocName+"', '"+bid.DocPath+"', "+bid.WinnerAmount+
-                            ", "+bid.PublisherId+", '"+bid.Publisher+"', '"+bid.PublishDate+"')";
+            string sql = @"insert into Bid(ProjId, ApplyDate, OpenDate, BidingNum, PublishDate, Status)
+                           values(" + bid.ProjId+", '"+bid.ApplyDate+"', '"+bid.OpenDate+"', "+bid.BidingNum+", getdate(), N'"+bid.Status+"')";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -70,17 +58,18 @@ namespace DAL.Models
             throw new NotImplementedException();
         }
 
-        public DataTable GetBidingCompanys(string bid)
+        public DataTable GetBidingCompanys(string pid)
         {
-            string sql = "select CompanyName,CompanyResponse from BidingCompany where BidId="+bid;
+            string sql = @"select c.Name, bc.CompanyResponse 
+                            from BidingCompany bc 
+                            inner join Company c on bc.CompanyId=c.ID 
+                            where bc.ProjId" + pid;
             return DBHelper.GetDataTable(sql);
         }
 
         public bool UpdateBid(Bid bid)
         {
-            string sql = "update Bid set BidName='"+bid.Name+"', Type='"+bid.Type+"', Content='"+bid.Content+"', ApplyDate='"+bid.ApplyDate+
-                "',OpenDate='"+bid.OpenDate+ "', BidingNum=" + bid.BidingNum+",Location='"+bid.Location+"', PorjDescription='"+bid.ProjDescription+
-                "', DocName='"+bid.DocName+"', DocPath='"+bid.DocPath+"' where ID="+bid.ID;
+            string sql = "update Bid set BidName='";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -97,9 +86,9 @@ namespace DAL.Models
                 return false;
         }
 
-        public bool AddBidingCompany(int bid, int cid, string cName)
+        public bool AddBidingCompany(int pid, int cid)
         {
-            string sql= "insert into CompanyInBid values("+bid+", "+cid+",'"+cName+"', 0, 0)";
+            string sql= "insert into BidingCompany(ProjId, CompanyId, CompanyResponse, Biding) values(" + pid+", "+cid+", 0, 0)";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -107,9 +96,9 @@ namespace DAL.Models
                 return false;
         }
 
-        public bool RemoveBidingCompany(int bid, int cid)
+        public bool RemoveBidingCompany(int pid, int cid)
         {
-            string sql = "delete CompanyInBid where BidId = " + bid + " and CompanyId = " + cid;
+            string sql = "delete BidingCompany where ProjId = " + pid + " and CompanyId = " + cid;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -117,9 +106,19 @@ namespace DAL.Models
                 return false;
         }
 
-        public bool SetWinBidCompany(int bid, int cid)
+        public bool UpdateBidingCompany(int pid, int cid, int firstPrice, int secondPrice, string comment, int win)
         {
-            string sql = "update CompanyInBid set WinBid=1 where BidId = " + bid + " and CompanyId = " + cid;
+            string sql = "update BidingCompany set FirstPrice = "+firstPrice+ ", SecondPrice = "+ secondPrice + ", Comment=N'"+comment+"', Win="+win+" where ProjId = " + pid + " and CompanyId = " + cid;
+            int i = DBHelper.ExecuteNonQuery(sql);
+            if (i == 1)
+                return true;
+            else
+                return false;
+        }
+
+        public bool SetWinBidCompany(int pid, int cid)
+        {
+            string sql = "update BidingCompany set Win=1 where ProjId = " + pid + " and CompanyId = " + cid;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;

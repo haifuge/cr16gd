@@ -7,12 +7,15 @@ using System.Web;
 using System.Web.Mvc;
 using DAL.Models;
 using DAL.Tools;
+using RailBiding.Common;
 
 namespace RailBiding.Controllers
 {
     public class BidingApproveController : Controller
     {
         // GET: BidingApprove
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult Index()
         {
             return View();
@@ -24,7 +27,8 @@ namespace RailBiding.Controllers
             DataTable dt = bc.GetBidingApproves();
             return JsonHelper.DataTableToJSON(dt);
         }
-
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult BidingApproveDetail(string bid)
         {
             if (bid == null)

@@ -337,7 +337,7 @@
         <div class="main-top">
             <span class="js-page-name">项目详情</span>
             <div class="apply-opt">
-                <a href="javascript:;" class="js-cancle-meet" title="招标文件申请">
+                <a href="javascript:;" class="js-cancle-meet-apply" title="招标文件申请">
                     <i class="meet-icon icon-cancel icon-sq">招标文件申请</i>
                 </a>
                 <a href="javascript:history.go(-1);" class="js-cancle-meet" title="返回">
@@ -347,9 +347,9 @@
         </div>
         <div class="wc-container">
             <a href="javascript:;" class="project_details">
-                <span class="title_txt">项目名称： <span class="content_txt">穗莞深城际SZH-9标项目部污水管改迁工程</span></span>
-                <span class="title_txt">项目类型： <span class="content_txt">围护结构工程</span></span>
-                <span class="title_txt">项目地点： <span class="content_txt">深圳市</span></span>
+                <span class="title_txt">项目名称： <span class="content_txt">@ViewBag.pName</span></span>
+                <span class="title_txt">项目类型： <span class="content_txt">@ViewBag.pType</span></span>
+                <span class="title_txt">项目地点： <span class="content_txt">@ViewBag.pLocation</span></span>
                 <span class="Transformation" style="display: none">∨</span>
                 <span class="Transformation">></span>
             </a>
@@ -358,10 +358,7 @@
             <dl class=" clearfix">
                 <dt>工程介绍：</dt>
                 <dd>
-                    穗莞深城际轨道交通SZH-9标位于深圳市，线路自长安金沙站（不含）深圳端引出，终点为深圳机场站，本标段线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。本段共设1个明挖区间隧道、2个盾构区间隧道、两个地下车站（深圳机场北站及深圳机场站）。 <br>
-                    线路在宝安区松福路与蚝业路路口位置入地，沿松福路中央绿化带向南延伸，下穿福海大道及福永河后，进入机场预留用地(现状为水田、鱼塘，部分已回填)，下穿老福永码头水域，后接入城际机场北站，出机场北站后，经过R1100m的S反弯后下穿机坪及滑行道后接入深圳机场T3航站楼站前高架桥西侧的深圳机场城际地下站。线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。 <br>
-                    工程内容包括改移道路、改移沟渠、“三电”(含站后工程涉及的迁改项目，不含10KV及以上电力迁改)迁改、管线迁改、隧道、地下车站、无砟轨道道床(含双块式轨枕)、综合接地贯通线(至接线端子)、大临工程(便道、拌合站、电力线等)。 <br>
-                    因穗莞深城际铁路隧道结构与福永污水处理厂进场污水干管高程冲突原因，需要将福洲大道与松福大道交叉口路段管径为DN1600mm污水管进行永久迁改。本次劳务竞选范围为污水管改迁工程，主要包括：705米顶管，4座工作井、5座接收井等相关施工内容。 <br>
+                    @Html.Raw(ViewBag.pProDescription)
                 </dd>
             </dl>
         </div>
@@ -434,29 +431,6 @@
 
             </div>
         </div>
-        <div class="state_bidding">
-            <div class="state_bidding_list clearfix">
-                <dl>
-                    <dt>招标文件 <span>2018-06-29</span></dt>
-                    <dd class="clearfix">
-                        <a href="#">
-                            <div class="state_bidding_con">施工前期准备，符合设计图纸要求的局域二次破碎功能的顶管机及配套设备的进场、维护保养、组装、调试、下井及顶进，专场运输，设备拆除及运输。管道吊装，中继间安装与拆除，你讲拌制及装车外运，顶管过程地下障碍清楚德国工作。工作井接受井工作内容：现场清理</div>
-                            <div class="state_bidding_enclosure">
-                                <ul>
-                                    <li>污水管改迁劳务竞选文件.doc</li>
-                                    <li>温州市域铁路S1线轨道区间.pdf</li>
-                                    <li>温州市域铁路S1线轨道区间.zip</li>
-                                </ul>
-                            </div>
-                            <div class="state_bidding_show" style="border-right: none">
-                                <span class="adopt">已通过</span>
-                            </div>
-                        </a>
-                    </dd>
-                </dl>
-
-            </div>
-        </div>
 
         <!-- 招标文件申请 -->
         <div class="tendering_apply">
@@ -469,8 +443,7 @@
                     <dl>
                         <dt>招标文件内容简述</dt>
                         <dd>
-                            穗莞深城际轨道交通SZH-9标位于深圳市，线路自长安金沙站（不含）深圳端引出，终点为深圳机场站，本标段线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。本段共设1个明挖区间隧道、2个盾构区间隧道、两个地下车站（深圳机场北站及深圳机场站）。 <br>
-                            线路在宝安区松福路与蚝业路路口位置入地，沿松福路中央绿化带向南延伸，下穿福海大道及福永河后，进入机场预留用地(现状为水田、鱼塘，部分已回填)，下穿老福永码头水域，后接入城际机场北站，出机场北站后，经过R1100m的S反弯后下穿机坪及滑行道后接入深圳机场T3航站楼站前高架桥西侧的深圳机场城际地下站。线路起点里程为DK76+100，终点里程为DK83+860，正线长度为7.76km。 <br>
+                            <textarea class="txt02" style="padding: 0 5px;"></textarea>
                         </dd>
                     </dl>
                 </div>
@@ -520,7 +493,4 @@
     $(".js-cancle-meet").on("click", function () {
         $(".tendering_apply").show();
     })
-    $(function () {
-        pages(1, 2, 12, 5)
-    });
 </script>

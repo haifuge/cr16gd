@@ -24,7 +24,7 @@ namespace DAL.Models
     {
         public DataTable GetAllProjects()
         {
-            string sql = @"select p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as Name, convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
+            string sql = @"select p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
                             from Project p 
                             left join UserInfo ui on p.PublisherId=ui.ID
                             left join Department d on d.ID=ui.DepartmentId order by p.Id Desc";
@@ -38,6 +38,25 @@ namespace DAL.Models
                             left join Department d on d.ID=ui.DepartmentId 
                             where p.id=" + id;
             return DBHelper.GetDataTable(sql);
+        }
+        /// <summary>
+        /// 数据库中添加项目中文件
+        /// </summary>
+        /// <param name="pid">项目id</param>
+        /// <param name="ftype">1：招标文件；2：标文件；3：定标文件</param>
+        /// <param name="fullPath">文件全路径</param>
+        /// <param name="fileName">文件名</param>
+        /// <param name="comment">对文件的评注</param>
+        public void AddProjectFile(string pid, string ftype, string fullPath, string fileName, string comment)
+        {
+            string sql = "insert into BidDocument values(" + pid + ", " + ftype + ", N'" + fullPath + "',N'" + fileName + "', N'" + comment + "');";
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public void RemoveProjectFile(string filefullpath)
+        {
+            string sql = "delete BidDocument where FilePath='"+filefullpath+"'";
+            DBHelper.ExecuteNonQuery(sql);
         }
 
         public bool AddProject(Project p)

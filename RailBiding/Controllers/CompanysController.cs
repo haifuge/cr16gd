@@ -47,7 +47,7 @@ namespace RailBiding.Controllers
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                sb.Append("<tr class='white-bg'><td>" + dt.Rows[i]["ProjectId"].ToString() + "</td>");
+                sb.Append("<tr class='white-bg'>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
@@ -83,7 +83,7 @@ namespace RailBiding.Controllers
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                sb.Append("<tr class='white-bg'><td>" + dt.Rows[i]["ProjectId"].ToString() + "</td>");
+                sb.Append("<tr class='white-bg'>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
@@ -228,13 +228,12 @@ namespace RailBiding.Controllers
 
         // GET: Companys/Create
         [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult Create()
         {
-            ViewBag.UserName = Session["UserName"];
-            ViewBag.UserDepartment = Session["UserDepartment"];
+            Session["outin"] = Request["outin"].ToString();
             return View();
         }
-
         // POST: Companys/Create
         [HttpPost]
         public string Create(FormCollection collection)
@@ -244,27 +243,83 @@ namespace RailBiding.Controllers
             {
                 // TODO: Add insert logic here
                 Company company = new Company();
-                company.Name = Request["companyName"].ToString();
-                company.BusinessType = Request["businessType"].ToString();
-                company.Referrer = Request["referre"].ToString(); 
-                company.CreditNo = Request["creditNo"].ToString();
-                company.QualificationLevel = Request["qualificationLevel"].ToString();
-                company.SecurityCertificateNo = Request["securityNo"].ToString();
-                company.BusinessScope = Request["businessScope"].ToString();
-                company.CorporateRepresentive = Request["representive"].ToString();
-                company.RepPhone = Request["repPhone"].ToString();
+                company.Name = Request["cname"].ToString();
+                company.BusinessType = Request["btype"].ToString();
+                company.Referrer = Request["rname"].ToString();
+                //string referPic = Request["rpic"].ToString();
+                //string blpic = Request["blpic"].ToString();
+                company.CreditNo = Request["scno"].ToString();
+                company.QualificationLevel = Request["qlevel"].ToString();
+                //string scpic = Request["scpic"].ToString();
+                company.SecurityCertificateNo = Request["lno"].ToString();
+                company.BusinessScope = Request["bscope"].ToString();
+                company.RegisteredCapital = Request["rmoney"].ToString();
+                company.CorporateRepresentive = Request["rep"].ToString();
+                company.RepPhone = Request["rtel"].ToString();
+                //string rsfz = Request["rsfz"].ToString();
                 company.Contact = Request["contact"].ToString();
-                company.ContactPhone = Request["contactPhone"].ToString();
-                company.ContactAddress = Request["contactAddress"].ToString();
+                company.ContactPhone = Request["cphone"].ToString();
+                //string csfz = Request["csfz"].ToString();
+                company.ContactAddress = Request["caddress"].ToString();
                 company.ConstructionContent = Request["construction"].ToString();
                 company.Note = Request["note"].ToString();
-                cc.CreateCompany(company);
-                return "{\"result\":\"success\"}";
+                company.Type = int.Parse(Session["outin"].ToString());
+                Session["newCid"] = cc.CreateCompany(company);
+                
+                return "1";
             }
-            catch
+            catch(Exception ex)
             {
-                return "{\"result\":\"fail\"}";
+                return "0";
             }
+        }
+        public void UploadPic()
+        {
+            string cid = Session["newCid"].ToString();
+            string picbase64 = Request["picdata"].ToString();
+            picbase64 = picbase64.Substring(picbase64.IndexOf(',') + 1);
+            string picName = Request["name"].ToString();
+            string cpic = Server.MapPath("/CompanyPics/Company" + Session["newCid"].ToString());
+            if (!Directory.Exists(cpic))
+            {
+                Directory.CreateDirectory(cpic);
+            }
+            string fullpath = cpic + "/" + picName + ".jpeg";
+            ImageBase64.Base64ToImage(picbase64, fullpath);
+            string sql = "";
+            switch (picName)
+            {
+                case "refpic":
+                    sql = "update Company set ReferreIDPic='"+fullpath+"' where id="+cid;
+                    break;
+                case "blpic":
+                    sql = "update Company set BusinessLicensePic='" + fullpath + "' where id=" + cid;
+                    break;
+                case "scPic":
+                    sql = "update Company set SecurityCertificatePic='" + fullpath + "' where id=" + cid;
+                    break;
+                case "rsfz":
+                    sql = "update Company set RepIDPic='" + fullpath + "' where id=" + cid;
+                    break;
+                case "ctsfz":
+                    sql = "update Company set ContactIDPic='" + fullpath + "' where id=" + cid;
+                    break;
+
+            }
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public void UploadWorkHistory()
+        {
+            string data = Request["workhistory"].ToString();
+            string[] items = data.Split('^');
+            string sql = "";
+            for(int i=0;i<items.Length-1;i++)
+            {
+                string[] o = items[i].Split('|');
+                sql += "insert into WorkHistory values(" + Session["newCid"] + ",N'"+o[0]+ "',N'" + o[1] + "',N'" + o[2] + "',N'" + o[3] + "',N'" + o[4] + "',N'" + o[5] + "'); ";
+            }
+            DBHelper.ExecuteNonQuery(sql);
         }
 
         // GET: Companys/Edit/5
@@ -373,6 +428,17 @@ namespace RailBiding.Controllers
         }
 
         [HttpPost]
+        public void FileUpload()
+        {
+            string path = Server.MapPath("/projects/");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            var curFile = Request.Files[0];
+            var fileExt = Path.GetExtension(curFile.FileName);
+            string fullPath = path + "/" + curFile.FileName;
+            curFile.SaveAs(fullPath);
+        }
+        [HttpPost]
         public void DeleteImg()
         {
             // picName是时间，精确到毫秒，所以picName为唯一的，可以确定唯一图。
@@ -405,13 +471,6 @@ namespace RailBiding.Controllers
         {
             WorkHistoryContext context = new WorkHistoryContext();
             return context.AddWorkHistory(wh);
-        }
-        
-        public string GetBusinessType()
-        {
-            BusinessTypeContext bc = new BusinessTypeContext();
-            DataTable dt = bc.GetBusinessTypes();
-            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

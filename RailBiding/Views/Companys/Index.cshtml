@@ -13,7 +13,7 @@
         <ul class="left-nav-list">
             <li><a href="Companys" class="active"><i class="icon icon-eye"></i>名录内单位</a></li>
             <li><a href="/Companys/CompanysOut"><i class="icon icon-hand"></i>名录外单位</a></li>
-            <li><a href="/Companys/MyRecommend"><i class="icon icon-user"></i>我推荐的</a></li>
+            @*<li><a href="/Companys/MyRecommend"><i class="icon icon-user"></i>我推荐的</a></li>*@
             <li><a href="/Companys/MyAudit"><i class="icon icon-edit"></i>我审核的</a></li>
         </ul>
     </div>
@@ -33,7 +33,7 @@
             <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
                 <i class="xs-meet-icon icon-daoout"></i>导出
             </a>
-            <a class="meet-btn red-btn small-size sm-btn" href="Companys/Create">
+            <a class="meet-btn red-btn small-size sm-btn" href="Companys/Create?outin=0">
                 <i class="xs-meet-icon icon-add"></i>添加
             </a>
         </div>
@@ -101,7 +101,7 @@
             }
             $("#tbCompany").html(htm)
         });
-        $.post("/Companys/GetBusinessType", {}, function (data) {
+        $.post("/Common/GetBusinessType", {}, function (data) {
             var obj = JSON.parse(data);
             var btype = $("#bType");
             btype.append("<option value='All'>业务类型</option>");

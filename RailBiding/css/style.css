@@ -95,24 +95,11 @@ label.error {
     color: #ffffff;
     padding-left: 5px;
     background-color: #e43335;
-    padding: 2px 15px;
+    padding: 5px 15px;
     border-radius: 4px;
     margin-left: 5px;
-    position:absolute;
-    top:39px;
-    left:5px;
 }
-label.success {
-    color: #ffffff;
-    padding-left: 5px;
-    background-color:#00B83F;
-    padding: 2px 15px;
-    border-radius: 4px;
-    margin-left: 5px;
-    position:absolute;
-    top:39px;
-    left:5px;
-}
+
 select::-ms-expand {
     display: none;
 }
@@ -373,9 +360,6 @@ select::-ms-expand {
 .orange-sign-me {
     background-color: #f39c13;
     margin: 0 2px;
-}
-.loginbar-re ul li{
-    position:relative ;
 }
 
 /*图标*/
@@ -1472,6 +1456,7 @@ button:hover {
 
 .block-left .meet-form td {
     color: #3e3a39;
+    padding-right: 10px;
 }
 
 .block-left .meet-form .form-tr-title-bg td {
@@ -2367,7 +2352,15 @@ input[name=keyname] {
 .main-nav.active .icon-control {
     background: url(../img/control-icon-on.png) no-repeat center center;
 }
-
+/*.icon-administration{
+    background: url(../img/nav-icon-white2.png) no-repeat;
+     background-position: center -148px;
+}
+.icon-administration:hover{
+    background-image: url(../img/nav-icon-blue2.png);
+     background-position: center -282px;
+    background-color: #fff;
+}*/
 .parent-nav-icon.icon-meetroom {
     background-position: center -76px;
 }
@@ -3015,10 +3008,9 @@ input[name=keyname] {
     width: 80%;
     height: 40px;
     background: #0383d4;
-    /*position: fixed;*/
-    left:0;
+    position: absolute;
     bottom: 0;
-    z-index: 99999;
+    z-index: 10000;
     color: #fff;
     padding: 0 10%;
     padding-top: 40px;
@@ -3160,7 +3152,6 @@ input[name=keyname] {
     position: relative;
     z-index: 9999;
     margin-top: 110px;
-    margin-bottom:80px;
 }
 
 .login-zx {
@@ -3202,7 +3193,7 @@ input[name=keyname] {
     line-height: 40px;
     border: none;
     color: #808281;
-    margin-bottom: 27px;
+    margin-bottom: 15px;
     font-size: 14px;
     border-radius: 3px;
 }
@@ -3259,17 +3250,16 @@ input[name=keyname] {
     /*background: #39bdf7;*/
     width: 100%;
     overflow: hidden;
-     position: fixed;
+    position: fixed;
     height: 100%;
 }
 
 .index-bg2 {
     width: 100%;
     overflow: hidden;
-    /*position: fixed;*/
+    position: fixed;
     height: 100%;
     background: #39bdf7;
-    padding-bottom:110px;
 }
 
 .main-header2 {
@@ -3298,7 +3288,6 @@ input[name=keyname] {
     background: #39bdf7;
     padding-top: 110px;
     margin-top: 80px;
-    margin-bottom:80px;
     width: 100%;
 }
 

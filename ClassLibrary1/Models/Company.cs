@@ -14,21 +14,30 @@ namespace DAL.Models
         public string Name { get; set; }
         public string BusinessType { get; set; }
         public string Referrer { get; set; }
+        public string ReferreIDPic { get; set; }
+        public string BusinessLicensePic { get; set; }
         public string CreditNo { get; set; }
         public string QualificationLevel { get; set; }
+        public string SecurityCertificatePic { get; set; }
         public string SecurityCertificateNo { get; set; }
         public string BusinessScope { get; set; }
-        public int RegisteredCapital { get; set; }
+        public string RegisteredCapital { get; set; }
         public string CorporateRepresentive { get; set; }
         public string RepPhone { get; set; }
+        public string RepIDPic { get; set; }
         public string Contact { get; set; }
         public string ContactPhone { get; set; }
+        public string ContactIDPic { get; set; }
         public string ContactAddress { get; set; }
         public string ConstructionContent { get; set; }
         public string Note { get; set; }
         public int Status { get; set; }
         public string AuditDate { get; set; }
-        public int Type { get; set; }
+        private int type = 1;
+        public int Type {
+            get { return type; }
+            set { type = value; }
+        }
     }
     public class CompanyContext
     {
@@ -67,9 +76,9 @@ namespace DAL.Models
 
         public DataTable GetWorkHistory(int id)
         {
-            string sql = @"select ProjectId,ProjectName,ContractAmount, CONVERT(varchar(20), StartDate,23) as StartDate,
+            string sql = @"select ProjectName,ContractAmount, CONVERT(varchar(20), StartDate,23) as StartDate,
 			                    CONVERT(varchar(20),EndDate,23) as EndDate, SettlementAmount, DelayStatus
-                          from WorkHistory where CompanyId= " + id+" order by ProjectId";
+                          from WorkHistory where CompanyId= " + id;
             return DBHelper.GetDataTable(sql);
         }
 
@@ -87,23 +96,34 @@ namespace DAL.Models
             else
                 return false;
         }
-        public bool CreateCompany(Company company)
+        public int CreateCompany(Company company)
         {
             string sql = @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
-                                               SecurityCertificateNo, CorporateRepresentive, RepPhone, 
+                                               SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, AuditDate, Type, Referrer)" +
+                                               Status, Type, Referre)" +
                 "values('" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
                 "'" + company.BusinessType + "', '" + company.BusinessScope + "', '" + company.QualificationLevel + "', " +
                 "'" + company.SecurityCertificateNo + "', '" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
                 "'" + company.Contact + "', '" + company.ContactPhone + "', '" + company.ContactAddress + "', " +
-                "'" + company.ConstructionContent + "', '" + company.Note + "', " + company.Status + ", '" + company.AuditDate + "', " + 
-                company.Type + ", "+company.Referrer + ")";
-            int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
-            if (i > 0)
+                "'" + company.ConstructionContent + "', '" + company.Note + "', " + company.Status + ", " + 
+                company.Type + ", '"+company.Referrer + "');";
+            sql += "select max(id) from Company;";
+            int i = int.Parse(DBHelper.ExecuteScalar(CommandType.Text, sql));
+            return i;
+        }
+        public bool UpdateCompanyPics(Company company)
+        {
+            string sql = "update Company set ReferreIDPic='"+company.ReferreIDPic+
+                                        "', BusinessLicensePic='"+company.BusinessLicensePic+
+                                        "', SecurityCertificatePic='"+company.SecurityCertificatePic+
+                                        "', RepIDPic='"+company.RepIDPic+
+                                        "',ContactIDPic='"+company.ContactIDPic+
+                                        "' where ID="+company.Id;
+            int i = DBHelper.ExecuteNonQuery(sql);
+            if (i == 1)
                 return true;
-            else
-                return false;
+            return false;
         }
 
         public bool ToggleCompany(int id, int status)
@@ -130,7 +150,7 @@ namespace DAL.Models
         {
             string sql = @"select id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
 	                            convert(varchar(20),AuditDate,23) as AuditDate, AuditStatus
-                            from Company where Referrer='" + userName+"'";
+                            from Company where Referre='" + userName+"'";
             return DBHelper.GetDataTable(sql);
         }
     }

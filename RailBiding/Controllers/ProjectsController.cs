@@ -32,6 +32,11 @@ namespace RailBiding.Controllers
         {
             ProjectContext pc = new ProjectContext();
             DataTable dt = pc.GetProject(pid);
+            DataRow dr = dt.Rows[0];
+            ViewBag.pName = dr["Name"].ToString();
+            ViewBag.pType = dr["ProjType"].ToString();
+            ViewBag.pLocation = dr["Location"].ToString();
+            ViewBag.pProDescription = dr["ProDescription"].ToString().Replace("\n","<br/>");
             return View();
         }
         [VerifyLoginFilter]
@@ -43,15 +48,26 @@ namespace RailBiding.Controllers
         public string AddProject()
         {
             Project p = new Project();
-            p.Name = Request["Name"].ToString();
-            p.ProjType = Request["ProjType"].ToString();
-            p.Location = Request["Location"].ToString();
-            p.PublisherId = int.Parse(Request["PublisherId"].ToString());
-            p.ProDescription = Request["ProDescription"].ToString();
+            p.Name = Request["name"].ToString();
+            p.ProjType = Request["type"].ToString();
+            p.Location = Request["location"].ToString();
+            p.PublisherId = int.Parse(Session["UserId"].ToString());
+            p.ProDescription = Request["description"].ToString();
             ProjectContext pc = new ProjectContext();
             if (pc.AddProject(p))
                 return "1";
             return "0";
+        }
+
+
+        [HttpPost]
+        public bool AddBidFile()
+        {
+            string pid = Request["pid"].ToString();
+            string content = Request["content"].ToString();
+            string publisherId = Session["UserId"].ToString();
+            BidingFileContext bfc = new BidingFileContext();
+            return bfc.AddBidingFile(pid, content, publisherId);
         }
     }
 }

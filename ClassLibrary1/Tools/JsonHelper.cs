@@ -76,7 +76,7 @@ namespace DAL.Tools
                 if (i < table.Rows.Count - 1) json.Append(","); // add comma if not last row
             }
             json.Append("]");
-            return json.ToString().Replace("\r\n","\\r\\n");
+            return json.ToString().Replace("\r","\\r").Replace("\n","\\n");
         }
         #endregion
 

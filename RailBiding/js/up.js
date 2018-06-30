@@ -40,7 +40,7 @@ $(function() {
                     $(".aui-works-mask").show();
                     delParent = $(this).parent();
                 });
-                $img0.attr("src", "img/close.png").appendTo($section);
+                $img0.attr("src", "/img/close.png").appendTo($section);
                 var $img = $("<img class='aui-to-up-img aui-up-clarity'>");
                 $img.attr("src", imgArr[i]);
                 $img.appendTo($section);

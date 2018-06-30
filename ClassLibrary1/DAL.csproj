@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +62,7 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\EncryptHelper.cs" />
+    <Compile Include="Tools\ImageBase64.cs" />
     <Compile Include="Tools\JsonHelper.cs" />
     <Compile Include="Tools\MenuHelper.cs" />
   </ItemGroup>

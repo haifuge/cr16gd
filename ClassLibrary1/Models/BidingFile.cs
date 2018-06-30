@@ -47,9 +47,9 @@ namespace DAL.Models
             return dt;
         }
 
-        public bool AddBidingFile(BidingFile bf)
+        public bool AddBidingFile(string pid, string content, string publisherId)
         {
-            string sql = @"insert into BidingFile values("+bf.Id+",'"+bf.Content+"', "+bf.Publisher+", getdate(), 0)";
+            string sql = @"insert into BidingFile values("+pid+",'"+content+"', "+ publisherId + ", getdate(), 0)";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -57,9 +57,9 @@ namespace DAL.Models
                 return false;
         }
 
-        public bool UpdateBidingFile(BidingFile bf)
+        public bool UpdateBidingFile(string pid, string content)
         {
-            string sql = @"update BidingFile set Content = '" + bf.Content + "' where Id =" + bf.Id;
+            string sql = @"update BidingFile set Content = '" + content + "' where ProjId =" + pid;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -69,7 +69,7 @@ namespace DAL.Models
 
         public bool UpdateBidingFileStatus(string id, string status)
         {
-            string sql = @"update BidingFile set Status =" + status + " where Id =" + id;
+            string sql = @"update BidingFile set Status =" + status + " where ProjId =" + id;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
