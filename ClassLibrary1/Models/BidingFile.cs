@@ -47,9 +47,9 @@ namespace DAL.Models
             return dt;
         }
 
-        public bool AddBidingFile(string pid, string content, string publisherId)
+        public bool AddBidingFile(string pid, string content, string publisherId, string status)
         {
-            string sql = @"insert into BidingFile values("+pid+",'"+content+"', "+ publisherId + ", getdate(), 0)";
+            string sql = @"insert into BidingFile values("+pid+",'"+content+"', "+ publisherId + ", getdate(), "+status+")";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;

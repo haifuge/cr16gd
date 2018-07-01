@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "招标文件详情";
+}
+
+
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>项目管理</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Projects" class="active"><i class="icon icon-eye1"></i>项目列表</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top top-bottom">
+
+            <span class="js-page-name">招标文件详情</span>
+            <div class="apply-opt">
+                <a href="javascript:;" class="js-cancle-meet" title="驳回">
+                    <i class="meet-icon icon-cancel icon-bh">驳回</i>
+                </a>
+                <a href='#' onclick="window.history.go(-1)" class="js-cancle-meet" title="返回">
+                    <i class="meet-icon icon-del icon-tb">返回</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container  ccata">
+            <div class="detail-wrap detail-con">
+                <div class="block-left block-left2 block-left4">
+                    <table class="meet-form meet-form8">
+                        <tbody>
+                            <tr class="form-tr form-tr-title-bg">
+                                <td>
+                                    <h2>@ViewBag.BidFileName</h2>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td><div class="art-tit"><span>发布人：</span>@ViewBag.BidFileUserName <span>发布时间：</span> @ViewBag.BidFilePublishDate</div></td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td><h3>招标文件内容简述</h3></td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="art-con">
+                                    @Html.Raw(ViewBag.BidFileContent)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="download">
+                                    <div><i class="meet-icon icon-file"></i></div>
+                                    <div class="cc">温州市域铁路S1线轨道区间Ⅱ标.doc <div class="dowl"><a href="">下载</a>&nbsp;&nbsp;1.2M</div></div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="block-right block-right2">
+                    <div class="block-right-wrap">
+                        <div class="right-block">
+                            <div class="right-block-title">
+                                <div class="feedback-area-head">
+                                    <i class="meet-icon icon-message-opt"></i>
+                                    <span class="right-block-title">请输入您的驳回理由：</span>
+                                </div>
+                            </div>
+                            <div class="feedback-area-wrap">
+                                <div class="feedback-area-con">
+                                    <textarea name="reasons" style="min-height: 50px;" id="feedback-area" placeholder="请输入"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deal-apply-btn deal-apply-btn2">
+                            <a class="meet-btn big-btn blue-btn js-deal green-btn blue-btn2">通过申请</a>
+
+                        </div>
+
+                        <div class="block-rigt">
+                            <div class="detail-user2">
+                                <a class="meet-btn2 medium-btn">审核意见</a>
+                                <a class="meet-btn2 medium-btn active">流转信息</a>
+                            </div>
+                            <div class="detail-user-list2 right-ss" style="min-height:215px;overflow: auto;">
+                                <div class="meet-user-span2" style="display: none;">
+                                    <div class="feedback-con feedback-con2">
+                                        <div class="feedback-item">
+                                            <div class="feedback-item-title">
+                                                <i class="meet-icon icon-message-on"></i>
+                                                驳回理由
+                                            </div>
+                                            <ul class="feedback-list feedback-admin">
+                                                <li>
+                                                    <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
+                                                    <p class="bjg">业绩信息不合格，请重新上传</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!--<div class="feedback-item js-myattend">-->
+                                        <!--<div class="feedback-item-title">-->
+                                        <!--<i class="meet-icon icon-message"></i>-->
+                                        <!--共<span class="js-feed-count">4</span>条回复消息-->
+                                        <!--</div>-->
+                                        <!--<ul class="feedback-list feedback-users">-->
+                                        <!--<li><h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>-->
+                                        <!--<p>资料合格，同意</p></li>-->
+                                        <!--</ul>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                                <div class="meet-user-span2" style="display: block;">
+                                    <h4 class="cp01"><span></span>指挥部</h4>
+                                    <ul>
+                                        <li><span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span></li>
+                                        <li><span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span></li>
+                                        <li><span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span></li>
+                                        <li><span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span></li>
+                                        <li><span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span></li>
+                                    </ul>
+                                    <h4><span></span>管理员</h4>
+                                    <ul>
+                                        <li><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span></li>
+
+                                    </ul>
+                                    <h4 class="cp02"><span></span>轨道公司</h4>
+                                    <ul class="uc02">
+                                        <li><span class="yj01">计划合同部</span></li>
+                                        <li><span class="yj01">财务室</span></li>
+                                        <li><span class="yj01">施工技术部</span></li>
+                                        <li><span class="yj01">分公司总经济师</span></li>
+                                        <li><span class="yj01">分公司总经理</span></li>
+                                        <li><span class="yj01">计划合同部</span></li>
+                                        <li><span class="yj01">财务室</span></li>
+                                        <li><span class="yj01">施工技术部</span></li>
+                                        <li><span class="yj01">分公司总经济师</span></li>
+                                        <li><span class="yj01">分公司总经理</span></li>
+                                    </ul>
+                                    <h4 class="cp02"><span></span>结束</h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript">
+    $(function () {
+        pages(1, 2, 12, 5)
+    });
+</script>
+

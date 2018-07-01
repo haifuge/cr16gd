@@ -438,16 +438,11 @@
                 <span class="canvas_close">×</span>
                 <h3>招标文件申请</h3>
                 <div class="canvas_content_text">
-
                     <ul>
-                        <li><span>招标文件 <br>内容简述</span> <textarea name="" id="">施工前期准备工作，符合设计图纸要求的具有二次破碎功能的顶管机及配套设备的进场、维修保养、组装、调试、下井及顶进，转场运输，设备拆除及运输。管道吊装，中继间安装与拆除，泥浆拌制及装车外运，顶管过程地下障碍物清理等工作。工作井、接受井工作内容：现场清理施工前期准备工作，符合设计图纸要求的具有二次破碎功能的顶管机及配套设备的进场、维修保养、组装、调试、下井及顶进，转场运输，设备拆除及运输。管道吊装，中继间安装与拆除，泥浆拌制及装车外运，顶管过程地下障碍物清理等工作。工作井、接受井工作内容：现场清理</textarea></li>
-
+                        <li><span>招标文件<br>内容简述</span> <textarea id="bfcontent"></textarea></li>
                         <li>
                             <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none">招标文件</span>
-                            <input type="file"
-                                   class="allfileInput allfileInput2"
-                                   name="fileInput" id="allfileInput"
-                                   style="cursor: pointer;left:113px;">
+                            @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:113px;">*@
                             <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
                                 <input type='file' id='bfup' name='bfup' value="IamPic" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId" style="display:none" />
@@ -500,8 +495,6 @@
     </div>
 </div>
 
-
-
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 @*   <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>*@
 <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
@@ -540,13 +533,35 @@
         var bnum = $("#bidingnum").val()
         var pid =@ViewBag.ProjId;
         data = { adate: adate, odate: odate, bnum: bnum, pid: pid, status: ss }
-        console.log(data)
         $.post("/Projects/AddBid", data, function (res) {
-            alert('')
+            if (res) {
+                if(ss==1)
+                    alert('提交成功成功！')
+                else
+                    alert('保存成功！')
+                location.reload(true);
+            }
+            else {
+                alert('保存失败，请稍后再试！')
+            }
         })
     }
-    function bidfileSubmit(status) {
-
+    function bidfileSubmit(ss) {
+        var bfc = $("#bfcontent").val()
+        var pid =@ViewBag.ProjId;
+        data = { content: bfc, pid: pid, status: ss }
+        $.post("/Projects/AddBidFile", data, function (res) {
+            if (res) {
+                if(ss==1)
+                    alert('提交成功成功！')
+                else
+                    alert('保存成功！')
+                location.reload(true);
+            }
+            else {
+                alert('保存失败，请稍后再试！')
+            }
+        })
     }
     function deleteFile(name) {
         console.log(name);
@@ -559,9 +574,36 @@
     })
     function bidApply() {
         $("#bidapplylayer").show();
+        $.get("/Projects/GetBidInfo?pid=@ViewBag.ProjId", function (data) {
+            var obj = JSON.parse(data);
+            $("#applydate").html(obj.applydate)
+            $("#opendate").html(obj.opendate)
+            $("#bidingnum").html(obj.bidingnum)
+        });
+        $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.id = obj[i].filepath
+                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                $("#bfiles").appendChild(li)
+            }
+        });
     }
     function bidFileApply() {
         $("#bidfileapplylayer").show();
+        $.get("/Projects/GetBidFileInfo?pid=@ViewBag.ProjId", function (data) {
+            $("#bfcontent").html(data)
+        });
+        $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=1", function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.id = obj[i].filepath
+                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                $("#bffiles").appendChild(li)
+            }
+        });
     }
 </script>
 <script>
@@ -570,15 +612,6 @@
         $(".wc-details").toggle();
         $(".Transformation").toggle();
     })
-    $(".canvas_close").on("click", function () {
-        $(".canvas").hide();
-    })
-    function bidApply() {
-        $("#bidapplylayer").show();
-    }
-    function bidFileApply() {
-        $("#bidfileapplylayer").show();
-    }
 
     $(function () {
         var Accordion = function (el, multiple) {

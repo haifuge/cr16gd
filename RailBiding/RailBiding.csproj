@@ -413,6 +413,7 @@
     <Content Include="img\pic01.jpg" />
     <Content Include="img\pic02.jpg" />
     <Content Include="img\pic03.jpg" />
+    <Content Include="img\pic04.jpg" />
     <Content Include="img\search-icon.png" />
     <Content Include="img\success.jpg" />
     <Content Include="img\up.png" />
@@ -599,6 +600,9 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Projects\Detail.cshtml" />
     <Content Include="Views\Projects\Add.cshtml" />
+    <Content Include="Views\Projects\BidDetail.cshtml" />
+    <Content Include="Views\Projects\BidFileDetail.cshtml" />
+    <Content Include="Views\Projects\MakeBidFileDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

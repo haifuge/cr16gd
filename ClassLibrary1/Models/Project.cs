@@ -58,6 +58,11 @@ namespace DAL.Models
             string sql = "delete BidDocument where FilePath='"+filefullpath+"'";
             DBHelper.ExecuteNonQuery(sql);
         }
+        public DataTable GetProjectFiles(string pid, string ftype)
+        {
+            string sql = "select FilePath, FileName from BidDocument where ProjId="+pid+" and FileType="+ftype;
+            return DBHelper.GetDataTable(sql);
+        }
 
         public bool AddProject(Project p)
         {
@@ -80,7 +85,7 @@ namespace DAL.Models
             }
             return false;
         }
-
+        //未发布；招标文件审核中，招标文件审核通过，招标审核中；招标审核通过；定标文件审核中；已结束
         public bool UpdateProjectStatus(string pid, string s)
         {
             string sql = @"update Project set Status = N'" + s + "' where id=" + pid;

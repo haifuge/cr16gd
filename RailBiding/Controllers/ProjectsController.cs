@@ -40,7 +40,6 @@ namespace RailBiding.Controllers
             ViewBag.pProDescription = dr["ProDescription"].ToString().Replace("\n","<br/>");
             // 未发布；定标文件审核中，定标文件审核通过，招标文件审核中；招标文件审核通过；定标文件审核中；已结束
             string pStatus = dr["Status"].ToString();
-            string bidfile="";
             switch (pStatus)
             {
                 case "未发布":
@@ -97,29 +96,29 @@ namespace RailBiding.Controllers
             {
                 case "0":
                     status = "未发布";
-                    statusClass = "status-wcl status-wfb";
+                    statusClass = "ytg001 ytg002";
                     break;
                 case "1":
                     status = "审核中";
-                    statusClass = "status-wcl status-shz";
+                    statusClass = "ytg001 ytg004";
                     break;
                 case "2":
                     status = "已通过";
-                    statusClass = "status-wcl status-ytg";
+                    statusClass = "ytg001";
                     break;
                 case "3":
                     status = "被驳回";
-                    statusClass = "status-wcl status-bbh";
+                    statusClass = "ytg001 ytg003";
                     break;
             }
             string files = "";
             DataTable dt = bf.GetFiles(pid);
             for (int i = 0; i < dt.Rows.Count; i++) {
-                files += "<li><b><img src='~/img/icon-file.png'></b>"+dt.Rows[i][0].ToString()+"</li>";
+                files += "<li><b><img src='../img/icon-file.png'></b>"+dt.Rows[i][0].ToString()+"</li>";
             }
             string result = @"<h3>招标文件<span>"+ pdate + @"</span></h3>
-                                <div class='a-zbwj'>
-                                    <div class='con-01'><p>"+ content + @"</p></div>
+                                <div class='a-zbwj' onclick='/Projects/BidFileDetail?pid="+pid+@"'>
+                                    <div class='con-01'><p>" + content + @"</p></div>
                                     <div class='con-02'>
                                         <ul>"+files+@"</ul>
                                     </div>
@@ -141,31 +140,31 @@ namespace RailBiding.Controllers
             {
                 case "0":
                     status = "未发布";
-                    statusClass = "status-wcl status-wfb";
+                    statusClass = "ytg001 ytg002";
                     break;
                 case "1":
                     status = "审核中";
-                    statusClass = "status-wcl status-shz";
+                    statusClass = "ytg001 ytg004";
                     break;
                 case "2":
                     status = "已通过";
-                    statusClass = "status-wcl status-ytg";
+                    statusClass = "ytg001";
                     break;
                 case "3":
                     status = "被驳回";
-                    statusClass = "status-wcl status-bbh";
+                    statusClass = "ytg001 ytg003";
                     break;
             }
             string files = "";
             dt = bc.GetFiles(pid);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                files += "<li><b><img src='~/img/icon-file.png'></b>" + dt.Rows[i][0].ToString() + "</li>";
+                files += "<li><b><img src='../img/icon-file.png'></b>" + dt.Rows[i][0].ToString() + "</li>";
             }
             string result = @"<h3>招标申请<span>"+ pdate + @"</span></h3>
-                            <div class='a-zbwj'>
+                            <div class='a-zbwj' onclick='/Projects/BidDetail?pid=" + pid + @"'>
                                 <div class='con-01'>
-                                    <p><span class='t-time'>报名时间：</span><span class='time'>"+ adate + @"</span>
+                                    <p><span class='t-time'>报名时间：</span><span class='time'>" + adate + @"</span>
                                     <span class='t-time'>预计开标时间：</span><span class='time'>" + odate + @"</span>
                                     <span class='t-time'>拟中标单位数量：</span><span class='time'>" + bnum + @"</span></p>
                                 </div>
@@ -186,29 +185,29 @@ namespace RailBiding.Controllers
             {
                 case "0":
                     status = "未发布";
-                    statusClass = "status-wcl status-wfb";
+                    statusClass = "ytg001 ytg002";
                     break;
                 case "1":
                     status = "审核中";
-                    statusClass = "status-wcl status-shz";
+                    statusClass = "ytg001 ytg004";
                     break;
                 case "2":
                     status = "已通过";
-                    statusClass = "status-wcl status-ytg";
+                    statusClass = "ytg001";
                     break;
                 case "3":
                     status = "被驳回";
-                    statusClass = "status-wcl status-bbh";
+                    statusClass = "ytg001 ytg003";
                     break;
             }
             string files = "";
             dt = mc.GetFiles(pid);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                files += "<li><b><img src='~/img/icon-file.png'></b>" + dt.Rows[i][0].ToString() + "</li>";
+                files += "<li><b><img src='../img/icon-file.png'></b>" + dt.Rows[i][0].ToString() + "</li>";
             }
             string result = @"<h3>定标文件<span>"+pdate+@"</span></h3>
-                                <div class='a-zbwj'>
+                                <div class='a-zbwj' onclick='/Projects/MakeBidFileDetail?pid="+pid+@"'>
                                     <div class='con-01'><p>"+ abst + @"</p></div>
                                     <div class='con-02'><ul>"+ files + @"</ul></div>
                                     <div class='con-03'><div class='"+ statusClass + @"'>"+ status + @"</div></div>
@@ -247,8 +246,15 @@ namespace RailBiding.Controllers
             string pid = Request["pid"].ToString();
             string content = Request["content"].ToString();
             string publisherId = Session["UserId"].ToString();
+            string status = Request["status"].ToString();
             BidingFileContext bfc = new BidingFileContext();
-            return bfc.AddBidingFile(pid, content, publisherId);
+            if(bfc.AddBidingFile(pid, content, publisherId,status))
+                if (status == "1")
+                {
+                    ProjectContext pc = new ProjectContext();
+                    pc.UpdateProjectStatus(pid, "招标文件审核中");
+                }
+            return true;
         }
         [HttpPost]
         public bool AddBid()
@@ -261,7 +267,50 @@ namespace RailBiding.Controllers
             bid.Status = Request["status"].ToString();
             bid.PublisherId = int.Parse(Session["UserId"].ToString());
             BidContext bc = new BidContext();
-            return bc.AddBid(bid);
+            if(bc.AddBid(bid))
+                if (bid.Status == "1")
+                {
+                    ProjectContext pc = new ProjectContext();
+                    pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
+                }
+            return true;
+        }
+
+        public string GetBidInfo(string pid)
+        {
+            BidContext bc = new BidContext();
+            DataTable dt = bc.GetBid(pid);
+            return JsonHelper.DataTableToJSON(dt);
+        }
+        public string GetBidFileInfo(string pid)
+        {
+            BidingFileContext bfc = new BidingFileContext();
+            DataTable dt = bfc.getBidingFileDetail(pid);
+            return dt.Rows[0]["Content"].ToString();
+        }
+        public string GetFiles(string pid, string ftype)
+        {
+            ProjectContext pc = new ProjectContext();
+            DataTable dt = pc.GetProjectFiles(pid, ftype);
+            foreach(DataRow dr in dt.Rows)
+            {
+                string FilePath = dr["FilePath"].ToString();
+                dr["FilePath"] = FilePath.Substring(FilePath.LastIndexOf('/') + 1);
+            }
+            return JsonHelper.DataTableToJSON(dt);
+        }
+
+        public ActionResult BidDetail()
+        {
+            return View();
+        }
+        public ActionResult BidFileDetail()
+        {
+            return View();
+        }
+        public ActionResult MakeBidFileDetail()
+        {
+            return View();
         }
     }
 }
