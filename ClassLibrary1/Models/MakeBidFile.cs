@@ -37,27 +37,17 @@ namespace DAL.Models
             return JsonHelper.ConvertTableToObj<MakeBidFile>(dt);
         }
 
-        public MakeBidFile GetMakeBidFileDetail(string id)
+        public DataTable GetMakeBidFileDetail(string id)
         {
-            string sql = "select * from MakeBidFile where Id="+id;
+            string sql = @"select Abstract, CONVERT(varchar(20), PublishDate, 23) as PublishDate, Status,PublisherId,FileExplain 
+                            from MakeBidingFile where ProjId=" + id;
             DataTable dt = DBHelper.GetDataTable(sql);
-            if (dt.Rows.Count == 0)
-                return null;
-            DataRow dr = dt.Rows[0];
-            MakeBidFile makeBidFile = new MakeBidFile();
-            makeBidFile.Id = int.Parse(dr["Id"].ToString());
-            makeBidFile.Name = dr["Name"].ToString();
-            makeBidFile.Abstract = dr["Abstract"].ToString();
-            makeBidFile.ProjAbstract = dr["ProjAbstract"].ToString();
-            makeBidFile.Publisher = dr["Publisher"].ToString();
-            makeBidFile.PublishDate = dr["PublishDate"].ToString();
-            makeBidFile.FileExplain = dr["FileExplain"].ToString();
-            makeBidFile.Status = int.Parse(dr["Status"].ToString());
-            makeBidFile.BidCompanies = new List<MakeBidFileCompany>();
-            sql = "select * from MakeBidingFileCompany where MBFId=" + id;
-            dt= DBHelper.GetDataTable(sql);
-            makeBidFile.BidCompanies = JsonHelper.ConvertTableToObj<MakeBidFileCompany>(dt);
-            return makeBidFile;
+            return dt;
+        }
+        public DataTable GetFiles(string pid)
+        {
+            string sql = "select FileName from BidDocument where ProjId=" + pid + " and FileType=3";
+            return DBHelper.GetDataTable(sql);
         }
         /// <summary>
         /// 新建定标文件

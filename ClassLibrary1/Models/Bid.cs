@@ -33,6 +33,14 @@ namespace DAL.Models
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }
+        public DataTable GetBid(string pid)
+        {
+            string sql = @"select CONVERT(varchar(20), ApplyDate, 23) as ApplyDate,BidingNum, Status,
+		                            CONVERT(varchar(20), OpenDate, 23) as OpenDate, 
+		                            CONVERT(varchar(20), PublishDate, 23) as PublishDate 
+                            from Bid where ProjId="+pid;
+            return DBHelper.GetDataTable(sql);
+        }
 
         public bool AddBid(Bid bid)
         {
@@ -43,6 +51,11 @@ namespace DAL.Models
                 return true;
             else
                 return false;
+        }
+        public DataTable GetFiles(string pid)
+        {
+            string sql = "select FileName from BidDocument where ProjId=" + pid + " and FileType=2";
+            return DBHelper.GetDataTable(sql);
         }
 
         public void RemoveBidingCompany(string bid, string cid)

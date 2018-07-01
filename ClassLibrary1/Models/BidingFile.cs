@@ -76,5 +76,11 @@ namespace DAL.Models
             else
                 return false;
         }
+
+        public DataTable GetFiles(string pid)
+        {
+            string sql = "select FileName from BidDocument where ProjId="+pid+" and FileType=1";
+            return DBHelper.GetDataTable(sql);
+        }
     }
 }
