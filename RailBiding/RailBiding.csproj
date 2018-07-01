@@ -326,6 +326,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\arrow1.png" />
+    <Content Include="img\arrow2.png" />
     <Content Include="img\blank.gif" />
     <Content Include="img\btn-close.png" />
     <Content Include="img\btn-dele-hover.png" />
@@ -354,6 +356,8 @@
     <Content Include="img\fancy_title_over.png" />
     <Content Include="img\fancy_title_right.png" />
     <Content Include="img\hot_news_arr.png" />
+    <Content Include="img\icon-02.png" />
+    <Content Include="img\icon-03.png" />
     <Content Include="img\icon-add.png" />
     <Content Include="img\icon-add2.png" />
     <Content Include="img\icon-add3.png" />
@@ -364,11 +368,13 @@
     <Content Include="img\icon-bg2.png" />
     <Content Include="img\icon-bh.png" />
     <Content Include="img\icon-close.png" />
+    <Content Include="img\icon-close2.png" />
     <Content Include="img\icon-daoout.png" />
     <Content Include="img\icon-dc.png" />
     <Content Include="img\icon-del.png" />
     <Content Include="img\icon-fh.png" />
     <Content Include="img\icon-file.png" />
+    <Content Include="img\icon-file2.png" />
     <Content Include="img\icon-fj.png" />
     <Content Include="img\icon-index.png" />
     <Content Include="img\icon-index1.png" />

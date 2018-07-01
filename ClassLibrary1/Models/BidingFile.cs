@@ -42,7 +42,7 @@ namespace DAL.Models
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId
                             left join Department d on ui.DepartmentId=d.ID
-                            where bf.Id=" + pid;
+                            where p.Id=" + pid;
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }

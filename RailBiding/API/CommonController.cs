@@ -31,7 +31,7 @@ namespace RailBiding.API
             string pid = Request["pid"].ToString();
             string ftype = Request["ftype"].ToString();
             string comment = Request["comment"] ?? "";
-            string path = Server.MapPath("/projects/p"+pid);
+            string path = Server.MapPath("/projectFiles/p"+pid);
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             var curFile = Request.Files[0];

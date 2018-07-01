@@ -27,24 +27,24 @@ namespace RailBiding.Controllers
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemB")]
-        public ActionResult BidDetail(string bid)
+        public ActionResult BidDetail(string pid)
         {
-            if (bid == null)
+            if (pid == null)
                 return View("Login");
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidCompany(bid);
+            DataTable dt = bc.GetBidCompany(pid);
             DataRow dr = dt.Rows[0];
             ViewBag.Name = dr["Name"].ToString();
             ViewBag.Location = dr["Location"].ToString();
             ViewBag.Content = dr["Content"].ToString();
-            ViewBag.Type = dr["Type"].ToString();
+            ViewBag.Type = dr["ProjType"].ToString();
             ViewBag.Publisher = dr["Publisher"].ToString();
             ViewBag.BidingNum = dr["BidingNum"].ToString();
             ViewBag.ApplyDate = dr["ApplyDate"].ToString();
             ViewBag.OpenDate = dr["OpenDate"].ToString();
-            ViewBag.ProjDescription = dr["ProjDescription"].ToString();
+            ViewBag.ProjDescription = dr["Content"].ToString();
 
-            dt = bc.GetBidingCompanys(bid);
+            dt = bc.GetBidingCompanys(pid);
             
             var joinC = (from c in dt.AsEnumerable()
                         where c.Field<int>("CompanyResponse")==1
