@@ -430,7 +430,7 @@ namespace RailBiding.Controllers
         [HttpPost]
         public void FileUpload()
         {
-            string path = Server.MapPath("/projects/");
+            string path = Server.MapPath("/projectPics/");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             var curFile = Request.Files[0];

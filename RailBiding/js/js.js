@@ -181,11 +181,11 @@ $(function(){
     });
 
     //单选框、复选框
-    $('input.icheck').iCheck({
-        checkboxClass: 'icheckbox_minimal',
-        radioClass: 'iradio_minimal',
-        increaseArea: '20%' // optional
-    });
+    //$('input.icheck').iCheck({
+    //    checkboxClass: 'icheckbox_minimal',
+    //    radioClass: 'iradio_minimal',
+    //    increaseArea: '20%' // optional
+    //});
 
 
     //全选

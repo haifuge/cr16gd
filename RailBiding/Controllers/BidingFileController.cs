@@ -82,7 +82,7 @@ namespace RailBiding.Controllers
             DataRow dr = dt.Rows[0];
             ViewBag.BidFileName = dr["Name"].ToString();
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n", "<br/>");
-            ViewBag.BidFileUserName = dr["UserName"].ToString();
+            ViewBag.BidFileUserName = dr["Publisher"].ToString();
             ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
 
             return View();

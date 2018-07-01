@@ -26,7 +26,7 @@ namespace RailBiding.API
         }
 
         [HttpPost]
-        public void FileUpload()
+        public string FileUpload()
         {
             string pid = Request["pid"].ToString();
             string ftype = Request["ftype"].ToString();
@@ -37,20 +37,22 @@ namespace RailBiding.API
             var curFile = Request.Files[0];
             var fileExt = Path.GetExtension(curFile.FileName);
             string guid = Guid.NewGuid().ToString();
-            string fullPath = path + "/" + guid+"."+fileExt;
+            string fullPath = path + "\\" + guid+fileExt;
             curFile.SaveAs(fullPath);
             ProjectContext pc = new ProjectContext();
             pc.AddProjectFile(pid, ftype, fullPath, curFile.FileName, comment);
+            return guid + "|"+ curFile.FileName;
         }
-        /// <summary>
-        /// 删除项目文件，文件全路径唯一，可直接删除
-        /// </summary>
-        public void RemoveFile()
+
+        public void FileDelete()
         {
-            string fullPath = Request["fullPath"].ToString();
-            System.IO.File.Delete(fullPath);
-            ProjectContext pc = new ProjectContext();
-            pc.RemoveProjectFile(fullPath);
+            string fname = Request["fname"].ToString();
+            string sql = @"declare @fpath nvarchar(400)
+                            select @fpath=FilePath from BidDocument where FilePath like '%"+fname+ @"%'
+                            delete BidDocument where FilePath like '%" + fname + @"%'
+                            select @fpath; ";
+            string fpath = DBHelper.ExecuteScalar(sql);
+            System.IO.File.Delete(fpath);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace DAL.Models
     public class Bid
     {
         public int ProjId { get; set; }
-        public string Content { get; set; }
         public string ApplyDate { get; set; }
         public string OpenDate { get; set; }
         public string BidingNum { get; set; }
@@ -24,9 +23,10 @@ namespace DAL.Models
     {
         public DataTable GetAllBids()
         {
-            string sql = @"select p.Id, p.Name, p.Location, b.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+            string sql = @"select p.Id, p.Name, bf.Content, p.Location, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
                             from project p inner join Bid b on p.Id=b.ProjId
+                            inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
                             left join Department d on ui.DepartmentId=d.ID
                             order by p.Id desc";
@@ -36,8 +36,8 @@ namespace DAL.Models
 
         public bool AddBid(Bid bid)
         {
-            string sql = @"insert into Bid(ProjId, Content, ApplyDate, OpenDate, BidingNum, PublishDate, PublishderId, Status)
-                           values(" + bid.ProjId+", N'"+bid.Content+"' '"+bid.ApplyDate+"', '"+bid.OpenDate+"', "+bid.BidingNum+", getdate(),"+bid.PublisherId+", N'"+bid.Status+"')";
+            string sql = @"insert into Bid(ProjId, ApplyDate, OpenDate, BidingNum, PublishDate, PublisherId, Status)
+                           values(" + bid.ProjId+", '"+bid.ApplyDate+"', '"+bid.OpenDate+"', "+bid.BidingNum+", getdate(),"+bid.PublisherId+", N'"+bid.Status+"')";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
@@ -175,8 +175,9 @@ namespace DAL.Models
         public DataTable GetBidCompany(string pid)
         {
             string sql = @"select p.Name, d.Name+' '+ui.UserName as Publisher, p.Location, p.ProjType, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
-	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate,b.BidingNum, b.Content
+	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate,b.BidingNum, bf.Content
                             from project p inner join bid b on p.Id=b.ProjId
+                            inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on ui.id=b.publisherId
                             left join Department d on d.ID=ui.DepartmentId
                             where p.id=" + pid;
@@ -204,9 +205,10 @@ namespace DAL.Models
 
         public DataTable GetBidApplications()
         {
-            string sql = @"select p.Id, p.Name, p.Location, b.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+            string sql = @"select p.Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
                             from project p inner join Bid b on p.Id=b.ProjId
+                            inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
                             left join Department d on ui.DepartmentId=d.ID
                             order by p.Id desc";
@@ -215,9 +217,10 @@ namespace DAL.Models
         }
         public DataTable GetBidingApproves()
         {
-            string sql = @"select p.Id, p.Name, p.Location, b.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+            string sql = @"select p.Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
                             from project p inner join Bid b on p.Id=b.ProjId
+                            inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
                             left join Department d on ui.DepartmentId=d.ID
                             order by p.Id desc;";

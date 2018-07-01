@@ -33,6 +33,7 @@ namespace RailBiding.Controllers
             ProjectContext pc = new ProjectContext();
             DataTable dt = pc.GetProject(pid);
             DataRow dr = dt.Rows[0];
+            ViewBag.ProjId = pid;
             ViewBag.pName = dr["Name"].ToString();
             ViewBag.pType = dr["ProjType"].ToString();
             ViewBag.pLocation = dr["Location"].ToString();
@@ -68,6 +69,19 @@ namespace RailBiding.Controllers
             string publisherId = Session["UserId"].ToString();
             BidingFileContext bfc = new BidingFileContext();
             return bfc.AddBidingFile(pid, content, publisherId);
+        }
+        [HttpPost]
+        public bool AddBid()
+        {
+            Bid bid = new Bid();
+            bid.ApplyDate = Request["adate"].ToString();
+            bid.OpenDate = Request["odate"].ToString();
+            bid.BidingNum = Request["bnum"].ToString();
+            bid.ProjId = int.Parse(Request["pid"].ToString());
+            bid.Status = Request["status"].ToString();
+            bid.PublisherId = int.Parse(Session["UserId"].ToString());
+            BidContext bc = new BidContext();
+            return bc.AddBid(bid);
         }
     }
 }
