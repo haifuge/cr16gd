@@ -113,6 +113,93 @@
         font-size: 14px;
         color: #bfbdba;
     }
+    i.img-aui-img-name-p {
+        display: block;
+    }
+
+    .img-box {
+        overflow: hidden;
+        margin-left: 130px;
+    }
+
+    .aui-photo {
+        overflow: hidden;
+    }
+
+    .img-box li {
+        float: left;
+        width: 25%;
+        position: relative;
+    }
+
+        .img-box li div {
+            padding: 0 2%;
+            display: block;
+            height: 130px;
+            line-height: 130px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+            .img-box li div img {
+                margin: 0 auto;
+                text-align: center;
+                max-width: 100%;
+                vertical-align: middle;
+                max-height: 130px;
+            }
+
+        .img-box li p {
+            text-align: center;
+            font-size: 14px;
+            padding: 0 10px;
+            line-height: 20px;
+            margin-top: 5px;
+        }
+
+        .img-box li .aui-close-up-img {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            display: none;
+            z-index: 10;
+            width: 20px;
+            cursor: pointer;
+        }
+
+        .img-box li .aui-up-span {
+            display: block;
+            width: 100%;
+            height: 100%;
+            visibility: hidden;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 9;
+            background: rgba(0, 0, 0, .5);
+            border: 1px solid #ddd;
+        }
+
+        .img-box li:hover .aui-close-up-img {
+            display: block;
+        }
+
+        .img-box li:hover .aui-up-span {
+            visibility: visible;
+        }
+
+        .img-box li .aui-close-up-img {
+            top: 0;
+            right: -1px;
+        }
+
+        .img-box li .aui-up-span {
+            background: rgba(0, 0, 0, .3);
+        }
+
+    .aui-mask-content .aui-check-text span {
+        width: 48%;
+    }
 </style>
 
 <div class="left-nav">
@@ -175,8 +262,7 @@
                                 <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
                                 <td>
                                     <div class="upload-btn upload-btn2 upload-btn4">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')"
-                                               id="allfileInput">@*class="allfileInput allfileInput2"*@
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput">@*class="allfileInput allfileInput2"*@
                                             @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
                                         </div>
                                         <div id="busiLicPic" style="display:none"></div>
@@ -204,11 +290,10 @@
                                                 <div class="aui-photo aui-up-img ">
                                                     <section class="aui-file-up fl">
                                                         <img src="~/img/up.png" class="add-img">
-                                                        @*<input type="file" name="file" id="file" class="file"
-                                                               value=""
-                                                               accept="image/jpg,image/jpeg,image/png,image/bmp"
-                                                               multiple="">*@
+                                                        @*<input type="file" name="file" id="file" class="file" value=""
+                                                            accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">*@
                                                     </section>
+                                                    <ul class="img-box" id="zzlist"></ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,18 +303,17 @@
                                                 <span class="canvas_close">×</span>
                                                 <div class="canvas_content_text">
                                                     <ul>
-                                                        <li>资质名称： <input type="text" name="" placeholder="资质名称"></li>
-                                                        <li>证书编号： <input type="text" name="" placeholder="(粤)JZ安许可证[2017]020932"></li>
+                                                        <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称"></li>
+                                                        <li>证书编号： <input type="text" id="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932"></li>
                                                         <li>
-                                                            <a href="#" class="upload">浏览...
-                                                            <input type="file" style="width: 70px;height: 30px; opacity: 0;position: absolute;left: 0;top: 0;cursor:pointer;cursor:pointer" accept="image/jpg,image/jpeg,image/png,image/bmp"></a>
-                                                            <span class="canvas-fj">推荐书扫描件.jpg</span>
+                                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput">
+                                                            <div id="zzzsPic" style="display:none"></div>
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 <div class="canvas_btn">
-                                                    <a href="#" class="meet-btn big-btn lightblue-btn">提交</a>
-                                                    <a href="add_enterprise.html" class="meet-btn big-btn gray-btn">返回</a>
+                                                    <a href="#" class="meet-btn big-btn lightblue-btn" onclick="submitImg()">提交</a>
+                                                    <a href="#" class="meet-btn big-btn gray-btn" onclick="cancelImg()">返回</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -288,8 +372,7 @@
                                                                                  class="has-clear-input input input3 input4" />
                                         <span class="td-cer">身份证扫描：</span>
                                         <div class="upload-btn upload-btn2 upload-btn3">
-                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')"
-                                                   id="allfileInput">
+                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput">
                                             @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>*@
                                             <div id="conSFZ" style="display:none"></div>
                                         </div>
@@ -385,7 +468,7 @@
                 <div class="form-tr-btn">
                     <button type="submit" class="meet-btn big-btn lightblue-btn" onclick="saveCompany()">提交</button>@*js-submit*@
                     @*<button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>*@
-                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="uploadWorkHistory()">取消</button>
+                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="">取消</button>
                 </div>
             </div>
         </div>
@@ -425,15 +508,14 @@
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, 
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn
         }
-        console.log(data)
         $.post("/Companys/Create", data, function (res) {
             if (res == "1") {
                 uploadWorkHistory();
                 uploadPics();
+                uploadZZPics();
             }
         })
     }
-
     function uploadPics() {
         var refpic = document.getElementById("referPic").innerText
         var blpic = document.getElementById("busiLicPic").innerText
@@ -475,7 +557,17 @@
 
         });
     }
-
+    function uploadZZPics() {
+        var lis = $('#zzlist').children();
+        for (var i = 0; i < lis.length; i++) {
+            var cd = lis[i].childNodes;
+            var b64 = cd[0].childNodes[2].src;
+            var zzname = cd[1].innerText;
+            var zzcode = cd[3].innerText;
+            var data = { picData: b64, name: zzname, code: zzcode };
+            $.post("/Companys/UploadZiZhi", data, function () { });
+        }
+    }
     $(function () {
         $.post("/Common/GetBusinessType", {}, function (data) {
             var obj = JSON.parse(data);
@@ -486,7 +578,6 @@
             }
         });
     });
-    
     function gen_base64(obj, savePos) {
         var file = obj.files[0];
         r = new FileReader();  //本地预览
@@ -560,7 +651,15 @@
         var row = document.getElementById(rid)
         row.parentNode.removeChild(row);
     }
-
+    function submitImg() {
+        var li = document.createElement('li');
+        li.style = 'text-align:center'
+        li.innerHTML='<div><span class="aui-up-span"></span>'+
+            '<img class="aui-close-up-img" src="../img/close.png"><img src="' + document.getElementById("zzzsPic").innerText+'" alt=""></div>'+
+            '<label id="zzmc">' + $("#input_zzmc").val() + '</label><br><label id="zsbh">' + $("#input_zsbh").val() + '</label></li>'
+        document.getElementById('zzlist').appendChild(li);
+        $(".canvas").hide();
+    }
     $(".canvas_close").on("click", function () {
         $(".canvas").hide();
     })
@@ -574,4 +673,7 @@
         var fileName = arr[arr.length - 1];
         $(".canvas-fj").html(fileName);
     })
+    $(".aui-close-up-img").click(function () {
+        $(this).parents("li").hide();
+    });
 </script>

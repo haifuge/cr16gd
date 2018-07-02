@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using DAL.Models;
 using System.Data;
 using DAL.Tools;
+using System.Text;
 
 namespace RailBiding.Controllers
 {
@@ -116,9 +117,9 @@ namespace RailBiding.Controllers
             for (int i = 0; i < dt.Rows.Count; i++) {
                 files += "<li><b><img src='../img/icon-file.png'></b>"+dt.Rows[i][0].ToString()+"</li>";
             }
-            string result = @"<h3>招标文件<span>"+ pdate + @"</span></h3>
-                                <div class='a-zbwj' onclick='/Projects/BidFileDetail?pid="+pid+@"'>
-                                    <div class='con-01'><p>" + content + @"</p></div>
+            string result = @"<h3>招标文件 <span>" + pdate + "</span></h3>"+
+                                "<div class='a-zbwj' onclick=\"location.href='/Projects/BidFileDetail?pid=" + pid+ "'\" sytle='cursor: pointer;'>"+
+                                    "<div class='con-01'><p>" + content + @"</p></div>
                                     <div class='con-02'>
                                         <ul>"+files+@"</ul>
                                     </div>
@@ -161,9 +162,9 @@ namespace RailBiding.Controllers
             {
                 files += "<li><b><img src='../img/icon-file.png'></b>" + dt.Rows[i][0].ToString() + "</li>";
             }
-            string result = @"<h3>招标申请<span>"+ pdate + @"</span></h3>
-                            <div class='a-zbwj' onclick='/Projects/BidDetail?pid=" + pid + @"'>
-                                <div class='con-01'>
+            string result = "<h3>招标申请 <span>"+ pdate + "</span></h3>"+
+                            "<div class='a-zbwj' onclick=\"location.href='/Projects/BidDetail?pid=" + pid + "'\" sytle='cursor: pointer;'>"+
+                                @"<div class='con-01'>
                                     <p><span class='t-time'>报名时间：</span><span class='time'>" + adate + @"</span>
                                     <span class='t-time'>预计开标时间：</span><span class='time'>" + odate + @"</span>
                                     <span class='t-time'>拟中标单位数量：</span><span class='time'>" + bnum + @"</span></p>
@@ -206,9 +207,9 @@ namespace RailBiding.Controllers
             {
                 files += "<li><b><img src='../img/icon-file.png'></b>" + dt.Rows[i][0].ToString() + "</li>";
             }
-            string result = @"<h3>定标文件<span>"+pdate+@"</span></h3>
-                                <div class='a-zbwj' onclick='/Projects/MakeBidFileDetail?pid="+pid+@"'>
-                                    <div class='con-01'><p>"+ abst + @"</p></div>
+            string result = @"<h3>定标文件 <span>"+pdate+ "</span></h3>"+
+                                "<div class='a-zbwj' onclick=\"location.href = '/Projects/MakeBidFileDetail?pid="+pid+ "\"' sytle='cursor: pointer;'>"+
+                                    "<div class='con-01'><p>" + abst + @"</p></div>
                                     <div class='con-02'><ul>"+ files + @"</ul></div>
                                     <div class='con-03'><div class='"+ statusClass + @"'>"+ status + @"</div></div>
                                 </div>";
@@ -299,16 +300,77 @@ namespace RailBiding.Controllers
             }
             return JsonHelper.DataTableToJSON(dt);
         }
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemP")]
+        public ActionResult BidDetail(string pid)
+        {
+            if (pid == null)
+                return View("Login");
+            BidContext bc = new BidContext();
+            DataTable dt = bc.GetBidCompany(pid);
+            DataRow dr = dt.Rows[0];
+            ViewBag.Name = dr["Name"].ToString();
+            ViewBag.Location = dr["Location"].ToString();
+            ViewBag.Content = dr["Content"].ToString();
+            ViewBag.Type = dr["ProjType"].ToString();
+            ViewBag.Publisher = dr["Publisher"].ToString();
+            ViewBag.BidingNum = dr["BidingNum"].ToString();
+            ViewBag.ApplyDate = dr["ApplyDate"].ToString();
+            ViewBag.OpenDate = dr["OpenDate"].ToString();
+            ViewBag.ProjDescription = dr["Content"].ToString();
 
-        public ActionResult BidDetail()
-        {
+            dt = bc.GetBidingCompanys(pid);
+
+            var joinC = (from c in dt.AsEnumerable()
+                         where c.Field<int>("CompanyResponse") == 1
+                         select new { name = c["CompanyName"].ToString() }).ToList();
+            var noJoinC = (from c in dt.AsEnumerable()
+                           where c.Field<int>("CompanyResponse") == 2
+                           select new { name = c["CompanyName"].ToString() }).ToList();
+            var noResponseC = (from c in dt.AsEnumerable()
+                               where c.Field<int>("CompanyResponse") == 0
+                               select new { name = c["CompanyName"].ToString() }).ToList();
+            ViewBag.joinNum = joinC.Count;
+            ViewBag.noJoinNum = noJoinC.Count;
+            ViewBag.noResponseNum = noResponseC.Count;
+            StringBuilder cHtml = new StringBuilder();
+            foreach (var c in joinC)
+            {
+                cHtml.Append("<span>" + c.name + "</span>");
+            }
+            ViewBag.JoinCompanys = cHtml.ToString();
+            cHtml.Clear();
+            foreach (var c in noJoinC)
+            {
+                cHtml.Append("<span>" + c.name + "</span>");
+            }
+            ViewBag.NoJoinCompanys = cHtml.ToString();
+            cHtml.Clear();
+            foreach (var c in noResponseC)
+            {
+                cHtml.Append("<span>" + c.name + "</span>");
+            }
+            ViewBag.NoResponseCompanys = cHtml.ToString();
             return View();
         }
-        public ActionResult BidFileDetail()
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemP")]
+        public ActionResult BidFileDetail(string pid)
         {
+            if (pid == null)
+                return View("/Login");
+            BidingFileContext bc = new BidingFileContext();
+            DataTable dt = bc.getBidingFileDetail(pid);
+            DataRow dr = dt.Rows[0];
+            ViewBag.BidFileName = dr["Name"].ToString();
+            ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n", "<br/>");
+            ViewBag.BidFileUserName = dr["Publisher"].ToString();
+            ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
             return View();
         }
-        public ActionResult MakeBidFileDetail()
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemP")]
+        public ActionResult MakeBidFileDetail(string pid)
         {
             return View();
         }

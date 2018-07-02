@@ -43,6 +43,58 @@ namespace RailBiding.Controllers
             ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
 
+            string rootPath = Server.MapPath("../");
+            string picHtml = "";
+            string pic= dr["ReferreIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '"+pic+ @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                              </div><i>推荐书</i></div>";
+            }
+            pic = dr["BusinessLicensePic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>营业执照</i></div>";
+            }
+            pic = dr["SecurityCertificatePic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            pic = dr["RepIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            pic = dr["ContactIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            dt = cc.GetZiZhiPics(id);
+            for(int i = 0; i < dt.Rows.Count; i++)
+            {
+                pic = dt.Rows[i]["PicPath"].ToString();
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>" + dt.Rows[i]["ZZName"].ToString() + "</i></div>";
+            }
+            ViewBag.CompanyPics = picHtml;
             dt = cc.GetWorkHistory(id);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -78,6 +130,59 @@ namespace RailBiding.Controllers
             ViewBag.ContactAddress = dr["ContactAddress"].ToString();
             ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
+
+            string rootPath = Server.MapPath("../");
+            string picHtml = "";
+            string pic = dr["ReferreIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                              </div><i>推荐书</i></div>";
+            }
+            pic = dr["BusinessLicensePic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>营业执照</i></div>";
+            }
+            pic = dr["SecurityCertificatePic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            pic = dr["RepIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            pic = dr["ContactIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            dt = cc.GetZiZhiPics(id);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                pic = dt.Rows[i]["PicPath"].ToString();
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>" + dt.Rows[i]["ZZName"].ToString() + "</i></div>";
+            }
+            ViewBag.CompanyPics = picHtml;
 
             dt = cc.GetWorkHistory(id);
             StringBuilder sb = new StringBuilder();
@@ -308,7 +413,23 @@ namespace RailBiding.Controllers
             }
             DBHelper.ExecuteNonQuery(sql);
         }
-
+        public void UploadZiZhi()
+        {
+            string picData = Request["picData"].ToString();
+            picData = picData.Substring(picData.IndexOf(',') + 1);
+            string name = Request["name"].ToString();
+            string code = Request["code"].ToString();
+            string cid = Session["newCid"].ToString();
+            string cpic = Server.MapPath("/CompanyPics/Company" + cid);
+            if (!Directory.Exists(cpic))
+            {
+                Directory.CreateDirectory(cpic);
+            }
+            string fullpath = cpic + "/" + name + ".jpeg";
+            ImageBase64.Base64ToImage(picData, fullpath);
+            string sql = "insert into CompanyZiZhiPic values("+cid+", N'"+name+"', N'"+code+"', N'"+ fullpath + "');";
+            DBHelper.ExecuteNonQuery(sql);
+        }
         public void UploadWorkHistory()
         {
             string data = Request["workhistory"].ToString();

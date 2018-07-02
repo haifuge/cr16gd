@@ -69,7 +69,8 @@ namespace DAL.Models
         public DataTable GetCompany(int id)
         {
             string sql = @"select id, Name,CreditNo,CorporateRepresentative, RepPhone,RegisteredCapital, BusinessScope,
-                                  Contact,ContactPhone, BusinessType, ContactAddress,QualificationLevel, ConstructionContent, Note
+                                  Contact,ContactPhone, BusinessType, ContactAddress,QualificationLevel, ConstructionContent, Note,
+								  ReferreIDPic, BusinessLicensePic,SecurityCertificatePic,RepIDPic,ContactIDPic
                            from Company where id = " + id;
             return DBHelper.GetDataTable(CommandType.Text, sql);
         }
@@ -79,6 +80,12 @@ namespace DAL.Models
             string sql = @"select ProjectName,ContractAmount, CONVERT(varchar(20), StartDate,23) as StartDate,
 			                    CONVERT(varchar(20),EndDate,23) as EndDate, SettlementAmount, DelayStatus
                           from WorkHistory where CompanyId= " + id;
+            return DBHelper.GetDataTable(sql);
+        }
+
+        public DataTable GetZiZhiPics(int cid)
+        {
+            string sql = "select ZZName, PicPath from CompanyZiZhiPic where CompanyId="+ cid;
             return DBHelper.GetDataTable(sql);
         }
 
