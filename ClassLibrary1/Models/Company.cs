@@ -71,7 +71,7 @@ namespace DAL.Models
         {
             string sql = @"select id, Name,CreditNo,CorporateRepresentative, RepPhone,RegisteredCapital, BusinessScope,
                                   Contact,ContactPhone, BusinessType, ContactAddress,QualificationLevel, ConstructionContent, Note,
-								  ReferreIDPic, BusinessLicensePic,SecurityCertificatePic,RepIDPic,ContactIDPic
+								  ReferreIDPic, BusinessLicensePic,SecurityCertificatePic,RepIDPic,ContactIDPic,Referre
                            from Company where id = " + id;
             return DBHelper.GetDataTable(CommandType.Text, sql);
         }

@@ -277,6 +277,7 @@ namespace RailBiding.Controllers
             ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Note = dr["Note"].ToString();
+            ViewBag.Referre = dr["Referre"].ToString();
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
