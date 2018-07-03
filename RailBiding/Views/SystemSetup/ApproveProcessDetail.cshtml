@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel='stylesheet' href='~/js/ztree/css/zTreeStyle/zTreeStyle.css' />
 <link rel="stylesheet" href="~/css/style.css" />
 
 <div class="left-nav">
@@ -53,27 +54,25 @@
                     <li>董事长、党委书记</li>
                     <li>
                         <ul>
-                            <li>总经理<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>总经济师<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>财务部<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>人力资源部<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>清算中心<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>安全质量部<i><img src="img/icon-del.png" alt=""></i></li>
+                            <li>总经理<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>总经济师<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>财务部<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>人力资源部<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>清算中心<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>安全质量部<i><img src="~/img/icon-del.png" alt=""></i></li>
                         </ul>
                     </li>
 
-                    <li>
                     <li>董事长、党委书记</li>
                     <li>
                         <ul>
-                            <li>总经理<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>总经济师<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>财务部<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>人力资源部<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>清算中心<i><img src="img/icon-del.png" alt=""></i></li>
-                            <li>安全质量部<i><img src="img/icon-del.png" alt=""></i></li>
+                            <li>总经理<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>总经济师<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>财务部<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>人力资源部<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>清算中心<i><img src="~/img/icon-del.png" alt=""></i></li>
+                            <li>安全质量部<i><img src="~/img/icon-del.png" alt=""></i></li>
                         </ul>
-                    </li>
                     </li>
                 </ul>
 
@@ -87,15 +86,15 @@
 </div>
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
-<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
-<script type='text/javascript' src='~/js/js.js'></script>
-<script src='~/ztree/js/jquery.ztree.core.js'></script>
-<script src='~/ztree/js/jquery.ztree.exedit.js'></script>
-<script type="text/javascript" src="~/ztree/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script src="~/js/ztree/js/jquery.ztree.core.js"></script>
+<script src="~/js/ztree/js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="~/js/ztree/js/jquery.ztree.excheck.js"></script>
 
 
 <script type="text/javascript">
@@ -161,7 +160,11 @@
     ];
 
     $(document).ready(function () {
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        $.get("/SystemSetup/GetOrganizations", {}, function (data) {
+            data = data.replace(/pid/g, 'pId')
+            var nodes = JSON.parse(data);
+            $.fn.zTree.init($("#treeDemo"), setting, nodes);
+        })
     });
 
     var newCount = 1;

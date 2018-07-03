@@ -263,6 +263,7 @@ namespace RailBiding.Controllers
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
+            ViewBag.cid = id;
             ViewBag.Name = dr["Name"].ToString();
             ViewBag.CreditNo = dr["CreditNo"].ToString();
             ViewBag.CorporateRepresentative = dr["CorporateRepresentative"].ToString();
@@ -277,11 +278,64 @@ namespace RailBiding.Controllers
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Note = dr["Note"].ToString();
 
+            string rootPath = Server.MapPath("../");
+            string picHtml = "";
+            string pic = dr["ReferreIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                              </div><i>推荐书</i></div>";
+            }
+            pic = dr["BusinessLicensePic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>营业执照</i></div>";
+            }
+            pic = dr["SecurityCertificatePic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            pic = dr["RepIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            pic = dr["ContactIDPic"].ToString();
+            if (pic != "")
+            {
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>安全证书</i></div>";
+            }
+            dt = cc.GetZiZhiPics(id);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                pic = dt.Rows[i]["PicPath"].ToString();
+                pic = pic.Replace(rootPath, "/");
+                picHtml += @"<div class='ab_tab2_img'><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'><img src = '" + pic + @"'></a>
+                             </div><i>" + dt.Rows[i]["ZZName"].ToString() + "</i></div>";
+            }
+            ViewBag.CompanyPics = picHtml;
+
             dt = cc.GetWorkHistory(id);
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < dt.Rows.Count; i++)
             {
-                sb.Append("<tr class='white-bg'><td>"+dt.Rows[i]["ProjectId"].ToString()+"</td>");
+                sb.Append("<tr class='white-bg'>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
@@ -592,6 +646,23 @@ namespace RailBiding.Controllers
         {
             WorkHistoryContext context = new WorkHistoryContext();
             return context.AddWorkHistory(wh);
+        }
+
+        public void UpdateApproveProcess()
+        {
+            string uid = Session["UserId"].ToString();
+            string cid = Request["cid"].ToString();
+            string aStatus = Request["astatus"].ToString();
+            string comment = Request["comment"].ToString();
+            CompanyContext cc = new CompanyContext();
+            cc.UpdateApproveProcess(uid, cid, aStatus, comment);
+        }
+
+        public string GetApproveProcessingInfo(string cid)
+        {
+            CompanyContext cc = new CompanyContext();
+            DataTable dt = cc.GetApproveProcessingInfo(cid);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

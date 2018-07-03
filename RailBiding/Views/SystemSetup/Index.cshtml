@@ -75,116 +75,6 @@
                                 <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
                             </td>
                         </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <div class="page" style="width: 100%;float:left">
@@ -272,7 +162,12 @@
     ];
 
     $(document).ready(function () {
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        $.get("/SystemSetup/GetOrganizations", {}, function (data) {
+            data = data.replace(/pid/g, 'pId')
+            var nodes = JSON.parse(data);
+            $.fn.zTree.init($("#treeDemo"), setting, nodes);
+        })
+        
     });
 
     var newCount = 1;

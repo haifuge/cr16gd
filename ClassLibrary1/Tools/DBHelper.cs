@@ -458,6 +458,11 @@ namespace DAL.Tools
             return dt;
         }
 
+        public static DataSet ExecuteSP(string spName, params SqlParameter[] parameters)
+        {
+            return ExecuteDataset(GetConnection(), CommandType.StoredProcedure, spName, parameters);
+        }
+
         /// <summary> 
         /// 执行指定数据库连接字符串的命令,返回DataSet. 
         /// </summary> 

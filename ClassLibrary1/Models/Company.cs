@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using DAL.Tools;
+using System.Data.SqlClient;
 
 namespace DAL.Models
 {
@@ -52,8 +53,8 @@ namespace DAL.Models
         {
             string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, c.BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus
-                            from Company c, AppProcessing ap 
-                            where c.ID=ap.ObjId and ap.AppProcId=1 and ap.UserId=" + userId;
+                            from Company c, (select ap.ObjId,ap.UserId from AppProcessing ap inner join (select ObjId,max([Level]) as Level from AppProcessing where Approved=1 and AppProcId=1 group by ObjId) a on ap.ObjId=a.ObjId and ap.Level=a.Level where Approved=1 and AppProcId=1) ap 
+                            where c.ID=ap.ObjId and c.AuditStatus<>3 and ap.UserId=" + userId;
             return DBHelper.GetDataTable(sql);
         }
 
@@ -61,7 +62,7 @@ namespace DAL.Models
         {
             string sql = @"select id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, 
                                   Contact,ContactPhone,ContactAddress, AuditStatus 
-                           from Company where Type = " + cType + " order by Name;";
+                           from Company where AuditStatus=2 and Type = " + cType + " order by Name;";
             DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
             return dt;
         }
@@ -108,13 +109,13 @@ namespace DAL.Models
             string sql = @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, Type, Referre)" +
+                                               Status, Type, Referre,AuditDate, AuditStatus)" +
                 "values('" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
                 "'" + company.BusinessType + "', '" + company.BusinessScope + "', '" + company.QualificationLevel + "', " +
                 "'" + company.SecurityCertificateNo + "', '" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
                 "'" + company.Contact + "', '" + company.ContactPhone + "', '" + company.ContactAddress + "', " +
                 "'" + company.ConstructionContent + "', '" + company.Note + "', " + company.Status + ", " + 
-                company.Type + ", '"+company.Referrer + "');";
+                company.Type + ", '"+company.Referrer + "', getdate(), 1);";
             sql += "select max(id) from Company;";
             int i = int.Parse(DBHelper.ExecuteScalar(CommandType.Text, sql));
             return i;
@@ -159,6 +160,34 @@ namespace DAL.Models
 	                            convert(varchar(20),AuditDate,23) as AuditDate, AuditStatus
                             from Company where Referre='" + userName+"'";
             return DBHelper.GetDataTable(sql);
+        }
+
+        public void UpdateApproveProcess(string uid, string cid, string aStatus, string comment)
+        {
+            SqlParameter[] parameters = new SqlParameter[4];
+            parameters[0] = new SqlParameter("@userid", uid);
+            parameters[1] = new SqlParameter("@cid", cid);
+            parameters[2] = new SqlParameter("@status", aStatus);
+            parameters[3] = new SqlParameter("@comment", comment);
+            DBHelper.ExecuteSP("UpdateCompanyApproveProcess", parameters);
+        }
+
+        public DataTable GetApproveProcessingInfo(string cid)
+        {
+            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dp.Name as pName
+                            from AppProcessing ap 
+                            left join Department d on ap.AppPosId=d.ID 
+                            left join UserInfo ui on ui.ID=ap.UserId 
+                            left join Department dp on d.PID=dp.ID
+                            where ap.AppProcId=1 and ap.ObjId="+cid+" order by ap.Level desc";
+            return DBHelper.GetDataTable(sql);
+        }
+
+        private void CreateApproveProcess(string cid)
+        {
+            string sql = @"insert into AppProcessing(AppProcId, ObjId,level,AppPosId, UserId, Approved)
+                            select APID, "+cid+", level,AppPosId, UserId, 1 from APDetail where APID = 1";
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }

@@ -17,9 +17,6 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult Index()
         {
-            ViewBag.ActiveMenu = Request["activeMenu"].ToString();
-            ViewBag.UserName = Session["UserName"];
-            ViewBag.UserDepartment = Session["UserDepartment"];
             return View();
         }
         [VerifyLoginFilter]
@@ -81,6 +78,13 @@ namespace RailBiding.Controllers
         {
             SystemSetup ss = new SystemSetup();
             DataTable dt = ss.GetApproveProcesses();
+            return JsonHelper.DataTableToJSON(dt);
+        }
+
+        public string GetOrganizations()
+        {
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetOrganizations();
             return JsonHelper.DataTableToJSON(dt);
         }
     }
