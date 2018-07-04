@@ -216,55 +216,35 @@
                                     <div class="feedback-item">
                                         <div class="feedback-item-title"></div>
                                         <ul class="feedback-list feedback-admin">
-                                            <li>
-                                                <h3><i class="meet-icon icon-message-on"></i>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
-                                                <p class="bjg">业绩信息不合格，请重新上传</p>
-                                            </li>
+                                            <li id="declineInfo"></li>
                                         </ul>
                                     </div>
 
                                 </div>
                             </div>
-                            <div class="meet-user-span" style="display: block;">
-                                <h4 class="cp01"><span></span>指挥部</h4>
-                                <ul>
-                                    <li>
-                                        <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
-                                    </li>
-                                    <li>
-                                        <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                    </li>
-                                    <li>
-                                        <span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                    </li>
-                                    <li>
-                                        <span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                    </li>
-                                    <li>
-                                        <span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                    </li>
-                                </ul>
-                                <h4><span></span>管理员</h4>
-                                <ul>
-                                    <li>
-                                        <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
-                                    </li>
-
-                                </ul>
-                                <h4 class="cp02"><span></span>轨道公司</h4>
-                                <ul class="uc02">
-                                    <li><span class="yj01">计划合同部</span></li>
-                                    <li><span class="yj01">财务室</span></li>
-                                    <li><span class="yj01">施工技术部</span></li>
-                                    <li><span class="yj01">分公司总经济师</span></li>
-                                    <li><span class="yj01">分公司总经理</span></li>
-                                    <li><span class="yj01">计划合同部</span></li>
-                                    <li><span class="yj01">财务室</span></li>
-                                    <li><span class="yj01">施工技术部</span></li>
-                                    <li><span class="yj01">分公司总经济师</span></li>
-                                    <li><span class="yj01">分公司总经理</span></li>
-                                </ul>
-                                <h4 class="cp02"><span></span>结束</h4>
+                            <div id="transferInfo" class="meet-user-span" style="display: block;">
+                                
+                                @*<h4 class="cp01"><span></span>指挥部</h4>
+        <ul class="uc01">
+            <li>
+                <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
+            </li>
+            <li>
+                <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
+            </li>
+        </ul>
+        <h4><span></span>管理员</h4>
+        <ul>
+            <li>
+                <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
+            </li>
+        </ul>
+        <h4 class="cp02"><span></span>轨道公司</h4>
+        <ul class="uc02">
+            <li><span class="yj06">计划合同部</span></li>
+            <li><span class="yj06">财务室</span></li>
+        </ul>
+        <h4 class="cp02"><span></span>结束</h4>*@
                             </div>
 
                         </div>
@@ -287,7 +267,38 @@
     $(function () {
         pages(1, 2, 12, 5)
         $.get("/Companys/GetApproveProcessingInfo", { cid: @ViewBag.cid}, function (data) {
-            console.log(data)
+            var obj = JSON.parse(data);
+            var pdepart = obj[0].pname;
+            var dechtm = "";
+            var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul><li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+            var hstyle = 'cp01'; //cp02
+            var ulstyle= 'uc01'; //uc02
+            for (var i = 1; i < obj.length; i++) {
+                var o = obj[i];
+                if (o.pname == pdepart) {
+                    if (o.approved == 2) {
+                        htm += '<li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></li >'
+                    }
+                    else if (o.approved == 3) {
+                        dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></li >'
+                    } else {
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></li >'
+                    }
+                }
+                else {
+                    htm += '</ul>';
+                    pdepart = o.pname;
+                    htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart +'</h4><ul class="'+ulstyle+'">';
+                }
+            }
+            htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+            $("#transferInfo").html(htm);
+            $("#declineInfo").html(dechtm);
         })
     });
     function declineApplication() {

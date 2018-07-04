@@ -179,7 +179,7 @@ namespace DAL.Models
                             left join Department d on ap.AppPosId=d.ID 
                             left join UserInfo ui on ui.ID=ap.UserId 
                             left join Department dp on d.PID=dp.ID
-                            where ap.AppProcId=1 and ap.ObjId="+cid+" order by ap.Level desc";
+                            where ap.AppProcId=1 and ap.ObjId="+cid+ " order by ap.Level desc, ap.DealDatetime desc";
             return DBHelper.GetDataTable(sql);
         }
 
