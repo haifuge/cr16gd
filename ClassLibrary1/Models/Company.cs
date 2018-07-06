@@ -174,12 +174,11 @@ namespace DAL.Models
 
         public DataTable GetApproveProcessingInfo(string cid)
         {
-            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dp.Name as pName
+            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName
                             from AppProcessing ap 
                             left join Department d on ap.AppPosId=d.ID 
-                            left join UserInfo ui on ui.ID=ap.UserId 
-                            left join Department dp on d.PID=dp.ID
-                            where ap.AppProcId=1 and ap.ObjId="+cid+ " order by ap.Level desc, ap.DealDatetime desc";
+                            left join UserInfo ui on ui.ID=ap.UserId
+                            where ap.AppProcId=1 and ap.ObjId=" + cid+ " order by ap.Level desc, ap.DealDatetime desc";
             return DBHelper.GetDataTable(sql);
         }
 

@@ -71,6 +71,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult ApproveProcessDetail(string apid)
         {
+            ViewBag.apppid = apid;
             switch (apid)
             {
                 case "1":
@@ -102,6 +103,13 @@ namespace RailBiding.Controllers
             DataTable dt = ss.GetOrganizations();
             return JsonHelper.DataTableToJSON(dt);
         }
+        public string GetOrganizationUser()
+        {
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetOrganizationUser();
+            return JsonHelper.DataTableToJSON(dt);
+        }
+        
         public string AddDepartment(string pid, string level)
         {
             SystemSetup ss = new SystemSetup();
@@ -116,6 +124,12 @@ namespace RailBiding.Controllers
         {
             SystemSetup ss = new SystemSetup();
             ss.RemoveDepartment(id);
+        }
+        public string GetApprovePrcess(string appPid)
+        {
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetApprovePrcess(appPid);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

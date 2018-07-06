@@ -50,7 +50,7 @@
             </div>
             <div class="dc-right dc-right2">
                 <h3>@ViewBag.ApproveProcessTitle</h3>
-                <ul id="applist" class="ztree">
+                <ul id="applist">
                     @*<li>董事长、党委书记<span style="visibility:hidden">id-level</span></li>
                     <li>
                         <ul>
@@ -133,33 +133,88 @@
         { id: 112, pId: 12, name: "总经理" }
     ];
     var nodes1;
-    var nodes2;
+    var appProcess
     $(document).ready(function () {
-        $.get("/SystemSetup/GetOrganizations", {}, function (data) {
+        // 加载组织树
+        $.get("/SystemSetup/GetOrganizationUser", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
             nodes1 = JSON.parse(data);
             $.fn.zTree.init($("#treeDemo"), setting, nodes1);
-        })
-        $.get("", {}, function (data) {
-            data = data.replace(/pid/g, 'pId')
-            nodes2 = JSON.parse(data);
-            $.fn.zTree.init($("#applist"), apsetting, nodes2);
         });
+        // 加载已配置审批流程
+        $.get("/SystemSetup/GetApprovePrcess?appPid=@ViewBag.apppid", {}, function (data) {
+            var obj = JSON.parse(data);
+            appProcess = obj;
+            var pname = "";
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                if (pname != o.pname) {
+                    if (pname != "") {
+                        htm += "</ul></li>";
+                    }
+                    htm += "<li>" + o.pname + "</li><li><ul><li>" + o.dname + "&nbsp;" + o.username + "</li>"
+                    pname=o.pname
+                }
+                else {
+                    htm += "<li>" + o.dname +"&nbsp;" + o.username + "</li>"
+                }
+            }
+            htm += "</ul></li>";
+            htm += htm;
+            $("#applist").html(htm)
+        });
+        
     });
 
     function zTreeOnClick(event, treeId, treeNode) {
         console.log("id=" + treeNode.id + ", name=" + treeNode.name + ",pId=" + treeNode.pId);
     };
     function onCheck(e, treeId, treeNode) {
-        console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId);
-        console.log(treeNode.checked)
-        if (treeNode.checked) {
-            var root = getCurrentRoot(treeNode)
-            console.log("id=" + root.id + " ,name=" + root.name + " ,pId=" + root.pId)
-            root = getNodeValue(root.id);
+        
+        //console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId + ", root=" + treeNode.rname + ", level=" + treeNode.level);
+        //var lev = treeNode.level+"";
+        //var rootname = treeNode.rname;
+        //var uname = treeNode.name
+        //var depname = treeNode.getParentNode().name;
+        //var userid = treeNode.id;
+        //if (treeNode.checked) {
+        //    // 插入流程节点
+        //    var root = getCurrentRoot(treeNode)
+        //    root = getNodeValue(root.id);
+        //    var o = { level: lev, pname: rootname, UserName: uname, dname: depname, uid: userid }
+        //    console.log(o)
+        //    var c = 0;
+        //    for (var i = 0; i < appProcess.length; i++) {
+        //        if (parseInt(o.level) >= parseInt(appProcess[i].level)) {
+        //            appProcess.splice(i, 0, o);
+        //            DisplayNodeOnAppP(i, o)
+        //            break;
+        //        }
+        //    }
+        //}
+        //else {
+        //    // 删除流程节点
+        //    for (var i = 0; i < appProcess.length; i++) {
+        //        var ouid = parseInt(treeNode.id)
+        //        var apuid = parseInt(appProcess[i].uid)
+        //        if (ouid == apuid) {
+        //            appProcess.splice(i, 1);
+        //            RemoveNodeOnAppP(i);
+        //        }
+        //    }
+        //}
+        //console.log(appProcess);
+    }
+    function DisplayNodeOnAppP(i, o) {
+        
+        var childs = $(".wc-container .dc-right2>ul>li>ul>li");
+        for (var j = 0; j < childs; j++) {
 
         }
+
     }
+    function RemoveNodeOnAppP(i) {}
     function insertRoot(node) {
         var childs = $("#applist").children();
         for (var i = 0; i < childs.length; i++) {

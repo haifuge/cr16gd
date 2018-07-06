@@ -34,9 +34,10 @@ namespace DAL.Models
         }
         public DataTable GetOrganizationUser()
         {
-            string sql = @"select id,name,pId,Level from Department where Status=1
+            string sql = @"select id,name,pId,Level, dbo.GetRootName(id) as rName from Department
                             union
-                            select d.ID + '-' + ui.ID as id, ui.UserName, ui.DepartmentId, d.Level from UserInfo ui inner join Department d on ui.DepartmentId = d.ID and ui.Status=1";
+                            select d.ID + '-' + ui.ID as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName
+                            from UserInfo ui inner join Department d on ui.DepartmentId = d.ID";
             return DBHelper.GetDataTable(sql);
         }
 
@@ -56,6 +57,14 @@ namespace DAL.Models
         {
             string sql = "delete Department where id=" + id;
             DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public DataTable GetApprovePrcess(string appPid)
+        {
+            string sql = @"select ad.Level, dbo.GetRootName(ad.AppPosId) as pname, ui.UserName, d.Name as dname, ui.Id as uid
+                            from APDetail ad inner join UserInfo ui on ad.UserId=ui.ID left join Department d on d.ID=ad.AppPosId
+                            where APID=" + appPid+" order by ad.Level desc";
+            return DBHelper.GetDataTable(sql);
         }
     }
 }

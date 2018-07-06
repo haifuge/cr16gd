@@ -505,7 +505,7 @@
     })
     var setting = {
         view: {
-            addHoverDom: addHoverDom,
+            //addHoverDom: addHoverDom,
             removeHoverDom: removeHoverDom,
             selectedMulti: false
         },
@@ -524,7 +524,7 @@
             //showRenameBtn: showRenameBtn
         },
         callback: {
-            //onClick: zTreeOnClick, //单击事件
+            onClick: zTreeOnClick, //单击事件
             onRemove: onRemove, //移除事件
             onRename: onRename, //修改事件
             beforeRename: beforeRename,
@@ -578,8 +578,11 @@
             var nodes = JSON.parse(data);
             $.fn.zTree.init($("#tree"), setting, nodes);
         })
-
     });
+    var cNode;
+    function zTreeOnClick(event, treeId, treeNode) {
+        cNode = treeNode;
+    }
 
     var newCount = 1;
     
@@ -619,12 +622,15 @@
         return true;
     }
     function onRemove(e, treeId, treeNode) {
-        //需要对删除做判定或者其它操作，在这里写~~
         $.post('/SystemSetup/RemoveDepartment?id=' + treeNode.id);
     }
     function beforeRemove(treeId, treeNode) {
         var zTree = $.fn.zTree.getZTreeObj("tree");
         zTree.selectNode(treeNode);
+        if (hasChildren(treeNode)) {
+            alert('当前部门有下级部门，请删除下级部门后，再删除该部门')
+            return false;
+        }
         return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
     }
     $(".add-img").on("click", function () {
@@ -633,9 +639,31 @@
     $(".canvas_close.canvas_close1").on("click", function () {
         $(".canvas.canvas1").hide();
     })
+    // 添加部门
     $(".add-img2").on("click", function () {
         $(".canvas.canvas2").show();
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        console.log(cNode);
+        pNode = cNode.getParentNode()
+        childs = getChildNodes(cNode)
+        console.log(childs)
     })
+    function getChildNodes(treeNode) {
+        var naviTree = $.fn.zTree.getZTreeObj("tree");
+        var childNodes = naviTree.transformToArray(treeNode);
+        var nodes = new Array();
+        for (i = 0; i < childNodes.length; i++) {
+            nodes[i] = childNodes[i].id;
+        }
+        return nodes.join(",");
+    }
+    function hasChildren(treeNode) {
+        var naviTree = $.fn.zTree.getZTreeObj("tree");
+        var childNodes = naviTree.transformToArray(treeNode);
+        if (childNodes.length > 2)
+            return true;
+        return false;
+    }
     $(".canvas_close.canvas_close2").on("click", function () {
         $(".canvas.canvas2").hide();
     })
