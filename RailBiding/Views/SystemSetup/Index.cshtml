@@ -7,6 +7,182 @@
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel='stylesheet' href='~/js/ztree/css/zTreeStyle/zTreeStyle.css' />
 <link rel="stylesheet" href="~/css/style.css" />
+<style>
+    table.meet-table {
+        border: none;
+    }
+
+    .meet-table tr {
+        border-bottom: none;
+    }
+
+        .meet-table tr.white-bg td {
+            border: none
+        }
+
+    .ztree li span.button.edit {
+        display: none;
+    }
+
+    * {
+        margin: 0;
+        position: 0;
+    }
+
+    ul li {
+        list-style: none;
+    }
+
+    .block-left {
+        padding-right: 0;
+    }
+
+    .meet-form.meet-form9.meet-form3 .form-tr:hover {
+        background: #eaf6fd;
+    }
+
+    .canvas {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, .6);
+        z-index: 9999;
+        display: none;
+    }
+
+        .canvas .canvas_content {
+            width: 600px;
+            height: 550px;
+            background: #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            border: 1px solid #008cd6;
+        }
+
+        .canvas h3 {
+            height: 45px;
+            padding-left: 20px;
+            background: #eaf6fd;
+            line-height: 45px;
+            font-size: 18px;
+            font-weight: normal;
+            color: #008cd6;
+        }
+
+        .canvas .canvas_close {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            font-size: 30px;
+            color: #008cd6;
+            top: 0;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+        }
+
+    .canvas_content_text {
+        width: 100%;
+        height: 50%;
+        margin-top: 35px;
+    }
+
+        .canvas_content_text ul li {
+            padding: 5px 10px;
+            margin-left: 40px;
+            color: #999;
+            position: relative;
+        }
+
+            .canvas_content_text ul li ul li {
+                margin-left: 90px;
+            }
+
+            .canvas_content_text ul li textarea {
+                height: 185px;
+                border-radius: 5px;
+                border: 1px solid #d7d7d7;
+                width: 585px;
+                resize: none;
+                margin-left: 10px;
+                padding: 10px;
+                line-height: 20px;
+                text-align: justify;
+            }
+
+            .canvas_content_text ul li input[type="text"] {
+                -web-kit-appearance: none;
+                -moz-appearance: none;
+                width: 120px;
+                height: 25px;
+                border: 1px solid #c8cccf;
+                border-radius: 5px;
+                color: #6a6f77;
+                outline: 0;
+                padding-left: 5px;
+            }
+
+                .canvas_content_text ul li input[type="text"].input3 {
+                    width: 50px;
+                }
+
+            .canvas_content_text ul li i {
+                color: #ff0000;
+                line-height: 25px;
+                padding-right: 5px;
+                vertical-align: middle;
+                display: inline-block;
+                font-style: normal;
+            }
+
+            .canvas_content_text ul li span {
+                display: inline-block;
+                width: 80px;
+                text-align: left;
+                float: left
+            }
+
+            .canvas_content_text ul li .upload {
+                position: relative;
+                display: inline-block;
+                text-align: center;
+                color: #ffffff;
+                width: 70px;
+                height: 30px;
+                line-height: 30px;
+                background-color: #008bd6;
+                border-radius: 3px;
+            }
+
+                .canvas_content_text ul li .upload input[type="text"] {
+                    opacity: 0;
+                    position: absolute;
+                    left: 0;
+                }
+
+    .canvas_btn {
+        text-align: center;
+        padding-top: 100px;
+    }
+
+    .canvas-fj {
+        padding-left: 5px;
+        display: inline-block;
+        font-size: 14px;
+        color: #bfbdba;
+    }
+
+    .meet-form2 .form-tr-btn {
+        text-align: center;
+    }
+</style>
 
 <div class="left-nav">
     <div class="left-nav-con">
@@ -32,21 +208,247 @@
                 <a class="search-btn" style="background: none"></a>
             </div>
             <a class="meet-btn blue-btn sm-btn" href="#">搜索</a>
+
             <div class="apply-opt">
-                <a href="add_people.html" class="js-cancle-meet" title="">
-                    <i class="meet-icon icon-cancel iconc" style="">添加人员</i>
+                <a href="#" class="js-cancle-meet" title="">
+                    <i class="meet-icon icon-cancel iconc add-img" style="">添加人员</i>
                 </a>
+                <!-- 添加人员 -->
+                <div class="canvas canvas1">
+                    <div class="canvas_content">
+                        <span class="canvas_close canvas_close1">×</span>
+                        <h3>添加人员</h3>
+                        <div class="wc-container">
+                            <table class="meet-form meet-form2 meet-form5">
+                                <tbody>
+
+                                    <tr class="form-tr">
+                                        <td class="form-lable">部门：</td>
+                                        <td>
+                                            <div class="form-item  sel-required">
+                                                <select class="meet-select js-meet-state">
+                                                    <option value="all">选择部门</option>
+                                                    <option value="1">行政部</option>
+                                                    <option value="2">市场部</option>
+                                                    <option value="2">人事部</option>
+                                                </select>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">用户名：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">是否启用：</td>
+                                        <td style="position: relative">
+                                            <div class="model-15 model-16">
+                                                <div class="checkbox-switch">
+                                                    <input type="checkbox">
+                                                    <label></label>
+
+                                                </div>
+                                            </div>
+                                            <div class="qyy"> *不启用，则无法使用该账户</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">参与审核：</td>
+                                        <td style="position: relative">
+                                            <div class="model-15 model-16">
+                                                <div class="checkbox-switch">
+                                                    <input type="checkbox">
+                                                    <label></label>
+                                                </div>
+                                            </div>
+                                            <div class="qyy"> *不启用，则无法审核流程</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">输入密码：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input" />
+
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">确认密码：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input" />
+
+                                        </td>
+                                    </tr>
+
+                                    <tr class="form-tr">
+                                        <td class="form-lable">姓名：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">手机：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">邮箱：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable"></td>
+                                        <td>
+                                            <div class="form-tr-btn">
+                                                <button type="submit"
+                                                        class="meet-btn big-btn lightblue-btn js-submit">
+                                                    确定
+                                                </button>
+                                                <button type="reset" class="meet-btn big-btn gray-btn">
+                                                    取消
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="wc-container" style="border: 1px solid #ececec;overflow: hidden">
             <div class="dc-left">
                 <h3>
-                    组织机构信息 <a href="add_system_users.html"
-                              class="meet-icon icon-cancel iconc iconc2 ">添加</a>
+                    组织机构信息 <a href="#" class="meet-icon icon-cancel iconc iconc2  add-img2">添加部门</a>
                 </h3>
+                <!-- 添加系统用户 -->
+                <div class="canvas canvas2">
+                    <div class="canvas_content">
+                        <span class="canvas_close canvas_close2">×</span>
+                        <h3>添加部门</h3>
+                        <div class="wc-container">
+                            <table class="meet-form meet-form2 meet-form5">
+                                <tbody>
+
+                                    <tr class="form-tr">
+                                        <td class="form-lable">角色：</td>
+                                        <td>
+                                            <div class="form-item  sel-required">
+                                                <select class="meet-select js-meet-state">
+                                                    <option value="all">系统管理员</option>
+                                                    <option value="1">行政人员</option>
+                                                </select>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">用户名：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">是否启用：</td>
+                                        <td style="position: relative">
+                                            <div class="model-15 model-16">
+                                                <div class="checkbox-switch">
+                                                    <input type="checkbox">
+                                                    <label></label>
+
+                                                </div>
+                                            </div>
+                                            <div class="qyy"> *不启用，则无法使用该账户</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">参与审核：</td>
+                                        <td style="position: relative">
+                                            <div class="model-15 model-16">
+                                                <div class="checkbox-switch">
+                                                    <input type="checkbox">
+                                                    <label></label>
+                                                </div>
+                                            </div>
+                                            <div class="qyy"> *不启用，则无法审核流程</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">输入密码：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
+
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">确认密码：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
+
+                                        </td>
+                                    </tr>
+
+                                    <tr class="form-tr">
+                                        <td class="form-lable">姓名：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">手机：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">邮箱：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable"></td>
+                                        <td>
+                                            <div class="form-tr-btn">
+                                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">
+                                                    确定
+                                                </button>
+                                                <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="content_wrap">
                     <div class="zTreeDemoBackground left">
-                        <ul id="treeDemo" class="ztree"></ul>
+                        <ul id="tree" class="ztree"></ul>
                     </div>
 
                 </div>
@@ -72,7 +474,7 @@
                             <td>18522254222</td>
                             <td>2546632@qq.com</td>
                             <td style="width: 100px;">
-                                <a href="" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="" class="xg" style="display: inline-block">删除</a>
+                                <a href="#" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -103,22 +505,31 @@
     })
     var setting = {
         view: {
-            // addHoverDom: addHoverDom,
+            addHoverDom: addHoverDom,
             removeHoverDom: removeHoverDom,
             selectedMulti: false
         },
-        check: {
-            enable: true
-        },
+        //check: {
+        //    enable: true
+        //},
         data: {
             simpleData: {
                 enable: true
             }
         },
         edit: {
-            enable: true
+            enable: true,
+            editNameSelectAll: true,
+            //showRemoveBtn: showRemoveBtn,
+            //showRenameBtn: showRenameBtn
         },
-
+        callback: {
+            //onClick: zTreeOnClick, //单击事件
+            onRemove: onRemove, //移除事件
+            onRename: onRename, //修改事件
+            beforeRename: beforeRename,
+            beforeRemove: beforeRemove
+        }
     };
 
     var zNodes = [
@@ -165,29 +576,69 @@
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
             var nodes = JSON.parse(data);
-            $.fn.zTree.init($("#treeDemo"), setting, nodes);
+            $.fn.zTree.init($("#tree"), setting, nodes);
         })
-        
+
     });
 
     var newCount = 1;
-
+    
     function addHoverDom(treeId, treeNode) {
-        var sObj = $("#" + treeNode.tId + "_span");
+        var sObj = $("#" + treeNode.tId + "_span"); //获取节点信息
         if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
-        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-            + "' title='add node' onfocus='this.blur();'></span>";
-        sObj.after(addStr);
+
+        var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>"; //定义添加按钮
+        sObj.after(addStr); //加载添加按钮
         var btn = $("#addBtn_" + treeNode.tId);
+        var lev=treeNode.level+1
+        //绑定添加事件，并定义添加操作
         if (btn) btn.bind("click", function () {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-            zTree.addNodes(treeNode, { id: (100 + newCount), pId: treeNode.id, name: "new node" + (newCount++) });
-            return false;
+            var zTree = $.fn.zTree.getZTreeObj("tree");
+            //将新节点添加到数据库中
+            var name = 'NewNode';
+            $.post('/SystemSetup/AddDepartment?pid=' + treeNode.id + '&level=' + lev, function (data) {
+                var newID = data; //获取新添加的节点Id
+                zTree.addNodes(treeNode, { id: newID, pId: treeNode.id, name: name, level: lev }); //页面上添加节点
+                var node = zTree.getNodeByParam("id", newID, null); //根据新的id找到新添加的节点
+                zTree.selectNode(node); //让新添加的节点处于选中状态
+            });
         });
     };
-
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_" + treeNode.tId).unbind().remove();
     };
+    function onRename(e, treeId, treeNode, isCancel) {
+        //需要对名字做判定的，可以来这里写~~
+        $.post('/SystemSetup/UpdateDepartment?id=' + treeNode.id + '&name=' + treeNode.name);
+    }
+    function beforeRename(treeId, treeNode, newName, isCancel) {
+        if (newName.length == 0) {
+            alert("节点名称不能为空.");
+            return false;
+        }
+        return true;
+    }
+    function onRemove(e, treeId, treeNode) {
+        //需要对删除做判定或者其它操作，在这里写~~
+        $.post('/SystemSetup/RemoveDepartment?id=' + treeNode.id);
+    }
+    function beforeRemove(treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        zTree.selectNode(treeNode);
+        return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+    }
+    $(".add-img").on("click", function () {
+        $(".canvas.canvas1").show();
+    })
+    $(".canvas_close.canvas_close1").on("click", function () {
+        $(".canvas.canvas1").hide();
+    })
+    $(".add-img2").on("click", function () {
+        $(".canvas.canvas2").show();
+    })
+    $(".canvas_close.canvas_close2").on("click", function () {
+        $(".canvas.canvas2").hide();
+    })
+
 
 </script>

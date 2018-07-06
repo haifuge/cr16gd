@@ -71,6 +71,21 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult ApproveProcessDetail(string apid)
         {
+            switch (apid)
+            {
+                case "1":
+                    ViewBag.ApproveProcessTitle = "公司审批流程配置";
+                    break;
+                case "2":
+                    ViewBag.ApproveProcessTitle = "竞标文件审批流程配置";
+                    break;
+                case "3":
+                    ViewBag.ApproveProcessTitle = "发标审批流程配置";
+                    break;
+                case "4":
+                    ViewBag.ApproveProcessTitle = "定标文件审批流程配置";
+                    break;
+            }
             return View();
         }
 
@@ -86,6 +101,21 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             DataTable dt = ss.GetOrganizations();
             return JsonHelper.DataTableToJSON(dt);
+        }
+        public string AddDepartment(string pid, string level)
+        {
+            SystemSetup ss = new SystemSetup();
+            return ss.AddDepartment(pid, level);
+        }
+        public void UpdateDepartment(string id, string name)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.UpdateDepartment(id, name);
+        }
+        public void RemoveDepartment(string id)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.RemoveDepartment(id);
         }
     }
 }

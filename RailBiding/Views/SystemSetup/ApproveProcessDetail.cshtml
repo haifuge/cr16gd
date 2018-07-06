@@ -49,31 +49,22 @@
                 </div>
             </div>
             <div class="dc-right dc-right2">
-                <h3>名录外单位审核流程配置 </h3>
-                <ul>
+                <h3>@ViewBag.ApproveProcessTitle</h3>
+                <ul id="applist" class="ztree">
+                    @*<li>董事长、党委书记<span style="visibility:hidden">id-level</span></li>
+                    <li>
+                        <ul>
+                            <li>总经理<span style="visibility:hidden">id-level</span></li>
+                            <li>总经济师<i><img src="~/img/icon-del.png" alt=""></i></li>
+                        </ul>
+                    </li>
                     <li>董事长、党委书记</li>
                     <li>
                         <ul>
                             <li>总经理<i><img src="~/img/icon-del.png" alt=""></i></li>
                             <li>总经济师<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>财务部<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>人力资源部<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>清算中心<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>安全质量部<i><img src="~/img/icon-del.png" alt=""></i></li>
                         </ul>
-                    </li>
-
-                    <li>董事长、党委书记</li>
-                    <li>
-                        <ul>
-                            <li>总经理<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>总经济师<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>财务部<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>人力资源部<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>清算中心<i><img src="~/img/icon-del.png" alt=""></i></li>
-                            <li>安全质量部<i><img src="~/img/icon-del.png" alt=""></i></li>
-                        </ul>
-                    </li>
+                    </li>*@
                 </ul>
 
             </div>
@@ -106,7 +97,8 @@
             selectedMulti: false
         },
         check: {
-            enable: true
+            enable: true,
+            chkboxType: { "Y": "", "N": "" }
         },
         data: {
             simpleData: {
@@ -116,56 +108,83 @@
         edit: {
             enable: false
         },
-
+        callback: {
+            onClick: zTreeOnClick,
+            onCheck: onCheck
+        } 
     };
-
+    var apsetting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        edit: {
+            enable: false
+        },
+        check: {
+            enable: false
+        }
+    }
     var zNodes = [
         { id: 1, pId: 0, name: "中国铁建地产集团", open: true },
         { id: 11, pId: 1, name: "开发测试", open: true },
         { id: 111, pId: 11, name: "董事会" },
-        { id: 112, pId: 12, name: "总经理" },
-        { id: 12, pId: 1, name: "集团总部", open: true },
-        { id: 121, pId: 12, name: "董事会" },
-        { id: 122, pId: 12, name: "总经理" },
-        { id: 2, pId: 0, name: "集团总部", open: true },
-        { id: 21, pId: 2, name: "公司领导" },
-        { id: 22, pId: 2, name: "总经理办公室", open: true },
-        { id: 221, pId: 22, name: "董事会" },
-        { id: 222, pId: 22, name: "总经理办公室" },
-        { id: 23, pId: 2, name: "部级以上领导" },
-        { id: 231, pId: 23, name: "董事会" },
-        { id: 24, pId: 2, name: "企业改革与发展管理中心" },
-        { id: 241, pId: 24, name: "董事会" },
-        { id: 25, pId: 2, name: "土地经营管理中心" },
-        { id: 251, pId: 25, name: "董事会" },
-        { id: 26, pId: 2, name: "人力资源部（党委干部部）" },
-        { id: 261, pId: 26, name: "董事会" },
-        { id: 27, pId: 2, name: "财务会计部" },
-        { id: 271, pId: 27, name: "董事会" },
-        { id: 28, pId: 2, name: " 审计监事部" },
-        { id: 281, pId: 28, name: "董事会" },
-        { id: 29, pId: 2, name: "  其他人员" },
-        { id: 291, pId: 29, name: "董事会", },
-        { id: 292, pId: 29, name: "总经理办公室" },
-        { id: 3, pId: 0, name: "华南地区" },
-        { id: 31, pId: 3, name: "董事会" },
-        { id: 32, pId: 3, name: "总经理办公室" },
-        { id: 4, pId: 0, name: "东南地区" },
-        { id: 41, pId: 4, name: "董事会" },
-        { id: 42, pId: 4, name: "总经理办公室" },
-        { id: 5, pId: 0, name: "西南地区" },
-        { id: 51, pId: 5, name: "董事会" },
-        { id: 52, pId: 5, name: "总经理办公室" },
-
+        { id: 112, pId: 12, name: "总经理" }
     ];
-
+    var nodes1;
+    var nodes2;
     $(document).ready(function () {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
-            var nodes = JSON.parse(data);
-            $.fn.zTree.init($("#treeDemo"), setting, nodes);
+            nodes1 = JSON.parse(data);
+            $.fn.zTree.init($("#treeDemo"), setting, nodes1);
         })
+        $.get("", {}, function (data) {
+            data = data.replace(/pid/g, 'pId')
+            nodes2 = JSON.parse(data);
+            $.fn.zTree.init($("#applist"), apsetting, nodes2);
+        });
     });
+
+    function zTreeOnClick(event, treeId, treeNode) {
+        console.log("id=" + treeNode.id + ", name=" + treeNode.name + ",pId=" + treeNode.pId);
+    };
+    function onCheck(e, treeId, treeNode) {
+        console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId);
+        console.log(treeNode.checked)
+        if (treeNode.checked) {
+            var root = getCurrentRoot(treeNode)
+            console.log("id=" + root.id + " ,name=" + root.name + " ,pId=" + root.pId)
+            root = getNodeValue(root.id);
+
+        }
+    }
+    function insertRoot(node) {
+        var childs = $("#applist").children();
+        for (var i = 0; i < childs.length; i++) {
+            var child = childs[i]
+
+        }
+    }
+    function getNodeValue(nid) {
+        for (var i = 0; i < nodes1.length; i++) {
+            var node = nodes1[i]
+            if (node.id == nid)
+                return node;
+        }
+        return null;
+    }
+
+    function getCurrentRoot(treeNode) {
+        if (treeNode.getParentNode() != null) {
+            var parentNode = treeNode.getParentNode();
+            return getCurrentRoot(parentNode);
+        } else {
+            return treeNode;
+        }
+    }
+
 
     var newCount = 1;
 
