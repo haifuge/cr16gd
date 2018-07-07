@@ -231,15 +231,9 @@
                                         <td class="form-lable">部门：</td>
                                         <td>
                                             <div class="form-item  sel-required">
-                                                <select class="meet-select js-meet-state">
-                                                    <option value="all">选择部门</option>
-                                                    <option value="1">行政部</option>
-                                                    <option value="2">市场部</option>
-                                                    <option value="2">人事部</option>
-                                                </select>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input input input3 addbumen" disabled />
                                             </div>
-
-
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
@@ -249,32 +243,7 @@
                                                    class="has-clear-input input input3" />
 
                                         </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">是否启用：</td>
-                                        <td style="position: relative">
-                                            <div class="model-15 model-16">
-                                                <div class="checkbox-switch">
-                                                    <input type="checkbox">
-                                                    <label></label>
-
-                                                </div>
-                                            </div>
-                                            <div class="qyy"> *不启用，则无法使用该账户</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">参与审核：</td>
-                                        <td style="position: relative">
-                                            <div class="model-15 model-16">
-                                                <div class="checkbox-switch">
-                                                    <input type="checkbox">
-                                                    <label></label>
-                                                </div>
-                                            </div>
-                                            <div class="qyy"> *不启用，则无法审核流程</div>
-                                        </td>
-                                    </tr>
+                                    </tr> 
                                     <tr class="form-tr">
                                         <td class="form-lable">输入密码：</td>
                                         <td>
@@ -372,14 +341,14 @@
                                         <td class="form-lable">部门级别：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
+                                                   class="has-clear-input input input3 addlevel"  disabled/>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="form-tr-btn">
-                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">确定</button>
-                                <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
+                                <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
                             </div>
 
                         </div>
@@ -522,16 +491,22 @@
     var cNode;
     function zTreeOnClick(event, treeId, treeNode) {
         cNode = treeNode;
+        cNodelevel = cNode.level+1;
+        $(".addlevel").val(cNodelevel);
         $(".addbumen").val(cNode.name);
-       
+        
     }
     $(".addbox").click(function () {
             if ($(this).is(":checked")) {
                 $(".addbox").prop("checked", true);
                 $(".addbumen").val("");
+                $(".addlevel").attr("disabled", false); 
+                
             } else {
                 $(".addbox").prop("checked", false);
                 $(".addbumen").val(cNode.name);
+                $(".addlevel").attr("disabled", "disabled");
+                
             }
         });
 
@@ -589,6 +564,9 @@
     })
     $(".canvas_close.canvas_close1").on("click", function () {
         $(".canvas.canvas1").hide();
+    })
+    $(".addhide").on("click", function () {
+        $(".canvas.canvas2").hide();
     })
     // 添加部门
     $(".add-img2").on("click", function () {
