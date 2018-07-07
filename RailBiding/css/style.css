@@ -1129,6 +1129,7 @@ button:hover {
     border: 1px solid #b3b3b3;
     text-align: center;
     background: #FFFFFF;
+    margin-top: 20px;
 }
 
     .meet-form tr {
@@ -1279,6 +1280,7 @@ button:hover {
 .form-tr-btn {
     text-align: center;
     padding: 15px 0;
+    background: #fff;
 }
 
     .form-tr-btn .meet-btn {

@@ -57,8 +57,8 @@
             width: 500px;
             height: 300px;
             background: #fff;
-            position: absolute;
-            top: 0;
+            position: relative;
+            top: 100px;
             left: 0;
             bottom: 0;
             right: 0;
@@ -220,81 +220,73 @@
                         <span class="canvas_close canvas_close1">×</span>
                         <h3>添加人员</h3>
                         <div class="wc-container">
-                            <table class="meet-form meet-form2 meet-form5">
-                                <tbody>
+                            <form action="" post="">
+                                <table class="meet-form meet-form2 meet-form5">
+                                    <tbody>
 
-                                    <tr class="form-tr">
-                                        <td class="form-lable">部门：</td>
-                                        <td>
-                                            <div class="form-item  sel-required">
+                                        <tr class="form-tr">
+                                            <td class="form-lable">部门：</td>
+                                            <td>
+                                                <div class="form-item  sel-required">
+                                                    <input name="roomInfoName" type="text" value=""
+                                                           class="has-clear-input input input3 addbumen" disabled />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">用户名：</td>
+                                            <td>
                                                 <input name="roomInfoName" type="text" value=""
-                                                       class="has-clear-input input input3 addbumen" disabled />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">用户名：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
+                                                       class="has-clear-input " oninvalid="setCustomValidity('用户名不能为空')"  required="required"/>
 
-                                        </td>
-                                    </tr> 
-                                    <tr class="form-tr">
-                                        <td class="form-lable">输入密码：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input" />
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">输入密码：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input" oninvalid="setCustomValidity('请输入6位密码')"  required="required" />
 
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">确认密码：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input" />
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">确认密码：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input " oninvalid="setCustomValidity('请确认密码')" required="required" />
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
 
-                                    <tr class="form-tr">
-                                        <td class="form-lable">姓名：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">手机：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">邮箱：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable"></td>
-                                        <td>
-                                            <div class="form-tr-btn">
-                                                <button type="submit"
-                                                        class="meet-btn big-btn lightblue-btn js-submit">
-                                                    确定
-                                                </button>
-                                                <button type="reset" class="meet-btn big-btn gray-btn">
-                                                    取消
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
+                                        <tr class="form-tr">
+                                            <td class="form-lable">姓名：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input input " oninvalid="setCustomValidity('姓名不能为空')"  required="required"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">手机：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input input " oninvalid="setCustomValidity('正确输入11位手机号')"  required="required"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">邮箱：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="email" value=""
+                                                       class="has-clear-input input" oninvalid="setCustomValidity('正确输入邮箱格式')"  required="required"/>
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                                <div class="form-tr-btn">
+                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
+                                    <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
@@ -313,40 +305,41 @@
                         <span class="canvas_close canvas_close2">×</span>
                         <h3>添加部门</h3>
                         <div class="wc-container">
-                            <table class="meet-form meet-form2 meet-form5">
-                                <tbody>
+                            <form action="" post="">
+                                <table class="meet-form meet-form2 meet-form5">
+                                    <tbody>
 
-                                    <tr class="form-tr">
-                                        <td class="form-lable">上级部门：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3 addbumen" disabled />
-                                            <input type="checkbox" id="addbox1" name="" class="addbox" />
-                                            <label for='addbox1' class="addbox1ab">是否创建新节点</label>
-                                            
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">部门名称：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">部门级别：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3 addlevel"  disabled/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="form-tr-btn">
-                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
-                                <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
-                            </div>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">上级部门：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input input input3 addbumen" disabled />
+                                                <input type="checkbox" id="addbox1" name="" class="addbox" />
+                                                <label for='addbox1' class="addbox1ab">是否创建新节点</label>
 
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">部门名称：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input input input3" />
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">部门级别：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value=""
+                                                       class="has-clear-input input input3 addlevel" disabled />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="form-tr-btn">
+                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
+                                    <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -572,6 +565,9 @@
     })
     $(".addhide").on("click", function () {
         $(".canvas.canvas2").hide();
+    })
+    $(".addhide").on("click", function () {
+        
     })
     // 添加部门
     $(".add-img2").on("click", function () {
