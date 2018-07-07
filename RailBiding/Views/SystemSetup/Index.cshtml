@@ -8,6 +8,11 @@
 <link rel='stylesheet' href='~/js/ztree/css/zTreeStyle/zTreeStyle.css' />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
+    html,body {
+    width:100%;
+    height:100%
+    }
+    *{padding:0 ;margin:0}
     table.meet-table {
         border: none;
     }
@@ -53,8 +58,8 @@
     }
 
         .canvas .canvas_content {
-            width: 600px;
-            height: 550px;
+            width: 500px;
+            height: 300px;
             background: #fff;
             position: absolute;
             top: 0;
@@ -347,100 +352,35 @@
                                 <tbody>
 
                                     <tr class="form-tr">
-                                        <td class="form-lable">角色：</td>
-                                        <td>
-                                            <div class="form-item  sel-required">
-                                                <select class="meet-select js-meet-state">
-                                                    <option value="all">系统管理员</option>
-                                                    <option value="1">行政人员</option>
-                                                </select>
-                                            </div>
-
-
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">用户名：</td>
+                                        <td class="form-lable">上级部门：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
-
+                                                   class="has-clear-input input input3 addbumen" disabled />
+                                            <input type="checkbox" id="addbox1" name="" class="addbox" />
+                                            <label for='addbox1' class="addbox1ab">是否创建新节点</label>
+                                            
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
-                                        <td class="form-lable">是否启用：</td>
-                                        <td style="position: relative">
-                                            <div class="model-15 model-16">
-                                                <div class="checkbox-switch">
-                                                    <input type="checkbox">
-                                                    <label></label>
-
-                                                </div>
-                                            </div>
-                                            <div class="qyy"> *不启用，则无法使用该账户</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">参与审核：</td>
-                                        <td style="position: relative">
-                                            <div class="model-15 model-16">
-                                                <div class="checkbox-switch">
-                                                    <input type="checkbox">
-                                                    <label></label>
-                                                </div>
-                                            </div>
-                                            <div class="qyy"> *不启用，则无法审核流程</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">输入密码：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
-
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">确认密码：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
-
-                                        </td>
-                                    </tr>
-
-                                    <tr class="form-tr">
-                                        <td class="form-lable">姓名：</td>
+                                        <td class="form-lable">部门名称：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value=""
                                                    class="has-clear-input input input3" />
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
-                                        <td class="form-lable">手机：</td>
+                                        <td class="form-lable">部门级别：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value=""
                                                    class="has-clear-input input input3" />
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">邮箱：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable"></td>
-                                        <td>
-                                            <div class="form-tr-btn">
-                                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">
-                                                    确定
-                                                </button>
-                                                <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
-                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="form-tr-btn">
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">确定</button>
+                                <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
+                            </div>
 
                         </div>
                     </div>
@@ -582,8 +522,18 @@
     var cNode;
     function zTreeOnClick(event, treeId, treeNode) {
         cNode = treeNode;
-        console.log(cNode)
+        $(".addbumen").val(cNode.name);
+       
     }
+    $(".addbox").click(function () {
+            if ($(this).is(":checked")) {
+                $(".addbox").prop("checked", true);
+                $(".addbumen").val("");
+            } else {
+                $(".addbox").prop("checked", false);
+                $(".addbumen").val(cNode.name);
+            }
+        });
 
     var newCount = 1;
     

@@ -3261,7 +3261,7 @@ input[name=keyname] {
 .index-bg2 {
     width: 100%;
     overflow: hidden;
-    position: fixed;
+    position: relative;
     height: 100%;
     background: #39bdf7;
 }
@@ -4105,10 +4105,77 @@ h3.fx_tit {
 
 .meet-form5 .form-tr td input.input {
     line-height: 30px;
-    width: 30%;
+    width: 180px;
     padding: 0 5px;
     height: 30px;
 }
+.form-tr:nth-child(1) td:nth-child(2) {
+    font-size: 13px;
+    color: dodgerblue
+}
+
+/*复选框样式*/
+
+.addbox {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+}
+
+.addbox1ab {
+    position: relative;
+    left: 20px;
+    top: 0;
+    height: 20px;
+    line-height: 20px;
+}
+    .addbox1ab:before {
+        content: '';
+        position: absolute;
+        left: -30px;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+    }
+
+    .addbox1ab:after {
+        content: '';
+        position: absolute;
+        left: -22px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: 0;
+        border-right: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        background: #fff;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+    }
+.addbox:checked + label:before {
+    background: #4cd764;
+    border-color: #4cd764;
+}
+
+.addbox:checked + label:after {
+    background: #4cd764;
+}
+/*复选框结束*/
+
+
 
 .meet-form5 .form-tr .form-lable {
     height: 50px;
@@ -4123,7 +4190,7 @@ h3.fx_tit {
 }
 
 .meet-form5 .form-tr .form-lable {
-    width: 100px;
+    width: 150px;
 }
 
 .main-nav ul li a:hover {
@@ -5329,7 +5396,7 @@ ul.cjtb_ul li div.ul-bg p {
 }
 .meet-icon.icon-cancel.iconc.iconc2{
     height: 25px;
-    width: 40px;
+    width: 70px;
     font-size: 14px;
     line-height: 25px;
     float:right;
