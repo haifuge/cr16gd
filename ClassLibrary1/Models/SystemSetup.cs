@@ -87,5 +87,22 @@ namespace DAL.Models
                 return "0";
 
         }
+
+        public string CreateUser(string acc, string pasd, string nam, string telephone, string em, string did)
+        {
+            pasd = EncryptHelper.Encrypt(pasd, "IamKey12");
+            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "'," + did + "'," + telephone+", "+em+", getdate(),1,1)";
+            int i = DBHelper.ExecuteNonQuery(sql);
+            if (i == 1)
+                return "1";
+            else
+                return "0";
+        }
+
+        public DataTable GetDepartmentUsers(string did)
+        {
+            string sql = "select ui.ID, ui.UserAccount, ui.UserName, d.Name as department, ui.Telphone, ui.Email  from UserInfo ui inner join Department d on ui.DepartmentId=d.ID where ui.DepartmentId="+did;
+            return DBHelper.GetDataTable(sql);
+        }
     }
 }

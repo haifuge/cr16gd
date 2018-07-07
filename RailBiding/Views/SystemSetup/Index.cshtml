@@ -234,9 +234,9 @@
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
-                                            <td class="form-lable">用户名：</td>
+                                            <td class="form-lable">账号：</td>
                                             <td>
-                                                <input name="roomInfoName" type="text" value=""
+                                                <input name="roomInfoName" type="text" value="" id="uaccount"
                                                        class="has-clear-input " oninvalid="setCustomValidity('用户名不能为空')"  required="required"/>
 
                                             </td>
@@ -244,7 +244,7 @@
                                         <tr class="form-tr">
                                             <td class="form-lable">输入密码：</td>
                                             <td>
-                                                <input name="roomInfoName" type="text" value=""
+                                                <input name="roomInfoName" type="text" value="" id="upsd"
                                                        class="has-clear-input" oninvalid="setCustomValidity('请输入6位密码')"  required="required" />
 
                                             </td>
@@ -261,21 +261,21 @@
                                         <tr class="form-tr">
                                             <td class="form-lable">姓名：</td>
                                             <td>
-                                                <input name="roomInfoName" type="text" value=""
+                                                <input name="roomInfoName" type="text" value="" id="uname"
                                                        class="has-clear-input input " oninvalid="setCustomValidity('姓名不能为空')"  required="required"/>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">手机：</td>
                                             <td>
-                                                <input name="roomInfoName" type="text" value=""
+                                                <input name="roomInfoName" type="text" value="" id="utel"
                                                        class="has-clear-input input " oninvalid="setCustomValidity('正确输入11位手机号')"  required="required"/>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">邮箱：</td>
                                             <td>
-                                                <input name="roomInfoName" type="email" value=""
+                                                <input name="roomInfoName" type="email" value="" id="uemail"
                                                        class="has-clear-input input" oninvalid="setCustomValidity('正确输入邮箱格式')"  required="required"/>
                                             </td>
                                         </tr>
@@ -299,7 +299,7 @@
                 <h3>
                     组织机构信息 <a href="#" class="meet-icon icon-cancel iconc iconc2  add-img2">添加部门</a>
                 </h3>
-                <!-- 添加系统用户 -->
+                <!-- 添加部门 -->
                 <div class="canvas canvas2">
                     <div class="canvas_content">
                         <span class="canvas_close canvas_close2">×</span>
@@ -336,7 +336,7 @@
                                     </tbody>
                                 </table>
                                 <div class="form-tr-btn">
-                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
+                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide" onclick="createNewUser()">确定</button>
                                     <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
                                 </div>
                             </form>
@@ -364,17 +364,8 @@
                     <td>操作</td>
                     </tr>
                     </thead>
-                    <tbody>
-                        <tr class="white-bg">
-                            <td class="check-color">zhangsan</td>
-                            <td>张三</td>
-                            <td>经理管理部</td>
-                            <td>18522254222</td>
-                            <td>2546632@qq.com</td>
-                            <td style="width: 100px;">
-                                <a href="#" class="xg" style="display: inline-block">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block">删除</a>
-                            </td>
-                        </tr>
+                    <tbody id="tbusers">
+                        
                     </tbody>
                 </table>
                 <div class="page" style="width: 100%;float:left">
@@ -492,7 +483,7 @@
         cNodelevel = cNode.level+1;
         $(".addlevel").val(cNodelevel);
         $(".addbumen").val(cNode.name);
-        
+        getDepartmentUsers();
     }
     $(".addbox").click(function () {
             if ($(this).is(":checked")) {
@@ -566,9 +557,6 @@
     $(".addhide").on("click", function () {
         $(".canvas.canvas2").hide();
     })
-    $(".addhide").on("click", function () {
-        
-    })
     // 添加部门
     $(".add-img2").on("click", function () {
         $(".canvas.canvas2").show();
@@ -598,5 +586,40 @@
         $(".canvas.canvas2").hide();
     })
 
-
+    function createNewUser() {
+        var account = $("#uaccount").val();
+        var password = $("#upsd").val();
+        var name = $("#uname").val();
+        var tel = $("#utel").val();
+        var email = $("#uemail").val();
+        var depId = cNode.id;
+        var data = { acc: account, pasd: password, nam: name, telephone: tel, em: email, did:depId };
+        $.post("/SystemSetup/CreateUser", data, function (res) {
+            if (res == "1") {
+                alert('创建成功')
+                getDepartmentUsers();
+            }
+            else {
+                alert('创建失败')
+            }
+        })
+    }
+    function getDepartmentUsers() {
+        $.post("/SystemSetup/GetDepartmentUsers", {did: cNode.id}, function (res) {
+            var obj = JSON.parse(res);
+            $("#tbusers").empty();
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                htm += '<tr class="white-bg"><td class="check-color">' + o.useraccount + '</td>' +
+                    '<td>' + o.username + '</td>' +
+                    '<td>' + o.department + '</td>' +
+                    '<td>' + o.telphone + '</td>' +
+                    '<td>' + o.email + '</td>' +
+                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser('+o.id+')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser('+o.id+')">删除</a></td>' +
+                    '</tr >';
+            }
+            $("#tbusers").html(htm)
+        })
+    }
 </script>

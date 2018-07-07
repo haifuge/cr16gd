@@ -159,7 +159,24 @@ namespace RailBiding.Controllers
             string id = Request["id"].ToString();
             SystemSetup ss = new SystemSetup();
             return ss.UpdateUserInfo(id, uname, psd, tel, email);
-
+        }
+        public string CreateUser()
+        {
+            string acc = Request["acc"].ToString();
+            string pasd = Request["pasd"].ToString();
+            string nam = Request["nam"].ToString();
+            string telephone = Request["telephone"].ToString();
+            string em = Request["em"].ToString();
+            string did = Request["did"].ToString();
+            SystemSetup ss = new SystemSetup();
+            return ss.CreateUser(acc, pasd, nam, telephone, em, did);
+        }
+        public string GetDepartmentUsers()
+        {
+            string did = Request["did"].ToString();
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetDepartmentUsers(did);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

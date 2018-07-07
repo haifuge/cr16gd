@@ -118,8 +118,11 @@
         var email = $("#uemail").val();
         var uid = $("#uid").val();
         var obj = { psd: password1, uname: userName, tel: telephone, em: email, id: uid}
-        $.post("/SystemSetup/UpdateUserInfo", obj, function () {
-
+        $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
+            if (res = "1")
+                alert('修改成功')
+            else
+                alert('修改失败')
         })
     })
 </script>
