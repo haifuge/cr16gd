@@ -56,7 +56,7 @@ namespace DAL.Tools
                     if (columnType == "Int32" || columnType == "Int16" || columnType == "Decimal")
                     {
                         // don't surround numbers with quotes
-                        json.AppendFormat("\"{0}\":\"{1}\"", columnName, row.IsNull(columnName) ? "" : row[columnName]);
+                        json.AppendFormat("\"{0}\":{1}", columnName, row.IsNull(columnName) ? "\"\"" : row[columnName]);
                     }
                     else if (columnType == "Boolean")
                     {

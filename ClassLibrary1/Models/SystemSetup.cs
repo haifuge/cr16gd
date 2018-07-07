@@ -34,10 +34,12 @@ namespace DAL.Models
         }
         public DataTable GetOrganizationUser()
         {
-            string sql = @"select id,name,pId,Level, dbo.GetRootName(id) as rName from Department
-                            union
-                            select d.ID + '-' + ui.ID as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName
-                            from UserInfo ui inner join Department d on ui.DepartmentId = d.ID";
+            string sql = @"select d.id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked 
+                        from Department d left join APDetail ad on d.id=ad.AppPosId
+                        union
+                        select ui.ID as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, case when ad.AppPosId is null then 0 else 1 end as checked 
+                        from UserInfo ui inner join Department d on ui.DepartmentId = d.ID
+                        left join APDetail ad on ui.ID=ad.UserId and ad.AppPosId=d.ID";
             return DBHelper.GetDataTable(sql);
         }
 

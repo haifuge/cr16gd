@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using DAL.Models;
+﻿using DAL.Models;
 using DAL.Tools;
-using RailBiding.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RailBiding.Common;
+using System.Data;
+using System.Text;
+using System.Web.Mvc;
 
 namespace RailBiding.Controllers
 {
@@ -136,25 +133,14 @@ namespace RailBiding.Controllers
         [HttpPost]
         public string SaveApproveProcess(string appP)
         {
-            //if (appP.Length < 2)
-            //    return "0";
-
-            //string jsonText = appP.Substring(1,appP.Length-2);
-            //string[] objs = jsonText.Split('},{');
-
-            //foreach(var o in objs)
-            //{
-            //    JObject json1 = (JObject)JsonConvert.DeserializeObject(o);
-            //}
-            
-            ////JArray array = (JArray)json1["Rows"];
-            ////int i = array.Count;
-            ////string aa = "";
-            ////foreach (var jObject in array)
-            ////{
-            ////    //赋值属性
-            ////    aa = jObject["id"].ToString();//获取字符串中id值
-            ////}
+            JArray ja = (JArray)JsonConvert.DeserializeObject(appP);
+            StringBuilder sb = new StringBuilder();
+            sb.Append("delete APDetail where APID=1; ");
+            foreach(var o in ja)
+            {
+                sb.Append("insert into APDetail values(1, " + o["level"].ToString() + ", " + o["did"].ToString() + ", " + o["uid"].ToString()+"; ");
+            }
+            DBHelper.ExecuteNonQuery(sb.ToString());
             return "1";
         }
     }

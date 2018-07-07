@@ -127,7 +127,7 @@
         }
     }
     var zNodes = [
-        { id: 1, pId: 0, name: "中国铁建地产集团", open: true },
+        { id: 1, pId: 0, name: "中国铁建地产集团", open: true, checked:1 },
         { id: 11, pId: 1, name: "开发测试", open: true },
         { id: 111, pId: 11, name: "董事会" },
         { id: 112, pId: 12, name: "总经理" }
@@ -143,7 +143,9 @@
         });
         // 加载已配置审批流程
         $.get("/SystemSetup/GetApprovePrcess?appPid=@ViewBag.apppid", {}, function (data) {
+            console.log(data)
             var obj = JSON.parse(data);
+
             appProcess = obj;
             var pname = "";
             var htm = "";
@@ -186,7 +188,7 @@
             console.log(o)
             var c = 0;
             for (var i = 0; i < appProcess.length; i++) {
-                if (parseInt(o.level) >= parseInt(appProcess[i].level)) {
+                if (o.level >= appProcess[i].level) {
                     appProcess.splice(i, 0, o);
                     var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
                     var inserted = false;
@@ -225,13 +227,15 @@
         }
         else {
             // 删除流程节点
-            var ouid = parseInt(treeNode.id)
+            var ouid = treeNode.id
             for (var i = 0; i < appProcess.length; i++) {
-                var apuid = parseInt(appProcess[i].uid)
+                var apuid = appProcess[i].uid
                 if (ouid == apuid) {
                     var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
+                    var name1 = appProcess[i].dname + ' ' + appProcess[i].username;
                     for (var j = 0; j < apnodes.length; j++) {
-                        if (appProcess[j].dname + ' ' + appProcess[j].username == apnodes[j].innerText) {
+                        var name2 = apnodes[j].innerText
+                        if (name1 == name2) {
                             apnodes[j].remove();
                             appProcess.splice(i, 1);
                             break;
@@ -304,7 +308,11 @@
     $(".js-submit").click(function () {
         var data = JSON.stringify(appProcess);
         console.log(data)
-        $.post("/SystemSetup/SaveApproveProcess", { appP:data}, function () {
+        $.post("/SystemSetup/SaveApproveProcess", { appP: data }, function (res) {
+            if (res == "1")
+                alert('保存成功')
+            else
+                alert('保存失败')
         })
     });
 
