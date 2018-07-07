@@ -40,14 +40,61 @@
                     选择
                 </td>
                 <td>类型名称</td>
+                <td>操作</td>
                 </tr>
                 </thead>
-                <tbody id="tbType">
-                </tbody>
+                <tbody id="tbType"></tbody>
             </table>
 
             <div class="page">
             </div>
+
+            <!-- 修改 -->
+            <div class="canvas canvas3">
+                <div class="canvas_content">
+                    <span class="canvas_close canvas_close2">×</span>
+                    <h3>添加部门</h3>
+                    <div class="wc-container">
+                        <form action="" post="">
+                            <table class="meet-form meet-form2 meet-form5">
+                                <tbody>
+
+                                    <tr class="form-tr">
+                                        <td class="form-lable">上级部门：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3 addbumen" disabled />
+                                            <input type="checkbox" id="addbox1" name="" class="addbox" />
+                                            <label for='addbox1' class="addbox1ab">是否创建新节点</label>
+
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">部门名称：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">部门级别：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3 addlevel" disabled />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-tr-btn">
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
+                                <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
         <div class="catt">
             <span>输入名称：<input name="roomInfoName" type="text" value="" class="has-clear-input input input3"></span>
@@ -70,12 +117,29 @@
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i]
                     htm += '<tr class="white-bg">'+
-                        '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1"/></td>'+
-                        '<td>'+o.name+'</td>'+
-                    '</tr>';
+                        '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"/></td>' +
+                        '<td>' + o.name + '</td><td><a href="#" class="xg add-img2" onclick="changename(' + o.id + ')">修改</a></td>' +
+                        '</tr>';
+
+
+                   //'<tr class="white-bg">'+
+                   //     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1"/></td>'+
+                   //    '<td>' + o.name + '</td>< td ><a href="#" class="xg">' + 修改 + '</a></td ></tr> ';
+
+
+
                 }
                 $("#tbType").html(htm)
             });
             pages(1, 2, 12, 5);
         })
+
+        // 添加部门
+        $(".add-img3").on("click", function () {
+            $(".canvas.canvas3").show();
+
+
+        function changename(id) {
+
+        }
     </script>
