@@ -643,6 +643,7 @@ select::-ms-expand {
 .main-top {
     padding-bottom: 20px;
     clear: both;
+    margin-bottom: 30px;
 }
 
     .main-top > span {
@@ -657,6 +658,7 @@ select::-ms-expand {
 
     .main-top a.meet-btn {
         margin-right: 8px;
+        float:left
     }
 
         .main-top a.meet-btn.blue-btn {
@@ -4512,6 +4514,7 @@ h3.fx_tit {
     text-align: center;
     display: inline-block;
     margin: 0 15px;
+    float:left;
 }
 
 .rygl {
@@ -4533,14 +4536,18 @@ h3.fx_tit {
 
 .col6 {
     color: #666;
+    float: left;
+    line-height: 30px;
 }
 
 .catt {
-    position: absolute;
-    bottom: 50px;
-    left: 170px;
+    position: relative ;
+    float: left;
+    left: 60px;
 }
-
+.catt>span {
+    float: left;
+}
     .catt input {
         width: 300px;
         height: 25px;

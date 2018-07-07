@@ -7,6 +7,108 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
+<style>
+    html, body {
+        width: 100%;
+        height: 100%
+    }
+
+    * {
+        padding: 0;
+        margin: 0
+    }
+
+    table.meet-table {
+        border: none;
+    }
+
+    .meet-table tr {
+        border-bottom: none;
+    }
+
+        .meet-table tr.white-bg td {
+            border: none
+        }
+
+    ul li {
+        list-style: none;
+    }
+
+    .block-left {
+        padding-right: 0;
+    }
+
+    .meet-form.meet-form9.meet-form3 .form-tr:hover {
+        background: #eaf6fd;
+    }
+
+    .canvas {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, .6);
+        z-index: 9999;
+        display: none;
+    }
+
+        .canvas .xg-canvas_content {
+            width: 450px;
+            height: 200px;
+            background: #fff;
+            position: relative;
+            top: 100px;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            border: 1px solid #008cd6;
+        }
+
+        .canvas h3 {
+            height: 45px;
+            padding-left: 20px;
+            background: #eaf6fd;
+            line-height: 45px;
+            font-size: 18px;
+            font-weight: normal;
+            color: #008cd6;
+        }
+
+        .canvas .canvas_close {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            font-size: 30px;
+            color: #008cd6;
+            top: 0;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+        }
+
+
+
+    .canvas_btn {
+        text-align: center;
+        padding-top: 100px;
+    }
+
+    .canvas-fj {
+        padding-left: 5px;
+        display: inline-block;
+        font-size: 14px;
+        color: #bfbdba;
+    }
+
+    .meet-form2 .form-tr-btn {
+        text-align: center;
+    }
+
+</style>
+
 
 <div class="left-nav">
     <div class="left-nav-con">
@@ -25,13 +127,11 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a href="#" class="col6">
-                <span class="table-all-check" style="width: 30px;">
-                    <input type="checkbox" class="icheck" name="all-check" id="all-check" />
-                </span>全选
-            </a>
-            <a href="#" class="meet-btn small-size sm-btn js-output-excle del03">删除</a>
-            <a href="#" class="bmgl">业务类型</a>
+            <a href="#" class="bmgl ">业务类型</a>
+            <div class="catt">
+                <span>输入名称：<input name="roomInfoName" type="text" value="" class="has-clear-input input input3"></span>
+                <a href="#" class="bmgl">添加</a>
+            </div>
         </div>
         <div class="wc-container">
             <table class="meet-table text-left">
@@ -46,60 +146,37 @@
                 <tbody id="tbType"></tbody>
             </table>
 
-            <div class="page">
-            </div>
+            
 
-            <!-- 修改 -->
-            <div class="canvas canvas3">
-                <div class="canvas_content">
-                    <span class="canvas_close canvas_close2">×</span>
-                    <h3>添加部门</h3>
+            <!-- 修改类型名称 -->
+            <div class="canvas canvas1">
+                <div class="canvas_content xg-canvas_content">
+                    <span class="canvas_close canvas_close1">×</span>
+                    <h3>修改类型名称</h3>
                     <div class="wc-container">
-                        <form action="" post="">
                             <table class="meet-form meet-form2 meet-form5">
                                 <tbody>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">类型名称：</tdclass="form-lable">
+                                        <td>
+                                            <input name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3 addbumen" />
+                                        </td>
+                                    </tr>
 
-                                    <tr class="form-tr">
-                                        <td class="form-lable">上级部门：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3 addbumen" disabled />
-                                            <input type="checkbox" id="addbox1" name="" class="addbox" />
-                                            <label for='addbox1' class="addbox1ab">是否创建新节点</label>
-
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">部门名称：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3" />
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">部门级别：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3 addlevel" disabled />
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                             <div class="form-tr-btn">
                                 <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
                                 <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
 
 
         </div>
-        <div class="catt">
-            <span>输入名称：<input name="roomInfoName" type="text" value="" class="has-clear-input input input3"></span>
-            <a href="#" class="bmgl">添加</a>
-        </div>
+        
     </div>
 </div>
     <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
@@ -118,28 +195,29 @@
                     var o = obj[i]
                     htm += '<tr class="white-bg">'+
                         '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"/></td>' +
-                        '<td>' + o.name + '</td><td><a href="#" class="xg add-img2" onclick="changename(' + o.id + ')">修改</a></td>' +
+                        '<td>' + o.name + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(' + o.id + ')">删除</a></td>' +
                         '</tr>';
-
-
-                   //'<tr class="white-bg">'+
-                   //     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1"/></td>'+
-                   //    '<td>' + o.name + '</td>< td ><a href="#" class="xg">' + 修改 + '</a></td ></tr> ';
-
-
 
                 }
                 $("#tbType").html(htm)
             });
-            pages(1, 2, 12, 5);
+           
         })
-
-        // 添加部门
-        $(".add-img3").on("click", function () {
-            $(".canvas.canvas3").show();
-
-
         function changename(id) {
-
+          
+            $(".canvas.canvas1").show();
+            $(".canvas_close.canvas_close1").on("click", function () {
+                $(".canvas.canvas1").hide();
+            })
+           
         }
+            $(document).ready(function () {
+        // 修改类型名称
+                $(".addhide").on("click", function () {
+                    $(".canvas.canvas1").hide();
+                })
+
+                
+            })
+       
     </script>
