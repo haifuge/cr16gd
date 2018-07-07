@@ -3003,17 +3003,21 @@ input[name=keyname] {
 .next-step a {
     color: #fff;
 }
+.login-body {
+    background: #39BDF7
+}
 
 .login-foot {
     width: 80%;
     height: 40px;
     background: #0383d4;
-    position: absolute;
+    position: relative;
     bottom: 0;
     z-index: 10000;
     color: #fff;
     padding: 0 10%;
     padding-top: 40px;
+    margin-top: 40px;
 }
 
 .login-foot .support {
@@ -3287,8 +3291,9 @@ input[name=keyname] {
 .index-center {
     background: #39bdf7;
     padding-top: 110px;
-    margin-top: 80px;
+    margin-top: 0px;
     width: 100%;
+    position: relative;
 }
 
 .index-center .index-box {

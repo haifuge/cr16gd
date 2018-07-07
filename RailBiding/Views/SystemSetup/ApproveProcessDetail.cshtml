@@ -161,7 +161,6 @@
                 }
             }
             htm += "</ul></li>";
-            htm += htm;
             $("#applist").html(htm)
         });
         
@@ -171,40 +170,77 @@
         console.log("id=" + treeNode.id + ", name=" + treeNode.name + ",pId=" + treeNode.pId);
     };
     function onCheck(e, treeId, treeNode) {
+        console.log($(".wc-container .dc-right2>ul>li>ul>li"));
         
-        //console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId + ", root=" + treeNode.rname + ", level=" + treeNode.level);
-        //var lev = treeNode.level+"";
-        //var rootname = treeNode.rname;
-        //var uname = treeNode.name
-        //var depname = treeNode.getParentNode().name;
-        //var userid = treeNode.id;
-        //if (treeNode.checked) {
-        //    // 插入流程节点
-        //    var root = getCurrentRoot(treeNode)
-        //    root = getNodeValue(root.id);
-        //    var o = { level: lev, pname: rootname, UserName: uname, dname: depname, uid: userid }
-        //    console.log(o)
-        //    var c = 0;
-        //    for (var i = 0; i < appProcess.length; i++) {
-        //        if (parseInt(o.level) >= parseInt(appProcess[i].level)) {
-        //            appProcess.splice(i, 0, o);
-        //            DisplayNodeOnAppP(i, o)
-        //            break;
-        //        }
-        //    }
-        //}
-        //else {
-        //    // 删除流程节点
-        //    for (var i = 0; i < appProcess.length; i++) {
-        //        var ouid = parseInt(treeNode.id)
-        //        var apuid = parseInt(appProcess[i].uid)
-        //        if (ouid == apuid) {
-        //            appProcess.splice(i, 1);
-        //            RemoveNodeOnAppP(i);
-        //        }
-        //    }
-        //}
-        //console.log(appProcess);
+        console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId + ", root=" + treeNode.rname + ", level=" + treeNode.level);
+        var lev = treeNode.level+"";
+        var rootname = treeNode.rname;
+        var uname = treeNode.name
+        var department = treeNode.getParentNode();
+        var userid = treeNode.id;
+        if (treeNode.checked) {
+            // 插入流程节点
+            var root = getCurrentRoot(treeNode)
+            root = getNodeValue(root.id);
+            var o = { level: lev, pname: rootname, username: uname, dname: department.name, uid: userid, did: department.id}
+            console.log(o)
+            var c = 0;
+            for (var i = 0; i < appProcess.length; i++) {
+                if (parseInt(o.level) >= parseInt(appProcess[i].level)) {
+                    appProcess.splice(i, 0, o);
+                    var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
+                    var inserted = false;
+                    for (var j = 0; j < appProcess.length - 1; j++) {
+                        var appName = $.trim(appProcess[j].dname + ' ' + appProcess[j].username);
+                        var anName = $.trim(apnodes[j].innerText);
+                        if (appName != anName)
+                        {
+                            inserted = true;
+                            // 如果跟节点名称不同
+                            if (appProcess[j].pname != appProcess[j + 1].pname) {
+                                $('<li>' + appProcess[j].pname + '</li>').insertBefore(apnodes[j])
+                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li></ul></li>').insertBefore(apnodes[j])
+                            }
+                            else {
+                                // 如果根节点名称相同
+                                $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li>').insertBefore(apnodes[j])
+                            }
+                            break;
+                        }
+                    }
+                    if (!inserted) {
+                        var len = appProcess.length - 1;
+                        if (appProcess[len].pname != appProcess[len - 1].pname) {
+                            $('<li><ul><li>' + appProcess[len].dname + ' ' + appProcess[len].username + '</li></ul></li>').insertAfter(apnodes[len - 1])
+                            $('<li>' + appProcess[len].pname + '</li>').insertAfter(apnodes[len-1])
+                        }
+                        else {
+                            // 如果根节点名称相同
+                            $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '</li>').insertAfter(apnodes[len - 1])
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        else {
+            // 删除流程节点
+            var ouid = parseInt(treeNode.id)
+            for (var i = 0; i < appProcess.length; i++) {
+                var apuid = parseInt(appProcess[i].uid)
+                if (ouid == apuid) {
+                    var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
+                    for (var j = 0; j < apnodes.length; j++) {
+                        if (appProcess[j].dname + ' ' + appProcess[j].username == apnodes[j].innerText) {
+                            apnodes[j].remove();
+                            appProcess.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        console.log(appProcess);
     }
     function DisplayNodeOnAppP(i, o) {
         
@@ -261,11 +297,15 @@
         $("#addBtn_" + treeNode.tId).unbind().remove();
     };
 
-</script>
-<script>
     //参与单位移除
     $(".wc-container .dc-right2>ul>li>ul>li i").click(function () {
         $(this).parent(".wc-container .dc-right2>ul>li>ul>li").hide();
+    });
+    $(".js-submit").click(function () {
+        var data = JSON.stringify(appProcess);
+        console.log(data)
+        $.post("/SystemSetup/SaveApproveProcess", { appP:data}, function () {
+        })
     });
 
 </script>

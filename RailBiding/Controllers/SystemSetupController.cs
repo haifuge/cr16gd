@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using DAL.Models;
 using DAL.Tools;
 using RailBiding.Common;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RailBiding.Controllers
 {
@@ -130,6 +132,30 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             DataTable dt = ss.GetApprovePrcess(appPid);
             return JsonHelper.DataTableToJSON(dt);
+        }
+        [HttpPost]
+        public string SaveApproveProcess(string appP)
+        {
+            //if (appP.Length < 2)
+            //    return "0";
+
+            //string jsonText = appP.Substring(1,appP.Length-2);
+            //string[] objs = jsonText.Split('},{');
+
+            //foreach(var o in objs)
+            //{
+            //    JObject json1 = (JObject)JsonConvert.DeserializeObject(o);
+            //}
+            
+            ////JArray array = (JArray)json1["Rows"];
+            ////int i = array.Count;
+            ////string aa = "";
+            ////foreach (var jObject in array)
+            ////{
+            ////    //赋值属性
+            ////    aa = jObject["id"].ToString();//获取字符串中id值
+            ////}
+            return "1";
         }
     }
 }

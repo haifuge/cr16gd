@@ -61,7 +61,7 @@ namespace DAL.Models
 
         public DataTable GetApprovePrcess(string appPid)
         {
-            string sql = @"select ad.Level, dbo.GetRootName(ad.AppPosId) as pname, ui.UserName, d.Name as dname, ui.Id as uid
+            string sql = @"select ad.Level, dbo.GetRootName(ad.AppPosId) as pname, ui.UserName, d.Name as dname, ui.Id as uid, d.id as did
                             from APDetail ad inner join UserInfo ui on ad.UserId=ui.ID left join Department d on d.ID=ad.AppPosId
                             where APID=" + appPid+" order by ad.Level desc";
             return DBHelper.GetDataTable(sql);
