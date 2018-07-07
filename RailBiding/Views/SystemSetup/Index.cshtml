@@ -25,10 +25,6 @@
             border: none
         }
 
-    .ztree li span.button.edit {
-        display: none;
-    }
-
     * {
         margin: 0;
         position: 0;
@@ -445,7 +441,7 @@
     })
     var setting = {
         view: {
-            //addHoverDom: addHoverDom,
+            addHoverDom: addHoverDom,
             removeHoverDom: removeHoverDom,
             selectedMulti: false
         },
@@ -460,6 +456,7 @@
         edit: {
             enable: true,
             editNameSelectAll: true,
+            showRenameBtn: showRenameBtn,
             //showRemoveBtn: showRemoveBtn,
             //showRenameBtn: showRenameBtn
         },
@@ -511,7 +508,15 @@
         { id: 52, pId: 5, name: "总经理办公室" },
 
     ];
+    function showRenameBtn(treeId, treeNode) {
+        //获取节点所配置的noEditBtn属性值
+        if (treeNode.noEditBtn != undefined && treeNode.noEditBtn) {
+            return false;
+        } else {
+            return true;
 
+        }
+    }
     $(document).ready(function () {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
@@ -543,20 +548,20 @@
 
         var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>"; //定义添加按钮
         sObj.after(addStr); //加载添加按钮
-        var btn = $("#addBtn_" + treeNode.tId);
-        var lev=treeNode.level+1
-        //绑定添加事件，并定义添加操作
-        if (btn) btn.bind("click", function () {
-            var zTree = $.fn.zTree.getZTreeObj("tree");
-            //将新节点添加到数据库中
-            var name = 'NewNode';
-            $.post('/SystemSetup/AddDepartment?pid=' + treeNode.id + '&level=' + lev, function (data) {
-                var newID = data; //获取新添加的节点Id
-                zTree.addNodes(treeNode, { id: newID, pId: treeNode.id, name: name, level: lev }); //页面上添加节点
-                var node = zTree.getNodeByParam("id", newID, null); //根据新的id找到新添加的节点
-                zTree.selectNode(node); //让新添加的节点处于选中状态
-            });
-        });
+        //var btn = $("#addBtn_" + treeNode.tId);
+        //var lev=treeNode.level+1
+        ////绑定添加事件，并定义添加操作
+        //if (btn) btn.bind("click", function () {
+        //    var zTree = $.fn.zTree.getZTreeObj("tree");
+        //    //将新节点添加到数据库中
+        //    var name = 'NewNode';
+        //    $.post('/SystemSetup/AddDepartment?pid=' + treeNode.id + '&level=' + lev, function (data) {
+        //        var newID = data; //获取新添加的节点Id
+        //        zTree.addNodes(treeNode, { id: newID, pId: treeNode.id, name: name, level: lev }); //页面上添加节点
+        //        var node = zTree.getNodeByParam("id", newID, null); //根据新的id找到新添加的节点
+        //        zTree.selectNode(node); //让新添加的节点处于选中状态
+        //    });
+        //});
     };
     function removeHoverDom(treeId, treeNode) {
         $("#addBtn_" + treeNode.tId).unbind().remove();

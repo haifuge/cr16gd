@@ -27,60 +27,49 @@
         <div class="main-top">
             <span class="js-page-name">个人中心</span>
         </div>
+        <input id="uid" type="text" style="display:none" />
         <div class="wc-container">
             <table class="meet-form meet-form2 meet-form5">
                 <tbody>
 
                     <tr class="form-tr">
                         <td class="form-lable">部门：</td>
-                        <td class="col6">
-                            董事会、党委
-
-
-                        </td>
+                        <td class="col6" id="dname"></td>
                     </tr>
                     <tr class="form-tr">
-                        <td class="form-lable">用户名：</td>
-                        <td class="col6">
-                            dangwei
-
-                        </td>
+                        <td class="form-lable">用户账号：</td>
+                        <td class="col6" id="useraccount"></td>
                     </tr>
 
                     <tr class="form-tr">
                         <td class="form-lable">输入密码：</td>
                         <td>
-                            <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
-
+                            <input name="roomInfoName" id="psd1" type="text" value="" class="has-clear-input input" />
                         </td>
                     </tr>
                     <tr class="form-tr">
                         <td class="form-lable">确认密码：</td>
                         <td>
-                            <input name="roomInfoName" type="text" value="" class="has-clear-input input" />
-
+                            <input name="roomInfoName" id="psd2" type="text" value="" class="has-clear-input input" />
                         </td>
                     </tr>
 
                     <tr class="form-tr">
                         <td class="form-lable">姓名：</td>
                         <td>
-                            <input name="roomInfoName" type="text" value="" class="has-clear-input input input3"
-                                   placeholder="张三" />
+                            <input id="uname" name="roomInfoName" type="text" value="" class="has-clear-input input input3"/>
                         </td>
                     </tr>
                     <tr class="form-tr">
                         <td class="form-lable">手机：</td>
                         <td>
-                            <input name="roomInfoName" type="text" value="" class="has-clear-input input input3"
-                                   placeholder="13999999" />
+                            <input id="utelphone" name="roomInfoName" type="text" value="" class="has-clear-input input input3"/>
                         </td>
                     </tr>
                     <tr class="form-tr">
                         <td class="form-lable">邮箱：</td>
                         <td>
-                            <input name="roomInfoName" type="text" value="" class="has-clear-input input input3"
-                                   placeholder="zhang@163.com" />
+                            <input id="uemail" name="roomInfoName" type="text" value="" class="has-clear-input input input3"/>
                         </td>
                     </tr>
                     <tr class="form-tr">
@@ -111,3 +100,26 @@
     <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
     <script type='text/javascript' src='~/js/js.js'></script>
 
+<script>
+    $.get("/SystemSetup/GetPersenalInfo", {}, function (data) {
+        var obj = JSON.parse(data)[0];
+        console.log(obj.departmentname)
+        $("#dname").text(obj.departmentname);
+        $("#useraccount").text(obj.useraccount);
+        $("#uname").val(obj.username);
+        $("#utelphone").val(obj.telphone);
+        $("#uemail").val(obj.email);
+        $("#uid").val(obj.id)
+    })
+    $(".js-submit").on("click", function () {
+        var password1 = $("#psd1").val();
+        var userName = $("#uname").val();
+        var telephone = $("#utelphone").val();
+        var email = $("#uemail").val();
+        var uid = $("#uid").val();
+        var obj = { psd: password1, uname: userName, tel: telephone, em: email, id: uid}
+        $.post("/SystemSetup/UpdateUserInfo", obj, function () {
+
+        })
+    })
+</script>

@@ -143,5 +143,23 @@ namespace RailBiding.Controllers
             DBHelper.ExecuteNonQuery(sb.ToString());
             return "1";
         }
+        public string GetPersenalInfo()
+        {
+            string uid = Session["UserId"].ToString();
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetPersenalInfo(uid);
+            return JsonHelper.DataTableToJSON(dt);
+        }
+        public string UpdateUserInfo()
+        {
+            string uname = Request["uname"].ToString();
+            string psd = Request["psd"].ToString();
+            string tel = Request["tel"].ToString();
+            string email = Request["em"].ToString();
+            string id = Request["id"].ToString();
+            SystemSetup ss = new SystemSetup();
+            return ss.UpdateUserInfo(id, uname, psd, tel, email);
+
+        }
     }
 }

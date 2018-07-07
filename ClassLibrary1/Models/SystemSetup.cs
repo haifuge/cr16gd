@@ -68,5 +68,24 @@ namespace DAL.Models
                             where APID=" + appPid+" order by ad.Level desc";
             return DBHelper.GetDataTable(sql);
         }
+
+        public DataTable GetPersenalInfo(string uid)
+        {
+            string sql = @"select ui.ID, ui.UserAccount, ui.UserName, ui.Telphone, ui.Email, d.Name as DepartmentName
+                            from UserInfo ui left join Department d on ui.DepartmentId = d.ID where ui.ID = "+uid;
+            return DBHelper.GetDataTable(sql);
+        }
+
+        public string UpdateUserInfo(string id, string uname, string psd, string tel, string email)
+        {
+            psd = EncryptHelper.Encrypt(psd, "IamKey12");
+            string sql = "update UserInfo set UserName=N'"+uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"' where ID="+id;
+            int i = DBHelper.ExecuteNonQuery(sql);
+            if (i == 1)
+                return "1";
+            else
+                return "0";
+
+        }
     }
 }
