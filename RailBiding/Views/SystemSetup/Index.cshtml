@@ -283,7 +283,7 @@
                                     </tbody>
                                 </table>
                                 <div class="form-tr-btn">
-                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
+                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide" onclick="createNewUser()">确定</button>
                                     <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
                                 </div>
                             </form>
@@ -305,7 +305,7 @@
                         <span class="canvas_close canvas_close2">×</span>
                         <h3>添加部门</h3>
                         <div class="wc-container">
-                            <form action="" post="">
+                            <form>
                                 <table class="meet-form meet-form2 meet-form5">
                                     <tbody>
 
@@ -322,21 +322,21 @@
                                         <tr class="form-tr">
                                             <td class="form-lable">部门名称：</td>
                                             <td>
-                                                <input name="roomInfoName" type="text" value=""
+                                                <input name="roomInfoName" type="text" value="" id="dname"
                                                        class="has-clear-input input input3" />
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">部门级别：</td>
                                             <td>
-                                                <input name="roomInfoName" type="text" value=""
+                                                <input name="roomInfoName" type="text" value="" id="dlevel"
                                                        class="has-clear-input input input3 addlevel" disabled />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <div class="form-tr-btn">
-                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide" onclick="createNewUser()">确定</button>
+                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide" onclick="createDepartment()">确定</button>
                                     <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
                                 </div>
                             </form>
@@ -409,7 +409,7 @@
         edit: {
             enable: true,
             editNameSelectAll: true,
-            showRenameBtn: showRenameBtn,
+            //showRenameBtn: showRenameBtn,
             //showRemoveBtn: showRemoveBtn,
             //showRenameBtn: showRenameBtn
         },
@@ -461,21 +461,15 @@
         { id: 52, pId: 5, name: "总经理办公室" },
 
     ];
-    function showRenameBtn(treeId, treeNode) {
-        //获取节点所配置的noEditBtn属性值
-        if (treeNode.noEditBtn != undefined && treeNode.noEditBtn) {
-            return false;
-        } else {
-            return true;
-
-        }
-    }
-    $(document).ready(function () {
+    function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
             var nodes = JSON.parse(data);
             $.fn.zTree.init($("#tree"), setting, nodes);
         })
+    }
+    $(document).ready(function () {
+        initTree();
     });
     var cNode;
     function zTreeOnClick(event, treeId, treeNode) {
@@ -504,7 +498,6 @@
     function addHoverDom(treeId, treeNode) {
         var sObj = $("#" + treeNode.tId + "_span"); //获取节点信息
         if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
-
         var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>"; //定义添加按钮
         sObj.after(addStr); //加载添加按钮
         //var btn = $("#addBtn_" + treeNode.tId);
@@ -531,7 +524,6 @@
     }
     function beforeRename(treeId, treeNode, newName, isCancel) {
         if (newName.length == 0) {
-            alert("节点名称不能为空.");
             return false;
         }
         return true;
@@ -554,20 +546,28 @@
     $(".canvas_close.canvas_close1").on("click", function () {
         $(".canvas.canvas1").hide();
     })
-    $(".addhide").on("click", function () {
+
+    function createDepartment() {
+        alert('1')
         $(".canvas.canvas2").hide();
-    })
-    $(".addhide").on("click", function () {
-        $(".canvas.canvas1").hide();
-    })
+        var pid = cNode.id;
+        var depname = $("#dname").val();
+        var depLevel = $("#dlevel").val();
+        $.post("/SystemSetup/AddDepartment", { pid: pid, dname: depname, dl: depLevel }, function (nid) {
+            console.log(nid)
+            if (nid != "0") {
+                initTree();
+                var zTree = $.fn.zTree.getZTreeObj("tree");
+                var node = zTree.getNodeByParam("id", parseInt(nid), null); //根据新的id找到新添加的节点
+                console.log(node)
+                zTree.selectNode(node); //让新添加的节点处于选中状态
+                zTree.expandNode(node, true, false, true);
+            }
+        });
+    }
     // 添加部门
     $(".add-img2").on("click", function () {
         $(".canvas.canvas2").show();
-        var zTree = $.fn.zTree.getZTreeObj("tree");
-        console.log(cNode);
-        pNode = cNode.getParentNode()
-        childs = getChildNodes(cNode)
-        console.log(childs)
     })
     function getChildNodes(treeNode) {
         var naviTree = $.fn.zTree.getZTreeObj("tree");
@@ -600,6 +600,7 @@
         $.post("/SystemSetup/CreateUser", data, function (res) {
             if (res == "1") {
                 alert('创建成功')
+                $(".canvas.canvas1").hide();
                 getDepartmentUsers();
             }
             else {

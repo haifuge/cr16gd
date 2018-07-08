@@ -109,10 +109,10 @@ namespace RailBiding.Controllers
             return JsonHelper.DataTableToJSON(dt);
         }
         
-        public string AddDepartment(string pid, string level)
+        public string AddDepartment(string pid, string dname, string dl)
         {
             SystemSetup ss = new SystemSetup();
-            return ss.AddDepartment(pid, level);
+            return ss.AddDepartment(pid, dname, dl);
         }
         public void UpdateDepartment(string id, string name)
         {

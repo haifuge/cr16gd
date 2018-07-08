@@ -43,7 +43,7 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public string AddDepartment(string pid, string level, string name = "")
+        public string AddDepartment(string pid, string name, string level)
         {
             string sql = "insert into Department values(N'"+name+"',"+level+","+pid+@");
                             select MAX(id) from Department";
@@ -91,7 +91,7 @@ namespace DAL.Models
         public string CreateUser(string acc, string pasd, string nam, string telephone, string em, string did)
         {
             pasd = EncryptHelper.Encrypt(pasd, "IamKey12");
-            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "'," + did + "'," + telephone+", "+em+", getdate(),1,1)";
+            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "'," + did + ",'" + telephone+"', '"+em+"', getdate(),1,1)";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return "1";
