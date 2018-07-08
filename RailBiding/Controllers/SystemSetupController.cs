@@ -178,5 +178,20 @@ namespace RailBiding.Controllers
             DataTable dt = ss.GetDepartmentUsers(did);
             return JsonHelper.DataTableToJSON(dt);
         }
+        public string AddBusinessType(string bt)
+        {
+            SystemSetup ss = new SystemSetup();
+            return ss.AddBusinessType(bt);
+        }
+        public void DeleteBusinessType(string id)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.DeleteBusinessType(id);
+        }
+        public void UpdateBusinessType(string id, string name)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.UpdateBusinessType(id, name);
+        }
     }
 }

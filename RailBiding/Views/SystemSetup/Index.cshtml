@@ -220,7 +220,7 @@
                         <span class="canvas_close canvas_close1">×</span>
                         <h3>添加人员</h3>
                         <div class="wc-container">
-                            <form action="" post="">
+                            <form>
                                 <table class="meet-form meet-form2 meet-form5">
                                     <tbody>
 
@@ -237,7 +237,7 @@
                                             <td class="form-lable">账号：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="uaccount"
-                                                       class="has-clear-input " oninvalid="setCustomValidity('用户名不能为空')"  required="required"/>
+                                                       class="has-clear-input " oninvalid="setCustomValidity('用户名不能为空')"/>
 
                                             </td>
                                         </tr>
@@ -245,7 +245,7 @@
                                             <td class="form-lable">输入密码：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="upsd"
-                                                       class="has-clear-input" oninvalid="setCustomValidity('请输入6位密码')"  required="required" />
+                                                       class="has-clear-input" oninvalid="setCustomValidity('请输入6位密码')" />
 
                                             </td>
                                         </tr>
@@ -253,7 +253,7 @@
                                             <td class="form-lable">确认密码：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value=""
-                                                       class=" " oninvalid="setCustomValidity('请确认密码')" required="required" />
+                                                       class=" " oninvalid="setCustomValidity('请确认密码')"/>
 
                                             </td>
                                         </tr>
@@ -262,21 +262,21 @@
                                             <td class="form-lable">姓名：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="uname"
-                                                       class="has-clear-input input " oninvalid="setCustomValidity('姓名不能为空')"  required="required"/>
+                                                       class="has-clear-input input " oninvalid="setCustomValidity('姓名不能为空')"/>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">手机：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="utel"
-                                                       class="has-clear-input input " oninvalid="setCustomValidity('正确输入11位手机号')"  required="required"/>
+                                                       class="has-clear-input input " oninvalid="setCustomValidity('正确输入11位手机号')"/>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">邮箱：</td>
                                             <td>
                                                 <input name="roomInfoName" type="email" value="" id="uemail"
-                                                       class="has-clear-input input" oninvalid="setCustomValidity('正确输入邮箱格式')"  required="required"/>
+                                                       class="has-clear-input input" oninvalid="setCustomValidity('正确输入邮箱格式')"/>
                                             </td>
                                         </tr>
                                         
@@ -327,7 +327,7 @@
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
-                                            <td class="form-lable">部门级别：</td>
+                                            <td class="form-lable">审批级别：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="dlevel"
                                                        class="has-clear-input input input3 addlevel" disabled />
@@ -348,7 +348,6 @@
                     <div class="zTreeDemoBackground left">
                         <ul id="tree" class="ztree"></ul>
                     </div>
-
                 </div>
             </div>
             <div class="dc-right">
@@ -438,10 +437,11 @@
         { id: 221, pId: 22, name: "董事会" },
         { id: 222, pId: 22, name: "总经理办公室", icon:"/img/icon-fclose.png" }
     ];
+    var nodes;
     function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
             data = data.replace(/pid/g, 'pId').replace(/iconclose/g, 'iconClose').replace(/iconopen/g, 'iconOpen')
-            var nodes = JSON.parse(data);
+            nodes = JSON.parse(data);
             console.log(nodes)
             $.fn.zTree.init($("#tree"), setting, nodes);
         })
@@ -452,10 +452,17 @@
     var cNode;
     function zTreeOnClick(event, treeId, treeNode) {
         cNode = treeNode;
-        cNodelevel = cNode.level+1;
+        cNodelevel = getDepartmentLevel(cNode.id) + 1;
+        console.log(cNodelevel);
         $(".addlevel").val(cNodelevel);
         $(".addbumen").val(cNode.name);
         getDepartmentUsers();
+    }
+    function getDepartmentLevel(id) {
+        for (var i = 0; i < nodes.length; i++) {
+            if (id == nodes[i].id)
+                return nodes[i].level;
+        }
     }
     $(".addbox").click(function () {
             if ($(this).is(":checked")) {
@@ -527,9 +534,21 @@
 
     function createDepartment() {
         $(".canvas.canvas2").hide();
-        var pid = cNode.id;
+        var pid
+        if (cNode == null) {
+            pid = 0
+        } else {
+            pid = cNode.id;
+        }
+        if ($(".addbox").is(":checked"))
+            pid = 0;
         var depname = $("#dname").val();
         var depLevel = $("#dlevel").val();
+        if (depLevel == "") {
+            alert('请输入审批级别')
+            $("#dlevel").focus();
+            return;
+        }
         $.post("/SystemSetup/AddDepartment", { pid: pid, dname: depname, dl: depLevel }, function (nid) {
             console.log(nid)
             if (nid != "0") {

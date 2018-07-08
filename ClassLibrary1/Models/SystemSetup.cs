@@ -105,5 +105,23 @@ namespace DAL.Models
             string sql = "select ui.ID, ui.UserAccount, ui.UserName, d.Name as department, ui.Telphone, ui.Email  from UserInfo ui inner join Department d on ui.DepartmentId=d.ID where ui.DepartmentId="+did;
             return DBHelper.GetDataTable(sql);
         }
+
+        public string AddBusinessType(string bt)
+        {
+            string sql = "insert into BusinessType values(N'"+bt+ "'); select max(id) from BusinessType; ";
+            return DBHelper.ExecuteScalar(sql);
+        }
+
+        public void DeleteBusinessType(string id)
+        {
+            string sql = "delete BusinessType where id = "+id;
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public void UpdateBusinessType(string id, string name)
+        {
+            string sql = "update BusinessType set Name=N'"+name+"' where id = " + id;
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }
