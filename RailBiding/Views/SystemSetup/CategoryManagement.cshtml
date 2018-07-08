@@ -129,8 +129,8 @@
         <div class="main-top">
             <a href="#" class="bmgl ">业务类型</a>
             <div class="catt">
-                <span>输入名称：<input name="roomInfoName" type="text" value="" class="has-clear-input input input3"></span>
-                <a href="#" class="bmgl">添加</a>
+                <span>输入名称：<input name="roomInfoName" type="text" id="btype" value="" class="has-clear-input input input3"></span>
+                <a href="#" class="bmgl" onclick="addBtype()">添加</a>
             </div>
         </div>
         <div class="wc-container">
@@ -145,9 +145,6 @@
                 </thead>
                 <tbody id="tbType"></tbody>
             </table>
-
-            
-
             <!-- 修改类型名称 -->
             <div class="canvas canvas1">
                 <div class="canvas_content xg-canvas_content">
@@ -157,17 +154,18 @@
                             <table class="meet-form meet-form2 meet-form5">
                                 <tbody>
                                     <tr class="form-tr">
-                                        <td class="form-lable">类型名称：</tdclass="form-lable">
+                                        <td class="form-lable">类型名称：</td>
                                         <td>
-                                            <input name="roomInfoName" type="text" value=""
+                                            <input name="roomInfoName" type="text" value="" id="btname"
                                                    class="has-clear-input input input3 addbumen" />
                                         </td>
                                     </tr>
 
                                 </tbody>
                             </table>
+                        <input type="text" id="btid" style="display:none" />
                             <div class="form-tr-btn">
-                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide">确定</button>
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide" onclick="updateBusinessType()">确定</button>
                                 <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
                             </div>
                     </div>
@@ -187,37 +185,67 @@
     <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
     <script type='text/javascript' src='~/js/js.js'></script>
     <script>
-        $(function () {
+        function initBusinessType() {
             $.post("/SystemSetup/GetSystemTypes", {}, function (data) {
+                $("#tbType").empty()
                 var obj = JSON.parse(data);
                 var htm = ""
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i]
-                    htm += '<tr class="white-bg">'+
+                    htm += '<tr class="white-bg">' +
                         '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"/></td>' +
-                        '<td>' + o.name + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(' + o.id + ')">删除</a></td>' +
+                        '<td>' + o.name + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + o.name + '\',' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + o.id + ')">删除</a></td>' +
                         '</tr>';
-
                 }
                 $("#tbType").html(htm)
             });
-           
+        }
+        $(function () {
+            initBusinessType();           
         })
-        function changename(id) {
-          
+        function addBtype() {
+            var btval = $("#btype").val();
+            if (btval.trim() == "");
+            {
+                alert('请输入类型名称')
+                $("#btype").focus();
+                return;
+            }
+            $.post("/SystemSetup/AddBusinessType", { bt: btval }, function (bid) {
+                var htm = '<tr class="white-bg">' +
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '" id="checkbox-1"/></td>' +
+                    '<td>' + btval + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + btval + '\',' + bid + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + bid +')">删除</a></td>' +
+                    '</tr>';
+                $("#tbType").append(htm);
+            })
+        }
+        $(".canvas_close.canvas_close1").on("click", function () {
+            $(".canvas.canvas1").hide();
+        })
+        function updateBusinessType() {
+            var btn = $("#btname").val();
+            var bti = $("#btid").val()
+            $.post("/SystemSetup/UpdateBusinessType", { id: bti, name: btn }, function () { });
+            $(".canvas.canvas1").hide();
+            initBusinessType();
+        }
+        function changename(bname, id) {
+            $("#btname").val(bname)
             $(".canvas.canvas1").show();
-            $(".canvas_close.canvas_close1").on("click", function () {
+            $("#btid").val(id)
+        }
+        $(document).ready(function () {
+        // 修改类型名称
+            $(".addhide").on("click", function () {
                 $(".canvas.canvas1").hide();
             })
-           
+        })
+        function delname(obj, btid) {
+            console.log(obj.parentNode.parentNode);
+            if (confirm("确认要删除该类型？")) {
+                var row = obj.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                $.post("/SystemSetup/DeleteBusinessType", {id:btid}, function () { })
+            }
         }
-            $(document).ready(function () {
-        // 修改类型名称
-                $(".addhide").on("click", function () {
-                    $(".canvas.canvas1").hide();
-                })
-
-                
-            })
-       
     </script>

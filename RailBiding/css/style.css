@@ -658,7 +658,7 @@ select::-ms-expand {
 
     .main-top a.meet-btn {
         margin-right: 8px;
-        float:left
+        float: left
     }
 
         .main-top a.meet-btn.blue-btn {
@@ -1454,6 +1454,8 @@ button:hover {
     .block-left .meet-form td {
         color: #3e3a39;
         padding-right: 10px;
+        font-size: 14px;
+        line-height: 20px;
     }
 
     .block-left .meet-form .form-tr-title-bg td {
@@ -3032,14 +3034,12 @@ input[name=keyname] {
     background: #FFF9F3;
     text-align: center;
     border: 1px solid #CCC;
-    ;
 }
 
 #contents {
     margin-top: 20px;
     background: #FFF9F3;
     border: 1px solid #CCC;
-    ;
 }
 
 #form-itemGroup {
@@ -3900,12 +3900,11 @@ input[name=keyname] {
 .add-yej {
     background: #f7f7f7;
     width: 98%;
-    height: 200px;
+    height: 215px;
     border: 1px solid #ececec;
     margin-top: 50px;
     padding: 40px 15px 15px;
     position: relative;
-    ;
 }
 
     .add-yej label {
@@ -3926,17 +3925,17 @@ input[name=keyname] {
 
     .add-yej h3 {
         width: 150px;
-        height: 40px;
-        line-height: 40px;
+        height: 30px;
+        line-height: 30px;
         text-align: center;
-        background: #f39c13;
+        background: #e0dede;
         border-radius: 5px;
-        color: #fff;
         position: absolute;
         left: 50%;
         margin-left: -75px;
-        top: -20px;
+        top: -15px;
         border: 1px solid #c8c9ca;
+        color: #999;
     }
 
     .add-yej .cb {
@@ -3944,7 +3943,7 @@ input[name=keyname] {
     }
 
 .input8 {
-    width: 100px;
+    width: 90px;
     height: 30px;
     line-height: 30px;
     border: 1px solid #ccc;
@@ -3952,7 +3951,7 @@ input[name=keyname] {
 }
 
 .add-yej span {
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .add-yej select.select {
@@ -3965,12 +3964,13 @@ input[name=keyname] {
     padding-left: 10px;
     line-height: 26px;
     border-radius: 4px;
-    width: 120px;
-    background: #fff url(../img/icon-arrow.png) no-repeat 100px center;
+    width: 100px;
+    background: #fff url(../img/icon-arrow.png) no-repeat 76px center;
 }
 
 .add-yej .Wdate {
     height: 30px;
+    width: 120px;
 }
 
 .btn-add {
@@ -4118,6 +4118,7 @@ h3.fx_tit {
 
 .main-nav ul li a:hover {
 }
+
 .form-tr:nth-child(1) td:nth-child(2) {
     font-size: 13px;
     color: dodgerblue
@@ -4514,7 +4515,7 @@ h3.fx_tit {
     text-align: center;
     display: inline-block;
     margin: 0 15px;
-    float:left;
+    float: left;
 }
 
 .rygl {
@@ -4541,13 +4542,15 @@ h3.fx_tit {
 }
 
 .catt {
-    position: relative ;
+    position: relative;
     float: left;
     left: 60px;
 }
-.catt>span {
-    float: left;
-}
+
+    .catt > span {
+        float: left;
+    }
+
     .catt input {
         width: 300px;
         height: 25px;
@@ -5502,7 +5505,7 @@ ul.cjtb_ul li div.ul-bg {
 
 .meet-icon.icon-cancel.iconc.iconc2 {
     height: 25px;
-    width: 70px;
+    width: 40px;
     font-size: 14px;
     line-height: 25px;
     float: right;
@@ -5650,12 +5653,16 @@ ul.cjtb_ul li div.ul-bg {
         }
 
         .block-right.block-right2 ul li.li-blue {
-            color: #008cd6;
-            border-left: 1px solid #008cd6;
+            color: #00B83F;
+            border-left: 1px solid #00B83F;
         }
 
-            .block-right.block-right2 ul li.li-blue span.yj06, .block-right.block-right2 ul li.li-blue span.yj02, .block-right.block-right2 ul li.li-blue span.yj03, .block-right.block-right2 ul li.li-blue span.yj04 {
+            .block-right.block-right2 ul li.li-blue span.yj04 {
                 color: #008cd6;
+            }
+
+            .block-right.block-right2 ul li.li-blue span.yj06, .block-right.block-right2 ul li.li-blue span.yj02, .block-right.block-right2 ul li.li-blue span.yj03 {
+                color: #000
             }
 
         .block-right.block-right2 ul li.li-gray {
@@ -5672,10 +5679,43 @@ ul.cjtb_ul li div.ul-bg {
     }
 
     .block-right.block-right2 ul li.li-blue2 {
-        border-left: 1px solid #008cd6;
+        border-left: 1px solid #00B83F;
     }
 
+    .block-right.block-right2 ul.feedback-list.feedback-admin li {
+        border-left: none
+    }
+
+    .block-right.block-right2 ul.feedback-list.feedback-users li {
+        border-left: none
+    }
 /*2018.7.8增加*/
 .meet-form.meet-form9.meet-form3 .form-tr.tr-qymc {
     background: #eaf6fd;
+}
+
+.fla {
+    width: 35px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    background: #ea6307;
+    font-size: 10px;
+    color: #fff;
+    border-radius: 3px;
+    margin: 0 8px;
+    padding: 1px 5px
+}
+
+.fla2 {
+    width: 35px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    background: #00B83F;
+    font-size: 10px;
+    color: #fff;
+    border-radius: 3px;
+    margin: 0 8px;
+    padding: 1px 5px;
 }

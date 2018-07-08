@@ -372,10 +372,12 @@
     <Content Include="img\icon-daoout.png" />
     <Content Include="img\icon-dc.png" />
     <Content Include="img\icon-del.png" />
+    <Content Include="img\icon-fopen.png" />
     <Content Include="img\icon-fh.png" />
     <Content Include="img\icon-file.png" />
     <Content Include="img\icon-file2.png" />
     <Content Include="img\icon-fj.png" />
+    <Content Include="img\icon-fclose.png" />
     <Content Include="img\icon-index.png" />
     <Content Include="img\icon-index1.png" />
     <Content Include="img\icon-index2.png" />

@@ -220,7 +220,7 @@
                         <span class="canvas_close canvas_close1">×</span>
                         <h3>添加人员</h3>
                         <div class="wc-container">
-                            <form action="" post="">
+                            <form>
                                 <table class="meet-form meet-form2 meet-form5">
                                     <tbody>
 
@@ -237,7 +237,7 @@
                                             <td class="form-lable">账号：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="uaccount"
-                                                       class="has-clear-input " oninvalid="setCustomValidity('用户名不能为空')"  required="required"/>
+                                                       class="has-clear-input " oninvalid="setCustomValidity('用户名不能为空')"/>
 
                                             </td>
                                         </tr>
@@ -245,7 +245,7 @@
                                             <td class="form-lable">输入密码：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="upsd"
-                                                       class="has-clear-input" oninvalid="setCustomValidity('请输入6位密码')"  required="required" />
+                                                       class="has-clear-input" oninvalid="setCustomValidity('请输入6位密码')" />
 
                                             </td>
                                         </tr>
@@ -253,7 +253,7 @@
                                             <td class="form-lable">确认密码：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value=""
-                                                       class=" " oninvalid="setCustomValidity('请确认密码')" required="required" />
+                                                       class=" " oninvalid="setCustomValidity('请确认密码')"/>
 
                                             </td>
                                         </tr>
@@ -262,21 +262,21 @@
                                             <td class="form-lable">姓名：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="uname"
-                                                       class="has-clear-input input " oninvalid="setCustomValidity('姓名不能为空')"  required="required"/>
+                                                       class="has-clear-input input " oninvalid="setCustomValidity('姓名不能为空')"/>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">手机：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="utel"
-                                                       class="has-clear-input input " oninvalid="setCustomValidity('正确输入11位手机号')"  required="required"/>
+                                                       class="has-clear-input input " oninvalid="setCustomValidity('正确输入11位手机号')"/>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">邮箱：</td>
                                             <td>
                                                 <input name="roomInfoName" type="email" value="" id="uemail"
-                                                       class="has-clear-input input" oninvalid="setCustomValidity('正确输入邮箱格式')"  required="required"/>
+                                                       class="has-clear-input input" oninvalid="setCustomValidity('正确输入邮箱格式')"/>
                                             </td>
                                         </tr>
                                         
@@ -327,7 +327,7 @@
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
-                                            <td class="form-lable">部门级别：</td>
+                                            <td class="form-lable">审批级别：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="dlevel"
                                                        class="has-clear-input input input3 addlevel" disabled />
@@ -348,7 +348,6 @@
                     <div class="zTreeDemoBackground left">
                         <ul id="tree" class="ztree"></ul>
                     </div>
-
                 </div>
             </div>
             <div class="dc-right">
@@ -423,48 +422,27 @@
     };
 
     var zNodes = [
-        { id: 1, pId: 0, name: "中国铁建地产集团", open: true, checked:true },
-        { id: 11, pId: 1, name: "开发测试", open: true },
-        { id: 111, pId: 11, name: "董事会" },
-        { id: 112, pId: 12, name: "总经理" },
-        { id: 12, pId: 1, name: "集团总部", open: true },
-        { id: 121, pId: 12, name: "董事会" },
-        { id: 122, pId: 12, name: "总经理" },
+        {
+            id: 1, pId: 0, name: "中国铁建地产集团", open: true, checked: true, icon: "", iconOpen: "/img/icon-fopen.png", iconClose:"/img/icon-fclose.png"
+        },
+        { id: 11, pId: 1, name: "开发测试", open: true, icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
+        { id: 111, pId: 11, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 112, pId: 12, name: "总经理", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 12, pId: 1, name: "集团总部", open: true, icon: "", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
+        { id: 121, pId: 12, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 122, pId: 12, name: "总经理", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
         { id: 2, pId: 0, name: "集团总部", open: true },
         { id: 21, pId: 2, name: "公司领导" },
         { id: 22, pId: 2, name: "总经理办公室", open: true },
         { id: 221, pId: 22, name: "董事会" },
-        { id: 222, pId: 22, name: "总经理办公室" },
-        { id: 23, pId: 2, name: "部级以上领导" },
-        { id: 231, pId: 23, name: "董事会" },
-        { id: 24, pId: 2, name: "企业改革与发展管理中心" },
-        { id: 241, pId: 24, name: "董事会" },
-        { id: 25, pId: 2, name: "土地经营管理中心" },
-        { id: 251, pId: 25, name: "董事会" },
-        { id: 26, pId: 2, name: "人力资源部（党委干部部）" },
-        { id: 261, pId: 26, name: "董事会" },
-        { id: 27, pId: 2, name: "财务会计部" },
-        { id: 271, pId: 27, name: "董事会" },
-        { id: 28, pId: 2, name: " 审计监事部" },
-        { id: 281, pId: 28, name: "董事会" },
-        { id: 29, pId: 2, name: "  其他人员" },
-        { id: 291, pId: 29, name: "董事会", },
-        { id: 292, pId: 29, name: "总经理办公室" },
-        { id: 3, pId: 0, name: "华南地区" },
-        { id: 31, pId: 3, name: "董事会" },
-        { id: 32, pId: 3, name: "总经理办公室" },
-        { id: 4, pId: 0, name: "东南地区" },
-        { id: 41, pId: 4, name: "董事会" },
-        { id: 42, pId: 4, name: "总经理办公室" },
-        { id: 5, pId: 0, name: "西南地区" },
-        { id: 51, pId: 5, name: "董事会" },
-        { id: 52, pId: 5, name: "总经理办公室" },
-
+        { id: 222, pId: 22, name: "总经理办公室", icon:"/img/icon-fclose.png" }
     ];
+    var nodes;
     function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
-            data = data.replace(/pid/g, 'pId')
-            var nodes = JSON.parse(data);
+            data = data.replace(/pid/g, 'pId').replace(/iconclose/g, 'iconClose').replace(/iconopen/g, 'iconOpen')
+            nodes = JSON.parse(data);
+            console.log(nodes)
             $.fn.zTree.init($("#tree"), setting, nodes);
         })
     }
@@ -474,10 +452,17 @@
     var cNode;
     function zTreeOnClick(event, treeId, treeNode) {
         cNode = treeNode;
-        cNodelevel = cNode.level+1;
+        cNodelevel = getDepartmentLevel(cNode.id) + 1;
+        console.log(cNodelevel);
         $(".addlevel").val(cNodelevel);
         $(".addbumen").val(cNode.name);
         getDepartmentUsers();
+    }
+    function getDepartmentLevel(id) {
+        for (var i = 0; i < nodes.length; i++) {
+            if (id == nodes[i].id)
+                return nodes[i].level;
+        }
     }
     $(".addbox").click(function () {
             if ($(this).is(":checked")) {
@@ -548,11 +533,22 @@
     })
 
     function createDepartment() {
-        alert('1')
         $(".canvas.canvas2").hide();
-        var pid = cNode.id;
+        var pid
+        if (cNode == null) {
+            pid = 0
+        } else {
+            pid = cNode.id;
+        }
+        if ($(".addbox").is(":checked"))
+            pid = 0;
         var depname = $("#dname").val();
         var depLevel = $("#dlevel").val();
+        if (depLevel == "") {
+            alert('请输入审批级别')
+            $("#dlevel").focus();
+            return;
+        }
         $.post("/SystemSetup/AddDepartment", { pid: pid, dname: depname, dl: depLevel }, function (nid) {
             console.log(nid)
             if (nid != "0") {
