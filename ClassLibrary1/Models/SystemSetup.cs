@@ -123,5 +123,11 @@ namespace DAL.Models
             string sql = "update BusinessType set Name=N'"+name+"' where id = " + id;
             DBHelper.ExecuteNonQuery(sql);
         }
+
+        public void DeleteUser(string uid)
+        {
+            string sql = "delete UserInfo where id = " + uid;
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }

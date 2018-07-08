@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "系统设置";
 }
 
@@ -8,11 +7,16 @@
 <link rel='stylesheet' href='~/js/ztree/css/zTreeStyle/zTreeStyle.css' />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
-    html,body {
-    width:100%;
-    height:100%
+    html, body {
+        width: 100%;
+        height: 100%;
     }
-    *{padding:0 ;margin:0}
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
     table.meet-table {
         border: none;
     }
@@ -22,7 +26,7 @@
     }
 
         .meet-table tr.white-bg td {
-            border: none
+            border: none;
         }
 
     * {
@@ -147,7 +151,7 @@
                 display: inline-block;
                 width: 80px;
                 text-align: left;
-                float: left
+                float: left;
             }
 
             .canvas_content_text ul li .upload {
@@ -183,8 +187,12 @@
     .meet-form2 .form-tr-btn {
         text-align: center;
     }
-</style>
 
+    .form-tr td span {
+        color: #ff7412;
+        font-size: 13px;
+    }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>系统设置</h1>
@@ -198,9 +206,7 @@
         </ul>
     </div>
 </div>
-
 <div class="main-con">
-
     <div class="main-wrap">
         <div class="main-top">
             <!--<a class="meet-btn blue-btn sm-btn" href="#">全部</a>-->
@@ -209,7 +215,6 @@
                 <a class="search-btn" style="background: none"></a>
             </div>
             <a class="meet-btn blue-btn sm-btn" href="#">搜索</a>
-
             <div class="apply-opt">
                 <a href="#" class="js-cancle-meet" title="">
                     <i class="meet-icon icon-cancel iconc add-img" style="">添加人员</i>
@@ -220,80 +225,79 @@
                         <span class="canvas_close canvas_close1">×</span>
                         <h3>添加人员</h3>
                         <div class="wc-container">
-                            <form>
-                                <table class="meet-form meet-form2 meet-form5">
-                                    <tbody>
 
-                                        <tr class="form-tr">
-                                            <td class="form-lable">部门：</td>
-                                            <td>
-                                                <div class="form-item  sel-required">
-                                                    <input name="roomInfoName" type="text" value=""
-                                                           class="has-clear-input input input3 addbumen" disabled />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="form-tr">
-                                            <td class="form-lable">账号：</td>
-                                            <td>
-                                                <input name="roomInfoName" type="text" value="" id="uaccount"
-                                                       class="has-clear-input " oninvalid="setCustomValidity('用户名不能为空')"/>
+                            <table class="meet-form meet-form2 meet-form5">
+                                <tbody>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">部门：</td>
+                                        <td>
+                                            <div class="form-item  sel-required">
+                                                <input name="roomInfoName" type="text" value="" id="addpeo"
+                                                       class="has-clear-input input input3 addbumen" disabled />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">账号：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" id="uaccount"
+                                                   class="has-clear-input input input3 " onblur="yzzh()" />
+                                            <span id="d1"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">输入密码：</td>
+                                        <td>
+                                            <input type="password" name="roomInfoName" type="text" value="" id="upsd"
+                                                   class="has-clear-input input input3 " onBlur="checkpwd()" />
+                                            <span id="pwdmsg"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">确认密码：</td>
+                                        <td>
+                                            <input type="password" name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd()" />
+                                            <span id="repwdmsg"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">姓名：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" id="uname"
+                                                   class="has-clear-input input input3  " onBlur="yzxm()" />
+                                            <span id="xm"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">手机：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" id="utel"
+                                                   class="has-clear-input input  input3 " onBlur="checkphone()" />
+                                            <span id="phonemsg"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">邮箱：</td>
+                                        <td>
+                                            <input type="email" name="roomInfoName" value="" id="uemail"
+                                                   class="has-clear-input input  input3 " onBlur="checkmail()" />
+                                            <span id="mailmess"></span>
+                                        </td>
+                                    </tr>
 
-                                            </td>
-                                        </tr>
-                                        <tr class="form-tr">
-                                            <td class="form-lable">输入密码：</td>
-                                            <td>
-                                                <input name="roomInfoName" type="text" value="" id="upsd"
-                                                       class="has-clear-input" oninvalid="setCustomValidity('请输入6位密码')" />
+                                </tbody>
+                            </table>
+                            <div class="form-tr-btn">
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createNewUser()">确定</button>
+                                <button type="reset" class="meet-btn big-btn gray-btn canvas_close1">取消</button>
+                            </div>
 
-                                            </td>
-                                        </tr>
-                                        <tr class="form-tr">
-                                            <td class="form-lable">确认密码：</td>
-                                            <td>
-                                                <input name="roomInfoName" type="text" value=""
-                                                       class=" " oninvalid="setCustomValidity('请确认密码')"/>
-
-                                            </td>
-                                        </tr>
-
-                                        <tr class="form-tr">
-                                            <td class="form-lable">姓名：</td>
-                                            <td>
-                                                <input name="roomInfoName" type="text" value="" id="uname"
-                                                       class="has-clear-input input " oninvalid="setCustomValidity('姓名不能为空')"/>
-                                            </td>
-                                        </tr>
-                                        <tr class="form-tr">
-                                            <td class="form-lable">手机：</td>
-                                            <td>
-                                                <input name="roomInfoName" type="text" value="" id="utel"
-                                                       class="has-clear-input input " oninvalid="setCustomValidity('正确输入11位手机号')"/>
-                                            </td>
-                                        </tr>
-                                        <tr class="form-tr">
-                                            <td class="form-lable">邮箱：</td>
-                                            <td>
-                                                <input name="roomInfoName" type="email" value="" id="uemail"
-                                                       class="has-clear-input input" oninvalid="setCustomValidity('正确输入邮箱格式')"/>
-                                            </td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                                <div class="form-tr-btn">
-                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide" onclick="createNewUser()">确定</button>
-                                    <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
-                                </div>
-                            </form>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="wc-container" style="border: 1px solid #ececec;overflow: hidden">
             <div class="dc-left">
                 <h3>
@@ -308,7 +312,6 @@
                             <form>
                                 <table class="meet-form meet-form2 meet-form5">
                                     <tbody>
-
                                         <tr class="form-tr">
                                             <td class="form-lable">上级部门：</td>
                                             <td>
@@ -316,7 +319,6 @@
                                                        class="has-clear-input input input3 addbumen" disabled />
                                                 <input type="checkbox" id="addbox1" name="" class="addbox" />
                                                 <label for='addbox1' class="addbox1ab">是否创建新节点</label>
-
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
@@ -336,14 +338,13 @@
                                     </tbody>
                                 </table>
                                 <div class="form-tr-btn">
-                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit addhide" onclick="createDepartment()">确定</button>
-                                    <button type="reset" class="meet-btn big-btn gray-btn addhide ">取消</button>
+                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createDepartment();return false;">确定</button>
+                                    <button type="reset" class="meet-btn big-btn gray-btn canvas_close2">取消</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
                 <div class="content_wrap">
                     <div class="zTreeDemoBackground left">
                         <ul id="tree" class="ztree"></ul>
@@ -363,9 +364,7 @@
                     <td>操作</td>
                     </tr>
                     </thead>
-                    <tbody id="tbusers">
-                        
-                    </tbody>
+                    <tbody id="tbusers"></tbody>
                 </table>
                 <div class="page" style="width: 100%;float:left">
                 </div>
@@ -373,7 +372,6 @@
         </div>
     </div>
 </div>
-
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
@@ -385,7 +383,6 @@
 <script src="~/js/ztree/js/jquery.ztree.core.js"></script>
 <script src="~/js/ztree/js/jquery.ztree.exedit.js"></script>
 <script type="text/javascript" src="~/js/ztree/js/jquery.ztree.excheck.js"></script>
-
 
 <script type="text/javascript">
     $(function () {
@@ -423,26 +420,25 @@
 
     var zNodes = [
         {
-            id: 1, pId: 0, name: "中国铁建地产集团", open: true, checked: true, icon: "", iconOpen: "/img/icon-fopen.png", iconClose:"/img/icon-fclose.png"
+            id: 1, pId: 0, name: "中国铁建地产集团", open: true, checked: true, icon: "", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"
         },
         { id: 11, pId: 1, name: "开发测试", open: true, icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
-        { id: 111, pId: 11, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
-        { id: 112, pId: 12, name: "总经理", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 111, pId: 11, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
+        { id: 112, pId: 12, name: "总经理", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
         { id: 12, pId: 1, name: "集团总部", open: true, icon: "", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
-        { id: 121, pId: 12, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 121, pId: 12, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
         { id: 122, pId: 12, name: "总经理", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
         { id: 2, pId: 0, name: "集团总部", open: true },
         { id: 21, pId: 2, name: "公司领导" },
         { id: 22, pId: 2, name: "总经理办公室", open: true },
         { id: 221, pId: 22, name: "董事会" },
-        { id: 222, pId: 22, name: "总经理办公室", icon:"/img/icon-fclose.png" }
+        { id: 222, pId: 22, name: "总经理办公室", icon: "/img/icon-fclose.png" }
     ];
     var nodes;
     function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
             data = data.replace(/pid/g, 'pId').replace(/iconclose/g, 'iconClose').replace(/iconopen/g, 'iconOpen')
             nodes = JSON.parse(data);
-            console.log(nodes)
             $.fn.zTree.init($("#tree"), setting, nodes);
         })
     }
@@ -465,21 +461,21 @@
         }
     }
     $(".addbox").click(function () {
-            if ($(this).is(":checked")) {
-                $(".addbox").prop("checked", true);
-                $(".addbumen").val("");
-                $(".addlevel").attr("disabled", false); 
-                
-            } else {
-                $(".addbox").prop("checked", false);
-                $(".addbumen").val(cNode.name);
-                $(".addlevel").attr("disabled", "disabled");
-                
-            }
-        });
+        if ($(this).is(":checked")) {
+            $(".addbox").prop("checked", true);
+            $(".addbumen").val("");
+            $(".addlevel").attr("disabled", false);
+
+        } else {
+            $(".addbox").prop("checked", false);
+            $(".addbumen").val(cNode.name);
+            $(".addlevel").attr("disabled", "disabled");
+
+        }
+    });
 
     var newCount = 1;
-    
+
     function addHoverDom(treeId, treeNode) {
         var sObj = $("#" + treeNode.tId + "_span"); //获取节点信息
         if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
@@ -509,6 +505,7 @@
     }
     function beforeRename(treeId, treeNode, newName, isCancel) {
         if (newName.length == 0) {
+            alert('部门名称不能为空');
             return false;
         }
         return true;
@@ -526,12 +523,23 @@
         return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
     }
     $(".add-img").on("click", function () {
-        $(".canvas.canvas1").show();
+        var addpeo = document.getElementById('addpeo').value;
+        if (addpeo = null || addpeo == "") {
+            alert("请选择部门");
+        } else {
+            $(".canvas.canvas1").show();
+        }
     })
-    $(".canvas_close.canvas_close1").on("click", function () {
+    $(".canvas_close1").on("click", function () {
         $(".canvas.canvas1").hide();
+        $("#uaccount").val("");
+        $("#upsd").val("");
+        $("#uname").val("");
+        $("#utel").val("");
+        $("#uemail").val("");
+        $("#repwd").val("")
     })
-
+    
     function createDepartment() {
         $(".canvas.canvas2").hide();
         var pid
@@ -563,7 +571,12 @@
     }
     // 添加部门
     $(".add-img2").on("click", function () {
-        $(".canvas.canvas2").show();
+        var dlevel = document.getElementById('dlevel').value;
+        if (dlevel = null || dlevel == "") {
+            alert("请选择部门");
+        } else {
+            $(".canvas.canvas2").show();
+        }
     })
     function getChildNodes(treeNode) {
         var naviTree = $.fn.zTree.getZTreeObj("tree");
@@ -581,45 +594,160 @@
             return true;
         return false;
     }
-    $(".canvas_close.canvas_close2").on("click", function () {
+    $(".canvas_close2").on("click", function () {
         $(".canvas.canvas2").hide();
+        $("#addbumen").val("");
+        $("#dname").val("");
+        $("#dlevel").val("");
+
     })
 
     function createNewUser() {
+        var success = 0;
+        success += yzzh();
+        success += yzxm();
+        success += checkphone();
+        success += checkpwd();
+        success += checkrepwd();
+        success += checkmail();
+        if (success > 0) {
+            return;
+        }
+
         var account = $("#uaccount").val();
         var password = $("#upsd").val();
         var name = $("#uname").val();
         var tel = $("#utel").val();
         var email = $("#uemail").val();
         var depId = cNode.id;
-        var data = { acc: account, pasd: password, nam: name, telephone: tel, em: email, did:depId };
+        var data = { acc: account, pasd: password, nam: name, telephone: tel, em: email, did: depId };
         $.post("/SystemSetup/CreateUser", data, function (res) {
             if (res == "1") {
-                alert('创建成功')
+                alert('创建成功');
                 $(".canvas.canvas1").hide();
                 getDepartmentUsers();
+                $("#uaccount").val("");
+                $("#upsd").val("");
+                $("#uname").val("");
+                $("#utel").val("");
+                $("#uemail").val("");
+                $("#repwd").val("");
             }
             else {
-                alert('创建失败')
+                alert('创建失败');
+                $("#uaccount").val("");
+                $("#upsd").val("");
+                $("#uname").val("");
+                $("#utel").val("");
+                $("#uemail").val("");
+                $("#repwd").val("");
             }
         })
     }
     function getDepartmentUsers() {
-        $.post("/SystemSetup/GetDepartmentUsers", {did: cNode.id}, function (res) {
+        $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id }, function (res) {
             var obj = JSON.parse(res);
             $("#tbusers").empty();
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
-                htm += '<tr class="white-bg"><td class="check-color">' + o.useraccount + '</td>' +
+                htm += '<tr class="white-bg" id="utr'+o.id+'"><td class="check-color">' + o.useraccount + '</td>' +
                     '<td>' + o.username + '</td>' +
                     '<td>' + o.department + '</td>' +
                     '<td>' + o.telphone + '</td>' +
                     '<td>' + o.email + '</td>' +
-                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser('+o.id+')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser('+o.id+')">删除</a></td>' +
+                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(' + o.id + ')">删除</a></td>' +
                     '</tr >';
             }
             $("#tbusers").html(htm)
         })
     }
+    function deleteUser(id) {
+        $.post("/SystemSetup/DeleteUser", {uid: id}, function () {
+            var otr = document.getElementById('utr' + id);
+            otr.parentNode.removeChild(otr);
+            getDepartmentUsers()
+        })
+    }
+
+    /*验证*/
+    function yzzh() {
+
+        var _uaccount = document.getElementById('uaccount').value;
+
+        if (_uaccount = null || _uaccount == "") {
+            $("#d1").html("×用户名不能为空");
+            return 1;
+        } else {
+            $("#d1").html("√");
+            return 0;
+        }
+    }
+
+    function yzxm() {
+
+        var _uname = document.getElementById('uname').value;
+
+        if (_uname = null || _uname == "") {
+            $("#xm").html("×姓名不能为空");
+            return 1;
+        } else {
+            $("#xm").html("√");
+            return 0;
+        }
+    }
+
+    function checkphone() {
+        var reg = /^1\d{10}$/;
+        var _phone = document.getElementById('utel').value;
+        var _msg = document.getElementById('phonemsg');
+        if (reg.test(_phone)) {
+            _msg.innerHTML = "√";
+            return 0;
+        } else {
+            _msg.innerHTML = "×电话格式不对";
+            return 1;
+        }
+    }
+    function checkpwd() {
+        var reg = /.{6,}/;
+        var _pwd = document.getElementById('upsd').value;
+        var _msg = document.getElementById('pwdmsg');
+        if (reg.test(_pwd)) {
+            _msg.innerHTML = "√";
+            return 0;
+        } else {
+            _msg.innerHTML = "×请输入6位密码";
+            return 1;
+        }
+    }
+    function checkrepwd() {
+        var _pwd = document.getElementById('upsd').value;
+        var _repwd = document.getElementById('repwd').value;
+        var _msg = document.getElementById('repwdmsg');
+
+        if (_pwd != _repwd || _pwd == "") {
+            _msg.innerHTML = "×密码不一致";
+            return 1;
+        } else {
+            _msg.innerHTML = "√";
+            return 0;
+        }
+    }
+
+
+    function checkmail() {
+
+        var mail = document.getElementById('uemail').value;
+        var _mailmess = document.getElementById('mailmess');
+        if (mail = null || mail == "") {
+            _mailmess.innerHTML = "×邮箱不能为空";
+            return 1;
+        }
+        else {
+            _mailmess.innerHTML = "√";
+            return 0;
+        }
+    }
+
 </script>

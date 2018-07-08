@@ -94,7 +94,7 @@
                                     <div class="detail-user">
                                         <button type="submit" class="add-qy" style="width: 80px;">
                                             <a href="#" onclick="ShowDiv('MyDiv','fade')" style="color: #fff">
-                                                <img src="img/icon-add3.png" style="vertical-align: middle" alt="">添加企业
+                                                <img src="~/img/icon-add3.png" style="vertical-align: middle" alt="">添加企业
                                             </a>
                                         </button>
                                     </div>
@@ -104,7 +104,7 @@
                                             <div class="btn-close"
                                                  style="text-align: right;  height: 20px;">
                                                 <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
-                                                    <img src="img/btn-close.png"
+                                                    <img src="~/img/btn-close.png"
                                                          alt="">
                                                 </span>
                                             </div>
@@ -132,40 +132,26 @@
                                                 <tbody>
                                                     <tr class="white-bg">
                                                         <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
+                                                            <input class="icheck" name="addcompenycheck"
+                                                                   type="checkbox" value="上海思尧建设集团有限公司1"
+                                                                   id="checkbox-1"  />
                                                         </td>
 
                                                         <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司1</a>
                                                         </td>
                                                         <td>李功明</td>
                                                         <td>1854258612</td>
                                                     </tr>
                                                     <tr class="white-bg">
                                                         <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
+                                                            <input class="icheck" name="addcompenycheck"
+                                                                   type="checkbox" value="上海思尧建设集团有限公司2"
                                                                    id="checkbox-1" />
                                                         </td>
 
                                                         <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司2</a>
                                                         </td>
                                                         <td>李功明</td>
                                                         <td>1854258612</td>
@@ -173,13 +159,13 @@
 
                                                     <tr class="white-bg">
                                                         <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
+                                                            <input class="icheck" name="addcompenycheck"
+                                                                   type="checkbox" value="上海思尧建设集团有限公司3"
+                                                                   id="checkbox-1"  />
                                                         </td>
 
                                                         <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司3</a>
                                                         </td>
                                                         <td>李功明</td>
                                                         <td>1854258612</td>
@@ -187,13 +173,27 @@
 
                                                     <tr class="white-bg">
                                                         <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
+                                                            <input class="icheck" name="addcompenycheck"
+                                                                   type="checkbox" value="上海思尧建设集团有限公司4"
+                                                                   id="checkbox-1"  />
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司4</a>
+                                                        </td>
+                                                        <td>李功明</td>
+                                                        <td>1854258612</td>
+                                                    </tr>
+
+                                                    <tr class="white-bg">
+                                                        <td class="check-color">
+                                                            <input class="icheck" name="addcompenycheck" 
+                                                                   type="checkbox" value="上海思尧建设集团有限公司5"
                                                                    id="checkbox-1" />
                                                         </td>
 
                                                         <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                            <a href="list_business_details.html">上海思尧建设集团有限公司5</a>
                                                         </td>
                                                         <td>李功明</td>
                                                         <td>1854258612</td>
@@ -207,10 +207,10 @@
                                                 </div>
                                                 <div class="form-tr-btn">
                                                     <button type="submit"
-                                                            class="meet-btn big-btn lightblue-btn js-submit">
+                                                            class="meet-btn big-btn lightblue-btn js-submit" onclick="addcompeny()">
                                                         确定
                                                     </button>
-                                                    <button type="reset" class="meet-btn big-btn gray-btn">
+                                                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv','fade')">
                                                         取消
                                                     </button>
                                                 </div>
@@ -225,6 +225,7 @@
                                 <td colspan="2">
                                     <div class="detail-user-list" style="min-height:215px;overflow: auto;">
                                         <div class="meet-user-span">
+                                          
                                             @Html.Raw(ViewBag.JoinCompanys)
                                         </div>
                                     </div>
@@ -443,6 +444,23 @@
         $(this).parent(".meet-user-span span").hide();
     });
 
+</script>
+<script>
+    //参与单位添加
+    function addcompeny() {
+        var checkID = [];
+        $("input[name='addcompenycheck']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
+            checkID[i] = $(this).val();
+            var cid = 'company' + i;
+            var htm = '<span id="' + cid + '">' + $(this).val() + '<i><img src="/img/icon-del.png" onclick="removeCompany(\''+cid+'\')"></i></span>';
+            $(".meet-user-span").append(htm);
+        });
+        CloseDiv('MyDiv', 'fade');
+    }
+    function removeCompany(cid) {
+        var element = document.getElementById(cid);
+        element.parentNode.removeChild(element);
+    }
 </script>
 <script>
     var ss;
