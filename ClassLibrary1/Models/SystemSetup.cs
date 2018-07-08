@@ -29,7 +29,8 @@ namespace DAL.Models
 
         public DataTable GetOrganizations()
         {
-            string sql = @"select id,name,pId,Level from Department";
+            string sql = @"select id,name,pId,Level, '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen 
+                            from Department";
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetOrganizationUser()

@@ -423,48 +423,26 @@
     };
 
     var zNodes = [
-        { id: 1, pId: 0, name: "中国铁建地产集团", open: true, checked:true },
-        { id: 11, pId: 1, name: "开发测试", open: true },
-        { id: 111, pId: 11, name: "董事会" },
-        { id: 112, pId: 12, name: "总经理" },
-        { id: 12, pId: 1, name: "集团总部", open: true },
-        { id: 121, pId: 12, name: "董事会" },
-        { id: 122, pId: 12, name: "总经理" },
+        {
+            id: 1, pId: 0, name: "中国铁建地产集团", open: true, checked: true, icon: "", iconOpen: "/img/icon-fopen.png", iconClose:"/img/icon-fclose.png"
+        },
+        { id: 11, pId: 1, name: "开发测试", open: true, icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
+        { id: 111, pId: 11, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 112, pId: 12, name: "总经理", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 12, pId: 1, name: "集团总部", open: true, icon: "", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
+        { id: 121, pId: 12, name: "董事会", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png"},
+        { id: 122, pId: 12, name: "总经理", icon: "/img/icon-fclose.png", iconOpen: "/img/icon-fopen.png", iconClose: "/img/icon-fclose.png" },
         { id: 2, pId: 0, name: "集团总部", open: true },
         { id: 21, pId: 2, name: "公司领导" },
         { id: 22, pId: 2, name: "总经理办公室", open: true },
         { id: 221, pId: 22, name: "董事会" },
-        { id: 222, pId: 22, name: "总经理办公室" },
-        { id: 23, pId: 2, name: "部级以上领导" },
-        { id: 231, pId: 23, name: "董事会" },
-        { id: 24, pId: 2, name: "企业改革与发展管理中心" },
-        { id: 241, pId: 24, name: "董事会" },
-        { id: 25, pId: 2, name: "土地经营管理中心" },
-        { id: 251, pId: 25, name: "董事会" },
-        { id: 26, pId: 2, name: "人力资源部（党委干部部）" },
-        { id: 261, pId: 26, name: "董事会" },
-        { id: 27, pId: 2, name: "财务会计部" },
-        { id: 271, pId: 27, name: "董事会" },
-        { id: 28, pId: 2, name: " 审计监事部" },
-        { id: 281, pId: 28, name: "董事会" },
-        { id: 29, pId: 2, name: "  其他人员" },
-        { id: 291, pId: 29, name: "董事会", },
-        { id: 292, pId: 29, name: "总经理办公室" },
-        { id: 3, pId: 0, name: "华南地区" },
-        { id: 31, pId: 3, name: "董事会" },
-        { id: 32, pId: 3, name: "总经理办公室" },
-        { id: 4, pId: 0, name: "东南地区" },
-        { id: 41, pId: 4, name: "董事会" },
-        { id: 42, pId: 4, name: "总经理办公室" },
-        { id: 5, pId: 0, name: "西南地区" },
-        { id: 51, pId: 5, name: "董事会" },
-        { id: 52, pId: 5, name: "总经理办公室" },
-
+        { id: 222, pId: 22, name: "总经理办公室", icon:"/img/icon-fclose.png" }
     ];
     function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
-            data = data.replace(/pid/g, 'pId')
+            data = data.replace(/pid/g, 'pId').replace(/iconclose/g, 'iconClose').replace(/iconopen/g, 'iconOpen')
             var nodes = JSON.parse(data);
+            console.log(nodes)
             $.fn.zTree.init($("#tree"), setting, nodes);
         })
     }
@@ -548,7 +526,6 @@
     })
 
     function createDepartment() {
-        alert('1')
         $(".canvas.canvas2").hide();
         var pid = cNode.id;
         var depname = $("#dname").val();
