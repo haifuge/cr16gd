@@ -183,15 +183,16 @@
         if (treeNode.checked) {
             // 插入流程节点
             var root = getCurrentRoot(treeNode)
-            root = getNodeValue(root.id);
+            rootname = root.name;
+            //root = getNodeValue(root.id);
             var o = { level: lev, pname: rootname, username: uname, dname: department.name, uid: userid, did: department.id}
             console.log(o)
             var c = 0;
+            var inserted = false;
             for (var i = 0; i < appProcess.length; i++) {
                 if (o.level >= appProcess[i].level) {
                     appProcess.splice(i, 0, o);
                     var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
-                    var inserted = false;
                     for (var j = 0; j < appProcess.length - 1; j++) {
                         var appName = $.trim(appProcess[j].dname + ' ' + appProcess[j].username);
                         var anName = $.trim(apnodes[j].innerText);
@@ -224,6 +225,11 @@
                     break;
                 }
             }
+            if (!inserted) {
+                var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username+'</li></ul></li>';
+                $("#applist").html(htm)
+                appProcess.push(o);
+            }
         }
         else {
             // 删除流程节点
@@ -236,8 +242,14 @@
                     for (var j = 0; j < apnodes.length; j++) {
                         var name2 = apnodes[j].innerText
                         if (name1 == name2) {
+                            var pnode = apnodes[j].parentNode;
                             apnodes[j].remove();
                             appProcess.splice(i, 1);
+                            if (pnode.children.length == 0) {
+                                var li = pnode.parentNode;
+                                li.previousSibling.remove();
+                                li.remove();
+                            }
                             break;
                         }
                     }

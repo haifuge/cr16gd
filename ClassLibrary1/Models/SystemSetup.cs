@@ -35,10 +35,13 @@ namespace DAL.Models
         }
         public DataTable GetOrganizationUser()
         {
-            string sql = @"select d.id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked 
+            string sql = @"select d.id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked , 
+                                    '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen
                         from Department d left join APDetail ad on d.id=ad.AppPosId
                         union
-                        select ui.ID as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, case when ad.AppPosId is null then 0 else 1 end as checked 
+                        select d.id+'-'+ui.ID as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
+                                case when ad.AppPosId is null then 0 else 1 end as checked,
+                                '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fclose.png' as iconOpen
                         from UserInfo ui inner join Department d on ui.DepartmentId = d.ID
                         left join APDetail ad on ui.ID=ad.UserId and ad.AppPosId=d.ID";
             return DBHelper.GetDataTable(sql);
@@ -102,7 +105,9 @@ namespace DAL.Models
 
         public DataTable GetDepartmentUsers(string did)
         {
-            string sql = "select ui.ID, ui.UserAccount, ui.UserName, d.Name as department, ui.Telphone, ui.Email  from UserInfo ui inner join Department d on ui.DepartmentId=d.ID where ui.DepartmentId="+did;
+            string sql = @"select ui.ID, ui.UserAccount, ui.UserName, d.Name as department, ui.Telphone, ui.Email  
+                            from UserInfo ui inner join Department d on ui.DepartmentId=d.ID 
+                            where ui.DepartmentId="+did;
             return DBHelper.GetDataTable(sql);
         }
 

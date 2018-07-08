@@ -437,6 +437,7 @@
     var nodes;
     function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
+            //console.log(data)
             data = data.replace(/pid/g, 'pId').replace(/iconclose/g, 'iconClose').replace(/iconopen/g, 'iconOpen')
             nodes = JSON.parse(data);
             $.fn.zTree.init($("#tree"), setting, nodes);
@@ -550,7 +551,7 @@
         }
         if ($(".addbox").is(":checked"))
             pid = 0;
-        var depname = $("#dname").val();
+        var depname = $.trim($("#dname").val());
         var depLevel = $("#dlevel").val();
         if (depLevel == "") {
             alert('请输入审批级别')
