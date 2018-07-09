@@ -35,11 +35,11 @@ namespace DAL.Models
         }
         public DataTable GetOrganizationUser()
         {
-            string sql = @"select d.id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked , 
+            string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked , 
                                     '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen
                         from Department d left join APDetail ad on d.id=ad.AppPosId
                         union
-                        select d.id+'-'+ui.ID as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
+                        select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
                                 case when ad.AppPosId is null then 0 else 1 end as checked,
                                 '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fclose.png' as iconOpen
                         from UserInfo ui inner join Department d on ui.DepartmentId = d.ID

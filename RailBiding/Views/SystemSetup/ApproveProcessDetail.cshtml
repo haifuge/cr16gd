@@ -201,8 +201,8 @@
                             inserted = true;
                             // 如果跟节点名称不同
                             if (appProcess[j].pname != appProcess[j + 1].pname) {
-                                $('<li>' + appProcess[j].pname + '</li>').insertBefore(apnodes[j])
-                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li></ul></li>').insertBefore(apnodes[j])
+                                $('<li>' + appProcess[j].pname + '</li>').insertBefore(apnodes[j].previousSibling)
+                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li></ul></li>').insertBefore(apnodes[j].previousSibling)
                             }
                             else {
                                 // 如果根节点名称相同
@@ -258,22 +258,7 @@
         }
         console.log(appProcess);
     }
-    function DisplayNodeOnAppP(i, o) {
-        
-        var childs = $(".wc-container .dc-right2>ul>li>ul>li");
-        for (var j = 0; j < childs; j++) {
-
-        }
-
-    }
-    function RemoveNodeOnAppP(i) {}
-    function insertRoot(node) {
-        var childs = $("#applist").children();
-        for (var i = 0; i < childs.length; i++) {
-            var child = childs[i]
-
-        }
-    }
+   
     function getNodeValue(nid) {
         for (var i = 0; i < nodes1.length; i++) {
             var node = nodes1[i]
@@ -291,8 +276,7 @@
             return treeNode;
         }
     }
-
-
+    
     var newCount = 1;
 
     function addHoverDom(treeId, treeNode) {
