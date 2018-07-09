@@ -233,7 +233,7 @@
                                         <td class="form-lable">部门：</td>
                                         <td>
                                             <div class="form-item  sel-required">
-                                                <input name="roomInfoName" type="text" value="" id="addpeo"
+                                                <input name="roomInfoName" type="text" value="" id="xgaddpeo"
                                                        class="has-clear-input input input3 addbumen" disabled />
                                             </div>
                                         </td>
@@ -241,33 +241,33 @@
                                     <tr class="form-tr">
                                         <td class="form-lable">账号：</td>
                                         <td>
-                                            <input name="roomInfoName" type="text" value="" id="uaccount"
-                                                   class="has-clear-input input input3 xguaccount " onblur="yzzh()" />
-                                            <span id="d1"></span>
+                                            <input name="roomInfoName" type="text" value="" id="xguaccount"
+                                                   class="has-clear-input input input3  " onblur="yzzh('xguaccount', 'xgd1')"  disabled/>
+                                            <span id="xgd1"></span>
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
                                         <td class="form-lable">姓名：</td>
                                         <td>
-                                            <input name="roomInfoName" type="text" value="" id="uname" 
-                                                   class="has-clear-input input input3 xguname " onBlur="yzxm()" />
-                                            <span id="xm"></span>
+                                            <input name="roomInfoName" type="text" value="" id="xguname" 
+                                                   class="has-clear-input input input3  " onBlur="yzxm('xguname', 'xgxm')" />
+                                            <span id="xgxm"></span>
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
                                         <td class="form-lable">手机：</td>
                                         <td>
-                                            <input name="roomInfoName" type="text" value="" id="utel"
-                                                   class="has-clear-input input  input3 xgutel " onBlur="checkphone()" />
-                                            <span id="phonemsg"></span>
+                                            <input name="roomInfoName" type="text" value="" id="xgutel"
+                                                   class="has-clear-input input  input3  " onBlur="checkphone('xgutel', 'xgphonemsg')" />
+                                            <span id="xgphonemsg"></span>
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
                                         <td class="form-lable">邮箱：</td>
                                         <td>
-                                            <input type="email" name="roomInfoName" value="" id="uemail" 
-                                                   class="has-clear-input input  input3 xguemail" onBlur="checkmail()" />
-                                            <span id="mailmess"></span>
+                                            <input type="email" name="roomInfoName" value="" id="xguemail" 
+                                                   class="has-clear-input input  input3 " onBlur="checkmail('xguemail', 'xgmailmess')" />
+                                            <span id="xgmailmess"></span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -302,7 +302,7 @@
                                         <td class="form-lable">账号：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value="" id="uaccount"
-                                                   class="has-clear-input input input3 " onblur="yzzh()" />
+                                                   class="has-clear-input input input3 " onblur="yzzh('uaccount','d1')"  />
                                             <span id="d1"></span>
                                         </td>
                                     </tr>
@@ -310,7 +310,7 @@
                                         <td class="form-lable">输入密码：</td>
                                         <td>
                                             <input type="password" name="roomInfoName" type="text" value="" id="upsd"
-                                                   class="has-clear-input input input3 " onBlur="checkpwd()" />
+                                                   class="has-clear-input input input3 " onBlur="checkpwd('upsd', 'pwdmsg')" />
                                             <span id="pwdmsg"></span>
                                         </td>
                                     </tr>
@@ -318,7 +318,7 @@
                                         <td class="form-lable">确认密码：</td>
                                         <td>
                                             <input type="password" name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd()" />
+                                                   class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd('repwd','repwdmsg')" />
                                             <span id="repwdmsg"></span>
                                         </td>
                                     </tr>
@@ -326,7 +326,7 @@
                                         <td class="form-lable">姓名：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value="" id="uname"
-                                                   class="has-clear-input input input3  " onBlur="yzxm()" />
+                                                   class="has-clear-input input input3  " onBlur="yzxm('uname', 'xm')" />
                                             <span id="xm"></span>
                                         </td>
                                     </tr>
@@ -334,7 +334,7 @@
                                         <td class="form-lable">手机：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value="" id="utel"
-                                                   class="has-clear-input input  input3 " onBlur="checkphone()" />
+                                                   class="has-clear-input input  input3 " onBlur="checkphone('utel', 'phonemsg')" />
                                             <span id="phonemsg"></span>
                                         </td>
                                     </tr>
@@ -342,7 +342,7 @@
                                         <td class="form-lable">邮箱：</td>
                                         <td>
                                             <input type="email" name="roomInfoName" value="" id="uemail"
-                                                   class="has-clear-input input  input3 " onBlur="checkmail()" />
+                                                   class="has-clear-input input  input3 " onBlur="checkmail('uemail', 'mailmess')" />
                                             <span id="mailmess"></span>
                                         </td>
                                     </tr>
@@ -670,15 +670,15 @@
 
     })
 
-
+    //添加人员
     function createNewUser() {
         var success = 0;
-        success += yzzh();
-        success += yzxm();
-        success += checkphone();
-        success += checkpwd();
-        success += checkrepwd();
-        success += checkmail();
+        success += yzzh('uaccount', 'd1'); 
+        success += yzxm('uname', 'xm');
+        success += checkphone('utel', 'phonemsg');
+        success += checkpwd('upsd', 'pwdmsg');
+        success += checkrepwd('repwd', 'repwdmsg');
+        success += checkmail('uemail', 'mailmess');
         if (success > 0) {
             return;
         }
@@ -748,22 +748,33 @@
         $(".canvas.canvas3").show();
         for (var i = 0; i < users.length; i++) {
             var o = users[i];
-            $('.xguaccount').val(o.useraccount);
-            $('.xguname').val(o.username);
-            $('.xgutel').val(o.telphone);
-            $('.xguemail').val(o.email);
+            $('#xguaccount').val(o.useraccount);
+            $('#xguname').val(o.username);
+            $('#xgutel').val(o.telphone);
+            $('#xguemail').val(o.email);
         }
     }
     /*修改用户信息*/
     function xgUser() {
-        var xguaccount = $('.xguaccount').val();
-        var xguname = $('.xguname').val();
-        var xgutel = $('.xgutel').val();
-        var xguemail = $('.xguemail').val();
+        var success = 0; 
+        success += yzxm('xguname', 'xgxm');
+        success += checkphone('xgutel', 'xgphonemsg');
+        success += checkmail('xguemail', 'xgmailmess');
+        if (success > 0) {
+            return;
+        }
+
+
+        var xguaccount = $('#xguaccount').val();
+        var xguname = $('#xguname').val();
+        var xgutel = $('#xgutel').val();
+        var xguemail = $('#xguemail').val();
         var obj = { uname: xguname, tel: xgutel, em: xguemail, account: xguaccount }
         $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
-            if (res = "1")
+            if (res = "1"){
                 alert('修改成功')
+                getDepartmentUsers()
+            }
             else
                 alert('修改失败')
         })
@@ -771,81 +782,74 @@
     }
 
     /*验证*/
-    function yzzh() {
-
-        var _uaccount = document.getElementById('uaccount').value;
-
+    function yzzh(elementName, wid) {
+        var _uaccount = document.getElementById(elementName).value;
         if (_uaccount = null || _uaccount == "") {
-            $("#d1").html("×用户名不能为空");
+            document.getElementById(wid).innerHTML = "×用户名不能为空"
             return 1;
         } else {
-            $("#d1").html("√");
+            document.getElementById(wid).innerHTML = "√";
             return 0;
         }
     }
 
-    function yzxm() {
-
-        var _uname = document.getElementById('uname').value;
-
+    function yzxm(elementName, wid) {
+        var _uname = document.getElementById(elementName).value;
         if (_uname = null || _uname == "") {
-            $("#xm").html("×姓名不能为空");
+            document.getElementById(wid).innerHTML = "×姓名不能为空";
             return 1;
         } else {
-            $("#xm").html("√");
+            document.getElementById(wid).innerHTML = "√";
             return 0;
         }
     }
 
-    function checkphone() {
+    function checkphone(elementName, wid) {
         var reg = /^1\d{10}$/;
-        var _phone = document.getElementById('utel').value;
-        var _msg = document.getElementById('phonemsg');
+        var _phone = document.getElementById(elementName).value;
+       
         if (reg.test(_phone)) {
-            _msg.innerHTML = "√";
+            document.getElementById(wid).innerHTML = "√";
             return 0;
         } else {
-            _msg.innerHTML = "×电话格式不对";
+            document.getElementById(wid).innerHTML = "×电话格式不对";
             return 1;
         }
     }
-    function checkpwd() {
+    function checkpwd(elementName, wid) {
         var reg = /.{6,}/;
-        var _pwd = document.getElementById('upsd').value;
-        var _msg = document.getElementById('pwdmsg');
+        var _pwd = document.getElementById(elementName).value;
         if (reg.test(_pwd)) {
-            _msg.innerHTML = "√";
+            document.getElementById(wid).innerHTML = "√";
             return 0;
         } else {
-            _msg.innerHTML = "×请输入6位密码";
+            document.getElementById(wid).innerHTML = "×请输入6位密码";
             return 1;
         }
     }
-    function checkrepwd() {
+    function checkrepwd(elementName, wid) {
         var _pwd = document.getElementById('upsd').value;
-        var _repwd = document.getElementById('repwd').value;
-        var _msg = document.getElementById('repwdmsg');
+        var _repwd = document.getElementById(elementName).value;
 
         if (_pwd != _repwd || _pwd == "") {
-            _msg.innerHTML = "×密码不一致";
+            document.getElementById(wid).innerHTML = "×密码不一致";
             return 1;
         } else {
-            _msg.innerHTML = "√";
+            document.getElementById(wid).innerHTML = "√";
             return 0;
         }
     }
 
 
-    function checkmail() {
+    function checkmail(elementName, wid) {
 
-        var mail = document.getElementById('uemail').value;
-        var _mailmess = document.getElementById('mailmess');
+        var mail = document.getElementById(elementName).value;
         if (mail = null || mail == "") {
-            _mailmess.innerHTML = "×邮箱不能为空";
+            document.getElementById(wid).innerHTML = "×邮箱不能为空";
             return 1;
         }
         else {
-            _mailmess.innerHTML = "√";
+            document.getElementById(wid).innerHTML = "√";
             return 0;
         }
     }

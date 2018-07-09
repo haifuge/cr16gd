@@ -153,12 +153,12 @@ namespace RailBiding.Controllers
         public string UpdateUserInfo()
         {
             string uname = Request["uname"].ToString();
-            string psd = Request["psd"].ToString();
-            string tel;
-            if (Request["tel"] != null)
-                tel = Request["tel"].ToString();
+            string tel = Request["tel"].ToString();
+            string psd;
+            if (Request["psd"] != null)
+                psd = Request["psd"].ToString();
             else
-                tel = "";
+                psd = "";
             string email = Request["em"].ToString();
             string account = Request["account"].ToString();
             SystemSetup ss = new SystemSetup();
