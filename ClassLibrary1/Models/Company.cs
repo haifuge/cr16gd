@@ -118,6 +118,7 @@ namespace DAL.Models
                 company.Type + ", '"+company.Referrer + "', getdate(), 1);";
             sql += "select max(id) from Company;";
             int i = int.Parse(DBHelper.ExecuteScalar(CommandType.Text, sql));
+            CreateApproveProcess(i.ToString());
             return i;
         }
         public bool UpdateCompanyPics(Company company)
@@ -176,7 +177,7 @@ namespace DAL.Models
         {
             string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName
                             from AppProcessing ap 
-                            left join Department d on ap.AppPosId=d.ID 
+                            left join Department d on ap.DepartmentId=d.ID 
                             left join UserInfo ui on ui.ID=ap.UserId
                             where ap.AppProcId=1 and ap.ObjId=" + cid+ " order by ap.Level desc, ap.DealDatetime desc";
             return DBHelper.GetDataTable(sql);
@@ -184,8 +185,8 @@ namespace DAL.Models
 
         private void CreateApproveProcess(string cid)
         {
-            string sql = @"insert into AppProcessing(AppProcId, ObjId,level,AppPosId, UserId, Approved)
-                            select APID, "+cid+", level,AppPosId, UserId, 1 from APDetail where APID = 1";
+            string sql = @"insert into AppProcessing(AppProcId, ObjId,DepartmentId, UserId, Approved)
+                            select APID, "+cid+ ", DepartmentId, UserId, 1 from APDetail where APID = 1";
             DBHelper.ExecuteNonQuery(sql);
         }
     }

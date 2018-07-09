@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\APDetail.cs" />
     <Compile Include="Models\AppProcessing.cs" />
     <Compile Include="Models\ApprovalProcess.cs" />
     <Compile Include="Models\Bid.cs" />

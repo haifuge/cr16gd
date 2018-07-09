@@ -131,14 +131,14 @@ namespace RailBiding.Controllers
             return JsonHelper.DataTableToJSON(dt);
         }
         [HttpPost]
-        public string SaveApproveProcess(string appP)
+        public string SaveApproveProcess(string appP, string apid)
         {
             JArray ja = (JArray)JsonConvert.DeserializeObject(appP);
             StringBuilder sb = new StringBuilder();
-            sb.Append("delete APDetail where APID=1; ");
+            sb.Append("delete APDetail where APID="+apid+"; ");
             foreach(var o in ja)
             {
-                sb.Append("insert into APDetail values(1, " + o["level"].ToString() + ", " + o["did"].ToString() + ", " + o["uid"].ToString()+"; ");
+                sb.Append("insert into APDetail values("+apid+"," + o["did"].ToString() + ", " + o["uid"].ToString().Split('-')[1]+"); ");
             }
             DBHelper.ExecuteNonQuery(sb.ToString());
             return "1";

@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="form-tr-btn" style="width: 560px;">
-            <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">确定</button>
+            <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="saveApproveProcess()">确定</button>
             <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
         </div>
     </div>
@@ -166,20 +166,25 @@
             htm += "</ul></li>";
             $("#applist").html(htm)
         });
-        
     });
 
     function zTreeOnClick(event, treeId, treeNode) {
         console.log("id=" + treeNode.id + ", name=" + treeNode.name + ",pId=" + treeNode.pId);
     };
-
+    function getDepartmentLeve(id) {
+        for (var i = 0; i < nodes1.length; i++) {
+            if (nodes1[i].id == id) {
+                return nodes1[i].level;
+            }
+        }
+    }
     function onCheck(e, treeId, treeNode) {
         console.log($(".wc-container .dc-right2>ul>li>ul>li"));
         console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId + ", root=" + treeNode.rname + ", level=" + treeNode.level);
-        var lev = treeNode.level+"";
         var rootname = treeNode.rname;
         var uname = treeNode.name;
         var department = treeNode.getParentNode();
+        var lev = getDepartmentLeve(department.id) + "";
         var userid = treeNode.id;
         if (treeNode.checked) {
             // 插入流程节点
@@ -229,7 +234,7 @@
             }
             if (!inserted) {
                 var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username+'</li></ul></li>';
-                $("#applist").html(htm)
+                $("#applist").append(htm)
                 appProcess.push(o);
                 return;
             }
@@ -307,7 +312,7 @@
     $(".js-submit").click(function () {
         var data = JSON.stringify(appProcess);
         console.log(data)
-        $.post("/SystemSetup/SaveApproveProcess", { appP: data }, function (res) {
+        $.post("/SystemSetup/SaveApproveProcess?apid=@ViewBag.apppid", { appP: data }, function (res) {
             if (res == "1")
                 alert('保存成功')
             else

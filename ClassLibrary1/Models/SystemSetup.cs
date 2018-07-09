@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -37,13 +38,13 @@ namespace DAL.Models
         {
             string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked , 
                                     '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen
-                        from Department d left join APDetail ad on d.id=ad.AppPosId
+                        from Department d left join APDetail ad on d.id=ad.DepartmentId
                         union
                         select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
-                                case when ad.AppPosId is null then 0 else 1 end as checked,
+                                case when ad.DepartmentId is null then 0 else 1 end as checked,
                                 '/img/icon-treeuser.png' as icon, '/img/icon-treeuser.png' as iconClose, '/img/icon-treeuser.png' as iconOpen
                         from UserInfo ui inner join Department d on ui.DepartmentId = d.ID
-                        left join APDetail ad on ui.ID=ad.UserId and ad.AppPosId=d.ID";
+                        left join APDetail ad on ui.ID=ad.UserId and ad.DepartmentId=d.ID";
             return DBHelper.GetDataTable(sql);
         }
 
@@ -67,9 +68,10 @@ namespace DAL.Models
 
         public DataTable GetApprovePrcess(string appPid)
         {
-            string sql = @"select ad.Level, dbo.GetRootName(ad.AppPosId) as pname, ui.UserName, d.Name as dname, ui.Id as uid, d.id as did
-                            from APDetail ad inner join UserInfo ui on ad.UserId=ui.ID left join Department d on d.ID=ad.AppPosId
-                            where APID=" + appPid+" order by ad.Level desc";
+            string sql = @"select d.Level, dbo.GetRootName(ad.DepartmentId) as pname, ui.UserName, d.Name as dname,
+                            convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as uid, d.id as did
+                            from APDetail ad inner join UserInfo ui on ad.UserId=ui.ID left join Department d on d.ID=ad.DepartmentId
+                            where APID=" + appPid+" order by d.Level desc";
             return DBHelper.GetDataTable(sql);
         }
 
@@ -112,10 +114,9 @@ namespace DAL.Models
 
         public DataTable GetDepartmentUsers(string did)
         {
-            string sql = @"select ui.ID, ui.UserAccount, ui.UserName, d.Name as department, ui.Telphone, ui.Email  
-                            from UserInfo ui inner join Department d on ui.DepartmentId=d.ID 
-                            where ui.DepartmentId="+did;
-            return DBHelper.GetDataTable(sql);
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("@did", did);
+            return DBHelper.ExecuteSP("GetUsersByDepartmentId", parameters).Tables[0] ;
         }
 
         public string AddBusinessType(string bt)
