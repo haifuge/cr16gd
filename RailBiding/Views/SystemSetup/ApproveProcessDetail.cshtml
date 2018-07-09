@@ -132,7 +132,9 @@
         { id: 111, pId: 11, name: "董事会" },
         { id: 112, pId: 12, name: "总经理" }
     ];
+    // 组织机构树节点
     var nodes1;
+    // 审批流程节点
     var appProcess
     $(document).ready(function () {
         // 加载组织树
@@ -143,9 +145,8 @@
         });
         // 加载已配置审批流程
         $.get("/SystemSetup/GetApprovePrcess?appPid=@ViewBag.apppid", {}, function (data) {
-            console.log(data)
+            console.log('审批流程节点',data)
             var obj = JSON.parse(data);
-
             appProcess = obj;
             var pname = "";
             var htm = "";
@@ -177,7 +178,7 @@
         console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId + ", root=" + treeNode.rname + ", level=" + treeNode.level);
         var lev = treeNode.level+"";
         var rootname = treeNode.rname;
-        var uname = treeNode.name
+        var uname = treeNode.name;
         var department = treeNode.getParentNode();
         var userid = treeNode.id;
         if (treeNode.checked) {
@@ -201,14 +202,15 @@
                             inserted = true;
                             // 如果跟节点名称不同
                             if (appProcess[j].pname != appProcess[j + 1].pname) {
-                                $('<li>' + appProcess[j].pname + '</li>').insertBefore(apnodes[j].previousSibling)
-                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li></ul></li>').insertBefore(apnodes[j].previousSibling)
+                                var pnode = apnodes[j].parentNode.parentNode.previousSibling;
+                                $('<li>' + appProcess[j].pname + '</li>').insertBefore(pnode)
+                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li></ul></li>').insertBefore(pnode)
                             }
                             else {
                                 // 如果根节点名称相同
                                 $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li>').insertBefore(apnodes[j])
                             }
-                            break;
+                            return;
                         }
                     }
                     if (!inserted) {
@@ -222,13 +224,14 @@
                             $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '</li>').insertAfter(apnodes[len - 1])
                         }
                     }
-                    break;
+                    return;
                 }
             }
             if (!inserted) {
                 var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username+'</li></ul></li>';
                 $("#applist").html(htm)
                 appProcess.push(o);
+                return;
             }
         }
         else {
@@ -250,7 +253,7 @@
                                 li.previousSibling.remove();
                                 li.remove();
                             }
-                            break;
+                            return;
                         }
                     }
                 }
