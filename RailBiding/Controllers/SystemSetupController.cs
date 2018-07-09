@@ -160,9 +160,9 @@ namespace RailBiding.Controllers
             else
                 tel = "";
             string email = Request["em"].ToString();
-            string id = Request["id"].ToString();
+            string account = Request["account"].ToString();
             SystemSetup ss = new SystemSetup();
-            return ss.UpdateUserInfo(id, uname, psd, tel, email);
+            return ss.UpdateUserInfo(account, uname, psd, tel, email);
         }
         public string CreateUser()
         {
