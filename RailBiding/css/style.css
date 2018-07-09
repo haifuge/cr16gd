@@ -2806,13 +2806,10 @@ input[name=keyname] {
     margin-bottom: 15px;
 }
 
-    .app-dt .meet-form tr:hover {
+    .app-dt .meet-form tr:nth-child(1) {
         background: #eaf6fd;
     }
 
-    .app-dt .meet-form tr:hover {
-        background: #eaf6fd;
-    }
 
     .app-dt .meet-form tr.tr-pic2:hover {
         background: #fff;
@@ -5757,4 +5754,7 @@ ul.cjtb_ul li div.ul-bg {
 }
 .a-zbwj {
     cursor: pointer;
+}
+.wc-container {
+    width: 100%;
 }
