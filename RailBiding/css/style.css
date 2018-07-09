@@ -11,7 +11,9 @@ body, html {
 a {
     text-decoration: none;
 }
-
+hr {
+    clear: both;
+}
 ul, ul li {
     list-style: none;
 }
@@ -28,7 +30,7 @@ button {
 .container {
     width: 100%;
     position: relative;
-    min-height: 800px;
+   
 }
 
 .fr {
@@ -463,7 +465,7 @@ select::-ms-expand {
     height: 100%;
     position: fixed;
     top: 80px;
-    left: 80px;
+    left: 170px;
     background-color: #EAF6FD;
 }
 
@@ -1127,11 +1129,12 @@ button:hover {
  * meet form 表单表格样式
  */
 .meet-form {
-    width: 100%;
+     width: 100%;
     border: 1px solid #b3b3b3;
     text-align: center;
     background: #FFFFFF;
     margin-top: 20px;
+   flaot:left;
 }
 
     .meet-form tr {
@@ -1476,10 +1479,12 @@ button:hover {
 }
 
 .block-right {
-    width: 300px;
-    height: 100%;
-    position: absolute;
+ 
+    margin-bottom: 100px;
+    position: relative;
     right: 0;
+    margin-top: 20px;
+    float: right;
     top: 0;
 }
 
@@ -2290,42 +2295,44 @@ input[name=keyname] {
     float: left;
 }
 
-.main-nav {
-    width: 80px;
+.main-nav{
+    width: 170px;
     background-color: #008cd6;
     min-height: 100%;
     position: fixed;
     top: 80px;
     left: 0;
 }
+ .main-nav.active {
+    width: 80px;
 
-    .main-nav.active {
-        width: 170px;
-    }
+}
+.main-nav ul li {
+    padding: 12px 0;
+    padding-left: 15px;
+    position: relative;
+}
 
-    .main-nav ul li {
-        padding: 12px 0;
-        padding-left: 15px;
-        position: relative;
-    }
+.main-nav ul li a > span {
+    display: none;
+    color: #fff;
+    position: absolute;
+    left: 80px;
+    top: 24px;
+}
 
-        .main-nav ul li a > span {
-            display: none;
-            color: #fff;
-            position: absolute;
-            left: 80px;
-            top: 24px;
-        }
+.main-nav ul li a:hover .parent-nav-icon, .main-nav ul li.active a .parent-nav-icon {
+    background-image: url(../img/nav-icon-blue.png);
+    background-color: #fff;
+}
 
-        .main-nav ul li a:hover .parent-nav-icon, .main-nav ul li.active a .parent-nav-icon {
-            background-image: url(../img/nav-icon-blue.png);
-            background-color: #fff;
-        }
-
-    .main-nav.active ul li a span {
-        display: block;
-        background: none;
-    }
+.main-nav.active ul li a span {
+    display: none;
+    background: none;
+}
+.main-nav.active .icon-control {
+    background: url(../img/control-icon.png) no-repeat center center;
+}
 
 .parent-nav-icon {
     background-image: url(../img/nav-icon-white.png);
@@ -2342,12 +2349,9 @@ input[name=keyname] {
     display: block;
     width: 100%;
     height: 80px;
-    background: url(../img/control-icon.png) no-repeat center center;
-}
-
-.main-nav.active .icon-control {
     background: url(../img/control-icon-on.png) no-repeat center center;
 }
+
 /*.icon-administration{
     background: url(../img/nav-icon-white2.png) no-repeat;
      background-position: center -148px;
@@ -2580,7 +2584,7 @@ input[name=keyname] {
 }
 
 .detail-con .block-left2 {
-    margin-right: 320px;
+    
     position: relative;
 }
 
@@ -4190,40 +4194,52 @@ h3.fx_tit {
     z-index: 99;
 }
 
-    .main-nav ul li a > span {
-        z-index: 999;
-        display: none;
-        color: #fff;
-        left: 57px;
-        width: 105px;
-        background: url(../img/icon-bg.png) no-repeat;
-        height: 30px;
-        text-align: center;
-        line-height: 30px;
-        font-size: 14px;
+.main-nav ul li a > span {
+    z-index: 999;
+    display:block;
+    color: #fff;
+    left: 57px;
+    width: 105px;
+    background: ;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+}
+.main-nav ul li a > span.span2 {
+    z-index: 999;
+    display: block;
+    color: #fff;
+    left: 48px;
+    width: 125px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 6px;
     }
 
-        .main-nav ul li a > span.span2 {
-            z-index: 999;
-            display: none;
-            color: #fff;
-            left: 48px;
-            width: 125px;
-            background: url(../img/icon-bg2.png) no-repeat;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            font-size: 14px;
-            padding-left: 6px;
-        }
+.main-nav.active ul li a:hover > span.span2 {
+    display: block;
+    background:url(../img/icon-bg.png) no-repeat;
+}
+.main-nav.active ul li a:hover > span {
+    display: block;
+    background:url(../img/icon-bg.png) no-repeat;
 
-    .main-nav ul li a:hover > span.span2 {
-        display: block;
-    }
+}
+.right-ss h4 {
+    font-size: 14px;
+    height: 15px;
+    line-height: 15px;
+    /*margin-bottom: -1px;*/
+    vertical-align: center;
+    color: #231815;
 
-    .main-nav ul li a:hover > span {
-        display: block;
-    }
+}.main-nav.active ul li a span.span2 {
+     display: none;
+     background: none;
+ }
 
 .right-ss h4 {
     font-size: 14px;
@@ -4234,9 +4250,19 @@ h3.fx_tit {
     color: #231815;
 }
 
-.main-nav.active ul li a span.span2 {
-    display: block;
-    background: none;
+
+.main-container {
+    padding-left: 170px;
+    padding-top: 80px;
+}
+.main-container.active {
+    padding-left: 80px;
+}
+.main-container.active .left-nav {
+    left: 80px;
+}
+.main-nav.active {
+    width: 80px;
 }
 
 .block-right.block-right2 .right-ss .meet-user-span h4 span, .block-right.block-right2 .right-ss .meet-user-span2 h4 span {
@@ -4256,7 +4282,8 @@ h3.fx_tit {
 }
 
 .detail-con .block-left2.block-left4 {
-    margin-right: 355px;
+    width: 630px;
+    float: left;
 }
 
 .block-right.block-right2 {
@@ -5505,7 +5532,7 @@ ul.cjtb_ul li div.ul-bg {
 
 .meet-icon.icon-cancel.iconc.iconc2 {
     height: 25px;
-    width: 40px;
+    width: 70px;
     font-size: 14px;
     line-height: 25px;
     float: right;
@@ -5718,4 +5745,11 @@ ul.cjtb_ul li div.ul-bg {
     border-radius: 3px;
     margin: 0 8px;
     padding: 1px 5px;
+}
+.ztree {
+    
+    height: 500px;
+    width: 260px;
+    overflow-x: scroll;
+    overflow-y: scroll;
 }
