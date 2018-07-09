@@ -41,7 +41,7 @@ namespace DAL.Models
                         union
                         select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
                                 case when ad.AppPosId is null then 0 else 1 end as checked,
-                                '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fclose.png' as iconOpen
+                                '/img/icon-treeuser.png' as icon, '/img/icon-treeuser.png' as iconClose, '/img/icon-treeuser.png' as iconOpen
                         from UserInfo ui inner join Department d on ui.DepartmentId = d.ID
                         left join APDetail ad on ui.ID=ad.UserId and ad.AppPosId=d.ID";
             return DBHelper.GetDataTable(sql);

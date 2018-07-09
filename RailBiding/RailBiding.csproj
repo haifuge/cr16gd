@@ -391,6 +391,7 @@
     <Content Include="img\icon-message.png" />
     <Content Include="img\icon-output.png" />
     <Content Include="img\icon-px.png" />
+    <Content Include="img\icon-treeuser.png" />
     <Content Include="img\index-bg.jpg" />
     <Content Include="img\login-01.png" />
     <Content Include="img\login-bg.png" />
