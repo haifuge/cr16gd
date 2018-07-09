@@ -1122,9 +1122,13 @@ button:hover {
 }
 
 .wc-container {
-    position: relative;
+    position: relative;  
+    clear:both;
 }
-
+.szwc-container{
+    width:100%;
+    margin-top:20px;
+}
 /*
  * meet form 表单表格样式
  */
@@ -1916,7 +1920,7 @@ button:hover {
 
 .apply-opt {
     float: right;
-    clear: both;
+   
 }
 
     .apply-opt > a:hover {
@@ -2530,6 +2534,7 @@ input[name=keyname] {
     position: relative;
     display: inline-block;
     margin-right: 25px;
+    float: left;
 }
 
     .search-con2 input {
@@ -5754,7 +5759,4 @@ ul.cjtb_ul li div.ul-bg {
 }
 .a-zbwj {
     cursor: pointer;
-}
-.wc-container {
-    width: 100%;
 }
