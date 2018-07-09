@@ -154,7 +154,11 @@ namespace RailBiding.Controllers
         {
             string uname = Request["uname"].ToString();
             string psd = Request["psd"].ToString();
-            string tel = Request["tel"].ToString();
+            string tel;
+            if (Request["tel"] != null)
+                tel = Request["tel"].ToString();
+            else
+                tel = "";
             string email = Request["em"].ToString();
             string id = Request["id"].ToString();
             SystemSetup ss = new SystemSetup();
