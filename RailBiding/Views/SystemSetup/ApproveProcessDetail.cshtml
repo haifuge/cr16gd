@@ -171,9 +171,9 @@
     function zTreeOnClick(event, treeId, treeNode) {
         console.log("id=" + treeNode.id + ", name=" + treeNode.name + ",pId=" + treeNode.pId);
     };
+
     function onCheck(e, treeId, treeNode) {
         console.log($(".wc-container .dc-right2>ul>li>ul>li"));
-        
         console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId + ", root=" + treeNode.rname + ", level=" + treeNode.level);
         var lev = treeNode.level+"";
         var rootname = treeNode.rname;
