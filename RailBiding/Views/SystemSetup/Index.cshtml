@@ -242,31 +242,15 @@
                                         <td class="form-lable">账号：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value="" id="uaccount"
-                                                   class="has-clear-input input input3 " onblur="yzzh()" />
+                                                   class="has-clear-input input input3 xguaccount " onblur="yzzh()" />
                                             <span id="d1"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">输入密码：</td>
-                                        <td>
-                                            <input type="password" name="roomInfoName" type="text" value="" id="upsd"
-                                                   class="has-clear-input input input3 " onBlur="checkpwd()" />
-                                            <span id="pwdmsg"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">确认密码：</td>
-                                        <td>
-                                            <input type="password" name="roomInfoName" type="text" value=""
-                                                   class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd()" />
-                                            <span id="repwdmsg"></span>
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
                                         <td class="form-lable">姓名：</td>
                                         <td>
-                                            <input name="roomInfoName" type="text" value="" id="uname"
-                                                   class="has-clear-input input input3  " onBlur="yzxm()" />
+                                            <input name="roomInfoName" type="text" value="" id="uname" 
+                                                   class="has-clear-input input input3 xguname " onBlur="yzxm()" />
                                             <span id="xm"></span>
                                         </td>
                                     </tr>
@@ -274,15 +258,15 @@
                                         <td class="form-lable">手机：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value="" id="utel"
-                                                   class="has-clear-input input  input3 " onBlur="checkphone()" />
+                                                   class="has-clear-input input  input3 xgutel " onBlur="checkphone()" />
                                             <span id="phonemsg"></span>
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
                                         <td class="form-lable">邮箱：</td>
                                         <td>
-                                            <input type="email" name="roomInfoName" value="" id="uemail"
-                                                   class="has-clear-input input  input3 " onBlur="checkmail()" />
+                                            <input type="email" name="roomInfoName" value="" id="uemail" 
+                                                   class="has-clear-input input  input3 xguemail" onBlur="checkmail()" />
                                             <span id="mailmess"></span>
                                         </td>
                                     </tr>
@@ -290,7 +274,7 @@
 
                             </table>
                             <div class="form-tr-btn">
-                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createNewUser()">确定</button>
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="xgUser()">确定</button>
                                 <button type="reset" class="meet-btn big-btn gray-btn canvas_close3">取消</button>
                             </div>
                         </div>
@@ -729,11 +713,13 @@
             }
         })
     }
+    var users;
     function getDepartmentUsers() {
         $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id }, function (res) {
             var obj = JSON.parse(res);
             $("#tbusers").empty();
             var htm = "";
+            users = obj;
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
                 htm += '<tr class="white-bg" id="utr'+o.id+'"><td class="check-color">' + o.useraccount + '</td>' +
@@ -741,7 +727,7 @@
                     '<td>' + o.department + '</td>' +
                     '<td>' + o.telphone + '</td>' +
                     '<td>' + o.email + '</td>' +
-                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(' + obj + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(' + o.id + ')">删除</a></td>' +
+                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(' + o.id + ')">删除</a></td>' +
                     '</tr >';
             }
             $("#tbusers").html(htm)
@@ -757,10 +743,25 @@
             }
         })
     }
-    /*修改用户信息*/
+    /*修改用户弹框*/
     function updateUser(id) {
-       
-        alert(id)
+        $(".canvas.canvas3").show();
+        for (var i = 0; i < users.length; i++) {
+            var o = users[i];
+            $('.xguaccount').val(o.useraccount);
+            $('.xguname').val(o.username);
+            $('.xgutel').val(o.telphone);
+            $('.xguemail').val(o.email);
+        }
+    }
+    /*修改用户信息*/
+    function xgUser() {
+        var xguaccount = $('.xguaccount').val();
+        var xguname = $('.xguname').val();
+        var xgutel = $('.xgutel').val();
+        var xguemail = $('.xguemail').val();
+        
+        $(".canvas.canvas3").hide();
     }
 
     /*验证*/
