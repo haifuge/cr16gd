@@ -27,7 +27,6 @@
         <div class="main-top">
             <span class="js-page-name">个人中心</span>
         </div>
-        <input id="uid" type="text" style="display:none" />
         <div class="wc-container">
             <table class="meet-form meet-form2 meet-form5">
                 <tbody>
@@ -109,15 +108,14 @@
         $("#uname").val(obj.username);
         $("#utelphone").val(obj.telphone);
         $("#uemail").val(obj.email);
-        $("#uid").val(obj.id)
     })
     $(".js-submit").on("click", function () {
         var password1 = $("#psd1").val();
         var userName = $("#uname").val();
         var telephone = $("#utelphone").val();
         var email = $("#uemail").val();
-        var uid = $("#uid").val();
-        var obj = { psd: password1, uname: userName, tel: telephone, em: email, id: uid}
+        var acc = $("#useraccount").text();
+        var obj = { psd: password1, uname: userName, tel: telephone, em: email, account: acc}
         $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
             if (res = "1")
                 alert('修改成功')
