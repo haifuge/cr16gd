@@ -645,7 +645,7 @@ select::-ms-expand {
 .main-top {
     padding-bottom: 20px;
     clear: both;
-    margin-bottom: 30px;
+    
 }
 
     .main-top > span {
@@ -1133,8 +1133,8 @@ button:hover {
     border: 1px solid #b3b3b3;
     text-align: center;
     background: #FFFFFF;
-    margin-top: 40px;
-   flaot:left;
+    
+    float:left;
      
 }
 
@@ -4283,12 +4283,13 @@ h3.fx_tit {
 }
 
 .detail-con .block-left2.block-left4 {
-    width: 630px;
+    width:63%;
     float: left;
+    margin-top: 20px;;
 }
 
 .block-right.block-right2 {
-    width: 340px;
+    width: 34%;
     /*border: 1px solid #b3b3b3;*/
 }
 
@@ -5754,4 +5755,14 @@ ul.cjtb_ul li div.ul-bg {
     overflow-x: auto;
     overflow-y: auto;
     
+}
+.a-zbwj {
+    cursor: pointer;
+}
+.wc-container {
+    width: 100%;
+}
+.top-bottom {
+  
+    margin-bottom: 10px;
 }
