@@ -82,8 +82,15 @@ namespace DAL.Models
 
         public string UpdateUserInfo(string id, string uname, string psd, string tel, string email)
         {
-            psd = EncryptHelper.Encrypt(psd, "IamKey12");
-            string sql = "update UserInfo set UserName=N'"+uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"' where ID="+id;
+            string sql;
+            if (psd != "") { 
+                psd = EncryptHelper.Encrypt(psd, "IamKey12");
+                sql = "update UserInfo set UserName=N'"+uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"' where ID="+id;
+            }
+            else
+            {
+                sql = "update UserInfo set UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "' where ID=" + id;
+            }
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return "1";
