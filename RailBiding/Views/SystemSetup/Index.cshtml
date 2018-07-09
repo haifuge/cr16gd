@@ -748,10 +748,13 @@
         $(".canvas.canvas3").show();
         for (var i = 0; i < users.length; i++) {
             var o = users[i];
-            $('#xguaccount').val(o.useraccount);
-            $('#xguname').val(o.username);
-            $('#xgutel').val(o.telphone);
-            $('#xguemail').val(o.email);
+            if(o.id==id){
+                $('#xguaccount').val(o.useraccount);
+                $('#xguname').val(o.username);
+                $('#xgutel').val(o.telphone);
+                $('#xguemail').val(o.email);
+                break;
+            }
         }
     }
     /*修改用户信息*/
