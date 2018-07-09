@@ -1133,8 +1133,9 @@ button:hover {
     border: 1px solid #b3b3b3;
     text-align: center;
     background: #FFFFFF;
-    margin-top: 20px;
+    margin-top: 40px;
    flaot:left;
+     
 }
 
     .meet-form tr {
@@ -5750,6 +5751,7 @@ ul.cjtb_ul li div.ul-bg {
     
     height: 500px;
     width: 260px;
-    overflow-x: scroll;
-    overflow-y: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
+    
 }

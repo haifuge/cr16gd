@@ -219,6 +219,83 @@
                 <a href="#" class="js-cancle-meet" title="">
                     <i class="meet-icon icon-cancel iconc add-img" style="">添加人员</i>
                 </a>
+
+
+                <!-- 修改用户信息 -->
+                <div class="canvas canvas3">
+                    <div class="canvas_content">
+                        <span class="canvas_close canvas_close3">×</span>
+                        <h3>修改用户信息</h3>
+                        <div class="wc-container">
+                            <table class="meet-form meet-form2 meet-form5">
+                                <tbody>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">部门：</td>
+                                        <td>
+                                            <div class="form-item  sel-required">
+                                                <input name="roomInfoName" type="text" value="" id="addpeo"
+                                                       class="has-clear-input input input3 addbumen" disabled />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">账号：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" id="uaccount"
+                                                   class="has-clear-input input input3 " onblur="yzzh()" />
+                                            <span id="d1"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">输入密码：</td>
+                                        <td>
+                                            <input type="password" name="roomInfoName" type="text" value="" id="upsd"
+                                                   class="has-clear-input input input3 " onBlur="checkpwd()" />
+                                            <span id="pwdmsg"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">确认密码：</td>
+                                        <td>
+                                            <input type="password" name="roomInfoName" type="text" value=""
+                                                   class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd()" />
+                                            <span id="repwdmsg"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">姓名：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" id="uname"
+                                                   class="has-clear-input input input3  " onBlur="yzxm()" />
+                                            <span id="xm"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">手机：</td>
+                                        <td>
+                                            <input name="roomInfoName" type="text" value="" id="utel"
+                                                   class="has-clear-input input  input3 " onBlur="checkphone()" />
+                                            <span id="phonemsg"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">邮箱：</td>
+                                        <td>
+                                            <input type="email" name="roomInfoName" value="" id="uemail"
+                                                   class="has-clear-input input  input3 " onBlur="checkmail()" />
+                                            <span id="mailmess"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            <div class="form-tr-btn">
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createNewUser()">确定</button>
+                                <button type="reset" class="meet-btn big-btn gray-btn canvas_close3">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- 添加人员 -->
                 <div class="canvas canvas1">
                     <div class="canvas_content">
@@ -287,6 +364,7 @@
                                     </tr>
 
                                 </tbody>
+                                
                             </table>
                             <div class="form-tr-btn">
                                 <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createNewUser()">确定</button>
@@ -309,7 +387,7 @@
                         <span class="canvas_close canvas_close2">×</span>
                         <h3>添加部门</h3>
                         <div class="wc-container">
-                            <form>
+                          
                                 <table class="meet-form meet-form2 meet-form5">
                                     <tbody>
                                         <tr class="form-tr">
@@ -336,12 +414,14 @@
                                             </td>
                                         </tr>
                                     </tbody>
+                                    
                                 </table>
-                                <div class="form-tr-btn">
-                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createDepartment();return false;">确定</button>
-                                    <button type="reset" class="meet-btn big-btn gray-btn canvas_close2">取消</button>
-                                </div>
-                            </form>
+                            <div class="form-tr-btn">
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createDepartment();return false;">确定</button>
+                                <button type="reset" class="meet-btn big-btn gray-btn canvas_close2">取消</button>
+                            </div>
+                                
+                            
                         </div>
                     </div>
                 </div>
@@ -540,7 +620,10 @@
         $("#uemail").val("");
         $("#repwd").val("")
     })
-    
+    $(".canvas_close3").on("click", function () {
+        $(".canvas.canvas3").hide();
+        
+    })
     function createDepartment() {
         $(".canvas.canvas2").hide();
         var pid
@@ -603,6 +686,7 @@
 
     })
 
+
     function createNewUser() {
         var success = 0;
         success += yzzh();
@@ -657,18 +741,26 @@
                     '<td>' + o.department + '</td>' +
                     '<td>' + o.telphone + '</td>' +
                     '<td>' + o.email + '</td>' +
-                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(' + o.id + ')">删除</a></td>' +
+                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(' + obj + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(' + o.id + ')">删除</a></td>' +
                     '</tr >';
             }
             $("#tbusers").html(htm)
         })
     }
+    /*删除用户*/
     function deleteUser(id) {
-        $.post("/SystemSetup/DeleteUser", {uid: id}, function () {
+        $.post("/SystemSetup/DeleteUser", { uid: id }, function () {
+            if (confirm("确认要删除该用户？")) {
             var otr = document.getElementById('utr' + id);
             otr.parentNode.removeChild(otr);
             getDepartmentUsers()
+            }
         })
+    }
+    /*修改用户信息*/
+    function updateUser(id) {
+       
+        alert(id)
     }
 
     /*验证*/
