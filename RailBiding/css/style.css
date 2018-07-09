@@ -1133,8 +1133,8 @@ button:hover {
     border: 1px solid #b3b3b3;
     text-align: center;
     background: #FFFFFF;
-    
-    float:left;
+    margin-top: 0px;
+   
      
 }
 
@@ -1484,7 +1484,7 @@ button:hover {
     margin-bottom: 100px;
     position: relative;
     right: 0;
-    margin-top: 20px;
+    margin-top: 0px;
     float: right;
     top: 0;
 }
@@ -3427,7 +3427,7 @@ input[name=keyname] {
 .top-bottom {
     border-bottom: 1px solid #cacccd;
     padding-bottom: 0;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .td-cer {
@@ -3948,7 +3948,7 @@ input[name=keyname] {
     }
 
 .input8 {
-    width: 90px;
+    width: 50px;
     height: 30px;
     line-height: 30px;
     border: 1px solid #ccc;
@@ -4283,9 +4283,8 @@ h3.fx_tit {
 }
 
 .detail-con .block-left2.block-left4 {
-    width:63%;
+    width: 63%;
     float: left;
-    margin-top: 20px;;
 }
 
 .block-right.block-right2 {
@@ -5758,11 +5757,4 @@ ul.cjtb_ul li div.ul-bg {
 }
 .a-zbwj {
     cursor: pointer;
-}
-.wc-container {
-    width: 100%;
-}
-.top-bottom {
-  
-    margin-bottom: 10px;
 }
