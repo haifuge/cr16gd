@@ -270,10 +270,10 @@
             var obj = JSON.parse(data);
             var pdepart = obj[0].pname;
             var dechtm = "";
-            var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul><li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+            var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
             var hstyle = 'cp01'; //cp02
             var ulstyle= 'uc01'; //uc02
-            for (var i = 1; i < obj.length; i++) {
+            for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {
@@ -293,7 +293,20 @@
                 else {
                     htm += '</ul>';
                     pdepart = o.pname;
-                    htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart +'</h4><ul class="'+ulstyle+'">';
+                    htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                    if (o.approved == 2) {
+                        htm += '<ul class="' + ulstyle + '"><li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></li >'
+                    }
+                    else if (o.approved == 3) {
+                        dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></li >'
+                    } else {
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></li >'
+                    }
                 }
             }
             htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';

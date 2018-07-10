@@ -34,6 +34,7 @@ namespace DAL.Models
         public string Note { get; set; }
         public int Status { get; set; }
         public string AuditDate { get; set; }
+        public int AuditStatus { get; set; }
         private int type = 1;
         public int Type {
             get { return type; }
@@ -52,9 +53,11 @@ namespace DAL.Models
         public DataTable GetMyAudit(string userId)
         {
             string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, c.BusinessType, c.CorporateRepresentative,  
-	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus
-                            from Company c, (select ap.ObjId,ap.UserId from AppProcessing ap inner join (select ObjId,max([Level]) as Level from AppProcessing where Approved=1 and AppProcId=1 group by ObjId) a on ap.ObjId=a.ObjId and ap.Level=a.Level where Approved=1 and AppProcId=1) ap 
-                            where c.ID=ap.ObjId and c.AuditStatus<>3 and ap.UserId=" + userId;
+	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus 
+                            from Company c inner join (
+                            select * from vw_AppPLevel where AppProcId=1 and ObjId=16 and Level in(
+                            select MAX(level) from vw_AppPLevel where AppProcId=1 and ObjId=16) and UserId="+ userId + @") a on c.ID=a.ObjId
+                            where c.AuditStatus<>3";
             return DBHelper.GetDataTable(sql);
         }
 
@@ -104,21 +107,21 @@ namespace DAL.Models
             else
                 return false;
         }
-        public int CreateCompany(Company company)
+        public string CreateCompany(Company company)
         {
             string sql = @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
                                                Status, Type, Referre,AuditDate, AuditStatus)" +
-                "values('" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
-                "'" + company.BusinessType + "', '" + company.BusinessScope + "', '" + company.QualificationLevel + "', " +
-                "'" + company.SecurityCertificateNo + "', '" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
-                "'" + company.Contact + "', '" + company.ContactPhone + "', '" + company.ContactAddress + "', " +
-                "'" + company.ConstructionContent + "', '" + company.Note + "', " + company.Status + ", " + 
-                company.Type + ", '"+company.Referrer + "', getdate(), 1);";
+                "values(N'" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
+                "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
+                "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
+                "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
+                "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " + 
+                company.Type + ", N'"+company.Referrer + "', getdate(), "+company.AuditStatus+");";
             sql += "select max(id) from Company;";
-            int i = int.Parse(DBHelper.ExecuteScalar(CommandType.Text, sql));
-            CreateApproveProcess(i.ToString());
+            string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
+            CreateApproveProcess(i);
             return i;
         }
         public bool UpdateCompanyPics(Company company)
@@ -176,7 +179,7 @@ namespace DAL.Models
         public DataTable GetApproveProcessingInfo(string cid)
         {
             string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName
-                            from AppProcessing ap 
+                            from vw_AppPLevel ap 
                             left join Department d on ap.DepartmentId=d.ID 
                             left join UserInfo ui on ui.ID=ap.UserId
                             where ap.AppProcId=1 and ap.ObjId=" + cid+ " order by ap.Level desc, ap.DealDatetime desc";

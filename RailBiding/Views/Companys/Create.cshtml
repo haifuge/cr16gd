@@ -505,7 +505,7 @@
         var data = {
             cname: comName, btype: bt, rname: refname,  scno: scno, qlevel: ql,
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, 
-            contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn
+            contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus:1
         }
         // show
         $('body').loading({
@@ -527,9 +527,11 @@
             
             if (res == "1") {
                 uploadWorkHistory();
+            } else {
+                //hide
+                removeLoading('test');
+                alert('公司创建失败')
             }
-            //hide
-            
         })
     }
     function uploadPics() {

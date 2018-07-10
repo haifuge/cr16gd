@@ -413,17 +413,19 @@ namespace RailBiding.Controllers
                 //string scpic = Request["scpic"].ToString();
                 company.SecurityCertificateNo = Request["lno"].ToString();
                 company.BusinessScope = Request["bscope"].ToString();
-                company.RegisteredCapital = Request["rmoney"].ToString();
+                company.RegisteredCapital = Request["rmoney"].ToString()==""?"0": Request["rmoney"].ToString();
                 company.CorporateRepresentive = Request["rep"].ToString();
                 company.RepPhone = Request["rtel"].ToString();
                 //string rsfz = Request["rsfz"].ToString();
                 company.Contact = Request["contact"].ToString();
                 company.ContactPhone = Request["cphone"].ToString();
                 //string csfz = Request["csfz"].ToString();
+                company.Status = 1;
                 company.ContactAddress = Request["caddress"].ToString();
                 company.ConstructionContent = Request["construction"].ToString();
                 company.Note = Request["note"].ToString();
                 company.Type = int.Parse(Session["outin"].ToString());
+                company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
                 Session["newCid"] = cc.CreateCompany(company);
                 
                 return "1";
@@ -438,11 +440,15 @@ namespace RailBiding.Controllers
             string cid = Session["newCid"].ToString();
             string picbase64;
             if (Request["picdata"] == null)
+            {
                 return;
+            }
             picbase64 = Request["picdata"].ToString();
+            if (picbase64 == "")
+                return;
             picbase64 = picbase64.Substring(picbase64.IndexOf(',') + 1);
             string picName = Request["name"].ToString();
-            string cpic = Server.MapPath("/CompanyPics/Company" + Session["newCid"].ToString());
+            string cpic = Server.MapPath("/CompanyPics/Company" + cid);
             if (!Directory.Exists(cpic))
             {
                 Directory.CreateDirectory(cpic);
