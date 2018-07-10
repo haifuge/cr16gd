@@ -527,11 +527,9 @@
             
             if (res == "1") {
                 uploadWorkHistory();
-                uploadPics();
-                uploadZZPics(); 
             }
             //hide
-            removeLoading('test');
+            
         })
     }
     function uploadPics() {
@@ -550,7 +548,7 @@
                     $.post("/Companys/UploadPic", data, function (res) {
                         data = { picdata: ctsfz, name: "ctsfz" }
                         $.post("/Companys/UploadPic", data, function (res) {
-                            alert("公司创建成功");
+                            uploadZZPics();
                         })
                     })
                 })
@@ -572,7 +570,7 @@
         }
 
         $.post("/Companys/UploadWorkHistory", { workhistory: data }, function (res) {
-
+            uploadPics();
         });
     }
     function uploadZZPics() {
@@ -583,7 +581,10 @@
             var zzname = cd[1].innerText;
             var zzcode = cd[3].innerText;
             var data = { picData: b64, name: zzname, code: zzcode };
-            $.post("/Companys/UploadZiZhi", data, function () { });
+            $.post("/Companys/UploadZiZhi", data, function () {
+                removeLoading('test');
+                alert('公司创建成功')
+            });
         }
     }
     $(function () {
