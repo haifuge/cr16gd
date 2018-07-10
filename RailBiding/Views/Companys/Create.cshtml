@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="~/css/select/easydropdown.metro.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/loading.css" rel="stylesheet" />
 <style>
     * {
         margin: 0;
@@ -482,6 +483,7 @@
 <script type="text/javascript" src="~/js/select/jquery.easydropdown.js"></script>
 <script type="text/javascript" src="~/js/upload.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
     function saveCompany() {
@@ -506,14 +508,30 @@
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn
         }
         // show
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在创建公司',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         $.post("/Companys/Create", data, function (res) {
             
             if (res == "1") {
                 uploadWorkHistory();
                 uploadPics();
-                uploadZZPics();
+                uploadZZPics(); 
             }
             //hide
+            removeLoading('test');
         })
     }
     function uploadPics() {

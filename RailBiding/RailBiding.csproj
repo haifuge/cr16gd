@@ -315,6 +315,7 @@
     <Content Include="css\icheck\square\yellow.png" />
     <Content Include="css\icheck\square\_all.css" />
     <Content Include="css\jquery-ui-timepicker-addon.css" />
+    <Content Include="css\loading.css" />
     <Content Include="css\select\easydropdown.metro.css" />
     <Content Include="css\style.css" />
     <Content Include="css\sweetalert\sweetalert.css" />
@@ -432,6 +433,7 @@
     <Content Include="js\jquery.ztree.excheck.js" />
     <Content Include="js\jquery.ztree.exedit.js" />
     <Content Include="js\js.js" />
+    <Content Include="js\loading.js" />
     <Content Include="js\My97DatePicker\calendar.js" />
     <Content Include="js\My97DatePicker\lang\en.js" />
     <Content Include="js\My97DatePicker\lang\zh-cn.js" />
