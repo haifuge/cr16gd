@@ -5751,8 +5751,8 @@ ul.cjtb_ul li div.ul-bg {
 }
 .ztree {
     
-    height: 500px;
-    width: 260px;
+    height: 460px;
+    width: 250px;
     overflow-x: auto;
     overflow-y: auto;
     
@@ -5760,3 +5760,5 @@ ul.cjtb_ul li div.ul-bg {
 .a-zbwj {
     cursor: pointer;
 }
+
+
