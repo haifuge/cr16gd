@@ -309,7 +309,7 @@
                                     <tr class="form-tr">
                                         <td class="form-lable">输入密码：</td>
                                         <td>
-                                            <input type="password" name="roomInfoName" type="text" value="" id="upsd"
+                                            <input type="password" name="roomInfoName" value="" id="upsd"
                                                    class="has-clear-input input input3 " onBlur="checkpwd('upsd', 'pwdmsg')" />
                                             <span id="pwdmsg"></span>
                                         </td>
@@ -317,7 +317,7 @@
                                     <tr class="form-tr">
                                         <td class="form-lable">确认密码：</td>
                                         <td>
-                                            <input type="password" name="roomInfoName" type="text" value=""
+                                            <input type="password" name="roomInfoName" value=""
                                                    class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd('repwd','repwdmsg')" />
                                             <span id="repwdmsg"></span>
                                         </td>
@@ -512,8 +512,11 @@
         initTree();
     });
     var cNode;
+    var cNodename;
+    var cNodelevel;
     function zTreeOnClick(event, treeId, treeNode) {
         cNode = treeNode;
+        cNodename = cNode.name;
         cNodelevel = getDepartmentLevel(cNode.id) + 1;
         console.log(cNodelevel);
         $(".addlevel").val(cNodelevel);
@@ -530,12 +533,15 @@
         if ($(this).is(":checked")) {
             $(".addbox").prop("checked", true);
             $(".addbumen").val("");
+            $(".addlevel").val("");
             $(".addlevel").attr("disabled", false);
 
         } else {
             $(".addbox").prop("checked", false);
-            $(".addbumen").val(cNode.name);
+            $(".addbumen").val(cNodename);
+            $(".addlevel").val(cNodelevel);
             $(".addlevel").attr("disabled", "disabled");
+
 
         }
     });
@@ -598,6 +604,12 @@
     })
     $(".canvas_close1").on("click", function () {
         $(".canvas.canvas1").hide();
+        $("#xm").html("");
+        $("#d1").html("");
+        $("#pwdmsg").html("");    
+        $("#repwdmsg").html("");
+        $("#phonemsg").html("");
+        $("#mailmess").html("");
         $("#uaccount").val("");
         $("#upsd").val("");
         $("#uname").val("");
@@ -641,11 +653,9 @@
     // 添加部门
     $(".add-img2").on("click", function () {
         var dlevel = document.getElementById('dlevel').value;
-        if (dlevel = null || dlevel == "") {
-            alert("请选择部门");
-        } else {
+        
             $(".canvas.canvas2").show();
-        }
+        
     })
     function getChildNodes(treeNode) {
         var naviTree = $.fn.zTree.getZTreeObj("tree");
@@ -665,11 +675,17 @@
     }
     $(".canvas_close2").on("click", function () {
         $(".canvas.canvas2").hide();
-        $("#addbumen").val("");
+        $(".addbumen").val("");
         $("#dname").val("");
         $("#dlevel").val("");
-
+        
+        if ($(".addbox").is(":checked")) {
+            $(".addbox").prop("checked", false);
+        }
+        $(".addlevel").attr("disabled", "disabled");
     })
+    
+   
 
     //添加人员
     function createNewUser() {

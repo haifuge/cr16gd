@@ -505,12 +505,15 @@
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, 
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn
         }
+        // show
         $.post("/Companys/Create", data, function (res) {
+            
             if (res == "1") {
                 uploadWorkHistory();
                 uploadPics();
                 uploadZZPics();
             }
+            //hide
         })
     }
     function uploadPics() {
