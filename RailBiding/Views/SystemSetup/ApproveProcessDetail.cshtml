@@ -152,11 +152,11 @@
                     if (pname != "") {
                         htm += "</ul></li>";
                     }
-                    htm += "<li>" + o.pname + "</li><li><ul><li>" + o.dname + "&nbsp;" + o.username + "</li>"
+                    htm += "<li>" + o.pname + "</li><li><ul><li>" + o.dname + " " + o.username + "</li>"
                     pname=o.pname
                 }
                 else {
-                    htm += "<li>" + o.dname +"&nbsp;" + o.username + "</li>"
+                    htm += "<li>" + o.dname +" " + o.username + "</li>"
                 }
             }
             htm += "</ul></li>";
@@ -245,7 +245,8 @@
                     var name1 = appProcess[i].dname + ' ' + appProcess[i].username;
                     for (var j = 0; j < apnodes.length; j++) {
                         var name2 = apnodes[j].innerText
-                        if (name1 == name2) {
+                        //if (name1.localeCompare(name2)==0) {
+                        if (name1.indexOf(name2) != -1) {
                             var pnode = apnodes[j].parentNode;
                             apnodes[j].remove();
                             appProcess.splice(i, 1);

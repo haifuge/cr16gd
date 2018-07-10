@@ -436,7 +436,10 @@ namespace RailBiding.Controllers
         public void UploadPic()
         {
             string cid = Session["newCid"].ToString();
-            string picbase64 = Request["picdata"].ToString();
+            string picbase64;
+            if (Request["picdata"] == null)
+                return;
+            picbase64 = Request["picdata"].ToString();
             picbase64 = picbase64.Substring(picbase64.IndexOf(',') + 1);
             string picName = Request["name"].ToString();
             string cpic = Server.MapPath("/CompanyPics/Company" + Session["newCid"].ToString());
