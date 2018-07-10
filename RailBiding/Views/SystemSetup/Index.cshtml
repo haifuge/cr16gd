@@ -3,9 +3,11 @@
 }
 
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel='stylesheet' href='~/js/ztree/css/zTreeStyle/zTreeStyle.css' />
 <link rel="stylesheet" href="~/css/style.css" />
+
 <style>
     html, body {
         width: 100%;
@@ -440,7 +442,7 @@
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript"  src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
@@ -577,7 +579,7 @@
     }
     function beforeRename(treeId, treeNode, newName, isCancel) {
         if (newName.length == 0) {
-            alert('部门名称不能为空');
+            swal('部门名称不能为空');
             return false;
         }
         return true;
@@ -589,15 +591,16 @@
         var zTree = $.fn.zTree.getZTreeObj("tree");
         zTree.selectNode(treeNode);
         if (hasChildren(treeNode)) {
-            alert('当前部门有下级部门，请删除下级部门后，再删除该部门')
+            swal('当前部门有下级部门，请删除下级部门后，再删除该部门')
             return false;
         }
+
         return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
     }
     $(".add-img").on("click", function () {
         var addpeo = document.getElementById('addpeo').value;
         if (addpeo = null || addpeo == "") {
-            alert("请选择部门");
+            swal("请选择部门");
         } else {
             $(".canvas.canvas1").show();
         }
@@ -634,7 +637,7 @@
         var depname = $.trim($("#dname").val());
         var depLevel = $("#dlevel").val();
         if (depLevel == "") {
-            alert('请输入审批级别')
+            swal('请输入审批级别')
             $("#dlevel").focus();
             return;
         }
@@ -652,8 +655,6 @@
     }
     // 添加部门
     $(".add-img2").on("click", function () {
-        var dlevel = document.getElementById('dlevel').value;
-        
             $(".canvas.canvas2").show();
         
     })
@@ -709,7 +710,17 @@
         var data = { acc: account, pasd: password, nam: name, telephone: tel, em: email, did: depId };
         $.post("/SystemSetup/CreateUser", data, function (res) {
             if (res == "1") {
-                alert('创建成功');
+                swal(
+                  '创建成功！',
+                  '您已成功创建一个用户',
+                  'success'
+                );
+                $("#xm").html("");
+                $("#d1").html("");
+                $("#pwdmsg").html("");
+                $("#repwdmsg").html("");
+                $("#phonemsg").html("");
+                $("#mailmess").html("");
                 $(".canvas.canvas1").hide();
                 getDepartmentUsers();
                 $("#uaccount").val("");
@@ -720,7 +731,19 @@
                 $("#repwd").val("");
             }
             else {
-                alert('创建失败');
+                swal({
+                    title: '创建失败！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer')
+                        }
+                    }
+                )
                 $("#uaccount").val("");
                 $("#upsd").val("");
                 $("#uname").val("");
@@ -752,13 +775,31 @@
     }
     /*删除用户*/
     function deleteUser(id) {
-        $.post("/SystemSetup/DeleteUser", { uid: id }, function () {
-            if (confirm("确认要删除该用户？")) {
-            var otr = document.getElementById('utr' + id);
-            otr.parentNode.removeChild(otr);
-            getDepartmentUsers()
+        swal({
+            title: '确定删除该用户吗？',
+            text: '你将无法恢复它！',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定删除！'
+        }).then(
+        function (cc) {
+            if (cc.dismiss != "cancel"){
+                $.post("/SystemSetup/DeleteUser", { uid: id }, function () {
+                    swal(
+                  '删除！',
+                  '该用户已经被删除。',
+                  'success'
+                    );
+                    var otr = document.getElementById('utr' + id);
+                    otr.parentNode.removeChild(otr);
+                    getDepartmentUsers()
+                }
+               )
             }
-        })
+        }
+    )
     }
     /*修改用户弹框*/
     function updateUser(id) {
@@ -768,7 +809,7 @@
             if(o.id==id){
                 $('#xguaccount').val(o.useraccount);
                 $('#xguname').val(o.username);
-                $('#xgutel').val(o.telphone);
+                $('#xgutel').val(o.telephone);
                 $('#xguemail').val(o.email);
                 break;
             }
@@ -792,11 +833,28 @@
         var obj = { uname: xguname, tel: xgutel, em: xguemail, account: xguaccount }
         $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
             if (res = "1"){
-                alert('修改成功')
+                swal(
+                  '修改成功！',
+                  '您已成功修改用户信息',
+                  'success'
+                );
                 getDepartmentUsers()
             }
             else
-                alert('修改失败')
+
+                swal({
+                    title: '修改失败！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                 function () { },
+                  // handling the promise rejection
+                 function (dismiss) {
+                 if (dismiss === 'timer') {
+                       console.log('I was closed by the timer')
+                       }
+                     }
+               )
         })
         $(".canvas.canvas3").hide();
     }
