@@ -318,6 +318,7 @@
     <Content Include="css\loading.css" />
     <Content Include="css\select\easydropdown.metro.css" />
     <Content Include="css\style.css" />
+    <Content Include="css\sweetalert2.css" />
     <Content Include="css\sweetalert\sweetalert.css" />
     <Content Include="css\ztree\index.css" />
     <Content Include="css\ztree\jquery.ztree.exedit.js" />
@@ -459,6 +460,7 @@
     <Content Include="js\My97DatePicker\开发包\skin\whyGreen\img.gif" />
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\select\jquery.easydropdown.js" />
+    <Content Include="js\sweetalert2.all.js" />
     <Content Include="js\sweetalert\sweetalert.min.js" />
     <Content Include="js\up.js" />
     <Content Include="js\upload.js" />
@@ -524,6 +526,7 @@
     <Content Include="js\ztree\css\awesomeStyle\awesome.less" />
     <Content Include="js\ztree\css\awesomeStyle\fa.less" />
     <Content Include="js\ztree\js\ztree.3.5.26.zip" />
+    <Content Include="js\sweetalert2.all" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
