@@ -55,7 +55,7 @@
                         <td>业务类型</td>
                         <td>法人代表</td>
                         <td>推荐人</td>
-                        <td style="width: 120px;">审核时间</td>
+                        <td>审核时间</td>
                         <td>状态</td>
                     </tr>
                 </thead>
@@ -83,27 +83,27 @@
                 var obj = JSON.parse(data);
                 var htm = "";
                 for (var i = 0; i < obj.length; i++) {
-                    var o = obj[i]
-                    var auditStatus = "";
-                    var statusStyle = "";
+                    var o = obj[i];
+                    var auditStatus="";
+                    var statusStyle="";
                     switch (o.auditstatus) {
-                        case "0":
+                        case 0:
                             auditStatus = "未发布";
                             statusStyle = "status-wcl status-wfb";
                             break;
-                        case "1":
+                        case 1:
                             auditStatus = "审核中";
                             statusStyle = "status-wcl status-shz";
                             break;
-                        case "2":
+                        case 2:
                             auditStatus = "已通过";
                             statusStyle = "status-wcl status-ytg";
                             break;
-                        case "3":
+                        case 3:
                             auditStatus = "被驳回";
                             statusStyle = "status-wcl status-bbh";
                             break;
-                        case "4":
+                        case 4:
                             auditStatus = "被暂停";
                             statusStyle = "status-wcl status-bzt";
                             break;

@@ -4,7 +4,7 @@
 }
 
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 
 <style>
@@ -163,7 +163,7 @@
                                     <table style="width: 100%;border:none" class="atg">
                                         <thead class="wc-header">
                                             <tr>
-                                                <td>承包内容</td>
+                                                <td style="width:200px;">承包内容</td>
                                                 <td>合同金额</td>
                                                 <td>开工日期</td>
                                                 <td>竣工日期</td>
@@ -263,6 +263,7 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src="~/js/js.js"></script>
+    <script src="~/js/sweetalert2.all.js"></script>
 <script type='text/javascript'>
     $(function () {
         pages(1, 2, 12, 5)
@@ -277,13 +278,13 @@
                 var o = obj[i];
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {
-                        htm += '<li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></li >'
+                        htm += '<li class="li-blue2"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></li >'
                     }
                     else if (o.approved == 3) {
                         dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
                         hstyle = 'cp02'
                         ulstyle = 'uc02'
-                        htm += '<li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></li >'
+                        htm += '<li ><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></li >'
                     } else {
                         hstyle = 'cp02'
                         ulstyle = 'uc02'
@@ -295,7 +296,7 @@
                     pdepart = o.pname;
                     htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
                     if (o.approved == 2) {
-                        htm += '<ul class="' + ulstyle + '"><li><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></li >'
+                        htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></li >'
                     }
                     else if (o.approved == 3) {
                         dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
@@ -316,23 +317,80 @@
     });
     function declineApplication() {
         var feedback = $("#feedback-area").val()
-        if (feedback = "") {
-            ShowDiv('MyDiv', 'fade')
-            return;
-        }
-        else {
-            $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
-                alert('提交成功');
-                window.history.go(-1);
-            })
-        }
+        if (feedback =="") {
+            swal({
+                title: '必须填写意见！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+            function () {},
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        )
+        }else {
+
+            swal({
+                title: '确定驳回该申请？',
+                text: '你将无法撤回！',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定驳回！'
+            }).then(
+        function (cc) {
+            if (cc.dismiss != "cancel"){
+                swal(
+              '成功！',
+              '您以驳回该申请。',
+              'success'
+                );
+                $(".deal-apply-btn.deal-apply-btn2").hide();
+                $(".right-block").hide();
+                $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
+                $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
+                    window.history.go(-1);
+                })        
+            }   
+        })
+
+
+
+          
+       }
     }
 
     function approveApplication() {
-        $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 2, comment: '' }, function () {
-                alert('提交成功');
-                window.history.go(-1);
-            })
+
+        swal({
+            title: '确定通过该申请？',
+            text: '你将无法撤回！',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定通过！'
+        }).then(
+        function (cc) {
+            if (cc.dismiss != "cancel"){
+                swal(
+              '通过！',
+              '您以同意该申请。',
+              'success'
+                );
+                $(".deal-apply-btn.deal-apply-btn2").hide();
+                $(".right-block").hide();
+                $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
+                $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 2, comment: '' }, function () {
+                    window.history.go(-1);
+                })          
+            }   
+        }) 
+      
     }
     
 

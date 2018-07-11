@@ -389,14 +389,16 @@
                                             <td class="form-lable">部门名称：</td>
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="dname"
-                                                       class="has-clear-input input input3" />
+                                                       class="has-clear-input input input3" onBlur="yzbmname()"/>
+                                                <span id="bmnamemsg"></span>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
                                             <td class="form-lable">审批级别：</td>
                                             <td>
-                                                <input name="roomInfoName" type="text" value="" id="dlevel"
-                                                       class="has-clear-input input input3 addlevel" disabled />
+                                                <input name="roomInfoName" type="number" value="" id="dlevel"
+                                                       class="has-clear-input input input3 addlevel" disabled  onBlur="yzspjb()"/>
+                                                <span id="spjbmsg"></span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -625,8 +627,14 @@
         
     })
     function createDepartment() {
-        $(".canvas.canvas2").hide();
-        var pid
+        
+        var pid;
+        var success = 0;
+        success += yzbmname();
+        success += yzspjb();
+        if (success > 0) {
+            return;
+        }
         if (cNode == null) {
             pid = 0
         } else {
@@ -637,12 +645,14 @@
         var depname = $.trim($("#dname").val());
         var depLevel = $("#dlevel").val();
         if (depLevel == "") {
-            swal('请输入审批级别')
             $("#dlevel").focus();
             return;
         }
+        $(".canvas.canvas2").hide();
         $.post("/SystemSetup/AddDepartment", { pid: pid, dname: depname, dl: depLevel }, function (nid) {
-            console.log(nid)
+            console.log(nid);
+
+
             if (nid != "0") {
                 initTree();
                 var zTree = $.fn.zTree.getZTreeObj("tree");
@@ -651,6 +661,15 @@
                 zTree.selectNode(node); //让新添加的节点处于选中状态
                 zTree.expandNode(node, true, false, true);
             }
+            $(".addbumen").val("");
+            $("#dname").val("");
+            $("#dlevel").val("");
+            $("#spjbmsg").html("");
+            $("#bmnamemsg").html("");
+            if ($(".addbox").is(":checked")) {
+                $(".addbox").prop("checked", false);
+            }
+            $(".addlevel").attr("disabled", "disabled");
         });
     }
     // 添加部门
@@ -679,7 +698,8 @@
         $(".addbumen").val("");
         $("#dname").val("");
         $("#dlevel").val("");
-        
+        $("#spjbmsg").html("");
+        $("#bmnamemsg").html("");
         if ($(".addbox").is(":checked")) {
             $(".addbox").prop("checked", false);
         }
@@ -860,6 +880,29 @@
     }
 
     /*验证*/
+
+    function yzbmname() {
+        var dname = $("#dname").val();
+        if (dname = null || dname == "") {
+            $("#bmnamemsg").html("×部门名称不能为空");
+            return 1;
+        } else {
+            $("#bmnamemsg").html("√");
+            return 0;
+        }
+    }
+    function yzspjb() {
+        var dlevel = $("#dlevel").val();
+        var reg = /^\d+$/;
+        if (dlevel = null || dlevel == "") {
+            $("#spjbmsg").html("×审批级别不能为空");
+            return 1;
+        }  else {
+            $("#spjbmsg").html("√");
+            return 0;
+        }
+    }
+
     function yzzh(elementName, wid) {
         var _uaccount = document.getElementById(elementName).value;
         if (_uaccount = null || _uaccount == "") {
