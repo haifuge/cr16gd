@@ -56,7 +56,7 @@
                         <td>发布人</td>
                         <td>发布时间</td>
                         <td>报名时间</td>
-                        <td style="width: 120px;">预计开标时间</td>
+                        <td>预计开标时间</td>
                         <td>状态</td>
                     </tr>
                 </thead>
@@ -87,6 +87,7 @@
                     var htm = "";
                     for (var i = 0; i < obj.length; i++) {
                         var o = obj[i]
+                        console.log(o);
                         var applyStatus = "";
                         var applyStyle = "";
                         switch (o.status) {

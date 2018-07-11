@@ -5768,5 +5768,48 @@ ul.cjtb_ul li div.ul-bg {
     border: 1px solid #ccc;
     border-radius: 5px;}
 
-
-
+/*添加人员*/
+.addxry ,.addyyry{
+    cursor:pointer;
+    display: block;
+    height: 45px;
+    width: 130px;
+    text-align: center;
+    float: left;
+}
+.add-bg{
+    color:#fff;
+    background:#008cd6;
+}
+.add-yyry {
+    background: #fff;
+}
+.add-yyrycon{
+    width: 450px;
+    margin: 0 auto;
+    padding: 20px 0px;
+}
+.yyryinput{
+    line-height:25px;
+    width: 100px;
+    padding: 0 5px;
+    height: 25px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-left: 5px;
+    }
+.yyrysearch{
+    text-align:center;
+    float:right;
+    width:50px;
+}
+.yyrytable{
+    clear:both;
+    width: 100%;
+}
+.add-yej h3{
+    color: #fff;
+    background: #ffb000;
+        height: 35px;
+    line-height: 35px;
+}
