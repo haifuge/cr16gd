@@ -74,7 +74,7 @@
 
         .canvas h3 {
             height: 45px;
-            padding-left: 20px;
+            
             background: #eaf6fd;
             line-height: 45px;
             font-size: 18px;
@@ -286,77 +286,101 @@
                 <div class="canvas canvas1">
                     <div class="canvas_content">
                         <span class="canvas_close canvas_close1">×</span>
-                        <h3>添加人员</h3>
+                        <h3 >
+                            <span class="addxry add-bg" onclick="addxry()">添加人员</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="addyyry" onclick="addyyry()">添加已有人员</span>
+                        </h3>
                         <div class="wc-container">
+                             <div class="add-xry">
+                                  <table class="meet-form meet-form2 meet-form5">
+                                    <tbody>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">部门：</td>
+                                            <td>
+                                                <div class="form-item  sel-required">
+                                                    <input name="roomInfoName" type="text" value="" id="addpeo"
+                                                           class="has-clear-input input input3 addbumen" disabled />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">账号：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value="" id="uaccount"
+                                                       class="has-clear-input input input3 " onblur="yzzh('uaccount','d1')" />
+                                                <span id="d1"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">输入密码：</td>
+                                            <td>
+                                                <input type="password" name="roomInfoName" value="" id="upsd"
+                                                       class="has-clear-input input input3 " onBlur="checkpwd('upsd', 'pwdmsg')" />
+                                                <span id="pwdmsg"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">确认密码：</td>
+                                            <td>
+                                                <input type="password" name="roomInfoName" value=""
+                                                       class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd('repwd','repwdmsg')" />
+                                                <span id="repwdmsg"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">姓名：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value="" id="uname"
+                                                       class="has-clear-input input input3  " onBlur="yzxm('uname', 'xm')" />
+                                                <span id="xm"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">手机：</td>
+                                            <td>
+                                                <input name="roomInfoName" type="text" value="" id="utel"
+                                                       class="has-clear-input input  input3 " onBlur="checkphone('utel', 'phonemsg')" />
+                                                <span id="phonemsg"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="form-tr">
+                                            <td class="form-lable">邮箱：</td>
+                                            <td>
+                                                <input type="email" name="roomInfoName" value="" id="uemail"
+                                                       class="has-clear-input input  input3 " onBlur="checkmail('uemail', 'mailmess')" />
+                                                <span id="mailmess"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                            <table class="meet-form meet-form2 meet-form5">
-                                <tbody>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">部门：</td>
-                                        <td>
-                                            <div class="form-item  sel-required">
-                                                <input name="roomInfoName" type="text" value="" id="addpeo"
-                                                       class="has-clear-input input input3 addbumen" disabled />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">账号：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value="" id="uaccount"
-                                                   class="has-clear-input input input3 " onblur="yzzh('uaccount','d1')"  />
-                                            <span id="d1"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">输入密码：</td>
-                                        <td>
-                                            <input type="password" name="roomInfoName" value="" id="upsd"
-                                                   class="has-clear-input input input3 " onBlur="checkpwd('upsd', 'pwdmsg')" />
-                                            <span id="pwdmsg"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">确认密码：</td>
-                                        <td>
-                                            <input type="password" name="roomInfoName" value=""
-                                                   class="has-clear-input input input3 " id="repwd" onBlur="checkrepwd('repwd','repwdmsg')" />
-                                            <span id="repwdmsg"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">姓名：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value="" id="uname"
-                                                   class="has-clear-input input input3  " onBlur="yzxm('uname', 'xm')" />
-                                            <span id="xm"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">手机：</td>
-                                        <td>
-                                            <input name="roomInfoName" type="text" value="" id="utel"
-                                                   class="has-clear-input input  input3 " onBlur="checkphone('utel', 'phonemsg')" />
-                                            <span id="phonemsg"></span>
-                                        </td>
-                                    </tr>
-                                    <tr class="form-tr">
-                                        <td class="form-lable">邮箱：</td>
-                                        <td>
-                                            <input type="email" name="roomInfoName" value="" id="uemail"
-                                                   class="has-clear-input input  input3 " onBlur="checkmail('uemail', 'mailmess')" />
-                                            <span id="mailmess"></span>
-                                        </td>
-                                    </tr>
+                                </table>
+                                <div class="form-tr-btn">
+                                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createNewUser()">确定</button>
+                                    <button type="reset" class="meet-btn big-btn gray-btn canvas_close1">取消</button>
+                                </div>
+                            </div><!--添加新人员结束-->
+                            <div class="add-yyry">
+                                 <div class="add-yyrycon">
+                                     <span>
+                                         用户账号:<input type="text" value="" name="yyryaccount" class="yyryinput"/>&nbsp;
+                                         姓名:<input type="text" value="" name="yyryname" class="yyryinput" />
+                                     </span>
+                                     <a href="" class="meet-btn blue-btn sm-btn yyrysearch">搜索</a>
+                                     <table class="yyrytable">
+                                         <thead>
+                                             <th>用户账号</th>
+                                             <th>姓名</th>
+                                             <th>手机号</th>
+                                             <th>选项</th>
+                                         </thead>
+                                         <tbody id="yyrytbody">
 
-                                </tbody>
-                                
-                            </table>
-                            <div class="form-tr-btn">
-                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createNewUser()">确定</button>
-                                <button type="reset" class="meet-btn big-btn gray-btn canvas_close1">取消</button>
-                            </div>
+                                         </tbody>
 
+                                     </table>
+
+                                 </div>
+                            </div><!--添加已有人员结束-->
                         </div>
                     </div>
                 </div>
@@ -883,7 +907,7 @@
 
     function yzbmname() {
         var dname = $("#dname").val();
-        if (dname = null || dname == "") {
+        if (dname = null || dname == ""){
             $("#bmnamemsg").html("×部门名称不能为空");
             return 1;
         } else {
@@ -975,4 +999,17 @@
         }
     }
 
+
+    /*添加人员*/
+    function addxry() {
+        $(".add-xry").show();
+        $(".add-yyry").hide();
+        $(".addxry").addClass("add-bg").siblings().removeClass("add-bg");
+    }
+    function addyyry() {
+        $(".add-xry").hide();
+        $(".add-yyry").show();
+        $(".addyyry").addClass("add-bg").siblings().removeClass("add-bg");
+        
+    }
 </script>

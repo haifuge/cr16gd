@@ -263,7 +263,7 @@
                                 <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
                                 <td>
                                     <div class="upload-btn upload-btn2 upload-btn4">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput">@*class="allfileInput allfileInput2"*@
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2">@*class="allfileInput allfileInput2"*@
                                             @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
                                         </div>
                                         <div id="busiLicPic" style="display:none"></div>
@@ -284,9 +284,9 @@
                                 <tr class="form-tr tr-pic2">
                                     <td class="form-lable"></td>
                                     <td>
-                                        <div class="aui-form-input">
+                                        <div class="aui-form-input"  id="addfile-up">
                                             <div class="aui-content-img-box aui-content-full">
-                                                <div class="aui-photo aui-up-img ">
+                                                <div class="aui-photo aui-up-img">
                                                     <section class="aui-file-up fl">
                                                         <img src="~/img/up.png" class="add-img">
                                                         @*<input type="file" name="file" id="file" class="file" value=""
@@ -305,7 +305,7 @@
                                                         <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称"></li>
                                                         <li>证书编号： <input type="text" id="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932"></li>
                                                         <li>
-                                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput">
+                                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput3">
                                                             <div id="zzzsPic" style="display:none"></div>
                                                         </li>
                                                     </ul>
@@ -322,7 +322,7 @@
                                     <td class="form-lable"><span class="red-word">*</span>安全证书：</td>
                                     <td>
                                         <div class="upload-btn upload-btn2 upload-btn4">
-                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput">
+                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4">
                                             @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
                                             <div id="scPic" style="display:none"></div>
                                         </div>
@@ -354,7 +354,7 @@
                                         <span class="td-cer">身份证扫描：</span>
                                         <div class="upload-btn upload-btn2 upload-btn3">
                                             <input type="file" name="fileInput" onchange="gen_base64(this, 'repSFZ')"
-                                                   id="allfileInput">
+                                                   id="allfileInput5">
                                             @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>*@
                                             <div id="repSFZ" style="display:none"></div>
                                         </div>
@@ -370,7 +370,7 @@
                                                                                  class="has-clear-input input input3 input4" />
                                         <span class="td-cer">身份证扫描：</span>
                                         <div class="upload-btn upload-btn2 upload-btn3">
-                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput">
+                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6">
                                             @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>*@
                                             <div id="conSFZ" style="display:none"></div>
                                         </div>
@@ -483,7 +483,91 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
+   
     function saveCompany() {
+        var companyName = $("#companyName").val();
+        var refererName = $("#refererName").val();
+        var allfileInput1 = $("#allfileInput1").val();
+        var allfileInput2 = $("#allfileInput2").val();
+        var socialCreditNo = $("#socialCreditNo").val();
+        var qualificationLevel = $("#qualificationLevel").val();
+        var zzlist = $("#zzlist").html();
+        var allfileInput4 = $("#allfileInput4").val();
+        var licenseNo = $("#licenseNo").val();
+        var companyRepresentative = $("#companyRepresentative").val();
+        var repTelephone = $("#repTelephone").val();
+        var allfileInput5 = $("#allfileInput5").val();
+        var contact = $("#contact").val();
+        var contactPhone = $("#contactPhone").val();
+        var allfileInput6 = $("#allfileInput6").val();
+        
+
+
+
+        if (companyName == "") {
+            alert("企业名称不能为空");
+            document.getElementById("companyName").focus();
+            return;
+        } else if (refererName=="") {
+            alert("请填写推荐人");
+            document.getElementById("refererName").focus();
+            return;
+        } else if (allfileInput1 == "") {
+            alert("请上传推荐书");
+            document.getElementById("allfileInput1").focus();
+            return;
+        } else if (allfileInput2 == "") {
+            alert("请上传营业执照");
+            document.getElementById("allfileInput2").focus();
+            return;
+        }
+        else if (socialCreditNo == "") {
+            alert("请填写统一社会信用代码号");
+            document.getElementById("socialCreditNo").focus();
+            return;
+        } else if (qualificationLevel == "") {
+            alert("请填写资质等级");
+            document.getElementById("qualificationLevel").focus();
+            return;
+        } else if (zzlist == "") {
+            alert("请上传企业资质");
+            return;
+        } else if (allfileInput4 == "") {
+            alert("请上传安全证书");
+            document.getElementById("allfileInput4").focus();
+            return;
+        }else if (licenseNo == "") {
+            alert("请上传证件编号");
+            document.getElementById("licenseNo").focus();
+            return;
+        } else if (companyRepresentative == "") {
+            alert("请填写法人代表");
+            document.getElementById("companyRepresentative").focus();
+            return;
+        } else if (repTelephone == "") {
+                alert("请填写法人代表联系电话");
+                document.getElementById("repTelephone").focus();
+                return;
+        } else if (allfileInput5 == "") {
+            alert("请上传法人代表身份证扫描件");
+            document.getElementById("allfileInput5").focus();
+            return;
+        } else if (contact == "") {
+            alert("请填写联系人");
+            document.getElementById("contact").focus();
+            return;
+        } else if (contactPhone == "") {
+            alert("请填写联系人联系电话");
+            document.getElementById("contactPhone").focus();
+            return;
+        } else if (allfileInput6 == "") {
+                alert("请上传联系人身份证扫描件");
+                document.getElementById("allfileInput6").focus();
+                return;
+        } 
+
+
+        
         var comName = $("#companyName").val()
         var bt = $("#bType").val()
         var refname = $("#refererName").val()
@@ -693,5 +777,9 @@
     })
     $(".aui-close-up-img").click(function () {
         $(this).parents("li").hide();
-    });
+    });    function cancelImg() {
+        $(".canvas").hide();
+    }
+
+    
 </script>
