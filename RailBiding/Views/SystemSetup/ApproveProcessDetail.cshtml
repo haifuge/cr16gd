@@ -153,11 +153,11 @@
                     if (pname != "") {
                         htm += "</ul></li>";
                     }
-                    htm += "<li>" + o.pname + "</li><li><ul><li>" + o.dname + " " + o.username + "<i><img src='/img/icon-del.png'></i></li>"
+                    htm += "<li>" + o.pname + "</li><li><ul><li>" + o.dname + " " + o.username + "<i><img src='/img/icon-del.png' onclick='removeAPNode(this)'></i></li>"
                     pname=o.pname
                 }
                 else {
-                    htm += "<li>" + o.dname +" " + o.username + "</li>"
+                    htm += "<li>" + o.dname + " " + o.username + "<i><img src='/img/icon-del.png' onclick='removeAPNode(this)'></i></li>"
                 }
             }
             htm += "</ul></li>";
@@ -206,11 +206,11 @@
                             if (appProcess[j].pname != appProcess[j + 1].pname) {
                                 var pnode = apnodes[j].parentNode.parentNode.previousSibling;
                                 $('<li>' + appProcess[j].pname + '</li>').insertBefore(pnode)
-                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png"></i></li></ul></li>').insertBefore(pnode)
+                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>').insertBefore(pnode)
                             }
                             else {
                                 // 如果根节点名称相同
-                                $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png"></i></li>').insertBefore(apnodes[j])
+                                $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li>').insertBefore(apnodes[j])
                             }
                             return;
                         }
@@ -218,19 +218,19 @@
                     if (!inserted) {
                         var len = appProcess.length - 1;
                         if (appProcess[len].pname != appProcess[len - 1].pname) {
-                            $('<li><ul><li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png"></i></li></ul></li>').insertAfter(apnodes[len - 1])
+                            $('<li><ul><li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>').insertAfter(apnodes[len - 1])
                             $('<li>' + appProcess[len].pname + '</li>').insertAfter(apnodes[len-1])
                         }
                         else {
                             // 如果根节点名称相同
-                            $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png"></i></li>').insertAfter(apnodes[len - 1])
+                            $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li>').insertAfter(apnodes[len - 1])
                         }
                     }
                     return;
                 }
             }
             if (!inserted) {
-                var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username +'<i><img src="/img/icon-del.png"></i></li></ul></li>';
+                var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username +'<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>';
                 $("#applist").append(htm)
                 appProcess.push(o);
                 return;
@@ -282,7 +282,27 @@
             return treeNode;
         }
     }
-    
+    function removeAPNode(img) {
+        var node = img.parentNode.parentNode;
+        var du = node.innerText;
+        node.remove();
+        var dname = du.split(' ')[0]
+        var uname = du.split(' ')[1]
+        console.log(dname, uname)
+        for (var i = 0; i < appProcess.length; i++) {
+            if (dname == appProcess[i].dname && uname== appProcess[i].username)
+            {
+                var uid = appProcess[i].uid
+                appProcess.splice(i, 1);
+                console.log(uid)
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                var node = zTree.getNodeByParam("id", uid, null);
+                node.checked = false;
+                zTree.updateNode(node);
+                console.log(node)
+            }
+        }
+    }
     var newCount = 1;
 
     function addHoverDom(treeId, treeNode) {
