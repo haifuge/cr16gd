@@ -4287,6 +4287,7 @@ h3.fx_tit {
 .detail-con .block-left2.block-left4 {
     width: 63%;
     float: left;
+    margin-bottom: 150px;
 }
 
 .block-right.block-right2 {
@@ -5760,5 +5761,12 @@ ul.cjtb_ul li div.ul-bg {
 .a-zbwj {
     cursor: pointer;
 }
+.input#projName{ 
+    width:80%;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;}
+
 
 
