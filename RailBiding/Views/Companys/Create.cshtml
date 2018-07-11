@@ -302,10 +302,10 @@
                                                 <span class="canvas_close">×</span>
                                                 <div class="canvas_content_text">
                                                     <ul>
-                                                        <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称"></li>
-                                                        <li>证书编号： <input type="text" id="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932"></li>
+                                                        <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称" onblur="zzmc()"><span id="zzmcmsg"></span></li>
+                                                        <li>证书编号： <input type="text" id="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932" onblur="zsbh()"><span id="zsbhmsg"></span></li>
                                                         <li>
-                                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput3">
+                                                            <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput3"><span id="zspicmsg"></span>
                                                             <div id="zzzsPic" style="display:none"></div>
                                                         </li>
                                                     </ul>
@@ -754,6 +754,19 @@
         row.parentNode.removeChild(row);
     }
     function submitImg() {
+        var success = 0;
+        success += zzmc();
+        success += zsbh();
+        if (success > 0) {
+            return;
+        }
+        if ($("#zzzsPic").html() != "") {
+            $("#zspicmsg").html("上传成功！");
+
+        } else {
+            $("#zspicmsg").html("请上传资质文件");
+            return;
+        }
         var li = document.createElement('li');
         li.style = 'text-align:center'
         li.innerHTML='<div><span class="aui-up-span"></span>'+
@@ -763,6 +776,12 @@
         $(".canvas").hide();
     }
     $(".canvas_close").on("click", function () {
+        $("#zzzsPic").html("")
+        $("#input_zzmc").val("");
+        $("#zzmcmsg").html("");
+        $("#input_zsbh").val("")
+        $("#zsbhmsg").html("");
+        $("#zspicmsg").html("");
         $(".canvas").hide();
     })
     $(".add-img").on("click", function () {
@@ -779,7 +798,34 @@
         $(this).parents("li").hide();
     });    function cancelImg() {
         $(".canvas").hide();
+        $("#zzzsPic").html("")
+        $("#input_zzmc").val("");
+        $("#zzmcmsg").html("");
+        $("#input_zsbh").val("")
+        $("#zsbhmsg").html("");
+        $("#zspicmsg").html("");
     }
 
+    function zzmc() {
+        var input_zzmc = $("#input_zzmc").val();
+        if (input_zzmc = null || input_zzmc == "") {
+            $("#zzmcmsg").html("×资质名称不能为空");
+            return 1;
+        } else {
+            $("#zzmcmsg").html("");
+            return 0;
+        }
+
+    }
+    function zsbh() {
+        var input_zsbh = $("#input_zsbh").val();
+        if (input_zsbh = null || input_zsbh == "") {
+            $("#zsbhmsg").html("×证书编号不能为空");
+            return 1;
+        } else {
+            $("#zsbhmsg").html("");
+            return 0;
+        }
+    }
     
 </script>

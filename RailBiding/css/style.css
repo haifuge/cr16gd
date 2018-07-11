@@ -5517,7 +5517,7 @@ ul.cjtb_ul li div.ul-bg {
 
 .dc-right {
     margin-left: 260px;
-    border-left: 1px solid #ececec;
+    
 }
 
 .dc-left h3 {
@@ -5756,7 +5756,7 @@ ul.cjtb_ul li div.ul-bg {
     width: 250px;
     overflow-x: auto;
     overflow-y: auto;
-    
+    border-right: 1px solid #ececec;
 }
 .a-zbwj {
     cursor: pointer;
@@ -5813,3 +5813,16 @@ ul.cjtb_ul li div.ul-bg {
         height: 35px;
     line-height: 35px;
 }
+
+
+span#zzmcmsg {
+    display: block;
+    padding-left: 70px;
+    color:red;
+}
+span#zsbhmsg {
+    display: block;
+    padding-left: 70px;
+    color:red
+}
+#zspicmsg{color:red}
