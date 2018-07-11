@@ -137,6 +137,7 @@
         $.get("/SystemSetup/GetOrganizationUser", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
             nodes1 = JSON.parse(data);
+            console.log('人员部门节点：',nodes1)
             $.fn.zTree.init($("#treeDemo"), setting, nodes1);
         });
         // 加载已配置审批流程
@@ -152,7 +153,7 @@
                     if (pname != "") {
                         htm += "</ul></li>";
                     }
-                    htm += "<li>" + o.pname + "</li><li><ul><li>" + o.dname + " " + o.username + "</li>"
+                    htm += "<li>" + o.pname + "</li><li><ul><li>" + o.dname + " " + o.username + "<i><img src='/img/icon-del.png'></i></li>"
                     pname=o.pname
                 }
                 else {
@@ -205,11 +206,11 @@
                             if (appProcess[j].pname != appProcess[j + 1].pname) {
                                 var pnode = apnodes[j].parentNode.parentNode.previousSibling;
                                 $('<li>' + appProcess[j].pname + '</li>').insertBefore(pnode)
-                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li></ul></li>').insertBefore(pnode)
+                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png"></i></li></ul></li>').insertBefore(pnode)
                             }
                             else {
                                 // 如果根节点名称相同
-                                $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '</li>').insertBefore(apnodes[j])
+                                $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png"></i></li>').insertBefore(apnodes[j])
                             }
                             return;
                         }
@@ -217,19 +218,19 @@
                     if (!inserted) {
                         var len = appProcess.length - 1;
                         if (appProcess[len].pname != appProcess[len - 1].pname) {
-                            $('<li><ul><li>' + appProcess[len].dname + ' ' + appProcess[len].username + '</li></ul></li>').insertAfter(apnodes[len - 1])
+                            $('<li><ul><li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png"></i></li></ul></li>').insertAfter(apnodes[len - 1])
                             $('<li>' + appProcess[len].pname + '</li>').insertAfter(apnodes[len-1])
                         }
                         else {
                             // 如果根节点名称相同
-                            $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '</li>').insertAfter(apnodes[len - 1])
+                            $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png"></i></li>').insertAfter(apnodes[len - 1])
                         }
                     }
                     return;
                 }
             }
             if (!inserted) {
-                var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username+'</li></ul></li>';
+                var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username +'<i><img src="/img/icon-del.png"></i></li></ul></li>';
                 $("#applist").append(htm)
                 appProcess.push(o);
                 return;

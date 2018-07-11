@@ -175,6 +175,27 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             return ss.CreateUser(acc, pasd, nam, telephone, em, did);
         }
+
+        public string AddExistUserToDepartment()
+        {
+            string uid = Request["uid"].ToString();
+            string did = Request["did"].ToString();
+            SystemSetup ss = new SystemSetup();
+            return ss.AddExistUserToDepartment(uid, did);
+        }
+
+        public string GetAllUsers()
+        {
+            string uaccount = "";
+            string uname = "";
+            if (Request["uaccount"] != null)
+                uaccount = Request["uaccount"].ToString();
+            if(Request["uname"] != null)
+                uname = Request["uname"].ToString();
+            SystemSetup ss = new SystemSetup();
+            return ss.GetAllUsers(uaccount, uname);
+        }
+
         public string GetDepartmentUsers()
         {
             string did = Request["did"].ToString();

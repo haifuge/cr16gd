@@ -38,19 +38,19 @@ namespace DAL.Models
         {
             string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked , 
                                     '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen
-                        from Department d left join APDetail ad on d.id=ad.DepartmentId
+                        from Department d left join DepartmentUser du on d.ID=du.DepartmentId left join APDetail ad on du.Guid=ad.DUGUID
                         union
-                        select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, ui.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
-                                case when ad.DepartmentId is null then 0 else 1 end as checked,
+                        select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, du.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
+                                case when du.DepartmentId is null then 0 else 1 end as checked,
                                 '/img/icon-treeuser.png' as icon, '/img/icon-treeuser.png' as iconClose, '/img/icon-treeuser.png' as iconOpen
-                        from UserInfo ui inner join Department d on ui.DepartmentId = d.ID
-                        left join APDetail ad on ui.ID=ad.UserId and ad.DepartmentId=d.ID";
+                        from UserInfo ui inner join DepartmentUser du on ui.ID=du.UserId inner join Department d on du.DepartmentId = d.ID
+                        left join APDetail ad on du.Guid=ad.DUGUID";
             return DBHelper.GetDataTable(sql);
         }
 
         public string AddDepartment(string pid, string name, string level)
         {
-            string sql = "insert into Department values(N'"+name+"',"+level+","+pid+@");
+            string sql = "insert into Department values(N'"+name+"',"+level+","+pid+@", 1);
                             select MAX(id) from Department";
             return DBHelper.ExecuteScalar(sql);
         }
@@ -68,10 +68,10 @@ namespace DAL.Models
 
         public DataTable GetApprovePrcess(string appPid)
         {
-            string sql = @"select d.Level, dbo.GetRootName(ad.DepartmentId) as pname, ui.UserName, d.Name as dname,
+            string sql = @"select d.Level, dbo.GetRootName(du.DepartmentId) as pname, ui.UserName, d.Name as dname,
                             convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as uid, d.id as did
-                            from APDetail ad inner join UserInfo ui on ad.UserId=ui.ID left join Department d on d.ID=ad.DepartmentId
-                            where APID=" + appPid+" order by d.Level desc";
+                            from APDetail ad inner join DepartmentUser du on ad.DUGUID=du.Guid inner join UserInfo ui on du.UserId=ui.ID left join Department d on d.ID=du.DepartmentId
+                            where APID=" + appPid + " order by d.Level desc";
             return DBHelper.GetDataTable(sql);
         }
 
@@ -104,9 +104,22 @@ namespace DAL.Models
         public string CreateUser(string acc, string pasd, string nam, string telephone, string em, string did)
         {
             pasd = EncryptHelper.Encrypt(pasd, "IamKey12");
-            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "'," + did + ",'" + telephone+"', '"+em+"', getdate(),1,1)";
+            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,1); ";
+            sql += @"declare @uid int
+                     select @uid=max(id) from UserInfo
+                     insert into DepartmentUser values(NEWID(), "+did+", @uid, 1, 1)";
             int i = DBHelper.ExecuteNonQuery(sql);
-            if (i == 1)
+            if (i > 0)
+                return "1";
+            else
+                return "0";
+        }
+
+        public string AddExistUserToDepartment(string uid, string did)
+        {
+            string sql = "insert into DepartmentUser values(NEWID(), " + did + ", "+uid+", 0)";
+            int i = DBHelper.ExecuteNonQuery(sql);
+            if (i > 0)
                 return "1";
             else
                 return "0";
@@ -139,8 +152,28 @@ namespace DAL.Models
 
         public void DeleteUser(string uid)
         {
-            string sql = "delete UserInfo where id = " + uid;
+            string sql = "update DepartmentUser set Status = 0 where Guid = '" + uid+"'";
             DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public string GetAllUsers(string uaccount, string uname)
+        {
+            string where = " where status = 1 ";
+            if(uaccount!="" && uname!="")
+            {
+                where = "and (UserAccount like '%"+uaccount+"%' or UserName like '%"+uname+"%')";
+            }
+            else if(uaccount!="")
+            {
+                where = "and UserAccount like '%" + uaccount + "%'";
+            }
+            else if(uname!="")
+            {
+                where = "and UserName like '%" + uname + "%'";
+            }
+            string sql = "select ID, UserAccount, UserName, Telphone from UserInfo " + where;
+            DataTable dt= DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

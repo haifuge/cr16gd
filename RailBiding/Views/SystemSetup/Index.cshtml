@@ -787,7 +787,7 @@
                     '<td>' + o.department + '</td>' +
                     '<td>' + o.telephone + '</td>' +
                     '<td>' + o.email + '</td>' +
-                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(' + o.id + ')">删除</a></td>' +
+                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + o.id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + o.id + '\')">删除</a></td>' +
                     '</tr >';
             }
             $("#tbusers").html(htm)

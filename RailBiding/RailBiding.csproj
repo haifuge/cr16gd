@@ -195,6 +195,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\bootstrap-table.css" />
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="css\bootstrapStyle.css" />
     <Content Include="css\bootstrapStyle\bootstrapStyle.css" />
     <Content Include="css\bootstrapStyle\img\bootstrap.gif" />
@@ -425,6 +427,9 @@
     <Content Include="img\video_close.png" />
     <Content Include="img\zzry1.png" />
     <Content Include="img\zzry2.png" />
+    <Content Include="js\bootstrap-table-zh-CN.js" />
+    <Content Include="js\bootstrap-table.js" />
+    <Content Include="js\bootstrap.min.js" />
     <Content Include="js\icheck\icheck.min.js" />
     <Content Include="js\jquery-1.11.0.js" />
     <Content Include="js\jquery-ui.min.js" />

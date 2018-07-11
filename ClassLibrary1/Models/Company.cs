@@ -188,8 +188,8 @@ namespace DAL.Models
 
         private void CreateApproveProcess(string cid)
         {
-            string sql = @"insert into AppProcessing(AppProcId, ObjId,DepartmentId, UserId, Approved)
-                            select APID, "+cid+ ", DepartmentId, UserId, 1 from APDetail where APID = 1";
+            string sql = @"insert into AppProcessing(AppProcId, ObjId,Approved, Comment, DealDatetime,DUGUID)
+                            select APID, " + cid + ", 1, null, null, DUGUID from APDetail where APID = 1";
             DBHelper.ExecuteNonQuery(sql);
         }
     }
