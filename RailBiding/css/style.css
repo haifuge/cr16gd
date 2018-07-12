@@ -5756,11 +5756,13 @@ ul.cjtb_ul li div.ul-bg {
     
     height: 460px;
     width: 100%;
+    padding:0px;
     overflow-x: auto;
     overflow-y: auto;
     border-right: 1px solid #ececec;
 }
-.a-zbwj {
+
+.a-zbwj{
     cursor: pointer;
 }
 .input#projName{ 
