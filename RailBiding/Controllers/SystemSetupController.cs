@@ -102,10 +102,10 @@ namespace RailBiding.Controllers
             DataTable dt = ss.GetOrganizations();
             return JsonHelper.DataTableToJSON(dt);
         }
-        public string GetOrganizationUser()
+        public string GetOrganizationUser(string appPid)
         {
             SystemSetup ss = new SystemSetup();
-            DataTable dt = ss.GetOrganizationUser();
+            DataTable dt = ss.GetOrganizationUser(appPid);
             return JsonHelper.DataTableToJSON(dt);
         }
         
@@ -219,6 +219,11 @@ namespace RailBiding.Controllers
         {
             SystemSetup ss = new SystemSetup();
             ss.DeleteUser(uid);
+        }
+        public void AddUserToDepartment(string did, string uid)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.AddUserToDepartment(did, uid);
         }
     }
 }

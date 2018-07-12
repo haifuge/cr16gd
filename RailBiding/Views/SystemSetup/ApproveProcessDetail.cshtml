@@ -134,7 +134,7 @@
     var appProcess
     $(document).ready(function () {
         // 加载组织树
-        $.get("/SystemSetup/GetOrganizationUser", {}, function (data) {
+        $.get("/SystemSetup/GetOrganizationUser?appPid=@ViewBag.apppid", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
             nodes1 = JSON.parse(data);
             console.log('人员部门节点：',nodes1)

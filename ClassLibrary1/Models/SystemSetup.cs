@@ -34,17 +34,17 @@ namespace DAL.Models
                             from Department";
             return DBHelper.GetDataTable(sql);
         }
-        public DataTable GetOrganizationUser()
+        public DataTable GetOrganizationUser(string apid)
         {
             string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked , 
                                     '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen
                         from Department d left join DepartmentUser du on d.ID=du.DepartmentId left join APDetail ad on du.Guid=ad.DUGUID
                         union
                         select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, du.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
-                                case when du.DepartmentId is null then 0 else 1 end as checked,
+                                case when ad.APID is null then 0 else 1 end as checked,
                                 '/img/icon-treeuser.png' as icon, '/img/icon-treeuser.png' as iconClose, '/img/icon-treeuser.png' as iconOpen
                         from UserInfo ui inner join DepartmentUser du on ui.ID=du.UserId inner join Department d on du.DepartmentId = d.ID
-                        left join APDetail ad on du.Guid=ad.DUGUID";
+                        left join APDetail ad on du.Guid=ad.DUGUID and ad.APID="+apid;
             return DBHelper.GetDataTable(sql);
         }
 
@@ -78,7 +78,9 @@ namespace DAL.Models
         public DataTable GetPersenalInfo(string uid)
         {
             string sql = @"select ui.ID, ui.UserAccount, ui.UserName, ui.Telphone, ui.Email, d.Name as DepartmentName
-                            from UserInfo ui left join Department d on ui.DepartmentId = d.ID where ui.ID = "+uid;
+                           from UserInfo ui 
+                           left join DepartmentUser du on ui.ID=du.UserId 
+                           left join Department d on du.DepartmentId = d.ID where ui.ID =" + uid;
             return DBHelper.GetDataTable(sql);
         }
 
@@ -163,6 +165,12 @@ namespace DAL.Models
                           select ID, UserAccount, UserName, Telphone from UserInfo where UserName like '%" + uname + "%'";
             DataTable dt= DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
+        }
+
+        public void AddUserToDepartment(string did, string uid)
+        {
+            string sql = "insert into DepartmentUser values(NEWID()," + did + ", " + uid + ", 1, 1);";
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }

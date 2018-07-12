@@ -59,7 +59,7 @@ namespace DAL.Models
                             from vw_AppPLevel a 
                             inner join (select MAX(level) as level,AppProcId, ObjId 
 			                            from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
-                            ) b on a.AppProcId=b.AppProcId and a.Level>b.level and a.ObjId=b.ObjId
+                            ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userId + ") a on c.ID=a.ObjId";
             return DBHelper.GetDataTable(sql);
         }
