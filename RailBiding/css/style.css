@@ -5826,4 +5826,8 @@ text-align:center;
 #swal2-title{
     z-index:9999999999999;
 }
+.wc-container .dc-left2 {
 
+    width: 260px;
+}
+}
