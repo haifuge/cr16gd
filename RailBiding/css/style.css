@@ -1502,6 +1502,7 @@ button:hover {
 .right-block {
     border: 1px solid #b3b3b3;
     margin-bottom: 20px;
+    display:none;
 }
 
 .right-block-title {
@@ -3907,7 +3908,7 @@ input[name=keyname] {
 .add-yej {
     background: #f7f7f7;
     width: 98%;
-    height: 215px;
+    height: auto;
     border: 1px solid #ececec;
     margin-top: 50px;
     padding: 40px 15px 15px;
@@ -4431,6 +4432,7 @@ h3.fx_tit {
 }
 
 .deal-apply-btn.deal-apply-btn2 {
+    display:none;
     padding-top: 0;
     margin-bottom: 15px;
 }
@@ -5510,14 +5512,14 @@ ul.cjtb_ul li div.ul-bg {
 
 
 .dc-left {
-    width: 260px;
+    width: 340px;
     float: left;
     border-bottom: none;
 }
 
 .dc-right {
-    margin-left: 260px;
     
+    margin-left: 340px
 }
 
 .dc-left h3 {
@@ -5753,7 +5755,7 @@ ul.cjtb_ul li div.ul-bg {
 .ztree {
     
     height: 460px;
-    width: 250px;
+    width: 100%;
     overflow-x: auto;
     overflow-y: auto;
     border-right: 1px solid #ececec;
@@ -5815,25 +5817,10 @@ text-align:center;
     text-align: center;
 }
 
-input[type="radio"] + label::before {
-    content: "\a0"; /*不换行空格*/
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 18px;
-    width: 1em;
-    height: 1em;
-    margin-right: .4em;
-    border-radius: 50%;
-    border: 1px solid #01cd78;
-    text-indent: .15em;
-    line-height: 1; 
-}
-input[type="radio"]:checked + label::before {
-    background-color: #01cd78;
-    background-clip: content-box;
-    padding: .2em;
-}
+.bohui{
 
+    display:none;
+}
 
 
 

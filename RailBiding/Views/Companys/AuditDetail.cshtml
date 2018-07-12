@@ -77,7 +77,7 @@
             <div class="apply-opt">
                 <!--<a href='javascript:;' class='js-cancle-meet' title='撤回'><i-->
                 <!--class='meet-icon icon-cancel'>撤回</i></a>-->
-                <a href='javascript:;' class='js-cancle-meet' title='驳回' onclick="declineApplication()">
+                <a href='javascript:;' class='js-cancle-meet bohui' title='驳回' onclick="declineApplication()">
                     <i class='meet-icon icon-cancel icon-bh'>驳回</i>
                 </a>
                 <!--弹出层时背景层DIV---start-->
@@ -258,18 +258,69 @@
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type='text/javascript' src="~/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+
+    <script src="~/js/wow.min.js"></script>
 <script type='text/javascript' src="~/js/js.js"></script>
-    <script src="~/js/sweetalert2.all.js"></script>
-<script type='text/javascript'>
+ <script src="~/js/sweetalert2.all.js"></script>
+    <script>
+    //资质荣誉 图片放大
     $(function () {
+        var abtab2_img = 1;
+        $("a[rel=group]").fancybox({
+            'titlePosition': 'over',
+            'cyclic': true,
+            'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
+                return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
+            },
+            onComplete: function () {
+                var w = $(window).width(),
+                    pc = w > 1200 ? 1 : 2;
+                if (abtab2_img && pc === 1) {
+                    abtab2_img = 0;
+                    $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
+                }
+                if (abtab2_img && pc === 2) {
+                    abtab2_img = 0;
+                    $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({'margin-left': -140}).fadeIn().delay(2000).fadeOut();
+                }
+
+            }
+        });
+    });
+    </script>
+    <script type='text/javascript'>
+
+
+
+    function getQueryString(name) {
+             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                 context = r[2];
+             reg = null;
+             r = null;
+             return context == null || context == "" || context == "undefined" ? "" : context;
+    }
+
+
+    $(function () {
+
+        var apstatus = getQueryString('approved');
+        if(apstatus=="1"){
+            $(".deal-apply-btn.deal-apply-btn2").show();
+            $(".right-block").show();
+            $(".bohui").show();
+        }
         pages(1, 2, 12, 5)
         $.get("/Companys/GetApproveProcessingInfo", { cid: @ViewBag.cid}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
+            if(obj.length==0)
+                return;
             var pdepart = obj[0].pname;
             var dechtm = "";
             var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
@@ -315,6 +366,7 @@
             $("#transferInfo").html(htm);
             $("#declineInfo").html(dechtm);
         })
+
     });
     function declineApplication() {
         var feedback = $("#feedback-area").val()
@@ -352,16 +404,16 @@
                 );
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
-                $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
+                $(".bohui").hide();
                 $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
                     window.history.go(-1);
-                })        
-            }   
+                })
+            }
         })
 
 
 
-          
+
        }
     }
 
@@ -388,37 +440,13 @@
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
                 $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 2, comment: '' }, function () {
                     window.history.go(-1);
-                })          
-            }   
-        }) 
-      
-    }
-    
-
-    //资质荣誉 图片放大
-    $(function () {
-        var abtab2_img = 1;
-        $("a[rel=group]").fancybox({
-            'titlePosition': 'over',
-            'cyclic': true,
-            'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
-                return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
-            },
-            onComplete: function () {
-                var w = $(window).width(),
-                    pc = w > 1200 ? 1 : 2;
-                if (abtab2_img && pc === 1) {
-                    abtab2_img = 0;
-                    $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
-                }
-                if (abtab2_img && pc === 2) {
-                    abtab2_img = 0;
-                    $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({ 'margin-left': -140 }).fadeIn().delay(2000).fadeOut();
-                }
-
+                })
             }
-        });
-    });
+        })
+
+    }
+
+
 
 
     </script>
