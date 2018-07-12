@@ -86,17 +86,17 @@
                     var o = obj[i];
                     var auditStatus="";
                     var statusStyle="";
-                    switch (o.auditstatus) {
+                    switch (o.approved) {
                         case 0:
                             auditStatus = "未发布";
                             statusStyle = "status-wcl status-wfb";
                             break;
                         case 1:
-                            auditStatus = "审核中";
+                            auditStatus = "未处理";
                             statusStyle = "status-wcl status-shz";
                             break;
                         case 2:
-                            auditStatus = "已通过";
+                            auditStatus = "已处理";
                             statusStyle = "status-wcl status-ytg";
                             break;
                         case 3:
@@ -108,7 +108,7 @@
                             statusStyle = "status-wcl status-bzt";
                             break;
                     }
-                    htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?id=' + o.id + '\';">' +
+                    htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?id=' + o.id + '&approved=' + o.approved+'\';">' +
                         '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1"/></td >' +
                         '<td>' + o.name + '</td>' +
                         '<td>' + o.qualificationlevel + '</td>' +
