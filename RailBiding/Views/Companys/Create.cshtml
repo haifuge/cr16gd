@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/select/easydropdown.metro.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 <link href="~/css/loading.css" rel="stylesheet" />
 <style>
@@ -473,7 +473,7 @@
 <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="~/js/ztree/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="~/js/ztree/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
@@ -484,7 +484,7 @@
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
    
-    function saveCompany() {
+    function saveCompany(){
         var companyName = $("#companyName").val();
         var refererName = $("#refererName").val();
         var allfileInput1 = $("#allfileInput1").val();
@@ -501,68 +501,254 @@
         var contactPhone = $("#contactPhone").val();
         var allfileInput6 = $("#allfileInput6").val();
         
-
-
-
         if (companyName == "") {
-            alert("企业名称不能为空");
             document.getElementById("companyName").focus();
+            swal({
+                title: '企业名称不能为空！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                 function () {  },
+                  // handling the promise rejection
+                 function (dismiss) {
+                     if (dismiss === 'timer') {
+                         console.log('I was closed by the timer'); 
+                     }
+                 }
+
+               )
+            
             return;
         } else if (refererName=="") {
-            alert("请填写推荐人");
+            
             document.getElementById("refererName").focus();
+            swal({
+                title: '请填写推荐人！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (allfileInput1 == "") {
-            alert("请上传推荐书");
             document.getElementById("allfileInput1").focus();
+            swal({
+                title: '请上传推荐书！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (allfileInput2 == "") {
-            alert("请上传营业执照");
+ 
             document.getElementById("allfileInput2").focus();
+            swal({
+                title: '请上传营业执照！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         }
         else if (socialCreditNo == "") {
-            alert("请填写统一社会信用代码号");
             document.getElementById("socialCreditNo").focus();
+            swal({
+                title: '请填写统一社会信用代码号！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (qualificationLevel == "") {
-            alert("请填写资质等级");
             document.getElementById("qualificationLevel").focus();
+            swal({
+                title: '请填写资质等级!!!！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (zzlist == "") {
-            alert("请上传企业资质");
+            swal({
+                title: '请上传企业资质！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (allfileInput4 == "") {
-            alert("请上传安全证书");
             document.getElementById("allfileInput4").focus();
+            swal({
+                title: '请上传安全证书！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         }else if (licenseNo == "") {
-            alert("请上传证件编号");
+   
             document.getElementById("licenseNo").focus();
+            swal({
+                title: '请上传证件编号！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (companyRepresentative == "") {
-            alert("请填写法人代表");
+     
             document.getElementById("companyRepresentative").focus();
+            swal({
+                title: '请填写法人代表！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (repTelephone == "") {
-                alert("请填写法人代表联系电话");
-                document.getElementById("repTelephone").focus();
+            document.getElementById("repTelephone").focus();
+            swal({
+                title: '请填写法人代表联系电话！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
                 return;
         } else if (allfileInput5 == "") {
-            alert("请上传法人代表身份证扫描件");
+
             document.getElementById("allfileInput5").focus();
+            swal({
+                title: '请上传法人代表身份证扫描件！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (contact == "") {
-            alert("请填写联系人");
             document.getElementById("contact").focus();
+            swal({
+                title: '请填写联系人！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (contactPhone == "") {
-            alert("请填写联系人联系电话");
+
             document.getElementById("contactPhone").focus();
+            swal({
+                title: '请填写联系人联系电话！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
             return;
         } else if (allfileInput6 == "") {
-                alert("请上传联系人身份证扫描件");
-                document.getElementById("allfileInput6").focus();
+
+            document.getElementById("allfileInput6").focus();
+            swal({
+                title: '请上传联系人身份证扫描件！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                 // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+              )
                 return;
         } 
 
@@ -611,7 +797,7 @@
             } else {
                 //hide
                 removeLoading('test');
-                alert('公司创建失败')
+                swal('公司创建失败')
             }
         })
     }
@@ -666,7 +852,7 @@
             var data = { picData: b64, name: zzname, code: zzcode };
             $.post("/Companys/UploadZiZhi", data, function () {
                 removeLoading('test');
-                alert('公司创建成功')
+                swal('公司创建成功')
             });
         }
     }
@@ -693,31 +879,31 @@
     function addworkHistory() {
         var projName = document.getElementById("projName").value;
         if (projName.length == 0) {
-            alert('请填写承包项目');
+            swal('请填写承包项目');
             document.getElementById("projName").focus();
             return;
         }
         var contractAmount = document.getElementById("contractAmount").value;
         if (contractAmount.length == 0) {
-            alert("请填写合同金额")
+            swal("请填写合同金额")
             document.getElementById("contractAmount").focus();
             return;
         }
         var timeBegin = document.getElementById("timeBegin").value;
         if (timeBegin.length == 0) {
-            alert("请选择开工时间")
+            swal("请选择开工时间")
             document.getElementById("timeBegin").focus();
             return;
         }
         var timeEnd = document.getElementById("timeEnd").value;
         if (timeEnd.length == 0) {
-            alert("请选择竣工时间")
+            swal("请选择竣工时间")
             document.getElementById("timeEnd").focus();
             return;
         }
         var settleAmount = document.getElementById("settleAmount").value;
         if (settleAmount.length == 0) {
-            alert("请选结算金额")
+            swal("请选结算金额")
             document.getElementById("settleAmount").focus();
             return;
         }

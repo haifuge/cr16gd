@@ -74,7 +74,7 @@
 
         .canvas h3 {
             height: 45px;
-            
+            padding-left:20px;
             background: #eaf6fd;
             line-height: 45px;
             font-size: 18px;
@@ -219,8 +219,12 @@
             <a class="meet-btn blue-btn sm-btn" href="#">搜索</a>
             <div class="apply-opt">
                 <a href="#" class="js-cancle-meet" title="">
+                    <i class="meet-icon icon-cancel iconc iconxz xzadd-img" style="">选择人员</i>
+                </a>
+                <a href="#" class="js-cancle-meet" title="">
                     <i class="meet-icon icon-cancel iconc add-img" style="">添加人员</i>
                 </a>
+                
             </div>
         </div>
                 <!-- 修改用户信息 -->
@@ -282,14 +286,60 @@
                         </div>
                     </div>
                 </div>
+
+        <!-- 选择人员 -->
+        <div class="canvas canvas4">
+            <div class="canvas_content xzaddcanvas_content">
+                <span class="canvas_close canvas_close4">×</span>
+                <h3>选择人员</h3>
+                <div class="wc-container">
+                    <div class="add-xzry">
+                        <input name="roomInfoName" type="text" value="" id="xzaddpeo" class="has-clear-input input input3 addbumen" hidden/>
+                        <div class="search-con2 xzadd-input" style="margin-right: 15px;">
+                            <input type="text" name="keyname" value="" class="xzadd-inputcon"  placeholder="请输入用户名称">
+                        </div>
+                        <a class="meet-btn blue-btn sm-btn xzadd-search" href="#">搜索</a>
+                        <table class="meet-form meet-form2 meet-form5 xzadd-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>姓名</th>
+                                    <th>部门</th>
+                                    <th>手机</th>
+                                    <th>邮箱</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="radio" name="chooseid" value="" class="xzryradio"/><label></label></td>
+                                    <td  style="width:23%">张三</td>
+                                    <td  style="width:23%">经济管理部</td>
+                                    <td style="width:27%">11111111111</td>
+                                    <td style="width:27%">zhangsan@aaa.cn</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" name="chooseid" value="" class="xzryradio" /><label></label></td>
+                                    <td style="width:23%">张三1</td>
+                                    <td style="width:23%">经济管理部1</td>
+                                    <td style="width:27%">11111111111</td>
+                                    <td style="width:27%">zhangsan@aaa.cn</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-tr-btn">
+                            <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="chooseNewUser()">确定</button>
+                            <button type="reset" class="meet-btn big-btn gray-btn canvas_close4">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--添加选择人员结束-->
+
                 <!-- 添加人员 -->
                 <div class="canvas canvas1">
                     <div class="canvas_content">
                         <span class="canvas_close canvas_close1">×</span>
-                        <h3 >
-                            <span class="addxry add-bg" onclick="addxry()">添加人员</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span class="addyyry" onclick="addyyry()">添加已有人员</span>
-                        </h3>
+                        <h3 >添加人员</h3>
                         <div class="wc-container">
                              <div class="add-xry">
                                   <table class="meet-form meet-form2 meet-form5">
@@ -359,28 +409,6 @@
                                     <button type="reset" class="meet-btn big-btn gray-btn canvas_close1">取消</button>
                                 </div>
                             </div><!--添加新人员结束-->
-                            <div class="add-yyry">
-                                 <div class="add-yyrycon">
-                                     <span>
-                                         用户账号:<input type="text" value="" name="yyryaccount" class="yyryinput"/>&nbsp;
-                                         姓名:<input type="text" value="" name="yyryname" class="yyryinput" />
-                                     </span>
-                                     <a href="" class="meet-btn blue-btn sm-btn yyrysearch">搜索</a>
-                                     <table class="yyrytable">
-                                         <thead>
-                                             <th>用户账号</th>
-                                             <th>姓名</th>
-                                             <th>手机号</th>
-                                             <th>选项</th>
-                                         </thead>
-                                         <tbody id="yyrytbody">
-
-                                         </tbody>
-
-                                     </table>
-
-                                 </div>
-                            </div><!--添加已有人员结束-->
                         </div>
                     </div>
                 </div>
@@ -623,6 +651,8 @@
 
         return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
     }
+
+    //添加人员弹框显示
     $(".add-img").on("click", function () {
         var addpeo = document.getElementById('addpeo').value;
         if (addpeo = null || addpeo == "") {
@@ -631,6 +661,8 @@
             $(".canvas.canvas1").show();
         }
     })
+
+    //添加人员弹框隐藏
     $(".canvas_close1").on("click", function () {
         $(".canvas.canvas1").hide();
         $("#xm").html("");
@@ -646,10 +678,54 @@
         $("#uemail").val("");
         $("#repwd").val("")
     })
+
+    //选择人员弹框显示
+    $(".xzadd-img").on("click", function () {
+        var xzaddpeo = document.getElementById('xzaddpeo').value;
+        console.log(xzaddpeo);
+        if (xzaddpeo = null || xzaddpeo == "") {
+            swal("请选择部门");
+        } else {
+            $(".canvas.canvas4").show();
+        }
+    })
+
+
+    //选择人员弹框隐藏
+    $(".canvas_close4").on("click", function () {
+        $(".canvas.canvas4").hide();
+        if ($(".xzryradio").is(":checked")) {
+            $(".xzryradio").prop("checked", false);
+        }
+    })
+
+    // 添加部门弹框显示
+    $(".add-img2").on("click", function () {
+        $(".canvas.canvas2").show();
+
+    })
+
+    //添加部门弹框隐藏
+    $(".canvas_close2").on("click", function () {
+        $(".canvas.canvas2").hide();
+        $(".addbumen").val("");
+        $("#dname").val("");
+        $("#dlevel").val("");
+        $("#spjbmsg").html("");
+        $("#bmnamemsg").html("");
+        if ($(".addbox").is(":checked")) {
+            $(".addbox").prop("checked", false);
+        }
+        $(".addlevel").attr("disabled", "disabled");
+    })
+
+    //修改弹框隐藏
     $(".canvas_close3").on("click", function () {
         $(".canvas.canvas3").hide();
         
     })
+
+
     function createDepartment() {
         
         var pid;
@@ -696,11 +772,7 @@
             $(".addlevel").attr("disabled", "disabled");
         });
     }
-    // 添加部门
-    $(".add-img2").on("click", function () {
-            $(".canvas.canvas2").show();
-        
-    })
+
     function getChildNodes(treeNode) {
         var naviTree = $.fn.zTree.getZTreeObj("tree");
         var childNodes = naviTree.transformToArray(treeNode);
@@ -717,18 +789,8 @@
             return true;
         return false;
     }
-    $(".canvas_close2").on("click", function () {
-        $(".canvas.canvas2").hide();
-        $(".addbumen").val("");
-        $("#dname").val("");
-        $("#dlevel").val("");
-        $("#spjbmsg").html("");
-        $("#bmnamemsg").html("");
-        if ($(".addbox").is(":checked")) {
-            $(".addbox").prop("checked", false);
-        }
-        $(".addlevel").attr("disabled", "disabled");
-    })
+
+
     
    
 
@@ -1000,16 +1062,5 @@
     }
 
 
-    /*添加人员*/
-    function addxry() {
-        $(".add-xry").show();
-        $(".add-yyry").hide();
-        $(".addxry").addClass("add-bg").siblings().removeClass("add-bg");
-    }
-    function addyyry() {
-        $(".add-xry").hide();
-        $(".add-yyry").show();
-        $(".addyyry").addClass("add-bg").siblings().removeClass("add-bg");
-        
-    }
+    
 </script>

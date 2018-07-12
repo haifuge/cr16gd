@@ -5768,45 +5768,6 @@ ul.cjtb_ul li div.ul-bg {
     border: 1px solid #ccc;
     border-radius: 5px;}
 
-/*添加人员*/
-.addxry ,.addyyry{
-    cursor:pointer;
-    display: block;
-    height: 45px;
-    width: 130px;
-    text-align: center;
-    float: left;
-}
-.add-bg{
-    color:#fff;
-    background:#008cd6;
-}
-.add-yyry {
-    background: #fff;
-}
-.add-yyrycon{
-    width: 450px;
-    margin: 0 auto;
-    padding: 20px 0px;
-}
-.yyryinput{
-    line-height:25px;
-    width: 100px;
-    padding: 0 5px;
-    height: 25px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-left: 5px;
-    }
-.yyrysearch{
-    text-align:center;
-    float:right;
-    width:50px;
-}
-.yyrytable{
-    clear:both;
-    width: 100%;
-}
 .add-yej h3{
     color: #fff;
     background: #ffb000;
@@ -5826,3 +5787,53 @@ span#zsbhmsg {
     color:red
 }
 #zspicmsg{color:red}
+.iconxz{
+    background:;
+
+}
+/*选择人员*/
+.add-xzry {
+    padding: 20px 30px;
+}
+
+.xzadd-input{
+    width:300px;
+}
+.canvas .canvas_content.xzaddcanvas_content{
+    width:620px;
+    height: auto;
+}
+.xzadd-table{
+    margin-top:20px;
+    
+}
+.xzadd-table tr td{
+text-align:center;
+}
+.xzadd-search{
+    width: 60px;
+    text-align: center;
+}
+
+input[type="radio"] + label::before {
+    content: "\a0"; /*不换行空格*/
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    width: 1em;
+    height: 1em;
+    margin-right: .4em;
+    border-radius: 50%;
+    border: 1px solid #01cd78;
+    text-indent: .15em;
+    line-height: 1; 
+}
+input[type="radio"]:checked + label::before {
+    background-color: #01cd78;
+    background-clip: content-box;
+    padding: .2em;
+}
+
+
+
+
