@@ -497,14 +497,16 @@ namespace RailBiding.Controllers
         public void UploadWorkHistory()
         {
             string data = Request["workhistory"].ToString();
-            string[] items = data.Split('^');
+            char[] separators = { '^' };
+            string[] items = data.Split(separators,StringSplitOptions.None);
             string sql = "";
             for(int i=0;i<items.Length-1;i++)
             {
                 string[] o = items[i].Split('|');
                 sql += "insert into WorkHistory values(" + Session["newCid"] + ",N'"+o[0]+ "',N'" + o[1] + "',N'" + o[2] + "',N'" + o[3] + "',N'" + o[4] + "',N'" + o[5] + "'); ";
             }
-            DBHelper.ExecuteNonQuery(sql);
+            if(sql!="")
+                DBHelper.ExecuteNonQuery(sql);
         }
 
         // GET: Companys/Edit/5

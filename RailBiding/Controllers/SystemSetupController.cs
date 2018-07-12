@@ -184,16 +184,13 @@ namespace RailBiding.Controllers
             return ss.AddExistUserToDepartment(uid, did);
         }
 
-        public string GetAllUsers()
+        public string SearchUsers()
         {
-            string uaccount = "";
             string uname = "";
-            if (Request["uaccount"] != null)
-                uaccount = Request["uaccount"].ToString();
-            if(Request["uname"] != null)
+            if (Request["uname"] != null)
                 uname = Request["uname"].ToString();
             SystemSetup ss = new SystemSetup();
-            return ss.GetAllUsers(uaccount, uname);
+            return ss.SearchUsers(uname);
         }
 
         public string GetDepartmentUsers()

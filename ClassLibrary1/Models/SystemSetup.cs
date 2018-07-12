@@ -156,22 +156,11 @@ namespace DAL.Models
             DBHelper.ExecuteNonQuery(sql);
         }
 
-        public string GetAllUsers(string uaccount, string uname)
+        public string SearchUsers(string uname)
         {
-            string where = " where status = 1 ";
-            if(uaccount!="" && uname!="")
-            {
-                where = "and (UserAccount like '%"+uaccount+"%' or UserName like '%"+uname+"%')";
-            }
-            else if(uaccount!="")
-            {
-                where = "and UserAccount like '%" + uaccount + "%'";
-            }
-            else if(uname!="")
-            {
-                where = "and UserName like '%" + uname + "%'";
-            }
-            string sql = "select ID, UserAccount, UserName, Telphone from UserInfo " + where;
+            string sql = "select ID, UserAccount, UserName, Telphone from UserInfo where UserAccount like '%"+uname+ @"%'
+                          union
+                          select ID, UserAccount, UserName, Telphone from UserInfo where UserName like '%" + uname + "%'";
             DataTable dt= DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }
