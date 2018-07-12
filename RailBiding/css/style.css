@@ -5752,9 +5752,8 @@ ul.cjtb_ul li div.ul-bg {
     margin: 0 8px;
     padding: 1px 5px;
 }
-.ztree {
-    
-    height: 460px;
+.ztree { 
+    height: 600px;
     width: 100%;
     padding:0px;
     overflow-x: auto;
@@ -5824,5 +5823,7 @@ text-align:center;
     display:none;
 }
 
-
+#swal2-title{
+    z-index:9999999999999;
+}
 
