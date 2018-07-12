@@ -29,7 +29,8 @@ namespace DAL.Models
                             from BidingFile bf 
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId
-                            left join Department d on ui.DepartmentId=d.ID
+                            inner join DepartmentUser du on du.UserId=ui.ID
+                            left join Department d on du.DepartmentId=d.ID
                             order by bf.ProjId desc";
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;

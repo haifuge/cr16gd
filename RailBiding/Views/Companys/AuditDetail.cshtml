@@ -269,6 +269,7 @@
         pages(1, 2, 12, 5)
         $.get("/Companys/GetApproveProcessingInfo", { cid: @ViewBag.cid}, function (data) {
             var obj = JSON.parse(data);
+            console.log(obj);
             var pdepart = obj[0].pname;
             var dechtm = "";
             var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';

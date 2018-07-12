@@ -53,11 +53,14 @@ namespace DAL.Models
         public DataTable GetMyAudit(string userId)
         {
             string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, c.BusinessType, c.CorporateRepresentative,  
-	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus 
-                            from Company c inner join (
-                            select * from vw_AppPLevel where AppProcId=1 and ObjId=16 and Level in(
-                            select MAX(level) from vw_AppPLevel where AppProcId=1 and ObjId=16) and UserId="+ userId + @") a on c.ID=a.ObjId
-                            where c.AuditStatus<>3";
+	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
+                            from Company c inner join(
+                            select distinct a.ObjId, a.Approved 
+                            from vw_AppPLevel a 
+                            inner join (select MAX(level) as level,AppProcId, ObjId 
+			                            from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
+                            ) b on a.AppProcId=b.AppProcId and a.Level>b.level and a.ObjId=b.ObjId
+                            where a.UserId=" + userId + ") a on c.ID=a.ObjId";
             return DBHelper.GetDataTable(sql);
         }
 
@@ -178,11 +181,11 @@ namespace DAL.Models
 
         public DataTable GetApproveProcessingInfo(string cid)
         {
-            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName
+            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName, ap.Level
                             from vw_AppPLevel ap 
                             left join Department d on ap.DepartmentId=d.ID 
                             left join UserInfo ui on ui.ID=ap.UserId
-                            where ap.AppProcId=1 and ap.ObjId=" + cid+ " order by ap.Level desc, ap.DealDatetime desc";
+                            where ap.AppProcId=1 and ap.ObjId=" + cid + " order by case when ap.DealDatetime is null then 0 else 1 end desc, ap.Level desc, ap.DealDatetime asc";
             return DBHelper.GetDataTable(sql);
         }
 
