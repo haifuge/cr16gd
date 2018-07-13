@@ -296,7 +296,7 @@
                     <div class="add-xzry">
                         <input name="roomInfoName" type="text" value="" id="xzaddpeo" class="has-clear-input input input3 addbumen" hidden/>
                         <div class="search-con2 xzadd-input" style="margin-right: 15px;">
-                            <input type="text" name="keyname" value="" class="xzadd-inputcon"  placeholder="请输入要查询的用户名或姓名" onblur="xzaddinputcon()">
+                            <input type="text" name="keyname" value="" class="xzaddinputcon"  placeholder="请输入要查询的用户名或姓名" onblur="xzaddinputcon()">
                         </div>
                         <a class="meet-btn blue-btn sm-btn xzadd-search" href="#" onclick="xzaddsearch()">搜索</a>
                         <p id="xzaddinputmsg"></p>
@@ -582,8 +582,6 @@
             $(".addbumen").val(cNodename);
             $(".addlevel").val(cNodelevel);
             $(".addlevel").attr("disabled", "disabled");
-
-
         }
     });
 
@@ -679,7 +677,7 @@
     //选择人员弹框隐藏
     $(".canvas_close4").on("click", function () {
         $(".canvas.canvas4").hide();
-        $(".xzadd-inputcon").val("");
+        $(".xzaddinputcon").val("");
         if ($(".xzryradio").is(":checked")) {
             $(".xzryradio").prop("checked", false);
         }
@@ -849,7 +847,7 @@
 
     //查询出选择人员
     function xzaddsearch() {
-        var searchpeo = $(".xzadd-inputcon").val();
+        var searchpeo = $(".xzaddinputcon").val();
         var success = xzaddinputcon();
         if (success > 0) {
             return;
@@ -1088,9 +1086,9 @@
 
     //选择人员搜索验证
     function xzaddinputcon() {
-        var xzaddinputcon = $(".xzadd-inputcon").value;
-        console.log(xzaddinputcon)
-        if (xzaddinputcon = null || xzaddinputcon == "") {
+        var searchpeocon = $(".xzaddinputcon").val();
+        console.log(searchpeocon);
+        if (xzaddinput = null || xzaddinput == "") {
             $("#xzaddinputmsg").html("请输入要查询的用户名或姓名");
             return 1;
         }

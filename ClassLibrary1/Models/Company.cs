@@ -75,7 +75,7 @@ namespace DAL.Models
 
         public DataTable GetCompany(int id)
         {
-            string sql = @"select id, Name,CreditNo,CorporateRepresentative, RepPhone,RegisteredCapital, BusinessScope,
+            string sql = @"select id, Name,CreditNo,CorporateRepresentative, RepPhone,RegisteredCapital, BusinessScope,SecurityCertificateNo,
                                   Contact,ContactPhone, BusinessType, ContactAddress,QualificationLevel, ConstructionContent, Note,
 								  ReferreIDPic, BusinessLicensePic,SecurityCertificatePic,RepIDPic,ContactIDPic,Referre
                            from Company where id = " + id;
@@ -92,7 +92,7 @@ namespace DAL.Models
 
         public DataTable GetZiZhiPics(int cid)
         {
-            string sql = "select ZZName, PicPath from CompanyZiZhiPic where CompanyId="+ cid;
+            string sql = "select ZZName, PicPath, ZZCode from CompanyZiZhiPic where CompanyId="+ cid;
             return DBHelper.GetDataTable(sql);
         }
 

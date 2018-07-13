@@ -3430,7 +3430,7 @@ input[name=keyname] {
 .top-bottom {
     border-bottom: 1px solid #cacccd;
     padding-bottom: 0;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .td-cer {
@@ -4286,13 +4286,13 @@ h3.fx_tit {
 }
 
 .detail-con .block-left2.block-left4 {
-    width: 63%;
+    width: 75%;
     float: left;
     margin-bottom: 150px;
 }
 
 .block-right.block-right2 {
-    width: 34%;
+    width: 25%;
     /*border: 1px solid #b3b3b3;*/
 }
 

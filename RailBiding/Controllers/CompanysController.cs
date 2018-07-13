@@ -49,41 +49,41 @@ namespace RailBiding.Controllers
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '"+pic+ @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
-                              </div><i>推荐书</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center;margin-bottom: 8px;'>推荐书</p><div>
+                                   <a href = '" + pic+ @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
+                              </div><i></i></div>";
             }
             pic = dr["BusinessLicensePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>营业执照</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='营业执照'><img src = '" + pic + @"'></a>
-                             </div><i>营业执照</i></div>";
+                             </div><i></i></div>";
             }
             pic = dr["SecurityCertificatePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>安全证书</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                             </div><i>"+ dr["SecurityCertificateNo"].ToString() + @"<i></div>";
             }
             pic = dr["RepIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>法人身份证</p><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"'></a>
+                             </div><i>1111111</i></div>";
             }
             pic = dr["ContactIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>联系人身份证</p><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='联系人身份证'><img src = '" + pic + @"'></a>
+                             </div><i></i></div>";
             }
             dt = cc.GetZiZhiPics(id);
             for(int i = 0; i < dt.Rows.Count; i++)
@@ -91,11 +91,10 @@ namespace RailBiding.Controllers
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'>
-                                
-                                 <div>
-                                    <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='f法人身份证'><img src = '" + pic + @"'></a>
+                                <p style='text-align:center; margin-bottom: 8px;'>" + dt.Rows[i]["ZZName"].ToString() + @"</p><div>
+                                    <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"'></a>
                                  </div>
-                                 <i>" + dt.Rows[i]["ZZName"].ToString() + @"</i>
+                                 <i>" + dt.Rows[i]["ZZCode"].ToString() + @"</i>
                             </div>";
             }
             ViewBag.CompanyPics = picHtml;
@@ -141,50 +140,50 @@ namespace RailBiding.Controllers
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>推荐书</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
-                              </div><i>推荐书</i></div>";
+                              </div><i></i></div>";
             }
             pic = dr["BusinessLicensePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>营业执照</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='营业执照'><img src = '" + pic + @"'></a>
-                             </div><i>营业执照</i></div>";
+                             </div><i></i></div>";
             }
             pic = dr["SecurityCertificatePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>安全证书</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                             </div><i>" + dr["SecurityCertificateNo"].ToString() + @"</i></div>";
             }
             pic = dr["RepIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>法人身份证</p><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"'></a>
+                             </div><i></i></div>";
             }
             pic = dr["ContactIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>联系人身份证</p><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='联系人身份证'><img src = '" + pic + @"'></a>
+                             </div><i></i></div>";
             }
             dt = cc.GetZiZhiPics(id);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'  title='f法人身份证'><img src = '" + pic + @"'></a>
-                             </div><i>" + dt.Rows[i]["ZZName"].ToString() + "</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>" + dt.Rows[i]["ZZName"].ToString() + @"</p><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'  title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"'></a>
+                             </div><i>" + dt.Rows[i]["ZZCode"].ToString() + @"</i></div>";
             }
             ViewBag.CompanyPics = picHtml;
 
@@ -289,51 +288,51 @@ namespace RailBiding.Controllers
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>推荐书</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
-                              </div><i>推荐书</i></div>";
+                              </div><i></i></div>";
             }
             pic = dr["BusinessLicensePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>营业执照</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='营业执照'><img src = '" + pic + @"'></a>
-                             </div><i>营业执照</i></div>";
+                             </div><i></i></div>";
             }
             pic = dr["SecurityCertificatePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>安全证书</p><div>
                              <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                             </div><i>" + dr["SecurityCertificateNo"].ToString() + @"</i></div>";
             }
             pic = dr["RepIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>法人身份证</p><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"'></a>
+                             </div><i></i></div>";
             }
             pic = dr["ContactIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><i>安全证书</i></div>";
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>联系人身份证</p><div>
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='联系人身份证'><img src = '" + pic + @"'></a>
+                             </div><i></i></div>";
             }
             dt = cc.GetZiZhiPics(id);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
+                picHtml += @"<div class='ab_tab2_img'><p style='text-align: center; margin-bottom: 8px;'>" + dt.Rows[i]["ZZName"].ToString() + @"</p><div>
                                     <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"'></a>
                                  </div>
-                                 <i>" + dt.Rows[i]["ZZName"].ToString() + @"</i>
+                                 <i>" + dt.Rows[i]["ZZCode"].ToString() + @"</i>
                             </div>";
             }
             ViewBag.CompanyPics = picHtml;
