@@ -5048,9 +5048,11 @@ ul.cjtb_ul li div.ul-bg {
             display: table-cell;
             vertical-align: middle;
         }
-
+.pirobox_gall img{
+    position:relative;
+    width:100%;
+}
     .ab_tab2_img i {
-        display: block;
         height: 20px;
         width: 100%;
         overflow: hidden;
