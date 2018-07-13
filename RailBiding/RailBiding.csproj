@@ -531,6 +531,7 @@
     <Content Include="js\ztree\css\awesomeStyle\awesome.less" />
     <Content Include="js\ztree\css\awesomeStyle\fa.less" />
     <Content Include="js\ztree\js\ztree.3.5.26.zip" />
+    <None Include="Properties\PublishProfiles\cr16.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

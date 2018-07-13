@@ -419,8 +419,8 @@
                                             <td>
                                                 <input name="roomInfoName" type="text" value=""
                                                        class="has-clear-input input input3 addbumen" disabled />
-                                                <input type="checkbox" id="addbox1" name="" class="addbox" />
-                                                <label for='addbox1' class="addbox1ab">是否创建新节点</label>
+                                                <input type="checkbox" id="addbox1" name="" class="addbox"/>
+                                                <label for='addbox1' class="addbox1ab" >是否创建新节点</label>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
@@ -435,7 +435,7 @@
                                             <td class="form-lable">审批级别：</td>
                                             <td>
                                                 <input name="roomInfoName" type="number" value="" id="dlevel"
-                                                       class="has-clear-input input input3 addlevel" disabled  onBlur="yzspjb()"/>
+                                                       class="has-clear-input input input3 addlevel"  onBlur="yzspjb()"/>
                                                 <span id="spjbmsg"></span>
                                             </td>
                                         </tr>
@@ -465,7 +465,7 @@
                         用户名
                     </td>
                     <td>姓名</td>
-                    <td>部门</td>
+                    <td >部门</td>
                     <td>手机</td>
                     <td>邮箱</td>
                     <td>操作</td>
@@ -560,7 +560,6 @@
         cNode = treeNode;
         cNodename = cNode.name;
         cNodelevel = getDepartmentLevel(cNode.id) + 1;
-       
         $(".addlevel").val(cNodelevel);
         $(".addbumen").val(cNode.name);
         getDepartmentUsers();
@@ -689,22 +688,29 @@
     // 添加部门弹框显示
     $(".add-img2").on("click", function () {
         $(".canvas.canvas2").show();
-
+        if ($(".addlevel").val() != "") {
+            $(".addbox").prop("checked",false);
+            $(".addlevel").attr("disabled", true);
+        } else {
+            $(".addbox").prop("checked", true);
+            $(".addlevel").attr("disabled", false);
+        }
     })
 
     //添加部门弹框隐藏
     $(".canvas_close2").on("click", function () {
         $(".canvas.canvas2").hide();
-        $(".addbumen").val("");
+        //$(".addbumen").val("");
         $("#dname").val("");
-        $("#dlevel").val("");
+        //$("#dlevel").val("");
         $("#spjbmsg").html("");
         $("#bmnamemsg").html("");
         if ($(".addbox").is(":checked")) {
-            $(".addbox").prop("checked", false);
+            $(".addbox").prop("checked", true);
         }
-        $(".addlevel").attr("disabled", "disabled");
+        $(".addlevel").attr("disabled", false);
     })
+
 
     //修改弹框隐藏
     $(".canvas_close3").on("click", function () {
@@ -712,9 +718,8 @@
         
     })
 
-
+    //添加部门
     function createDepartment() {
-        
         var pid;
         var success = 0;
         success += yzbmname();
@@ -746,15 +751,12 @@
                 zTree.selectNode(node); //让新添加的节点处于选中状态
                 zTree.expandNode(node, true, false, true);
             }
-            $(".addbumen").val("");
+            //$(".addbumen").val("");
             $("#dname").val("");
-            $("#dlevel").val("");
+            //$("#dlevel").val("");
             $("#spjbmsg").html("");
             $("#bmnamemsg").html("");
-            if ($(".addbox").is(":checked")) {
-                $(".addbox").prop("checked", false);
-            }
-            $(".addlevel").attr("disabled", "disabled");
+           
         });
     }
 
