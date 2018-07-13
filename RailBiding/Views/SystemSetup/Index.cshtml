@@ -294,7 +294,7 @@
                 <h3>选择人员</h3>
                 <div class="wc-container">
                     <div class="add-xzry">
-                        <input name="roomInfoName" type="text" value="" id="xzaddpeo" class="has-clear-input input input3 addbumen" hidden/>
+                        <input name="roomInfoName" type="number" value="" id="dlevel" class="has-clear-input input input3 addlevel" hidden />
                         <div class="search-con2 xzadd-input" style="margin-right: 15px;">
                             <input type="text" name="keyname" value="" class="xzaddinputcon"  placeholder="请输入要查询的用户名或姓名" onblur="xzaddinputcon()">
                         </div>
@@ -557,6 +557,7 @@
     var cNodename;
     var cNodelevel;
     function zTreeOnClick(event, treeId, treeNode) {
+        
         cNode = treeNode;
         cNodename = cNode.name;
         cNodelevel = getDepartmentLevel(cNode.id) + 1;
@@ -564,6 +565,7 @@
         $(".addbumen").val(cNode.name);
         getDepartmentUsers();
     }
+    
     function getDepartmentLevel(id) {
         for (var i = 0; i < nodes.length; i++) {
             if (id == nodes[i].id)
@@ -664,9 +666,9 @@
 
     //选择人员弹框显示
     $(".xzadd-img").on("click", function () {
-        var xzaddpeo = document.getElementById('xzaddpeo').value;
+        var dlevel = document.getElementById('dlevel').value;
         
-        if (xzaddpeo = null || xzaddpeo == "") {
+        if (dlevel = null || dlevel == "") {
             swal("请选择部门");
         } else {
             $(".canvas.canvas4").show();
@@ -678,6 +680,7 @@
     $(".canvas_close4").on("click", function () {
         $(".canvas.canvas4").hide();
         $(".xzaddinputcon").val("");
+        $("#xzaddinputmsg").html("");
         if ($(".xzryradio").is(":checked")) {
             $(".xzryradio").prop("checked", false);
         }
@@ -846,25 +849,33 @@
     }
 
     //查询出选择人员
+    var cnode;
     function xzaddsearch() {
-        var searchpeo = $(".xzaddinputcon").val();
+        cnode = cNode.id;
+        xzaddinputcon(); 
         var success = xzaddinputcon();
         if (success > 0) {
             return;
         }
+        var searchpeo = $(".xzaddinputcon").val();
         var addhtm = "";
         $.post("/SystemSetup/SearchUsers", { uname: searchpeo }, function (res) {
-            var obj = JSON.parse(res); 
+            var obj = JSON.parse(res);
+            console.log(obj);
+            if (obj.length == 0) {
+                $("#xzaddinputmsg").html("查无此人");
+                return;
+            }
+            
             addhtm += '<tr>' +
-                          '<td><input type="radio" name="chooseid" value="" class="xzryradio"/><label></label></td>' +
+                          '<td><input type="radio" name="chooseid" value="'+obj[0].id+'" class="xzryradio"/><label></label></td>' +
                           '<td  style="width:23%" class="searchname">' + obj[0].username + '</td>' +
                           '<td  style="width:23%">' + obj[0].department + '</td>' +
-                          '<td style="width:27%">' + obj[0].telephone + '</td>' +
+                          '<td style="width:27%">' + obj[0].telphone + '</td>' +
                          '<td style="width:27%">' + obj[0].email + '</td>' +
                        '</tr>';
             console.log(obj);
             $("#searchtbody").html(addhtm);
-        
             })
        
         
@@ -873,10 +884,35 @@
 
     //添加选择人员
     function chooseNewUser() {
-        var account = $("#xzaddpeo").val();
-       // var data = { acc: account, pasd: password, nam: name, telephone: tel, em: email, did: depId };
-       // $.post("/SystemSetup/CreateUser", data, function (res) {
-       // })
+         xzaddsearch();
+         var choosecnode = cnode;  //选择人员所添加到的部门id
+         var choosenameid = $("input[name='chooseid']:checked").val();  //选择人员的姓名id
+         if( $("input[name='chooseid']").is(":checked")) {
+         } else if ($(".xzaddinputcon").val() == "" || $(".xzaddinputcon").val() == null) {
+             $("#xzaddinputmsg").html("请输入要查询的用户名或姓名");
+             return;
+         } else {
+             $("#xzaddinputmsg").html("请选择添加人员");
+             return;
+          }
+        $.post("/SystemSetup/AddUserToDepartment", { did: choosecnode, uid: choosenameid }, function (res) {
+            swal({
+                title: '添加成功！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                                function () { },
+                                // handling the promise rejection
+                                function (dismiss) {
+                                    if (dismiss === 'timer') {
+                                        console.log('I was closed by the timer')
+                                    }
+                                }
+                            )
+            
+        })
+        $(".canvas4").hide()
+      
     }
 
     var users;
@@ -1088,12 +1124,12 @@
     function xzaddinputcon() {
         var searchpeocon = $(".xzaddinputcon").val();
         console.log(searchpeocon);
-        if (xzaddinput = null || xzaddinput == "") {
+        if (searchpeocon = null || searchpeocon == "") {
             $("#xzaddinputmsg").html("请输入要查询的用户名或姓名");
             return 1;
         }
         else {
-            $("#xzaddinputmsg").html("√");
+            $("#xzaddinputmsg").html("");
             return 0;
         }
         
