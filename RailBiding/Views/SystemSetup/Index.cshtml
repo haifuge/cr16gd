@@ -294,7 +294,6 @@
                 <h3>选择人员</h3>
                 <div class="wc-container">
                     <div class="add-xzry">
-                        <input name="roomInfoName" type="number" value="" id="dlevel" class="has-clear-input input input3 addlevel" hidden />
                         <div class="search-con2 xzadd-input" style="margin-right: 15px;">
                             <input type="text" name="keyname" value="" class="xzaddinputcon"  placeholder="请输入要查询的用户名或姓名" onblur="xzaddinputcon()">
                         </div>
@@ -434,7 +433,7 @@
                                         <tr class="form-tr">
                                             <td class="form-lable">审批级别：</td>
                                             <td>
-                                                <input name="roomInfoName" type="number" value="" id="dlevel"
+                                                <input name="roomInfoName" type="number" value="" id="spdlevel"
                                                        class="has-clear-input input input3 addlevel"  onBlur="yzspjb()"/>
                                                 <span id="spjbmsg"></span>
                                             </td>
@@ -666,9 +665,7 @@
 
     //选择人员弹框显示
     $(".xzadd-img").on("click", function () {
-        var dlevel = document.getElementById('dlevel').value;
-        
-        if (dlevel = null || dlevel == "") {
+        if (cnode==null) {
             swal("请选择部门");
         } else {
             $(".canvas.canvas4").show();
@@ -703,7 +700,7 @@
         $(".canvas.canvas2").hide();
         //$(".addbumen").val("");
         $("#dname").val("");
-        //$("#dlevel").val("");
+        //$("#spdlevel").val("");
         $("#spjbmsg").html("");
         $("#bmnamemsg").html("");
         if ($(".addbox").is(":checked")) {
@@ -721,6 +718,7 @@
 
     //添加部门
     function createDepartment() {
+        
         var pid;
         var success = 0;
         success += yzbmname();
@@ -736,14 +734,10 @@
         if ($(".addbox").is(":checked"))
             pid = 0;
         var depname = $.trim($("#dname").val());
-        var depLevel = $("#dlevel").val();
-        if (depLevel == "") {
-            $("#dlevel").focus();
-            return;
-        }
+        var depLevel = $("#spdlevel").val();
         $(".canvas.canvas2").hide();
         $.post("/SystemSetup/AddDepartment", { pid: pid, dname: depname, dl: depLevel }, function (nid) {
-
+           
             if (nid != "0") {
                 initTree();
                 var zTree = $.fn.zTree.getZTreeObj("tree");
@@ -752,12 +746,11 @@
                 zTree.selectNode(node); //让新添加的节点处于选中状态
                 zTree.expandNode(node, true, false, true);
             }
-            //$(".addbumen").val("");
+            $(".addbumen").val("");
             $("#dname").val("");
-            //$("#dlevel").val("");
+            $("#spdlevel").val("");
             $("#spjbmsg").html("");
             $("#bmnamemsg").html("");
-           
         });
     }
 
@@ -1034,9 +1027,9 @@
         }
     }
     function yzspjb() {
-        var dlevel = $("#dlevel").val();
+        var spdlevel = $("#spdlevel").val();
         var reg = /^\d+$/;
-        if (dlevel = null || dlevel == "") {
+        if (spdlevel = null || spdlevel == "") {
             $("#spjbmsg").html("×审批级别不能为空");
             return 1;
         }  else {
@@ -1049,7 +1042,7 @@
         var _uaccount = document.getElementById(elementName).value;
         $.post("/SystemSetup/SearchUseraccount", { saccount: _uaccount }, function (res) {
             console.log(res);
-            if (_uaccount == "a") {//获得用户名字段
+            if (res == "1") {//获得用户名字段
                 document.getElementById(wid).innerHTML = "×用户名已存在";
                 return 1;
             }else if (_uaccount = null || _uaccount == "") {

@@ -4,7 +4,7 @@
 }
 
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel='stylesheet' href='~/js/ztree/css/zTreeStyle/zTreeStyle.css' />
 <link rel="stylesheet" href="~/css/style.css" />
 
@@ -43,8 +43,12 @@
                     </div>
 
                 </div>
+                <div class="form-tr-btn" style="margin-bottom: 20px;">
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="saveApproveProcess()">确定</button>
+                    <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
+                </div>
             </div>
-            <div class="dc-right dc-right2">
+            <!--<div class="dc-right dc-right2">
                 <h3>@ViewBag.ApproveProcessTitle</h3>
                 <ul id="applist">
                     @*<li>董事长、党委书记<span style="visibility:hidden">id-level</span></li>
@@ -63,18 +67,16 @@
                     </li>*@
                 </ul>
 
-            </div>
+            </div>-->
+            
         </div>
-        <div class="form-tr-btn" style="width: 560px;">
-            <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="saveApproveProcess()">确定</button>
-            <button type="reset" class="meet-btn big-btn gray-btn">取消</button>
-        </div>
+        
     </div>
 </div>
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
@@ -329,13 +331,33 @@
     });
     $(".js-submit").click(function () {
         var data = JSON.stringify(appProcess);
-        console.log(data)
-        $.post("/SystemSetup/SaveApproveProcess?apid=@ViewBag.apppid", { appP: data }, function (res) {
-            if (res == "1")
-                alert('保存成功')
-            else
-                alert('保存失败')
-        })
+        console.log(data);
+
+        swal({
+            title: '确定要保存该审核流程？',
+            text: '',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定保存！'
+        }).then(
+            function (cc) {
+                if (cc.dismiss != "cancel"){
+                    $.post("/SystemSetup/SaveApproveProcess?apid=@ViewBag.apppid", { appP: data }, function (res) {
+                        if (res == "1")
+                            swal(
+                          '成功！',
+                          '该审核流程已保存成功。',
+                          'success'
+                            );
+                    })  
+                }
+            }
+            )
+
+
+        
     });
 
 </script>
