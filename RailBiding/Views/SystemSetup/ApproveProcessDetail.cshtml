@@ -361,13 +361,13 @@
     };
     function getProjectDepartmentId(node) {
         if (node.projectdp != 0)
-            return node.projectdp;
+            return node.id;
         var pnode = node.getParentNode();
         if (pnode == null)
             return 0;
         while (pnode != null) {
             if (pnode.projectdp != 0)
-                return pnode.projectdp;
+                return pnode.id;
             pnode = pnode.getParentNode();
         }
         return 0;
