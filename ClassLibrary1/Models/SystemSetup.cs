@@ -31,7 +31,7 @@ namespace DAL.Models
         public DataTable GetOrganizations()
         {
             string sql = @"select id,name,pId,Level, '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen 
-                            from Department";
+                            from Department where Status=1";
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetOrganizationUser(string apid)
@@ -55,14 +55,14 @@ namespace DAL.Models
             return DBHelper.ExecuteScalar(sql);
         }
 
-        public void UpdateDepartment(string id, string name)
+        public void UpdateDepartment(string id, string name, string level)
         {
-            string sql = "update Department set name = N'"+name+"' where id="+id;
+            string sql = "update Department set name = N'"+name+"', Level="+level+" where id="+id;
             DBHelper.ExecuteNonQuery(sql);
         }
         public void RemoveDepartment(string id)
         {
-            string sql = "delete Department where id=" + id;
+            string sql = "update Department set Status=0 where id=" + id+"; update DepartmentUser set Status=0 where DepartmentId="+id;
             DBHelper.ExecuteNonQuery(sql);
         }
 
@@ -169,8 +169,10 @@ namespace DAL.Models
 
         public void AddUserToDepartment(string did, string uid)
         {
-            string sql = "insert into DepartmentUser values(NEWID()," + did + ", " + uid + ", 1, 1);";
-            DBHelper.ExecuteNonQuery(sql);
+            SqlParameter[] paras = new SqlParameter[2];
+            paras[0] = new SqlParameter("@uid", uid);
+            paras[1] = new SqlParameter("@did", did);
+            DBHelper.ExecuteSP("AddUser2Department", paras);
         }
     }
 }

@@ -509,7 +509,7 @@
             }
         },
         edit: {
-            enable: true,
+            enable: false,
             editNameSelectAll: true,
             //showRenameBtn: showRenameBtn,
             //showRemoveBtn: showRemoveBtn,
@@ -520,9 +520,14 @@
             onRemove: onRemove, //移除事件
             onRename: onRename, //修改事件
             beforeRename: beforeRename,
-            beforeRemove: beforeRemove
+            beforeRemove: beforeRemove,
+            onDblClick: zTreeOnDblClick
         }
     };
+
+    function zTreeOnDblClick(event, treeId, treeNode) {
+        console.log(treeNode);
+    }
 
     var zNodes = [
         {
