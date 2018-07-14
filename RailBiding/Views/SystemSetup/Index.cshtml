@@ -577,13 +577,13 @@
             $(".addbox").prop("checked", true);
             $(".addbumen").val("");
             $(".addlevel").val("");
-            $(".addlevel").attr("disabled", false);
+           //$(".addlevel").attr("disabled", false);
 
         } else {
             $(".addbox").prop("checked", false);
             $(".addbumen").val(cNodename);
             $(".addlevel").val(cNodelevel);
-            $(".addlevel").attr("disabled", "disabled");
+            //$(".addlevel").attr("disabled", "disabled");
         }
     });
 
@@ -691,25 +691,25 @@
         $(".canvas.canvas2").show();
         if ($(".addlevel").val() != "") {
             $(".addbox").prop("checked",false);
-            $(".addlevel").attr("disabled", true);
+            //$(".addlevel").attr("disabled", true);
         } else {
             $(".addbox").prop("checked", true);
-            $(".addlevel").attr("disabled", false);
+            //$(".addlevel").attr("disabled", false);
         }
     })
 
     //添加部门弹框隐藏
     $(".canvas_close2").on("click", function () {
         $(".canvas.canvas2").hide();
-        $(".addbumen").val("");
+        //$(".addbumen").val("");
         $("#dname").val("");
-        $("#dlevel").val("");
+        //$("#dlevel").val("");
         $("#spjbmsg").html("");
         $("#bmnamemsg").html("");
         if ($(".addbox").is(":checked")) {
             $(".addbox").prop("checked", true);
         }
-        $(".addlevel").attr("disabled", false);
+        //$(".addlevel").attr("disabled", false);
     })
 
 
@@ -752,9 +752,9 @@
                 zTree.selectNode(node); //让新添加的节点处于选中状态
                 zTree.expandNode(node, true, false, true);
             }
-            $(".addbumen").val("");
+            //$(".addbumen").val("");
             $("#dname").val("");
-            $("#dlevel").val("");
+            //$("#dlevel").val("");
             $("#spjbmsg").html("");
             $("#bmnamemsg").html("");
            
