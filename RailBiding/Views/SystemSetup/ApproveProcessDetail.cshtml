@@ -108,7 +108,7 @@
         },
         callback: {
             onClick: zTreeOnClick,
-            onCheck: onCheck
+            //onCheck: onCheck
         } 
     };
     var apsetting = {
@@ -143,7 +143,7 @@
             $.fn.zTree.init($("#treeDemo"), setting, nodes1);
         });
         // 加载已配置审批流程
-        $.get("/SystemSetup/GetApprovePrcess?appPid=@ViewBag.apppid", {}, function (data) {
+        @*$.get("/SystemSetup/GetApprovePrcess?appPid=@ViewBag.apppid", {}, function (data) {
             console.log('审批流程节点',data)
             var obj = JSON.parse(data);
             appProcess = obj;
@@ -164,7 +164,7 @@
             }
             htm += "</ul></li>";
             $("#applist").html(htm)
-        });
+        });*@
     });
 
     function zTreeOnClick(event, treeId, treeNode) {
@@ -197,43 +197,44 @@
             for (var i = 0; i < appProcess.length; i++) {
                 if (o.level >= appProcess[i].level) {
                     appProcess.splice(i, 0, o);
-                    var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
-                    for (var j = 0; j < appProcess.length - 1; j++) {
-                        var appName = $.trim(appProcess[j].dname + ' ' + appProcess[j].username);
-                        var anName = $.trim(apnodes[j].innerText);
-                        if (appName != anName)
-                        {
-                            inserted = true;
-                            // 如果跟节点名称不同
-                            if (appProcess[j].pname != appProcess[j + 1].pname) {
-                                var pnode = apnodes[j].parentNode.parentNode.previousSibling;
-                                $('<li>' + appProcess[j].pname + '</li>').insertBefore(pnode)
-                                $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>').insertBefore(pnode)
-                            }
-                            else {
-                                // 如果根节点名称相同
-                                $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li>').insertBefore(apnodes[j])
-                            }
-                            return;
-                        }
-                    }
-                    if (!inserted) {
-                        var len = appProcess.length - 1;
-                        if (appProcess[len].pname != appProcess[len - 1].pname) {
-                            $('<li><ul><li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>').insertAfter(apnodes[len - 1])
-                            $('<li>' + appProcess[len].pname + '</li>').insertAfter(apnodes[len-1])
-                        }
-                        else {
-                            // 如果根节点名称相同
-                            $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li>').insertAfter(apnodes[len - 1])
-                        }
-                    }
+                    inserted = true;
+                    //var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
+                    //for (var j = 0; j < appProcess.length - 1; j++) {
+                    //    var appName = $.trim(appProcess[j].dname + ' ' + appProcess[j].username);
+                    //    var anName = $.trim(apnodes[j].innerText);
+                    //    if (appName != anName)
+                    //    {
+                    //        inserted = true;
+                    //        // 如果跟节点名称不同
+                    //        if (appProcess[j].pname != appProcess[j + 1].pname) {
+                    //            var pnode = apnodes[j].parentNode.parentNode.previousSibling;
+                    //            $('<li>' + appProcess[j].pname + '</li>').insertBefore(pnode)
+                    //            $('<li><ul><li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>').insertBefore(pnode)
+                    //        }
+                    //        else {
+                    //            // 如果根节点名称相同
+                    //            $('<li>' + appProcess[j].dname + ' ' + appProcess[j].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li>').insertBefore(apnodes[j])
+                    //        }
+                    //        return;
+                    //    }
+                    //}
+                    //if (!inserted) {
+                    //    var len = appProcess.length - 1;
+                    //    if (appProcess[len].pname != appProcess[len - 1].pname) {
+                    //        $('<li><ul><li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>').insertAfter(apnodes[len - 1])
+                    //        $('<li>' + appProcess[len].pname + '</li>').insertAfter(apnodes[len-1])
+                    //    }
+                    //    else {
+                    //        // 如果根节点名称相同
+                    //        $('<li>' + appProcess[len].dname + ' ' + appProcess[len].username + '<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li>').insertAfter(apnodes[len - 1])
+                    //    }
+                    //}
                     return;
                 }
             }
             if (!inserted) {
-                var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username +'<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>';
-                $("#applist").append(htm)
+                //var htm = '<li>' + o.pname + '</li><li><ul><li>' + o.dname + ' ' + o.username +'<i><img src="/img/icon-del.png" onclick="removeAPNode(this)"></i></li></ul></li>';
+                //$("#applist").append(htm)
                 appProcess.push(o);
                 return;
             }
@@ -244,23 +245,23 @@
             for (var i = 0; i < appProcess.length; i++) {
                 var apuid = appProcess[i].uid
                 if (ouid == apuid) {
-                    var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
-                    var name1 = appProcess[i].dname + ' ' + appProcess[i].username;
-                    for (var j = 0; j < apnodes.length; j++) {
-                        var name2 = apnodes[j].innerText
-                        //if (name1.localeCompare(name2)==0) {
-                        if (name1.indexOf(name2) != -1) {
-                            var pnode = apnodes[j].parentNode;
-                            apnodes[j].remove();
-                            appProcess.splice(i, 1);
-                            if (pnode.children.length == 0) {
-                                var li = pnode.parentNode;
-                                li.previousSibling.remove();
-                                li.remove();
-                            }
-                            return;
-                        }
-                    }
+                    appProcess.splice(i, 1);
+                    //var apnodes = $(".wc-container .dc-right2>ul>li>ul>li");
+                    //var name1 = appProcess[i].dname + ' ' + appProcess[i].username;
+                    //for (var j = 0; j < apnodes.length; j++) {
+                    //    var name2 = apnodes[j].innerText
+                    //    if (name1.indexOf(name2) != -1) {
+                    //        var pnode = apnodes[j].parentNode;
+                    //        apnodes[j].remove();
+                    //        appProcess.splice(i, 1);
+                    //        if (pnode.children.length == 0) {
+                    //            var li = pnode.parentNode;
+                    //            li.previousSibling.remove();
+                    //            li.remove();
+                    //        }
+                    //        return;
+                    //    }
+                    //}
                 }
             }
         }
@@ -329,8 +330,10 @@
     $(".wc-container .dc-right2>ul>li>ul>li i").click(function () {
         $(this).parent(".wc-container .dc-right2>ul>li>ul>li").hide();
     });
-    $(".js-submit").click(function () {
-        var data = JSON.stringify(appProcess);
+
+    function saveApproveProcess() {
+        var appnodes = getCheckNodes();
+        var data = JSON.stringify(appnodes);
         console.log(data);
 
         swal({
@@ -354,12 +357,20 @@
                     })  
                 }
             }
-            )
-
-
-        
-    });
-
+        )
+    };
+    function getCheckNodes() {
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        var nodes = treeObj.getCheckedNodes(true);
+        var appnodes = [];
+        for (var i = 0; i < nodes.length; i++) {
+            var cn = nodes[i]
+            var croot = getCurrentRoot(cn);
+            var o = { duguid: nodes[i].duguid, rootid: croot.id };
+            appnodes.push(o);
+        }
+        return appnodes;
+    }
 </script>
 
 

@@ -138,7 +138,7 @@ namespace RailBiding.Controllers
             sb.Append("delete APDetail where APID="+apid+"; ");
             foreach(var o in ja)
             {
-                sb.Append("insert into APDetail select " + apid + ", Guid from DepartmentUser where DepartmentId=" + o["did"].ToString() + " and UserId=" + o["uid"].ToString().Split('-')[1] + "; ");
+                sb.Append("insert into APDetail values(" + apid + ", '"+o["duguid"].ToString()+"', "+ o["rootid"].ToString() + ", 1); ");
             }
             DBHelper.ExecuteNonQuery(sb.ToString());
             return "1";

@@ -30,21 +30,21 @@ namespace DAL.Models
 
         public DataTable GetOrganizations()
         {
-            string sql = @"select id,name,pId,Level, '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen 
+            string sql = @"select id,name,pId,Level as splevel, '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen 
                             from Department where Status=1";
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetOrganizationUser(string apid)
         {
-            string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked , 
-                                    '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen
-                        from Department d left join DepartmentUser du on d.ID=du.DepartmentId left join APDetail ad on du.Guid=ad.DUGUID
-                        union
-                        select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, du.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
-                                case when ad.APID is null then 0 else 1 end as checked,
+            string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked, '' as duguid, 
+                                '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen
+                            from Department d left join DepartmentUser du on d.ID=du.DepartmentId left join APDetail ad on du.Guid=ad.DUGUID where d.Status=1
+                            union
+                            select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, du.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
+                                case when ad.APID is null then 0 else 1 end as checked, du.guid,
                                 '/img/icon-treeuser.png' as icon, '/img/icon-treeuser.png' as iconClose, '/img/icon-treeuser.png' as iconOpen
-                        from UserInfo ui inner join DepartmentUser du on ui.ID=du.UserId inner join Department d on du.DepartmentId = d.ID
-                        left join APDetail ad on du.Guid=ad.DUGUID and ad.APID="+apid;
+                            from UserInfo ui inner join DepartmentUser du on ui.ID=du.UserId inner join Department d on du.DepartmentId = d.ID
+                            left join APDetail ad on du.Guid=ad.DUGUID and ad.APID="+apid+" where ui.Status=1 and du.Status=1";
             return DBHelper.GetDataTable(sql);
         }
 
