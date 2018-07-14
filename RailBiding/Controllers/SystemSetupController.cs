@@ -114,10 +114,10 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             return ss.AddDepartment(pid, dname, dl);
         }
-        public void UpdateDepartment(string id, string name)
+        public void UpdateDepartment(string id, string name, string level)
         {
             SystemSetup ss = new SystemSetup();
-            ss.UpdateDepartment(id, name);
+            ss.UpdateDepartment(id, name, level);
         }
         public void RemoveDepartment(string id)
         {
