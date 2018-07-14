@@ -4123,7 +4123,7 @@ h3.fx_tit {
 .main-nav ul li a:hover {
 }
 
-.form-tr:nth-child(1) td:nth-child(2) {
+.form-tr:nth-child(1) td:nth-child(2),.form-tr:nth-child(2) td:nth-child(2) {
     font-size: 13px;
     color: dodgerblue
 }
@@ -4188,6 +4188,41 @@ h3.fx_tit {
 .addbox:checked + label:after {
     background: #4cd764;
 }
+      /*复选框样式2*/
+        .addbox2 {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+        }
+        .addbox2:checked + label:before {
+            background: #4cd764;
+            border-color: #4cd764;
+        }
+
+        .addbox2:checked + label:after {
+            background: #4cd764;
+        }
+      /*修改复选框样式*/
+        .updatebumenbox {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+        }
+        .updatebumenbox:checked + label:before {
+            background: #4cd764;
+            border-color: #4cd764;
+        }
+
+        .updatebumenbox:checked + label:after {
+            background: #4cd764;
+        }
+
 /*复选框结束*/
 
 .main-nav {
@@ -5862,4 +5897,9 @@ input::-moz-placeholder { /* Mozilla Firefox 19+ */
 }
 input:-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #cecbcb;
+}
+
+
+span#updatebmnamemsg,span#updatespjbmsg,span#bmnamemsg,span#spjbmsg {
+    display: block;
 }
