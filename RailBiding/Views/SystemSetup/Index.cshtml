@@ -421,8 +421,8 @@
                                 <td>
                                     <input name="roomInfoName" type="text" value="" id="updatedname"
                                            class="has-clear-input input input3 addbumen" onBlur="updateyzbmname()" />
-                                    <input type="checkbox" id="addbox1" name="" class="addbox" />
-                                    <label for='addbox1' class="addbox1ab">是否创建新节点</label>
+                                    <input type="checkbox" id="updatebumenbox" name="" class="updatebumenbox" value=""/>
+                                    <label for='updatebumenbox' class="addbox1ab">分公司项目部</label>
                                     <span id="updatebmnamemsg"></span>
                                 </td>
                             </tr>
@@ -473,6 +473,8 @@
                                             <td>
                                                 <input name="roomInfoName" type="text" value="" id="dname"
                                                        class="has-clear-input input input3" onBlur="yzbmname()"/>
+                                                <input type="checkbox" id="addbox2" name="" class="addbox2" />
+                                                <label for='addbox2' class="addbox1ab">分公司项目部</label>
                                                 <span id="bmnamemsg"></span>
                                             </td>
                                         </tr>
@@ -583,6 +585,11 @@
         } else {
             $(".parentname").val(parent.name);
         }
+        if (treeNode.projectdp == 1) {
+            $(".updatebumenbox").attr("checked",true)
+        } else {
+            $(".updatebumenbox").attr("checked", false)
+        }
         $(".canvas.canvas5").show()
 
     }
@@ -592,17 +599,23 @@
         $(".canvas.canvas5").hide();
         $("#updatespjbmsg").html("");
         $("#updatebmnamemsg").html("");
+
     })
 
     //修改部门确定保存
     function updateDepartment() {
-        var success="";
+        var success = "";
+        var idpd=0
+        if ($(".updatebumenbox").is(":checked")) {
+            idpd=1
+        }
         success+=updateyzbmname();
         success += updateyzspjb();
         if (success >0) {
             return;
         }
-       $.post('/SystemSetup/UpdateDepartment?id=' + cNode.id + '&name=' + $("#updatedname").val() + '&level=' + $("#updatespdlevel").val());
+        
+        $.post('/SystemSetup/UpdateDepartment?id=' + cNode.id + '&name=' + $("#updatedname").val() + '&level=' + $("#updatespdlevel").val() + '&projectdp='+idpd);
        swal({
            title: '保存成功！',
            text: '2秒后自动关闭。',
@@ -635,14 +648,16 @@
         }).then(
             function (cc) {
                 if (cc.dismiss != "cancel") {                
-                    $.post('/SystemSetup/delDepartment?id='+cNode.id)
+                    $.post('/SystemSetup/RemoveDepartment?id=' + cNode.id)
                       swal(
                       '删除成功！',
                       '该部门已经被删除。',
                       'success'
-                        );
-                    }
-                })
+                        );    
+                }
+                initTree()
+            }
+                )
     }
 
 
@@ -696,6 +711,7 @@
                 return nodes[i].splevel;
         }
     }
+
     $(".addbox").click(function () {
         if ($(this).is(":checked")) {
             $(".addbox").prop("checked", true);
@@ -833,6 +849,9 @@
         if ($(".addbox").is(":checked")) {
             $(".addbox").prop("checked", true);
         }
+        if ($(".addbox2").is(":checked")) {
+            $(".addbox2").prop("checked", false);
+        }
         //$(".addlevel").attr("disabled", false);
     })
 
@@ -845,7 +864,10 @@
 
     //添加部门
     function createDepartment() {
-        
+        var idpd = 0;
+        if ($(".addbox2").is(":checked")) {
+            idpd = 1
+        }
         var pid;
         var success = 0;
         success += yzbmname();
@@ -863,7 +885,7 @@
         var depname = $.trim($("#dname").val());
         var depLevel = $("#spdlevel").val();
         $(".canvas.canvas2").hide();
-        $.post("/SystemSetup/AddDepartment", { pid: pid, dname: depname, dl: depLevel }, function (nid) {
+        $.post("/SystemSetup/AddDepartment", { pid: pid, dname: depname, dl: depLevel, projectdp: idpd }, function (nid) {
            
             if (nid != "0") {
                 initTree();
@@ -1151,7 +1173,7 @@
             $("#updatebmnamemsg").html("×部门名称不能为空");
             return 1;
         }else{
-            $("#updatebmnamemsg").html("√");
+            $("#updatebmnamemsg").html("");
             return 0;
         }
     }
@@ -1162,7 +1184,7 @@
             $("#updatespjbmsg").html("×审批级别不能为空");
             return 1;
         } else {
-            $("#updatespjbmsg").html("√");
+            $("#updatespjbmsg").html("");
             return 0;
         }
     }
@@ -1174,21 +1196,18 @@
             $("#bmnamemsg").html("×部门名称不能为空");
             return 1;
         }else{
-            $("#bmnamemsg").html("√");
+            $("#bmnamemsg").html("");
             return 0;
         }
     }
     function yzspjb() {
         var spdlevel = $("#spdlevel").val();
-        var updatespdlevel = $("#updatespdlevel").val();
         var reg = /^\d+$/;
-        if (spdlevel == null || spdlevel == ""||updatespdlevel == null || updatespdlevel == "") {
+        if (spdlevel == null || spdlevel == "") {
             $("#spjbmsg").html("×审批级别不能为空");
-            $("#updatespjbmsg").html("×审批级别不能为空");
             return 1;
         }  else {
-            $("#spjbmsg").html("√");
-            $("#updatespjbmsg").html("√");
+            $("#spjbmsg").html("");
             return 0;
         }
     }
