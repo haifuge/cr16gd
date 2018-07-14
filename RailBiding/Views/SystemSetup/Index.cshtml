@@ -400,7 +400,51 @@
                     </div>
                 </div>
             
-       
+        <!-- 修改部门 -->
+        <div class="canvas canvas5">
+            <div class="canvas_content">
+                <span class="canvas_close canvas_close5">×</span>
+                <h3>修改部门信息</h3>
+                <div class="wc-container">
+
+                    <table class="meet-form meet-form2 meet-form5">
+                        <tbody>
+                            <tr class="form-tr">
+                                <td class="form-lable">上级部门：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value="" id="updatebumen"
+                                           class="has-clear-input input input3 parentname" disabled />
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable">部门名称：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value="" id="updatedname"
+                                           class="has-clear-input input input3 addbumen" onBlur="updateyzbmname()" />
+                                    <input type="checkbox" id="addbox1" name="" class="addbox" />
+                                    <label for='addbox1' class="addbox1ab">是否创建新节点</label>
+                                    <span id="updatebmnamemsg"></span>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable">审批级别：</td>
+                                <td>
+                                    <input name="roomInfoName" type="number" value="" id="updatespdlevel"
+                                           class="has-clear-input input input3 updatelevel" onBlur="updateyzspjb()" />
+                                    <span id="updatespjbmsg"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <div class="form-tr-btn">
+                        <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="updateDepartment();return false;">确定</button>
+                        <button type="reset" class="meet-btn big-btn gray-btn canvas_close5">取消</button>
+                        <button type="reset" class="meet-btn big-btn danger-btn canvas_close5" onclick="delDepartment()">删除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="wc-container szwc-container" style="border: 1px solid #ececec;overflow: hidden">
             <div class="dc-left">
                 <h3>
@@ -527,9 +571,81 @@
         }
     };
 
+    //修改部门弹框显示
     function zTreeOnDblClick(event, treeId, treeNode) {
         console.log(treeNode);
+        console.log(treeNode.id);
+        treenode = treeNode
+        var parent = treeNode.getParentNode();
+        console.log(parent)
+        if (parent == "" || parent==null) {
+            $(".parentname").val("")
+        } else {
+            $(".parentname").val(parent.name);
+        }
+        $(".canvas.canvas5").show()
+
     }
+
+    //修改部门弹框隐藏
+    $(".canvas_close5").on("click", function () {
+        $(".canvas.canvas5").hide();
+        $("#updatespjbmsg").html("");
+        $("#updatebmnamemsg").html("");
+    })
+
+    //修改部门确定保存
+    function updateDepartment() {
+        var success="";
+        success+=updateyzbmname();
+        success += updateyzspjb();
+        if (success >0) {
+            return;
+        }
+       $.post('/SystemSetup/UpdateDepartment?id=' + cNode.id + '&name=' + $("#updatedname").val() + '&level=' + $("#updatespdlevel").val());
+       swal({
+           title: '保存成功！',
+           text: '2秒后自动关闭。',
+           timer: 2000
+       }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer')
+                        }
+                    }
+                )
+       $(".canvas.canvas5").hide();
+       $("#updatespjbmsg").html("");
+       $("#updatebmnamemsg").html("");
+       initTree()
+    }
+
+    //删除部门事件
+    function delDepartment() {
+        swal({
+            title: '确定删除该部门吗？',
+            text: '你将无法恢复它！',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定删除！'
+        }).then(
+            function (cc) {
+                if (cc.dismiss != "cancel") {                
+                    $.post('/SystemSetup/delDepartment?id='+cNode.id)
+                      swal(
+                      '删除成功！',
+                      '该部门已经被删除。',
+                      'success'
+                        );
+                    }
+                })
+    }
+
+
 
     var zNodes = [
         {
@@ -550,7 +666,7 @@
     var nodes;
     function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
-            //console.log(data)
+           console.log(data)
             data = data.replace(/pid/g, 'pId').replace(/iconclose/g, 'iconClose').replace(/iconopen/g, 'iconOpen')
             nodes = JSON.parse(data);
             $.fn.zTree.init($("#tree"), setting, nodes);
@@ -566,7 +682,9 @@
         
         cNode = treeNode;
         cNodename = cNode.name;
-        cNodelevel = getDepartmentLevel(cNode.id) + 1;
+        updatecNodelevel = getDepartmentLevel(cNode.splevel);
+        cNodelevel = getDepartmentLevel(cNode.splevel) + 1;
+        $(".updatelevel").val(updatecNodelevel);
         $(".addlevel").val(cNodelevel);
         $(".addbumen").val(cNode.name);
         getDepartmentUsers();
@@ -574,8 +692,8 @@
     
     function getDepartmentLevel(id) {
         for (var i = 0; i < nodes.length; i++) {
-            if (id == nodes[i].id)
-                return nodes[i].level;
+            if (id == nodes[i].splevel)
+                return nodes[i].splevel;
         }
     }
     $(".addbox").click(function () {
@@ -1026,9 +1144,33 @@
 
     /*验证*/
 
+    
+    function updateyzbmname() {
+        var updatedname = $("#updatedname").val();
+        if (updatedname == null || updatedname == "") {
+            $("#updatebmnamemsg").html("×部门名称不能为空");
+            return 1;
+        }else{
+            $("#updatebmnamemsg").html("√");
+            return 0;
+        }
+    }
+    function updateyzspjb() {
+        var updatespdlevel = $("#updatespdlevel").val();
+        var reg = /^\d+$/;
+        if ( updatespdlevel == null || updatespdlevel == "") {
+            $("#updatespjbmsg").html("×审批级别不能为空");
+            return 1;
+        } else {
+            $("#updatespjbmsg").html("√");
+            return 0;
+        }
+    }
+
+
     function yzbmname() {
         var dname = $("#dname").val();
-        if (dname = null || dname == ""){
+        if (dname == null || dname == ""){
             $("#bmnamemsg").html("×部门名称不能为空");
             return 1;
         }else{
@@ -1038,12 +1180,15 @@
     }
     function yzspjb() {
         var spdlevel = $("#spdlevel").val();
+        var updatespdlevel = $("#updatespdlevel").val();
         var reg = /^\d+$/;
-        if (spdlevel = null || spdlevel == "") {
+        if (spdlevel == null || spdlevel == ""||updatespdlevel == null || updatespdlevel == "") {
             $("#spjbmsg").html("×审批级别不能为空");
+            $("#updatespjbmsg").html("×审批级别不能为空");
             return 1;
         }  else {
             $("#spjbmsg").html("√");
+            $("#updatespjbmsg").html("√");
             return 0;
         }
     }

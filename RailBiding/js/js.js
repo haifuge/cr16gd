@@ -1,7 +1,12 @@
 //配置选项
 var host = "http://192.168.1.33:8088/";
 
-
+$("input").focus(function () {
+    $(this).attr("placeholder", "");
+});
+$("textarea").focus(function () {
+    $(this).attr("placeholder", "");
+});
 //初始化icheck
 function init_icheck(){
     $('input.icheck').iCheck({
