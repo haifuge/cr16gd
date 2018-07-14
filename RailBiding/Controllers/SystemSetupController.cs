@@ -109,15 +109,15 @@ namespace RailBiding.Controllers
             return JsonHelper.DataTableToJSON(dt);
         }
         
-        public string AddDepartment(string pid, string dname, string dl)
+        public string AddDepartment(string pid, string dname, string dl, string projectdp)
         {
             SystemSetup ss = new SystemSetup();
-            return ss.AddDepartment(pid, dname, dl);
+            return ss.AddDepartment(pid, dname, dl,projectdp);
         }
-        public void UpdateDepartment(string id, string name, string level)
+        public void UpdateDepartment(string id, string name, string level, string projectdp)
         {
             SystemSetup ss = new SystemSetup();
-            ss.UpdateDepartment(id, name, level);
+            ss.UpdateDepartment(id, name, level, projectdp);
         }
         public void RemoveDepartment(string id)
         {
@@ -138,7 +138,7 @@ namespace RailBiding.Controllers
             sb.Append("delete APDetail where APID="+apid+"; ");
             foreach(var o in ja)
             {
-                sb.Append("insert into APDetail values(" + apid + ", '"+o["duguid"].ToString()+"', "+ o["rootid"].ToString() + ", 1); ");
+                sb.Append("insert into APDetail values(" + apid + ", '"+o["duguid"].ToString()+"', "+ o["rootid"].ToString() + ", 1, "+o["pdid"].ToString()+"); ");
             }
             DBHelper.ExecuteNonQuery(sb.ToString());
             return "1";
