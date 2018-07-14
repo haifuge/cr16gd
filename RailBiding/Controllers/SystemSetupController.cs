@@ -200,6 +200,11 @@ namespace RailBiding.Controllers
             DataTable dt = ss.GetDepartmentUsers(did);
             return JsonHelper.DataTableToJSON(dt);
         }
+        public string SearchUseraccount()
+        {
+            string saccount = Request["saccount"].ToString();
+            return saccount;
+        }
         public string AddBusinessType(string bt)
         {
             SystemSetup ss = new SystemSetup();
