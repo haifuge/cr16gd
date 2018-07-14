@@ -1420,9 +1420,7 @@ button:hover {
     display: none;
 }
 
-    .detail-user-list .meet-user-span span {
-        margin-bottom: 5px;
-    }
+
 
 .detail-user-list2 .meet-user-span2:first-of-type {
     display: block;
@@ -1432,9 +1430,6 @@ button:hover {
     display: none;
 }
 
-    .detail-user-list2 .meet-user-span2 span {
-        margin-bottom: 5px;
-    }
 
 .detail-wrap {
     position: relative;
@@ -4343,14 +4338,16 @@ h3.fx_tit {
             color: #008cd6;
             font-size: 14px;
             text-align: right;
-            float: right;
+            float:right;
+            margin-bottom:0px;
         }
 
         .block-right.block-right2 .meet-user-span span.yj05, .block-right.block-right2 .meet-user-span2 span.yj05 {
             color: #ff0000;
             font-size: 14px;
             text-align: right;
-            float: right;
+            float:right;
+            margin-bottom:0px
         }
 
         .block-right.block-right2 .meet-user-span span.yj06, .block-right.block-right2 .meet-user-span2 span.yj06 {
@@ -5835,4 +5832,34 @@ text-align:center;
 p#xzaddinputmsg {
     color: red;
     margin: 10px;
+}
+
+button.meet-btn.big-btn.danger-btn.canvas_close5 {
+    background: #ec1a1a;
+}
+
+::-webkit-input-placeholder {
+    color: #cecbcb;
+}
+:-ms-input-placeholder {
+    color: #cecbcb;
+}
+::-moz-placeholder {
+    color: #cecbcb;
+}
+:-moz-placeholder {
+    color: #cecbcb;
+}
+
+input::-webkit-input-placeholder { /* WebKit browsers */
+  color: #cecbcb;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: #cecbcb;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #cecbcb;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #cecbcb;
 }

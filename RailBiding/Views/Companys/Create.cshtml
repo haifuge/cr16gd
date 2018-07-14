@@ -232,7 +232,7 @@
                                 <td class="form-lable"><span class="red-word">*</span>企业名称：</td>
                                 <td>
                                     <input name="roomInfoName" type="text" value="" id="companyName"
-                                           class="has-clear-input input input3" />
+                                           class="has-clear-input input input3" autofocus/>
                                 </td>
                             </tr>
                             <tr class="form-tr">
@@ -302,7 +302,7 @@
                                                 <span class="canvas_close">×</span>
                                                 <div class="canvas_content_text">
                                                     <ul>
-                                                        <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称" onblur="zzmc()"><span id="zzmcmsg"></span></li>
+                                                        <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称" onblur="zzmc()" style=""><span id="zzmcmsg"></span></li>
                                                         <li>证书编号： <input type="text" id="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932" onblur="zsbh()"><span id="zsbhmsg"></span></li>
                                                         <li>
                                                             <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput3"><span id="zspicmsg"></span>
@@ -387,7 +387,7 @@
                                     <td class="form-lable">施工内容：</td>
                                     <td>
                                         <textarea name="roomInfoName" type="text" value="" id="construction"
-                                                  class="has-clear-input input input3" placeholder="输入推荐参与施工内容"></textarea>
+                                                  class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="    if (value == '') { placeholder = '输入推荐参与施工内容' }"></textarea>
                                     </td>
                                 </tr>
 
@@ -395,7 +395,7 @@
                                     <td class="form-lable">备注：</td>
                                     <td>
                                         <input name="roomInfoName" type="text" value="" id="note"
-                                               class="has-clear-input input input7" placeholder="输入推荐参与施工内容">
+                                               class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="    if (value == '') { placeholder = '请输入其他说明' }">
                                     </td>
                                 </tr>
                                 <tr class="form-tr detail-user-con gzyj">
@@ -446,11 +446,11 @@
                                 </select><span>开工时间：</span><input name="userTimeBegin" id="timeBegin"
                                                                   class="date-input radius-sel Wdate"
                                                                   type="text" value=""
-                                                                  placeholder="开工日期"
+                                                                  placeholder="开工日期" onfocus="if (placeholder == '开工日期') { placeholder = '' }" onblur="    if (value == '') { placeholder = '开工日期' }"
                                                                   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
                                 <span>竣工时间：</span><input name="userTimeBegin" id="timeEnd"
                                                          class="date-input radius-sel Wdate"
-                                                         type="text" value="" placeholder="竣工日期"
+                                                         type="text" value="" placeholder="竣工日期" onfocus="if (placeholder == '竣工日期') { placeholder = '' }" onblur="    if (value == '') { placeholder = '竣工日期' }"
                                                          onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
                                 <span>结算金额：</span><input type="text" class="input8" id="settleAmount">&nbsp;万元
                             </div>
@@ -972,6 +972,7 @@
     })
     $(".add-img").on("click", function () {
         $(".canvas").show();
+        document.getElementById("input_zzmc").focus();
     })
     // 弹框上传资质扫描件
     $(".upload").on("change", "input[type='file']", function () {
@@ -993,8 +994,10 @@
     }
 
     function zzmc() {
+        
         var input_zzmc = $("#input_zzmc").val();
         if (input_zzmc = null || input_zzmc == "") {
+            $("#input_zzmc").attr("placeholder", "资质名称");
             $("#zzmcmsg").html("×资质名称不能为空");
             return 1;
         } else {
@@ -1006,6 +1009,7 @@
     function zsbh() {
         var input_zsbh = $("#input_zsbh").val();
         if (input_zsbh = null || input_zsbh == "") {
+            $("#input_zsbh").attr("placeholder", "(粤)JZ安许可证[2017]020932");
             $("#zsbhmsg").html("×证书编号不能为空");
             return 1;
         } else {
@@ -1013,5 +1017,5 @@
             return 0;
         }
     }
-    
+
 </script>
