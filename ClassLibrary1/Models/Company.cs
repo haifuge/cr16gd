@@ -110,7 +110,7 @@ namespace DAL.Models
             else
                 return false;
         }
-        public string CreateCompany(Company company)
+        public string CreateCompany(Company company, string uid)
         {
             string sql = @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
@@ -124,7 +124,7 @@ namespace DAL.Models
                 company.Type + ", N'"+company.Referrer + "', getdate(), "+company.AuditStatus+");";
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
-            CreateApproveProcess(i);
+            CreateApproveProcess(i, uid);
             return i;
         }
         public bool UpdateCompanyPics(Company company)
@@ -189,11 +189,15 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        private void CreateApproveProcess(string cid)
+        private void CreateApproveProcess(string cid, string uid)
         {
             string sql = @"insert into AppProcessing(AppProcId, ObjId,Approved, Comment, DealDatetime,DUGUID)
                             select APID, " + cid + ", 1, null, null, DUGUID from APDetail where APID = 1";
-            DBHelper.ExecuteNonQuery(sql);
+            SqlParameter[] paras = new SqlParameter[3];
+            paras[0] = new SqlParameter("@uid",uid);
+            paras[1] = new SqlParameter("@objid",cid);
+            paras[2] = new SqlParameter("@apid", 1);
+            DBHelper.ExecuteSP("CreateApproveProcessing", paras);
         }
     }
 }

@@ -44,18 +44,18 @@ namespace RailBiding.Controllers
             switch (pStatus)
             {
                 case "未发布":
-                    ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标申请'>
-                                            <i class='meet-icon icon-cancel icon-bh2' onclick='bidApply()'>招标申请</i>
-                                       </a>";
+                    ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标文件申请'>
+                                            <i class='meet-icon icon-cancel icon-bh2' onclick='bidFileApply()'>招标文件申请</i>
+                                        </a>";
                     break;
                 case "招标文件审核中":
                     ViewBag.Button = "";
                     ViewBag.BFitem=getBidFileItem(pid);
                     break;
                 case "招标文件审核通过":
-                    ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标文件申请'>
-                                            <i class='meet-icon icon-cancel icon-bh2' onclick='bidFileApply()'>招标文件申请</i>
-                                        </a>";
+                    ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标申请'>
+                                            <i class='meet-icon icon-cancel icon-bh2' onclick='bidApply()'>招标申请</i>
+                                       </a>";
                     ViewBag.BFitem = getBidFileItem(pid);
                     break;
                 case "招标审核中":
@@ -88,7 +88,10 @@ namespace RailBiding.Controllers
         private string getBidFileItem(string pid)
         {
             BidingFileContext bf = new BidingFileContext();
-            DataRow dr = bf.getBidingFileDetail(pid).Rows[0];
+            DataTable dt = bf.getBidingFileDetail(pid);
+            if (dt.Rows.Count == 0)
+                return "";
+            DataRow dr = dt.Rows[0];
             string pdate = dr["PublishDate"].ToString();
             string content = dr["Content"].ToString();
             string status= dr["Status"].ToString();
@@ -113,7 +116,7 @@ namespace RailBiding.Controllers
                     break;
             }
             string files = "";
-            DataTable dt = bf.GetFiles(pid);
+            dt = bf.GetFiles(pid);
             for (int i = 0; i < dt.Rows.Count; i++) {
                 files += "<li><b><img src='../img/icon-file.png'></b>"+dt.Rows[i][0].ToString()+"</li>";
             }
@@ -131,6 +134,8 @@ namespace RailBiding.Controllers
         private string getBidItem(string pid) {
             BidContext bc = new BidContext();
             DataTable dt = bc.GetBid(pid);
+            if (dt.Rows.Count == 0)
+                return "";
             string pdate = dt.Rows[0]["PublishDate"].ToString();
             string odate = dt.Rows[0]["OpenDate"].ToString();
             string adate = dt.Rows[0]["ApplyDate"].ToString();
@@ -178,6 +183,8 @@ namespace RailBiding.Controllers
         {
             MakeBidFileContext mc = new MakeBidFileContext();
             DataTable dt = mc.GetMakeBidFileDetail(pid);
+            if (dt.Rows.Count == 0)
+                return "";
             string pdate = dt.Rows[0]["PublishDate"].ToString();
             string abst = dt.Rows[0]["Abstract"].ToString();
             string status = dt.Rows[0]["Status"].ToString();
@@ -254,6 +261,7 @@ namespace RailBiding.Controllers
                 {
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(pid, "招标文件审核中");
+                    pc.CreateBidingFileApprovePrcess(Session["UserId"].ToString(), pid);
                 }
             return true;
         }
@@ -287,18 +295,22 @@ namespace RailBiding.Controllers
         {
             BidingFileContext bfc = new BidingFileContext();
             DataTable dt = bfc.getBidingFileDetail(pid);
+            if (dt.Rows.Count == 0)
+                return "";
             return dt.Rows[0]["Content"].ToString();
         }
         public string GetFiles(string pid, string ftype)
         {
             ProjectContext pc = new ProjectContext();
             DataTable dt = pc.GetProjectFiles(pid, ftype);
+            string htm = "";
             foreach(DataRow dr in dt.Rows)
             {
                 string FilePath = dr["FilePath"].ToString();
                 dr["FilePath"] = FilePath.Substring(FilePath.LastIndexOf('/') + 1);
+                htm+="<li>"+dr["FileName"].ToString()+"<a href = '#' style = 'color: #008cd6;margin-left: 5px;' onclick='deleteFile(\'" + dr["FilePath"].ToString() + "\')'> 删除</a></li>";
             }
-            return JsonHelper.DataTableToJSON(dt);
+            return htm;
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemP")]

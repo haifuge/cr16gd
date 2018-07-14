@@ -414,7 +414,7 @@
                             <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
                                 <input type='file' id='fup' name='fup' value="IamPic" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId"  style="display:none" />
-                                <input type="text" id="ftype" name="ftype" width="20" value="1" style="display:none" />
+                                <input type="text" id="ftype" name="ftype" width="20" value="2" style="display:none" />
                                 <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
                             </form>
                             <img src="~/img/icon-03.png" alt="" class="up up2" style="left:80px;vertical-align: middle">
@@ -446,7 +446,7 @@
                             <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
                                 <input type='file' id='bfup' name='bfup' value="IamPic" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId" style="display:none" />
-                                <input type="text" id="ftype" name="ftype" width="20" value="2" style="display:none" />
+                                <input type="text" id="ftype" name="ftype" width="20" value="1" style="display:none" />
                                 <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
                             </form>
                             <img src="~/img/icon-03.png" alt="" class="up up2" style="left:70px;vertical-align: middle">
@@ -596,13 +596,15 @@
             $("#bfcontent").html(data)
         });
         $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=1", function (data) {
-            var obj = JSON.parse(data);
-            for (var i = 0; i < obj.length; i++) {
-                var li = document.createElement('li');
-                li.id = obj[i].filepath
-                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
-                $("#bffiles").appendChild(li)
-            }
+            console.log(data)
+            $("#bffiles").html(data);
+            //var obj = JSON.parse(data);
+            //for (var i = 0; i < obj.length; i++) {
+            //    var li = document.createElement('li');
+            //    li.id = obj[i].filepath
+            //    li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+            //    $("#bffiles").appendChild(li)
+            //}
         });
     }
 </script>

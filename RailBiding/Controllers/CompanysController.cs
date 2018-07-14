@@ -428,7 +428,7 @@ namespace RailBiding.Controllers
                 company.Note = Request["note"].ToString();
                 company.Type = int.Parse(Session["outin"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
-                Session["newCid"] = cc.CreateCompany(company);
+                Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
                 
                 return "1";
             }
@@ -541,7 +541,7 @@ namespace RailBiding.Controllers
                 company.ContactAddress = Request["contactAddress"].ToString();
                 company.ConstructionContent = Request["construction"].ToString();
                 company.Note = Request["note"].ToString();
-                cc.CreateCompany(company);
+                //cc.CreateCompany(company);
                 return "{\"result\":\"success\"}";
             }
             catch

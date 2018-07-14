@@ -15,7 +15,20 @@ namespace DAL.Tools
             byte[] arr = Convert.FromBase64String(base64);
             using (MemoryStream ms = new MemoryStream(arr)) { 
                 Bitmap bmp = new Bitmap(ms);
-                bmp.Save(filefullPath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                try { 
+                    bmp.Save(filefullPath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+                catch
+                {
+                    try
+                    {
+                        bmp.Save(filefullPath, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                    catch
+                    {
+                        bmp.Save(filefullPath, System.Drawing.Imaging.ImageFormat.Bmp);
+                    }
+                }
             }
         }
         public string Base64ToImages(string upimgPath, string base64String)

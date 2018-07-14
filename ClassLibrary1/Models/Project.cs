@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,18 +25,23 @@ namespace DAL.Models
     {
         public DataTable GetAllProjects()
         {
-            string sql = @"select p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
+            string sql = @"select p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, 
+                                convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
                             from Project p 
                             left join UserInfo ui on p.PublisherId=ui.ID
-                            left join Department d on d.ID=ui.DepartmentId order by p.Id Desc";
+                            left join DepartmentUser du on ui.ID=du.UserId
+                            left join Department d on d.ID=du.DepartmentId order by p.Id Desc
+";
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetProject(string id)
         {
-            string sql = @"select p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as Name, convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
+            string sql = @"select p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, 
+                                convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
                             from Project p 
                             left join UserInfo ui on p.PublisherId=ui.ID
-                            left join Department d on d.ID=ui.DepartmentId 
+                            left join DepartmentUser du on ui.ID=du.UserId
+                            left join Department d on d.ID=du.DepartmentId
                             where p.id=" + id;
             return DBHelper.GetDataTable(sql);
         }
@@ -95,6 +101,14 @@ namespace DAL.Models
                 return true;
             }
             return false;
+        }
+        public void CreateBidingFileApprovePrcess(string uid, string pid)
+        {
+            SqlParameter[] paras = new SqlParameter[3];
+            paras[0] = new SqlParameter("@uid", uid);
+            paras[1] = new SqlParameter("@objid", pid);
+            paras[2] = new SqlParameter("@apid", 2);
+            DBHelper.ExecuteSP("CreateApproveProcessing", paras);
         }
     }
 }
