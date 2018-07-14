@@ -203,7 +203,7 @@ namespace RailBiding.Controllers
         public string SearchUseraccount()
         {
             string saccount = Request["saccount"].ToString();
-            return 1;
+            return "1";
         }
         public string AddBusinessType(string bt)
         {
