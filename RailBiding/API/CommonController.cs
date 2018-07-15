@@ -67,8 +67,8 @@ namespace RailBiding.API
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }
-        [HttpPost]
-        public string UpdateApproveProcess(string apid, string oid, string aStatus, string comment)
+
+        public void UpdateApproveProcess(string apid, string oid, string aStatus, string comment)
         {
             string uid = Session["UserId"].ToString();
             SqlParameter[] parameters = new SqlParameter[5];
@@ -78,7 +78,6 @@ namespace RailBiding.API
             parameters[3] = new SqlParameter("@status", aStatus);
             parameters[4] = new SqlParameter("@comment", comment);
             DBHelper.ExecuteSP("UpdateApproveProcess", parameters);
-            return "1";
         }
     }
 }

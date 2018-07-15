@@ -44,8 +44,9 @@ namespace RailBiding.Controllers
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemM")]
-        public ActionResult FileApproveDetail()
+        public ActionResult FileApproveDetail(string pid)
         {
+            ViewBag.pid = pid;
             return View();
         }
     }
