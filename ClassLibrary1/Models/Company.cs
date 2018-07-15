@@ -40,6 +40,7 @@ namespace DAL.Models
             get { return type; }
             set { type = value; }
         }
+        public int SubmitUserId { get; set; }
     }
     public class CompanyContext
     {
@@ -115,13 +116,13 @@ namespace DAL.Models
             string sql = @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, Type, Referre,AuditDate, AuditStatus)" +
+                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId)" +
                 "values(N'" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
                 "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
                 "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
                 "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
                 "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " + 
-                company.Type + ", N'"+company.Referrer + "', getdate(), "+company.AuditStatus+");";
+                company.Type + ", N'"+company.Referrer + "', getdate(), "+company.AuditStatus+", "+ uid + ");";
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
             CreateApproveProcess(i, uid);
@@ -161,11 +162,11 @@ namespace DAL.Models
                 return false;
         }
 
-        public DataTable GetMyRecommend(string userName)
+        public DataTable GetMyRecommend(string userid)
         {
             string sql = @"select id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
 	                            convert(varchar(20),AuditDate,23) as AuditDate, AuditStatus
-                            from Company where Referre='" + userName+"'";
+                            from Company where SubmitUserId=" + userid;
             return DBHelper.GetDataTable(sql);
         }
 

@@ -357,7 +357,7 @@ namespace RailBiding.Controllers
             if (Session["UserName"] == null) { 
                 return "no session";
             }
-            string userName = Session["UserName"].ToString();
+            string userName = Session["UserId"].ToString();
             DataTable companies = cc.GetMyRecommend(userName);
             string json = JsonHelper.DataTableToJSON(companies);
             return json;
