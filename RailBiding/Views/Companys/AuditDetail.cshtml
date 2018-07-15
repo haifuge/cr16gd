@@ -322,7 +322,7 @@
             $(".bohui").hide();
         }
         pages(1, 2, 12, 5)
-        $.get("/Companys/GetApproveProcessingInfo", { cid: @ViewBag.cid}, function (data) {
+        $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: 1}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
             if(obj.length==0)
@@ -394,7 +394,8 @@
                 $(".feedback-item.decfeedback-item").show()
             }
         })
-    });
+        });
+
     function declineApplication() {
         var feedback = $("#feedback-area").val()
         if (feedback =="") {
@@ -412,7 +413,6 @@
             }
         )
         }else {
-
             swal({
                 title: '确定驳回该申请？',
                 text: '你将无法撤回！',
@@ -432,7 +432,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".bohui").hide();
-                $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
+                $.post("/Companys/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }
@@ -461,12 +461,11 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
-                $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 2, comment: feedback }, function () {
+                $.post("/Companys/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 2, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }
         })
-
     }
 
 

@@ -87,14 +87,5 @@ namespace DAL.Models
             string sql = "select FileName, FilePath from BidDocument where ProjId="+pid+" and FileType=1";
             return DBHelper.GetDataTable(sql);
         }
-        public DataTable GetApproveProcessingInfo(string pid)
-        {
-            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName, ap.Level
-                            from vw_AppPLevel ap 
-                            left join Department d on ap.DepartmentId=d.ID 
-                            left join UserInfo ui on ui.ID=ap.UserId
-                            where ap.AppProcId=2 and ap.ObjId=" + pid + " order by case when ap.DealDatetime is null then 0 else 1 end desc, ap.Level desc, ap.DealDatetime asc";
-            return DBHelper.GetDataTable(sql);
-        }
     }
 }
