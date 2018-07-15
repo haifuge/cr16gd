@@ -180,7 +180,7 @@
                     </table>
                     <div style="margin-top: 30px;">
                         <p>
-                            <span style="color: #666">推荐人：</span>@ViewBag.Referre &nbsp;&nbsp;&nbsp;<span style="color: #666">推荐书：</span>推荐书扫描件.jpg
+                            <span style="color: #666">推荐人：</span>@ViewBag.Referre
                         </p>
                     </div>
                 </div>
@@ -317,10 +317,10 @@
     $(function () {
 
         var apstatus = getQueryString('approved');
-        if(apstatus=="1"){
-            $(".deal-apply-btn.deal-apply-btn2").show();
-            $(".right-block").show();
-            $(".bohui").show();
+        if(apstatus=="2"||apstatus=="3"){
+            $(".deal-apply-btn.deal-apply-btn2").hide();
+            $(".right-block").hide();
+            $(".bohui").hide();
         }
         pages(1, 2, 12, 5)
         $.get("/Companys/GetApproveProcessingInfo", { cid: @ViewBag.cid}, function (data) {

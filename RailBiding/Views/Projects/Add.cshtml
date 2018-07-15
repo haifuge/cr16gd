@@ -45,7 +45,7 @@
                                 <td class="form-lable"><span class="red-word">*</span>项目名称：</td>
                                 <td>
                                     <input name="roomInfoName" type="text" value="" id="pname"
-                                           class="has-clear-input input input3" />
+                                           class="has-clear-input input input3" autofocus />
                                 </td>
                             </tr>
                             <tr class="form-tr">
@@ -107,13 +107,31 @@
     });
 
     function submitP() {
+
         var pname = document.getElementById("pname").value;
+        var plocation = document.getElementById("plocation").value;
+        if (pname == "" || pname == null) {
+            swal("项目名称不能为空");
+            document.getElementById("pname").focus();
+            return;
+        }
+        if (plocation == "" || plocation == null) {
+            swal("项目地点不能为空");
+            document.getElementById("plocation").focus();
+            return;
+        }
         var ptype = document.getElementById("bType");
         var tt = ptype.options[ptype.selectedIndex].innerText
-        var plocation = document.getElementById("plocation").value;
+       
         var pdescription = document.getElementById("pdescription").value;
+        
         $.post("/Projects/AddProject", { name:pname, type:tt, location:plocation, description:pdescription}, function (data) {
             console.log(data);
+            
+            
         })
+        swal("提交成功");
+
+
     }
 </script>
