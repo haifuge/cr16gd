@@ -303,14 +303,8 @@ namespace RailBiding.Controllers
         {
             ProjectContext pc = new ProjectContext();
             DataTable dt = pc.GetProjectFiles(pid, ftype);
-            string htm = "";
-            foreach(DataRow dr in dt.Rows)
-            {
-                string FilePath = dr["FilePath"].ToString();
-                dr["FilePath"] = FilePath.Substring(FilePath.LastIndexOf('/') + 1);
-                htm+="<li>"+dr["FileName"].ToString()+"<a href = '#' style = 'color: #008cd6;margin-left: 5px;' onclick='deleteFile(\'" + dr["FilePath"].ToString() + "\')'> 删除</a></li>";
-            }
-            return htm;
+            string json = JsonHelper.DataTableToJSON(dt);
+            return json;
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemP")]
@@ -371,6 +365,7 @@ namespace RailBiding.Controllers
         {
             if (pid == null)
                 return View("/Login");
+            ViewBag.pid = pid;
             BidingFileContext bc = new BidingFileContext();
             DataTable dt = bc.getBidingFileDetail(pid);
             DataRow dr = dt.Rows[0];
@@ -385,6 +380,13 @@ namespace RailBiding.Controllers
         public ActionResult MakeBidFileDetail(string pid)
         {
             return View();
+        }
+
+        public string GetApproveProcessingInfo(string pid)
+        {
+            BidingFileContext bfc = new BidingFileContext();
+            DataTable dt = bfc.GetApproveProcessingInfo(pid);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

@@ -536,7 +536,7 @@
         $.post("/Projects/AddBid", data, function (res) {
             if (res) {
                 if(ss==1)
-                    alert('提交成功成功！')
+                    alert('提交成功！')
                 else
                     alert('保存成功！')
                 location.reload(true);
@@ -553,7 +553,7 @@
         $.post("/Projects/AddBidFile", data, function (res) {
             if (res) {
                 if(ss==1)
-                    alert('提交成功成功！')
+                    alert('提交成功！')
                 else
                     alert('保存成功！')
                 location.reload(true);
@@ -586,7 +586,7 @@
                 var li = document.createElement('li');
                 li.id = obj[i].filepath
                 li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
-                $("#bfiles").appendChild(li)
+                document.getElementById("bffiles").appendChild(li)
             }
         });
     }
@@ -597,14 +597,14 @@
         });
         $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=1", function (data) {
             console.log(data)
-            $("#bffiles").html(data);
-            //var obj = JSON.parse(data);
-            //for (var i = 0; i < obj.length; i++) {
-            //    var li = document.createElement('li');
-            //    li.id = obj[i].filepath
-            //    li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
-            //    $("#bffiles").appendChild(li)
-            //}
+            //$("#bffiles").html(data);
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.id = obj[i].filepath
+                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                document.getElementById("bffiles").appendChild(li)
+            }
         });
     }
 </script>

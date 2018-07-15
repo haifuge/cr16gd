@@ -359,6 +359,19 @@
             }
         )
     };
+    function getProjectDepartmentId(node) {
+        if (node.projectdp != 0)
+            return node.id;
+        var pnode = node.getParentNode();
+        if (pnode == null)
+            return 0;
+        while (pnode != null) {
+            if (pnode.projectdp != 0)
+                return pnode.id;
+            pnode = pnode.getParentNode();
+        }
+        return 0;
+    }
     function getCheckNodes() {
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
         var nodes = treeObj.getCheckedNodes(true);
@@ -366,7 +379,8 @@
         for (var i = 0; i < nodes.length; i++) {
             var cn = nodes[i]
             var croot = getCurrentRoot(cn);
-            var o = { duguid: nodes[i].duguid, rootid: croot.id };
+            var projectDpid = getProjectDepartmentId(cn);
+            var o = { duguid: nodes[i].duguid, rootid: croot.id, pdid: projectDpid };
             appnodes.push(o);
         }
         return appnodes;

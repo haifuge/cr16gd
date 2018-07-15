@@ -54,5 +54,7 @@ namespace RailBiding.API
             string fpath = DBHelper.ExecuteScalar(sql);
             System.IO.File.Delete(fpath);
         }
+
+
     }
 }

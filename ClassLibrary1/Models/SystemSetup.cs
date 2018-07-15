@@ -37,7 +37,7 @@ namespace DAL.Models
         public DataTable GetOrganizationUser(string apid)
         {
             string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked, '' as duguid, 
-                                '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen, ProjectDp
+                                '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen, d.ProjectDp
                             from Department d left join DepartmentUser du on d.ID=du.DepartmentId left join APDetail ad on du.Guid=ad.DUGUID where d.Status=1
                             union
                             select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, du.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
