@@ -53,33 +53,38 @@ namespace DAL.Models
 
         public DataTable GetMyAudit(string userId)
         {
-            string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, c.BusinessType, c.CorporateRepresentative,  
+            string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join(
-                            select distinct a.ObjId, a.Approved 
-                            from vw_AppPLevel a 
-                            inner join (select MAX(level) as level,AppProcId, ObjId 
-			                            from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
+                                select distinct a.ObjId, a.Approved 
+                                from vw_AppPLevel a 
+                                inner join (select MAX(level) as level,AppProcId, ObjId 
+			                                from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                            where a.UserId=" + userId + ") a on c.ID=a.ObjId";
+                            where a.UserId=" + userId + @") a on c.ID=a.ObjId
+                            left join BusinessType bt on bt.id=c.BusinessType";
             return DBHelper.GetDataTable(sql);
         }
 
         public DataTable GetAllCompanies(string cType)
         {
-            string sql = @"select id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, 
-                                  Contact,ContactPhone,ContactAddress, AuditStatus 
-                           from Company where AuditStatus=2 and Type = " + cType + " order by Name;";
+            string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
+                                  c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus 
+                           from Company c
+                           left join BusinessType bt on bt.id=c.BusinessType
+                           where c.AuditStatus=2 and c.Type = " + cType + " order by c.Name;";
             DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
             return dt;
         }
 
         public DataTable GetCompany(int id)
         {
-            string sql = @"select id, Name,CreditNo,CorporateRepresentative, RepPhone,RegisteredCapital, BusinessScope,SecurityCertificateNo,
-                                  Contact,ContactPhone, BusinessType, ContactAddress,QualificationLevel, ConstructionContent, Note,
-								  ReferreIDPic, BusinessLicensePic,SecurityCertificatePic,RepIDPic,ContactIDPic,Referre
-                           from Company where id = " + id;
+            string sql = @"select c.id, c.Name,c.CreditNo,c.CorporateRepresentative, c.RepPhone,c.RegisteredCapital, c.BusinessScope,c.SecurityCertificateNo,
+                                  c.Contact,c.ContactPhone, bt.name as BusinessType, c.ContactAddress,c.QualificationLevel, c.ConstructionContent, c.Note,
+								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre
+                           from Company c
+                           left join BusinessType bt on bt.id=c.BusinessType 
+                           where c.id = " + id;
             return DBHelper.GetDataTable(CommandType.Text, sql);
         }
 
