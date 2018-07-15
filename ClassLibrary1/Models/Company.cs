@@ -62,7 +62,14 @@ namespace DAL.Models
 			                                from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userId + @") a on c.ID=a.ObjId
-                            left join BusinessType bt on bt.id=c.BusinessType";
+                            left join BusinessType bt on bt.id=c.BusinessType
+                            where c.AuditStatus<>3
+                            union
+                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
+                            from Company c inner join vw_AppPLevel a on c.ID=a.ObjId and a.AppProcId=1
+                            left join BusinessType bt on bt.id=c.BusinessType
+                            where a.UserId=" + userId + " and a.Approved=3";
             return DBHelper.GetDataTable(sql);
         }
 

@@ -312,6 +312,7 @@ namespace RailBiding.Controllers
         {
             if (pid == null)
                 return View("Login");
+            ViewBag.pid = pid;
             BidContext bc = new BidContext();
             DataTable dt = bc.GetBidCompany(pid);
             DataRow dr = dt.Rows[0];
@@ -324,7 +325,7 @@ namespace RailBiding.Controllers
             ViewBag.ApplyDate = dr["ApplyDate"].ToString();
             ViewBag.OpenDate = dr["OpenDate"].ToString();
             ViewBag.ProjDescription = dr["Content"].ToString();
-
+            ViewBag.PublishDate = dr["PublishDate"].ToString();
             dt = bc.GetBidingCompanys(pid);
 
             var joinC = (from c in dt.AsEnumerable()

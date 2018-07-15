@@ -101,11 +101,11 @@ namespace RailBiding.Controllers
             {
                 sb.Append("<tr class='white-bg'>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
+                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "万</td>");
+                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -190,11 +190,11 @@ namespace RailBiding.Controllers
             {
                 sb.Append("<tr class='white-bg'>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
+                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "万</td>");
+                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -217,6 +217,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult RecommendDetail(int id)
         {
+            ViewBag.cid = id;
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
@@ -233,6 +234,7 @@ namespace RailBiding.Controllers
             ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Note = dr["Note"].ToString();
+            ViewBag.Referre = dr["Referre"].ToString();
 
             dt = cc.GetWorkHistory(id);
             StringBuilder sb = new StringBuilder();
@@ -240,11 +242,11 @@ namespace RailBiding.Controllers
             {
                 //sb.Append("<tr class='white-bg'><td>" + dt.Rows[i]["ProjectId"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
+                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "万</td>");
+                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -340,11 +342,11 @@ namespace RailBiding.Controllers
             {
                 sb.Append("<tr class='white-bg'>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
+                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "万</td>");
+                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -394,6 +396,16 @@ namespace RailBiding.Controllers
         public ActionResult Create()
         {
             Session["outin"] = Request["outin"].ToString();
+            if (Request["outin"].ToString() == "1")
+            {
+                ViewBag.InActive = " class=active";
+                ViewBag.OutActive = "";
+            }
+            else
+            {
+                ViewBag.InActive = "";
+                ViewBag.OutActive = " class=active";
+            }
             return View();
         }
         // POST: Companys/Create

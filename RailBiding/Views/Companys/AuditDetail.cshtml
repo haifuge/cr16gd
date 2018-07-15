@@ -225,36 +225,13 @@
                                             共<span class="js-feed-count"></span>条回复消息
                                         </div>
                                         <ul class="feedback-list feedback-users">
-                                            <li id="passlineInfo">
-                                               
-                                            </li>
+                                            <li id="passlineInfo"></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div id="transferInfo" class="meet-user-span" style="display: block;">
 
-                                @*<h4 class="cp01"><span></span>指挥部</h4>
-                                    <ul class="uc01">
-                                        <li>
-                                            <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                    </ul>
-                                    <h4><span></span>管理员</h4>
-                                    <ul>
-                                        <li>
-                                            <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
-                                        </li>
-                                    </ul>
-                                    <h4 class="cp02"><span></span>轨道公司</h4>
-                                    <ul class="uc02">
-                                        <li><span class="yj06">计划合同部</span></li>
-                                        <li><span class="yj06">财务室</span></li>
-                                    </ul>
-                                    <h4 class="cp02"><span></span>结束</h4>*@
                             </div>
                         </div>
                     </div>
@@ -433,7 +410,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".bohui").hide();
-                $.post("/Companys/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }
@@ -462,7 +439,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
-                $.post("/Companys/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 2, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 2, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }

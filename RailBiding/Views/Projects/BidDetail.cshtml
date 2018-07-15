@@ -6,8 +6,8 @@
 
 
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 
 <div class="left-nav">
     <div class="left-nav-con">
@@ -22,12 +22,6 @@
         <div class="main-top">
             <span class="js-page-name">招标详情</span>
             <div class="apply-opt">
-                <a href="javascript:;" class="js-cancle-meet" title="发送">
-                    <i class="meet-icon icon-cancel ">发送</i>
-                </a>
-                <a href="javascript:;" class="js-cancle-meet" title="驳回">
-                    <i class="meet-icon icon-cancel icon-bh">驳回</i>
-                </a>
                 <a href="#" class="js-cancle-meet" onclick="window.history.go(-1)" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
@@ -89,134 +83,8 @@
                                 </td>
                                 <td>
                                     <div class="detail-user">
-                                        <button type="submit" class="add-qy" style="width: 80px;">
-                                            <a href="#" onclick="ShowDiv('MyDiv','fade')" style="color: #fff">
-                                                <img src="img/icon-add3.png" style="vertical-align: middle" alt="">添加企业
-                                            </a>
-                                        </button>
                                     </div>
-                                    <!--弹出层 begin-->
-                                    <div id="fade" class="black_overlay">
-                                        <div id="MyDiv" class="white_content white_content3">
-                                            <div class="btn-close"
-                                                 style="text-align: right;  height: 20px;">
-                                                <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
-                                                    <img src="img/btn-close.png"
-                                                         alt="">
-                                                </span>
-                                            </div>
-                                            <h3>劳务单位</h3>
-                                            <div style="margin:10px ;">
-                                                <select class="meet-select js-meet-state">
-                                                    <option value="all">推荐企业</option>
-                                                    <option value="2">中铁十六局</option>
-                                                    <option value="3">上海轨道交通</option>
-
-                                                </select>
-                                                <select class="meet-select js-meet-state">
-                                                    <option value="all">业务类型</option>
-                                                    <option value="2">围护结构工程</option>
-                                                    <option value="3">围护结构工程</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="search-con2">
-                                                <input type="text" name="keyname" placeholder="请输入关键字">
-                                                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
-                                            </div>
-                                            <table class="meet-table text-left">
-
-                                                <tbody>
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="id"
-                                                                   type="checkbox" value="1"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-
-                                                </tbody>
-                                            </table>
-                                            <div style="position: absolute;bottom:10px;left:50%;margin-left: -123px;">
-                                                <div class="page">
-                                                </div>
-                                                <div class="form-tr-btn">
-                                                    <button type="submit"
-                                                            class="meet-btn big-btn lightblue-btn js-submit">
-                                                        确定
-                                                    </button>
-                                                    <button type="reset" class="meet-btn big-btn gray-btn">
-                                                        取消
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--弹出层 end-->
                                 </td>
-
                             </tr>
                             <tr class="form-tr detail-user-con">
                                 <td colspan="2">
@@ -232,25 +100,6 @@
                 </div>
                 <div class="block-right block-right2">
                     <div class="block-right-wrap">
-                        <div class="right-block">
-                            <div class="right-block-title">
-                                <div class="feedback-area-head">
-                                    <i class="meet-icon icon-message-opt"></i>
-                                    <span class="right-block-title">请输入您的驳回理由：</span>
-                                </div>
-                            </div>
-                            <div class="feedback-area-wrap">
-                                <div class="feedback-area-con">
-                                    <textarea name="reasons" style="min-height: 50px;" id="feedback-area"
-                                              placeholder="请输入"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="deal-apply-btn deal-apply-btn2">
-                            <a class="meet-btn big-btn blue-btn js-deal green-btn blue-btn2">审核通过</a>
-
-                        </div>
-
                         <div class="block-rigt">
                             <div class="detail-user2">
                                 <a class="meet-btn2 medium-btn">审核意见</a>
@@ -266,67 +115,21 @@
                                                 驳回理由
                                             </div>
                                             <ul class="feedback-list feedback-admin">
-                                                <li>
-                                                    <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
-                                                    <p class="bjg">业绩信息不合格，请重新上传</p>
-                                                </li>
+                                                <li id="declineInfo"></li>
                                             </ul>
                                         </div>
                                         <div class="feedback-item js-myattend">
                                             <div class="feedback-item-title">
                                                 <i class="meet-icon icon-message"></i>
-                                                共<span class="js-feed-count">4</span>条回复消息
+                                                共<span class="js-feed-count"></span>条回复消息
                                             </div>
                                             <ul class="feedback-list feedback-users">
-                                                <li>
-                                                    <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
-                                                    <p>资料合格，同意</p>
-                                                </li>
+                                                <li id="passlineInfo"></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="meet-user-span2" style="display: block;">
-                                    <h4 class="cp01"><span></span>指挥部</h4>
-                                    <ul>
-                                        <li>
-                                            <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                    </ul>
-                                    <h4><span></span>管理员</h4>
-                                    <ul>
-                                        <li>
-                                            <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
-                                        </li>
-
-                                    </ul>
-                                    <h4 class="cp02"><span></span>轨道公司</h4>
-                                    <ul class="uc02">
-                                        <li><span class="yj01">计划合同部</span></li>
-                                        <li><span class="yj01">财务室</span></li>
-                                        <li><span class="yj01">施工技术部</span></li>
-                                        <li><span class="yj01">分公司总经济师</span></li>
-                                        <li><span class="yj01">分公司总经理</span></li>
-                                        <li><span class="yj01">计划合同部</span></li>
-                                        <li><span class="yj01">财务室</span></li>
-                                        <li><span class="yj01">施工技术部</span></li>
-                                        <li><span class="yj01">分公司总经济师</span></li>
-                                        <li><span class="yj01">分公司总经理</span></li>
-                                    </ul>
-                                    <h4 class="cp02"><span></span>结束</h4>
-                                </div>
+                                <div class="meet-user-span2" style="display: block;"></div>
 
                             </div>
                         </div>
@@ -342,43 +145,12 @@
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
-<script type="text/javascript">
-    $(function () {
-        @*$.post("/BidingApprove/GetBidingApproveDetail?bid="@ViewBag.bid, {}, function (data) {
-            console.log(data)
-        });*@
-        pages(1, 2, 12, 5)
-    });
-</script>
-<script>
-    //弹出隐藏层
-    function ShowDiv(show_div, bg_div) {
-        document.getElementById(show_div).style.display = 'block';
-        document.getElementById(bg_div).style.display = 'block';
-        var bgdiv = document.getElementById(bg_div);
-        bgdiv.style.width = document.body.scrollWidth;
-        // bgdiv.style.height = $(document).height();
-        $("#" + bg_div).height($(window).height());
-        // $(".white_content").css("-webkit-transition","All 1s ");
-        // $(".white_content").css("opacity","1")
+<script src="~/js/sweetalert2.all.js"></script>
 
-    }
-    ;
-
-    //关闭弹出层
-    function CloseDiv(show_div, bg_div) {
-        document.getElementById(show_div).style.display = 'none';
-        document.getElementById(bg_div).style.display = 'none';
-        // $(".white_content").css("-webkit-transition","All 1s ");
-        // $(".white_content").css("opacity","0")
-    }
-    ;
-</script>
 <script>
     //分页
     function pages(cur, totalPage, totalRows, setNum) {
@@ -435,17 +207,54 @@
     }
 </script>
 <script>
-    //参与单位移除
-    $(".meet-user-span span i").click(function () {
-        $(this).parent(".meet-user-span span").hide();
-    });
-
-</script>
-<script>
-    var ss;
-    window.onload = function () {
-        var h = document.documentElement.clientHeight;//可见区域高度
-        ss = document.getElementById('MyDiv');
-        ss.style.height = h - 90 + "px";
-    }
+    $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: "2"}, function (data) {
+            var obj = JSON.parse(data);
+            console.log(obj);
+            if(obj.length==0)
+                return;
+            var pdepart = obj[0].pname;
+            var dechtm = "";
+            var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+            var hstyle = 'cp01'; //cp02
+            var ulstyle= 'uc01'; //uc02
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                if (o.pname == pdepart) {
+                    if (o.approved == 2) {
+                        htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                    }
+                    else if (o.approved == 3) {
+                        dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                    } else {
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                    }
+                }
+                else {
+                    htm += '</ul>';
+                    pdepart = o.pname;
+                    htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                    if (o.approved == 2) {
+                        htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                    }
+                    else if (o.approved == 3) {
+                        dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                    } else {
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                    }
+                }
+            }
+            htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+            $("#transferInfo").html(htm);
+            $("#declineInfo").html(dechtm);
+        })
 </script>
