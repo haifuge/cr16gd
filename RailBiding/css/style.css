@@ -401,7 +401,7 @@ select::-ms-expand {
     }
 
 .icon-file {
-    background: url(../img/icon-file.png) center center no-repeat;
+    background: url(../img/icon-file.png) bottom  center no-repeat;
 }
 
 .form-border-btn.bttn2 {
@@ -1493,6 +1493,7 @@ button:hover {
 .block-right-wrap {
     padding-left: 0;
     height: 100%;
+    margin-left:20px;
 }
 
 .right-block {
@@ -4692,19 +4693,25 @@ h3.fx_tit {
 }
 
     .download div {
-        display: inline-block;
+        display:inline-block;
+        
     }
-
+        .download div.fujian{
+            float:left;
+        }
         .download div.cc {
-            width: 325px;
-            height: 50px;
-            background: #f2f2f2;
+            padding:10px;
             padding: 5px;
             margin-left: 10px;
             line-height: 25px;
             font-size: 14px;
+           
         }
-
+        .download > div.cc > ul > li{
+             background: #f2f2f2;
+             padding: 3px 10px;
+             margin-bottom: 10px;
+        }
             .download div.cc a {
                 color: #008cd6;
             }
