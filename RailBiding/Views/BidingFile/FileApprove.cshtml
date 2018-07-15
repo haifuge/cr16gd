@@ -81,28 +81,28 @@
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
                 switch (o.status) {
-                    case "0":
+                    case 0:
                         applyStatus = "未发布";
                         applyStyle = "status-wcl status-wfb";
                         break;
-                    case "1":
+                    case 1:
                         applyStatus = "审核中";
                         applyStyle = "status-wcl status-shz";
                         break;
-                    case "2":
+                    case 2:
                         applyStatus = "已通过";
                         applyStyle = "status-wcl status-ytg";
                         break;
-                    case "3":
+                    case 3:
                         applyStatus = "被驳回";
                         applyStyle = "status-wcl status-bbh";
                         break;
-                    case "4":
+                    case 4:
                         applyStatus = "被暂停";
                         applyStyle = "status-wcl status-bzt";
                         break;
                 }
-                htm += '<tr class="white-bg" onclick = "location.href=\'/BidingFile/FileApproveDetail?pid=' + o.id + '\';" >' +
+                htm += '<tr class="white-bg" onclick = "location.href=\'/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '\';" >' +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td>' +
                     '<td>' + o.name + '</td>' +
                     '<td>' + o.content + '</td>' +

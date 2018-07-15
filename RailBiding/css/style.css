@@ -4377,7 +4377,7 @@ h3.fx_tit {
             color: #008cd6;
             font-size: 14px;
             text-align: right;
-            float:right;
+            display:block;
             margin-bottom:0px;
         }
 
@@ -4385,7 +4385,7 @@ h3.fx_tit {
             color: #ff0000;
             font-size: 14px;
             text-align: right;
-            float:right;
+            display:block;
             margin-bottom:0px
         }
 
@@ -4653,8 +4653,8 @@ h3.fx_tit {
 
 .meet-form8 h2 {
     text-align: center;
-    font-size: 25px;
-    height: 50px;
+    font-size: 18px;
+    
     line-height: 50px;
 }
 
@@ -4675,7 +4675,7 @@ h3.fx_tit {
 
 .meet-form8 h3 {
     text-align: center;
-    font-size: 25px;
+    font-size: 18px;
     height: 55px;
     line-height: 55px;
 }

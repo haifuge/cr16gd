@@ -76,7 +76,7 @@ $(function() {
         if (numUp < 10) {
             delParent.parent().find(".aui-file-up").show();
         }
-        delParent.remove();
+        delParent.parent().remove();
 
     });
 
