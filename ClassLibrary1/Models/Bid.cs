@@ -225,7 +225,8 @@ namespace DAL.Models
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
-                            left join Department d on ui.DepartmentId=d.ID
+							left join DepartmentUser du on du.UserId=ui.ID
+                            left join Department d on du.DepartmentId=d.ID
                             order by p.Id desc";
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
@@ -237,7 +238,8 @@ namespace DAL.Models
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
-                            left join Department d on ui.DepartmentId=d.ID
+							left join DepartmentUser du on du.UserId=ui.ID
+                            left join Department d on du.DepartmentId=d.ID
                             order by p.Id desc;";
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;

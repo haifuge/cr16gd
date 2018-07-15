@@ -174,26 +174,7 @@ namespace DAL.Models
                             from Company where SubmitUserId=" + userid;
             return DBHelper.GetDataTable(sql);
         }
-
-        public void UpdateApproveProcess(string uid, string cid, string aStatus, string comment)
-        {
-            SqlParameter[] parameters = new SqlParameter[4];
-            parameters[0] = new SqlParameter("@userid", uid);
-            parameters[1] = new SqlParameter("@cid", cid);
-            parameters[2] = new SqlParameter("@status", aStatus);
-            parameters[3] = new SqlParameter("@comment", comment);
-            DBHelper.ExecuteSP("UpdateCompanyApproveProcess", parameters);
-        }
-
-        public DataTable GetApproveProcessingInfo(string cid)
-        {
-            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName, ap.Level
-                            from vw_AppPLevel ap 
-                            left join Department d on ap.DepartmentId=d.ID 
-                            left join UserInfo ui on ui.ID=ap.UserId
-                            where ap.AppProcId=1 and ap.ObjId=" + cid + " order by case when ap.DealDatetime is null then 0 else 1 end desc, ap.Level desc, ap.DealDatetime asc";
-            return DBHelper.GetDataTable(sql);
-        }
+        
 
         private void CreateApproveProcess(string cid, string uid)
         {

@@ -669,22 +669,6 @@ namespace RailBiding.Controllers
             WorkHistoryContext context = new WorkHistoryContext();
             return context.AddWorkHistory(wh);
         }
-
-        public void UpdateApproveProcess()
-        {
-            string uid = Session["UserId"].ToString();
-            string cid = Request["cid"].ToString();
-            string aStatus = Request["astatus"].ToString();
-            string comment = Request["comment"].ToString();
-            CompanyContext cc = new CompanyContext();
-            cc.UpdateApproveProcess(uid, cid, aStatus, comment);
-        }
-
-        public string GetApproveProcessingInfo(string cid)
-        {
-            CompanyContext cc = new CompanyContext();
-            DataTable dt = cc.GetApproveProcessingInfo(cid);
-            return JsonHelper.DataTableToJSON(dt);
-        }
+        
     }
 }

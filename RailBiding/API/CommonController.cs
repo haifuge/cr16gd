@@ -3,6 +3,7 @@ using DAL.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -56,6 +57,26 @@ namespace RailBiding.API
             System.IO.File.Delete(fpath);
         }
 
+        public string GetApproveProcessingInfo(string oid, string apid)
+        {
+            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName, ap.Level
+                            from vw_AppPLevel ap 
+                            left join Department d on ap.DepartmentId=d.ID 
+                            left join UserInfo ui on ui.ID=ap.UserId
+                            where ap.AppProcId=" + apid + " and ap.ObjId=" + oid + " order by case when ap.DealDatetime is null then 0 else 1 end desc, ap.Level desc, ap.DealDatetime asc";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
 
+        public void UpdateApproveProcess(string apid, string uid, string oid, string aStatus, string comment)
+        {
+            SqlParameter[] parameters = new SqlParameter[5];
+            parameters[0] = new SqlParameter("@apid", apid);
+            parameters[1] = new SqlParameter("@userid", uid);
+            parameters[2] = new SqlParameter("@oid", oid);
+            parameters[3] = new SqlParameter("@status", aStatus);
+            parameters[4] = new SqlParameter("@comment", comment);
+            DBHelper.ExecuteSP("UpdateApproveProcess", parameters);
+        }
     }
 }

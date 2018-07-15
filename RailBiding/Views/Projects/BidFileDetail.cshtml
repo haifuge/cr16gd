@@ -126,7 +126,7 @@
     $(function () {
         pages(1, 2, 12, 5)
 
-        $.get("/Projects/GetApproveProcessingInfo", { pid: @ViewBag.pid}, function (data) {
+        $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: "2"}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
             if(obj.length==0)

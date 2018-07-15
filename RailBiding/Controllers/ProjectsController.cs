@@ -394,12 +394,6 @@ namespace RailBiding.Controllers
         {
             return View();
         }
-
-        public string GetApproveProcessingInfo(string pid)
-        {
-            BidingFileContext bfc = new BidingFileContext();
-            DataTable dt = bfc.GetApproveProcessingInfo(pid);
-            return JsonHelper.DataTableToJSON(dt);
-        }
+        
     }
 }
