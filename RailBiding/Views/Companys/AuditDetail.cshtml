@@ -210,10 +210,24 @@
                         <div class="detail-user-list right-ss" style="min-height:215px;overflow: auto;">
                             <div class="meet-user-span" style="display: none;">
                                 <div class="feedback-con feedback-con2">
-                                    <div class="feedback-item">
-                                        <div class="feedback-item-title"></div>
+                                    <div class="feedback-item decfeedback-item">
+                                        <div class="feedback-item-title">
+                                            <i class="meet-icon icon-message-on"></i>
+                                            驳回理由
+                                        </div>
                                         <ul class="feedback-list feedback-admin">
                                             <li id="declineInfo"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="feedback-item js-myattend">
+                                        <div class="feedback-item-title">
+                                            <i class="meet-icon icon-message"></i>
+                                            共<span class="js-feed-count"></span>条回复消息
+                                        </div>
+                                        <ul class="feedback-list feedback-users">
+                                            <li id="passlineInfo">
+                                               
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -316,6 +330,7 @@
                 return;
             var pdepart = obj[0].pname;
             var dechtm = "";
+            var passhtm = "";
             var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
             var hstyle = 'cp01'; //cp02
             var ulstyle= 'uc01'; //uc02
@@ -323,10 +338,13 @@
                 var o = obj[i];
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {
+                        if(o.comment!=""){
+                            passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg"  id="comlenght" > '+ o.comment + '</p >'
+                        }
                         htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
                     }
                     else if (o.approved == 3) {
-                        dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        dechtm = '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > '+ o.comment + '</p >'+dechtm
                         hstyle = 'cp02'
                         ulstyle = 'uc02'
                         htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
@@ -341,10 +359,13 @@
                     pdepart = o.pname;
                     htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
                     if (o.approved == 2) {
+                        if(o.comment!=""){
+                            passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg" id="comlenght" > '+ o.comment + '</p >'
+                        }
                         htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
                     }
                     else if (o.approved == 3) {
-                        dechtm = '<h3><i class="meet-icon icon-message-on"></i>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > '+ o.comment + '</p >'
                         hstyle = 'cp02'
                         ulstyle = 'uc02'
                         htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
@@ -358,8 +379,25 @@
             htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
             $("#transferInfo").html(htm);
             $("#declineInfo").html(dechtm);
-        })
+            $("#passlineInfo").html(passhtm);
+            var comlenght=$('#passlineInfo').children('p').length
+            $(".js-feed-count").html(comlenght);
 
+            if($("#passlineInfo").html()==""){
+                $(".feedback-item.js-myattend").hide()
+            }else{
+                $(".feedback-item.js-myattend").show()
+            }
+
+            if($("#declineInfo").html()==""){
+                $(".feedback-item.decfeedback-item").hide()
+            }else{
+                $(".feedback-item.decfeedback-item").show()
+            }
+        })
+        
+       
+       
     });
     function declineApplication() {
         var feedback = $("#feedback-area").val()
@@ -411,7 +449,7 @@
     }
 
     function approveApplication() {
-
+        var feedback = $("#feedback-area").val()
         swal({
             title: '确定通过该申请？',
             text: '你将无法撤回！',
@@ -431,7 +469,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
-                $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 2, comment: '' }, function () {
+                $.post("/Companys/UpdateApproveProcess", { cid: @ViewBag.cid, astatus: 2, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }

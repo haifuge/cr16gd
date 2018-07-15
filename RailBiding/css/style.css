@@ -1550,7 +1550,9 @@ button:hover {
     .feedback-list li p.bjg {
         color: #ff0000;
     }
-
+    p.passbjg {
+        color: #818182;
+    }
     .feedback-list li p {
         line-height: 28px;
         color: #818182;
@@ -4317,13 +4319,13 @@ h3.fx_tit {
 }
 
 .detail-con .block-left2.block-left4 {
-    width: 75%;
+    width: 70%;
     float: left;
     margin-bottom: 150px;
 }
 
 .block-right.block-right2 {
-    width: 25%;
+    width: 30%;
     /*border: 1px solid #b3b3b3;*/
 }
 
@@ -4389,6 +4391,7 @@ h3.fx_tit {
             color: #595757;
             font-size: 14px;
             text-align: right;
+            float:left;
         }
 
 .detail-user {
@@ -4573,13 +4576,14 @@ h3.fx_tit {
     }
 
 .bmgl {
-    width: 70px;
-    height: 25px;
+        height: 25px;
     background: #008cd6;
+    padding-left: 10px;
+    padding-right: 10px;
     color: #fff;
     line-height: 25px;
     text-align: center;
-    display: inline-block;
+    display: block;
     margin: 0 15px;
     float: left;
 }
@@ -5902,4 +5906,15 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
 
 span#updatebmnamemsg,span#updatespjbmsg,span#bmnamemsg,span#spjbmsg {
     display: block;
+}
+
+#tworkhistory tr:nth-child(1){
+    background: #ffffff;
+}
+.gzyjthead{
+     background:#eaf6fd
+}
+.gzyjthead tr:hover{
+    background:#eaf6fd
+
 }
