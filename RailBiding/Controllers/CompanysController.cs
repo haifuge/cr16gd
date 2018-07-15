@@ -238,7 +238,7 @@ namespace RailBiding.Controllers
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                sb.Append("<tr class='white-bg'><td>" + dt.Rows[i]["ProjectId"].ToString() + "</td>");
+                //sb.Append("<tr class='white-bg'><td>" + dt.Rows[i]["ProjectId"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
                 sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "万</td>");
                 sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
@@ -441,7 +441,13 @@ namespace RailBiding.Controllers
         {
             string cid = Session["newCid"].ToString();
             string picbase64;
-            if (Request["picdata"] == null)
+            try { 
+                if (Request["picdata"] == null)
+                {
+                    return;
+                }
+            }
+            catch
             {
                 return;
             }
@@ -481,7 +487,9 @@ namespace RailBiding.Controllers
         }
         public void UploadZiZhi()
         {
-            string picData = Request["picData"].ToString();
+            string picData;
+            try { picData = Request["picData"].ToString(); }
+            catch { return; }
             picData = picData.Substring(picData.IndexOf(',') + 1);
             string name = Request["name"].ToString();
             string code = Request["code"].ToString();

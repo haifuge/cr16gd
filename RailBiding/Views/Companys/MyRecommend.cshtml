@@ -88,23 +88,23 @@
                     var auditStatus = "";
                     var statusStyle = "";
                     switch (o.auditstatus) {
-                        case "0":
+                        case 0:
                             auditStatus = "未发布";
                             statusStyle = "status-wcl status-wfb";
                             break;
-                        case "1":
+                        case 1:
                             auditStatus = "审核中";
                             statusStyle = "status-wcl";
                             break;
-                        case "2":
+                        case 2:
                             auditStatus = "已通过";
                             statusStyle = "status-wcl status-ytg";
                             break;
-                        case "3":
+                        case 3:
                             auditStatus = "被驳回";
                             statusStyle = "status-wcl status-bbh";
                             break;
-                        case "4":
+                        case 4:
                             auditStatus = "被暂停";
                             statusStyle = "status-wcl status-bzt";
                             break;
