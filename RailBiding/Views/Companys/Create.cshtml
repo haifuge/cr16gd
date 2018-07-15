@@ -402,7 +402,7 @@
                                     <td colspan="2">
                                         <h3 class="yj-tit">工作业绩:</h3>
                                         <table style="width: 100%" class="table01">
-                                            <thead class="wc-header">
+                                            <thead class="wc-header gzyjthead">
                                                 <tr>
                                                     <td>承包项目</td>
                                                     <td>合同金额</td>
@@ -413,8 +413,7 @@
                                                     <td>操作</td>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tworkhistory">
-                                            </tbody>
+                                            <tbody id="tworkhistory"></tbody>
                                         </table>
                                     </td>
                                 </tr>
@@ -446,11 +445,11 @@
                                 </select><span>开工时间：</span><input name="userTimeBegin" id="timeBegin"
                                                                   class="date-input radius-sel Wdate"
                                                                   type="text" value=""
-                                                                  placeholder="开工日期" onfocus="if (placeholder == '开工日期') { placeholder = '' }" onblur="    if (value == '') { placeholder = '开工日期' }"
+                                                                  placeholder="开工日期" onfocus="if (placeholder == '开工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '开工日期' }"
                                                                   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
                                 <span>竣工时间：</span><input name="userTimeBegin" id="timeEnd"
                                                          class="date-input radius-sel Wdate"
-                                                         type="text" value="" placeholder="竣工日期" onfocus="if (placeholder == '竣工日期') { placeholder = '' }" onblur="    if (value == '') { placeholder = '竣工日期' }"
+                                                         type="text" value="" placeholder="竣工日期" onfocus="if (placeholder == '竣工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '竣工日期' }"
                                                          onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
                                 <span>结算金额：</span><input type="text" class="input8" id="settleAmount">&nbsp;万元
                             </div>
@@ -894,7 +893,7 @@
             swal("请选择开工时间")
             document.getElementById("timeBegin").focus();
             return;
-        }
+        } 
         var timeEnd = document.getElementById("timeEnd").value;
         if (timeEnd.length == 0) {
             swal("请选择竣工时间")
@@ -934,6 +933,18 @@
         rowtr.appendChild(samount);
         rowtr.appendChild(tddelete);
         document.getElementById("tworkhistory").appendChild(rowtr);
+        $("#projName").val("");
+        $("#contractAmount").val("");
+        $("#timeEnd").val("");
+        $("#timeBegin").val("");
+        $("#settleAmount").val("");
+        if ($("#timeEnd").val() == "" || $("#timeEnd").val() == null) {
+            $("#timeEnd").attr("placeholder","竣工日期");
+        }
+        if ($("#timeBegin").val() == "" || $("#timeBegin").val() == null) {
+            $("#timeBegin").attr("placeholder", "开工日期");
+        }
+       
     }
     function removeRow(rid) {
         var row = document.getElementById(rid)
