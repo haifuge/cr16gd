@@ -66,6 +66,10 @@
                 background: url(/img/arrow1.png);
                 width: 26px;
                 height: 26px;
+                -webkit-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                transform: rotate(-90deg);
             }
 
         .accordion li.open .link {
@@ -77,10 +81,10 @@
         }
 
             .accordion li.open i.fa-chevron-down {
-                -webkit-transform: rotate(-90deg);
-                -ms-transform: rotate(-90deg);
-                -o-transform: rotate(-90deg);
-                transform: rotate(-90deg);
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
             }
 
     .submenu {
@@ -373,7 +377,7 @@
 
     .icon-bh2 {
         background: #29a9ef url(/img/icon-02.png) no-repeat 10px 5px;
-        padding-left: 10px;
+        padding-left: 30px;
         width: 100px;
     }
 </style>
@@ -443,13 +447,14 @@
                         <li>
                             <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none">招标文件</span>
                             @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:113px;">*@
-                            <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
-                                <input type='file' id='bfup' name='bfup' value="IamPic" />
-                                <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId" style="display:none" />
-                                <input type="text" id="ftype" name="ftype" width="20" value="1" style="display:none" />
-                                <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
+                            <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;">
+                                <img src="~/img/icon-03.png" alt="" class="up up2" style="position:absolute;vertical-align: middle">
+                                <input type='file' id='bfup' name='bfup' value="IamPic" style="position:absolute; -moz-opacity:0;-khtml-opacity: 0;opacity: 0;" />
+                                <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId" hidden />
+                                <input type="text" id="ftype" name="ftype" width="20" value="1" hidden />
+                                <input type="text" id="comment" name="comment" width="20" value="" hidden />
                             </form>
-                            <img src="~/img/icon-03.png" alt="" class="up up2" style="left:70px;vertical-align: middle">
+                            
                         </li>
                         <li>
                             <ul id="bffiles">
@@ -460,7 +465,7 @@
                 <div class="canvas_btn">
                     <a href="#" class="meet-btn big-btn lightblue-btn subm"  onclick="bidfileSubmit(1)">提交</a>
                     <a href="#" class="meet-btn big-btn lightblue-btn subm" onclick="bidfileSubmit(0)">保存</a>
-                    <a href="add_enterprise.html" class="meet-btn big-btn gray-btn">返回</a>
+                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
                 </div>
             </div>
         </div>
@@ -547,7 +552,7 @@
         })
     }
     function bidfileSubmit(ss) {
-        var bfc = $("#bfcontent").val()
+        var bfc = $("#bfcontent").val();
         var pid =@ViewBag.ProjId;
         data = { content: bfc, pid: pid, status: ss }
         $.post("/Projects/AddBidFile", data, function (res) {
@@ -569,9 +574,15 @@
         li.parentNode.removeChild(li);
         $.post("/Common/FileDelete", { fname: name }, function () {});
     }
+
     $(".canvas_close").on("click", function () {
+        $(".canvas").hide();  
+    })
+    $(".backcolse-btn").on("click", function () {
         $(".canvas").hide();
     })
+
+
     function bidApply() {
         $("#bidapplylayer").show();
         $.get("/Projects/GetBidInfo?pid=@ViewBag.ProjId", function (data) {
