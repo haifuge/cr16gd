@@ -231,15 +231,22 @@ namespace DAL.Models
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }
-        public DataTable GetBidingApproves()
+        public DataTable GetBidingApproves(string userid)
         {
             string sql = @"select p.Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
-							left join DepartmentUser du on du.UserId=ui.ID
+                            left join DepartmentUser du on du.UserId=ui.ID
                             left join Department d on du.DepartmentId=d.ID
+                            inner join(
+                                select distinct a.ObjId, a.Approved 
+                                from vw_AppPLevel a 
+                                inner join (select MAX(level) as level,AppProcId, ObjId 
+			                                from vw_AppPLevel where AppProcId=3 and Approved=1 group by ObjId, AppProcId
+                            ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
+                            where a.UserId="+ userid + @") a on p.ID=a.ObjId
                             order by p.Id desc;";
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;

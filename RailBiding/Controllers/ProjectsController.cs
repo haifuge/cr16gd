@@ -85,6 +85,13 @@ namespace RailBiding.Controllers
             }
             return View();
         }
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemP")]
+        public ActionResult MakeBidFile(string pid)
+        {
+            ViewBag.pid = pid;
+            return View();
+        }
         private string getBidFileItem(string pid)
         {
             BidingFileContext bf = new BidingFileContext();
@@ -251,9 +258,10 @@ namespace RailBiding.Controllers
         [HttpPost]
         public bool AddBidFile()
         {
+            string userid= Session["UserId"].ToString();
             string pid = Request["pid"].ToString();
             string content = Request["content"].ToString();
-            string publisherId = Session["UserId"].ToString();
+            string publisherId = userid;
             string status = Request["status"].ToString();
             BidingFileContext bfc = new BidingFileContext();
             if(bfc.AddBidingFile(pid, content, publisherId,status))
@@ -261,26 +269,29 @@ namespace RailBiding.Controllers
                 {
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(pid, "招标文件审核中");
-                    pc.CreateBidingFileApprovePrcess(Session["UserId"].ToString(), pid);
+                    pc.CreateApproveProcess(userid, pid, 2);
                 }
             return true;
         }
         [HttpPost]
         public bool AddBid()
         {
+            string pid = Request["pid"].ToString();
+            string userid = Session["UserId"].ToString();
             Bid bid = new Bid();
             bid.ApplyDate = Request["adate"].ToString();
             bid.OpenDate = Request["odate"].ToString();
             bid.BidingNum = Request["bnum"].ToString();
-            bid.ProjId = int.Parse(Request["pid"].ToString());
+            bid.ProjId = int.Parse(pid);
             bid.Status = Request["status"].ToString();
-            bid.PublisherId = int.Parse(Session["UserId"].ToString());
+            bid.PublisherId = int.Parse(userid);
             BidContext bc = new BidContext();
             if(bc.AddBid(bid))
                 if (bid.Status == "1")
                 {
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
+                    pc.CreateApproveProcess(userid, pid, 3);
                 }
             return true;
         }

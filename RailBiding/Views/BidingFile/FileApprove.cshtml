@@ -69,7 +69,7 @@
 <script type="text/javascript" src="~/js/js.js"></script>
 <script type="text/javascript">
     $(function () {
-        $.post("/BidingFile/GetBidingFiles", {}, function (data) {
+        $.post("/BidingFile/GetMyFileApprove", {}, function (data) {
             if (data == 'no session') {
                 location.href = "/Login";
             }

@@ -285,45 +285,6 @@
                                     </div>
                                 </div>
                                 <div id="transferInfo" class="meet-user-span2" style="display: block;">
-                                   @* <h4 class="cp01"><span></span>指挥部</h4>
-                                        <ul>
-                                            <li>
-                                                <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
-                                            </li>
-                                            <li>
-                                                <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                            </li>
-                                            <li>
-                                                <span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                            </li>
-                                            <li>
-                                                <span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                            </li>
-                                            <li>
-                                                <span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                            </li>
-                                        </ul>
-                                        <h4><span></span>管理员</h4>
-                                        <ul>
-                                            <li>
-                                                <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
-                                            </li>
-
-                                        </ul>
-                                        <h4 class="cp02"><span></span>轨道公司</h4>
-                                        <ul class="uc02">
-                                            <li><span class="yj01">计划合同部</span></li>
-                                            <li><span class="yj01">财务室</span></li>
-                                            <li><span class="yj01">施工技术部</span></li>
-                                            <li><span class="yj01">分公司总经济师</span></li>
-                                            <li><span class="yj01">分公司总经理</span></li>
-                                            <li><span class="yj01">计划合同部</span></li>
-                                            <li><span class="yj01">财务室</span></li>
-                                            <li><span class="yj01">施工技术部</span></li>
-                                            <li><span class="yj01">分公司总经济师</span></li>
-                                            <li><span class="yj01">分公司总经理</span></li>
-                                        </ul>
-                                        <h4 class="cp02"><span></span>结束</h4>*@
                                 </div>
 
                             </div>
@@ -345,38 +306,7 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
-<script type="text/javascript">
-    $(function () {
-        @*$.post("/BidingApprove/GetBidingApproveDetail?bid="@ViewBag.bid, {}, function (data) {
-            console.log(data)
-        });*@
-        pages(1, 2, 12, 5)
-    });
-</script>
-<script>
-    //弹出隐藏层
-    function ShowDiv(show_div, bg_div) {
-        document.getElementById(show_div).style.display = 'block';
-        document.getElementById(bg_div).style.display = 'block';
-        var bgdiv = document.getElementById(bg_div);
-        bgdiv.style.width = document.body.scrollWidth;
-        // bgdiv.style.height = $(document).height();
-        $("#" + bg_div).height($(window).height());
-        // $(".white_content").css("-webkit-transition","All 1s ");
-        // $(".white_content").css("opacity","1")
 
-    }
-    ;
-
-    //关闭弹出层
-    function CloseDiv(show_div, bg_div) {
-        document.getElementById(show_div).style.display = 'none';
-        document.getElementById(bg_div).style.display = 'none';
-        // $(".white_content").css("-webkit-transition","All 1s ");
-        // $(".white_content").css("opacity","0")
-    }
-    ;
-</script>
 <script>
     //分页
     function pages(cur, totalPage, totalRows, setNum) {
@@ -440,6 +370,30 @@
 
 </script>
 <script>
+    //弹出隐藏层
+    function ShowDiv(show_div, bg_div) {
+        document.getElementById(show_div).style.display = 'block';
+        document.getElementById(bg_div).style.display = 'block';
+        var bgdiv = document.getElementById(bg_div);
+        bgdiv.style.width = document.body.scrollWidth;
+        // bgdiv.style.height = $(document).height();
+        $("#" + bg_div).height($(window).height());
+        // $(".white_content").css("-webkit-transition","All 1s ");
+        // $(".white_content").css("opacity","1")
+
+    }
+    ;
+
+    //关闭弹出层
+    function CloseDiv(show_div, bg_div) {
+        document.getElementById(show_div).style.display = 'none';
+        document.getElementById(bg_div).style.display = 'none';
+        // $(".white_content").css("-webkit-transition","All 1s ");
+        // $(".white_content").css("opacity","0")
+    }
+    ;
+</script>
+<script>
     //参与单位添加
     function addcompeny() {
         var checkID = [];
@@ -485,7 +439,7 @@
             $(".right-block").hide();
             $(".bohui").hide();
         }
-        $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:4}, function (data) {
+        $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:3}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
             if (obj.length == 0)
@@ -598,7 +552,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".bohui").hide();
-                $.post("/Common/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid:3, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }
@@ -627,7 +581,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
-                $.post("/Companys/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 2, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid:3, oid: @ViewBag.pid, astatus: 2, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }

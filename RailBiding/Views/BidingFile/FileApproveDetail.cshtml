@@ -159,7 +159,7 @@
             $(".right-block").hide();
             $(".bohui").hide();
         }
-        $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:4}, function (data) {
+        $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:2}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
             if (obj.length == 0)
@@ -272,7 +272,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".bohui").hide();
-                $.post("/Common/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid:2, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }
@@ -301,7 +301,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
-                $.post("/Companys/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 2, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid:2, oid: @ViewBag.pid, astatus: 2, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }

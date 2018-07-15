@@ -27,6 +27,14 @@ namespace RailBiding.Controllers
             string str = JsonHelper.DataTableToJSON(dt);
             return str;
         }
+        public string GetMyFileApprove()
+        {
+            BidingFileContext bc = new BidingFileContext();
+            string userid = Session["UserId"].ToString();
+            DataTable dt = bc.GetMyFileApprove(userid);
+            string str = JsonHelper.DataTableToJSON(dt);
+            return str;
+        }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileApplication()

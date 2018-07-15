@@ -24,13 +24,15 @@ namespace RailBiding.Controllers
         public string GetBidingApproves()
         {
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidingApproves();
+
+            DataTable dt = bc.GetBidingApproves(Session["UserId"].ToString());
             return JsonHelper.DataTableToJSON(dt);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult BidingApproveDetail(string pid)
         {
+            ViewBag.pid = pid;
             if (pid == null)
                 return View("\\Login");
             BidContext bc = new BidContext();

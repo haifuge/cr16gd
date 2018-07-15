@@ -36,6 +36,24 @@ namespace DAL.Models
             return dt;
         }
 
+        public DataTable GetMyFileApprove(string userid)
+        {
+            string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
+                            from BidingFile bf 
+                            inner join Project p on bf.ProjId=p.Id
+                            left join UserInfo ui on ui.ID=bf.PublisherId
+                            inner join DepartmentUser du on du.UserId=ui.ID
+                            left join Department d on du.DepartmentId=d.ID
+                            inner join(
+                                select distinct a.ObjId, a.Approved 
+                                from vw_AppPLevel a 
+                                inner join (select MAX(level) as level,AppProcId, ObjId 
+			                                from vw_AppPLevel where AppProcId=2 and Approved=1 group by ObjId, AppProcId
+                            ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
+                            where a.UserId="+userid+") a on p.ID=a.ObjId";
+            return DBHelper.GetDataTable(sql);
+        }
+
         public DataTable getBidingFileDetail(string pid)
         {
             string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status

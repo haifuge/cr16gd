@@ -102,13 +102,20 @@ namespace DAL.Models
             }
             return false;
         }
-        public void CreateBidingFileApprovePrcess(string uid, string pid)
+        /// <summary>
+        /// 创建审批流程
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="pid"></param>
+        /// <param name="apid">1：公司；2：发表文件；3：发表；4：定标文件</param>
+        public void CreateApproveProcess(string uid, string pid, int apid)
         {
             SqlParameter[] paras = new SqlParameter[3];
             paras[0] = new SqlParameter("@uid", uid);
             paras[1] = new SqlParameter("@objid", pid);
-            paras[2] = new SqlParameter("@apid", 2);
+            paras[2] = new SqlParameter("@apid", apid);
             DBHelper.ExecuteSP("CreateApproveProcessing", paras);
         }
+
     }
 }

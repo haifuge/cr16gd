@@ -129,7 +129,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="meet-user-span2" style="display: block;"></div>
+                                <div id="transferInfo" class="meet-user-span2" style="display: block;"></div>
 
                             </div>
                         </div>
@@ -207,7 +207,7 @@
     }
 </script>
 <script>
-    $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: "2"}, function (data) {
+    $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: "3"}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
             if(obj.length==0)
