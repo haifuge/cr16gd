@@ -84,7 +84,7 @@ namespace DAL.Models
 
         public DataTable GetFiles(string pid)
         {
-            string sql = "select FileName from BidDocument where ProjId="+pid+" and FileType=1";
+            string sql = "select FileName, FilePath from BidDocument where ProjId="+pid+" and FileType=1";
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetApproveProcessingInfo(string pid)

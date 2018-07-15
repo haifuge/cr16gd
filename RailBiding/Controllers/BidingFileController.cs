@@ -73,12 +73,13 @@ namespace RailBiding.Controllers
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemF")]
-        public ActionResult FileApproveDetail(string fid)
+        public ActionResult FileApproveDetail(string pid)
         {
-            if (fid == null)
+            if (pid == null)
                 return View("//Login");
+            ViewBag.pid = pid;
             BidingFileContext bc = new BidingFileContext();
-            DataTable dt = bc.getBidingFileDetail(fid);
+            DataTable dt = bc.getBidingFileDetail(pid);
             DataRow dr = dt.Rows[0];
             ViewBag.BidFileName = dr["Name"].ToString();
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n", "<br/>");
@@ -103,6 +104,12 @@ namespace RailBiding.Controllers
         public ActionResult BidingFileApproveProcess()
         {
             return View();
+        }
+        public string GetApproveProcessingInfo(string pid)
+        {
+            BidingFileContext bfc = new BidingFileContext();
+            DataTable dt = bfc.GetApproveProcessingInfo(pid);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

@@ -373,6 +373,19 @@ namespace RailBiding.Controllers
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n", "<br/>");
             ViewBag.BidFileUserName = dr["Publisher"].ToString();
             ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
+
+            
+            dt = bc.GetFiles(pid);
+            string fujian = "";
+            for(int i=0;i<dt.Rows.Count;i++)
+            {
+                if (i == 0)
+                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a> &nbsp;&nbsp;1.2M</li>";
+                else
+                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a> &nbsp;&nbsp;1.2M</li>";
+            }
+            fujian += "</ul></div>";
+            ViewBag.Fujian = fujian;
             return View();
         }
         [VerifyLoginFilter]

@@ -37,9 +37,10 @@ namespace RailBiding.API
             var curFile = Request.Files[0];
             var fileExt = Path.GetExtension(curFile.FileName);
             string guid = Guid.NewGuid().ToString();
-            string fullPath = path + "\\" + guid+fileExt;
+            string fullPath = path + "/" + guid+fileExt;
             curFile.SaveAs(fullPath);
             ProjectContext pc = new ProjectContext();
+            fullPath = "../projectFiles/p" + pid + "/" + guid + fileExt;
             pc.AddProjectFile(pid, ftype, fullPath, curFile.FileName, comment);
             return guid + "|"+ curFile.FileName;
         }
