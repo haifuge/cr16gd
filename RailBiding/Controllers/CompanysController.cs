@@ -46,13 +46,13 @@ namespace RailBiding.Controllers
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic= dr["ReferreIDPic"].ToString();
-            if (pic != "")
-            {
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                                   <a href = '" + pic+ @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
-                              </div><p style='text-align: center; margin-bottom: 2px;'>推荐书</p><p style='text-align: center;'></p></div>";
-            }
+            //if (pic != "")
+            //{
+            //    pic = pic.Replace(rootPath, "/");
+            //    picHtml += @"<div class='ab_tab2_img'><div>
+            //                       <a href = '" + pic+ @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
+            //                  </div><p style='text-align: center; margin-bottom: 2px;'>推荐书</p><p style='text-align: center;'></p></div>";
+            //}
             pic = dr["BusinessLicensePic"].ToString();
             if (pic != "")
             {
@@ -134,13 +134,13 @@ namespace RailBiding.Controllers
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();
-            if (pic != "")
-            {
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
-                              </div><p style='text-align: center; margin-bottom: 2px;'>推荐书</p><p style='text-align: center;'></p></div>";
-            }
+            //if (pic != "")
+            //{
+            //    pic = pic.Replace(rootPath, "/");
+            //    picHtml += @"<div class='ab_tab2_img'><div>
+            //                 <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
+            //                  </div><p style='text-align: center; margin-bottom: 2px;'>推荐书</p><p style='text-align: center;'></p></div>";
+            //}
             pic = dr["BusinessLicensePic"].ToString();
             if (pic != "")
             {
@@ -284,13 +284,13 @@ namespace RailBiding.Controllers
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();
-            if (pic != "")
-            {
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
-                              </div><p style='text-align: center; margin-bottom: 2px;'>推荐书</p><p style='text-align: center;'></p></div>";
-            }
+            //if (pic != "")
+            //{
+            //    pic = pic.Replace(rootPath, "/");
+            //    picHtml += @"<div class='ab_tab2_img'><div>
+            //                 <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
+            //                  </div><p style='text-align: center; margin-bottom: 2px;'>推荐书</p><p style='text-align: center;'></p></div>";
+            //}
             pic = dr["BusinessLicensePic"].ToString();
             if (pic != "")
             {
@@ -440,7 +440,8 @@ namespace RailBiding.Controllers
                 company.Note = Request["note"].ToString();
                 company.Type = int.Parse(Session["outin"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
-                Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
+                string refguid = Request["refd"].ToString();
+                Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString(), refguid);
                 
                 return "1";
             }

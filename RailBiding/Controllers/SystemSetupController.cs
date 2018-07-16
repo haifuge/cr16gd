@@ -230,5 +230,22 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             ss.AddUserToDepartment(did, uid);
         }
+
+        public string GetCompanyBusinessTypes()
+        {
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetCompanyBusinessTypes();
+            return JsonHelper.DataTableToJSON(dt);
+        }
+        public void DeleteCompanyBusinessType(string id)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.DeleteCompanyBusinessType(id);
+        }
+        public void AddCompanyBusinessType(string bt)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.AddCompanyBusinessType(bt);
+        }
     }
 }

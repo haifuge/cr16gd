@@ -123,20 +123,25 @@ namespace DAL.Models
             else
                 return false;
         }
-        public string CreateCompany(Company company, string uid)
+        public string CreateCompany(Company company, string uid, string refguid)
         {
-            string sql = @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
+            string sql = @"declare @refpath nvarchar(400);
+                           select @refpath = FilePath from BidDocument where FilePath like '%"+refguid+"%'; ";
+            sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId)" +
-                "values(N'" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
-                "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
-                "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
-                "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
-                "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " + 
-                company.Type + ", N'"+company.Referrer + "', getdate(), "+company.AuditStatus+", "+ uid + ");";
+                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, ReferreIDPic)" +
+            "values(N'" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
+            "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
+            "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
+            "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
+            "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " +
+            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + ", @refpath);";
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
+            // 更新临时保存的推荐书
+            sql = "update BidDocument set ProjId="+i+" where FilePath like '%"+refguid+"%'";
+            DBHelper.ExecuteNonQuery(sql);
             CreateApproveProcess(i, uid);
             return i;
         }
