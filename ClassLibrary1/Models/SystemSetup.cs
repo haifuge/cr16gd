@@ -173,6 +173,23 @@ namespace DAL.Models
             paras[1] = new SqlParameter("@did", did);
             DBHelper.ExecuteSP("AddUser2Department", paras);
         }
-        
+
+        public DataTable GetCompanyBusinessTypes()
+        {
+            string sql = "select * from CompanyType order by ID";
+            return DBHelper.GetDataTable(sql);
+        }
+
+        public void AddCompanyBusinessType(string bt)
+        {
+            string sql = "insert into CompanyType values(N'"+bt+"'); ";
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public void DeleteCompanyBusinessType(string id)
+        {
+            string sql = "delete CompanyType where ID = "+id;
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }
