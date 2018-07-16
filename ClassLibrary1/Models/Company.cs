@@ -76,7 +76,7 @@ namespace DAL.Models
         public DataTable GetAllCompanies(string cType)
         {
             string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
-                                  c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus 
+                                  c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
                            from Company c
                            left join BusinessType bt on bt.id=c.BusinessType
                            where c.AuditStatus=2 and c.Type = " + cType + " order by c.Name;";
@@ -154,9 +154,9 @@ namespace DAL.Models
             return false;
         }
 
-        public bool ToggleCompany(int id, int status)
+        public bool ToggleCompany(string id, string status)
         {
-            string sql = "update Company set status='" + status + "where id=" + id;
+            string sql = "update Company set status=" + status + " where id=" + id;
             int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
             if (i > 0)
                 return true;
