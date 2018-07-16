@@ -262,7 +262,11 @@
         function updateBusinessType() {
             var btn = $("#btname").val();
             var bti = $("#btid").val()
-            $.post("/SystemSetup/UpdateBusinessType", { id: bti, name: btn }, function () { });
+            if (addtype = "1") {
+                $.post("/SystemSetup/UpdateBusinessType", { id: bti, name: btn }, function () { });
+            } else {
+                $.post("/SystemSetup/UpdateCompanyBusinessType", { id: bti, name: btn }, function () { });
+            }
             $(".canvas.canvas1").hide();
             initBusinessType();
         }
@@ -279,10 +283,15 @@
         })
         function delname(obj, btid) {
             console.log(obj.parentNode.parentNode);
-            if (confirm("确认要删除该类型？")) {
+            
+             if (confirm("确认要删除该类型？")) {
                 var row = obj.parentNode.parentNode;
                 row.parentNode.removeChild(row);
-                $.post("/SystemSetup/DeleteBusinessType", {id:btid}, function () { })
+                if (addtype = "1") {
+                    $.post("/SystemSetup/DeleteBusinessType", {id:btid}, function () { })
+                } else {
+                    $.post("/SystemSetup/DeleteCompanyBusinessType", { id: btid }, function () { })
+                }
             }
         }
 
