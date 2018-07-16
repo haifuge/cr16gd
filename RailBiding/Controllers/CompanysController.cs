@@ -440,7 +440,8 @@ namespace RailBiding.Controllers
                 company.Note = Request["note"].ToString();
                 company.Type = int.Parse(Session["outin"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
-                Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
+                string refguid = Request["refd"].ToString();
+                Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString(), refguid);
                 
                 return "1";
             }

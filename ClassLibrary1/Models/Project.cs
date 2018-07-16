@@ -91,6 +91,13 @@ namespace DAL.Models
             }
             return false;
         }
+
+        public string GetForeReference(string g)
+        {
+            string sql = "select FilePath from BidDocument where FileType=4 and FilePath like '%" + g + "%'";
+            return DBHelper.ExecuteScalar(sql);
+        }
+
         //未发布；招标文件审核中，招标文件审核通过，招标审核中；招标审核通过；定标文件审核中；已结束
         public bool UpdateProjectStatus(string pid, string s)
         {

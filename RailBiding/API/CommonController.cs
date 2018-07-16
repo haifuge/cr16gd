@@ -79,5 +79,28 @@ namespace RailBiding.API
             parameters[4] = new SqlParameter("@comment", comment);
             DBHelper.ExecuteSP("UpdateApproveProcess", parameters);
         }
+
+        public string UploadReference()
+        {
+            string foreRef = Request["foreRef"].ToString();
+            ProjectContext pc = new ProjectContext();
+            string fullPath;
+            if (foreRef != "") {
+                string g = foreRef;
+                fullPath = pc.GetForeReference(g);
+                System.IO.File.Delete(fullPath);
+            }
+            string path = Server.MapPath("/projectFiles/Reference");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            var curFile = Request.Files[0];
+            string guid = Guid.NewGuid().ToString();
+            var fileExt = Path.GetExtension(curFile.FileName);
+            fullPath = path + "/" + guid + fileExt;
+            curFile.SaveAs(fullPath);
+            //临时存推荐书
+            pc.AddProjectFile("0", "4", fullPath, curFile.FileName, "");
+            return guid;
+        }
     }
 }
