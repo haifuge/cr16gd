@@ -54,19 +54,10 @@ namespace DAL.Models
         /// </summary>
         /// <param name="makeBidFile"></param>
         /// <returns></returns>
-        public bool AddMakeBidFile(MakeBidFile makeBidFile)
+        public void AddMakeBidFile(string pid, string abst, string puserid)
         {
-            List<string> sqls = new List<string>();
-            string sql = @"insert into MakeBidFile(Name, Abstract, ProjAbstract, Publisher, PublishDate, FileExplain, Status) values('{0}','{1}','{2}','{3}','{4}','{5}', 0)";
-            string.Format(sql, makeBidFile.Name, makeBidFile.Abstract, makeBidFile.ProjAbstract, makeBidFile.Publisher, makeBidFile.PublishDate, makeBidFile.FileExplain);
-            sqls.Add(sql);
-            sql = @"declare @maxId int;
-                    select @maxId = max(Id) from MakeBidFile;";
-            foreach(var c in makeBidFile.BidCompanies)
-            {
-                sql += "insert into MakeBidingFileCompany values(@maxId, " + c.CompanyId + ", " + c.BidAmount + ", 0);";
-            }
-            return DBHelper.ExecuteSqlsWithTransaction(sqls);
+            string sql = "insert into MakeBidingFile(ProjId, Abstract, PublisherId, PulisherDate, Status) values("+pid+",N'"+abst+"',"+puserid+",getdate(),1)";
+            DBHelper.ExecuteNonQuery(sql);
         }
 
         public bool AddMakeBidFileCompany(string mbfId, string cId, string amount)
@@ -103,6 +94,7 @@ namespace DAL.Models
             else
                 return false;
         }
+
 
     }
 }

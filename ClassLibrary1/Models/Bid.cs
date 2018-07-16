@@ -59,9 +59,10 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public void RemoveBidingCompany(string bid, string cid)
+        public void RemoveBidingCompany(string pid, string cid)
         {
-            throw new NotImplementedException();
+            string sql = "delete BidingCompany where ProjId="+pid+ " and CompanyId="+cid;
+            DBHelper.ExecuteNonQuery(sql);
         }
 
         public bool AddCompanyToBid(string bid, string cid)
@@ -102,9 +103,9 @@ namespace DAL.Models
                 return false;
         }
 
-        public bool AddBidingCompany(int pid, int cid)
+        public bool AddBidingCompany(string pid, string cid)
         {
-            string sql= "insert into BidingCompany(ProjId, CompanyId, CompanyResponse, Biding) values(" + pid+", "+cid+", 0, 0)";
+            string sql= "insert into BidingCompany(ProjId, CompanyId, CompanyResponse, Biding, Win) values(" + pid+", "+cid+", 0, 0, 0)";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;

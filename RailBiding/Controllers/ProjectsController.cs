@@ -401,5 +401,32 @@ namespace RailBiding.Controllers
             return View();
         }
         
+        public void SaveMakeBidFile()
+        {
+            MakeBidFileContext mc = new MakeBidFileContext();
+            string pid = Request["pid"].ToString();
+            string abst = Request["abst"].ToString();
+            mc.AddMakeBidFile(pid, abst, Session["UserId"].ToString());
+            string joinCompany = Request["joincompany"].ToString();
+            string[] companys = joinCompany.Split('|');
+            string sql = "";
+            foreach(string c in companys)
+            {
+                string[] cc = c.Split('-');
+                sql += "update BidingCompany set FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0]+"; ";
+            }
+            DBHelper.ExecuteNonQuery(sql);
+            string winCompany = Request["wincompany"].ToString();
+            sql = "";
+            companys = winCompany.Split('|');
+            foreach(string c in companys)
+            {
+                string[] cc = c.Split('-');
+                sql += "update BidingCompany set Win=1, Comment=N" + cc[1] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+            }
+            ProjectContext pc = new ProjectContext();
+            pc.UpdateProjectStatus(pid, "定标文件审核中");
+            pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
+        }
     }
 }

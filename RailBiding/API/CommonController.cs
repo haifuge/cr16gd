@@ -102,5 +102,12 @@ namespace RailBiding.API
             pc.AddProjectFile("0", "4", fullPath, curFile.FileName, "");
             return guid;
         }
+
+        public string GetCompanyCandidate()
+        {
+            string sql = "select ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent from Company";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
     }
 }

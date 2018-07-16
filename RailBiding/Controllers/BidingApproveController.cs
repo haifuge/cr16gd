@@ -95,5 +95,19 @@ namespace RailBiding.Controllers
             BidContext bc = new BidContext();
             bc.RemoveBidingCompany(bid, cid);
         }
+        public void AddBidingCompany()
+        {
+            string pid = Request["pid"].ToString();
+            string cid = Request["cid"].ToString();
+            BidContext bc = new BidContext();
+            bc.AddBidingCompany(pid, cid);
+        }
+        public void RemoveBidingCompany()
+        {
+            string pid = Request["pid"].ToString();
+            string cid = Request["cid"].ToString();
+            BidContext bc = new BidContext();
+            bc.RemoveBidingCompany(pid, cid);
+        }
     }
 }
