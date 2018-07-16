@@ -2,5 +2,687 @@
 @{
     ViewBag.Title = "定标文件";
 }
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+
+<style>
+    .app-dt .meet-form tr:nth-child(1){
+        background:#fff;
+    }
+    .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2){
+        color:#666;
+
+    }
+    .form-lable span{
+
+        display:block;
+        float:left;
+    }
+    .form-tr:last-child td:nth-child(1){
+        text-align:right;
+    }
+    .meet-form7 .form-tr .form-lable{
+        text-align:left;
+    }
+    ul.cjtb_ul li {
+    float: left;
+    width: 310px;
+    height: auto;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+    .nxzbdw.nxzbdw2 li {
+    width: 310px;
+    margin-bottom: 15px;
+}
+   .nxzbdw{
+           margin-top: 20px;
+           margin-bottom: 20px;
+       }
+    .txt02 {
+        margin: 10px 0 20px;
+    }
+    .icon-file {
+    background: url(../img/icon-file.png) center center no-repeat;
+}
+    .allfileInput2{
+        opacity:0;
+    }
+    .dw{
+        display:block;
+    }
+    .dw {
+    display:block;
+    background: #fff;
+    padding: 0px;
+    margin-left: 0px;
+    margin-top:10px
+}
+   .dw > ul > li {
+    margin-bottom: 3px;
+}
+   .dw > ul > li > a{
+    color: #008cd6;
+    padding-left: 10px;
+        }
+</style>
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>项目管理</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Projects" class="active"><i class="icon icon-eye1"></i>项目列表</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top ">
+            <span class="page-title">定标文件申请</span>
+        </div>
+        <div class="wc-container app-dt">
+            <div class="wc-nav">
+            </div>
+            
+                <table class="meet-form meet-form7">
+                    <tbody>
+                        <tr class="form-tr">
+                            <td class="form-lable" style="vertical-align: top;padding-top: 15px;">
+                                <span class="red-word">*</span>简述
+                            </td>
+                            <td>
+                                <textarea class="txt02" style="padding: 0 5px;"></textarea>
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable" style="vertical-align: top;">
+                                <span class="red-word">*</span><span>
+                                    参加该投
+                                    <br>标单位&nbsp;&nbsp;&nbsp;
+                                </span>
+                            </td>
+                            <td>
+                                <div>
+                                    <a href="#"
+                                       onclick="ShowDiv('MyDiv','fade')"
+                                       style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
+                                </div>
+                                <!--弹出层 begin-->
+                                <div id="fade" class="black_overlay">
+                                    <div id="MyDiv" class="white_content white_content3">
+                                        <div class="btn-close"
+                                             style="text-align: right;  height: 20px;">
+                                            <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
+                                                <img src="/img/btn-close.png"
+                                                     alt="">
+                                            </span>
+                                        </div>
+                                        <h3>劳务单位</h3>
+                                        <div style="margin:10px ;">
+                                            <select class="meet-select js-meet-state">
+                                                <option value="all">推荐企业</option>
+                                                <option value="2">中铁十六局</option>
+                                                <option value="3">上海轨道交通</option>
+                                            </select>
+                                            <select class="meet-select js-meet-state">
+                                                <option value="all">业务类型</option>
+                                                <option value="2">围护结构工程</option>
+                                                <option value="3">围护结构工程</option>
+                                            </select>
+                                        </div>
+                                        <div class="search-con2">
+                                            <input type="text" name="keyname" placeholder="请输入关键字">
+                                            <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+                                        </div>
+                                        <table class="meet-table text-left">
+                                            <tbody>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenychecktwo"
+                                                               type="checkbox" value="上海思尧建设集团有限公司1"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenychecktwo"
+                                                               type="checkbox" value="上海思尧建设集团有限公司2"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenychecktwo"
+                                                               type="checkbox" value="上海思尧建设集团有限公司3"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenychecktwo"
+                                                               type="checkbox" value="上海思尧建设集团有限公司4"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenychecktwo"
+                                                               type="checkbox" value="上海思尧建设集团有限公司5"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div style="position: absolute;bottom:10px;left:50%;margin-left: -123px;">
+                                            <div class="page">
+                                            </div>
+                                            <div class="form-tr-btn">
+                                                <button class="meet-btn big-btn lightblue-btn js-submit"  onclick="addcompenytwo()">
+                                                    确定
+                                                </button>
+                                                <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv','fade')">
+                                                    取消
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--弹出层 end-->
+                                <ul class="cjtb_ul">
+                                    <li>
+                                        <div class="pca">
+                                            <div class="btn-close2">
+                                                <img src="/img/icon-close.png" alt="">
+                                            </div>
+                                            <div class="ul-bg">
+                                                <p class="f18">1上海思尧建设集团有限公司</p>
+                                                <p>资质等级：地基基础壹级资质</p>
+                                                <p>注册资金：6000万元</p>
+                                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
+                                            </div>
+                                            <div class="tbbj">投标报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
+                                            <div class="tbbj">二次报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="pca">
+                                            <div class="btn-close2">
+                                                <img src="/img/icon-close.png" alt="">
+                                            </div>
+                                            <div class="ul-bg">
+                                                <p class="f18">2上海思尧建设集团有限公司</p>
+                                                <p>资质等级：地基基础壹级资质</p>
+                                                <p>注册资金：6000万元</p>
+                                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
+                                            </div>
+                                            <div class="tbbj">投标报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
+                                            <div class="tbbj">二次报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="pca">
+                                            <div class="btn-close2">
+                                                <img src="/img/icon-close.png" alt="">
+                                            </div>
+                                            <div class="ul-bg">
+                                                <p class="f18">3上海思尧建设集团有限公司</p>
+                                                <p>资质等级：地基基础壹级资质</p>
+                                                <p>注册资金：6000万元</p>
+                                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
+                                            </div>
+                                            <div class="tbbj">投标报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
+                                            <div class="tbbj">二次报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable" style="vertical-align: top">
+                                <span class="red-word">*</span><span>
+                                    拟选中标
+                                    <br>单位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                            </td>
+                            <td>
+                                <div>
+                                    <a href="#"
+                                       onclick="ShowDiv('MyDiv2','fade2')"
+                                       style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
+                                </div>
+                                <!--弹出层 begin-->
+                                <div id="fade2" class="black_overlay">
+                                    <div id="MyDiv2" class="white_content white_content3">
+                                        <div class="btn-close"
+                                             style="text-align: right;  height: 20px;">
+                                            <span style="font-size: 16px;" onclick="CloseDiv('MyDiv2','fade2')">
+                                                <img src="/img/btn-close.png"
+                                                     alt="">
+                                            </span>
+                                        </div>
+                                        <h3>劳务单位2</h3>
+                                        <div style="margin:10px ;">
+                                            <select class="meet-select js-meet-state">
+                                                <option value="all">推荐企业</option>
+                                                <option value="2">中铁十六局</option>
+                                                <option value="3">上海轨道交通</option>
+                                            </select>
+                                            <select class="meet-select js-meet-state">
+                                                <option value="all">业务类型</option>
+                                                <option value="2">围护结构工程</option>
+                                                <option value="3">围护结构工程</option>
+                                            </select>
+                                        </div>
+                                        <div class="search-con2">
+                                            <input type="text" name="keyname" placeholder="请输入关键字">
+                                            <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+                                        </div>
+                                        <table class="meet-table text-left">
+                                            <tbody>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenycheck"
+                                                               type="checkbox" value="上海思尧建设集团有限公司1"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司1</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenycheck"
+                                                               type="checkbox" value="上海思尧建设集团有限公司2"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司2</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenycheck"
+                                                               type="checkbox" value="上海思尧建设集团有限公司3"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司3</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenycheck"
+                                                               type="checkbox" value="上海思尧建设集团有限公司4"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司4</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+                                                <tr class="white-bg">
+                                                    <td class="check-color">
+                                                        <input class="icheck" name="addcompenycheck"
+                                                               type="checkbox" value="1"
+                                                               id="checkbox-1" />
+                                                    </td>
+                                                    <td>
+                                                        <a href="list_business_details.html">上海思尧建设集团有限公司</a>
+                                                    </td>
+                                                    <td>李功明</td>
+                                                    <td>1854258612</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div style="position: absolute;bottom:10px;left:50%;margin-left: -123px;">
+                                            <div class="page">
+                                            </div>
+                                            <div class="form-tr-btn">
+                                                <button 
+                                                        class="meet-btn big-btn lightblue-btn js-submit" onclick="addcompeny()">
+                                                    确定
+                                                </button>
+                                                <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv2','fade2')">
+                                                    取消
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--弹出层 end-->
+                                <ul class="nxzbdw nxzbdw2">
+                                    <li>
+                                        <div class="pca">
+                                            <div class="btn-close3">
+                                                <img src="/img/icon-close.png" alt="">
+                                            </div>
+                                            <h3>1徐州市国顺建筑工程劳务有限公司</h3>
+                                            <div style="padding: 10px;">
+                                                <textarea name="" id="area" class="tar"
+                                                          placeholder="请输入文本内容"></textarea>
+                                                <div style="font-size: 12px;text-align: right;">
+                                                    <span id="text-count">200</span>/200
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="pca">
+                                            <div class="btn-close3">
+                                                <img src="/img/icon-close.png" alt="">
+                                            </div>
+                                            <h3>2徐州市国顺建筑工程劳务有限公司</h3>
+                                            <div style="padding: 10px;">
+                                                <textarea name="" id="area2" class="tar"
+                                                          placeholder="请输入文本内容"></textarea>
+                                                <div style="font-size: 12px;text-align: right;">
+                                                    <span id="text-count2">200</span>/200
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="pca">
+                                            <div class="btn-close3">
+                                                <img src="/img/icon-close.png" alt="">
+                                            </div>
+                                            <h3>3徐州市国顺建筑工程劳务有限公司</h3>
+                                            <div style="padding: 10px;">
+                                                <textarea name="" id="area3" class="tar"
+                                                          placeholder="请输入文本内容"></textarea>
+                                                <div style="font-size: 12px;text-align: right;">
+                                                    <span id="text-count3">200</span>/200
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable" style="vertical-align: top">
+                                <span class="white-word">*</span><span>
+                                    定标文件
+                                    <br>详细说明
+                                </span>
+                            </td>
+                            <td>
+                                @*富文本编辑框*@
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable" style="vertical-align: top">
+                                <div style="display: inline-block"><i class="meet-icon icon-file"></i>附件：</div>
+                            </td>
+                            <td>
+                                <div class="upload-btn upload-btn2"style="top:0px;width: 40px;">
+                                    <input type="file" class="allfileInput allfileInput2" name="fileInput"
+                                           id="allfileInput" style="cursor: pointer">
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                </div>
+                                <div class="dw">
+                                    <ul>
+                                        <li>开标记录表.doc<a href="#">删除</a></li>
+                                        <li>开标记录表.doc<a href="#">删除</a></li>
+                                    </ul> 
+                                </div>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-tr-btn">
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">提交</button>
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
+                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
+                </div>
+            
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script>
+    //弹出隐藏层
+    function ShowDiv(show_div, bg_div) {
+        document.getElementById(show_div).style.display = 'block';
+        document.getElementById(bg_div).style.display = 'block';
+        var bgdiv = document.getElementById(bg_div);
+        bgdiv.style.width = document.body.scrollWidth;
+        // bgdiv.style.height = $(document).height();
+        $("#" + bg_div).height($(window).height());
+    }
+    ;
+
+    //关闭弹出层
+    function CloseDiv(show_div, bg_div) {
+        document.getElementById(show_div).style.display = 'none';
+        document.getElementById(bg_div).style.display = 'none';
+    }
+    ;
+</script>
+<script>
+    //分页
+    function pages(cur, totalPage, totalRows, setNum) {
+        if (!totalPage) return false;
+        var url = window.location.href;
+        var url_arr = url.split("?");
+        var url = url_arr[0];
+        var htm = '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>' +
+            '<a class="js-page-num page-num num-left" data-cur="' + (cur > 1 ? (cur - 1) : 1) + '">&lt;</a>';
+        if (totalPage != 1) {
+            htm += '<a data-cur="' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? (cur - 1) : cur) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '</a>';
+        }
+
+        htm += '<a data-cur="' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? totalPage : (cur + 1)) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '</a>' +
+            '<a class="js-page-num num-right page-num" data-cur="' + (cur < totalPage ? (cur + 1) : totalPage) + '">&gt;</a>' +
+            '<a data-cur="' + totalPage + '" class="js-page-num page-num">》</a>' +
+            '<a class="page-num page-input"><input type="text" value=""/></a>' +
+            '<a class="js-page-num page-num num-go active" data-cur="' + ((cur + 2) > totalPage ? cur : (cur + 2)) + '">GO</a>';
+        $(".page").append(htm);
+
+        //分页点击
+        $(".page>a.js-page-num").on("click", function () {
+            var url = window.location.href;
+            var cur_num = $(this).data("cur");
+            if ($(this).hasClass("num-go")) {
+                cur_num = ($(".page-input input").val() ? $(".page-input input").val() : 1);
+            }
+            if (url.indexOf("?") == -1) {
+                url += "?";
+            }
+            if (!$.getUrlParam("curPage")) {
+                url = url + '&curPage=' + cur_num;
+                $(this).attr("href", url);
+            } else {
+                replaceParamVal("curPage", cur_num);
+            }
+        });
+
+        $(".page-sel").change(function () {
+            var url = window.location.href;
+            var page_len = $(this).val();
+            if (url.indexOf("?") == -1) {
+                url += "?";
+            }
+            if (!$.getUrlParam("Length")) {
+                url = url + '&Length=' + page_len;
+                window.location.href = url;
+            } else {
+                replaceParamValNo("curPage", 1);
+                replaceParamVal("Length", page_len);
+            }
+        });
+
+    }
+</script>
+<script>
+    $(".btn-close2").click(function () {
+        $(this).parent().parent().hide();
+    });
+    $(".btn-close3").click(function () {
+        $(this).parent().parent().hide();
+    });
+</script>
+<script>
+    var ss;
+    var ss2;
+    window.onload = function () {
+        var h = document.documentElement.clientHeight;//可见区域高度
+        ss = document.getElementById('MyDiv');
+        ss2 = document.getElementById('MyDiv2');
+
+        ss.style.height = h - 90 + "px";
+        ss2.style.height = h - 90 + "px";
+    }
+</script>
+<script type="text/javascript">
+    /*字数限制*/
+    $("#area").on("input propertychange", function () {
+        var $this = $(this),
+            _val = $this.val(),
+            count = "";
+        if (_val.length > 200) {
+            $this.val(_val.substring(0, 200));
+        }
+        count = 200 - $this.val().length;
+        $("#text-count").text(count);
+    });
+    /*字数限制*/
+    $("#area2").on("input propertychange", function () {
+        var $this = $(this),
+            _val = $this.val(),
+            count = "";
+        if (_val.length > 200) {
+            $this.val(_val.substring(0, 200));
+        }
+        count = 200 - $this.val().length;
+        $("#text-count2").text(count);
+    });
+    /*字数限制*/
+    $("#area3").on("input propertychange", function () {
+        var $this = $(this),
+            _val = $this.val(),
+            count = "";
+        if (_val.length > 200) {
+            $this.val(_val.substring(0, 200));
+        }
+        count = 200 - $this.val().length;
+        $("#text-count3").text(count);
+    });
+</script>
+<script>
+    function clearNoNum(obj) {
+        obj.value = obj.value.replace(/[^\d.]/g, "");  //清除“数字”和“.”以外的字符
+        obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');//只能输入两个小数
+        if (obj.value.indexOf(".") < 0 && obj.value != "") {//以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+            obj.value = parseFloat(obj.value);
+        }
+    }
+</script>
+<script>
+    //拟选中标单位添加
+    function addcompeny() {
+        
+        var checkID = [];
+        $("input[name='addcompenycheck']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
+            checkID[i] = $(this).val();
+            var cid = 'company' + i;
+            var htm = '<li id="' + cid + '"><div class="pca" >' +
+                     '<div class="btn-close3"><img src="/img/icon-close.png" alt="" onclick="removeCompany(\'' + cid + '\')"></div>' +
+                     '<h3>' + $(this).val() + '</h3>' +
+                      '<div style="padding: 10px;">' +
+                            '<textarea name="" id="area" class="tar" placeholder="请输入文本内容"></textarea>' +
+                            '<div style="font-size: 12px;text-align: right;">' +
+                                  '<span id="text-count">200</span>/200' +
+                            '</div>' +
+                       '</div>' +
+                 '</div>' +
+              '</li>';
+
+            $(".nxzbdw.nxzbdw2").append(htm);
+        });
+        CloseDiv('MyDiv2', 'fade2');
+      
+    }
+    function removeCompany(cid) {
+        var element = document.getElementById(cid);
+        element.parentNode.removeChild(element);
+    }
+</script>
+
+<script>
+    //参加该投标单位添加
+    function addcompenytwo() {
+
+        var checkIDtwo = [];
+        $("input[name='addcompenychecktwo']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
+            checkIDtwo[i] = $(this).val();
+            var cidtwo = 'companytwo' + i;
+            var htmtwo = '<li id="' + cidtwo + '">' +
+                            '<div class="pca">'+
+                               '<div class="btn-close2"><img src="/img/icon-close.png" alt="" onclick="removeCompanytwo(\'' + cidtwo + '\')"></div>' +
+                               '<div class="ul-bg">'+
+                                   '<p class="f18">' + $(this).val() + '</p>' +
+                                    '<p>资质等级：*****</p>'+
+                                    '<p>注册资金：*****万元</p>' +
+                                    '<p>近期主要承揽**********钻孔桩施工；**********项目钻孔桩施工。</p>' +
+                                '</div>'+
+                                '<div class="tbbj">投标报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>'+
+                                '<div class="tbbj">二次报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
+                           '</div>'+
+                        '</li>'
+            $(".cjtb_ul").append(htmtwo);
+        });
+        CloseDiv('MyDiv', 'fade');
+
+    }
+    function removeCompanytwo(cidtwo) {
+        var elementtwo = document.getElementById(cidtwo);
+        console.log(elementtwo);
+        elementtwo.parentNode.removeChild(elementtwo);
+    }
+</script>
 
 

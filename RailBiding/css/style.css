@@ -401,7 +401,7 @@ select::-ms-expand {
     }
 
 .icon-file {
-    background: url(../img/icon-file.png) bottom  center no-repeat;
+    background: url(../img/icon-file.png) center  center no-repeat;
 }
 
 .form-border-btn.bttn2 {
@@ -4577,16 +4577,34 @@ h3.fx_tit {
         line-height: 20px;
     }
 
-.bmgl {
-        height: 25px;
-    background: #008cd6;
+
+.main-top >a{
+     height: 25px;
+    background: #b3b3b3;
     padding-left: 10px;
     padding-right: 10px;
     color: #fff;
     line-height: 25px;
     text-align: center;
+    margin-right:15px;
     display: block;
-    margin: 0 15px;
+    float: left;
+
+}
+.main-top > a.active{
+    background: #008cd6;
+}
+
+.bmgl {
+    background: #008cd6;
+    height: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #fff;
+    line-height: 25px;
+    text-align: center;
+    margin-right:15px;
+    display: block;
     float: left;
 }
 
@@ -4993,6 +5011,7 @@ ul.cjtb_ul {
         width: 310px;
         height: auto;
         margin-right: 20px;
+        position:relative;
     }
 
 .pca {

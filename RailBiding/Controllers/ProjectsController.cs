@@ -248,7 +248,7 @@ namespace RailBiding.Controllers
                 return "1";
             return "0";
         }
-        
+
         [HttpPost]
         public bool AddBidFile()
         {
