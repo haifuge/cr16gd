@@ -249,12 +249,6 @@ namespace RailBiding.Controllers
             return "0";
         }
 
-        public ActionResult MakeBidFile()
-        {
-            string pid = Request["pid"].ToString();
-            return View();
-        }
-
         [HttpPost]
         public bool AddBidFile()
         {
