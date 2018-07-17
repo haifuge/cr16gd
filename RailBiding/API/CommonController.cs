@@ -105,7 +105,7 @@ namespace RailBiding.API
 
         public string GetCompanyCandidate()
         {
-            string sql = "select ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent from Company";
+            string sql = "select ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent from Company where Status=1 order by Id";
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }
