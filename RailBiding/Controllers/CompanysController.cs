@@ -683,5 +683,10 @@ namespace RailBiding.Controllers
             return context.AddWorkHistory(wh);
         }
         
+        public void ToggleCompany(string id, string status)
+        {
+            CompanyContext cc = new CompanyContext();
+            cc.ToggleCompany(id, status);
+        }
     }
 }

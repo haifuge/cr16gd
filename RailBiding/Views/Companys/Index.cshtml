@@ -79,12 +79,14 @@
         // 设置页码
         pages(1, 2, 12, 5)
         // 获取所有名录内公司
+        
         $.post("/Companys/GetCompanies?ctype=1", {}, function (data) {
             var obj = JSON.parse(data);
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
-                var o = obj[i]
-                console.log(o)
+               var o = obj[i]
+               console.log(o)
+               var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >' +
                     '<td onclick=\"location.href = \'/Companys/Details?id='+o.id+'\';\">' + o.name + '</td>' +
@@ -95,8 +97,9 @@
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.contact + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.contactphone + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
-                    '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox"><label></label></div></div></td></tr>';
+                    '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td></tr>';
             }
+           
             $("#tbCompany").html(htm)
         });
         $.post("/Common/GetBusinessType", {}, function (data) {
@@ -108,5 +111,16 @@
                 btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
             }
         });
+        
     });
+    function comischecked(comid, chk) {
+        console.log(chk.checked);
+        var s=0;
+        if (chk.checked)
+            s = 1;
+        else
+            s = 0;
+        $.post("/Companys/ToggleCompany?id=" + comid + "&status=" + s, {}, function () { });
+
+    }
 </script>
