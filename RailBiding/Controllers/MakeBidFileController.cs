@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DAL.Models;
+using DAL.Tools;
+using System.Data;
 
 namespace RailBiding.Controllers
 {
@@ -48,6 +51,20 @@ namespace RailBiding.Controllers
         {
             ViewBag.pid = pid;
             return View();
+        }
+        
+        public string GetAllMakeBidFile()
+        {
+            MakeBidFileContext mc = new MakeBidFileContext();
+            DataTable dt = mc.GetMakeBidFiles();
+            return JsonHelper.DataTableToJSON(dt).Replace("\r","    ").Replace("\n","</br>");
+        }
+        public string GetMyMakeBidFiles()
+        {
+            string uid = Session["UserId"].ToString();
+            MakeBidFileContext mc = new MakeBidFileContext();
+            DataTable dt = mc.GetMyMakeBidFiles(uid);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }
