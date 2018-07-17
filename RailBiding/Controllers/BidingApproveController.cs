@@ -53,7 +53,8 @@ namespace RailBiding.Controllers
             StringBuilder cHtml = new StringBuilder();
             for(int i = 0; i < dt.Rows.Count; i++)
             {
-                cHtml.Append("<span>"+dt.Rows[i]["CompanyName"].ToString()+"<i><img src='/img/icon-del.png' alt=''></i></span>");
+                var cid = "company" + dt.Rows[i]["id"].ToString();
+                cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString()+ "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('" + cid + "')\"></i></span>");
             }
             ViewBag.JoinCompanys = cHtml.ToString();
             return View();
@@ -84,16 +85,6 @@ namespace RailBiding.Controllers
             BidContext bc = new BidContext();
             bool suc = bc.ProcessBidApplication(operation, comment);
             return suc.ToString();
-        }
-        public void AddBidingCompany(string bid, string cid)
-        {
-            BidContext bc = new BidContext();
-            bc.AddCompanyToBid(bid, cid);
-        }
-        public void RemoveBidingCompany(string bid, string cid)
-        {
-            BidContext bc = new BidContext();
-            bc.RemoveBidingCompany(bid, cid);
         }
         public void AddBidingCompany()
         {

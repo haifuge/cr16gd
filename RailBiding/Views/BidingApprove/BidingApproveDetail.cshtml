@@ -128,9 +128,16 @@
                                                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
                                             </div>
                                             <table class="meet-table text-left">
-
-                                                <tbody>
-                                                    <tr class="white-bg">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20px;padding:0px 5px"></th>
+                                                        <th style="width:160px;padding:0px 5px">公司名称</th>
+                                                        <th style="width:60px;padding:0px 5px">法人代表</th>
+                                                        <th style="width:80px;padding:0px 5px">联系电话</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="comhtm">
+                                                    @*<tr class="white-bg">
                                                         <td class="check-color">
                                                             <input class="icheck" name="addcompenycheck"
                                                                    type="checkbox" value="上海思尧建设集团有限公司1"
@@ -142,67 +149,10 @@
                                                         </td>
                                                         <td>李功明</td>
                                                         <td>1854258612</td>
-                                                    </tr>
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="addcompenycheck"
-                                                                   type="checkbox" value="上海思尧建设集团有限公司2"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司2</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="addcompenycheck"
-                                                                   type="checkbox" value="上海思尧建设集团有限公司3"
-                                                                   id="checkbox-1"  />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司3</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="addcompenycheck"
-                                                                   type="checkbox" value="上海思尧建设集团有限公司4"
-                                                                   id="checkbox-1"  />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司4</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-                                                    <tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="addcompenycheck" 
-                                                                   type="checkbox" value="上海思尧建设集团有限公司5"
-                                                                   id="checkbox-1" />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司5</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>
-
-
+                                                    </tr>*@
                                                 </tbody>
                                             </table>
-                                            <div style="position: absolute;bottom:10px;left:50%;margin-left: -123px;">
+                                            <div style="bottom:10px;text-align:center">
                                                 <div class="page">
                                                 </div>
                                                 <div class="form-tr-btn">
@@ -395,19 +345,37 @@
 </script>
 <script>
     //参与单位添加
-    function addcompeny() {
+    function addcompeny(){
         var checkID = [];
         $("input[name='addcompenycheck']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
             checkID[i] = $(this).val();
-            var cid = 'company' + i;
-            var htm = '<span id="' + cid + '">' + $(this).val() + '<i><img src="/img/icon-del.png" onclick="removeCompany(\''+cid+'\')"></i></span>';
-            $(".meet-user-span").append(htm);
-        });
-        CloseDiv('MyDiv', 'fade');
-    }
+            var idname=$(this).val().split("|");
+            var id =idname[0];
+            var name =idname[1];
+            var cid = 'company' + id;
+           $.post("/BidingApprove/AddBidingCompany",{ pid:@ViewBag.pid ,cid:id }, function(){
+            var htm = '<span id="' + cid + '">' + name + '<i><img src="/img/icon-del.png" onclick="removeCompany(\''+cid+'\')"></i></span>';
+                $(".meet-user-span").append(htm);
+
+           })
+            CloseDiv('MyDiv', 'fade');
+              
+        })
+        }
+
+
+</script>
+<script>
+
     function removeCompany(cid) {
+
         var element = document.getElementById(cid);
         element.parentNode.removeChild(element);
+        var id=cid.replace('company','')
+        $.post("/BidingApprove/RemoveBidingCompany",{ pid:@ViewBag.pid ,cid:id }, function(){
+        })
+
+
     }
 </script>
 <script>
@@ -431,6 +399,9 @@
         return context == null || context == "" || context == "undefined" ? "" : context;
     }
 
+
+
+    //审核流程遍历
     $(function () {
 
         var status = getQueryString('status');
@@ -588,6 +559,44 @@
         })
 
     }
+
+
+
+</script>
+<script>
+    //所添加公司遍历
+    $(function () {
+        $.post("/Common/GetCompanyCandidate", function(comdata) {
+            var comobj = JSON.parse(comdata);
+            console.log(comdata)
+            if (comobj.length == 0)
+                return;
+            var comhtml=""
+            for (var j = 0; j < comobj.length; j++) {
+                var como = comobj[j];
+                console.log(como)
+                comhtml+='<tr class="white-bg">'+
+                              '<td class="check-color">'+
+                                 '<input class="icheck" name="addcompenycheck" type="checkbox" value="'+como.id+'|'+como.name+'" id="checkbox-1"/>'+
+                              '</td>'+
+                              '<td>'+
+                                  '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">'+como.name+'</a>'+
+                              '</td>'+
+                              '<td>'+como.corporaterepresentative+'</td>'+
+                              '<td>'+como.repphone+'</td>'+
+                          '</tr>;'
+                $("#comhtm").html(comhtml)
+            }
+
+
+        })
+       @* function a(str){
+            str=str.replace(/&lt;/g,"<").replace(/&gt;/g,">");
+            var str=str.replace(/br\/>/g,"\r\n");
+            return str;
+        }*@
+
+    })
 
 
 </script>
