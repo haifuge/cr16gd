@@ -25,7 +25,7 @@ namespace DAL.Models
     {
         public DataTable GetBidingFiles()
         {
-            string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
+            string sql = @"select p.Id, p.Name, substr(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
                             from BidingFile bf 
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId
@@ -38,7 +38,7 @@ namespace DAL.Models
 
         public DataTable GetMyFileApprove(string userid)
         {
-            string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
+            string sql = @"select p.Id, p.Name, substr(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
                             from BidingFile bf 
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId
@@ -50,7 +50,7 @@ namespace DAL.Models
                                 inner join (select MAX(level) as level,AppProcId, ObjId 
 			                                from vw_AppPLevel where AppProcId=2 and Approved=1 group by ObjId, AppProcId
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                            where a.UserId="+userid+") a on p.ID=a.ObjId";
+                            where a.UserId=" + userid+") a on p.ID=a.ObjId";
             return DBHelper.GetDataTable(sql);
         }
 

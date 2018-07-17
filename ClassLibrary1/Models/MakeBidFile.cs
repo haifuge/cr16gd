@@ -30,11 +30,32 @@ namespace DAL.Models
 
     public class MakeBidFileContext
     {
-        public List<MakeBidFile> GetMakeBidFiles()
+        public DataTable GetMakeBidFiles()
         {
-            string sql = "select Id, Name, ProjAbstract, Publisher, PublishDate, Status from MakeBidFile order by Id Desc";
-            DataTable dt = DBHelper.GetDataTable(sql);
-            return JsonHelper.ConvertTableToObj<MakeBidFile>(dt);
+            string sql = @"select p.Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
+                            convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
+                            from MakeBidingFile mb inner join Project p on mb.ProjId = p.Id order by p.Id desc; ";
+            return DBHelper.GetDataTable(sql);
+        }
+
+        public DataTable GetMyMakeBidFiles(string uid)
+        {
+            string sql = @"select p.Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
+                            convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
+                            from project p inner join Bid b on p.Id=b.ProjId
+                            inner join MakeBidingFile mb on bf.ProjId=p.Id
+                            left join UserInfo ui on b.PublisherId=ui.ID
+                            left join DepartmentUser du on du.UserId=ui.ID
+                            left join Department d on du.DepartmentId=d.ID
+                            inner join(
+                                select distinct a.ObjId, a.Approved 
+                                from vw_AppPLevel a 
+                                inner join (select MAX(level) as level,AppProcId, ObjId 
+			                                from vw_AppPLevel where AppProcId=4 and Approved=1 group by ObjId, AppProcId
+                                ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
+                            where a.UserId=" + uid + @") a on p.ID=a.ObjId
+                            order by p.Id desc;";
+            return DBHelper.GetDataTable(sql);
         }
 
         public DataTable GetMakeBidFileDetail(string id)
