@@ -77,7 +77,7 @@ namespace DAL.Models
 
         public DataTable GetBidingCompanys(string pid)
         {
-            string sql = @"select c.Name, bc.CompanyResponse 
+            string sql = @"select c.id, c.Name, bc.CompanyResponse 
                             from BidingCompany bc 
                             inner join Company c on bc.CompanyId=c.ID 
                             where bc.ProjId=" + pid;

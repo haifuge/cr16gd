@@ -1016,6 +1016,11 @@
             '<label id="zzmc">' + $("#input_zzmc").val() + '</label><br><label id="zsbh">' + $("#input_zsbh").val() + '</label></li>'
         document.getElementById('zzlist').appendChild(li);
         $(".canvas").hide();
+        $("#input_zsbh").val("");
+        $("#input_zzmc").val("");
+        $("#allfileInput3").val("");
+        $("#zspicmsg").html("");
+        
     }
     $(".canvas_close").on("click", function () {
         $("#zzzsPic").html("")
