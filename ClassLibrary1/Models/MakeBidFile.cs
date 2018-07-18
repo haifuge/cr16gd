@@ -43,7 +43,7 @@ namespace DAL.Models
             string sql = @"select p.Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
                             from project p inner join Bid b on p.Id=b.ProjId
-                            inner join MakeBidingFile mb on bf.ProjId=p.Id
+                            inner join MakeBidingFile mb on mb.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
                             left join DepartmentUser du on du.UserId=ui.ID
                             left join Department d on du.DepartmentId=d.ID
