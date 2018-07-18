@@ -76,7 +76,7 @@ namespace RailBiding.Controllers
                     ViewBag.Bitem = getBidItem(pid);
                     ViewBag.MBFitem = getMakeBidItem(pid);
                     break;
-                case "已通过":
+                case "已结束":
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
