@@ -60,9 +60,9 @@ namespace DAL.Models
 
         public DataTable GetMakeBidFileDetail(string id)
         {
-            string sql = @"select p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as Publisher, CONVERT(varchar(20), p.PublishDate, 23) as PublishDate, mf.Abstract,mf.FileExplain 
+            string sql = @"select p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as Publisher, CONVERT(varchar(20), p.PublishDate, 23) as PublishDate, mf.Abstract,mf.FileExplain,mf.Status 
                             from MakeBidingFile mf inner join Project p on mf.ProjId=p.Id
-                            where p.Id=1" + id;
+                            where p.Id=" + id;
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }
@@ -78,7 +78,7 @@ namespace DAL.Models
         /// <returns></returns>
         public void AddMakeBidFile(string pid, string abst, string puserid)
         {
-            string sql = "insert into MakeBidingFile(ProjId, Abstract, PublisherId, PulisherDate, Status) values("+pid+",N'"+abst+"',"+puserid+",getdate(),1)";
+            string sql = "insert into MakeBidingFile(ProjId, Abstract, PublisherId, PublishDate, Status) values("+pid+",N'"+abst+"',"+puserid+",getdate(),1)";
             DBHelper.ExecuteNonQuery(sql);
         }
 

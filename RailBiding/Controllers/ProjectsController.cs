@@ -222,7 +222,7 @@ namespace RailBiding.Controllers
                 files += "<li><b><img src='../img/icon-file.png'></b>" + dt.Rows[i][0].ToString() + "</li>";
             }
             string result = @"<h3>定标文件 <span>"+pdate+ "</span></h3>"+
-                                "<div class='a-zbwj' onclick=\"location.href = '/Projects/MakeBidFileDetail?pid="+pid+ "\"' sytle='cursor: pointer;'>"+
+                                "<div class='a-zbwj' onclick=\"location.href='/Projects/MakeBidFileDetail?pid="+pid+ "'\" sytle='cursor: pointer;'>" +
                                     "<div class='con-01'><p>" + abst + @"</p></div>
                                     <div class='con-02'><ul>"+ files + @"</ul></div>
                                     <div class='con-03'><div class='"+ statusClass + @"'>"+ status + @"</div></div>
@@ -398,6 +398,43 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemP")]
         public ActionResult MakeBidFileDetail(string pid)
         {
+            ViewBag.pid = pid;
+            MakeBidFileContext mc = new MakeBidFileContext();
+            DataTable dt = mc.GetMakeBidFileDetail(pid);
+
+            DataRow dr = dt.Rows[0];
+            ViewBag.PName = dr["Name"].ToString();
+            ViewBag.Publisher = dr["Publisher"].ToString();
+            ViewBag.PublishDate = dr["PublishDate"].ToString();
+            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
+            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
+
+            dt = mc.GetBidingCompany(pid);
+            string joinCompanys = "";
+            string winCompanys = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["Biding"].ToString() == "1")
+                {
+                    string ConstructionContent = row["ConstructionContent"].ToString();
+                    ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
+                    string QualificationLevel = row["QualificationLevel"].ToString();
+                    QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
+                    joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
+                                <p>投标报价：<span class='colblue'>{1}元</span></p>
+                                <p>二次报价：<span class='colblue'>{2}元</span></p>
+                                <p>资质等级：{3}</p>
+                                <p>注册资金：{4}万元</p>
+                                <p>{5}</p>
+                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
+                }
+                if (row["Win"].ToString() == "1")
+                {
+                    winCompanys += string.Format(@"<li><h3>{0}</h3><p>{1}</p></li>", row["Name"].ToString(), row["Comment"].ToString());
+                }
+            }
+            ViewBag.JoinCompany = joinCompanys;
+            ViewBag.WinCompany = winCompanys;
             return View();
         }
         
@@ -413,7 +450,7 @@ namespace RailBiding.Controllers
             foreach(string c in companys)
             {
                 string[] cc = c.Split('-');
-                sql += "update BidingCompany set FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0]+"; ";
+                sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0]+"; ";
             }
             DBHelper.ExecuteNonQuery(sql);
             string winCompany = Request["wincompany"].ToString();
@@ -422,11 +459,19 @@ namespace RailBiding.Controllers
             foreach(string c in companys)
             {
                 string[] cc = c.Split('-');
-                sql += "update BidingCompany set Win=1, Comment=N" + cc[1] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                sql += "update BidingCompany set Win=1,biding=1, Comment=N" + cc[1] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
             }
+            DBHelper.ExecuteNonQuery(sql);
             ProjectContext pc = new ProjectContext();
             pc.UpdateProjectStatus(pid, "定标文件审核中");
             pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
+        }
+
+        public string GetMakeBidFiles()
+        {
+            MakeBidFileContext mc = new MakeBidFileContext();
+            DataTable dt = mc.GetMakeBidFiles();
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }
