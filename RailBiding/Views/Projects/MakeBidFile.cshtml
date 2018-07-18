@@ -92,7 +92,7 @@
                                 <span class="red-word">*</span>简述
                             </td>
                             <td>
-                                <textarea class="txt02" style="padding: 0 5px;"></textarea>
+                                <textarea id="abst" class="txt02" style="padding: 0 5px;"></textarea>
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -155,23 +155,7 @@
                                     </div>
                                 </div>
                                 <!--弹出层 end-->
-                                <ul class="cjtb_ul">
-                                    <li>
-                                        <div class="pca">
-                                            <div class="btn-close2">
-                                                <img src="/img/icon-close.png" alt="">
-                                            </div>
-                                            <div class="ul-bg">
-                                                <p class="f18">1上海思尧建设集团有限公司</p>
-                                                <p>资质等级：地基基础壹级资质</p>
-                                                <p>注册资金：6000万元</p>
-                                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
-                                            </div>
-                                            <div class="tbbj">投标报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
-                                            <div class="tbbj">二次报价：<input type="text" name="je" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <ul class="cjtb_ul"></ul>
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -183,9 +167,7 @@
                             </td>
                             <td>
                                 <div>
-                                    <a href="#"
-                                       onclick="ShowDiv('MyDiv2','fade2')"
-                                       style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
+                                    <a href="#" onclick="ShowDiv('MyDiv2','fade2')" style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
                                 </div>
                                 <!--弹出层 begin-->
                                 <div id="fade2" class="black_overlay">
@@ -303,65 +285,7 @@
         document.getElementById(show_div).style.display = 'none';
         document.getElementById(bg_div).style.display = 'none';
         $("input.icheck").removeAttr("checked")
-    }
-    ;
-</script>
-<script>
-    //分页
-    function pages(cur, totalPage, totalRows, setNum) {
-        if (!totalPage) return false;
-        var url = window.location.href;
-        var url_arr = url.split("?");
-        var url = url_arr[0];
-        var htm = '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>' +
-            '<a class="js-page-num page-num num-left" data-cur="' + (cur > 1 ? (cur - 1) : 1) + '">&lt;</a>';
-        if (totalPage != 1) {
-            htm += '<a data-cur="' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? (cur - 1) : cur) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '</a>';
-        }
-
-        htm += '<a data-cur="' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? totalPage : (cur + 1)) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '</a>' +
-            '<a class="js-page-num num-right page-num" data-cur="' + (cur < totalPage ? (cur + 1) : totalPage) + '">&gt;</a>' +
-            '<a data-cur="' + totalPage + '" class="js-page-num page-num">》</a>' +
-            '<a class="page-num page-input"><input type="text" value=""/></a>' +
-            '<a class="js-page-num page-num num-go active" data-cur="' + ((cur + 2) > totalPage ? cur : (cur + 2)) + '">GO</a>';
-        $(".page").append(htm);
-
-        //分页点击
-        $(".page>a.js-page-num").on("click", function () {
-            var url = window.location.href;
-            var cur_num = $(this).data("cur");
-            if ($(this).hasClass("num-go")) {
-                cur_num = ($(".page-input input").val() ? $(".page-input input").val() : 1);
-            }
-            if (url.indexOf("?") == -1) {
-                url += "?";
-            }
-            if (!$.getUrlParam("curPage")) {
-                url = url + '&curPage=' + cur_num;
-                $(this).attr("href", url);
-            } else {
-                replaceParamVal("curPage", cur_num);
-            }
-        });
-
-        $(".page-sel").change(function () {
-            var url = window.location.href;
-            var page_len = $(this).val();
-            if (url.indexOf("?") == -1) {
-                url += "?";
-            }
-            if (!$.getUrlParam("Length")) {
-                url = url + '&Length=' + page_len;
-                window.location.href = url;
-            } else {
-                replaceParamValNo("curPage", 1);
-                replaceParamVal("Length", page_len);
-            }
-        });
-
-    }
-</script>
-<script>
+    }    ;
     $(".btn-close2").click(function () {
         $(this).parent().parent().hide();
     });
@@ -429,49 +353,40 @@
 </script>
 <script>
     var companys;
-    var joincompanys = [];
     //拟选中标单位添加
     function addcompany() {
-        
-        var checkID = [];
-        $("input[name='addcompenycheck']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
-            checkID[i] = $(this).val();
-            var cid = 'company' + i;
-            var htm = '<li id="' + cid + '"><div class="pca" >' +
-                     '<div class="btn-close3"><img src="/img/icon-close.png" alt="" onclick="removeCompany(\'' + cid + '\')"></div>' +
-                     '<h3>' + $(this).val() + '</h3>' +
-                      '<div style="padding: 10px;">' +
-                            '<textarea name="" id="area" class="tar" placeholder="请输入文本内容"></textarea>' +
-                            '<div style="font-size: 12px;text-align: right;">' +
-                                  '<span id="text-count">200</span>/200' +
-                            '</div>' +
-                       '</div>' +
-                 '</div>' +
-              '</li>';
-            console.log(htm);
+        $("input[name='addcompenycheck']:checked").each(function () {//把所有被选中的复选框的值存入数组
+            var cid = $(this).val();
+            var htm = "";
+            for (var k = 0; k < companys.length; k++) {
+                if (cid == companys[k].id) {
+                    var companyid = 'company' + cid;
+                    htm += '<li id="' + companyid + '"><div class="pca" >' +
+                        '<div class="btn-close3"><img src="/img/icon-close.png" alt="" onclick="removeCompany(\'' + companyid + '\')"></div>' +
+                        '<h3>' + companys[k].name + '</h3>' +
+                        '<div style="display:none">'+cid+'</div>'+
+                        '<div style="padding: 10px;"><textarea name="" id="area" class="tar" placeholder="请输入文本内容"></textarea><div style="font-size: 12px;text-align: right;"></div></div>' +
+                        '</div>' +
+                        '</li>';
+                }
+            }
             $(".nxzbdw.nxzbdw2").append(htm);
         });
         CloseDiv('MyDiv2', 'fade2');
       
     }
+    // 移除拟中标单位
     function removeCompany(cid) {
         var element = document.getElementById(cid);
         element.parentNode.removeChild(element);
     }
-</script>
-
-<script>
     //参加该投标单位添加
     function addcompanytwo() {
-
-        var checkIDtwo = [];
         $("input[name='addcompenycheck']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
-            checkIDtwo[i] = $(this).val();
             var cid = $(this).val();
-            console.log(companys[0].id)
+            console.log(cid)
             for (var i = 0; i < companys.length; i++) {
                 if (cid == companys[i].id) {
-                    joincompanys.push(companys[i])
                     var cidtwo = 'company' + cid;
                     var htmtwo = '<li id="' + cidtwo + '">' +
                                     '<div class="pca">' +
@@ -482,37 +397,24 @@
                                             '<p>注册资金：' + companys[i].registeredcapital + '万元</p>' +
                                             '<p>' + companys[i].constructioncontent + '</p>' +
                                         '</div>' +
-                                        '<div class="tbbj">投标报价：<input type="text" name="je" id="price1" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
-                                        '<div class="tbbj">二次报价：<input type="text" name="je" id="price2" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
+                                        '<div style="display:none">'+ companys[i].id+'</div>'+
+                                        '<div class="tbbj">投标报价：<input type="text" name="fp" id="price1" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
+                                        '<div class="tbbj">二次报价：<input type="text" name="sp" id="price2" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
                                    '</div>' +
                                 '</li>';
 
                     $(".cjtb_ul").append(htmtwo);
                 }
             }
-
-
-            
-           // $.post("/Controller/SaveMakeBidFile",{ pid:@ViewBag.pid ,joincompany:joincompany, }, function(){
-                
-            });
-      //  });
+      });
 
         CloseDiv('MyDiv', 'fade');
         $("input.icheck").removeAttr("checked")
     }
+    // 移除参标单位
     function removeCompanytwo(cidtwo) {
         var elementtwo = document.getElementById(cidtwo);
         elementtwo.parentNode.removeChild(elementtwo);
-        var cid = cidtwo.replace('company', '');
-        for(var i=0;i<joincompanys.length;i++)
-        {
-            if(cid=joincompanys[i].id)
-            {
-                joincompanys.splice(i, 1);
-                break;
-            }
-        }
     }
     //所添加公司遍历
     $(function () {
@@ -536,15 +438,34 @@
                           '</tr>;'
                 $(".mbidcompany").html(comhtml)
             }
-
-
         })
 
     })
 
+
     function makebidbtn() {
+        //console.log($(".cjtb_ul").children('li'))
+        var lis = $(".cjtb_ul").children('li');
+        var jc = "";
+        for (var i = 0; i < lis.length; i++) {
+            var cs = lis[i].children[0].children;
+            jc += cs[2].innerText + "-" + cs[3].children[0].value + "-" + cs[4].children[0].value + "|"
+        }
+        if (jc.length > 0)
+            jc=jc.substr(0, jc.length - 1);
 
-        alert($(".cjtb_ul").children('li').length)
-
+        var abstr = $("#abst").val();
+        var wc = "";
+        lis = $(".nxzbdw.nxzbdw2").children('li');
+        for (var i = 0; i < lis.length; i++) {
+            var cs = lis[i].children[0].children;
+            wc += cs[2].innerText + "-" + cs[3].children[0].value + "|";
+        }
+        if (wc.length > 0)
+            wc = wc.substr(0, wc.length - 1);
+        $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
+            if (res == "1")
+                alert('创建成功！')
+        });
     }
 </script>

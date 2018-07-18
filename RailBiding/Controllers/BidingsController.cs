@@ -54,7 +54,7 @@ namespace RailBiding.Controllers
                          select new { name = c["CompanyName"].ToString() }).ToList();
             var noResponseC = (from c in dt.AsEnumerable()
                           where c.Field<int>("CompanyResponse") == 0
-                          select new { name = c["CompanyName"].ToString() }).ToList();
+                          select new { name = c["Name"].ToString() }).ToList();
             ViewBag.joinNum = joinC.Count;
             ViewBag.noJoinNum = noJoinC.Count;
             ViewBag.noResponseNum = noResponseC.Count;

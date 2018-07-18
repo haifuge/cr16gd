@@ -33,17 +33,12 @@
             <div class="detail-wrap detail-con">
 
                 <div class="block-left block-left2 block-left4">
-
                     <h2>
-                        郑州市民文化服务区土建施工B合同段项目部 <br>
-                        关于确定市民大道站、中原西路站钻孔桩及钢筋笼制安劳务分包的报告
+                        @ViewBag.PName
                     </h2>
-                    <div class="art-tit"><span>发布单位：</span>郑州文化服务站土建施工 <span>发布时间：</span> 2018-04-23</div>
+                    <div class="art-tit"><span>发布单位：</span>@ViewBag.Publisher <span>发布时间：</span> @ViewBag.PublishDate</div>
                     <div class="dbwj-wz01">
-                        <p>中原分公司并公司“三项招标”领导小组：</p>
-                        <P>
-                            我部于2017年1月4日上午10：00在中原分公司书记刘振华的监督下进行了市民大道站、中原西路站钻孔桩开标会。项目三项招标领导小组成员参与了本次开标，现将开标、议标等情况向公司报告如下：
-                        </P>
+                        <p>@ViewBag.Abstract</p>
                     </div>
                     <H3>招标工程项目简介：</H3>
                     <p>1、工程概况：</p>
@@ -55,89 +50,15 @@
                     <h3>参加投标单位及投标报价：</h3>
                     <div style="display: block;overflow: hidden">
                         <ul class="ull ulll">
-                            <li>
-                                <p class="f16">上海思尧建设集团有限公司</p>
-                                <p>投标报价：<span class="colblue">725622元</span></p>
-                                <p>资质等级：地基基础壹级资质</p>
-                                <p>注册资金：6000万元</p>
-                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
-                            </li>
-                            <li>
-                                <p class="f16">上海思尧建设集团有限公司</p>
-                                <p>投标报价：<span class="colblue">725622元</span></p>
-                                <p>资质等级：地基基础壹级资质</p>
-                                <p>注册资金：6000万元</p>
-                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
-                            </li>
-                            <li>
-                                <p class="f16">上海思尧建设集团有限公司</p>
-                                <p>投标报价：<span class="colblue">725622元</span></p>
-                                <p>资质等级：地基基础壹级资质</p>
-                                <p>注册资金：6000万元</p>
-                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
-                            </li>
-                            <li>
-                                <p class="f16">上海思尧建设集团有限公司</p>
-                                <p>投标报价：<span class="colblue">725622元</span></p>
-                                <p>资质等级：地基基础壹级资质</p>
-                                <p>注册资金：6000万元</p>
-                                <p>近期主要承揽中铁十六局苏州地铁钻孔桩施工；中铁十六局豫机城际项目钻孔桩施工。</p>
-                            </li>
-
+                            @Html.Raw(ViewBag.JoinCompany)
                         </ul>
                     </div>
                     <h3>拟选中标单位：</h3>
                     <ul class="nxzbdw">
-                        <li>
-                            <h3>徐州市国顺建筑工程劳务有限公司</h3>
-                            <p>
-                                建设集团有限公司设备在豫机项目部闲置两台、可在1周内组织设备人员进场，钻机为2011年生产，比较旧，钢筋笼可以采用滚笼机加工，负责人不能够亲自到现场管理施工，并且二次报
-                            </p>
-                        </li>
-                        <li>
-                            <h3>徐州市国顺建筑工程劳务有限公司</h3>
-                            <p>
-                                建设集团有限公司设备在豫机项目部闲置两台、可在1周内组织设备人员进场，钻机为2011年生产，比较旧，钢筋笼可以采用滚笼机加工，负责人不能够亲自到现场管理施工，并且二次报
-                            </p>
-                        </li>
+                        @Html.Raw(ViewBag.WinCompany)
                     </ul>
                     <h3>定标文件详细说明</h3>
-                    <p>一、议标情况</p>
-                    <p>开标之后，中原分公司及项目部“三项招项“领导小组按照公司下发的劳务招标评标管理办法单独对各施工进行了二次澄清报价（详见附件）</p>
-                    <p>（1）上海思尧建设集团有限公司二次澄清后，报价为6687172元；</p>
-                    <p>（2）四川华业天成建筑工程有限公司二次澄清后，报价为6436455元；</p>
-                    <p>（3）郑州大力神基础工程有限公司二次澄清后，报价为6578682元；</p>
-                    <p>（4）徐州市国顺建筑工程劳务有限公司二次澄清后，报价为6436455元；</p>
-                    <p>（5）四川乾亨建设工程有限公司二次澄清后，不再降价，报价为原投标价格7947992元；</p>
-                    <p>（6）河南鸿宸建设有限公司二次澄清后，报价为6111296元。</p>
-                    <p>
-                        我部认真组织了评标，并且在评标过程中要求相关单位进行了澄清。最后组织分公司领导、项目部领导人员召开了定标会。经商讨选择施工能力强，经验丰富，机械设备为自有且目前为闲置状态、设备为近三年生产，状况良好故障率低、钢筋笼加工能采用滚笼机加工、施工队负责人能够亲自在施工现场负责施工的单位为中标单位。
-                    </p>
-                    <p>议标具体情况如下：</p>
-                    <p>
-                        （1）上海思尧建设集团有限公司设备在豫机项目部闲置两台、可在1周内组织设备人员进场，钻机为2011年生产，比较旧，钢筋笼可以采用滚笼机加工，负责人不能够亲自到现场管理施工，并且二次报价不能接受我上海思尧建设集团有限公司设备在豫机项目部闲置两台、可在1周内组织设备人员进场，钻机为2011年生产，比较旧，钢筋笼可以采用滚笼机加工，负责人不能够亲自到现场管理施工，并且二次报价不能接受我部拟选用价格。
-                    </p>
-                    <p>
-                        （2）四川华业天成建筑工程有限公司设备目前在武汉闲置，均为2016年采购，可在5天内组织设备人员进场，钢筋笼可以采用滚笼机加工，负责人可以亲自到现场管理施工，二次报价为我部拟选用价格。
-                    </p>
-                    <p>
-                        （3）郑州大力神基础工程有限公司设备目前在郑州闲置，均为2015年生产，设备较新，可在3天内组织进场施工，钢筋笼加工可以采用滚笼机加工，负责人也可以亲自到现场管理施工，但二次报价比我部拟选用标格偏高，而且也不同意再次降价。
-                    </p>
-                    <p>
-                        （4）徐州市国顺建筑工程劳务有限公司设备目前在徐州闲置两台，设备均有2013年购买，可在一周内组织设备人员进场，钢筋笼加工可采用滚笼机，负责人也可以亲自到现场管理，二次报价为我部拟选用价格。
-                    </p>
-                    <p>（5）四川乾亨建设工程有限公司此家报价最高，后期二次报价与投标报价一致，报价为最高的单位，沟通后不同意降价。</p>
-                    <p>
-                        （6）河南鸿宸建设有限公司此家为最低报价，经了解此报价远低于市场行情，现市场行情钻孔桩210元/m，此家二次报价190元/m，因为与此家有过合作经历，施工能力和人员配合度没有达到我部要求，考虑到工期紧张，担心后期施工过程中出现问题，故没有考虑最低价者中标。
-                    </p>
-                    <p>五、拟选中标单位</p>
-                    <p>
-                        项目部“三项招标”领导小组与中原分公司于2017年1月6日组织了钻孔桩的定标会议，会议按照公司下发的劳务招标评标管理办法从报价、施组、商务三方面进行了打分，徐州市国顺建筑工程劳务有限公司为综合排名第一，四川华业天成建筑工程有限公司综合排名第二。
-                    </p>
-                    <p>
-                        （1）徐州市国顺建筑工程劳务有限公司有闲置设备在徐州可随时进场施工，在深圳、苏州、广州等地公司其他项目均有过合作，施工经验丰富，经打听此家单位信誉良好，人员及机械设备均能满足我项目部要求。考虑此家单位为中标人，并优先考虑此家单位进场施工。
-                    </p>
-                    <p>（2）四川华业天成建筑工程有限公司此家公司有闲置设备在武汉，可随时进场施工，在成都、武汉地铁项目均有过合作，施工经验丰富，经打听此家单位信誉良好，人员及机械设备均</p>
+                    @Html.Raw(ViewBag.FileExplain)
                     <div style="margin-top: 10px;">
                         <div style="display: inline-block"><i class="meet-icon icon-file"></i></div>
                         <div class="dw">开标记录表.doc<a href="">下载</a>&nbsp;&nbsp;1.2M</div>
@@ -147,25 +68,6 @@
                 </div>
                 <div class="block-right block-right2">
                     <div class="block-right-wrap">
-                        <!--<div class="right-block">
-                            <div class="right-block-title">
-                                <div class="feedback-area-head">
-                                    <i class="meet-icon icon-message-opt"></i>
-                                    <span class="right-block-title">请输入意见：</span>
-                                </div>
-                            </div>
-                            <div class="feedback-area-wrap">
-                                <div class="feedback-area-con">
-                                    <textarea name="reasons" style="min-height: 50px;" id="feedback-area"
-                                              placeholder="请输入"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="deal-apply-btn deal-apply-btn2">
-                            <a class="meet-btn big-btn blue-btn js-deal green-btn blue-btn2">审核通过</a>
-
-                        </div>-->
-
                         <div class="block-rigt">
                             <div class="detail-user2">
                                 <a class="meet-btn2 medium-btn">审核意见</a>
@@ -181,66 +83,22 @@
                                                 驳回理由
                                             </div>
                                             <ul class="feedback-list feedback-admin">
-                                                <li>
-                                                    <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
-                                                    <p class="bjg">业绩信息不合格，请重新上传</p>
-                                                </li>
+                                                
                                             </ul>
                                         </div>
                                         <div class="feedback-item js-myattend">
                                             <div class="feedback-item-title">
                                                 <i class="meet-icon icon-message"></i>
-                                                共<span class="js-feed-count">4</span>条回复消息
+                                                共<span class="js-feed-count"></span>条回复消息
                                             </div>
                                             <ul class="feedback-list feedback-users">
-                                                <li>
-                                                    <h3>经管部 <i>李小龙</i> <span>2018-5-15 8:45</span></h3>
-                                                    <p>资料合格，同意</p>
-                                                </li>
+                                                <li id="passlineInfo"></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="meet-user-span2" style="display: block;">
-                                    <h4 class="cp01"><span></span>指挥部</h4>
-                                    <ul>
-                                        <li>
-                                            <span class="yj06">计划合同部</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">提交申请</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">副经理</span><span class="yj02">张兵</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">项目经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">分公司总经济师</span><span class="yj02">徐晓敏</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                        <li>
-                                            <span class="yj06">分公司总经理</span><span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj04">同意</span>
-                                        </li>
-                                    </ul>
-
-                                    <h4><span></span>管理员</h4>
-                                    <ul>
-                                        <li>
-                                            <span class="yj02">马晓华</span><span class="yj03">2017-04-22 22:00</span> <span class="yj05">驳回</span>
-                                        </li>
-
-                                    </ul>
-                                    <h4 class="cp02"><span></span>总公司</h4>
-                                    <ul class="uc02">
-                                        <li><span class="yj01">计划合同部</span></li>
-                                        <li><span class="yj01">财务室</span></li>
-                                        <li><span class="yj01">施工技术部</span></li>
-                                        <li><span class="yj01">分公司总经济师</span></li>
-
-                                        <li><span class="yj01">分公司总经济师</span></li>
-                                        <li><span class="yj01">分公司总经理</span></li>
-                                    </ul>
-                                    <h4 class="cp02"><span></span>结束</h4>
+                                <div id="transferInfo" class="meet-user-span2" style="display: block;">
                                 </div>
-
                             </div>
                         </div>
 
@@ -260,3 +118,174 @@
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
 
+<script>
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = r[2];
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+        }
+
+        $(function () {
+
+            var fid = getQueryString('fid');
+            if (fid == "2" || fid == "3") {
+                $(".deal-apply-btn.deal-apply-btn2").hide();
+                $(".right-block").hide();
+                $(".bohui").hide();
+            }
+            $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:4}, function (data) {
+            var obj = JSON.parse(data);
+            console.log(obj);
+            if (obj.length == 0)
+                return;
+            var pdepart = obj[0].pname;
+            var dechtm = "";
+            var passhtm = "";
+            var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+            var hstyle = 'cp01'; //cp02
+            var ulstyle = 'uc01'; //uc02
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                if (o.pname == pdepart) {
+                    if (o.approved == 2) {
+                        if (o.comment != "") {
+                            passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg"  id="comlenght" > ' + o.comment + '</p >'
+                        }
+                        htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                    }
+                    else if (o.approved == 3) {
+                        dechtm = '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >' + dechtm
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                    } else {
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                    }
+                }
+                else {
+                    htm += '</ul>';
+                    pdepart = o.pname;
+                    htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                    if (o.approved == 2) {
+                        if (o.comment != "") {
+                            passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg" id="comlenght" > ' + o.comment + '</p >'
+                        }
+                        htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                    }
+                    else if (o.approved == 3) {
+                        dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                    } else {
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                    }
+                }
+            }
+            htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+            $("#transferInfo").html(htm);
+            $("#declineInfo").html(dechtm);
+            $("#passlineInfo").html(passhtm);
+            var comlenght = $('#passlineInfo').children('p').length
+            $(".js-feed-count").html(comlenght);
+
+            if ($("#passlineInfo").html() == "") {
+                $(".feedback-item.js-myattend").hide()
+            } else {
+                $(".feedback-item.js-myattend").show()
+            }
+
+            if ($("#declineInfo").html() == "") {
+                $(".feedback-item.decfeedback-item").hide()
+            } else {
+                $(".feedback-item.decfeedback-item").show()
+            }
+            })
+
+
+        })
+
+        function declineApplication() {
+            var feedback = $("#feedback-area").val()
+            if (feedback == "") {
+                swal({
+                    title: '必须填写意见！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer')
+                    }
+                }
+            )
+            } else {
+
+                swal({
+                    title: '确定驳回该申请？',
+                    text: '你将无法撤回！',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '确定驳回！'
+                }).then(
+            function (cc) {
+                if (cc.dismiss != "cancel") {
+                    swal(
+                  '成功！',
+                  '您以驳回该申请。',
+                  'success'
+                    );
+                    $(".deal-apply-btn.deal-apply-btn2").hide();
+                    $(".right-block").hide();
+                    $(".bohui").hide();
+                    $.post("/Common/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function () {
+                        window.history.go(-1);
+                    })
+                }
+            })
+            }
+        }
+
+        function approveApplication() {
+            var feedback = $("#feedback-area").val()
+            swal({
+                title: '确定通过该申请？',
+                text: '你将无法撤回！',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定通过！'
+            }).then(
+            function (cc) {
+                if (cc.dismiss != "cancel") {
+                    swal(
+                  '通过！',
+                  '您以同意该申请。',
+                  'success'
+                    );
+                    $(".deal-apply-btn.deal-apply-btn2").hide();
+                    $(".right-block").hide();
+                    $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
+                    $.post("/Companys/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 2, comment: feedback }, function () {
+                        window.history.go(-1);
+                    })
+                }
+            })
+
+        }
+</script>

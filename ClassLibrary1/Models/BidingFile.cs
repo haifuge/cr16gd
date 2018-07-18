@@ -25,7 +25,7 @@ namespace DAL.Models
     {
         public DataTable GetBidingFiles()
         {
-            string sql = @"select p.Id, p.Name, substr(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
+            string sql = @"select p.Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
                             from BidingFile bf 
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId
@@ -38,7 +38,7 @@ namespace DAL.Models
 
         public DataTable GetMyFileApprove(string userid)
         {
-            string sql = @"select p.Id, p.Name, substr(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
+            string sql = @"select p.Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
                             from BidingFile bf 
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId

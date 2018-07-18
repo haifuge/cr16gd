@@ -160,5 +160,12 @@
     <script>
     $(function () {
         pages(1, 2, 12, 5)
-    })
+        })
+        $.get("/Projects/MakeBidFile", {}, function (data) {
+            var objs = JSON.parse(data);
+            var htm = "";
+            for (var i = 0; i < objs.length; i++) {
+                htm += "";
+            }
+        })
     </script>
