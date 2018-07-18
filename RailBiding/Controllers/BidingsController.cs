@@ -32,7 +32,7 @@ namespace RailBiding.Controllers
             if (pid == null)
                 return View("Login");
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidCompany(pid);
+            DataTable dt = bc.GetBidDetail(pid);
             DataRow dr = dt.Rows[0];
             ViewBag.Name = dr["Name"].ToString();
             ViewBag.Location = dr["Location"].ToString();
@@ -82,7 +82,7 @@ namespace RailBiding.Controllers
         public string GetBidCompanies(string bid)
         {
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidCompany(bid);
+            DataTable dt = bc.GetBidDetail(bid);
             return JsonHelper.DataTableToJSON(dt);
         }
 

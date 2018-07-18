@@ -84,14 +84,14 @@
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">工程介绍：</td>
-                                <td>未调用数据</td>
+                                <td>@ViewBag.ProjDescription</td>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件内容简述：</td>
-                                <td>未调用数据</td>
+                                <td>@ViewBag.Content</td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件：</td>
-                                <td>未调用数据</td>
+                                <td><ul id="bffiles"></ul></td>
                             </tr>
                             <tr class="form-tr detail-user-con tr-border">
                                 <td class="form-lable label2">
@@ -144,19 +144,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="comhtm">
-                                                    @*<tr class="white-bg">
-                                                        <td class="check-color">
-                                                            <input class="icheck" name="addcompenycheck"
-                                                                   type="checkbox" value="上海思尧建设集团有限公司1"
-                                                                   id="checkbox-1"  />
-                                                        </td>
-
-                                                        <td>
-                                                            <a href="list_business_details.html">上海思尧建设集团有限公司1</a>
-                                                        </td>
-                                                        <td>李功明</td>
-                                                        <td>1854258612</td>
-                                                    </tr>*@
                                                 </tbody>
                                             </table>
                                             <div style="bottom:10px;text-align:center">
@@ -182,7 +169,6 @@
                                 <td colspan="2">
                                     <div class="detail-user-list" style="min-height:215px;overflow: auto;">
                                         <div class="meet-user-span">
-                                          
                                             @Html.Raw(ViewBag.JoinCompanys)
                                         </div>
                                     </div>
@@ -325,8 +311,15 @@
         $(this).parent(".meet-user-span span").hide();
     });
 
-</script>
-<script>
+$.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.id = obj[i].filepath
+                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                document.getElementById("bffiles").appendChild(li)
+            }
+    });
     //弹出隐藏层
     function ShowDiv(show_div, bg_div) {
         document.getElementById(show_div).style.display = 'block';

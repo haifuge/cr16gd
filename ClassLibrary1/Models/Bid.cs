@@ -187,10 +187,10 @@ namespace DAL.Models
             return dt;
         }
 
-        public DataTable GetBidCompany(string pid)
+        public DataTable GetBidDetail(string pid)
         {
             string sql = @"select p.Name, d.Name+' '+ui.UserName as Publisher, p.Location, p.ProjType, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
-	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate,b.BidingNum, bf.Content
+	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate,b.BidingNum, bf.Content, p.ProDescription
                             from project p inner join bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on ui.id=b.publisherId

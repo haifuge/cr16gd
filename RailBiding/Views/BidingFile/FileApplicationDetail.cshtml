@@ -61,8 +61,7 @@
                                 <td class="download">
                                     <div><i class="meet-icon icon-file"></i></div>
                                     <div class="cc">
-                                        温州市域铁路S1线轨道区间Ⅱ标.doc
-                                        <div class="dowl"><a href="">下载</a>&nbsp;&nbsp;1.2M</div>
+                                        <ul id="bffiles"></ul>
                                     </div>
                                 </td>
                             </tr>
@@ -168,6 +167,15 @@
     $(function () {
         //leftnav_htm(4);
         pages(1, 2, 12, 5)
+    });
+    $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.id = obj[i].filepath
+                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                document.getElementById("bffiles").appendChild(li)
+            }
     });
 </script>
 

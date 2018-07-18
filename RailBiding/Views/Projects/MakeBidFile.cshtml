@@ -5,67 +5,79 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
-
 <style>
-    .app-dt .meet-form tr:nth-child(1){
-        background:#fff;
-    }
-    .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2){
-        color:#666;
 
+    .app-dt .meet-form tr:nth-child(1) {
+        background: #fff;
     }
-    .form-lable span{
 
-        display:block;
-        float:left;
+    .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2) {
+        color: #666;
     }
-    .form-tr:last-child td:nth-child(1){
-        text-align:right;
+
+    .form-lable span {
+        display: block;
+        float: left;
     }
-    .meet-form7 .form-tr .form-lable{
-        text-align:left;
+
+    .form-tr:last-child td:nth-child(1) {
+        text-align: right;
     }
+
+    .meet-form7 .form-tr .form-lable {
+        text-align: left;
+    }
+
     ul.cjtb_ul li {
-    float: left;
-    width: 310px;
-    height: auto;
-    margin-right: 20px;
-    margin-bottom: 20px;
-}
+        float: left;
+        width: 310px;
+        height: auto;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+
     .nxzbdw.nxzbdw2 li {
-    width: 310px;
-    margin-bottom: 15px;
-}
-   .nxzbdw{
-           margin-top: 20px;
-           margin-bottom: 20px;
-       }
+        width: 310px;
+        margin-bottom: 15px;
+    }
+
+    .nxzbdw {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
     .txt02 {
         margin: 10px 0 20px;
     }
+
     .icon-file {
-    background: url(../img/icon-file.png) center center no-repeat;
-}
-    .allfileInput2{
-        opacity:0;
+        background: url(../img/icon-file.png) center center no-repeat;
     }
-    .dw{
-        display:block;
+
+    .allfileInput2 {
+        opacity: 0;
     }
+
     .dw {
-    display:block;
-    background: #fff;
-    padding: 0px;
-    margin-left: 0px;
-    margin-top:10px
-}
-   .dw > ul > li {
-    margin-bottom: 3px;
-}
-   .dw > ul > li > a{
-    color: #008cd6;
-    padding-left: 10px;
+        display: block;
+    }
+
+    .dw {
+        display: block;
+        background: #fff;
+        padding: 0px;
+        margin-left: 0px;
+        margin-top: 10px
+    }
+
+        .dw > ul > li {
+            margin-bottom: 3px;
         }
+
+            .dw > ul > li > a {
+                color: #008cd6;
+                padding-left: 10px;
+            }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -75,7 +87,6 @@
         </ul>
     </div>
 </div>
-
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top ">
@@ -84,190 +95,188 @@
         <div class="wc-container app-dt">
             <div class="wc-nav">
             </div>
-            
-                <table class="meet-form meet-form7">
-                    <tbody>
-                        <tr class="form-tr">
-                            <td class="form-lable" style="vertical-align: top;padding-top: 15px;">
-                                <span class="red-word">*</span>简述
-                            </td>
-                            <td>
-                                <textarea id="abst" class="txt02" style="padding: 0 5px;"></textarea>
-                            </td>
-                        </tr>
-                        <tr class="form-tr">
-                            <td class="form-lable" style="vertical-align: top;">
-                                <span class="red-word">*</span><span>
-                                    参加该投
-                                    <br>标单位&nbsp;&nbsp;&nbsp;
-                                </span>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="#"
-                                       onclick="ShowDiv('MyDiv','fade')"
-                                       style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
-                                </div>
-                                <!--弹出层 begin-->
-                                <div id="fade" class="black_overlay">
-                                    <div id="MyDiv" class="white_content white_content3">
-                                        <div class="btn-close"
-                                             style="text-align: right;  height: 20px;">
-                                            <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
-                                                <img src="/img/btn-close.png"
-                                                     alt="">
-                                            </span>
+
+            <table class="meet-form meet-form7">
+                <tbody>
+                    <tr class="form-tr">
+                        <td class="form-lable" style="vertical-align: top;padding-top: 15px;">
+                            <span class="red-word">*</span>简述
+                        </td>
+                        <td>
+                            <textarea id="abst" class="txt02" style="padding: 0 5px;"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="form-tr">
+                        <td class="form-lable" style="vertical-align: top;">
+                            <span class="red-word">*</span><span>
+                                参加该投
+                                <br>标单位&nbsp;&nbsp;&nbsp;
+                            </span>
+                        </td>
+                        <td>
+                            <div>
+                                <a href="#"
+                                   onclick="ShowDiv('MyDiv','fade')"
+                                   style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
+                            </div>
+                            <!--弹出层 begin-->
+                            <div id="fade" class="black_overlay">
+                                <div id="MyDiv" class="white_content white_content3">
+                                    <div class="btn-close"
+                                         style="text-align: right;  height: 20px;">
+                                        <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
+                                            <img src="/img/btn-close.png"
+                                                 alt="">
+                                        </span>
+                                    </div>
+                                    <h3>劳务单位</h3>
+                                    <div style="margin:10px ;">
+                                        <select class="meet-select js-meet-state">
+                                            <option value="all">推荐企业</option>
+                                            <option value="2">中铁十六局</option>
+                                            <option value="3">上海轨道交通</option>
+                                        </select>
+                                        <select class="meet-select js-meet-state">
+                                            <option value="all">业务类型</option>
+                                            <option value="2">围护结构工程</option>
+                                            <option value="3">围护结构工程</option>
+                                        </select>
+                                    </div>
+                                    <div class="search-con2">
+                                        <input type="text" name="keyname" placeholder="请输入关键字">
+                                        <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+                                    </div>
+                                    <table class="meet-table text-left">
+                                        <tbody class="mbidcompany"></tbody>
+                                    </table>
+                                    <div style="bottom:10px;text-align:center;">
+                                        <div class="page">
                                         </div>
-                                        <h3>劳务单位</h3>
-                                        <div style="margin:10px ;">
-                                            <select class="meet-select js-meet-state">
-                                                <option value="all">推荐企业</option>
-                                                <option value="2">中铁十六局</option>
-                                                <option value="3">上海轨道交通</option>
-                                            </select>
-                                            <select class="meet-select js-meet-state">
-                                                <option value="all">业务类型</option>
-                                                <option value="2">围护结构工程</option>
-                                                <option value="3">围护结构工程</option>
-                                            </select>
-                                        </div>
-                                        <div class="search-con2">
-                                            <input type="text" name="keyname" placeholder="请输入关键字">
-                                            <a class="search-btn"><i class="search-icon meet-icon"></i></a>
-                                        </div>
-                                        <table class="meet-table text-left">
-                                            <tbody class="mbidcompany">
-       
-                                            </tbody>
-                                        </table>
-                                        <div style="bottom:10px;text-align:center;">
-                                            <div class="page">
-                                            </div>
-                                            <div class="form-tr-btn">
-                                                <button class="meet-btn big-btn lightblue-btn js-submit"  onclick="addcompanytwo()">
-                                                    确定
-                                                </button>
-                                                <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv','fade')">
-                                                    取消
-                                                </button>
-                                            </div>
+                                        <div class="form-tr-btn">
+                                            <button class="meet-btn big-btn lightblue-btn js-submit" onclick="addcompanytwo()">
+                                                确定
+                                            </button>
+                                            <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv','fade')">
+                                                取消
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <!--弹出层 end-->
-                                <ul class="cjtb_ul"></ul>
-                            </td>
-                        </tr>
-                        <tr class="form-tr">
-                            <td class="form-lable" style="vertical-align: top">
-                                <span class="red-word">*</span><span>
-                                    拟选中标
-                                    <br>单位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                </span>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="#" onclick="ShowDiv('MyDiv2','fade2')" style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
-                                </div>
-                                <!--弹出层 begin-->
-                                <div id="fade2" class="black_overlay">
-                                    <div id="MyDiv2" class="white_content white_content3">
-                                        <div class="btn-close"
-                                             style="text-align: right;  height: 20px;">
-                                            <span style="font-size: 16px;" onclick="CloseDiv('MyDiv2','fade2')">
-                                                <img src="/img/btn-close.png"
-                                                     alt="">
-                                            </span>
+                            </div>
+                            <!--弹出层 end-->
+                            <ul class="cjtb_ul"></ul>
+                        </td>
+                    </tr>
+                    <tr class="form-tr">
+                        <td class="form-lable" style="vertical-align: top">
+                            <span class="red-word">*</span><span>
+                                拟选中标
+                                <br>单位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
+                        </td>
+                        <td>
+                            <div>
+                                <a href="#" onclick="ShowDiv('MyDiv2','fade2')" style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
+                            </div>
+                            <!--弹出层 begin-->
+                            <div id="fade2" class="black_overlay">
+                                <div id="MyDiv2" class="white_content white_content3">
+                                    <div class="btn-close"
+                                         style="text-align: right;  height: 20px;">
+                                        <span style="font-size: 16px;" onclick="CloseDiv('MyDiv2','fade2')">
+                                            <img src="/img/btn-close.png"
+                                                 alt="">
+                                        </span>
+                                    </div>
+                                    <h3>劳务单位2</h3>
+                                    <div style="margin:10px ;">
+                                        <select class="meet-select js-meet-state">
+                                            <option value="all">推荐企业</option>
+                                            <option value="2">中铁十六局</option>
+                                            <option value="3">上海轨道交通</option>
+                                        </select>
+                                        <select class="meet-select js-meet-state">
+                                            <option value="all">业务类型</option>
+                                            <option value="2">围护结构工程</option>
+                                            <option value="3">围护结构工程</option>
+                                        </select>
+                                    </div>
+                                    <div class="search-con2">
+                                        <input type="text" name="keyname" placeholder="请输入关键字">
+                                        <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+                                    </div>
+                                    <table class="meet-table text-left">
+                                        <tbody class="mbidcompany"></tbody>
+                                    </table>
+                                    <div style="bottom:10px;text-align:center;">
+                                        <div class="page">
                                         </div>
-                                        <h3>劳务单位2</h3>
-                                        <div style="margin:10px ;">
-                                            <select class="meet-select js-meet-state">
-                                                <option value="all">推荐企业</option>
-                                                <option value="2">中铁十六局</option>
-                                                <option value="3">上海轨道交通</option>
-                                            </select>
-                                            <select class="meet-select js-meet-state">
-                                                <option value="all">业务类型</option>
-                                                <option value="2">围护结构工程</option>
-                                                <option value="3">围护结构工程</option>
-                                            </select>
-                                        </div>
-                                        <div class="search-con2">
-                                            <input type="text" name="keyname" placeholder="请输入关键字">
-                                            <a class="search-btn"><i class="search-icon meet-icon"></i></a>
-                                        </div>
-                                        <table class="meet-table text-left">
-                                            <tbody class="mbidcompany">
-                                              
-                                            </tbody>
-                                        </table>
-                                        <div style="bottom:10px;text-align:center;">
-                                            <div class="page">
-                                            </div>
-                                            <div class="form-tr-btn">
-                                                <button class="meet-btn big-btn lightblue-btn js-submit" onclick="addcompany()">
-                                                    确定
-                                                </button>
-                                                <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv2','fade2')">
-                                                    取消
-                                                </button>
-                                            </div>
+                                        <div class="form-tr-btn">
+                                            <button class="meet-btn big-btn lightblue-btn js-submit" onclick="addcompany()">
+                                                确定
+                                            </button>
+                                            <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv2','fade2')">
+                                                取消
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <!--弹出层 end-->
-                                <ul class="nxzbdw nxzbdw2">
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr class="form-tr">
-                            <td class="form-lable" style="vertical-align: top">
-                                <span class="white-word">*</span><span>
-                                    定标文件
-                                    <br>详细说明
-                                </span>
-                            </td>
-                            <td>
-                                @*富文本编辑框*@
-                            </td>
-                        </tr>
-                        <tr class="form-tr">
-                            <td class="form-lable" style="vertical-align: top">
-                                <div style="display: inline-block"><i class="meet-icon icon-file"></i>附件：</div>
-                            </td>
-                            <td>
-                                <div class="upload-btn upload-btn2"style="top:0px;width: 40px;">
-                                    <input type="file" class="allfileInput allfileInput2" name="fileInput"
-                                           id="allfileInput" style="cursor: pointer">
-                                    <img src="/img/icon-add2.png" alt="" class="up up2">
-                                </div>
-                                <div class="dw">
-                                    <ul>
-                                        <li>开标记录表.doc<a href="#">删除</a></li>
-                                        <li>开标记录表.doc<a href="#">删除</a></li>
-                                    </ul> 
-                                </div>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="form-tr-btn">
-                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="makebidbtn()">提交</button>
-                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
-                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
-                </div>
-            
+                            </div>
+                            <!--弹出层 end-->
+                            <ul class="nxzbdw nxzbdw2"></ul>
+                        </td>
+                    </tr>
+                    <tr class="form-tr">
+                        <td class="form-lable" style="vertical-align: top">
+                            <span class="white-word">*</span><span>
+                                定标文件
+                                <br>详细说明
+                            </span>
+                        </td>
+                        <td>
+                            @*富文本编辑框*@
+                        </td>
+                    </tr>
+                    <tr class="form-tr">
+                        <td class="form-lable" style="vertical-align: top">
+                            <div style="display: inline-block"><i class="meet-icon icon-file"></i>附件：</div>
+                        </td>
+                        <td>
+                            <div class="upload-btn upload-btn2" style="top:0px;width: 40px;">
+                                <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
+                                    <input type='file' id='fup' name='fup' value="IamPic" />
+                                    <input type="text" id="pid" name="pid" width="20" value="@ViewBag.pid" style="display:none" />
+                                    <input type="text" id="ftype" name="ftype" width="20" value="4" style="display:none" />
+                                    <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
+                                </form>
+                                <img src="/img/icon-add2.png" alt="" class="up up2">
+                            </div>
+                            <div class="dw">
+                                <ul id="bfiles"></ul>
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-tr-btn">
+                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="makebidbtn()">提交</button>
+                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
+                <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
+            </div>
+
         </div>
     </div>
 </div>
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
-<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
-<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.form.js"></script>
 <script>
     //弹出隐藏层
     function ShowDiv(show_div, bg_div) {
@@ -285,7 +294,7 @@
         document.getElementById(show_div).style.display = 'none';
         document.getElementById(bg_div).style.display = 'none';
         $("input.icheck").removeAttr("checked")
-    }    ;
+    };
     $(".btn-close2").click(function () {
         $(this).parent().parent().hide();
     });
@@ -352,6 +361,21 @@
     }
 </script>
 <script>
+    $("#fup").change(function () {
+        $("#fupform").ajaxSubmit(function (res) {
+            var names = res.split('|')
+            var li = document.createElement("li");
+            li.id = names[0].trim()
+            li.innerHTML = names[1] + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + names[0].trim() + '\')" > 删除</a>'
+            document.getElementById("bfiles").appendChild(li)
+        });
+    })
+    function deleteFile(name) {
+        console.log(name);
+        var li = document.getElementById(name)
+        li.parentNode.removeChild(li);
+        $.post("/Common/FileDelete", { fname: name }, function () { });
+    }
     var companys;
     //拟选中标单位添加
     function addcompany() {
@@ -373,7 +397,7 @@
             $(".nxzbdw.nxzbdw2").append(htm);
         });
         CloseDiv('MyDiv2', 'fade2');
-      
+
     }
     // 移除拟中标单位
     function removeCompany(cid) {
