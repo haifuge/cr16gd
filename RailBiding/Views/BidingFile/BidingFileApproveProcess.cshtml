@@ -181,7 +181,7 @@
 <script type="text/javascript" src="~/js/upload.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
 <script>
-    $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
+    $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
