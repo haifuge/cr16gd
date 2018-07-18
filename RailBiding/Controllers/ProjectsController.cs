@@ -461,7 +461,7 @@ namespace RailBiding.Controllers
             foreach(string c in companys)
             {
                 string[] cc = c.Split('-');
-                sql += "update BidingCompany set Win=1,biding=1, Comment=N" + cc[1] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                sql += "update BidingCompany set Win=1,biding=1, Comment=N'" + cc[1] + "' where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
             }
             DBHelper.ExecuteNonQuery(sql);
             ProjectContext pc = new ProjectContext();
