@@ -1534,8 +1534,13 @@ button:hover {
 
     .feedback-list li h3 {
         font-weight: 400;
-        font-size: 14px;
-        color: #424446
+    font-size: 14px;
+    background: #fff;
+    line-height: 20px;
+    margin: 0px;
+    height: 20px;
+    padding-left: 0px;
+    color: #424446;
     }
 
         .feedback-list li h3 i {
