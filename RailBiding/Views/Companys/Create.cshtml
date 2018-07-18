@@ -850,7 +850,10 @@
             var data = { picData: b64, name: zzname, code: zzcode };
             $.post("/Companys/UploadZiZhi", data, function () {
                 removeLoading('test');
-                swal('公司创建成功')
+                swal('公司创建成功').then(function () {
+                    window.location.href = "/Companys/MyRecommend";
+                });
+
             });
         }
     }
