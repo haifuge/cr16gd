@@ -243,7 +243,7 @@
                         </td>
                         <td>
                             <div class="upload-btn upload-btn2" style="top:0px;width: 40px;">
-                                <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
+                                <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                     <input type='file' id='fup' name='fup' value="IamPic" />
                                     <input type="text" id="pid" name="pid" width="20" value="@ViewBag.pid" style="display:none" />
                                     <input type="text" id="ftype" name="ftype" width="20" value="4" style="display:none" />
@@ -293,7 +293,7 @@
     function CloseDiv(show_div, bg_div) {
         document.getElementById(show_div).style.display = 'none';
         document.getElementById(bg_div).style.display = 'none';
-        $("input.icheck").removeAttr("checked")
+        $(".icheck").removeAttr("checked")
     };
     $(".btn-close2").click(function () {
         $(this).parent().parent().hide();
