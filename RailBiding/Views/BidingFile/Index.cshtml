@@ -5,75 +5,78 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
+<style>
+    #tbBidingFiles tr > td {
+        height: auto;
+        padding:0px 5px;
+    }
 
-<div class="left-nav">
-    <div class="left-nav-con">
-        <h1>招标文件</h1>
-        <ul class="left-nav-list">
-            <li><a href="/BidingFile" class="active"><i class="icon icon-eye1"></i>招标文件</a></li>
-            @*<li><a href="/BidingFile/FileApplication"><i class="icon icon-hand2"></i>文件申请</a></li>*@
-            <li><a href="/BidingFile/FileApprove"><i class="icon icon-hand3"></i>文件审批</a></li>
-        </ul>
-    </div>
-</div>
+    #tbBidingFiles tr:nth-child(1) > td:nth-child(3) {
+        border-top: 1px solid #d9d9d9;
+    }
 
+    #tbBidingFiles tr:last-child > td:nth-child(3) {
+        border-bottom: 1px solid #d9d9d9;
+    }
 
-<div class="main-con">
-    <div class="main-wrap">
-        <div class="main-top">
+    #tbBidingFiles tr > td:nth-child(3) {
+        height: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        display: -moz-box;
+        border-top: none;
+        border-bottom: none;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
 
-            <div class="search-con2">
-                <input type="text" name="keyname" placeholder="请输入关键字">
-                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
-            </div>
-        </div>
-        <div class="wc-container szwc-container">
-            <table class="meet-table text-left">
-                <thead class="wc-header">
-                    <tr>
-                        <td class="check-color" style="width: 5%;">
-                            <span class="table-all-check">
-                                <input type="checkbox"
-                                       class="icheck"
-                                       name="all-check"
-                                       id="all-check" />
-                            </span>
-                        </td>
-                        <td style="width: 25%">项目名称</td>
-                        <td style="width: 40%">招标文件内容概述</td>
-                        <td style="width: 20%">发布人</td>
-                        <td style="width: 10%">发布时间</td>
-                    </tr>
-                </thead>
-                <tbody id="tbBidingFiles">
-                </tbody>
-            </table>
-            <div class="page">
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
-<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
-<script src="~/js/sweetalert2.all.js"></script>
-<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
-<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
-<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
-<script type='text/javascript' src='~/js/js.js'></script>
-
-<script>
-
-    $(function () {
+    </style>
+    
+    <div class="left-nav" >
+     <div class="left-nav-con" > 
+        <h1 > 招标文件</h1 > 
+          <ul class="left-nav-list" > 
+             <li > <a href="/BidingFile" class="active" > <i class="icon icon-eye1" > </i > 招标文件</a > </li >
+              @*<li > <a href="/BidingFile/FileApplication" > <i class="icon icon-hand2" > </i > 文件申请</a > </li > *@ 
+             <li > <a href="/BidingFile/FileApprove" > <i class="icon icon-hand3" > </i > 文件审批</a > </li > 
+         </ul >
+      </div >
+    </div >
+    <div class="main-con" >
+        <div class="main-wrap" > 
+             <div class="main-top" > 
+                   <div class="search-con2" > 
+                        <input type="text" name="keyname" placeholder="请输入关键字" >
+                        <a class="search-btn" > <i class="search-icon meet-icon" > </i > </a >
+                  </div >
+             </div > 
+             <div class="wc-container szwc-container" >
+                  <table class="meet-table text-left" > 
+                       <thead class="wc-header" >
+                            <tr > 
+                                  <td class="check-color" style="width:20px;padding:0px 5px" > <span class="table-all-check" > <input type="checkbox" class="icheck" name="all-check" id="all-check" / > </span > </td >
+                                  <td style="width:150px;padding:0px 5px" > 项目名称</td >
+                                  <td style="width:300px;padding:0px 5px" > 招标文件内容概述</td > 
+                                  <td style="width:80px;padding:0px 5px" > 发布人</td > 
+                                  <td style="width:100px;padding:0px 5px" > 发布时间</td >
+                            </tr > 
+                      </thead >
+                      <tbody id="tbBidingFiles" > </tbody > 
+                 </table > 
+                <div class="page" > </div > </div > </div > </div > <script type="text/javascript" src="~/js/jquery-1.11.0.js" > </script > <script type='text/javascript' src='~/js/jquery-ui.min.js' > </script > <script src="~/js/sweetalert2.all.js" > </script > <script type="text/javascript" src="~/js/validate/jquery.validate.min.js" > </script > <script type="text/javascript" src="~/js/validate/messages_zh.min.js" > </script > <script type="text/javascript" src="~/js/icheck/icheck.min.js" > </script > <script type='text/javascript' src='~/js/js.js' > </script > <script > $(function () {
         $.post("/BidingFile/GetBidingFiles", {}, function (data) {
             if (data == 'no session') {
                 location.href = "/Login";
             }
             var obj = JSON.parse(data);
+            console.log(obj);
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
+
                 htm += '<tr class="white-bg" onclick = "location.href=\'/BidingFile/FileDetail?fid=' + o.id+'\';" >'+
-                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id +'" id="checkbox-1"/></td>'+                        
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id +'" id="checkbox-1"/></td>'+
                     '<td>'+o.name+'</td>'+
                     '<td>' + o.content +'</td>'+
                     '<td>' + o.publisher +'</td>'+
@@ -83,5 +86,4 @@
             $("#tbBidingFiles").html(htm);
         });
         pages(1, 2, 12, 5)
-    })
-</script>
+    }) </script >

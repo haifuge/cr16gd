@@ -851,7 +851,10 @@
             $.post("/Companys/UploadZiZhi", data, function () {
                 removeLoading('test');
                 swal('公司创建成功').then(function () {
-                    window.location.href = "/Companys/MyRecommend";
+                    if (ctype = 1) { window.location.href = "/Companys/MyRecommend"; } else {
+
+                    }
+                   
                 });
 
             });
