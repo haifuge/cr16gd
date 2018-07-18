@@ -3,7 +3,7 @@
     ViewBag.Title = "定标文件";
 }
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
 
@@ -270,7 +270,7 @@
 </div>
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
@@ -489,7 +489,7 @@
             wc = wc.substr(0, wc.length - 1);
         $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
             if (res == "1")
-                alert('创建成功！')
+                swal('创建成功！')
         });
     }
 </script>
