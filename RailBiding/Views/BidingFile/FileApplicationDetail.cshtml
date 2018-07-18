@@ -168,7 +168,7 @@
         //leftnav_htm(4);
         pages(1, 2, 12, 5)
     });
-    $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
+    $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');

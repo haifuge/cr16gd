@@ -60,12 +60,13 @@ namespace RailBiding.Controllers
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemF")]
-        public ActionResult FileDetail(string fid)
+        public ActionResult FileDetail(string pid)
         {
-            if (fid == null)
-                return View("//Login");
+            if (pid == null)
+                return View("/Login");
+            ViewBag.pid = pid;
             BidingFileContext bc = new BidingFileContext();
-            DataTable dt = bc.getBidingFileDetail(fid);
+            DataTable dt = bc.getBidingFileDetail(pid);
             DataRow dr = dt.Rows[0];
             ViewBag.BidFileName = dr["Name"].ToString();
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n","<br/>");
