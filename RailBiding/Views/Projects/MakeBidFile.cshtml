@@ -3,7 +3,7 @@
     ViewBag.Title = "定标文件";
 }
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
 
@@ -243,7 +243,7 @@
                         </td>
                         <td>
                             <div class="upload-btn upload-btn2" style="top:0px;width: 40px;">
-                                <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
+                                <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                     <input type='file' id='fup' name='fup' value="IamPic" />
                                     <input type="text" id="pid" name="pid" width="20" value="@ViewBag.pid" style="display:none" />
                                     <input type="text" id="ftype" name="ftype" width="20" value="4" style="display:none" />
@@ -270,7 +270,7 @@
 </div>
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
@@ -293,7 +293,7 @@
     function CloseDiv(show_div, bg_div) {
         document.getElementById(show_div).style.display = 'none';
         document.getElementById(bg_div).style.display = 'none';
-        $("input.icheck").removeAttr("checked")
+        $(".icheck").removeAttr("checked")
     };
     $(".btn-close2").click(function () {
         $(this).parent().parent().hide();
@@ -489,7 +489,7 @@
             wc = wc.substr(0, wc.length - 1);
         $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
             if (res == "1")
-                alert('创建成功！')
+                swal('创建成功！')
         });
     }
 </script>
