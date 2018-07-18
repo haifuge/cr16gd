@@ -1538,7 +1538,7 @@ button:hover {
     background: #fff;
     line-height: 20px;
     margin: 0px;
-    height: 20px;
+    height:auto;
     padding-left: 0px;
     color: #424446;
     }

@@ -503,7 +503,9 @@
             wc = wc.substr(0, wc.length - 1);
         $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
             if (res == "1")
-                swal('创建成功！')
+                swal('创建成功！').then(function(){
+                    window.history.go(-1) 
+                })
         });
     }
 </script>
