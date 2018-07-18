@@ -60,8 +60,9 @@ namespace DAL.Models
 
         public DataTable GetMakeBidFileDetail(string id)
         {
-            string sql = @"select Abstract, CONVERT(varchar(20), PublishDate, 23) as PublishDate, Status,PublisherId,FileExplain 
-                            from MakeBidingFile where ProjId=" + id;
+            string sql = @"select p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as Publisher, CONVERT(varchar(20), p.PublishDate, 23) as PublishDate, mf.Abstract,mf.FileExplain 
+                            from MakeBidingFile mf inner join Project p on mf.ProjId=p.Id
+                            where p.Id=1" + id;
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }
@@ -116,6 +117,13 @@ namespace DAL.Models
                 return false;
         }
 
-
+        public DataTable GetBidingCompany(string pid)
+        {
+            string sql = @"select bc.ProjId, bc.CompanyId, c.Name, bc.Comment, bc.Biding, bc.Win,bc.FirstPrice, bc.SecondPrice, c.QualificationLevel,c.RegisteredCapital, c.ConstructionContent
+                            from BidingCompany bc inner
+                            join Company c on bc.CompanyId = c.ID
+                            where bc.ProjId = " + pid;
+            return DBHelper.GetDataTable(sql);
+        }
     }
 }
