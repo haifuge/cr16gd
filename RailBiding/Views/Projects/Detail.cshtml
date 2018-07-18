@@ -379,7 +379,25 @@
         background: #29a9ef url(/img/icon-02.png) no-repeat 10px 5px;
         padding-left: 30px;
         width: 100px;
-    }
+    }.con-01 p{
+       height:60px;
+      overflow : hidden;
+      border-bottom:0px;
+      border-top:0px;
+
+      text-overflow: ellipsis;
+
+      display: -webkit-box;
+
+      -webkit-line-clamp: 2;
+ 
+      -webkit-box-orient: vertical;
+
+}
+/*.con-01 p::after{   content: "...";
+             position: absolute; 
+             bottom: 0; 
+             right: 0;              padding-right:10px;}    */
 </style>
 
 <div class="left-nav">

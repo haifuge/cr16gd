@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
 <link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
     .block-left {
@@ -85,7 +85,7 @@
 <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="~/js/ztree/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="~/js/ztree/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
@@ -130,7 +130,9 @@
             
             
         })
-        swal("提交成功");
+        swal("提交成功").then(function () {
+            window.location.href = "/Projects";
+        });
 
 
     }

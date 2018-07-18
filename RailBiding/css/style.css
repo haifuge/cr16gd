@@ -5952,3 +5952,7 @@ span#updatebmnamemsg,span#updatespjbmsg,span#bmnamemsg,span#spjbmsg {
     display:block;
     line-height:18px;
 }
+
+td{
+    padding:0 5px;
+}
