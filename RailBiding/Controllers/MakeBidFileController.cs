@@ -105,13 +105,17 @@ namespace RailBiding.Controllers
             {
                 if (row["Biding"].ToString() == "1")
                 {
+                    string ConstructionContent = row["ConstructionContent"].ToString();
+                    ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
+                    string QualificationLevel = row["QualificationLevel"].ToString();
+                    QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
                                 <p>投标报价：<span class='colblue'>{1}元</span></p>
                                 <p>二次报价：<span class='colblue'>{2}元</span></p>
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>
-                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), row["QualificationLevel"].ToString().Substring(0,16), row["RegisteredCapital"].ToString(), row["ConstructionContent"].ToString().Substring(0,40));
+                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), row["QualificationLevel"].ToString().Substring(0,16), row["RegisteredCapital"].ToString(), ConstructionContent);
                 }
                 if(row["Win"].ToString()=="1")
                 {

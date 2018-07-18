@@ -41,11 +41,11 @@
                 </P>
             </div>
             <H3>招标工程项目简介：</H3>
-            <p>@ViewBag.Abstract</p>
+            <p>@Html.Raw(ViewBag.Abstract)</p>
             <h3>参加投标单位及投标报价：</h3>
             <div style="display: block;overflow: hidden">
                 <ul class="ull">
-                    @ViewBag.JoinCompany
+                    @Html.Raw(ViewBag.JoinCompany)
                 </ul>
             </div>
             <h3>拟选中标单位：</h3>
@@ -57,8 +57,6 @@
             <div style="margin-top: 10px;">
                 <div style="display: inline-block"><i class="meet-icon icon-file"></i></div>
                 <ul id="bffiles"></ul>
-            </div>
-            <div class="page">
             </div>
         </div>
     </div>
