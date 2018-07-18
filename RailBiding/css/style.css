@@ -3372,7 +3372,7 @@ input[name=keyname] {
             }
 
             .index-center .in-box-bottom .bot-left ul li dl {
-                width: 190px;
+                width: 260px;
                 height: 90px;
                 margin: 0 auto;
                 padding-top: 17.5px;
@@ -3385,7 +3385,7 @@ input[name=keyname] {
 
                 .index-center .in-box-bottom .bot-left ul li dl dd {
                     float: left;
-                    width: 65px;
+                    width: 125px;
                     line-height: 90px;
                     font-size: 16px;
                     color: #fff;

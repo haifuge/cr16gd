@@ -6,7 +6,19 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
+<style>
+    .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2) {
+        color: #3e3a39;
+    }
 
+    .block-left .meet-form td.form-lable.blue-word {
+        color: dodgerblue;
+    }
+
+    .form-tr td:nth-child(2) {
+        color: #3e3a39;
+    }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>招标管理</h1>
@@ -42,8 +54,8 @@
                                 <td>@ViewBag.Name</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">招标内容：</td>
-                                <td>@ViewBag.Content</td>
+                                <td class="blue-word form-lable">提交人：</td>
+                                <td>未调用数据</td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">项目地点：</td>
@@ -54,7 +66,7 @@
                                 <td>@ViewBag.Type</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">报名时间：</td>
+                                <td class="blue-word form-lable">报名截止时间：</td>
                                 <td>@ViewBag.ApplyDate</td>
                             </tr>
                             <tr class="form-tr">
@@ -66,14 +78,18 @@
                                 <td>@ViewBag.BidingNum</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">项目说明：</td>
+                                <td class="blue-word form-lable">工程介绍：</td>
                                 <td>@ViewBag.ProjDescription</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">招标文档：</td>
-                                <td>
-                                    <i class="meet-icon icon-file"></i>
-                                    <a href="#" target="_blank" class="form-border-btn  bttn2">附件预览</a>
+                                <td class="blue-word form-lable">招标文件内容简述：</td>
+                                <td>未调用数据</td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">招标文件：</td>
+                                <td>未调用数据
+                                    @*<i class="meet-icon icon-file"></i>
+                                      <a href="#" target="_blank" class="form-border-btn  bttn2">附件预览</a>*@
                                 </td>
                             </tr>
 

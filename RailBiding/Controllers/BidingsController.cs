@@ -48,13 +48,13 @@ namespace RailBiding.Controllers
             
             var joinC = (from c in dt.AsEnumerable()
                         where c.Field<int>("CompanyResponse")==1
-                        select new { name = c["CompanyName"].ToString() }).ToList();
+                        select new { name = c["Name"].ToString() }).ToList();
             var noJoinC= (from c in dt.AsEnumerable()
                          where c.Field<int>("CompanyResponse") == 2
-                         select new { name = c["CompanyName"].ToString() }).ToList();
+                         select new { name = c["Name"].ToString() }).ToList();
             var noResponseC = (from c in dt.AsEnumerable()
                           where c.Field<int>("CompanyResponse") == 0
-                          select new { name = c["CompanyName"].ToString() }).ToList();
+                          select new { name = c["Name"].ToString() }).ToList();
             ViewBag.joinNum = joinC.Count;
             ViewBag.noJoinNum = noJoinC.Count;
             ViewBag.noResponseNum = noResponseC.Count;

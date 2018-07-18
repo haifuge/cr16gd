@@ -7,7 +7,17 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
-
+<style>
+    .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2){
+        color:#3e3a39;
+    }
+.block-left .meet-form td.form-lable.blue-word{
+        color:dodgerblue;
+    }
+     .form-tr td:nth-child(2){
+         color:#3e3a39;
+     }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>招标管理</h1>
@@ -25,8 +35,8 @@
         <div class="main-top">
             <span class="js-page-name">招标详情</span>
             <div class="apply-opt">
-                <a href="javascript:;" class="js-cancle-meet" title="发送">
-                    <i class="meet-icon icon-cancel ">发送</i>
+                <a href="javascript:;" class="js-cancle-meet" title="邀标">
+                    <i class="meet-icon icon-cancel ">邀标</i>
                 </a>
                 <a href="javascript:;" class="js-cancle-meet bohui" title="驳回" onclick="declineApplication()">
                     <i class="meet-icon icon-cancel icon-bh">驳回</i>
@@ -42,19 +52,16 @@
             <div class="detail-wrap detail-con">
 
                 <div class="block-left block-left2 block-left4">
-                    <div class="detail-fb">
-                        发布人：<span>@ViewBag.Publisher</span>发布时间：<span>@ViewBag.PublishDate</span>
-                    </div>
                     <table class="meet-form meet-form7">
                         <tbody>
                             <tr class="form-tr form-tr-title-bg">
                                 <td class="blue-word form-lable">项目名称：</td>
-                                <td>@ViewBag.Name</td>
+                                <td>@ViewBag.Publisher</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">招标内容：</td>
-                                <td>@ViewBag.Content</td>
-                            </tr>
+                                <td class="blue-word form-lable">提交人：</td>
+                                <td>@ViewBag.Name</td>
+                            </tr>     
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">项目地点：</td>
                                 <td>@ViewBag.Location</td>
@@ -64,7 +71,7 @@
                                 <td>@ViewBag.Type</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">报名时间：</td>
+                                <td class="blue-word form-lable">报名截止时间：</td>
                                 <td>@ViewBag.ApplyDate</td>
                             </tr>
                             <tr class="form-tr">
@@ -76,15 +83,15 @@
                                 <td>@ViewBag.BidingNum</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">项目说明：</td>
-                                <td>@ViewBag.ProjDescription</td>
+                                <td class="blue-word form-lable">工程介绍：</td>
+                                <td>未调用数据</td>
+                            <tr class="form-tr">
+                                <td class="blue-word form-lable">招标文件内容简述：</td>
+                                <td>未调用数据</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">招标文档：</td>
-                                <td>
-                                    <i class="meet-icon icon-file"></i>
-                                    <a href="#" target="_blank" class="form-border-btn  bttn2">附件预览</a>
-                                </td>
+                                <td class="blue-word form-lable">招标文件：</td>
+                                <td>未调用数据</td>
                             </tr>
                             <tr class="form-tr detail-user-con tr-border">
                                 <td class="form-lable label2">
