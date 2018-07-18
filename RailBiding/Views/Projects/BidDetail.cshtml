@@ -76,15 +76,15 @@
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">工程介绍：</td>
-                                <td>未调取数据</td>
+                                <td>@ViewBag.ProDescription</td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件内容简介：</td>
-                                <td>未调取数据</td>
+                                <td>@ViewBag.Content</td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件：</td>
-                                <td>未调取数据</td>
+                                <td><ul id="bffiles"></ul></td>
                             </tr>
                            
                         </tbody>
@@ -200,7 +200,15 @@
     }
 </script>
 <script>
-    
+     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.id = obj[i].filepath
+                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                document.getElementById("bffiles").appendChild(li)
+            }
+    });
     $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: "3"}, function (data) {
         var obj = JSON.parse(data);
         console.log(obj);

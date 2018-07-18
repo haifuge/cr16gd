@@ -34,7 +34,7 @@ namespace RailBiding.Controllers
             if (bid == null)
                 return View("Login");
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidCompany(bid);
+            DataTable dt = bc.GetBidDetail(bid);
             DataRow dr = dt.Rows[0];
             ViewBag.Name = dr["Name"].ToString();
             ViewBag.Location = dr["Location"].ToString();

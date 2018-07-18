@@ -319,7 +319,7 @@ namespace RailBiding.Controllers
                 return View("Login");
             ViewBag.pid = pid;
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidCompany(pid);
+            DataTable dt = bc.GetBidDetail(pid);
             DataRow dr = dt.Rows[0];
             ViewBag.Name = dr["Name"].ToString();
             ViewBag.Location = dr["Location"].ToString();
@@ -331,6 +331,8 @@ namespace RailBiding.Controllers
             ViewBag.OpenDate = dr["OpenDate"].ToString();
             ViewBag.ProjDescription = dr["Content"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
+            ViewBag.Content = dr["Content"].ToString();
+            ViewBag.ProDescription = dr["ProDescription"].ToString();
             dt = bc.GetBidingCompanys(pid);
 
             var joinC = (from c in dt.AsEnumerable()
@@ -379,16 +381,16 @@ namespace RailBiding.Controllers
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n", "<br/>");
             ViewBag.BidFileUserName = dr["Publisher"].ToString();
             ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
+            ViewBag.ProDescription= dr["ProDescription"].ToString();
 
-            
             dt = bc.GetFiles(pid);
             string fujian = "";
             for(int i=0;i<dt.Rows.Count;i++)
             {
                 if (i == 0)
-                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a> &nbsp;&nbsp;1.2M</li>";
+                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
                 else
-                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a> &nbsp;&nbsp;1.2M</li>";
+                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
             }
             fujian += "</ul></div>";
             ViewBag.Fujian = fujian;

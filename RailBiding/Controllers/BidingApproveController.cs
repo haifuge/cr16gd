@@ -32,11 +32,11 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult BidingApproveDetail(string pid)
         {
-            ViewBag.pid = pid;
             if (pid == null)
                 return View("\\Login");
+            ViewBag.pid = pid;
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidCompany(pid);
+            DataTable dt = bc.GetBidDetail(pid);
             DataRow dr = dt.Rows[0];
             ViewBag.Name = dr["Name"].ToString();
             ViewBag.Location = dr["Location"].ToString();
@@ -47,7 +47,8 @@ namespace RailBiding.Controllers
             ViewBag.ApplyDate = dr["ApplyDate"].ToString();
             ViewBag.OpenDate = dr["OpenDate"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
-            ViewBag.ProjDescription = dr["Content"].ToString();
+            ViewBag.ProjDescription = dr["ProDescription"].ToString();
+            ViewBag.Content = dr["Content"].ToString();
 
             dt = bc.GetBidingCompanys(pid);
             StringBuilder cHtml = new StringBuilder();
