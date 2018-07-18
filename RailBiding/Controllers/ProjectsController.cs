@@ -39,7 +39,7 @@ namespace RailBiding.Controllers
             ViewBag.pType = dr["ProjType"].ToString();
             ViewBag.pLocation = dr["Location"].ToString();
             ViewBag.pProDescription = dr["ProDescription"].ToString().Replace("\n","<br/>");
-            // 未发布；定标文件审核中，定标文件审核通过，招标文件审核中；招标文件审核通过；定标文件审核中；已结束
+            // 未发布；定标文件审核中，定标文件审核通过，招标文件审核中；招标文件审核通过；定标文件审核中；已通过
             string pStatus = dr["Status"].ToString();
             switch (pStatus)
             {
@@ -76,7 +76,7 @@ namespace RailBiding.Controllers
                     ViewBag.Bitem = getBidItem(pid);
                     ViewBag.MBFitem = getMakeBidItem(pid);
                     break;
-                case "已结束":
+                case "已通过":
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
@@ -440,7 +440,7 @@ namespace RailBiding.Controllers
             return View();
         }
         
-        public void SaveMakeBidFile()
+        public string SaveMakeBidFile()
         {
             MakeBidFileContext mc = new MakeBidFileContext();
             string pid = Request["pid"].ToString();
@@ -467,6 +467,8 @@ namespace RailBiding.Controllers
             ProjectContext pc = new ProjectContext();
             pc.UpdateProjectStatus(pid, "定标文件审核中");
             pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
+
+            return "1";
         }
 
         public string GetMakeBidFiles()

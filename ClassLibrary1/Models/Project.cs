@@ -98,7 +98,7 @@ namespace DAL.Models
             return DBHelper.ExecuteScalar(sql);
         }
 
-        //未发布；招标文件审核中，招标文件审核通过，招标审核中；招标审核通过；定标文件审核中；已结束
+        //未发布；招标文件审核中，招标文件审核通过，招标审核中；招标审核通过；定标文件审核中；已通过
         public bool UpdateProjectStatus(string pid, string s)
         {
             string sql = @"update Project set Status = N'" + s + "' where id=" + pid;
