@@ -41,8 +41,8 @@ namespace DAL.Models
                             drop table #temp1";
             DataSet ds = DBHelper.GetDataSet(sql);
             string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
-            int total = int.Parse(ds.Tables[1].Rows[0][0].ToString());
-            int pagecount = total / ps;
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
