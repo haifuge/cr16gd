@@ -78,31 +78,43 @@
 
 
 <script type='text/javascript'>
-    $(function () {
-        pages(1, 2, 12, 5)
-    });
-    $.post("/Companys/GetCompanies?ctype=0", {}, function (data) {
-        var obj = JSON.parse(data);
-        var htm = "";
-        for (var i = 0; i < obj.length;i++) {
-            var o = obj[i]
-            htm += "<tr class='white-bg'>"+
-                '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >'+
-                '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id='+o.id+'\';\">'+o.name+'</td>'+
-                '<td>' + o.qualificationlevel+'</td>'+
-                '<td>' + o.registeredcapital +'万元</td>' +
-                '<td>' + o.businesstype+'</td>' +
-                '<td>' + o.corporaterepresentative +'</td>' +
-                '<td>' + o.contact +'</td>' +
-                '<td>' + o.contactphone +'</td>' +
-                //'<td class="gray-word">' + o.contactaddress +'</td>' +
-                '<td class="gray-word"><div class="model-15"><div class="checkbox-switch"><input type="checkbox"><label></label></div></div></td></tr>';
-        }
-        var tbody = $("#tbCompany")
-        //tbody.empty();
-        tbody.html(htm)
-    });
-    $.post("/Companys/GetBusinessType", {}, function (data) {
+    //分页点击
+    var cur_num = 1
+    var clickpagenum = "" //所点击页码
+    //当前所在页码
+    var nowpage = 1;
+    var page_size = 10
+    var pagenum = 12
+    Paginator(nowpage, page_size)
+
+    function Paginator(page, ps) {
+        $.post("/Companys/GetCompanies?ctype=0", { pageSize: ps, pageIndex: page }, function (data) {
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                htm += "<tr class='white-bg'>" +
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.name + '</td>' +
+                    '<td>' + o.qualificationlevel + '</td>' +
+                    '<td>' + o.registeredcapital + '万元</td>' +
+                    '<td>' + o.businesstype + '</td>' +
+                    '<td>' + o.corporaterepresentative + '</td>' +
+                    '<td>' + o.contact + '</td>' +
+                    '<td>' + o.contactphone + '</td>' +
+                    //'<td class="gray-word">' + o.contactaddress +'</td>' +
+                    '<td class="gray-word"><div class="model-15"><div class="checkbox-switch"><input type="checkbox"><label></label></div></div></td></tr>';
+            }
+            var tbody = $("#tbCompany")
+            //tbody.empty();
+            tbody.html(htm)
+            console.log(page, jsonData.PageCount, jsonData.total, ps)
+            pages(page, jsonData.PageCount, jsonData.total, ps)
+        });
+    }
+
+    $.get("/Common/GetBusinessType", function (data) {
         var obj = JSON.parse(data);
         var btype = $("#bType");
         btype.append("<option value='All'>业务类型</option>"); 
