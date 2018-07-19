@@ -99,7 +99,7 @@ namespace RailBiding.API
             fullPath = path + "/" + guid + fileExt;
             curFile.SaveAs(fullPath);
             //临时存推荐书
-            pc.AddProjectFile("0", "4", fullPath, curFile.FileName, "");
+            pc.AddProjectFile("0", "1", fullPath, curFile.FileName, "");
             return guid;
         }
 

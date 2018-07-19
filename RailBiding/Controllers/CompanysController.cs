@@ -690,17 +690,17 @@ namespace RailBiding.Controllers
             return Json(new { success = true, msg = "上传成功!", src }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public void FileUpload()
-        {
-            string path = Server.MapPath("/projectPics/");
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-            var curFile = Request.Files[0];
-            var fileExt = Path.GetExtension(curFile.FileName);
-            string fullPath = path + "/" + curFile.FileName;
-            curFile.SaveAs(fullPath);
-        }
+        //[HttpPost]
+        //public void FileUpload()
+        //{
+        //    string path = Server.MapPath("/projectPics/");
+        //    if (!Directory.Exists(path))
+        //        Directory.CreateDirectory(path);
+        //    var curFile = Request.Files[0];
+        //    var fileExt = Path.GetExtension(curFile.FileName);
+        //    string fullPath = path + "/" + curFile.FileName;
+        //    curFile.SaveAs(fullPath);
+        //}
         [HttpPost]
         public void DeleteImg()
         {

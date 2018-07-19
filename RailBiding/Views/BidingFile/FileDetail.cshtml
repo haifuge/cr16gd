@@ -85,7 +85,7 @@
 <script type='text/javascript' src='~/js/js.js'></script>
 
 <script>
-    $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=4", function (data) {
+    $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
