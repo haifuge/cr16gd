@@ -396,7 +396,7 @@
             $(".nxzbdw.nxzbdw2").append(htm);
         });
         CloseDiv('MyDiv2', 'fade2');
-
+        $("input.icheck").removeAttr("checked")
     }
     // 移除拟中标单位
     function removeCompany(cid) {
@@ -454,7 +454,7 @@
                 console.log(como);
                 comhtml+='<tr class="white-bg">'+
                               '<td class="check-color">'+
-                                 '<input class="icheck" name="addcompanybiding" type="checkbox" value="' + como.id +'" id="checkbox-1"/>' +
+                                 '<input class="icheck" name="addcompanybiding" type="checkbox" value="' + como.id +'" />' +
                               '</td>'+
                               '<td>'+
                                   '<a href="#" class="comoname" style="display:block;line-height:18px;">'+como.name+'</a>'+
@@ -464,7 +464,7 @@
                     '</tr>'
                 comhhtm2 += '<tr class="white-bg">' +
                     '<td class="check-color">' +
-                    '<input class="icheck" name="addcompanywin" type="checkbox" value="' + como.id + '" id="checkbox-1"/>' +
+                    '<input class="icheck" name="addcompanywin" type="checkbox" value="' + como.id + '" />' +
                     '</td>' +
                     '<td>' +
                     '<a href="#" class="comoname" style="display:block;line-height:18px;">' + como.name + '</a>' +

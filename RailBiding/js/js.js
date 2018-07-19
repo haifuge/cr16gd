@@ -59,8 +59,8 @@ function pages(cur,totalPage,totalRows,setNum){
     htm += '<a data-cur="' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '" class=" js-page-num page-num clickpage ' + (((cur + 1) > totalPage ? totalPage : (cur + 1)) == cur ? " active" : "") + '">' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '</a>' +
         '<a class="js-page-num num-right page-num" data-cur="'+ (cur<totalPage?(cur+1):totalPage) +'">&gt;</a>'+
         '<a data-cur="'+ totalPage +'" class="js-page-num page-num">》</a>'+
-        '<a class="page-num page-input"><input type="text" value=""/></a>'+
-        '<a class="js-page-num page-num num-go active" data-cur="'+ ((cur+2)>totalPage?cur:(cur+2)) +'">GO</a>';
+        '<input type="text" value="" class="page-num page-input"/>' +
+        '<a class="js-page-num page-num num-go active" id="pagego" data-cur="'+ ((cur+2)>totalPage?cur:(cur+2)) +'">GO</a>';
     $(".page").html(htm);
 
     ////分页点击

@@ -16,6 +16,7 @@
    .meet-form.meet-form7 .form-tr td:nth-child(2){
        color:#3e3a39
     }
+
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -206,7 +207,7 @@
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
                 li.id = obj[i].filepath
-                li.innerHTML = '<a href = "'+obj[i].filepath+'" style = "color: #008cd6;margin-left: 5px;" target="_blank"> ' + obj[i].filename+'</a>';
+                li.innerHTML = '<a href = "'+obj[i].filepath+'" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].filename+'</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
     });
