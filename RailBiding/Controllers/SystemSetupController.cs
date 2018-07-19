@@ -161,8 +161,9 @@ namespace RailBiding.Controllers
                 psd = "";
             string email = Request["em"].ToString();
             string account = Request["account"].ToString();
+            string roleid = Request["roleid"].ToString();
             SystemSetup ss = new SystemSetup();
-            return ss.UpdateUserInfo(account, uname, psd, tel, email);
+            return ss.UpdateUserInfo(account, uname, psd, tel, email, roleid);
         }
         public string CreateUser()
         {
@@ -172,8 +173,9 @@ namespace RailBiding.Controllers
             string telephone = Request["telephone"].ToString();
             string em = Request["em"].ToString();
             string did = Request["did"].ToString();
+            string roleid = Request["roleid"].ToString();
             SystemSetup ss = new SystemSetup();
-            return ss.CreateUser(acc, pasd, nam, telephone, em, did);
+            return ss.CreateUser(acc, pasd, nam, telephone, em, did, roleid);
         }
 
         public string AddExistUserToDepartment()
