@@ -436,7 +436,7 @@
                             <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
                                 <input type='file' id='fup' name='fup' value="IamPic" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId"  style="display:none" />
-                                <input type="text" id="ftype" name="ftype" width="20" value="2" style="display:none" />
+                                <input type="text" id="ftype" name="ftype" width="20" value="3" style="display:none" />
                                 <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
                             </form>
                             <img src="~/img/icon-03.png" alt="" class="up up2" style="left:80px;vertical-align: middle">
@@ -469,7 +469,7 @@
                                 <img src="~/img/icon-03.png" alt="" class="up up2" style="position:absolute;vertical-align: middle">
                                 <input type='file' id='bfup' name='bfup' value="IamPic" style="position:absolute; -moz-opacity:0;-khtml-opacity: 0;opacity: 0;" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId" hidden />
-                                <input type="text" id="ftype" name="ftype" width="20" value="1" hidden />
+                                <input type="text" id="ftype" name="ftype" width="20" value="2" hidden />
                                 <input type="text" id="comment" name="comment" width="20" value="" hidden />
                             </form>
                             
@@ -622,7 +622,7 @@
         $.get("/Projects/GetBidFileInfo?pid=@ViewBag.ProjId", function (data) {
             $("#bfcontent").html(data)
         });
-        $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=1", function (data) {
+        $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
             console.log(data)
             //$("#bffiles").html(data);
             var obj = JSON.parse(data);

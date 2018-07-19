@@ -67,6 +67,7 @@ namespace DAL.Models
         public DataTable GetProjectFiles(string pid, string ftype)
         {
             string sql = @"select right(FilePath, charindex('\', reverse(FilePath) + '\') - 1) as 'FilePath', FileName from BidDocument where ProjId=" + pid + " and FileType=" + ftype;
+            //string sql = @"select FilePath, FileName from BidDocument where ProjId=" + pid + " and FileType=" + ftype;
             return DBHelper.GetDataTable(sql);
         }
 

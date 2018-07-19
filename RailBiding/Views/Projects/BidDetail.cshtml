@@ -200,12 +200,13 @@
     }
 </script>
 <script>
-     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
+    $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
+         console.log(data)
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
                 li.id = obj[i].filepath
-                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                li.innerHTML = '<a href = "'+obj[i].filepath+'" style = "color: #008cd6;margin-left: 5px;" target="_blank"> ' + obj[i].filename+'</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
     });
