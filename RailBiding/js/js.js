@@ -53,10 +53,10 @@ function pages(cur,totalPage,totalRows,setNum){
     htm += '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>'+
         '<a class="js-page-num page-num num-left" data-cur="'+ (cur>1?(cur-1):1) +'">&lt;</a>';
     if(totalPage != 1){
-        htm += '<a data-cur="'+ ((cur+1)>totalPage?(cur-1):cur) +'" class="js-page-num page-num '+ (((cur+1)>totalPage?(cur-1):cur)==cur?"active":"") +'">'+ ((cur+1)>totalPage?(cur-1):cur) +'</a>';
+        htm += '<a data-cur="'+ ((cur+1)>totalPage?(cur-1):cur) +'" class="js-page-num page-num clickpage '+ (((cur+1)>totalPage?(cur-1):cur)==cur?"active":"") +'">'+ ((cur+1)>totalPage?(cur-1):cur) +'</a>';
     }
 
-    htm +='<a data-cur="'+ ((cur+1)>totalPage?totalPage:(cur+1)) +'" class="js-page-num page-num '+ (((cur+1)>totalPage?totalPage:(cur+1))==cur?"active":"") +'">'+ ((cur+1)>totalPage?totalPage:(cur+1)) +'</a>'+
+    htm += '<a data-cur="' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '" class=" js-page-num page-num clickpage ' + (((cur + 1) > totalPage ? totalPage : (cur + 1)) == cur ? " active" : "") + '">' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '</a>' +
         '<a class="js-page-num num-right page-num" data-cur="'+ (cur<totalPage?(cur+1):totalPage) +'">&gt;</a>'+
         '<a data-cur="'+ totalPage +'" class="js-page-num page-num">》</a>'+
         '<a class="page-num page-input"><input type="text" value=""/></a>'+

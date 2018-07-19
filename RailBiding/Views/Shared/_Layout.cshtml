@@ -8,26 +8,34 @@
     <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
     <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
     <link rel="stylesheet" href="~/css/style.css" />
+    <style>
+        .main-header > a .web-title:hover, .main-header > a .web-title:focus {
+            color: #000000;
+        }
+    </style>
 </head>
 <body>
     <div class="main-header">
+
         <h1 class="logo">
-            <div class="logo-img"></div>
-            <h1 class="web-title">|<span>劳务招标系统</span></h1>
-            <div class="search-con">
-                <img src="~/img/nav-icon-tit.png" alt="">
-            </div>
-            <div class="header-right">
-                <div class="user-face">
-                    <ul>
-                        <li class="nav-help"><a href="">帮助</a></li>
-                        <li class="nav-wel"><a href="/Main">首页</a></li>
-                        <li class="nav-user-name"><label id="department"></label>&nbsp;&nbsp;<label id="name">@ViewBag.UserName</label></li>
-                    </ul>
-                </div>
-                <div class="web-home"><a href="#" onclick="logout()"><i class="home-icon-white"></i></a></div>
-            </div>
+            <a href="/Main"><img src="~/img/logo.png" alt=""></a>
         </h1>
+                <h1 class="web-title">|<span>劳务招标系统</span></h1>
+                <div class="search-con">
+                    <img src="~/img/nav-icon-tit.png" alt="">
+                </div>
+                <div class="header-right">
+                    <div class="user-face">
+                        <ul>
+                            <li class="nav-help"><a href="">帮助</a></li>
+                            <li class="nav-wel"><a href="/Main">首页</a></li>
+                            <li class="nav-user-name"><label id="department">@ViewBag.UserDepartment</label>&nbsp;&nbsp;<label id="name">@ViewBag.UserName</label></li>
+                        </ul>
+                    </div>
+                    <div class="web-home"><a href="#" onclick="logout()"><i class="home-icon-white"></i></a></div>
+                </div>
+          
+       
     </div>
     <div class="main-nav">
         <div class="js-nav-open"><i class="icon-control"></i></div>

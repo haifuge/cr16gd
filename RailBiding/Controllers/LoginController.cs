@@ -23,7 +23,7 @@ namespace RailBiding.Controllers
                 return "0";
             UserInfoContext uc = new UserInfoContext();
             UserInfo ui = uc.CheckLogin(account, psd);
-            if (ui is null)
+            if (ui == null)
             {
                 return "0";
             }
@@ -35,7 +35,9 @@ namespace RailBiding.Controllers
             c1.Expires = DateTime.Now.AddHours(3);
             Response.Cookies.Add(c1);
             HttpCookie c2 = new HttpCookie("UserDepartment");
-            c2.Value= uc.GetUserDepartment(ui.DepartmentId); 
+            string department= uc.GetUserDepartment(ui.ID);
+            c2.Value= department; 
+            Session["UserDepartment"]= department;
             c2.Expires = DateTime.Now.AddHours(3);
             Response.Cookies.Add(c2);
             HttpCookie c3 = new HttpCookie("RoleId");

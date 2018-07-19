@@ -25,6 +25,8 @@ namespace RailBiding.Common
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
+            filterContext.Controller.ViewBag.UserName = filterContext.HttpContext.Session["UserName"];
+            filterContext.Controller.ViewBag.UserDepartment = filterContext.HttpContext.Session["UserDepartment"];
             if (filterContext.HttpContext.Session["UserId"] == null)
                 filterContext.Result = new RedirectResult("/Login");
         }

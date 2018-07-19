@@ -35,9 +35,9 @@ namespace DAL.Models
             return JsonHelper.ConvertTableToObj<UserInfo>(dt);
         }
 
-        public string GetUserDepartment(int dId)
+        public string GetUserDepartment(int uid)
         {
-            string sql = "select Name from Department where ID="+dId;
+            string sql = "select d.Name from Department d inner join DepartmentUser du on d.id=du.DepartmentId where du.MainDeparment=1 and du.UserId=" + uid;
             return DBHelper.ExecuteScalar(sql);
         }
 
