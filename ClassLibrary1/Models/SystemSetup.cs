@@ -16,10 +16,20 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public DataTable GetAdmins()
+        public string GetAdmins(string page, string pagesize)
         {
-            string sql = "select UserAccount, UserName, Status from UserInfo where RoleId=1 order by UserAccount";
-            return DBHelper.GetDataTable(sql);
+            int pi = int.Parse(page);
+            int ps = int.Parse(pagesize);
+            int startIndex = (pi - 1) * ps;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as id, UserAccount, UserName, Status into #temp1 from UserInfo where RoleId=1 order by UserAccount asc;
+                            select* from #temp1 where id between "+startIndex+" and "+endIndex+@"
+                            drop table #temp1";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            sql = "select count(1) from UserInfo where RoleId=1 ";
+            string total = DBHelper.ExecuteScalar(sql);
+            int pagecount = int.Parse(total) / ps;
+            return "{\"List\":" + JsonHelper.DataTableToJSON(dt)+", \"total\":"+total+ ", \"PageCount\":" + pagecount+ ",\"CurrentPage\":"+page+"}";
         }
 
         public DataTable GetSystemTypes()

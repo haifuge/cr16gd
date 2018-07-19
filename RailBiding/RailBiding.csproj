@@ -428,6 +428,7 @@
     <Content Include="img\video_close.png" />
     <Content Include="img\zzry1.png" />
     <Content Include="img\zzry2.png" />
+    <Content Include="js\bootstrap-paginator.js" />
     <Content Include="js\bootstrap-table-zh-CN.js" />
     <Content Include="js\bootstrap-table.js" />
     <Content Include="js\bootstrap.min.js" />

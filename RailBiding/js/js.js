@@ -61,46 +61,59 @@ function pages(cur,totalPage,totalRows,setNum){
         '<a data-cur="'+ totalPage +'" class="js-page-num page-num">》</a>'+
         '<a class="page-num page-input"><input type="text" value=""/></a>'+
         '<a class="js-page-num page-num num-go active" data-cur="'+ ((cur+2)>totalPage?cur:(cur+2)) +'">GO</a>';
-    $(".page").append(htm);
+    $(".page").html(htm);
 
-    //分页点击
-    $(".page>a .js-page-num").on("click", function () {
-        alert('1')
-        var url = window.location.href;
-        var cur_num = $(this).data("cur");
-        if($(this).hasClass("num-go")){
-            cur_num = ($(".page-input input").val()?$(".page-input input").val():1);
-        }
-        if(url.indexOf("?")==-1){
-            url +="?";
-        }
-        if(!$.getUrlParam("curPage")){
-            url = url + '&curPage=' + cur_num;
-            $(this).attr("href",url);
-        }else{
-            replaceParamVal("curPage",cur_num);
-        }
-        alert(url)
-    });
+    ////分页点击
+    //$(".page>a.js-page-num").on("click", function () {
+    //    var url = window.location.href;
+    //    var cur_num = $(this).data("cur");
+    //    if($(this).hasClass("num-go")){
+    //        cur_num = ($(".page-input input").val()?$(".page-input input").val():1);
+    //    }
+    //    alert(cur_num)
+    //    if(url.indexOf("?")==-1){
+    //        url +="?";
+    //    }
+    //    if(!$.getUrlParam("curPage")){
+    //        url = url + '&curPage=' + cur_num;
+    //        $(this).attr("href",url);
+    //    }else{
+    //        replaceParamVal("curPage",cur_num);
+    //    }
+    //    alert(url)
+    //});
 
-    $(".page-sel").change(function(){
-        var url = window.location.href;
-        var page_len = $(this).val();
-        if(url.indexOf("?")==-1){
-            url +="?";
-        }
-        if(!$.getUrlParam("Length")){
-            url = url + '&Length=' + page_len;
-            window.location.href = url;
-        }else{
-            replaceParamValNo("curPage",1);
-            replaceParamVal("Length",page_len);
-        }
-        alert(url)
-    });
+    //$(".page-sel").change(function () {
+    //    var url = window.location.href;
+    //    var page_len = $(this).val();
+    //    if(url.indexOf("?")==-1){
+    //        url +="?";
+    //    }
+    //    if(!$.getUrlParam("Length")){
+    //        url = url + '&Length=' + page_len;
+    //        window.location.href = url;
+    //    }else{
+    //        replaceParamVal("curPage",1);
+    //        replaceParamVal("Length",page_len);
+    //    }
+    //    alert(url)
+    //});
 
 }
-
+function replaceParamVal(paramName, replaceWith) {
+    var oUrl = this.location.href.toString();
+    var re = eval('/(' + paramName + '=)([^&]*)/gi');
+    if (re.test(oUrl)) {
+        var nUrl = oUrl.replace(re, paramName + '=' + replaceWith);
+    } else {
+        if (oUrl.indexOf('?') > 0) {
+            var nUrl = oUrl + "&" + paramName + "=" + replaceWith;
+        } else {
+            var nUrl = oUrl + "?" + paramName + "=" + replaceWith;
+        }
+    }
+    this.location = nUrl;
+}
 //会议室平面图预览
 function imgView(url){
     var img_htm = '<div class="meet-img-con" style="position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.6);text-align:center;vertical-align:middle;z-index:9999;top:0;left:0;">'+

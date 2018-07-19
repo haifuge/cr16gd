@@ -57,8 +57,10 @@ namespace RailBiding.Controllers
         public string GetAdmins()
         {
             SystemSetup ss = new SystemSetup();
-            DataTable dt = ss.GetAdmins();
-            return JsonHelper.DataTableToJSON(dt);
+            string page = Request["PageIndex"].ToString();
+            string pagesize= Request["PageSize"].ToString();
+            string data = ss.GetAdmins(page,pagesize);
+            return data;
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemSS")]
