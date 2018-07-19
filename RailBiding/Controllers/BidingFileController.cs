@@ -72,6 +72,8 @@ namespace RailBiding.Controllers
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n","<br/>");
             ViewBag.BidFileUserName = dr["Publisher"].ToString();
             ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
+            ViewBag.BidFileProDescription = dr["ProDescription"].ToString();
+            
 
             return View();
         }
@@ -95,6 +97,7 @@ namespace RailBiding.Controllers
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n", "<br/>");
             ViewBag.BidFileUserName = dr["Publisher"].ToString();
             ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
+            ViewBag.BidFileProDescription = dr["ProDescription"].ToString();
 
             return View();
         }

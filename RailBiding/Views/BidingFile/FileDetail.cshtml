@@ -39,8 +39,16 @@
                         <tr class="form-tr">
                             <td>
                                 <div class="art-tit">
-                                    <span>发布人：</span>@ViewBag.BidFileUserName <span>发布时间：</span> @ViewBag.BidFilePublishDate
+                                    <span>提交人：</span>@ViewBag.BidFileUserName <span>发布时间：</span> @ViewBag.BidFilePublishDate
                                 </div>
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td><h3>工程介绍</h3></td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="art-con">
+                                @Html.Raw(ViewBag.BidFileProDescription)
                             </td>
                         </tr>
                         <tr class="form-tr">
