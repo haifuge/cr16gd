@@ -7,7 +7,7 @@
 
 
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 
 <style type="text/css">
@@ -397,7 +397,9 @@
 /*.con-01 p::after{   content: "...";
              position: absolute; 
              bottom: 0; 
-             right: 0;              padding-right:10px;}    */
+             right: 0;              padding-right:10px;}    */.canvas_content_text ul li i{
+    float:left;
+}
 </style>
 
 <div class="left-nav">
@@ -433,7 +435,7 @@
                         <li>
                             <i><img src="~/img/icon-fj.png" alt=""></i><span>招标文档：</span>
                             @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:150px;">*@
-                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:150px;">
+                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;">
                                 <input type='file' id='fup' name='fup' value="IamPic" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId"  style="display:none" />
                                 <input type="text" id="ftype" name="ftype" width="20" value="3" style="display:none" />
@@ -520,7 +522,7 @@
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
@@ -557,13 +559,13 @@
         $.post("/Projects/AddBid", data, function (res) {
             if (res) {
                 if(ss==1)
-                    alert('提交成功！')
+                    swal('提交成功！')
                 else
-                    alert('保存成功！')
+                    swal('保存成功！')
                 location.reload(true);
             }
             else {
-                alert('保存失败，请稍后再试！')
+                swal('保存失败，请稍后再试！')
             }
         })
     }
@@ -574,13 +576,13 @@
         $.post("/Projects/AddBidFile", data, function (res) {
             if (res) {
                 if(ss==1)
-                    alert('提交成功！')
+                    swal('提交成功！')
                 else
-                    alert('保存成功！')
+                    swal('保存成功！')
                 location.reload(true);
             }
             else {
-                alert('保存失败，请稍后再试！')
+                swal('保存失败，请稍后再试！')
             }
         })
     }

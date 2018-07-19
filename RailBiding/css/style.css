@@ -2143,9 +2143,7 @@ button:hover {
     cursor: pointer;
     z-index: 999;
     filter: alpha(opacity=0);
-    -moz-opacity: 1;
-    -khtml-opacity: 1;
-    opacity: 1;
+    opacity: 0;
     width: 80px;
     height: 30px;
 }
@@ -2302,7 +2300,7 @@ input[name=keyname] {
 
 .logo-img {
     width: 400px;
-    background: url(../img/logo.png) no-repeat center center;
+  
     height: 100%;
     float: left;
 }
@@ -2417,19 +2415,19 @@ input[name=keyname] {
 .header-right {
     position: absolute;
     right: 0;
+    float: right;
     top: 0;
     height: 100%;
-    width: 475px;
     background-color: #eaf6fd;
 }
 
 .user-face {
-    width: 395px;
+    
     height: 100%;
     float: left;
-    position: absolute;
-    right: 60px;
+ 
     top: 0;
+    margin-right:60px;
     padding: 0 15px;
 }
 
@@ -2531,9 +2529,9 @@ input[name=keyname] {
     }
 
 .search-con {
-    margin-right: 445px;
-    padding-left: 570px;
-    position: relative;
+    width: 400px;
+    float: left;
+    padding-left: 160px;
 }
 
 .search-con2 {
@@ -3271,7 +3269,7 @@ input[name=keyname] {
 
 .header-right2 {
     background: #005da2;
-    width: 375px;
+    
 }
 
     /*.user-face ul li a{*/
@@ -3282,7 +3280,7 @@ input[name=keyname] {
     }
 
     .header-right2 .user-face {
-        width: 310px;
+       
         padding: 0 6px;
     }
 
