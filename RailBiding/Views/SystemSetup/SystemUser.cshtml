@@ -37,16 +37,12 @@
         <div class="wc-container szwc-container">
             <table class="meet-table text-left">
                 <thead class="wc-header">
-                <td class="check-color" style="width: 80px;">
-                    选择
-                </td>
-
+                <td class="check-color" style="width: 80px;">选择</td>
                 <td>用户名</td>
                 <td>角色</td>
                 <td>姓名</td>
                 <td>状态</td>
                 <td>操作</td>
-
                 </tr>
                 </thead>
                 <tbody id="tbAdmins"></tbody>
@@ -76,8 +72,7 @@
     pages(1, 12, 120, 10)
     Paginator(nowpage, page_size)
 
-    $(".page > a").on("click", function () {
-        alert(1)
+    $(".page>a").on("click", function () {
         clickpagenum = $(this).html();
         if (clickpagenum == "《") {
             nowpage = 1;
@@ -104,14 +99,14 @@
     $(".page > a.js-page-num").on("click", function () {
         if ($(this).hasClass("num-go")) {
             nowpage = ($(".page-input input").val() ? $(".page-input input").val() : 1);
+            console.log("page go:", nowpage)
+            Paginator(nowpage, page_size)
         }
-        console.log(nowpage)
-        Paginator(nowpage, page_size)
     });
 
     $(".page-sel").change(function () {
         page_size = $(this).val();
-        console.log(page_size)
+        console.log("page select:",page_size)
         Paginator(nowpage, page_size)
     });
  
@@ -142,7 +137,7 @@
                     }
                     $("#tbAdmins").html(htm);
                     //pages(page, jsonData.pagecount, jsonData.total, ps);
-                    pages(1,12,120,10)
+                    //pages(1,12,120,10)
                 }
             }
         });

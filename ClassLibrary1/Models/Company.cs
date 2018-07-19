@@ -55,7 +55,7 @@ namespace DAL.Models
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps;
+            int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
@@ -89,7 +89,7 @@ namespace DAL.Models
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps;
+            int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid,c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
                                   c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
@@ -207,7 +207,7 @@ namespace DAL.Models
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps;
+            int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
 	                            convert(varchar(20),AuditDate,23) as AuditDate, AuditStatus

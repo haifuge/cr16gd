@@ -20,7 +20,7 @@ namespace DAL.Models
         {
             int pi = int.Parse(page);
             int ps = int.Parse(pagesize);
-            int startIndex = (pi - 1) * ps;
+            int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as id, UserAccount, UserName, Status into #temp1 from UserInfo where RoleId=1 order by UserAccount asc;
                             select * from #temp1 where id between "+startIndex+" and "+endIndex+@"
