@@ -194,6 +194,14 @@
         color: #ff7412;
         font-size: 13px;
     }
+    select#bType {
+    line-height: 30px;
+    width: 192px;
+    padding: 0 5px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -241,6 +249,15 @@
                                             <div class="form-item  sel-required">
                                                 <input name="roomInfoName" type="text" value="" id="xgaddpeo"
                                                        class="has-clear-input input input3 addbumen" disabled />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">角色：</td>
+                                        <td>
+                                            <div class="form-item  sel-required">
+                                                <input name="roomInfoName" type="text" value="" id="xgrol"
+                                                       class="has-clear-input input input3 rol" disabled />
                                             </div>
                                         </td>
                                     </tr>
@@ -338,6 +355,17 @@
                                                     <input name="roomInfoName" type="text" value="" id="addpeo"
                                                            class="has-clear-input input input3 addbumen" disabled />
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr  class="form-tr">
+                                            <td class="form-lable">角色：</td>
+                                            <td >
+                                                <select class="has-clear-input input input3 rol" name="iofnName" id="bType">
+                                                    <option value="1">轨道公司领导</option>
+                                                    <option value="2">管理员</option>
+                                                    <option value="3">分公司领导</option>
+                                                    <option value="4">分公司项目部</option>
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr class="form-tr">
@@ -694,7 +722,6 @@
     var cNodename;
     var cNodelevel;
     function zTreeOnClick(event, treeId, treeNode) {
-        
         cNode = treeNode;
         cNodename = cNode.name;
         updatecNodelevel = getDepartmentLevel(cNode.splevel);
