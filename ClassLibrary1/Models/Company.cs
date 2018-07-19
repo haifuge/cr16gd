@@ -51,10 +51,15 @@ namespace DAL.Models
             
         }
 
-        public DataTable GetMyAudit(string userId)
+        public string GetMyAudit(string userId, string pageSize, string pageIndex)
         {
-            string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
+                            into #temp
                             from Company c inner join(
                                 select distinct a.ObjId, a.Approved 
                                 from vw_AppPLevel a 
@@ -69,19 +74,38 @@ namespace DAL.Models
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId and a.AppProcId=1
                             left join BusinessType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + " and a.Approved=3";
-            return DBHelper.GetDataTable(sql);
+                            where a.UserId=" + userId + @" and a.Approved=3
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            int total = int.Parse(ds.Tables[1].Rows[0][0].ToString());
+            int pagecount = total / ps;
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
-        public DataTable GetAllCompanies(string cType)
+        public string GetAllCompanies(string cType, string pageSize, string pageIndex)
         {
-            string sql = @"select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid,c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
                                   c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
+                           into #temp1
                            from Company c
                            left join BusinessType bt on bt.id=c.BusinessType
-                           where c.AuditStatus=2 and c.Type = " + cType + " order by c.Name;";
+                           where c.AuditStatus=2 and c.Type = " + cType + @" order by c.Name;
+                           select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                           select count(1) from #temp1
+                           drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            int total = int.Parse(ds.Tables[1].Rows[0][0].ToString());
+            int pagecount = total / ps;
             DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
-            return dt;
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
         public DataTable GetCompany(int id)
@@ -179,12 +203,24 @@ namespace DAL.Models
                 return false;
         }
 
-        public DataTable GetMyRecommend(string userid)
+        public string GetMyRecommend(string userid, string pageSize, string pageIndex)
         {
-            string sql = @"select id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
 	                            convert(varchar(20),AuditDate,23) as AuditDate, AuditStatus
-                            from Company where SubmitUserId=" + userid;
-            return DBHelper.GetDataTable(sql);
+                            into #temp1
+                            from Company where SubmitUserId=" + userid + @"
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            int total = int.Parse(ds.Tables[1].Rows[0][0].ToString());
+            int pagecount = total / ps;
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
         
 

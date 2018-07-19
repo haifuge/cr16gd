@@ -48,7 +48,7 @@
                         <td>最后参与时间</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbCompany">
                     <tr class="white-bg" onclick="location.href='statistical_analysis_detail.html'; "
                         style="cursor: pointer">
                         <td class="check-color">
@@ -95,6 +95,7 @@
                     '<td class="gray-time">2017-4-20</td>'+
                     '</tr >';
             }
+            $("#tbCompany").html(htm);
         });
         pages(1, 2, 12, 5)
     })

@@ -457,7 +457,11 @@ namespace DAL.Tools
             DataTable dt = ExecuteDataset(conn, ctype, commandText).Tables[0];
             return dt;
         }
-
+        public static DataSet GetDataSet(string commandText)
+        {
+            string conn = GetConnSting();
+            return ExecuteDataset(conn, CommandType.Text, commandText);
+        }
         public static DataSet ExecuteSP(string spName, params SqlParameter[] parameters)
         {
             return ExecuteDataset(GetConnection(), CommandType.StoredProcedure, spName, parameters);

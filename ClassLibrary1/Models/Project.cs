@@ -23,16 +23,28 @@ namespace DAL.Models
 
     public class ProjectContext
     {
-        public DataTable GetAllProjects()
+        public string GetAllProjects(string pageSize, string pageIndex)
         {
-            string sql = @"select p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, 
-                                convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, 
+                                convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status
+                            into #temp1
                             from Project p 
                             left join UserInfo ui on p.PublisherId=ui.ID
                             left join DepartmentUser du on ui.ID=du.UserId
                             left join Department d on d.ID=du.DepartmentId order by p.Id Desc
-";
-            return DBHelper.GetDataTable(sql);
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            int total = int.Parse(ds.Tables[1].Rows[0][0].ToString());
+            int pagecount = total / ps;
+            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
         public DataTable GetProject(string id)
         {

@@ -406,28 +406,25 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetMyRecommend()
+        public string GetMyRecommend(string pageSize, string pageIndex)
         {
             CompanyContext cc = new CompanyContext();
             if (Session["UserName"] == null) { 
                 return "no session";
             }
             string userName = Session["UserId"].ToString();
-            DataTable companies = cc.GetMyRecommend(userName);
-            string json = JsonHelper.DataTableToJSON(companies);
-            return json;
+            return cc.GetMyRecommend(userName, pageSize, pageIndex);
         }
 
-        public string GetMyAudit()
+        public string GetMyAudit(string pageSize, string pageIndex)
         {
             CompanyContext cc = new CompanyContext();
             if (Session["UserId"] == null) { 
                 return "no session";
             }
             string userId = Session["UserId"].ToString();
-            DataTable companies = cc.GetMyAudit(userId);
-            string json = JsonHelper.DataTableToJSON(companies);
-            return json;
+
+            return cc.GetMyAudit(userId, pageSize, pageIndex);
         }
 
         /// <summary>
@@ -435,12 +432,10 @@ namespace RailBiding.Controllers
         /// </summary>
         /// <param name="ctype">0:名录外；1:名录内</param>
         /// <returns></returns>
-        public string GetCompanies(string ctype)
+        public string GetCompanies(string ctype, string pageSize, string pageIndex)
         {
             CompanyContext cc = new CompanyContext();
-            DataTable companies = cc.GetAllCompanies(ctype);
-            string json = JsonHelper.DataTableToJSON(companies);
-            return json;
+            return cc.GetAllCompanies(ctype, pageSize, pageIndex);
         }
 
         // GET: Companys/Create

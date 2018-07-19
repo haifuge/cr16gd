@@ -20,11 +20,10 @@ namespace RailBiding.Controllers
         {
             return View();
         }
-        public string GetAllProjects()
+        public string GetAllProjects(string pageSize, string pageIndex)
         {
             ProjectContext pc = new ProjectContext();
-            DataTable dt = pc.GetAllProjects();
-            return JsonHelper.DataTableToJSON(dt);
+            return pc.GetAllProjects(pageSize, pageIndex);
         }
 
         [VerifyLoginFilter]

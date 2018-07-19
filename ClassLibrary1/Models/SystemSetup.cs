@@ -23,7 +23,7 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as id, UserAccount, UserName, Status into #temp1 from UserInfo where RoleId=1 order by UserAccount asc;
-                            select* from #temp1 where id between "+startIndex+" and "+endIndex+@"
+                            select * from #temp1 where id between "+startIndex+" and "+endIndex+@"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
             sql = "select count(1) from UserInfo where RoleId=1 ";
