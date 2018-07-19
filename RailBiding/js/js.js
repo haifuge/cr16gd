@@ -32,73 +32,60 @@ $.getUrlParam = function (name) {
 } 
 
 //分页
-function pages(cur,totalPage,totalRows,setNum){
-    if(!totalPage) return false;
-    var url = window.location.href;
-    var url_arr = url.split("?");
-    var url = url_arr[0];
-    var htm = '共有'+ totalRows +'条，每页显示',has_para='',set_num_htm='<select class="page-sel">';
+function pages(cur, totalPage, totalRows, setNum) {
+    if (!totalPage) return false;
+    var htm = '共有' + totalRows + '条，每页显示', set_num_htm = '<select class="page-sel">';
     $(".page").html("");
-    if(url.indexOf("?")==-1){
-        has_para = "?";
-    }else{
-        has_para = "&";
-    }
-    setNum = setNum?setNum:5;
-    for(var k=1;k<5;k++){
-        set_num_htm +='<option value="'+ k*5 +'" '+ (setNum==k*5?"selected":"") +'>'+ k*5 +" 条/页" +'</option>'
+    setNum = setNum ? setNum : 5;
+    for (var k = 1; k < 5; k++) {
+        set_num_htm += '<option value="' + k * 5 + '" ' + (setNum == k * 5 ? "selected" : "") + '>' + k * 5 + " 条/页" + '</option>'
     }
     set_num_htm = set_num_htm + '</select>条';
     htm = htm + set_num_htm;
-    htm += '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>'+
-        '<a class="js-page-num page-num num-left" data-cur="'+ (cur>1?(cur-1):1) +'">&lt;</a>';
-    if(totalPage != 1){
-        htm += '<a data-cur="'+ ((cur+1)>totalPage?(cur-1):cur) +'" class="js-page-num page-num clickpage '+ (((cur+1)>totalPage?(cur-1):cur)==cur?"active":"") +'">'+ ((cur+1)>totalPage?(cur-1):cur) +'</a>';
+
+    htm += '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>' +
+        '<a class="js-page-num page-num num-left" data-cur="' + (cur > 1 ? (cur - 1) : 1) + '">&lt;</a>';
+
+    if (totalPage != 1) {
+        htm += '<a data-cur="' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '" class="js-page-num page-num clickpage ' + (((cur + 1) > totalPage ? (cur - 1) : cur) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '</a>';
     }
 
     htm += '<a data-cur="' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '" class=" js-page-num page-num clickpage ' + (((cur + 1) > totalPage ? totalPage : (cur + 1)) == cur ? " active" : "") + '">' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '</a>' +
-        '<a class="js-page-num num-right page-num" data-cur="'+ (cur<totalPage?(cur+1):totalPage) +'">&gt;</a>'+
-        '<a data-cur="'+ totalPage +'" class="js-page-num page-num">》</a>'+
+        '<a class="js-page-num num-right page-num" data-cur="' + (cur < totalPage ? (cur + 1) : totalPage) + '">&gt;</a>' +
+        '<a data-cur="' + totalPage + '" class="js-page-num page-num">》</a>' +
         '<input type="text" value="" class="page-num page-input"/>' +
-        '<a class="js-page-num page-num num-go active" id="pagego" data-cur="'+ ((cur+2)>totalPage?cur:(cur+2)) +'">GO</a>';
+        '<a class="page-num num-go active" id="pagego" data-cur="' + ((cur + 2) > totalPage ? cur : (cur + 2)) + '">GO</a>';
     $(".page").html(htm);
 
-    ////分页点击
-    //$(".page>a.js-page-num").on("click", function () {
-    //    var url = window.location.href;
-    //    var cur_num = $(this).data("cur");
-    //    if($(this).hasClass("num-go")){
-    //        cur_num = ($(".page-input input").val()?$(".page-input input").val():1);
-    //    }
-    //    alert(cur_num)
-    //    if(url.indexOf("?")==-1){
-    //        url +="?";
-    //    }
-    //    if(!$.getUrlParam("curPage")){
-    //        url = url + '&curPage=' + cur_num;
-    //        $(this).attr("href",url);
-    //    }else{
-    //        replaceParamVal("curPage",cur_num);
-    //    }
-    //    alert(url)
-    //});
+    $(".page > a.js-page-num ").on("click", function () {
+        clickpagenum = $(this).html();
+        if (clickpagenum == "《") {
+            nowpage = 1;
+        } else if (clickpagenum == "&lt;") {
+            if (nowpage > 1) {
+                nowpage = nowpage - 1
+            }
+        } else if (clickpagenum == "&gt;") {
+            if (nowpage < totalPage) {
+                nowpage++;
+            }
+        } else if (clickpagenum == "》") {
+            nowpage = totalPage//最后一页;
+        } else {
+            nowpage = parseInt(clickpagenum);
+        }
 
-    //$(".page-sel").change(function () {
-    //    var url = window.location.href;
-    //    var page_len = $(this).val();
-    //    if(url.indexOf("?")==-1){
-    //        url +="?";
-    //    }
-    //    if(!$.getUrlParam("Length")){
-    //        url = url + '&Length=' + page_len;
-    //        window.location.href = url;
-    //    }else{
-    //        replaceParamVal("curPage",1);
-    //        replaceParamVal("Length",page_len);
-    //    }
-    //    alert(url)
-    //});
+        Paginator(nowpage, page_size)
+    })
+    $("#pagego").on("click", function () {
+        nowpage = parseInt(($("page-input").val() != "" ? $(".page-input").val() : 1));
+        Paginator(nowpage, page_size)
+    });
 
+    $(".page-sel").change(function () {
+        page_size = $(this).val();
+        Paginator(nowpage, page_size)
+    });
 }
 function replaceParamVal(paramName, replaceWith) {
     var oUrl = this.location.href.toString();

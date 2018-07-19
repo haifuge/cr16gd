@@ -27,7 +27,7 @@ namespace DAL.Models
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps;
+            int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, 
                                 convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status
