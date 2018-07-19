@@ -1695,7 +1695,7 @@ button:hover {
     margin-right: 10px;
 }
 
-    .page-num.page-input:hover {
+.page-num.page-input:hover {
         color: #9f9e9e;
         background-color: #fff;
     }
@@ -5003,7 +5003,10 @@ h3.fx_tit {
     background: #29a9ef url(../img/icon-bh.png) no-repeat 10px 2px;
     padding-left: 7px;
 }
-
+.icon-yb{
+    background: #29a9ef url(../img/icon-dc.png) no-repeat 12px 5px;
+    padding-left: 10px;
+}
 ul.cjtb_ul {
     margin-top: 20px;
     overflow: hidden;
