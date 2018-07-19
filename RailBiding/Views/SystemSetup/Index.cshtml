@@ -202,6 +202,14 @@
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+        select#xgbType {
+    line-height: 30px;
+    width: 192px;
+    padding: 0 5px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -255,10 +263,12 @@
                                     <tr class="form-tr">
                                         <td class="form-lable">角色：</td>
                                         <td>
-                                            <div class="form-item  sel-required">
-                                                <input name="roomInfoName" type="text" value="" id="xgrol"
-                                                       class="has-clear-input input input3 rol" disabled />
-                                            </div>
+                                            <select class="has-clear-input input input3 xgrol" name="xgiofnName" id="xgbType">
+                                                <option value="1">轨道公司领导</option>
+                                                <option value="2">管理员</option>
+                                                <option value="3">分公司领导</option>
+                                                <option value="4">分公司项目部</option>
+                                            </select>
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
@@ -536,15 +546,16 @@
                 <table class="meet-table text-left">
                     <thead class="wc-header">
                         <tr>
-                    <td class="check-color">
-                        用户名
-                    </td>
-                    <td>姓名</td>
-                    <td >部门</td>
-                    <td>手机</td>
-                    <td>邮箱</td>
-                    <td>操作</td>
-                    </tr>
+                            <td class="check-color" style="width:110px;">
+                                用户名
+                            </td>
+                            <td style="width:80px;">姓名</td>
+                            <td style="width:80px;">部门</td>
+                            <td style="width:80px;">角色</td>
+                            <td style="width:100px;">手机</td>
+                            <td style="width:100px;">邮箱</td>
+                            <td style="width:80px;">操作</td>
+                        </tr>
                     </thead>
                     <tbody id="tbusers"></tbody>
                 </table>
@@ -723,6 +734,7 @@
     var cNodelevel;
     function zTreeOnClick(event, treeId, treeNode) {
         cNode = treeNode;
+       
         cNodename = cNode.name;
         updatecNodelevel = getDepartmentLevel(cNode.splevel);
         cNodelevel = getDepartmentLevel(cNode.splevel) + 1;
@@ -966,13 +978,15 @@
         if (success > 0) {
             return;
         }
+        var rol = $(".rol").val();
+        console.log(rol);
         var account = $("#uaccount").val();
         var password = $("#upsd").val();
         var name = $("#uname").val();
         var tel = $("#utel").val();
         var email = $("#uemail").val();
         var depId = cNode.id;
-        var data = { acc: account, pasd: password, nam: name, telephone: tel, em: email, did: depId };
+        var data = { roleid: rol, acc: account, pasd: password, nam: name, telephone: tel, em: email, did: depId };
         $.post("/SystemSetup/CreateUser", data, function (res) {
             if (res == "1") {
                 swal(
@@ -1092,11 +1106,22 @@
             $("#tbusers").empty();
             var htm = "";
             users = obj;
+            var role = "";
             for (var i = 0; i < obj.length; i++) {
-                var o = obj[i]
+                var o = obj[i];
+                if (o.roleid == 1) {
+                    role = "轨道公司领导";
+                } else if (o.roleid == 2) {
+                    role = "管理员";
+                } else if (o.roleid == 3) {
+                    role = "分公司领导";
+                } else {
+                    role = "分公司项目部";
+                }
                 htm += '<tr class="white-bg" id="utr'+o.id+'"><td class="check-color">' + o.useraccount + '</td>' +
                     '<td>' + o.username + '</td>' +
                     '<td>' + o.department + '</td>' +
+                    '<td>' + role + '</td>' +
                     '<td>' + o.telephone + '</td>' +
                     '<td>' + o.email + '</td>' +
                     '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + o.id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + o.id + '\')">删除</a></td>' +
@@ -1138,7 +1163,10 @@
         $(".canvas.canvas3").show();
         for (var i = 0; i < users.length; i++) {
             var o = users[i];
-            if(o.id==id){
+            console.log(o);
+            if (o.id == id) {
+
+                $('#xgbType').val(o.roleid);
                 $('#xguaccount').val(o.useraccount);
                 $('#xguname').val(o.username);
                 $('#xgutel').val(o.telephone);
@@ -1157,12 +1185,13 @@
             return;
         }
 
-
+        var xgbType = $('#xgbType').val();
+        console.log(xgbType);
         var xguaccount = $('#xguaccount').val();
         var xguname = $('#xguname').val();
         var xgutel = $('#xgutel').val();
         var xguemail = $('#xguemail').val();
-        var obj = { uname: xguname, tel: xgutel, em: xguemail, account: xguaccount }
+        var obj = { uname: xguname, tel: xgutel, em: xguemail, account: xguaccount, roleid: xgbType }
         $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
             if (res = "1"){
                 swal(
