@@ -83,16 +83,16 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public string UpdateUserInfo(string account, string uname, string psd, string tel, string email)
+        public string UpdateUserInfo(string account, string uname, string psd, string tel, string email, string roleid)
         {
             string sql;
             if (psd != "") { 
                 psd = EncryptHelper.Encrypt(psd, "IamKey12");
-                sql = "update UserInfo set UserName=N'"+uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"' where UserAccount='"+ account+"'";
+                sql = "update UserInfo set UserName=N'"+uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"', RoleId="+roleid+" where UserAccount='"+ account+"'";
             }
             else
             {
-                sql = "update UserInfo set UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "' where UserAccount='" + account + "'";
+                sql = "update UserInfo set UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where UserAccount='" + account + "'";
             }
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
@@ -102,10 +102,10 @@ namespace DAL.Models
 
         }
 
-        public string CreateUser(string acc, string pasd, string nam, string telephone, string em, string did)
+        public string CreateUser(string acc, string pasd, string nam, string telephone, string em, string did, string roleid)
         {
             pasd = EncryptHelper.Encrypt(pasd, "IamKey12");
-            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,1); ";
+            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,"+ roleid + "); ";
             sql += @"declare @uid int
                      select @uid=max(id) from UserInfo
                      insert into DepartmentUser values(NEWID(), "+did+", @uid, 1, 1)";
@@ -130,7 +130,7 @@ namespace DAL.Models
         {
             SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@did", did);
-            return DBHelper.ExecuteSP("GetUsersByDepartmentId", parameters).Tables[0] ;
+            return DBHelper.ExecuteSP("GetUsersByDepartmentId", parameters).Tables[0];
         }
 
         public string AddBusinessType(string bt)
