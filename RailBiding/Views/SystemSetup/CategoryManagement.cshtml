@@ -236,8 +236,8 @@
                 $("#btype").focus();
                 return;
             }
-            
-            if(addtype="1"){
+            console.log(addtype)
+            if(addtype=="1"){
                 $.post("/SystemSetup/AddBusinessType", { bt: btval }, function (bid) {
                     var htm = '<tr class="white-bg">' +
                         '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '" id="checkbox-1"/></td>' +
