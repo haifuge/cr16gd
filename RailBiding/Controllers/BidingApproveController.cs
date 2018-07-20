@@ -24,6 +24,7 @@ namespace RailBiding.Controllers
         public string GetBidingApproves(string pageSize, string pageIndex)
         {
             BidContext bc = new BidContext();
+
             return bc.GetBidingApproves(Session["UserId"].ToString(), pageSize, pageIndex);
         }
         [VerifyLoginFilter]

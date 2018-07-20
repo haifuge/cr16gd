@@ -440,11 +440,20 @@
         elementtwo.parentNode.removeChild(elementtwo);
     }
     //所添加公司遍历
-    $(function () {
-        $.post("/Common/GetCompanyCandidate", function (comdata) {
-            console.log(comdata)
-            var comobj = JSON.parse(comdata);
-            companys = comobj;
+    //分页点击
+    var cur_num = 1
+    var clickpagenum = "" //所点击页码
+    //当前所在页码
+    var nowpage = 1;
+    var page_size = 10
+    var pagenum = 12
+    Paginator(nowpage, page_size)
+
+    function Paginator(page, ps) {
+        $.post("/Common/GetCompanyCandidate", { pageSize: ps, pageIndex: page },function (data) {
+            var jsonData = JSON.parse(data);
+            var comobj = jsonData.List;
+            console.log(comobj)
             if (comobj.length == 0)
                 return;
             var comhtml = ""
@@ -475,10 +484,12 @@
             }
             console.log(comhhtm2)
             $("#wincompanysc").html(comhhtm2)
-            $("#bidingcompanysc").html(comhtml)
+            $("#bidingcompanysc").html(comhtml);
+            console.log(page, jsonData.PageCount, jsonData.total, ps)
+            pages(page, jsonData.PageCount, jsonData.total, ps)
         })
 
-    })
+    }
 
 
     function makebidbtn() {

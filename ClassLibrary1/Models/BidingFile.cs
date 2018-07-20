@@ -30,6 +30,7 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
+                            into #temp1
                             from BidingFile bf 
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId
@@ -53,9 +54,8 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @" select identity(int,1,1) as iid, a.* from (
-                                select p.Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
-                                into #temp1
+            string sql = @" select identity(int,1,1) as iid, a.* into #temp1 from (
+                                select top 100 percent p.Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
                                 from BidingFile bf 
                                 inner join Project p on bf.ProjId=p.Id
                                 left join UserInfo ui on ui.ID=bf.PublisherId
@@ -67,7 +67,7 @@ namespace DAL.Models
                                     inner join (select MAX(level) as level,AppProcId, ObjId 
 			                                    from vw_AppPLevel where AppProcId=2 and Approved=1 group by ObjId, AppProcId
                                 ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                                where a.UserId=" + userid+ @") a on p.ID=a.ObjId order by p.Id desc) a
+                                where a.UserId=" + userid+ @") a on p.ID=a.ObjId order by p.Id desc) a 
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
