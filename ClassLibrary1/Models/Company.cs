@@ -122,7 +122,7 @@ namespace DAL.Models
         public DataTable GetWorkHistory(int id)
         {
             string sql = @"select ProjectName,ContractAmount, CONVERT(varchar(20), StartDate,23) as StartDate,
-			                    CONVERT(varchar(20),EndDate,23) as EndDate, SettlementAmount, DelayStatus
+			                    CONVERT(varchar(20),EndDate,23) as EndDate, SettlementAmount, DelayStatus, TestifyFile, FilePath
                           from WorkHistory where CompanyId= " + id;
             return DBHelper.GetDataTable(sql);
         }
@@ -166,7 +166,12 @@ namespace DAL.Models
             // 更新临时保存的推荐书
             sql = "update BidDocument set ProjId="+i+" where FilePath like '%"+refguid+"%'";
             DBHelper.ExecuteNonQuery(sql);
-            CreateApproveProcess(i, uid);
+            if(company.Type==1)
+                // 名录内企业
+                CreateApproveProcess(i, uid, "5");
+            else
+                // 名录外企业
+                CreateApproveProcess(i, uid, "1");
             return i;
         }
         public bool UpdateCompanyPics(Company company)
@@ -224,14 +229,14 @@ namespace DAL.Models
         }
         
 
-        private void CreateApproveProcess(string cid, string uid)
+        private void CreateApproveProcess(string cid, string uid, string apid)
         {
             string sql = @"insert into AppProcessing(AppProcId, ObjId,Approved, Comment, DealDatetime,DUGUID)
                             select APID, " + cid + ", 1, null, null, DUGUID from APDetail where APID = 1";
             SqlParameter[] paras = new SqlParameter[3];
             paras[0] = new SqlParameter("@uid",uid);
             paras[1] = new SqlParameter("@objid",cid);
-            paras[2] = new SqlParameter("@apid", 1);
+            paras[2] = new SqlParameter("@apid", apid);
             DBHelper.ExecuteSP("CreateApproveProcessing", paras);
         }
     }

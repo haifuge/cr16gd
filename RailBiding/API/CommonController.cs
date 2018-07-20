@@ -26,6 +26,13 @@ namespace RailBiding.API
             return JsonHelper.DataTableToJSON(dt);
         }
 
+        public string GetCompanyType()
+        {
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetCompanyBusinessTypes();
+            return JsonHelper.DataTableToJSON(dt);
+        }
+
         [HttpPost]
         public string FileUpload()
         {

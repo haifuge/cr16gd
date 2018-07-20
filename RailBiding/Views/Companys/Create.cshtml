@@ -527,12 +527,9 @@
             return;
         }
         $("#fupform").ajaxSubmit(function (res) {
-
           var fileName = res.split('|');
           $(".dw").html(fileName[1]);
           $("#fname").val(fileName[0]);
-
-          
         });
     })
     console.log($("#tworkhistory tr td:last-child").html())
@@ -808,9 +805,7 @@
             )
             return;
         }
-
-
-
+        
         var comName = $("#companyName").val()
         var bt = $("#bType").val()
         var refname = $("#refererName").val()
@@ -918,7 +913,7 @@
         }
     }
     $(function () {
-        $.post("/Common/GetBusinessType", {}, function (data) {
+        $.post("/Common/GetCompanyType", {}, function (data) {
             var obj = JSON.parse(data);
             var btype = $("#bType");
             for (var i = 0; i < obj.length; i++) {
