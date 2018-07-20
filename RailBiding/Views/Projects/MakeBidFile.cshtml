@@ -362,6 +362,10 @@
 </script>
 <script>
     $("#fup").change(function () {
+        var fup = $("#fup").val();
+        if (fup == "") { //点击取消，取消事件的编写
+            return;
+        }
         $("#fupform").ajaxSubmit(function (res) {
             var names = res.split('|')
             var li = document.createElement("li");

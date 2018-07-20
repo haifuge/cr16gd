@@ -522,6 +522,10 @@
 <script type='text/javascript'>
 
     $("#fileInfoName").change(function () {
+        var fileInfoName = $("#fileInfoName").val();
+        if (fileInfoName == "") { //点击取消，取消事件的编写
+            return;
+        }
         $("#fupform").ajaxSubmit(function (res) {
 
           var fileName = $("#fileInfoName").val();
@@ -887,6 +891,7 @@
                 children[i].children[3].innerText + '|' +
                 children[i].children[4].innerText + '|' +
                 children[i].children[5].innerText + '|' +
+                children[i].children[6].innerText + '|' +
                 children[i].children[8].innerText
             data += item + "^"
         }
