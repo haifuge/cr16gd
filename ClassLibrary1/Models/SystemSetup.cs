@@ -144,7 +144,7 @@ namespace DAL.Models
             DataTable ndt = dt.Clone();
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps;
+            int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             for (int i = 0; i < dt.Rows.Count; i++)
             {

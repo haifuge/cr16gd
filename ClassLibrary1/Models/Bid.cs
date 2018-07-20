@@ -164,13 +164,27 @@ namespace DAL.Models
             return JsonHelper.ConvertTableToObj<BidCompany>(dt);
         }
 
-        public List<CompanyStat> GetCompanyStats()
+        public string GetCompanyStats(string pageSize, string pageIndex)
         {
-            string sql = @"select CompanyName, SUM(response) as JoinTimes, sum(case when Response=0 then 1 else 0 end) as NoJoinTimes, 
-		                            SUM(WinBid) as WinBids, COUNT(1) - SUM(WinBid) as NoWinBids, Convert(varchar(20),MAX(JoinDate),20) as LastJoinDate
-                            from CompanyInBid group by CompanyName";
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as id, c.Name, SUM(isnull(bc.Biding,0)) as JoinTimes, sum(case when bc.CompanyResponse=0 then 1 else 0 end) as NoJoinTimes,
+		                            SUM(isnull(bc.Win,0)) as WinBids, sum(case when bc.Win=0 then 1 else 0 end) as NoWinBids, max(p.PublishDate) as LastJoinDate
+                            from Company c 
+                            into #temp1
+                            left join BidingCompany bc on c.ID=bc.CompanyId
+                            left join Project p on bc.ProjId=p.Id
+                            group by c.Name
+                            order by c.Name
+                            select * from #temp1 where id between " + startIndex + " and " + endIndex + @"
+                            drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
-            return JsonHelper.ConvertTableToObj<CompanyStat>(dt);
+            sql = "select count(1) from UserInfo where RoleId=1 ";
+            string total = DBHelper.ExecuteScalar(sql);
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
         }
         public List<CompanyBidDetail> GetCompanyBidDetail(string cId)
         {

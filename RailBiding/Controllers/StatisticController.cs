@@ -19,6 +19,7 @@ namespace RailBiding.Controllers
 
         public string GetCompaniesStatistic()
         {
+
             return "";
         }
         [VerifyLoginFilter]

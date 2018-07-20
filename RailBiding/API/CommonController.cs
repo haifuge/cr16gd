@@ -115,7 +115,7 @@ namespace RailBiding.API
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
-            sql = "select count(1) from UserInfo where RoleId=1 ";
+            sql = "select count(1) from Company ";
             string total = DBHelper.ExecuteScalar(sql);
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
