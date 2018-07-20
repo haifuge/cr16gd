@@ -60,8 +60,8 @@
                     <tbody id="tbLog">
                     </tbody>
                 </table>
-                <div class="page">
-                </div>
+            </div>
+            <div class="page">
             </div>
         </div>
     </div>
@@ -78,9 +78,20 @@
     <script type="text/javascript" src="~/js/js.js"></script>
 
     <script>
-        $(function () {
-            $.post("/SystemSetup/GetLogs", {}, function (data) {
-                var obj = JSON.parse(data)
+
+        //分页点击
+        var cur_num = 1
+        var clickpagenum = "" //所点击页码
+        //当前所在页码
+        var nowpage = 1;
+        var page_size = 10
+        var pagenum = 12
+        Paginator(nowpage, page_size)
+
+        function Paginator(page, ps) {    
+            $.post("/SystemSetup/GetLogs", { pageSize: ps, pageIndex: page }, function (data) {
+                var jsonData = JSON.parse(data);
+                var obj = jsonData.List;
                 var htm = "";
                 for (var i = 0; i < obj.length; i++) {
                     var o=obj[i]
@@ -93,7 +104,10 @@
                         '</tr >';
                 }
                 $("#tbLog").html(htm);
+                console.log(jsonData)
+                console.log(page, jsonData.pagecount, jsonData.total, ps)
+                pages(page, jsonData.pagecount, jsonData.total, ps)
             });
-            pages(1, 2, 12, 5)
-        })
+  
+        }
     </script>

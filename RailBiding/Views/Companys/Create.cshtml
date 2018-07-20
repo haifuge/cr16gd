@@ -202,6 +202,32 @@
     .aui-mask-content .aui-check-text span {
         width: 48%;
     }
+    .fileInput, .allfileInput{
+        background:transparent;
+    }
+    .upload-btn{
+        border:0px;
+    }
+        .dw {
+        display: block;
+    }
+
+    .dw {
+        display: block;
+        background: #fff;
+        padding: 0px;
+        margin-left: 0px;
+        margin-top: 10px
+    }
+
+        .dw > ul > li {
+            margin-bottom: 3px;
+        }
+
+            .dw > ul > li > a {
+                color: #008cd6;
+                padding-left: 10px;
+            }
 </style>
 
 <div class="left-nav">
@@ -403,13 +429,16 @@
                                 <table style="width: 100%" class="table01">
                                     <thead class="wc-header gzyjthead">
                                         <tr>
-                                            <td>承包项目</td>
-                                            <td>合同金额</td>
-                                            <td>开工日期</td>
-                                            <td>竣工日期</td>
-                                            <td>状态</td>
-                                            <td>结算金额</td>
-                                            <td>操作</td>
+                                            <td style="width:150px;padding:0 5px">承包项目</td>
+                                            <td style="width:80px;padding:0 5px">合同金额</tdstyle="width:150px;padding:0>
+                                            <td style="width:100px;padding:0 5px">开工日期</td>
+                                            <td style="width:100px;padding:0 5px">竣工日期</td>
+                                            <td style="width:50px;padding:0 5px">状态</td>
+                                            <td style="width:80px;padding:0 5px">结算金额</td>
+                                            <td style="width:100px;padding:0 5px">合同扫描件</td>
+                                            <td style="width:80px;padding:0 5px">操作</td>
+                                            <td style="display:none;width:80px;padding:0 5px">合同扫描件</td>
+
                                         </tr>
                                     </thead>
                                     <tbody id="tworkhistory"></tbody>
@@ -433,6 +462,17 @@
                     <h3>添加业绩</h3>
                     <div class="cb">
                         <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" maxlength="30" name="roomInfoName" value="" id="projName" />
+                        <label for="" style="width:100px;float:left">合同扫描件：</label>
+                        <div class="upload-btn upload-btn2" style="top:0px;width: 40px;float:left;">
+                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                <input type='file' id='fileInfoName' name='fup' value="IamPic" style="opacity:1;"/>
+                                <input type="text" id="pid" name="pid" width="20" value="@ViewBag.pid" style="display:none" />
+                                <input type="text" id="ftype" name="ftype" width="20" value="4" style="display:none" />
+                                <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
+                            </form>
+                            <img src="/img/icon-add2.png" alt="" class="up up2">
+                        </div>
+                        <div class="dw"></div>
                     </div>
                     <div class="cb">
                         <label for="">合同金额：</label><input type="text" class="input8" id="contractAmount">&nbsp;万
@@ -480,6 +520,13 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
+    $("#fup").change(function () {
+        $("#fupform").ajaxSubmit(function (res) {
+            $(".dw").html(res)
+        });
+    })
+
+
     $("#allfileInput1").change(function () {
         $("#bfupform").ajaxSubmit(function (res) {
             $("#referPic").val(res);
@@ -954,6 +1001,13 @@
             document.getElementById("settleAmount").focus();
             return;
         }
+        var fileInfoName = document.getElementById("fileInfoName").value;
+        if (fileInfoName.length == 0) {
+            swal("请上传合同扫描件")
+            document.getElementById("fileInfoName").focus();
+            return;
+        }
+
         row = row + 1
         var rowtr = document.createElement("tr");
         rowtr.className = "white-bg"
@@ -971,6 +1025,9 @@
         var samount = document.createElement("td");
         samount.innerText = settleAmount + '万'
         var tddelete = document.createElement("td");
+        var tdfile = document.createElement("td");
+        tdfile.innerText = fileInfoName;
+        var tdhiddw = $(".dw").html()
         tddelete.innerHTML = '<div href="#" class="color01" style="cursor: pointer;" onclick=removeRow("row' + row + '")>删除</div>';
         rowtr.appendChild(tdname);
         rowtr.appendChild(tdcAmount);
@@ -979,7 +1036,10 @@
         rowtr.appendChild(pstatus);
         rowtr.appendChild(pstatus);
         rowtr.appendChild(samount);
+        rowtr.appendChild(tdfile);
         rowtr.appendChild(tddelete);
+        rowtr.appendChild(tdhiddw);
+       
         document.getElementById("tworkhistory").appendChild(rowtr);
         $("#projName").val("");
         $("#contractAmount").val("");

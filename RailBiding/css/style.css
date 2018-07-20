@@ -3923,6 +3923,7 @@ input[name=keyname] {
         width: 75px;
         text-align: right;
         display: inline-block;
+        float:left
     }
 
     .add-yej textarea.input {
@@ -3951,7 +3952,8 @@ input[name=keyname] {
     }
 
     .add-yej .cb {
-        margin-bottom: 15px;
+        margin-bottom: 60px;
+        clear:both;
     }
 
 .input8 {
@@ -5841,10 +5843,11 @@ ul.cjtb_ul li div.ul-bg {
     cursor: pointer;
 }
 .input#projName{ 
-    width:80%;
+    width:400px;
     height: 30px;
     line-height: 30px;
     border: 1px solid #ccc;
+    float:left;
     border-radius: 5px;}
 
 .add-yej h3{

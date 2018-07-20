@@ -155,7 +155,7 @@ namespace DAL.Models
             }
             string total = dt.Rows.Count.ToString();
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
-            return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
+            return "{\"List\":" + JsonHelper.DataTableToJSON(ndt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
         }
 
         public string AddBusinessType(string bt)
@@ -211,10 +211,10 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public void AddCompanyBusinessType(string bt)
+        public string AddCompanyBusinessType(string bt)
         {
-            string sql = "insert into CompanyType values(N'"+bt+"'); ";
-            DBHelper.ExecuteNonQuery(sql);
+            string sql = "insert into CompanyType values(N'"+bt+"'); select max(id) from CompanyType ";
+            return DBHelper.ExecuteScalar(sql);
         }
 
         public void DeleteCompanyBusinessType(string id)

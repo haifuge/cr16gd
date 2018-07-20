@@ -551,7 +551,7 @@
                             </td>
                             <td style="width:80px;">姓名</td>
                             <td style="width:80px;">部门</td>
-                            <td style="width:80px;">角色</td>
+                            <!--<td style="width:80px;">角色</td>-->
                             <td style="width:100px;">手机</td>
                             <td style="width:100px;">邮箱</td>
                             <td style="width:80px;">操作</td>
@@ -1105,7 +1105,6 @@
         Paginator(nowpage, page_size)
     }
     function Paginator(page, ps) {
-
         $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id ,pageIndex: page , pageSize: ps}, function (res) {
             console.log(res)
             var jsonData = JSON.parse(res);
@@ -1130,15 +1129,15 @@
                 htm += '<tr class="white-bg" id="utr' + o.id + '"><td class="check-color">' + o.useraccount + '</td>' +
                     '<td>' + o.username + '</td>' +
                     '<td>' + o.department + '</td>' +
-                    '<td>' + role + '</td>' +
+                    //'<td>' + role + '</td>' +
                     '<td>' + o.telephone + '</td>' +
                     '<td>' + o.email + '</td>' +
                     '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + o.id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + o.id + '\')">删除</a></td>' +
                     '</tr >';
             }
             $("#tbusers").html(htm)
-            console.log(page, jsonData.PageCount, jsonData.total, ps)
-            pages(page, jsonData.PageCount, jsonData.total, ps)
+            console.log(page, jsonData.pagecount, jsonData.total, parseInt(ps))
+            pages(page, jsonData.pagecount, jsonData.total, parseInt(ps))
         })
 
     }
