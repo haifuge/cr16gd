@@ -38,6 +38,7 @@ namespace DAL.Models
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
+                            into #temp1
                             from MakeBidingFile mb inner join Project p on mb.ProjId = p.Id order by p.Id desc; 
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
@@ -56,8 +57,9 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select p.Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
+            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
+                            into #temp1
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join MakeBidingFile mb on mb.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID

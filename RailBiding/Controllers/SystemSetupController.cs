@@ -196,7 +196,7 @@ namespace RailBiding.Controllers
             return ss.SearchUsers(uname);
         }
 
-        public string GetDepartmentUsers(string pageSize, string pageIndex)
+        public DataTable GetDepartmentUsers(string pageSize, string pageIndex)
         {
             string did = Request["did"].ToString();
             SystemSetup ss = new SystemSetup();

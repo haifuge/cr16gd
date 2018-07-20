@@ -82,8 +82,9 @@ i.status-wcl.status-wfb {
         </div>
         <div class="wc-container">
             
-            <div class="page">
-            </div>
+            
+        </div>
+        <div class="page">
         </div>
     </div>
     </div>
@@ -95,13 +96,19 @@ i.status-wcl.status-wfb {
     <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
     <script type='text/javascript' src='~/js/js.js'></script>
     <script>
-        $(function () {
-            pages(1, 2, 12, 5)
+        //分页点击
+        var cur_num = 1
+        var clickpagenum = "" //所点击页码
+        //当前所在页码
+        var nowpage = 1;
+        var page_size = 10
+        var pagenum = 12
+        Paginator(nowpage, page_size)
 
-            $.post("/MakeBidFile/GetMyMakeBidFiles", {}, function (data) {
-
-                var obj = JSON.parse(data);
-
+        function Paginator(page, ps) {     
+            $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page }, function (data) {
+                var jsonData = JSON.parse(data);
+                var obj = jsonData.List;
                 var htm = "";
                 var applyStatus = "";
                 var applyStyle = "";
@@ -157,6 +164,8 @@ i.status-wcl.status-wfb {
 
                 }
                 $(".wc-container").html(htm);
+                console.log(page, jsonData.PageCount, jsonData.total, ps)
+                pages(page, jsonData.PageCount, jsonData.total, ps)
             })
-        })
+        }
     </script>
