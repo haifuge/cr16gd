@@ -25,8 +25,7 @@ namespace RailBiding.Controllers
         {
             BidContext bc = new BidContext();
 
-            DataTable dt = bc.GetBidingApproves(Session["UserId"].ToString(), pageSize, pageIndex);
-            return JsonHelper.DataTableToJSON(dt);
+            return bc.GetBidingApproves(Session["UserId"].ToString(), pageSize, pageIndex);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemB")]

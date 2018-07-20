@@ -29,6 +29,7 @@ namespace DAL.Models
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, bf.Content, p.Location, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
+                            into #temp1
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID

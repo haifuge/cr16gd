@@ -81,12 +81,23 @@
                     var jsonData = JSON.parse(data);
                     var obj = jsonData.List;
                     var htm = "";
+                    var role = "1";
                     for (var i = 0; i < obj.length; i++) {
                         var o = obj[i]
+                        console.log(o);
+                       /* if (o.roleid == 1) {
+                            role = "轨道公司领导";
+                        } else if (o.roleid == 2) {
+                            role = "管理员";
+                        } else if (o.roleid == 3) {
+                            role = "分公司领导";
+                        } else {
+                            role = "分公司项目部";
+                        }*/
                         htm += '<tr class="white-bg">' +
                             '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id = "checkbox-1"/></td>' +
                             '<td>' + o.useraccount + '</td>' +
-                            '<td>系统管理员</td>' +
+                            '<td>'+role+'</td>' +
                             '<td>' + o.username + '</td>' +
                             '<td>正常</td>' +
                             '<td><a href="" class="xg">移除</a></td>' +
