@@ -1101,11 +1101,13 @@
     function getDepartmentUsers() {
         nowpage = 1;
         page_size = 10;
+        console.log(1)
         Paginator(nowpage, page_size)
     }
-    function Paginator(page, page_size) {
+    function Paginator(page, ps) {
 
-        $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id, pageSize: page_size, pageIndex: page }, function (res) {
+        $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id ,pageIndex: page , pageSize: ps}, function (res) {
+            console.log(res)
             var jsonData = JSON.parse(res);
             console.log(jsonData)
             var obj = jsonData.List;

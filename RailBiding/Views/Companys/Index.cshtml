@@ -86,6 +86,7 @@
 
     function Paginator(page, ps) {        
         $.post("/Companys/GetCompanies?ctype=1", { pageSize: ps, pageIndex: page }, function (data) {
+       
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             console.log(jsonData)
