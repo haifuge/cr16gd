@@ -196,7 +196,7 @@ namespace RailBiding.Controllers
             return ss.SearchUsers(uname);
         }
 
-        public DataTable GetDepartmentUsers(string pageSize, string pageIndex)
+        public string GetDepartmentUsers(string pageSize, string pageIndex)
         {
             string did = Request["did"].ToString();
             SystemSetup ss = new SystemSetup();
@@ -248,6 +248,11 @@ namespace RailBiding.Controllers
         {
             SystemSetup ss = new SystemSetup();
             ss.AddCompanyBusinessType(bt);
+        }
+        public void UpdateCompanyBusinessType(string id, string name)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.UpdateCompanyBusinessType(id, name);
         }
     }
 }
