@@ -249,5 +249,10 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             ss.AddCompanyBusinessType(bt);
         }
+        public void UpdateCompanyBusinessType(string id, string name)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.UpdateCompanyBusinessType(id, name);
+        }
     }
 }

@@ -191,6 +191,12 @@ namespace DAL.Models
             return JsonHelper.DataTableToJSON(dt);
         }
 
+        public void UpdateCompanyBusinessType(string id, string name)
+        {
+            string sql = "update CompanyType set Name=N'" + name + "' where id = " + id;
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
         public void AddUserToDepartment(string did, string uid)
         {
             SqlParameter[] paras = new SqlParameter[2];
