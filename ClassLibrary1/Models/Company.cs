@@ -209,7 +209,7 @@ select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as Busin
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
+            string sql = @"select identity(int,1,1) as iid, id*1 as id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
 	                            convert(varchar(20),AuditDate,23) as AuditDate, AuditStatus
                             into #temp1
                             from Company where SubmitUserId=" + userid + @"

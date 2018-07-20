@@ -2143,7 +2143,7 @@ button:hover {
     cursor: pointer;
     z-index: 999;
     filter: alpha(opacity=0);
-    opacity: 0;
+    opacity: 1;
     width: 80px;
     height: 30px;
 }
