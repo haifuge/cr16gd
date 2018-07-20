@@ -564,30 +564,43 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
 
 </script>
 <script>
+
+    //分页点击
+    var cur_num = 1
+    var clickpagenum = "" //所点击页码
+    //当前所在页码
+    var nowpage = 1;
+    var page_size = 10
+    var pagenum = 12
+    Paginator(nowpage, page_size)
+
     //所添加公司遍历
-    $(function () {
-        $.post("/Common/GetCompanyCandidate", function(comdata) {
-            var comobj = JSON.parse(comdata);
-            console.log(comdata)
-            if (comobj.length == 0)
+    function Paginator(page, ps) {
+        $.post("/Common/GetCompanyCandidate",{ pagesize: ps, page: page }, function(data) {
+            console.log(data)
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            if (obj.length == 0)
                 return;
             var comhtml=""
-            for (var j = 0; j < comobj.length; j++) {
-                var como = comobj[j];
-                console.log(como)
+            for (var j = 0; j < obj.length; j++) {
+                var o = obj[j];
+                console.log(o)
                 comhtml+='<tr class="white-bg">'+
                               '<td class="check-color">'+
-                                 '<input class="icheck" name="addcompenycheck" type="checkbox" value="'+como.id+'|'+como.name+'" id="checkbox-1"/>'+
+                                 '<input class="icheck" name="addcompenycheck" type="checkbox" value="'+o.id+'|'+o.name+'" id="checkbox-1"/>'+
                               '</td>'+
                               '<td>'+
-                                  '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">'+como.name+'</a>'+
+                                  '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">'+o.name+'</a>'+
                               '</td>'+
-                              '<td>'+como.corporaterepresentative+'</td>'+
-                              '<td>'+como.repphone+'</td>'+
+                              '<td>'+o.corporaterepresentative+'</td>'+
+                              '<td>'+o.repphone+'</td>'+
                           '</tr>;'
-                $("#comhtm").html(comhtml)
+                
             }
-
+            $("#comhtm").html(comhtml)
+            console.log(page, jsonData.pagecount, jsonData.total, ps)
+            pages(page, jsonData.pagecount, jsonData.total, ps)
 
         })
        @* function a(str){
@@ -596,7 +609,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
             return str;
         }*@
 
-    })
+    }
 
 
 </script>

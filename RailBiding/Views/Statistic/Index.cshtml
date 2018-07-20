@@ -99,17 +99,17 @@
                 var o = obj[i];
                 htm += '<tr class="white-bg" onclick="location.href=\'/Statistic/StatisticDetail?cid\''+o.id+'; " style = "cursor: pointer" >'+
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" /></td>'+
-                    '<td>上海地铁隧道建设项目</td>'+
-                    '<td>12</td>'+
-                    '<td>2</td>'+
-                    '<td>2</td>'+
-                    '<td class="gray-time">10</td>'+
-                    '<td class="gray-time">2017-4-20</td>'+
+                    '<td>' + o.name + '</td>' +
+                    '<td>' + o.jointimes + '</td>' +
+                    '<td>' + o.nojointimes + '</td>' +
+                    '<td>' + o.winbids + '</td>' +
+                    '<td class="gray-time">' + o.nowinbids + '</td>' +
+                    '<td class="gray-time">' + o.lastjoindate + '</td>' +
                     '</tr >';
             }
             $("#tbCompany").html(htm);
-            console.log(page, jsonData.PageCount, jsonData.total, ps)
-            pages(page, jsonData.PageCount, jsonData.total, ps)
+            console.log(page, jsonData.pagecount, jsonData.total, ps)
+            pages(page, jsonData.pagecount, jsonData.total, ps)
         });
         
     }

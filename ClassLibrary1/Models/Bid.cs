@@ -171,9 +171,9 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as id, c.Name, SUM(isnull(bc.Biding,0)) as JoinTimes, sum(case when bc.CompanyResponse=0 then 1 else 0 end) as NoJoinTimes,
-		                            SUM(isnull(bc.Win,0)) as WinBids, sum(case when bc.Win=0 then 1 else 0 end) as NoWinBids, max(p.PublishDate) as LastJoinDate
-                            from Company c 
+		                            SUM(isnull(bc.Win,0)) as WinBids, sum(case when bc.Win=0 then 1 else 0 end) as NoWinBids, convert(varchar(20),max(p.PublishDate),23) as LastJoinDate 
                             into #temp1
+                            from Company c
                             left join BidingCompany bc on c.ID=bc.CompanyId
                             left join Project p on bc.ProjId=p.Id
                             group by c.Name
@@ -181,7 +181,7 @@ namespace DAL.Models
                             select * from #temp1 where id between " + startIndex + " and " + endIndex + @"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
-            sql = "select count(1) from UserInfo where RoleId=1 ";
+            sql = "select count(1) from Company ";
             string total = DBHelper.ExecuteScalar(sql);
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";

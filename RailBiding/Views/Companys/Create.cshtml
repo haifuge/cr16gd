@@ -280,8 +280,8 @@
                                 <input name="roomInfoName" type="text" value="" id="refererName"
                                        class="has-clear-input input input3 input4" />
                                 <span class="td-cer">推荐书：</span>
-                                <div class="upload-btn upload-btn2 upload-btn3">
-                                    <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;">
+                                <div class="upload-btn upload-btn2 upload-btn3" style="top: 10px;">
+                                    <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput1" id="allfileInput1">
                                         <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
                                     </form>
@@ -1046,7 +1046,7 @@
         var tddelete = document.createElement("td");
 
         var tdffileName = document.createElement("td");
-        var tdffileInfoName = $("#fileInfoName").val();
+        var tdffileInfoName = $(".dw").html();
         tdffileName.innerText = tdffileInfoName;
 
         var tdhiddw = document.createElement("td");

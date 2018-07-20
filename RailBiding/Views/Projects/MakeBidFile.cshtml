@@ -454,43 +454,43 @@
     Paginator(nowpage, page_size)
 
     function Paginator(page, ps) {
-        $.post("/Common/GetCompanyCandidate", { pageSize: ps, pageIndex: page },function (data) {
+        $.post("/Common/GetCompanyCandidate", { pagesize: ps, page: page },function (data) {
             var jsonData = JSON.parse(data);
-            var comobj = jsonData.List;
-            console.log(comobj)
-            if (comobj.length == 0)
+            var obj = jsonData.List;
+            console.log(obj)
+            if (obj.length == 0)
                 return;
             var comhtml = ""
             var comhhtm2 = "";
-            for (var j = 0; j < comobj.length; j++) {
-                var como = comobj[j];
-                console.log(como);
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                console.log(o);
                 comhtml+='<tr class="white-bg">'+
                               '<td class="check-color">'+
-                                 '<input class="icheck" name="addcompanybiding" type="checkbox" value="' + como.id +'" />' +
+                                 '<input class="icheck" name="addcompanybiding" type="checkbox" value="' + o.id +'" />' +
                               '</td>'+
                               '<td>'+
-                                  '<a href="#" class="comoname" style="display:block;line-height:18px;">'+como.name+'</a>'+
+                                  '<a href="#" class="comoname" style="display:block;line-height:18px;">'+o.name+'</a>'+
                               '</td>'+
-                              '<td>'+como.corporaterepresentative+'</td>'+
-                              '<td>'+como.repphone+'</td>'+
+                              '<td>'+o.corporaterepresentative+'</td>'+
+                              '<td>'+o.repphone+'</td>'+
                     '</tr>'
                 comhhtm2 += '<tr class="white-bg">' +
                     '<td class="check-color">' +
-                    '<input class="icheck" name="addcompanywin" type="checkbox" value="' + como.id + '" />' +
+                    '<input class="icheck" name="addcompanywin" type="checkbox" value="' + o.id + '" />' +
                     '</td>' +
                     '<td>' +
-                    '<a href="#" class="comoname" style="display:block;line-height:18px;">' + como.name + '</a>' +
+                    '<a href="#" class="comoname" style="display:block;line-height:18px;">' + o.name + '</a>' +
                     '</td>' +
-                    '<td>' + como.corporaterepresentative + '</td>' +
-                    '<td>' + como.repphone + '</td>' +
+                    '<td>' + o.corporaterepresentative + '</td>' +
+                    '<td>' + o.repphone + '</td>' +
                     '</tr>'
             }
             console.log(comhhtm2)
             $("#wincompanysc").html(comhhtm2)
             $("#bidingcompanysc").html(comhtml);
-            console.log(page, jsonData.PageCount, jsonData.total, ps)
-            pages(page, jsonData.PageCount, jsonData.total, ps)
+            console.log(page, jsonData.pagecount, jsonData.total, ps)
+            pages(page, jsonData.pagecount, jsonData.total, ps)
         })
 
     }

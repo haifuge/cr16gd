@@ -439,7 +439,7 @@
                             <i><img src="~/img/icon-fj.png" alt=""></i><span>招标文档：</span>
                             @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:150px;">*@
                             <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;">
-                                <input type='file' id='fup' name='fup' value="IamPic" />
+                                <input type='file' id='fup' name='fup' value="IamPic" style="opacity:0;" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId"  style="display:none" />
                                 <input type="text" id="ftype" name="ftype" width="20" value="3" style="display:none" />
                                 <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
@@ -470,7 +470,7 @@
                         <li>
                             <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none">招标文件</span>
                             @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:113px;">*@
-                            <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;">
+                            <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;background:transparent">
                                 <img src="~/img/icon-03.png" alt="" class="up up2" style="position:absolute;vertical-align: middle">
                                 <input type='file' id='bfup' name='bfup' value="IamPic" style="position:absolute; -moz-opacity:0;-khtml-opacity: 0;opacity: 0;" />
                                 <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId" hidden />
@@ -535,6 +535,10 @@
 <script type="text/javascript" language="javascript">
     $(function () {
         $("#fup").change(function () {
+            var fup = $("#fup").val();
+            if (fup == "") { //点击取消，取消事件的编写
+                return;
+            }
             $("#fupform").ajaxSubmit(function (res) {
                 var names = res.split('|')
                 var li = document.createElement("li");
