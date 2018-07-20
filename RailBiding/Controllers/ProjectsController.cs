@@ -470,11 +470,10 @@ namespace RailBiding.Controllers
             return "1";
         }
 
-        public string GetMakeBidFiles()
+        public string GetMakeBidFiles(string pageSize, string pageIndex)
         {
             MakeBidFileContext mc = new MakeBidFileContext();
-            DataTable dt = mc.GetMakeBidFiles();
-            return JsonHelper.DataTableToJSON(dt);
+            return mc.GetMakeBidFiles(pageSize, pageIndex);
         }
     }
 }
