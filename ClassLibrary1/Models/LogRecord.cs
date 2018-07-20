@@ -19,11 +19,23 @@ namespace DAL.Models
 
     public class LogRecordContext
     {
-        public DataTable GetLogRecords()
+        public string GetLogRecords(string pageSize, string pageIndex)
         {
-            string sql= @"select lr.Id, ui.UserName, OperateType, CONVERT(varchar(20), lr.operateDate, 20) as OperateDate, Description 
-                            from LogRecord lr left join UserInfo ui on lr.UserAccount = ui.UserAccount order by lr.operateDate desc";
-            return DBHelper.GetDataTable(sql);
+
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql= @"select identity(int,1,1) as iid, lr.Id*1 as Id, ui.UserName, OperateType, CONVERT(varchar(20), lr.operateDate, 20) as OperateDate, Description 
+                            into #temp1 
+                            from LogRecord lr left join UserInfo ui on lr.UserAccount = ui.UserAccount order by lr.operateDate desc
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            drop table #temp1";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            sql = "select count(1) from UserInfo where RoleId=1 ";
+            string total = DBHelper.ExecuteScalar(sql);
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
         }
         public bool AddLog(string userAccount, string opType, string description)
         {

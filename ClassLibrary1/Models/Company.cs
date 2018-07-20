@@ -58,7 +58,7 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, a.* into #temp1 from (
-select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join(
                                 select distinct a.ObjId, a.Approved 

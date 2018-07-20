@@ -30,11 +30,10 @@ namespace RailBiding.Controllers
         {
             return View();
         }
-        public string GetLogs()
+        public string GetLogs(string pageSize, string pageIndex)
         {
             LogRecordContext lr = new LogRecordContext();
-            DataTable dt = lr.GetLogRecords();
-            return JsonHelper.DataTableToJSON(dt);
+            return lr.GetLogRecords(pageSize, pageIndex);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemSS")]

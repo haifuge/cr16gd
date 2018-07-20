@@ -136,11 +136,24 @@ namespace DAL.Models
                 return "0";
         }
 
-        public DataTable GetDepartmentUsers(string did, string pageSize, string pageIndex)
+        public string GetDepartmentUsers(string did, string pageSize, string pageIndex)
         {
             SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@did", did);
-            return DBHelper.ExecuteSP("GetUsersByDepartmentId", parameters).Tables[0];
+            DataTable dt = DBHelper.ExecuteSP("GetUsersByDepartmentId", parameters).Tables[0];
+            DataTable ndt = dt.Clone();
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps;
+            int endIndex = pi * ps;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (i >= startIndex && i < endIndex)
+                    ndt.ImportRow(dt.Rows[i]);
+                else if (i >= endIndex)
+                    break;
+            }
+            return JsonHelper.DataTableToJSON(ndt);
         }
 
         public string AddBusinessType(string bt)
