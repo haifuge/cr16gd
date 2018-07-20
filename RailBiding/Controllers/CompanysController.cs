@@ -82,8 +82,8 @@ namespace RailBiding.Controllers
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='联系人身份证'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>联系人身份证</p><p style='text-align: center;'></p></div>";
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"'></a>
+                             </div><p style='text-align: center; margin-bottom: 2px;'>现场负责人身份证</p><p style='text-align: center;'></p></div>";
             }
             dt = cc.GetZiZhiPics(id);
             for(int i = 0; i < dt.Rows.Count; i++)
@@ -170,8 +170,8 @@ namespace RailBiding.Controllers
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='联系人身份证'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>联系人身份证</p><p style='text-align: center;'></p></div>";
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"'></a>
+                             </div><p style='text-align: center; margin-bottom: 2px;'>现场负责人身份证</p><p style='text-align: center;'></p></div>";
             }
             dt = cc.GetZiZhiPics(id);
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -275,8 +275,8 @@ namespace RailBiding.Controllers
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='联系人身份证'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>联系人身份证</p><p style='text-align: center;'></p></div>";
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"'></a>
+                             </div><p style='text-align: center; margin-bottom: 2px;'>现场负责人身份证</p><p style='text-align: center;'></p></div>";
             }
             dt = cc.GetZiZhiPics(id);
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -373,8 +373,8 @@ namespace RailBiding.Controllers
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='联系人身份证'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>联系人身份证</p><p style='text-align: center;'></p></div>";
+                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"'></a>
+                             </div><p style='text-align: center; margin-bottom: 2px;'>现场负责人身份证</p><p style='text-align: center;'></p></div>";
             }
             dt = cc.GetZiZhiPics(id);
             for (int i = 0; i < dt.Rows.Count; i++)

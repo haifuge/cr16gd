@@ -153,7 +153,9 @@ namespace DAL.Models
                 else if (i >= endIndex)
                     break;
             }
-            return JsonHelper.DataTableToJSON(ndt);
+            string total = dt.Rows.Count.ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
         }
 
         public string AddBusinessType(string bt)
