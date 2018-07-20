@@ -119,8 +119,6 @@ namespace RailBiding.API
             var fileExt = Path.GetExtension(curFile.FileName);
             fullPath = path + "/" + guid + fileExt;
             curFile.SaveAs(fullPath);
-            //临时存推荐书
-            pc.AddProjectFile("0", "1", fullPath, curFile.FileName, "");
             return guid + fileExt;
         }
 
