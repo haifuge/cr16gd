@@ -528,9 +528,9 @@
         }
         $("#fupform").ajaxSubmit(function (res) {
 
-          var fileName = $("#fileInfoName").val();
-          $(".dw").html(fileName);
-         $("#fname").val(res);
+          var fileName = res.split('|');
+          $(".dw").html(fileName[1]);
+          $("#fname").val(fileName[0]);
 
           
         });
