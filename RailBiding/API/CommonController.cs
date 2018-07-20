@@ -102,6 +102,29 @@ namespace RailBiding.API
             pc.AddProjectFile("0", "1", fullPath, curFile.FileName, "");
             return guid;
         }
+        public string UploadTestifyFile()
+        {
+            string foreRef = Request["fname"].ToString();
+            ProjectContext pc = new ProjectContext();
+            string fullPath;
+            if (foreRef != "")
+            {
+                string g = foreRef;
+                fullPath = pc.GetForeReference(g);
+                System.IO.File.Delete(fullPath);
+            }
+            string path = Server.MapPath("/projectFiles/WorkHistory");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            var curFile = Request.Files[0];
+            string guid = Guid.NewGuid().ToString();
+            var fileExt = Path.GetExtension(curFile.FileName);
+            fullPath = path + "/" + guid + fileExt;
+            curFile.SaveAs(fullPath);
+            //临时存推荐书
+            pc.AddProjectFile("0", "1", fullPath, curFile.FileName, "");
+            return guid;
+        }
 
         public string GetCompanyCandidate(string page, string pagesize)
         {
