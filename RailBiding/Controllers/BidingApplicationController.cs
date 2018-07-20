@@ -21,11 +21,10 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetBidApplications()
+        public string GetBidApplications(string pageSize, string pageIndex)
         {
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidApplications();
-            return JsonHelper.DataTableToJSON(dt);
+            return bc.GetBidApplications(pageSize, pageIndex);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemB")]

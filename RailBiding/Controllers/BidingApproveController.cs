@@ -21,11 +21,11 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetBidingApproves()
+        public string GetBidingApproves(string pageSize, string pageIndex)
         {
             BidContext bc = new BidContext();
 
-            DataTable dt = bc.GetBidingApproves(Session["UserId"].ToString());
+            DataTable dt = bc.GetBidingApproves(Session["UserId"].ToString(), pageSize, pageIndex);
             return JsonHelper.DataTableToJSON(dt);
         }
         [VerifyLoginFilter]

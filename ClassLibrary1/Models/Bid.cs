@@ -21,18 +21,29 @@ namespace DAL.Models
 
     public class BidContext
     {
-        public DataTable GetAllBids()
+        public string GetAllBids(string pageSize, string pageIndex)
         {
-            string sql = @"select p.Id, p.Name, bf.Content, p.Location, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, bf.Content, p.Location, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
                             left join DepartmentUser du on du.Userid=ui.ID
                             left join Department d on du.DepartmentId=d.ID
-                            order by p.Id desc";
-            DataTable dt = DBHelper.GetDataTable(sql);
-            return dt;
+                            order by p.Id desc
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
         public DataTable GetBid(string pid)
         {
@@ -219,9 +230,13 @@ namespace DAL.Models
             throw new NotImplementedException();
         }
 
-        public DataTable GetBidApplications()
+        public string GetBidApplications(string pageSize, string pageIndex)
         {
-            string sql = @"select p.Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
@@ -229,12 +244,20 @@ namespace DAL.Models
 							left join DepartmentUser du on du.UserId=ui.ID
                             left join Department d on du.DepartmentId=d.ID
                             order by p.Id desc";
-            DataTable dt = DBHelper.GetDataTable(sql);
-            return dt;
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
-        public DataTable GetBidingApproves(string userid)
+        public string GetBidingApproves(string userid, string pageSize, string pageIndex)
         {
-            string sql = @"select p.Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
@@ -247,10 +270,14 @@ namespace DAL.Models
                                 inner join (select MAX(level) as level,AppProcId, ObjId 
 			                                from vw_AppPLevel where AppProcId=3 and Approved=1 group by ObjId, AppProcId
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                            where a.UserId="+ userid + @") a on p.ID=a.ObjId
+                            where a.UserId=" + userid + @") a on p.ID=a.ObjId
                             order by p.Id desc;";
-            DataTable dt = DBHelper.GetDataTable(sql);
-            return dt;
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
     }
     public class BidCompany
