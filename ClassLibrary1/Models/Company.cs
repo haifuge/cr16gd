@@ -57,9 +57,9 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+            string sql = @"select identity(int,1,1) as iid, a.* into #temp1 from (
+select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
-                            into #temp
                             from Company c inner join(
                                 select distinct a.ObjId, a.Approved 
                                 from vw_AppPLevel a 
@@ -74,7 +74,7 @@ namespace DAL.Models
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId and a.AppProcId=1
                             left join BusinessType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + @" and a.Approved=3
+                            where a.UserId=" + userId + @" and a.Approved=3) a
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
