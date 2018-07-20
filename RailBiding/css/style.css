@@ -3923,7 +3923,8 @@ input[name=keyname] {
         width: 75px;
         text-align: right;
         display: inline-block;
-        float:left
+        float:left;
+        line-height:28px;
     }
 
     .add-yej textarea.input {
@@ -3950,9 +3951,12 @@ input[name=keyname] {
         border: 1px solid #c8c9ca;
         color: #999;
     }
-
     .add-yej .cb {
-        margin-bottom: 60px;
+        margin-bottom: 50px;
+        clear:both;
+    }
+    .add-yej .cb:nth-child(1) {
+        margin-bottom: 10px;
         clear:both;
     }
 

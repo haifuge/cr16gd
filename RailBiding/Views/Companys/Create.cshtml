@@ -208,17 +208,16 @@
     .upload-btn{
         border:0px;
     }
-        .dw {
-        display: block;
-    }
-
-    .dw {
-        display: block;
-        background: #fff;
-        padding: 0px;
-        margin-left: 0px;
-        margin-top: 10px
-    }
+.dw {
+    display: block;
+    background: transparent;
+    padding: 0px;
+    width: 350px;
+    float: left;
+    margin-left: 0px;
+    line-height: 14px;
+    margin-top: 10px;
+}
 
         .dw > ul > li {
             margin-bottom: 3px;
@@ -228,6 +227,9 @@
                 color: #008cd6;
                 padding-left: 10px;
             }
+    #tworkhistory > tr> td:last-child{
+        display:none;
+    }
 </style>
 
 <div class="left-nav">
@@ -464,11 +466,9 @@
                         <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" maxlength="30" name="roomInfoName" value="" id="projName" />
                         <label for="" style="width:100px;float:left">合同扫描件：</label>
                         <div class="upload-btn upload-btn2" style="top:0px;width: 40px;float:left;">
-                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                <input type='file' id='fileInfoName' name='fup' value="IamPic" style="opacity:1;"/>
-                                <input type="text" id="pid" name="pid" width="20" value="@ViewBag.pid" style="display:none" />
-                                <input type="text" id="ftype" name="ftype" width="20" value="4" style="display:none" />
-                                <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
+                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/UploadTestifyFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                <input type='file' id='fileInfoName' name='fup' value="IamPic" style="opacity:0;"/>
+                                <input type="text" id="fname" name="fname" width="20" value="4" style="display:none" />
                             </form>
                             <img src="/img/icon-add2.png" alt="" class="up up2">
                         </div>
@@ -520,13 +520,18 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
-    $("#fup").change(function () {
+
+    $("#fileInfoName").change(function () {
         $("#fupform").ajaxSubmit(function (res) {
-            $(".dw").html(res)
+
+          var fileName = $("#fileInfoName").val();
+          $(".dw").html(fileName);
+         $("#fname").val(res);
+
+          
         });
     })
-
-
+    console.log($("#tworkhistory tr td:last-child").html())
     $("#allfileInput1").change(function () {
         $("#bfupform").ajaxSubmit(function (res) {
             $("#referPic").val(res);
@@ -818,6 +823,8 @@
         var construct = $("#construction").val()
         var nn = $("#note").val()
         var refdoc = $("#referPic").val();
+        var tdfilename = $("#tworkhistory tr td:last-child").html();
+             
         var data = {
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc,
@@ -879,7 +886,8 @@
                 children[i].children[2].innerText + '|' +
                 children[i].children[3].innerText + '|' +
                 children[i].children[4].innerText + '|' +
-                children[i].children[5].innerText
+                children[i].children[5].innerText + '|' +
+                children[i].children[8].innerText
             data += item + "^"
         }
 
@@ -1014,20 +1022,32 @@
         rowtr.id = "row" + row;
         var tdname = document.createElement("td");
         tdname.innerText = projName;
+
         var tdcAmount = document.createElement("td");
         tdcAmount.innerText = contractAmount + '万'
+
         var tdtimeBegin = document.createElement("td");
         tdtimeBegin.innerText = timeBegin
+
         var tdtimeEnd = document.createElement("td");
         tdtimeEnd.innerText = timeEnd
+
         var pstatus = document.createElement("td");
         pstatus.innerText = document.getElementById("iofnName").value;
+
         var samount = document.createElement("td");
         samount.innerText = settleAmount + '万'
+
         var tddelete = document.createElement("td");
-        var tdfile = document.createElement("td");
-        tdfile.innerText = fileInfoName;
-        var tdhiddw = $(".dw").html()
+
+        var tdffileName = document.createElement("td");
+        var tdffileInfoName = $("#fileInfoName").val();
+        tdffileName.innerText = tdffileInfoName;
+
+        var tdhiddw = document.createElement("td");
+        var tdfname = $("#fname").val();
+        tdhiddw.innerText = tdfname;
+
         tddelete.innerHTML = '<div href="#" class="color01" style="cursor: pointer;" onclick=removeRow("row' + row + '")>删除</div>';
         rowtr.appendChild(tdname);
         rowtr.appendChild(tdcAmount);
@@ -1036,7 +1056,7 @@
         rowtr.appendChild(pstatus);
         rowtr.appendChild(pstatus);
         rowtr.appendChild(samount);
-        rowtr.appendChild(tdfile);
+        rowtr.appendChild(tdffileName);
         rowtr.appendChild(tddelete);
         rowtr.appendChild(tdhiddw);
        
@@ -1046,6 +1066,7 @@
         $("#timeEnd").val("");
         $("#timeBegin").val("");
         $("#settleAmount").val("");
+        $(".dw").html("");
         if ($("#timeEnd").val() == "" || $("#timeEnd").val() == null) {
             $("#timeEnd").attr("placeholder", "竣工日期");
         }

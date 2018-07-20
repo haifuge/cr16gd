@@ -13,9 +13,10 @@ namespace RailBiding.Controllers
         // GET: CompanyStatistic
         public ActionResult Index()
         {
-            BidContext bc = new BidContext();
-            List<CompanyStat> companyStats = bc.GetCompanyStats();
-            return View(companyStats);
+            //BidContext bc = new BidContext();
+            //List<CompanyStat> companyStats = bc.GetCompanyStats();
+            //return View(companyStats);
+            return View();
         }
 
         public ActionResult GetCompanyBidDetails()
