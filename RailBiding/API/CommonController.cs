@@ -107,15 +107,13 @@ namespace RailBiding.API
             string foreRef = Request["fname"].ToString();
             ProjectContext pc = new ProjectContext();
             string fullPath;
-            if (foreRef != "")
-            {
-                string g = foreRef;
-                fullPath = pc.GetForeReference(g);
-                System.IO.File.Delete(fullPath);
-            }
             string path = Server.MapPath("/projectFiles/WorkHistory");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
+            if (foreRef != "")
+            {
+                System.IO.File.Delete(path+"/"+foreRef);
+            }
             var curFile = Request.Files[0];
             string guid = Guid.NewGuid().ToString();
             var fileExt = Path.GetExtension(curFile.FileName);
@@ -123,7 +121,7 @@ namespace RailBiding.API
             curFile.SaveAs(fullPath);
             //临时存推荐书
             pc.AddProjectFile("0", "1", fullPath, curFile.FileName, "");
-            return guid;
+            return guid + fileExt;
         }
 
         public string GetCompanyCandidate(string page, string pagesize)
