@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DAL.Models;
 
 namespace RailBiding.Controllers
 {
@@ -17,9 +18,10 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetCompaniesStatistic()
+        public string GetCompaniesStatistic(string pageSize, string pageIndex)
         {
-            return "";
+            BidContext bc = new BidContext();
+            return bc.GetCompanyStats(pageSize, pageIndex);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemS")]
