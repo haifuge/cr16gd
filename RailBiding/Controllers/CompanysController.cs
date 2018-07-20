@@ -571,10 +571,11 @@ namespace RailBiding.Controllers
             char[] separators = { '^' };
             string[] items = data.Split(separators,StringSplitOptions.None);
             string sql = "";
-            for(int i=0;i<items.Length-1;i++)
+            string path = Server.MapPath("/projectFiles/WorkHistory");
+            for (int i=0;i<items.Length-1;i++)
             {
                 string[] o = items[i].Split('|');
-                sql += "insert into WorkHistory values(" + Session["newCid"] + ",N'"+o[0]+ "',N'" + o[1] + "',N'" + o[2] + "',N'" + o[3] + "',N'" + o[4] + "',N'" + o[5] + "'); ";
+                sql += "insert into WorkHistory values(" + Session["newCid"] + ",N'"+o[0]+ "',N'" + o[1] + "',N'" + o[2] + "',N'" + o[3] + "',N'" + o[4] + "',N'" + o[5] + "',N'" + o[6] + "',N'" + path+"/"+o[7] + "'); ";
             }
             if(sql!="")
                 DBHelper.ExecuteNonQuery(sql);

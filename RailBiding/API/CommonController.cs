@@ -119,7 +119,7 @@ namespace RailBiding.API
             var fileExt = Path.GetExtension(curFile.FileName);
             fullPath = path + "/" + guid + fileExt;
             curFile.SaveAs(fullPath);
-            return guid + fileExt;
+            return guid + fileExt+"|"+curFile.FileName;
         }
 
         public string GetCompanyCandidate(string page, string pagesize)
