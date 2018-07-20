@@ -29,6 +29,7 @@ namespace DAL.Models
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, bf.Content, p.Location, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
+                            into #temp1
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
@@ -238,12 +239,16 @@ namespace DAL.Models
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
+                            into #temp1
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
 							left join DepartmentUser du on du.UserId=ui.ID
                             left join Department d on du.DepartmentId=d.ID
-                            order by p.Id desc";
+                            order by p.Id desc
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
             DataSet ds = DBHelper.GetDataSet(sql);
             string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
             string total = ds.Tables[1].Rows[0][0].ToString();
@@ -259,6 +264,7 @@ namespace DAL.Models
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
+                            into #temp1
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
@@ -271,7 +277,10 @@ namespace DAL.Models
 			                                from vw_AppPLevel where AppProcId=3 and Approved=1 group by ObjId, AppProcId
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userid + @") a on p.ID=a.ObjId
-                            order by p.Id desc;";
+                            order by p.Id desc
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
             DataSet ds = DBHelper.GetDataSet(sql);
             string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
             string total = ds.Tables[1].Rows[0][0].ToString();

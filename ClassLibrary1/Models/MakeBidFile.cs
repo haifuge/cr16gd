@@ -30,16 +30,32 @@ namespace DAL.Models
 
     public class MakeBidFileContext
     {
-        public DataTable GetMakeBidFiles()
+        public string GetMakeBidFiles(string pageSize, string pageIndex)
         {
-            string sql = @"select p.Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
-                            from MakeBidingFile mb inner join Project p on mb.ProjId = p.Id order by p.Id desc; ";
-            return DBHelper.GetDataTable(sql);
+                            from MakeBidingFile mb inner join Project p on mb.ProjId = p.Id order by p.Id desc; 
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
-        public DataTable GetMyMakeBidFiles(string uid)
+        public string GetMyMakeBidFiles(string uid, string pageSize, string pageIndex)
         {
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
             string sql = @"select p.Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
                             from project p inner join Bid b on p.Id=b.ProjId
@@ -54,8 +70,16 @@ namespace DAL.Models
 			                                from vw_AppPLevel where AppProcId=4 and Approved=1 group by ObjId, AppProcId
                                 ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + uid + @") a on p.ID=a.ObjId
-                            order by p.Id desc;";
-            return DBHelper.GetDataTable(sql);
+                            order by p.Id desc;
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                            select count(1) from #temp1
+                            drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
         public DataTable GetMakeBidFileDetail(string id)

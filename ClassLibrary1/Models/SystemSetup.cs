@@ -136,7 +136,7 @@ namespace DAL.Models
                 return "0";
         }
 
-        public DataTable GetDepartmentUsers(string did)
+        public DataTable GetDepartmentUsers(string did, string pageSize, string pageIndex)
         {
             SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@did", did);

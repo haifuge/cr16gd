@@ -127,18 +127,16 @@ namespace RailBiding.Controllers
             return View();
         }
         
-        public string GetAllMakeBidFile()
+        public string GetAllMakeBidFile(string pageSize, string pageIndex)
         {
             MakeBidFileContext mc = new MakeBidFileContext();
-            DataTable dt = mc.GetMakeBidFiles();
-            return JsonHelper.DataTableToJSON(dt).Replace("\r","    ").Replace("\n","</br>");
+            return mc.GetMakeBidFiles(pageSize, pageIndex).Replace("\r","    ").Replace("\n","</br>");
         }
-        public string GetMyMakeBidFiles()
+        public string GetMyMakeBidFiles(string pageSize, string pageIndex)
         {
             string uid = Session["UserId"].ToString();
             MakeBidFileContext mc = new MakeBidFileContext();
-            DataTable dt = mc.GetMyMakeBidFiles(uid);
-            return JsonHelper.DataTableToJSON(dt).Replace("\r", "    ").Replace("\n", "</br>");
+            return mc.GetMyMakeBidFiles(uid, pageSize, pageIndex).Replace("\r", "    ").Replace("\n", "</br>");
         }
     }
 }
