@@ -238,6 +238,7 @@ namespace RailBiding.Controllers
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Note = dr["Note"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
+            ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "0";
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -307,6 +308,10 @@ namespace RailBiding.Controllers
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
+
+            dt = cc.GetCompanyReferee(id);
+            ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
+
             return View();
         }
         [VerifyLoginFilter]
@@ -337,10 +342,12 @@ namespace RailBiding.Controllers
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Note = dr["Note"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
+            ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "0";
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();
+
             //if (pic != "")
             //{
             //    pic = pic.Replace(rootPath, "/");
@@ -393,6 +400,10 @@ namespace RailBiding.Controllers
             }
             ViewBag.CompanyPics = picHtml;
 
+
+            dt = cc.GetCompanyReferee(id);
+            ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
+
             dt = cc.GetWorkHistory(id);
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < dt.Rows.Count; i++)
@@ -404,7 +415,7 @@ namespace RailBiding.Controllers
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
                 sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
+                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString().Replace(rootPath,"/") + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -741,6 +752,18 @@ namespace RailBiding.Controllers
         {
             CompanyContext cc = new CompanyContext();
             cc.ToggleCompany(id, status);
+        }
+
+        public string CheckCompanyNameUsed(string cName)
+        {
+            CompanyContext cc = new CompanyContext();
+            string i = cc.CheckCompanyNameUsed(cName);
+            if (i != "0")
+                //返回“0”该公司名不可用
+                return "0";
+            else
+                //返回“1”该公司名可用
+                return "1";
         }
     }
 }

@@ -117,12 +117,11 @@
                                     </table>
                                 </td>
                             </tr>
-
                         </tbody>
                     </table>
                     <div style="margin-top: 10px;">
                         <p>
-                            <span style="color: #666">推荐人：</span>@ViewBag.Referre 
+                            <span style="color: #666">推荐人：</span>@ViewBag.Referre &nbsp;&nbsp;@Html.Raw(ViewBag.RefereFile)
                         </p>
                     </div>
                 </div>
@@ -202,7 +201,7 @@
             }
         });
     });
-    $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: 1}, function (data) {
+    $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: @ViewBag.apid}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
             if(obj.length==0)
@@ -310,7 +309,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".bohui").hide();
-                $.post("/Common/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid: @ViewBag.apid, oid: @ViewBag.cid, astatus: 3, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }
@@ -339,7 +338,7 @@
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
-                $.post("/Common/UpdateApproveProcess", { apid: 1, oid: @ViewBag.cid, astatus: 2, comment: feedback }, function () {
+                $.post("/Common/UpdateApproveProcess", { apid: @ViewBag.apid, oid: @ViewBag.cid, astatus: 2, comment: feedback }, function () {
                     window.history.go(-1);
                 })
             }

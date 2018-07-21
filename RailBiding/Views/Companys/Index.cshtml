@@ -2,30 +2,26 @@
 @{
     ViewBag.Title = "名录内单位";
 }
-
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
-
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>劳务承分包企业</h1>
         <ul class="left-nav-list">
-            <li><a href="Companys" class="active"><i class="icon icon-eye"></i>名录内单位</a></li>
-            <li><a href="/Companys/CompanysOut"><i class="icon icon-hand"></i>名录外单位</a></li>
-            <li><a href="/Companys/MyAudit"><i class="icon icon-edit"></i>我审核的</a></li>
-            <li><a href="/Companys/MyRecommend"><i class="icon icon-user"></i>我提交的</a></li>
+            <li><a href='Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
+            <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
+            <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
+            <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>
         </ul>
     </div>
 </div>
-
 
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
-            <select class="meet-select js-meet-state" id="bType">
-            </select>
+            <select class="meet-select js-meet-state" id="bType"></select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
@@ -53,8 +49,8 @@
                         <td style="width:80px;padding:0px 5px">法人代表</td>
                         <td style="width:80px;padding:0px 5px">项目负责人</td>
                         <td style="width:100px;padding:0px 5px">联系电话</td>
+                        <td style="width:100px;padding:0px 5px; display:none" id="cstatus">状态</td>
                         <!--<td style="width:180px;padding:0px 5px">联系地址</td>-->
-                        <td style="width:100px;padding:0px 5px">状态</td>
                     </tr>
                 </thead>
                 <tbody id="tbCompany"></tbody>
@@ -64,7 +60,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
 <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
@@ -72,7 +67,7 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
-
+<script src="~/js/jquery.cookie.js"></script>
 
 <script type='text/javascript'>
     //分页点击
@@ -83,38 +78,42 @@
     var page_size = 10
     var pagenum = 12
     Paginator(nowpage, page_size)
+    if ($.cookie("RoleId") == 2)
+        $("#cstatus").show()
 
-    function Paginator(page, ps) {        
+    function Paginator(page, ps) {
         $.post("/Companys/GetCompanies?ctype=1", { pageSize: ps, pageIndex: page }, function (data) {
-       
+
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             console.log(jsonData)
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
-               var o = obj[i]
-               console.log(o)
-               var chk = o.status == 1 ? "checked" : "";
+                var o = obj[i]
+                console.log(o)
+                var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id='+o.id+'\';\">' + o.name + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.qualificationlevel + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.registeredcapital + '万元</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.businesstype + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.corporaterepresentative + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.contact + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\">' + o.contactphone + '</td>' +
-                   // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
-                    '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td></tr>';
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.name + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.businesstype + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.contact + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.contactphone + '</td>'
+                if ($.cookie("RoleId") == 2)
+                    htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
+                // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
+                '</tr > ';
             }
-           
+
             $("#tbCompany").html(htm)
             console.log(jsonData)
             console.log(page, jsonData.PageCount, jsonData.total, ps)
             pages(page, jsonData.PageCount, jsonData.total, ps)
         });
-        
-        
+
+
     };
 
     $.post("/Common/GetBusinessType", {}, function (data) {
@@ -128,7 +127,7 @@
     });
     function comischecked(comid, chk) {
         console.log(chk.checked);
-        var s=0;
+        var s = 0;
         if (chk.checked)
             s = 1;
         else

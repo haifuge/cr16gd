@@ -39,7 +39,7 @@ namespace DAL.Models
         }
         public bool AddLog(string userAccount, string opType, string description)
         {
-            string sql = "insert into LogRecord values('"+ userAccount + "', '"+ opType + "', getdate(), '"+ description + "')";
+            string sql = "insert into LogRecord values('"+ userAccount + "', '"+ opType + "', getdate(), N'"+ description + "')";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;

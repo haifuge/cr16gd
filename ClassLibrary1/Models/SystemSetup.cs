@@ -22,11 +22,11 @@ namespace DAL.Models
             int ps = int.Parse(pagesize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as id, UserAccount, UserName, Status into #temp1 from UserInfo where RoleId=1 order by UserAccount asc;
-                            select * from #temp1 where id between "+startIndex+" and "+endIndex+@"
+            string sql = @"select identity(int,1,1) as id, UserAccount, UserName, Status, RoleId into #temp1 from UserInfo where RoleId=2 order by UserAccount asc;
+                            select * from #temp1 where id between " + startIndex+" and "+endIndex+@"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
-            sql = "select count(1) from UserInfo where RoleId=1 ";
+            sql = "select count(1) from UserInfo where RoleId=2 ";
             string total = DBHelper.ExecuteScalar(sql);
             int pagecount = (int)Math.Ceiling(decimal.Parse(total)/ps);
             return "{\"List\":" + JsonHelper.DataTableToJSON(dt)+", \"total\":"+total+ ", \"pagecount\":" + pagecount+ "}";
@@ -144,7 +144,7 @@ namespace DAL.Models
             DataTable ndt = dt.Clone();
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps+1;
+            int startIndex = (pi - 1) * ps;
             int endIndex = pi * ps;
             for (int i = 0; i < dt.Rows.Count; i++)
             {

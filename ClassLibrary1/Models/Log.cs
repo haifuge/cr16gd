@@ -12,7 +12,6 @@ namespace DAL.Models
     {
         public int ID { get; set; }
         public string UserAccount { get; set; }
-        public string UserName { get; set; }
         public OperateType OperType { get; set; }
         public string OperateDate { get; set; }
         public string Description { get; set; }
@@ -20,7 +19,7 @@ namespace DAL.Models
 
     public class LogContext
     {
-        public List<Log> GetLogsOfPage(int page, int pageSize)
+        public DataTable GetLogsOfPage(int page, int pageSize)
         {
             int max = page * pageSize;
             int min = (page - 1) * pageSize;
@@ -28,7 +27,7 @@ namespace DAL.Models
                                   CONVERT(varchar(20), OperateDate, 20) as OperateDate, Description 
                            from LogRecord where ID not in (select top "+min+" ID from LogRecord order by ID desc) order by ID desc";
             DataTable dt = DBHelper.GetDataTable(sql);
-            return JsonHelper.ConvertTableToObj<Log>(dt);
+            return dt;
         }
         public int GetTotalLogNum()
         {
@@ -37,14 +36,10 @@ namespace DAL.Models
             return n;
         }
 
-        public bool WriteLog(Log log)
+        public void WriteLog(Log log)
         {
-            string sql = "insert into LogRecord values('" + log.UserAccount + ", '" + log.UserAccount + "', '" + log.OperType + "', getdate(), '" + log.Description + "')";
-            int i = DBHelper.ExecuteNonQuery(sql);
-            if (i == 1)
-                return true;
-            else
-                return false;
+            string sql = "insert into LogRecord values('" + log.UserAccount + "', " + log.OperType + ", getdate(), N'" + log.Description + "')";
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 

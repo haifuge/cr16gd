@@ -72,9 +72,9 @@ namespace DAL.Models
                             union
                             select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
-                            from Company c inner join vw_AppPLevel a on c.ID=a.ObjId and a.AppProcId=1
+                            from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                             left join BusinessType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + @" and a.Approved=3) a
+                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
@@ -112,13 +112,18 @@ namespace DAL.Models
         {
             string sql = @"select c.id, c.Name,c.CreditNo,c.CorporateRepresentative, c.RepPhone,c.RegisteredCapital, c.BusinessScope,c.SecurityCertificateNo,
                                   c.Contact,c.ContactPhone, bt.name as BusinessType, c.ContactAddress,c.QualificationLevel, c.ConstructionContent, c.Note,
-								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre
+								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.Type
                            from Company c
                            left join BusinessType bt on bt.id=c.BusinessType 
                            where c.id = " + id;
             return DBHelper.GetDataTable(CommandType.Text, sql);
         }
+        public DataTable GetCompanyReferee(int id)
 
+        {
+            string sql = "select FileName, FilePath from BidDocument where FileType=1 and ProjId=" + id;
+            return DBHelper.GetDataTable(sql);
+        }
         public DataTable GetWorkHistory(int id)
         {
             string sql = @"select ProjectName,ContractAmount, CONVERT(varchar(20), StartDate,23) as StartDate,
@@ -238,6 +243,12 @@ namespace DAL.Models
             paras[1] = new SqlParameter("@objid",cid);
             paras[2] = new SqlParameter("@apid", apid);
             DBHelper.ExecuteSP("CreateApproveProcessing", paras);
+        }
+
+        public string CheckCompanyNameUsed(string cName)
+        {
+            string sql = "select count(1) from Company where Name = '" + cName + "';";
+            return DBHelper.ExecuteScalar(sql);
         }
     }
 }
