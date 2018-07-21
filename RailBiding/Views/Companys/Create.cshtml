@@ -261,7 +261,7 @@
                             <td class="form-lable"><span class="red-word">*</span>企业名称：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="companyName"
-                                       class="has-clear-input input input3" autofocus />
+                                       class="has-clear-input input input3" autofocus onblur="CheckCompanyNameUsed()"/>
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -522,17 +522,19 @@
 <script type='text/javascript'>
 
     $("#fileInfoName").change(function () {
+        alert(1)
         var fileInfoName = $("#fileInfoName").val();
         if (fileInfoName == "") { //点击取消，取消事件的编写
             return;
         }
         $("#fupform").ajaxSubmit(function (res) {
+            console.log(res);
           var fileName = res.split('|');
           $(".dw").html(fileName[1]);
           $("#fname").val(fileName[0]);
         });
     })
-    console.log($("#tworkhistory tr td:last-child").html())
+   
     $("#allfileInput1").change(function () {
         $("#bfupform").ajaxSubmit(function (res) {
             $("#referPic").val(res);
@@ -1165,4 +1167,14 @@
         }
     }
 
+
+    function CheckCompanyNameUsed() {
+        var companyname = $("#companyName").val();
+        $.post("/Companys/CheckCompanyNameUsed", { cName: companyname}, function (data) {
+            if (data != "1") {
+                swal("企业名字已存在，请换个名字!")
+            }
+        })
+
+    }
 </script>
