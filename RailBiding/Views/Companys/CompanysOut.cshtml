@@ -113,14 +113,25 @@
             pages(page, jsonData.PageCount, jsonData.total, ps)
         });
     }
+    function comischecked(comid, chk) {
+        console.log(chk.checked);
+        var s = 0;
+        if (chk.checked)
+            s = 1;
+        else
+            s = 0;
+        $.post("/Companys/ToggleCompany?id=" + comid + "&status=" + s, {}, function () { });
+
+    }
+
 
     $.get("/Common/GetBusinessType", function (data) {
         var obj = JSON.parse(data);
         var btype = $("#bType");
-        btype.append("<option value='All'>业务类型</option>");
+        btype.append("<option value='All'>业务类型</option>"); 
         for (var i = 0; i < obj.length; i++) {
-            var o = obj[i]
-            btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
+            var o=obj[i]
+            btype.append("<option value='"+o.id+"'>"+o.name+"</option>")
         }
     });
 </script>

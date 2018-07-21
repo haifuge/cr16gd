@@ -336,6 +336,7 @@
     <Content Include="img\btn-dele-hover.png" />
     <Content Include="img\btn-dele.png" />
     <Content Include="img\close.png" />
+    <Content Include="img\con-tuijian.png" />
     <Content Include="img\control-icon-on.png" />
     <Content Include="img\control-icon.png" />
     <Content Include="img\datePicker.gif" />
