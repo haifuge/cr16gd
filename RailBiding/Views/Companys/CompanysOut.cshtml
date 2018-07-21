@@ -94,6 +94,7 @@
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
+                var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.name + '</td>' +
@@ -104,7 +105,7 @@
                     '<td>' + o.contact + '</td>' +
                     '<td>' + o.contactphone + '</td>' +
                     //'<td class="gray-word">' + o.contactaddress +'</td>' +
-                    '<td class="gray-word"><div class="model-15"><div class="checkbox-switch"><input type="checkbox"><label></label></div></div></td></tr>';
+                    '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after" ><input type="checkbox"  id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td></tr>';
             }
             var tbody = $("#tbCompany")
             //tbody.empty();
@@ -113,6 +114,17 @@
             pages(page, jsonData.PageCount, jsonData.total, ps)
         });
     }
+    function comischecked(comid, chk) {
+        console.log(chk.checked);
+        var s = 0;
+        if (chk.checked)
+            s = 1;
+        else
+            s = 0;
+        $.post("/Companys/ToggleCompany?id=" + comid + "&status=" + s, {}, function () { });
+
+    }
+
 
     $.get("/Common/GetBusinessType", function (data) {
         var obj = JSON.parse(data);

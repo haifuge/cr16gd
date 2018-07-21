@@ -138,9 +138,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width:20px;padding:0px 5px"></th>
-                                                        <th style="width:160px;padding:0px 5px">公司名称</th>
+                                                        <th style="width:200px;padding:0px 5px">公司名称</th>
                                                         <th style="width:60px;padding:0px 5px">法人代表</th>
-                                                        <th style="width:80px;padding:0px 5px">联系电话</th>
+                                                        <th style="width:60px;padding:0px 5px">联系电话</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="comhtm">
@@ -250,61 +250,7 @@
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
 
-<script>
-    //分页
-    function pages(cur, totalPage, totalRows, setNum) {
-        if (!totalPage) return false;
-        var url = window.location.href;
-        var url_arr = url.split("?");
-        var url = url_arr[0];
-        var htm = '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>' +
-            '<a class="js-page-num page-num num-left" data-cur="' + (cur > 1 ? (cur - 1) : 1) + '">&lt;</a>';
-        if (totalPage != 1) {
-            htm += '<a data-cur="' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? (cur - 1) : cur) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '</a>';
-        }
 
-        htm += '<a data-cur="' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '" class="js-page-num page-num ' + (((cur + 1) > totalPage ? totalPage : (cur + 1)) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? totalPage : (cur + 1)) + '</a>' +
-            '<a class="js-page-num num-right page-num" data-cur="' + (cur < totalPage ? (cur + 1) : totalPage) + '">&gt;</a>' +
-            '<a data-cur="' + totalPage + '" class="js-page-num page-num">》</a>' +
-            '<a class="page-num page-input"><input type="text" value=""/></a>' +
-            '<a class="js-page-num page-num num-go active" data-cur="' + ((cur + 2) > totalPage ? cur : (cur + 2)) + '">GO</a>';
-        $(".page").append(htm);
-
-        //分页点击
-        $(".page>a.js-page-num").on("click", function () {
-            var url = window.location.href;
-            var cur_num = $(this).data("cur");
-            if ($(this).hasClass("num-go")) {
-                cur_num = ($(".page-input input").val() ? $(".page-input input").val() : 1);
-            }
-            if (url.indexOf("?") == -1) {
-                url += "?";
-            }
-            if (!$.getUrlParam("curPage")) {
-                url = url + '&curPage=' + cur_num;
-                $(this).attr("href", url);
-            } else {
-                replaceParamVal("curPage", cur_num);
-            }
-        });
-
-        $(".page-sel").change(function () {
-            var url = window.location.href;
-            var page_len = $(this).val();
-            if (url.indexOf("?") == -1) {
-                url += "?";
-            }
-            if (!$.getUrlParam("Length")) {
-                url = url + '&Length=' + page_len;
-                window.location.href = url;
-            } else {
-                replaceParamValNo("curPage", 1);
-                replaceParamVal("Length", page_len);
-            }
-        });
-
-    }
-</script>
 <script>
     //参与单位移除
     $(".meet-user-span span i").click(function () {
@@ -591,7 +537,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
                                  '<input class="icheck" name="addcompenycheck" type="checkbox" value="'+o.id+'|'+o.name+'" id="checkbox-1"/>'+
                               '</td>'+
                               '<td>'+
-                                  '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">'+o.name+'</a>'+
+                    '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">' + o.name + '<img src="/img/con-tuijian.png"></a>'+
                               '</td>'+
                               '<td>'+o.corporaterepresentative+'</td>'+
                               '<td>'+o.repphone+'</td>'+
