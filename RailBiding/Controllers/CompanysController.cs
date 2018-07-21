@@ -107,7 +107,7 @@ namespace RailBiding.Controllers
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
                 sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'><a href='"+ dt.Rows[i]["FilePath"].ToString() + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
+                sb.Append("<td class='gray-time'><a href='"+ dt.Rows[i]["FilePath"].ToString().Replace(rootPath, "/") + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -197,7 +197,7 @@ namespace RailBiding.Controllers
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
                 sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
+                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString().Replace(rootPath, "/") + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -304,7 +304,7 @@ namespace RailBiding.Controllers
                 sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
                 sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
+                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString().Replace(rootPath, "/") + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
@@ -402,7 +402,8 @@ namespace RailBiding.Controllers
 
 
             dt = cc.GetCompanyReferee(id);
-            ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
+            if(dt.Rows.Count>0)
+                ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
 
             dt = cc.GetWorkHistory(id);
             StringBuilder sb = new StringBuilder();

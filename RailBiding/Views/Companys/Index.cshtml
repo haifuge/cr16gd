@@ -116,7 +116,7 @@
 
     };
 
-    $.post("/Common/GetBusinessType", {}, function (data) {
+    $.post("/Common/GetCompanyType", {}, function (data) {
         var obj = JSON.parse(data);
         var btype = $("#bType");
         btype.append("<option value='All'>业务类型</option>");

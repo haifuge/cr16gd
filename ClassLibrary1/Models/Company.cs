@@ -58,23 +58,24 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, a.* into #temp1 from (
-                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
-	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
-                            from Company c inner join(
-                                select distinct a.ObjId, a.Approved 
-                                from vw_AppPLevel a 
-                                inner join (select MAX(level) as level,AppProcId, ObjId 
-			                                from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
-                            ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                            where a.UserId=" + userId + @") a on c.ID=a.ObjId
-                            left join BusinessType bt on bt.id=c.BusinessType
-                            where c.AuditStatus<>3
-                            union
-                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
-	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
-                            from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
-                            left join BusinessType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a
+                                select top 100 percent * from (
+                                    select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+	                                    c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
+                                    from Company c inner join(
+                                        select distinct a.ObjId, a.Approved 
+                                        from vw_AppPLevel a 
+                                        inner join (select MAX(level) as level,AppProcId, ObjId 
+			                                        from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
+                                    ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
+                                    where a.UserId=" + userId + @") a on c.ID=a.ObjId
+                                    left join BusinessType bt on bt.id=c.BusinessType
+                                    where c.AuditStatus<>3
+                                    union
+                                    select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+	                                    c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
+                                    from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
+                                    left join CompanyType bt on bt.id=c.BusinessType
+                                    where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a order by a.id desc) a
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
@@ -95,8 +96,8 @@ namespace DAL.Models
                                   c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
                            into #temp1
                            from Company c
-                           left join BusinessType bt on bt.id=c.BusinessType
-                           where c.AuditStatus=2 and c.Type = " + cType + @" order by c.Name;
+                           left join CompanyType bt on bt.id=c.BusinessType
+                           where c.AuditStatus=2 and c.Type = " + cType + @" order by c.id desc;
                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                            select count(1) from #temp1
                            drop table #temp1";
@@ -114,7 +115,7 @@ namespace DAL.Models
                                   c.Contact,c.ContactPhone, bt.name as BusinessType, c.ContactAddress,c.QualificationLevel, c.ConstructionContent, c.Note,
 								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.Type
                            from Company c
-                           left join BusinessType bt on bt.id=c.BusinessType 
+                           left join CompanyType bt on bt.id=c.BusinessType 
                            where c.id = " + id;
             return DBHelper.GetDataTable(CommandType.Text, sql);
         }
@@ -219,10 +220,12 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, id*1 as id, Name, QualificationLevel, RegisteredCapital, BusinessType, CorporateRepresentative, Contact, 
-	                            convert(varchar(20),AuditDate,23) as AuditDate, AuditStatus
+            string sql = @"select identity(int,1,1) as iid, c.id*1 as id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, 
+	                            convert(varchar(20),c.AuditDate,23) as AuditDate, c.AuditStatus
                             into #temp1
-                            from Company where SubmitUserId=" + userid + @"
+                            from Company c
+                            left join CompanyType bt on bt.id=c.BusinessType
+                            where c.SubmitUserId=" + userid + @" order by c.id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";

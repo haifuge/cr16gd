@@ -95,12 +95,12 @@
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.name + '</td>' +
-                    '<td>' + o.qualificationlevel + '</td>' +
-                    '<td>' + o.registeredcapital + '万元</td>' +
-                    '<td>' + o.businesstype + '</td>' +
-                    '<td>' + o.corporaterepresentative + '</td>' +
-                    '<td>' + o.contact + '</td>' +
-                    '<td>' + o.contactphone + '</td>'
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
+                    '<td> onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\"' + o.registeredcapital + '万元</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.businesstype + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.contact + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.contactphone + '</td>'
                 if ($.cookie("RoleId") == 2)
                     htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
                 // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
