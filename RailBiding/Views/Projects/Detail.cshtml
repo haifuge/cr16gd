@@ -435,21 +435,7 @@
                         <li><i>*</i><span style="width:auto">报名截止时间：</span><input id="applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
                         <li><i>*</i><span style="width:auto">预计开标时间：</span><input id="opendate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
                         <li><i>*</i><span style="width:auto">拟中标单位数量：</span><input id="bidingnum" type="text" name="" class="input3"></li>
-                        <li>
-                            <i><img src="~/img/icon-fj.png" alt=""></i><span>招标文档：</span>
-                            @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:150px;">*@
-                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;">
-                                <input type='file' id='fup' name='fup' value="IamPic" style="opacity:0;" />
-                                <input type="text" id="pid" name="pid" width="20" value="@ViewBag.ProjId"  style="display:none" />
-                                <input type="text" id="ftype" name="ftype" width="20" value="3" style="display:none" />
-                                <input type="text" id="comment" name="comment" width="20" value="" style="display:none" />
-                            </form>
-                            <img src="~/img/icon-03.png" alt="" class="up up2" style="left:80px;vertical-align: middle">
-                        </li>
-                        <li>
-                            <ul id="bfiles">
-                            </ul>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="canvas_btn">
@@ -534,19 +520,7 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script type="text/javascript" language="javascript">
     $(function () {
-        $("#fup").change(function () {
-            var fup = $("#fup").val();
-            if (fup == "") { //点击取消，取消事件的编写
-                return;
-            }
-            $("#fupform").ajaxSubmit(function (res) {
-                var names = res.split('|')
-                var li = document.createElement("li");
-                li.id = names[0].trim()
-                li.innerHTML = names[1] + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + names[0].trim() + '\')" > 删除</a>'
-                document.getElementById("bfiles").appendChild(li)
-            });
-        })
+
         $("#bfup").change(function () {
             $("#bfupform").ajaxSubmit(function (res) {
                 var names = res.split('|')

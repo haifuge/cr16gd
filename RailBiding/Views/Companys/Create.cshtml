@@ -1172,7 +1172,7 @@
         var companyname = $("#companyName").val();
         $.post("/Companys/CheckCompanyNameUsed", { cName: companyname}, function (data) {
             if (data != "1") {
-                swal("企业名字已存在，请换个名字!")
+                swal("该企业已在库里，请重新录入企业名称！")
             }
         })
 
