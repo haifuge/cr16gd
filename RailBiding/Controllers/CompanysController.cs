@@ -769,6 +769,7 @@ namespace RailBiding.Controllers
 
         public ActionResult ReApply()
         {
+            ViewBag.cid = Request["cid"].ToString();
             return View();
         }
     }
