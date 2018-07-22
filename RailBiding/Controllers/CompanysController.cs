@@ -433,7 +433,7 @@ namespace RailBiding.Controllers
             return cc.GetMyRecommend(userName, pageSize, pageIndex);
         }
 
-        public string GetMyAudit(string pageSize, string pageIndex)
+        public string GetMyAudit(string pageSize, string pageIndex, string cname="", string ctype="")
         {
             CompanyContext cc = new CompanyContext();
             if (Session["UserId"] == null) { 
@@ -441,7 +441,7 @@ namespace RailBiding.Controllers
             }
             string userId = Session["UserId"].ToString();
 
-            return cc.GetMyAudit(userId, pageSize, pageIndex);
+            return cc.GetMyAudit(userId, pageSize, pageIndex,cname, ctype);
         }
 
         /// <summary>
@@ -449,10 +449,10 @@ namespace RailBiding.Controllers
         /// </summary>
         /// <param name="ctype">0:名录外；1:名录内</param>
         /// <returns></returns>
-        public string GetCompanies(string ctype, string pageSize, string pageIndex)
+        public string GetCompanies(string ctype, string pageSize, string pageIndex, string cname="", string cctype="")
         {
             CompanyContext cc = new CompanyContext();
-            return cc.GetAllCompanies(ctype, pageSize, pageIndex);
+            return cc.GetAllCompanies(ctype, pageSize, pageIndex, cname, cctype);
         }
 
         // GET: Companys/Create

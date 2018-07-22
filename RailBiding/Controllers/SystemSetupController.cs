@@ -16,19 +16,48 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult Index()
         {
-            return View();
+            if(Session["RoleId"].ToString()!="2")
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                return View("PersonalCenter");
+            }
+            else
+            {
+                return View();
+            }
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult PersonalCenter()
         {
+            if (Session["RoleId"].ToString() != "2")
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+            }
+            else
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup'><i class='icon icon-eye1'></i>组织结构</a></li>
+                                    <li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>
+                                    <li><a href='SystemSetup/SystemLog'><i class='icon icon-hand3'></i>系统日志</a></li>
+                                    <li><a href='SystemSetup/CategoryManagement'><i class='icon icon-hand4'></i>类别管理</a></li>
+                                    <li><a href='SystemSetup/SystemUser'><i class='icon icon-hand5'></i>系统用户</a></li>
+                                    <li><a href='SystemSetup/ApproveProcessManagement'><i class='icon icon-hand4'></i>审核流程</a></li>";
+            }
             return View();
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult SystemLog()
         {
-            return View();
+            if (Session["RoleId"].ToString() != "2")
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                return View("PersonalCenter");
+            }
+            else
+            {
+                return View();
+            }
         }
         public string GetLogs(string pageSize, string pageIndex)
         {
@@ -39,7 +68,15 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult CategoryManagement()
         {
-            return View();
+            if (Session["RoleId"].ToString() != "2")
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                return View("PersonalCenter");
+            }
+            else
+            {
+                return View();
+            }
         }
         public string GetSystemTypes()
         {
@@ -51,7 +88,15 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult SystemUser()
         {
-            return View();
+            if (Session["RoleId"].ToString() != "2")
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                return View("PersonalCenter");
+            }
+            else
+            {
+                return View();
+            }
         }
         public string GetAdmins()
         {
@@ -65,7 +110,15 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemSS")]
         public ActionResult ApproveProcessManagement()
         {
-            return View();
+            if (Session["RoleId"].ToString() != "2")
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                return View("PersonalCenter");
+            }
+            else
+            {
+                return View();
+            }
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemSS")]
@@ -87,7 +140,15 @@ namespace RailBiding.Controllers
                     ViewBag.ApproveProcessTitle = "定标文件审批流程配置";
                     break;
             }
-            return View();
+            if (Session["RoleId"].ToString() != "2")
+            {
+                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                return View("/SystemSetup/PersonalCenter");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public string GetApproveProcesses()

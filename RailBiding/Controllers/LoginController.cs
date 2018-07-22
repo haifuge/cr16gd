@@ -30,6 +30,7 @@ namespace RailBiding.Controllers
             Session["UserId"] = ui.ID;
             Session["UserName"] = ui.UserName;
             Session["MenuList"]=MenuHelper.GetMainMenu(ui.RoleId);
+            Session["RoleId"] = ui.RoleId;
             HttpCookie c1 = new HttpCookie("UserName");
             c1.Value= ui.UserName;
             c1.Expires = DateTime.Now.AddHours(3);

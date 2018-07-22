@@ -15,8 +15,10 @@ namespace RailBiding.Common
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             base.OnActionExecuted(filterContext);
-            if(filterContext.HttpContext.Session["MenuList"]!=null)
+            if (filterContext.HttpContext.Session["MenuList"] != null)
+            {
                 filterContext.Controller.ViewBag.MainMenuList = filterContext.HttpContext.Session["MenuList"];
+            }
         }
     }
 

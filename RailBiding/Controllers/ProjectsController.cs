@@ -18,6 +18,12 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemP")]
         public ActionResult Index()
         {
+            if (Session["RoleId"].ToString() == "4")
+            {
+                ViewBag.Create = @"<a class='meet-btn red-btn small-size sm-btn' href='/Projects/Add'><i class='xs-meet-icon icon-add'></i>添加</a>";
+            }
+            else
+                ViewBag.Create = "";
             return View();
         }
         public string GetAllProjects(string pageSize, string pageIndex)

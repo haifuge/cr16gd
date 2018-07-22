@@ -51,7 +51,7 @@ namespace DAL.Models
             
         }
 
-        public string GetMyAudit(string userId, string pageSize, string pageIndex)
+        public string GetMyAudit(string userId, string pageSize, string pageIndex, string cname="", string ctype="")
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -74,7 +74,8 @@ namespace DAL.Models
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a order by a.id desc";
+                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a 
+                            where a.Name like '%"+cname+"%' and a.BusinessType like '%"+ctype+"%' order by a.id desc";
             DataTable dataTable = DBHelper.GetDataTable(sql);
             DataTable dt = dataTable.Clone();
             int total = dataTable.Rows.Count;
@@ -88,7 +89,7 @@ namespace DAL.Models
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
-        public string GetAllCompanies(string cType, string pageSize, string pageIndex)
+        public string GetAllCompanies(string cType, string pageSize, string pageIndex, string cname, string cctype)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -99,7 +100,7 @@ namespace DAL.Models
                            into #temp1
                            from Company c
                            left join CompanyType bt on bt.id=c.BusinessType
-                           where c.AuditStatus=2 and c.Type = " + cType + @" order by c.id desc;
+                           where c.AuditStatus=2 and c.Type = "+cType+" and bt.name like '%" + cctype + @"%' and c.Name like '%"+cname+@"%' order by c.id desc;
                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                            select count(1) from #temp1
                            drop table #temp1";
@@ -223,7 +224,7 @@ namespace DAL.Models
                 return false;
         }
 
-        public string GetMyRecommend(string userid, string pageSize, string pageIndex)
+        public string GetMyRecommend(string userid, string pageSize, string pageIndex, string cname="", string ctype="")
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -234,7 +235,7 @@ namespace DAL.Models
                             into #temp1
                             from Company c
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where c.SubmitUserId=" + userid + @" order by c.id desc
+                            where c.SubmitUserId=" + userid + @" and c.Name like '%"+cname+"%' and bt.Name like '%"+ctype+@"%' order by c.id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
