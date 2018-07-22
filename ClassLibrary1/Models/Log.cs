@@ -38,7 +38,7 @@ namespace DAL.Models
 
         public static void WriteLog(Log log)
         {
-            string sql = "insert into LogRecord values('" + log.UserId + "', " + log.OperType + ", getdate(), N'" + log.Description + "')";
+            string sql = "insert into LogRecord values('" + log.UserId + "', '" + log.OperType + "', getdate(), N'" + log.Description + "')";
             DBHelper.ExecuteNonQuery(sql);
         }
     }
