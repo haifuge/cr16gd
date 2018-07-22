@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DAL.Models;
+using DAL.Tools;
 
 namespace RailBiding.Controllers
 {
@@ -23,17 +24,17 @@ namespace RailBiding.Controllers
         {
             string cId = Request["cId"].ToString();
             BidContext bc = new BidContext();
-            List<CompanyBidDetail> companyBidDetails = bc.GetCompanyBidDetail(cId);
+             bc.GetCompanyBidDetail(cId);
             
-            return View(companyBidDetails);
+            return View();
         }
         
-        public JsonResult GetCompanyStat()
+        public string GetCompanyStat()
         {
             string cId = Request["cId"].ToString();
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetCompanyStat(cId);
-            return Json(dt, JsonRequestBehavior.AllowGet);
+            DataTable dt = bc.GetCompanyBidDetail(cId);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

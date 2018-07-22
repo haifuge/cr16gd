@@ -4255,6 +4255,18 @@ h3.fx_tit {
     line-height: 30px;
     font-size: 14px;
 }
+.main-nav ul li a > span#spanlaowu {
+    z-index: 999;
+    display: block;
+    color: #fff;
+    left: 48px;
+    width: 65px;
+    height:auto;
+    text-align: center;
+    line-height: 16px;
+    font-size: 14px;
+    padding-left: 30px;
+}
 .main-nav ul li a > span.span2 {
     z-index: 999;
     display: block;
