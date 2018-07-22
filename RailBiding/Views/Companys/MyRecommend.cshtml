@@ -93,6 +93,7 @@
                 var htm = "";
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i]
+                    console.log(o)
                     var auditStatus = "";
                     var statusStyle = "";
                     switch (o.auditstatus) {
@@ -117,7 +118,7 @@
                             statusStyle = "status-wcl status-bzt";
                             break;
                     }
-                    htm += '<tr class="white-bg" onclick="location.href=\'/Companys/RecommendDetail?id=' + o.id +'\';">'+
+                    htm += '<tr class="white-bg" onclick="location.href=\'/Companys/RecommendDetail?id=' + o.id + '&auditstatus=' + o.auditstatus + '\';">' +
                         '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1"/></td >'+
                         '<td>' + o.name + '</td>' +
                         '<td>' + o.qualificationlevel + '</td>' +

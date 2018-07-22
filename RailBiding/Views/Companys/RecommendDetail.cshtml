@@ -27,6 +27,7 @@
             <div class="apply-opt">
                 <!--<a href='javascript:;' class='js-cancle-meet' title='撤回'><i-->
                 <!--class='meet-icon icon-cancel'>撤回</i></a>-->
+                @Html.Raw(ViewBag.moretime)
                 <a href='javascript:;' class='js-cancle-meet' title='导出'>
                     <i class='meet-icon icon-cancel icon-dc'>导出</i>
                 </a>
@@ -179,6 +180,10 @@
 
     //资质荣誉 图片放大
     $(function () {
+
+        console.log();
+
+
         var abtab2_img = 1;
         $("a[rel=group]").fancybox({
             'titlePosition': 'over',
@@ -343,5 +348,12 @@
                 })
             }
         })
+    }
+
+
+    function moretime(){
+
+            window.location.href = "/Companys/ReApply?cid=@ViewBag.cid"; 
+
     }
 </script>
