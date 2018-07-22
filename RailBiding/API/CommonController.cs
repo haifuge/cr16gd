@@ -117,10 +117,6 @@ namespace RailBiding.API
             string path = Server.MapPath("/projectFiles/WorkHistory");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            if (foreRef != "")
-            {
-                System.IO.File.Delete(path+"/"+foreRef);
-            }
             var curFile = Request.Files[0];
             string guid = Guid.NewGuid().ToString();
             var fileExt = Path.GetExtension(curFile.FileName);

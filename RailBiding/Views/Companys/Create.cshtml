@@ -522,7 +522,6 @@
 <script type='text/javascript'>
 
     $("#fileInfoName").change(function () {
-        alert(1)
         var fileInfoName = $("#fileInfoName").val();
         if (fileInfoName == "") { //点击取消，取消事件的编写
             return;
@@ -557,6 +556,8 @@
         var contactPhone = $("#contactPhone").val();
         var allfileInput6 = $("#allfileInput6").val();
 
+
+        CheckCompanyNameUsed();
         if (companyName == "") {
             document.getElementById("companyName").focus();
             swal({
@@ -573,7 +574,6 @@
                 }
 
             )
-
             return;
         } else if (refererName == "") {
 
@@ -1172,7 +1172,7 @@
         var companyname = $("#companyName").val();
         $.post("/Companys/CheckCompanyNameUsed", { cName: companyname}, function (data) {
             if (data != "1") {
-                swal("企业名字已存在，请换个名字!")
+                swal("企业名字已存在，请换个名字!").then(function(){ })
             }
         })
 
