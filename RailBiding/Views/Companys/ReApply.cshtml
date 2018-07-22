@@ -232,8 +232,8 @@
                 padding-left: 10px;
             }
 
-    #tworkhistory > tr > td:last-child {
-        display: none;
+       #tworkhistory > tr> td:last-child{
+        display:none;
     }
 </style>
 
@@ -253,7 +253,7 @@
     <div class="main-wrap">
         <div class="main-top top-bottom">
             <span class="left-line"></span>
-            <span class="page-title">添加企业</span>
+            <span class="page-title">修改企业信息</span>
         </div>
         <div class="wc-container app-dt">
             <div class="wc-nav">
@@ -265,8 +265,8 @@
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>企业名称：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="companyName"
-                                       class="has-clear-input input input3" autofocus onblur="CheckCompanyNameUsed()" />
+                                <input name="roomInfoName" type="text" value="@ViewBag.Name" id="companyName"
+                                       class="has-clear-input input input3" autofocus  />
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -274,7 +274,7 @@
                             <td>
                                 <div class="form-item  sel-required">
                                     <select class="select radius-sel dropdown" name="iofnName"
-                                            id="bType"></select>
+                                            id="bType" value="@ViewBag.BusinessType"></select>
 
                                 </div>
                             </td>
@@ -282,12 +282,12 @@
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>推荐人：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="refererName"
+                                <input name="roomInfoName" type="text" value="@ViewBag.Referre" id="refererName"
                                        class="has-clear-input input input3 input4" />
                                 <span class="td-cer">推荐书：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3" style="top: 10px;">
                                     <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput1" id="allfileInput1">
+                                        <input type="file" name="fileInput1" id="allfileInput1" value="">
                                         <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
                                     </form>
                                 </div>
@@ -297,12 +297,12 @@
                             <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2">@*class="allfileInput allfileInput2"*@
+                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="@ViewBag.BusinessLicensePic">@*class="allfileInput allfileInput2"*@
                                     @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
                                 </div>
                                 <div id="busiLicPic" style="display:none"></div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
-                                <input name="youziz" id="socialCreditNo" type="text"
+                                <input name="youziz" id="socialCreditNo" type="text" value="@ViewBag.CreditNo"
                                        class="has-clear-input input input3 input4" required><span class="tips" id="zizhi"></span>
                                 @*onBlur="checkpsd2()"*@
                             </td>
@@ -310,7 +310,7 @@
                         <tr class="form-tr ">
                             <td class="form-lable"><span class="red-word">*</span>资质等级：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="qualificationLevel"
+                                <input name="roomInfoName" type="text" value="@ViewBag.QualificationLevel" id="qualificationLevel"
                                        class="has-clear-input input input5" />
                             </td>
                         </tr>
@@ -329,7 +329,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 添加资质弹框 -->
+                                <!-- 添加资质弹框-->
                                 <div class="canvas">
                                     <div class="canvas_content">
                                         <span class="canvas_close">×</span>
@@ -360,29 +360,29 @@
                                     <div id="scPic" style="display:none"></div>
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
-                                <input name="youbh" type="text" value="" id="licenseNo"
+                                <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
                                        class="has-clear-input input input3 input4 "
-                                       required><span class="tips " id="zjbh"></span>
+                                       required><span class="tips" id="zjbh"></span>
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable"><span class="white-word">*</span>业务范围：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="businessScope"
+                                <input name="roomInfoName" type="text" value="@ViewBag.BusinessScope" id="businessScope"
                                        class="has-clear-input input input3 input6" />
                                 <span class="td-cer">注册资金： </span>
                                 <input name="roomInfoName" type="text" id="registerMoney"
-                                       value=""
+                                       value="@ViewBag.RegisteredCapital"
                                        class="has-clear-input input input3 input4" />万元
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>法人代表：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="companyRepresentative"
+                                <input name="roomInfoName" type="text" value="@ViewBag.CorporateRepresentative" id="companyRepresentative"
                                        class="has-clear-input input input3 input4" />
                                 <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
-                                                                         value="" id="repTelephone"
+                                                                         value="@ViewBag.RepPhone" id="repTelephone"
                                                                          class="has-clear-input input input3 input4" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
@@ -396,10 +396,10 @@
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>现场负责人：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="contact"
+                                <input name="roomInfoName" type="text" value="@ViewBag.Contact" id="contact"
                                        class="has-clear-input input input3 input4" />
                                 <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
-                                                                         value="" id="contactPhone"
+                                                                         value="@ViewBag.ContactPhone" id="contactPhone"
                                                                          class="has-clear-input input input3 input4" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
@@ -412,21 +412,21 @@
                         <tr class="form-tr">
                             <td class="form-lable"><span class="white-word">*</span>联系地址：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="contactAddress"
+                                <input name="roomInfoName" type="text" value="@ViewBag.ContactAddress" id="contactAddress"
                                        class="has-clear-input input input3" />
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable">施工内容：</td>
                             <td>
-                                <textarea name="roomInfoName" type="text" value="" id="construction"
-                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }"></textarea>
+                                <textarea name="roomInfoName" type="text"  id="construction"
+                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }">@ViewBag.ConstructionContent</textarea>
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable">备注：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="" id="note"
+                                <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note"
                                        class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='请输入其他说明' }">
                             </td>
                         </tr>
@@ -448,7 +448,9 @@
 
                                         </tr>
                                     </thead>
-                                    <tbody id="tworkhistory"></tbody>
+                                    <tbody id="tworkhistory">
+                                        @Html.Raw(ViewBag.WorkHistory)
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>
@@ -540,7 +542,13 @@
     })
 
     $("#allfileInput1").change(function () {
+        var allfileInput1 = $("#allfileInput1").val();
+        if (allfileInput1 == "") { //点击取消，取消事件的编写
+            return;
+        }
         $("#bfupform").ajaxSubmit(function (res) {
+            console.log(res);
+
             $("#referPic").val(res);
         });
     })
@@ -562,7 +570,7 @@
         var allfileInput6 = $("#allfileInput6").val();
 
 
-        CheckCompanyNameUsed();
+
         if (companyName == "") {
             document.getElementById("companyName").focus();
             swal({
@@ -853,7 +861,7 @@
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
         $.post("/Companys/Create", data, function (res) {
-
+            console.log(1)
             if (res == "1") {
                 uploadWorkHistory();
             } else {
@@ -1052,6 +1060,7 @@
         tdffileName.innerText = tdffileInfoName;
 
         var tdhiddw = document.createElement("td");
+        
         var tdfname = $("#fname").val();
         tdhiddw.innerText = tdfname;
 
@@ -1083,8 +1092,9 @@
 
     }
     function removeRow(rid) {
-        var row = document.getElementById(rid)
-        row.parentNode.removeChild(row);
+        console.log(rid);
+        //var row = document.getElementById(rid)
+        rid.parentNode.removeChild(rid);
     }
     function submitImg() {
         var success = 0;
@@ -1172,15 +1182,5 @@
         }
     }
 
-
-    function CheckCompanyNameUsed() {
-        var companyname = $("#companyName").val();
-        $.post("/Companys/CheckCompanyNameUsed", { cName: companyname}, function (data) {
-            if (data != "1") {
-                swal("该企业已在库里，请重新录入企业名称！")
-            }
-        })
-
-    }
 </script>
 

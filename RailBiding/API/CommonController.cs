@@ -105,7 +105,7 @@ namespace RailBiding.API
             switch (apid)
             {
                 case "1":
-                    sql = "select Name from Comapny where Id = " + oid;
+                    sql = "select Name from Company where Id = " + oid;
                     l.Description = "名录外单位 - " + DBHelper.ExecuteScalar(sql) + ap;
                     break;
                 case "2":
@@ -121,7 +121,7 @@ namespace RailBiding.API
                     l.Description = DBHelper.ExecuteScalar(sql) + " - 定标文件"+ap;
                     break;
                 case "5":
-                    sql = "select Name from Comapny where Id = " + oid;
+                    sql = "select Name from Company where Id = " + oid;
                     l.Description = "名录内单位 - " + DBHelper.ExecuteScalar(sql) + ap;
                     break;
                 default:
@@ -136,11 +136,11 @@ namespace RailBiding.API
             string foreRef = Request["foreRef"].ToString();
             ProjectContext pc = new ProjectContext();
             string fullPath;
-            if (foreRef != "") {
-                string g = foreRef;
-                fullPath = pc.GetForeReference(g);
-                System.IO.File.Delete(fullPath);
-            }
+            //if (foreRef != "") {
+            //    string g = foreRef;
+            //    fullPath = pc.GetForeReference(g);
+            //    System.IO.File.Delete(fullPath);
+            //}
             string path = Server.MapPath("/projectFiles/Reference");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
