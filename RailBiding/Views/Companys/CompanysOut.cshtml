@@ -5,6 +5,15 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
+<style>
+    #bType {
+        float: left;
+    }
+
+    .wc-container {
+        margin-top: 20px;
+    }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>劳务承分包企业</h1>
@@ -20,10 +29,10 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bType"></select>
             <div class="search-con2">
-                <input type="text" name="keyname" placeholder="请输入关键字">
+                <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
             <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
@@ -80,12 +89,57 @@
     var nowpage = 1;
     var page_size = 10
     var pagenum = 12
-    Paginator(nowpage, page_size)
+    Paginator(nowpage, page_size,"","")
     if ($.cookie("RoleId") == 2)
         $("#cstatus").show()
 
-    function Paginator(page, ps) {
-        $.post("/Companys/GetCompanies?ctype=0", { pageSize: ps, pageIndex: page }, function (data) {
+    //全部按钮
+    function allcompany() {
+        Paginator(nowpage, page_size, '', '')
+    }
+    var SearchCompanyName = "";
+    var type = "";
+    //下拉菜单
+    $("#bType").change(function () {
+        if ($("#bType").val() == "All") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        SearchCompanyName = $("#searchinput").val();
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+        console.log(type);
+        console.log(SearchCompanyName);
+    })
+    //输入框内容更改
+    $("#searchinput").change(function () {
+        if ($("#bType").val() == "All") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        SearchCompanyName = $("#searchinput").val();
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+        console.log(type);
+        console.log(SearchCompanyName);
+    })
+
+    //点击搜索按钮
+    $(".search-btn").on("click", function () {
+        SearchCompanyName = $("#searchinput").val();
+        if ($("#bType").val() == "All") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        console.log(type);
+        console.log(SearchCompanyName);
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+    });
+
+
+    function Paginator(page, ps, sname, stype) {
+        $.post("/Companys/GetCompanies?ctype=0", { pageSize: ps, pageIndex: page,cname:sname,cctype:stype }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
@@ -125,7 +179,7 @@
     }
 
 
-    $.get("/Common/GetBusinessType", function (data) {
+    $.get("/Common/GetCompanyType", function (data) {
         var obj = JSON.parse(data);
         var btype = $("#bType");
         btype.append("<option value='All'>业务类型</option>"); 
