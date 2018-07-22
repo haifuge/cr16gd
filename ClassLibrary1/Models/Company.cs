@@ -178,6 +178,13 @@ namespace DAL.Models
             else
                 // 名录外企业
                 CreateApproveProcess(i, uid, "1");
+
+            Log l = new Log();
+            l.OperType = OperateType.Create;
+            l.UserId = uid;
+            l.Description = "创建公司"+ company.Type =="1"?"名录内":"名录外"+ " - "+company.Name;
+            LogContext.WriteLog(l);
+
             return i;
         }
         public bool UpdateCompanyPics(Company company)

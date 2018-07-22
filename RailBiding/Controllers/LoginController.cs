@@ -44,6 +44,11 @@ namespace RailBiding.Controllers
             c3.Value= ui.RoleId.ToString();
             c3.Expires = DateTime.Now.AddHours(3);
             Response.Cookies.Add(c3);
+            Log l = new Log();
+            l.OperType = OperateType.Login;
+            l.UserId = ui.ID.ToString();
+            l.Description = "登陆系统";
+            LogContext.WriteLog(l);
             return "1";
         }
 

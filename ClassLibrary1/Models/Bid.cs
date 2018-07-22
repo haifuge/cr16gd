@@ -186,29 +186,27 @@ namespace DAL.Models
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
         }
-        public List<CompanyBidDetail> GetCompanyBidDetail(string cId)
+        public DataTable GetCompanyBidDetail(string cId)
         {
-            string sql = @"select IDENTITY(int, 1,1) as Id, b.Name as ProjName, b.ApplyDate as ProjDate, b.Content, b.Location, b.WinnerAmount, 
-                            case when cb.WinBid = 1 and cb.Response=1 then '中标' 
-                                 when cb.WinBid = 0 and cb.Response=1 then '未中标' 
-                                 when cb.Response=2 then '未参加' 
-                                 when cb.Response=0 then '未响应'
-                                 when cb.Response=1 then '参加' end as Status
-                            from CompanyInBid cb inner join Bid b on cb.BidId=b.ID 
-                            where cb.CompanyId=" + cId+" order by b.ApplyDate desc";
-            DataTable dt = DBHelper.GetDataTable(sql);
-            return JsonHelper.ConvertTableToObj<CompanyBidDetail>(dt);
+            string sql = @"select p.Name, convert(varchar(20),b.OpenDate, 23) as pDate, bf.Content, p.Location, 0 as Amount, 
+	                            case when bc.CompanyResponse=0 then '未响应' when bc.CompanyResponse=2 then '不参加' when bc.Win=0 and bc.Biding=1 then '未中标' when bc.Win=1 then '中标' end as Status
+                            from BidingCompany bc 
+                            inner join Project p on bc.ProjId=p.Id
+                            inner join BidingFile bf on bf.ProjId=p.Id
+                            inner join Bid b on bc.ProjId=b.ProjId
+                            where bc.CompanyId="+cId+" order by p.Id desc";
+            return DBHelper.GetDataTable(sql);
         }
-        public DataTable GetCompanyStat(string cId)
+        public DataTable GetCompanyStatById(string cId)
         {
-            string sql = @"select COUNT(1) as Total, 
-		                        sum(case when cb.WinBid = 1 and cb.Response=1 then 1 else 0 end) as win,
-                                sum(case when cb.WinBid = 0 and cb.Response=1 then 1 else 0 end) as nowin,
-                                sum(case when cb.Response=2 then 1 else 0 end) as nojoin,
-                                sum(case when cb.Response=0 then 1 else 0 end) as noresoponse,
-                                sum(case when cb.Response=1 then 1 else 0 end) as attend
-                        from CompanyInBid cb inner join Bid b on cb.BidId=b.ID 
-                        where cb.CompanyId=" + cId + " order by b.ApplyDate desc";
+            string sql = @"select c.Name, count(1) as Total, SUM(case when bc.CompanyResponse=1 then 1 else 0 end) as JoinBiding, SUM(case when bc.CompanyResponse=2 then 1 else 0 end) as NoJoin, 
+	                            SUM(case when bc.CompanyResponse=0 then 1 else 0 end) as NoResponse, SUM(case when bc.biding=1 and bc.win=0 then 1 else 0 end) as NoWin,SUM(isnull(bc.win,0)) as Win, 
+	                            SUM(case when bc.win=1 and bc.SecondPrice<>NULL then bc.SecondPrice when bc.win=1 and bc.SecondPrice=null then bc.FirstPrice else 0 end) as TotalAmount
+                            from Company c
+                            left join BidingCompany bc  on c.ID=bc.CompanyId
+                            left join Bid b on bc.ProjId=b.ProjId 
+                            left join Project p on bc.ProjId=p.Id
+                            where c.Id = "+cId+" group by c.Name";
             DataTable dt = DBHelper.GetDataTable(sql);
             return dt;
         }

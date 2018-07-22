@@ -766,5 +766,10 @@ namespace RailBiding.Controllers
                 //返回“1”该公司名可用
                 return "1";
         }
+
+        public ActionResult ReApply()
+        {
+            return View();
+        }
     }
 }

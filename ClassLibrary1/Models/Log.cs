@@ -11,7 +11,7 @@ namespace DAL.Models
     public class Log
     {
         public int ID { get; set; }
-        public string UserAccount { get; set; }
+        public string UserId { get; set; }
         public OperateType OperType { get; set; }
         public string OperateDate { get; set; }
         public string Description { get; set; }
@@ -36,9 +36,9 @@ namespace DAL.Models
             return n;
         }
 
-        public void WriteLog(Log log)
+        public static void WriteLog(Log log)
         {
-            string sql = "insert into LogRecord values('" + log.UserAccount + "', " + log.OperType + ", getdate(), N'" + log.Description + "')";
+            string sql = "insert into LogRecord values('" + log.UserId + "', " + log.OperType + ", getdate(), N'" + log.Description + "')";
             DBHelper.ExecuteNonQuery(sql);
         }
     }

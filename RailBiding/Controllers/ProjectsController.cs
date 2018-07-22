@@ -244,7 +244,14 @@ namespace RailBiding.Controllers
             p.ProDescription = Request["description"].ToString();
             ProjectContext pc = new ProjectContext();
             if (pc.AddProject(p))
+            {
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = p.PublisherId.ToString();
+                l.Description = "创建项目 - " + p.Name;
+                LogContext.WriteLog(l);
                 return "1";
+            }
             return "0";
         }
 
@@ -263,6 +270,12 @@ namespace RailBiding.Controllers
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(pid, "招标文件审核中");
                     pc.CreateApproveProcess(userid, pid, 2);
+
+                    Log l = new Log();
+                    l.OperType = OperateType.Create;
+                    l.UserId =userid;
+                    l.Description = "创建"+DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) +" - 招标文件";
+                    LogContext.WriteLog(l);
                 }
             return true;
         }
@@ -285,6 +298,12 @@ namespace RailBiding.Controllers
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
                     pc.CreateApproveProcess(userid, pid, 3);
+
+                    Log l = new Log();
+                    l.OperType = OperateType.Create;
+                    l.UserId = userid;
+                    l.Description = "创建" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 邀标申请";
+                    LogContext.WriteLog(l);
                 }
             return true;
         }
@@ -466,6 +485,12 @@ namespace RailBiding.Controllers
             ProjectContext pc = new ProjectContext();
             pc.UpdateProjectStatus(pid, "定标文件审核中");
             pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
+
+            Log l = new Log();
+            l.OperType = OperateType.Create;
+            l.UserId = Session["UserId"].ToString();
+            l.Description = "创建" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 定标文件";
+            LogContext.WriteLog(l);
 
             return "1";
         }

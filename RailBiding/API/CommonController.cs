@@ -85,6 +85,50 @@ namespace RailBiding.API
             parameters[3] = new SqlParameter("@status", aStatus);
             parameters[4] = new SqlParameter("@comment", comment);
             DBHelper.ExecuteSP("UpdateApproveProcess", parameters);
+            ApproveProcessLog(apid, oid, aStatus, uid);
+        }
+
+        private void ApproveProcessLog(string apid, string oid, string aStatus, string uid)
+        {
+            Log l = new Log();
+            string ap = "";
+            if (aStatus == "2") { 
+                l.OperType = OperateType.Approve;
+                ap = "审核通过";
+            }
+            else if (aStatus == "3") {
+                l.OperType = OperateType.Decline;
+                ap = "驳回";
+            }
+            l.UserId = uid;
+            string sql = "";
+            switch (apid)
+            {
+                case "1":
+                    sql = "select Name from Comapny where Id = " + oid;
+                    l.Description = "名录外单位 - " + DBHelper.ExecuteScalar(sql) + ap;
+                    break;
+                case "2":
+                    sql = "select Name from Project where Id = " + oid;
+                    l.Description = DBHelper.ExecuteScalar(sql) + " - 招标文件"+ ap;
+                    break;
+                case "3":
+                    sql = "select Name from Project where Id = " + oid;
+                    l.Description = DBHelper.ExecuteScalar(sql) + " - 邀标申请"+ ap;
+                    break;
+                case "4":
+                    sql = "select Name from Project where Id = " + oid;
+                    l.Description = DBHelper.ExecuteScalar(sql) + " - 定标文件"+ap;
+                    break;
+                case "5":
+                    sql = "select Name from Comapny where Id = " + oid;
+                    l.Description = "名录内单位 - " + DBHelper.ExecuteScalar(sql) + ap;
+                    break;
+                default:
+                    l.Description = "";
+                    break;
+            }
+            LogContext.WriteLog(l);
         }
 
         public string UploadReference()
