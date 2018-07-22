@@ -238,7 +238,7 @@ namespace RailBiding.Controllers
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Note = dr["Note"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
-            ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "0";
+            ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
