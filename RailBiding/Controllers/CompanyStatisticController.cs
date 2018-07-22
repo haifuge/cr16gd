@@ -23,16 +23,15 @@ namespace RailBiding.Controllers
         {
             string cId = Request["cId"].ToString();
             BidContext bc = new BidContext();
-            List<CompanyBidDetail> companyBidDetails = bc.GetCompanyBidDetail(cId);
             
-            return View(companyBidDetails);
+            return View();
         }
         
         public JsonResult GetCompanyStat()
         {
             string cId = Request["cId"].ToString();
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetCompanyStat(cId);
+            DataTable dt = bc.GetCompanyBidDetail(cId);
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
     }
