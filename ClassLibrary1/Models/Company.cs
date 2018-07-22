@@ -60,7 +60,7 @@ namespace DAL.Models
             string where = "";
             if (ctype != "")
             {
-                where = "c.BusinessType = " + ctype + @" and ";
+                where = "c.AuditStatus = " + ctype + @" and ";
             }
             string sql = @"select top 100 percent * from (
                             select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
@@ -73,14 +73,14 @@ namespace DAL.Models
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userId + @") a on c.ID=a.ObjId
                             left join BusinessType bt on bt.id=c.BusinessType
-                            where c.AuditStatus<>3
+                            where " + where + @" c.AuditStatus<>3
                             union
                             select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a 
-                            where "+ where + " a.Name like '%"+cname+"%' order by a.id desc";
+                            where " + where + " a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a 
+                            where a.Name like '%"+cname+"%' order by a.id desc";
             DataTable dataTable = DBHelper.GetDataTable(sql);
             DataTable dt = dataTable.Clone();
             int total = dataTable.Rows.Count;
@@ -105,7 +105,7 @@ namespace DAL.Models
             {
                 where = " c.BusinessType = " + cctype + " and ";
             }
-            if(roleid!="3")
+            if(roleid!="2")
             {
                 where = " c.Status=1 and ";
             }
@@ -247,7 +247,7 @@ namespace DAL.Models
             string where = "";
             if (ctype != "")
             {
-                where = "c.BusinessType = " + ctype + @" and ";
+                where = "c.AuditStatus = " + ctype + @" and ";
             }
             string sql = @"select identity(int,1,1) as iid, c.id*1 as id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, 
 	                            convert(varchar(20),c.AuditDate,23) as AuditDate, c.AuditStatus

@@ -2329,6 +2329,7 @@ input[name=keyname] {
     position: absolute;
     left: 80px;
     top: 24px;
+    margin-top:-5px;
 }
 
 .main-nav ul li a:hover .parent-nav-icon, .main-nav ul li.active a .parent-nav-icon {
