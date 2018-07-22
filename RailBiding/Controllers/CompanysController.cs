@@ -439,7 +439,7 @@ namespace RailBiding.Controllers
             return cc.GetMyRecommend(userName, pageSize, pageIndex, cname, ctype);
         }
 
-        public string GetMyAudit(string pageSize, string pageIndex, string cname="", string ctype="")
+        public string GetMyAudit(string pageSize, string pageIndex, string cname, string ctype)
         {
             CompanyContext cc = new CompanyContext();
             if (Session["UserId"] == null) { 
@@ -458,7 +458,8 @@ namespace RailBiding.Controllers
         public string GetCompanies(string ctype, string pageSize, string pageIndex, string cname, string cctype)
         {
             CompanyContext cc = new CompanyContext();
-            return cc.GetAllCompanies(ctype, pageSize, pageIndex, cname, cctype);
+
+            return cc.GetAllCompanies(ctype, pageSize, pageIndex, cname, cctype, Session["RoleId"].ToString());
         }
 
         // GET: Companys/Create

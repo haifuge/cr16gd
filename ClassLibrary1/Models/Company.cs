@@ -94,7 +94,7 @@ namespace DAL.Models
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
-        public string GetAllCompanies(string cType, string pageSize, string pageIndex, string cname, string cctype)
+        public string GetAllCompanies(string cType, string pageSize, string pageIndex, string cname, string cctype, string roleid)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -103,7 +103,11 @@ namespace DAL.Models
             string where = "";
             if(cctype != "")
             {
-                where = "c.BusinessType = " + cctype + @" and ";
+                where = " c.BusinessType = " + cctype + " and ";
+            }
+            if(roleid!="3")
+            {
+                where = " c.Status=1 and ";
             }
             string sql = @"select identity(int,1,1) as iid,c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
                                   c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
