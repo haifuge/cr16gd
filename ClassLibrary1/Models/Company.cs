@@ -51,12 +51,17 @@ namespace DAL.Models
             
         }
 
-        public string GetMyAudit(string userId, string pageSize, string pageIndex, string cname="", string ctype="")
+        public string GetMyAudit(string userId, string pageSize, string pageIndex, string cname, string ctype)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps;
             int endIndex = pi * ps;
+            string where = "";
+            if (ctype != "")
+            {
+                where = "c.BusinessType = " + ctype + @" and ";
+            }
             string sql = @"select top 100 percent * from (
                             select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
@@ -68,14 +73,14 @@ namespace DAL.Models
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userId + @") a on c.ID=a.ObjId
                             left join BusinessType bt on bt.id=c.BusinessType
-                            where c.AuditStatus<>3 and c.AuditStatus<>2
+                            where c.AuditStatus<>3
                             union
                             select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5) and c.AuditStatus<>2) a 
-                            where a.Name like '%" + cname+"%' and a.BusinessType like '%"+ctype+"%' order by a.id desc";
+                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a 
+                            where "+ where + " a.Name like '%"+cname+"%' order by a.id desc";
             DataTable dataTable = DBHelper.GetDataTable(sql);
             DataTable dt = dataTable.Clone();
             int total = dataTable.Rows.Count;
@@ -95,12 +100,17 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
+            string where = "";
+            if(cctype != "")
+            {
+                where = "c.BusinessType = " + cctype + @" and ";
+            }
             string sql = @"select identity(int,1,1) as iid,c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
                                   c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
                            into #temp1
                            from Company c
                            left join CompanyType bt on bt.id=c.BusinessType
-                           where c.AuditStatus=2 and c.Type = "+cType+" and bt.name like '%" + cctype + @"%' and c.Name like '%"+cname+@"%' order by c.id desc;
+                           where c.AuditStatus=2 and c.Type = "+cType+" and "+where+" c.Name like '%"+cname+@"%' order by c.id desc;
                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                            select count(1) from #temp1
                            drop table #temp1";
@@ -224,18 +234,23 @@ namespace DAL.Models
                 return false;
         }
 
-        public string GetMyRecommend(string userid, string pageSize, string pageIndex, string cname="", string ctype="")
+        public string GetMyRecommend(string userid, string pageSize, string pageIndex, string cname, string ctype)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
+            string where = "";
+            if (ctype != "")
+            {
+                where = "c.BusinessType = " + ctype + @" and ";
+            }
             string sql = @"select identity(int,1,1) as iid, c.id*1 as id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, 
-	                            convert(varchar(20),c.AuditDate,23) as AuditDate, case when c.Status=0 then 4 else c.AuditStatus end as AuditStatus
+	                            convert(varchar(20),c.AuditDate,23) as AuditDate, c.AuditStatus
                             into #temp1
                             from Company c
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where c.SubmitUserId=" + userid + @" and c.Name like '%"+cname+"%' and bt.Name like '%"+ctype+@"%' order by c.id desc
+                            where c.SubmitUserId=" + userid + @" and " + where + @" c.Name like '%" + cname+@"%' order by c.id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";

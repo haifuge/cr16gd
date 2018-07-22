@@ -230,6 +230,9 @@
     #tworkhistory > tr> td:last-child{
         display:none;
     }
+    .block-left .meet-form.meet-form3 .form-tr .form-lable {
+    width: 120px;
+}
 </style>
 
 <div class="left-nav">
@@ -906,11 +909,12 @@
             var zzcode = cd[3].innerText;
             var data = { picData: b64, name: zzname, code: zzcode };
             $.post("/Companys/UploadZiZhi", data, function () {
-                removeLoading('test');
-                swal('公司创建成功').then(function () {
-                     window.location.href = "/Companys/MyRecommend"; 
-                });
-
+                if (i == lis.length - 1) {
+                    removeLoading('test');
+                    swal('公司创建成功').then(function () {
+                        window.location.href = "/Companys/MyRecommend";
+                    });
+                }
             });
         }
     }

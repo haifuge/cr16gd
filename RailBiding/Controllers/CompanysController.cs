@@ -429,14 +429,14 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetMyRecommend(string pageSize, string pageIndex)
+        public string GetMyRecommend(string pageSize, string pageIndex, string cname, string ctype)
         {
             CompanyContext cc = new CompanyContext();
             if (Session["UserName"] == null) { 
                 return "no session";
             }
             string userName = Session["UserId"].ToString();
-            return cc.GetMyRecommend(userName, pageSize, pageIndex);
+            return cc.GetMyRecommend(userName, pageSize, pageIndex, cname, ctype);
         }
 
         public string GetMyAudit(string pageSize, string pageIndex, string cname="", string ctype="")
@@ -455,7 +455,7 @@ namespace RailBiding.Controllers
         /// </summary>
         /// <param name="ctype">0:名录外；1:名录内</param>
         /// <returns></returns>
-        public string GetCompanies(string ctype, string pageSize, string pageIndex, string cname="", string cctype="")
+        public string GetCompanies(string ctype, string pageSize, string pageIndex, string cname, string cctype)
         {
             CompanyContext cc = new CompanyContext();
             return cc.GetAllCompanies(ctype, pageSize, pageIndex, cname, cctype);
