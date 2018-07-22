@@ -55,34 +55,36 @@ namespace DAL.Models
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps+1;
+            int startIndex = (pi - 1) * ps;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, a.* into #temp1 from (
-                                select top 100 percent * from (
-                                    select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
-	                                    c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
-                                    from Company c inner join(
-                                        select distinct a.ObjId, a.Approved 
-                                        from vw_AppPLevel a 
-                                        inner join (select MAX(level) as level,AppProcId, ObjId 
-			                                        from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
-                                    ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                                    where a.UserId=" + userId + @") a on c.ID=a.ObjId
-                                    left join BusinessType bt on bt.id=c.BusinessType
-                                    where c.AuditStatus<>3
-                                    union
-                                    select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
-	                                    c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
-                                    from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
-                                    left join CompanyType bt on bt.id=c.BusinessType
-                                    where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a order by a.id desc) a
-                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
-                            select count(1) from #temp1
-                            drop table #temp1";
-            DataSet ds = DBHelper.GetDataSet(sql);
-            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
-            string total = ds.Tables[1].Rows[0][0].ToString();
-            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            string sql = @"select top 100 percent * from (
+                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
+                            from Company c inner join(
+                                select distinct a.ObjId, a.Approved 
+                                from vw_AppPLevel a 
+                                inner join (select MAX(level) as level,AppProcId, ObjId 
+			                                from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
+                            ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
+                            where a.UserId=" + userId + @") a on c.ID=a.ObjId
+                            left join BusinessType bt on bt.id=c.BusinessType
+                            where c.AuditStatus<>3
+                            union
+                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
+                            from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
+                            left join CompanyType bt on bt.id=c.BusinessType
+                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a order by a.id desc";
+            DataTable dataTable = DBHelper.GetDataTable(sql);
+            DataTable dt = dataTable.Clone();
+            int total = dataTable.Rows.Count;
+            endIndex = endIndex < total ? endIndex : total;
+            for(int i=startIndex;i<endIndex;i++)
+            {
+                dt.ImportRow(dataTable.Rows[i]);
+            }
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total.ToString()) / ps);
+            string data = JsonHelper.DataTableToJSON(dt);
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
