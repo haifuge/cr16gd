@@ -23,27 +23,16 @@ namespace DAL.Models
 
     public class ProjectContext
     {
-        public string GetAllProjects(string pageSize, string pageIndex)
+        public string GetAllProjects(string pageSize, string pageIndex, string uid)
         {
-            int pi = int.Parse(pageIndex);
-            int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps+1;
-            int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, p.Id, p.Name, p.ProjType, Location, d.Name+' '+ui.UserName as publisher, 
-                                convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status
-                            into #temp1
-                            from Project p 
-                            left join UserInfo ui on p.PublisherId=ui.ID
-                            left join DepartmentUser du on ui.ID=du.UserId
-                            left join Department d on d.ID=du.DepartmentId order by p.Id Desc
-                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
-                            select count(1) from #temp1
-                            drop table #temp1";
-            DataSet ds = DBHelper.GetDataSet(sql);
+            SqlParameter[] paras = new SqlParameter[3];
+            paras[0] = new SqlParameter("@uid", uid);
+            paras[1] = new SqlParameter("@pageSize", pageSize);
+            paras[2] = new SqlParameter("@pageIndex", pageIndex);
+            DataSet ds = DBHelper.ExecuteDataset(DBHelper.GetConnection(), "GetAllProjectsByUserId", paras);
             string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
             string total = ds.Tables[1].Rows[0][0].ToString();
-            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
-            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / int.Parse(pageSize));
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
         public DataTable GetProject(string id)

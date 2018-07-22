@@ -29,7 +29,7 @@ namespace RailBiding.Controllers
         public string GetAllProjects(string pageSize, string pageIndex)
         {
             ProjectContext pc = new ProjectContext();
-            return pc.GetAllProjects(pageSize, pageIndex);
+            return pc.GetAllProjects(pageSize, pageIndex, Session["UserId"].ToString());
         }
 
         [VerifyLoginFilter]

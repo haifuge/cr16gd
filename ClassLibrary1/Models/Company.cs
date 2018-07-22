@@ -68,14 +68,14 @@ namespace DAL.Models
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userId + @") a on c.ID=a.ObjId
                             left join BusinessType bt on bt.id=c.BusinessType
-                            where c.AuditStatus<>3
+                            where c.AuditStatus<>3 and c.AuditStatus<>2
                             union
                             select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, a.Approved 
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5)) a 
-                            where a.Name like '%"+cname+"%' and a.BusinessType like '%"+ctype+"%' order by a.id desc";
+                            where a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5) and c.AuditStatus<>2) a 
+                            where a.Name like '%" + cname+"%' and a.BusinessType like '%"+ctype+"%' order by a.id desc";
             DataTable dataTable = DBHelper.GetDataTable(sql);
             DataTable dt = dataTable.Clone();
             int total = dataTable.Rows.Count;
@@ -231,7 +231,7 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps+1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, c.id*1 as id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, 
-	                            convert(varchar(20),c.AuditDate,23) as AuditDate, c.AuditStatus
+	                            convert(varchar(20),c.AuditDate,23) as AuditDate, case when c.Status=0 then 4 else c.AuditStatus end as AuditStatus
                             into #temp1
                             from Company c
                             left join CompanyType bt on bt.id=c.BusinessType
