@@ -315,6 +315,10 @@
             var ulstyle= 'uc01'; //uc02
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
+                if(i==0){
+                    htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                    continue;
+                }
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {
                         if(o.comment!=""){
@@ -341,7 +345,7 @@
                         if(o.comment!=""){
                             passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg" id="comlenght" > '+ o.comment + '</p >'
                         }
-                        htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                        htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li>'
                     }
                     else if (o.approved == 3) {
                         dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > '+ o.comment + '</p >'
