@@ -186,6 +186,10 @@
             var ulstyle = 'uc01'; //uc02
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
+                if(i==0){
+                    htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                    continue;
+                }
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {
                         if (o.comment != "") {
