@@ -51,7 +51,7 @@ namespace RailBiding.Controllers
             
             if(Session["RoleId"].ToString()=="2")
             {
-                ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
+                ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' id='invitebtn' onclick='inviteCompanys()' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
 
                 dt = bc.GetBidingCompanys(pid);
                 StringBuilder cHtml = new StringBuilder();
