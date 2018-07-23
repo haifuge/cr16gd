@@ -202,12 +202,15 @@
 </script>
 <script>
     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
-         console.log(data)
+        console.log(data)
+            
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.id = obj[i].filepath
-                li.innerHTML = '<a href = "'+obj[i].filepath+'" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].filename+'</a>';
+               
+                console.log(obj[i].FilePath);
+                
+                li.innerHTML = '<a href = "'+obj[i].FilePath+'" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].FileName+'</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
     });

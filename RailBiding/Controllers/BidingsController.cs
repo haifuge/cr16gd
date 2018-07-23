@@ -30,6 +30,7 @@ namespace RailBiding.Controllers
         {
             if (pid == null)
                 return View("Login");
+            ViewBag.pid = pid;
             BidContext bc = new BidContext();
             DataTable dt = bc.GetBidDetail(pid);
             DataRow dr = dt.Rows[0];
@@ -41,7 +42,8 @@ namespace RailBiding.Controllers
             ViewBag.BidingNum = dr["BidingNum"].ToString();
             ViewBag.ApplyDate = dr["ApplyDate"].ToString();
             ViewBag.OpenDate = dr["OpenDate"].ToString();
-            ViewBag.ProjDescription = dr["Content"].ToString();
+            ViewBag.ProjDescription = dr["ProDescription"].ToString();
+            ViewBag.Content = dr["Content"].ToString();
 
             dt = bc.GetBidingCompanys(pid);
             

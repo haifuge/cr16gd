@@ -56,11 +56,11 @@
                         <tbody>
                             <tr class="form-tr form-tr-title-bg">
                                 <td class="blue-word form-lable">项目名称：</td>
-                                <td>@ViewBag.Publisher</td>
+                                <td>@ViewBag.Name</td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">提交人：</td>
-                                <td>@ViewBag.Name</td>
+                                <td>@ViewBag.Publisher</td>
                             </tr>     
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">项目地点：</td>
@@ -252,17 +252,18 @@
 
 
 <script>
+
+
     //参与单位移除
     $(".meet-user-span span i").click(function () {
         $(this).parent(".meet-user-span span").hide();
     });
 
-$.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
+$.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.id = obj[i].filepath
-                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                li.innerHTML = '<a href = "'+obj[i].FilePath+'" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].FileName+'</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
     });

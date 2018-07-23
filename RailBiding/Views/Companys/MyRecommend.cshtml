@@ -133,6 +133,12 @@
 
 
         function Paginator(page, ps, sname, stype) {
+            sname = $("#searchinput").val();
+            if ($("#bType").val() == "all") {
+                stype = "";
+            } else {
+                stype = $("#bType").val();
+            }
             $.post("/Companys/GetMyRecommend", { pageSize: ps, pageIndex: page, cname: sname, ctype: stype }, function (data) {
                 if (data == 'no session') {
                     location.href = "/Login";

@@ -55,7 +55,7 @@
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">提交人：</td>
-                                <td>未调用数据</td>
+                                <td>@ViewBag.Publisher</td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">项目地点：</td>
@@ -83,11 +83,11 @@
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件内容简述：</td>
-                                <td>未调用数据</td>
+                                <td>@ViewBag.Content</td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件：</td>
-                                <td>未调用数据
+                                <td><ul id="bffiles"></ul>
                                     @*<i class="meet-icon icon-file"></i>
                                       <a href="#" target="_blank" class="form-border-btn  bttn2">附件预览</a>*@
                                 </td>
@@ -140,11 +140,16 @@
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
 <script>
-    $(function () {
-        $.post("/Bidings/GetBidCompanies?bid="+@ViewBag.bid, {}, function (data) {
-            console.log(data);
-        });
-        pages(1, 2, 12, 5)
+    $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
+        var obj = JSON.parse(data);
+        for (var i = 0; i < obj.length; i++) {
+            var li = document.createElement('li');
+            li.id = obj[i].filepath
+            li.innerHTML = '<a href = "' + obj[i].FilePath + '" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].FileName + '</a>';
+            document.getElementById("bffiles").appendChild(li)
+        }
+    });
 
-    })
+
+ 
 </script>

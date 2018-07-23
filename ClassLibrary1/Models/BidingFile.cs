@@ -55,7 +55,9 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
             string sql = @" select identity(int,1,1) as iid, a.* into #temp1 from (
-                                select top 100 percent p.Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
+                                select top 100 percent p.Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, 
+                                        d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), 
+                                        bf.PublishDate, 23) as PublishDate, a.Approved as Status
                                 from BidingFile bf 
                                 inner join Project p on bf.ProjId=p.Id
                                 left join UserInfo ui on ui.ID=bf.PublisherId
@@ -127,7 +129,7 @@ namespace DAL.Models
 
         public DataTable GetFiles(string pid)
         {
-            string sql = "select FileName, FilePath from BidDocument where ProjId="+pid+" and FileType=1";
+            string sql = "select FileName, FilePath from BidDocument where ProjId="+pid+" and FileType=2";
             return DBHelper.GetDataTable(sql);
         }
     }

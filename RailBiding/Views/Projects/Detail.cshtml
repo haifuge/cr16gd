@@ -471,8 +471,7 @@
                 </div>
                 <div class="canvas_btn">
                     <a href="#" class="meet-btn big-btn lightblue-btn subm"  onclick="bidfileSubmit(1)">提交</a>
-                    <a href="#" class="meet-btn big-btn lightblue-btn subm" onclick="bidfileSubmit(0)">保存</a>
-                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
+                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn" >返回</a>
                 </div>
             </div>
         </div>
@@ -521,11 +520,13 @@
 
         $("#bfup").change(function () {
             $("#bfupform").ajaxSubmit(function (res) {
+                
                 var names = res.split('|')
                 var li = document.createElement("li");
                 li.id = names[0].trim()
                 li.innerHTML = names[1] + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + names[0].trim() + '\')" > 删除</a>'
-                document.getElementById("bffiles").appendChild(li)
+                document.getElementById("bffiles").appendChild(li);
+                $("#bfup").val("");
             });
         })
     })
@@ -535,17 +536,11 @@
         var bnum = $("#bidingnum").val()
         var pid =@ViewBag.ProjId;
         data = { adate: adate, odate: odate, bnum: bnum, pid: pid, status: ss }
-        $.post("/Projects/AddBid", data, function (res) {
-            if (res) {
-                if(ss==1)
+       $.post("/Projects/AddBid", data, function (res) {
+              $("#bidapplylayer").hide();
                     swal('提交成功！')
-                else
-                    swal('保存成功！')
                 location.reload(true);
-            }
-            else {
-                swal('保存失败，请稍后再试！')
-            }
+            
         })
     }
     function bidfileSubmit(ss) {
@@ -553,16 +548,12 @@
         var pid =@ViewBag.ProjId;
         data = { content: bfc, pid: pid, status: ss }
         $.post("/Projects/AddBidFile", data, function (res) {
-            if (res) {
-                if(ss==1)
-                    swal('提交成功！')
-                else
-                    swal('保存成功！')
-                location.reload(true);
-            }
-            else {
-                swal('保存失败，请稍后再试！')
-            }
+        
+            $("#bidfileapplylayer").hide();
+            $("#bfcontent").val("");
+            $("#bffiles").html("");
+            swal('提交成功！')
+            location.reload(true);
         })
     }
     function deleteFile(name) {
@@ -573,10 +564,16 @@
     }
 
     $(".canvas_close").on("click", function () {
+        $("#bidfileapplylayer").hide();
+        $("#bfcontent").val("");
+        $("#bffiles").html("");
         $(".canvas").hide();  
     })
     $(".backcolse-btn").on("click", function () {
-        $(".canvas").hide();
+        $("#bidfileapplylayer").hide();
+        $("#bfcontent").val("");
+        $("#bffiles").html("");
+        $(".canvas").hide();  
     })
 
 

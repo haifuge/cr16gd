@@ -261,7 +261,6 @@
             </table>
             <div class="form-tr-btn">
                 <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="makebidbtn()">提交</button>
-                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>
                 <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
             </div>
 
@@ -517,7 +516,7 @@
         if (wc.length > 0)
             wc = wc.substr(0, wc.length - 1);
         $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
-            if (res == "1")
+                
                 swal('创建成功！').then(function(){
                     window.history.go(-1) 
                 })

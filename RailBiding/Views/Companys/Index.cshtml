@@ -139,7 +139,12 @@
 
     function Paginator(page, ps, sname, stype) {
         
-        
+        sname = $("#searchinput").val();
+        if ($("#bType").val() == "All") {
+            stype = "";
+        } else {
+            stype = $("#bType").val();
+        }
         $.post("/Companys/GetCompanies?ctype=1", { pageSize: ps, pageIndex: page, cname: sname, cctype:stype }, function (data) {
            
             var jsonData = JSON.parse(data);

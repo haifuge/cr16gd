@@ -8,6 +8,7 @@ using DAL.Models;
 using System.Data;
 using DAL.Tools;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace RailBiding.Controllers
 {
@@ -19,11 +20,11 @@ namespace RailBiding.Controllers
         public ActionResult Index()
         {
             if (Session["RoleId"].ToString() == "4")
-            {
+          {
                 ViewBag.Create = @"<a class='meet-btn red-btn small-size sm-btn' href='/Projects/Add'><i class='xs-meet-icon icon-add'></i>添加</a>";
-            }
-            else
-                ViewBag.Create = "";
+           }
+           else
+              ViewBag.Create = "";
             return View();
         }
         public string GetAllProjects(string pageSize, string pageIndex)
@@ -186,7 +187,7 @@ namespace RailBiding.Controllers
                                     <span class='t-time'>预计开标时间：</span><span class='time'>" + odate + @"</span>
                                     <span class='t-time'>拟中标单位数量：</span><span class='time'>" + bnum + @"</span></p>
                                 </div>
-                                <div class='con-02'><ul>" + files + @"</ul></div>
+                              
                                 <div class='con-03'><div class='" + statusClass + "'>" + status + @"</div></div>
                             </div>";
             return result;
@@ -332,7 +333,10 @@ namespace RailBiding.Controllers
         {
             ProjectContext pc = new ProjectContext();
             DataTable dt = pc.GetProjectFiles(pid, ftype);
-            string json = JsonHelper.DataTableToJSON(dt);
+            string spath = Server.MapPath("../");
+            var ndt = from row in dt.AsEnumerable()
+                      select new { FilePath = row[0].ToString().Replace(spath, "../"), FileName = row[1].ToString() };
+            string json = JsonConvert.SerializeObject(ndt);
             return json;
         }
         [VerifyLoginFilter]
@@ -407,14 +411,15 @@ namespace RailBiding.Controllers
             ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
             ViewBag.ProDescription= dr["ProDescription"].ToString();
 
+            string spath = Server.MapPath("../");
             dt = bc.GetFiles(pid);
             string fujian = "";
             for(int i=0;i<dt.Rows.Count;i++)
             {
                 if (i == 0)
-                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
+                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath, "/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
                 else
-                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString() + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
+                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath,"/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
             }
             fujian += "</ul></div>";
             ViewBag.Fujian = fujian;
