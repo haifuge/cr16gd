@@ -72,6 +72,26 @@ namespace RailBiding.API
                             left join UserInfo ui on ui.ID=ap.UserId
                             where ap.AppProcId=" + apid + " and ap.ObjId=" + oid + " order by case when ap.DealDatetime is null then 0 else 1 end desc, ap.Level desc, ap.DealDatetime asc";
             DataTable dt = DBHelper.GetDataTable(sql);
+            if(apid=="1" ||apid=="5")
+            {
+                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.CreateDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level
+                        from Company c 
+                        inner join UserInfo ui on c.SubmitUserId=ui.ID 
+                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 
+                        inner join Department d on d.ID=du.DepartmentId
+                        where c.ID=" + oid;
+            }
+            else
+            {
+                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.PublishDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level
+                        from Project c 
+                        inner join UserInfo ui on c.PublisherId=ui.ID 
+                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 
+                        inner join Department d on d.ID=du.DepartmentId
+                        where c.ID=" + oid;
+            }
+            DataTable dt2 = DBHelper.GetDataTable(sql);
+            dt.Rows.InsertAt(dt2.Rows[0], 0);
             return JsonHelper.DataTableToJSON(dt);
         }
 
