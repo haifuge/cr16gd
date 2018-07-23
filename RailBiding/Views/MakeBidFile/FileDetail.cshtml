@@ -77,8 +77,7 @@
         var obj = JSON.parse(data);
         for (var i = 0; i < obj.length; i++) {
             var li = document.createElement('li');
-            li.id = obj[i].filepath
-            li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+            li.innerHTML = '<a href = "' + obj[i].FilePath + '" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].FileName + '</a>';
             document.getElementById("bffiles").appendChild(li)
         }
     });

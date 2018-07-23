@@ -4258,7 +4258,6 @@ h3.fx_tit {
 }
 .main-nav ul li a > span#spanlaowu {
     z-index: 999;
-    display: block;
     color: #fff;
     left: 48px;
     width: 65px;
