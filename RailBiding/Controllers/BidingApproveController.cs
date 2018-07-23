@@ -48,15 +48,28 @@ namespace RailBiding.Controllers
             ViewBag.PublishDate = dr["PublishDate"].ToString();
             ViewBag.ProjDescription = dr["ProDescription"].ToString();
             ViewBag.Content = dr["Content"].ToString();
-
-            dt = bc.GetBidingCompanys(pid);
-            StringBuilder cHtml = new StringBuilder();
-            for(int i = 0; i < dt.Rows.Count; i++)
+            
+            if(Session["RoleId"].ToString()=="2")
             {
-                var cid = "company" + dt.Rows[i]["id"].ToString();
-                cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString()+ "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('" + cid + "')\"></i></span>");
+                ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
+
+                dt = bc.GetBidingCompanys(pid);
+                StringBuilder cHtml = new StringBuilder();
+                cHtml.Append("<tr class='form-tr detail-user-con'><td colspan='2'><div class='detail-user-list' style='min-height:215px;overflow: auto;'><div class='meet-user-span'>");
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var cid = "company" + dt.Rows[i]["id"].ToString();
+                    cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('" + cid + "')\"></i></span>");
+                }
+                cHtml.Append(@"</div></div></td></tr>");
+                ViewBag.JoinCompanys = cHtml.ToString();
             }
-            ViewBag.JoinCompanys = cHtml.ToString();
+            else
+            {
+                ViewBag.InviteCompanyBtn = "";
+                ViewBag.JoinCompanys = "";
+            }
+
             return View();
         }
 
