@@ -172,8 +172,11 @@ namespace DAL.Models
         }
         public string CreateCompany(Company company, string uid, string refguid)
         {
-            string sql = @"declare @refpath nvarchar(400);
-                           select @refpath = FilePath from BidDocument where FilePath like '%"+refguid+"%'; ";
+            string sql = @"declare @refpath nvarchar(400); ";
+            if (refguid == "")
+                sql += " set @refpath=''; ";
+            else
+                sql+=" select @refpath = FilePath from BidDocument where FilePath like '%"+refguid+"%'; ";
             sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
@@ -187,8 +190,11 @@ namespace DAL.Models
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
             // 更新临时保存的推荐书
-            sql = "update BidDocument set ProjId="+i+" where FilePath like '%"+refguid+"%'";
-            DBHelper.ExecuteNonQuery(sql);
+            if (refguid != "")
+            {
+                sql = "update BidDocument set ProjId=" + i + " where FilePath like '%" + refguid + "%'";
+                DBHelper.ExecuteNonQuery(sql);
+            }
             if(company.Type==1)
                 // 名录内企业
                 CreateApproveProcess(i, uid, "5");
