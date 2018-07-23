@@ -262,20 +262,13 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
         document.getElementById(bg_div).style.display = 'block';
         var bgdiv = document.getElementById(bg_div);
         bgdiv.style.width = document.body.scrollWidth;
-        // bgdiv.style.height = $(document).height();
         $("#" + bg_div).height($(window).height());
-        // $(".white_content").css("-webkit-transition","All 1s ");
-        // $(".white_content").css("opacity","1")
-
     }
-    ;
 
     //关闭弹出层
     function CloseDiv(show_div, bg_div) {
         document.getElementById(show_div).style.display = 'none';
         document.getElementById(bg_div).style.display = 'none';
-        // $(".white_content").css("-webkit-transition","All 1s ");
-        // $(".white_content").css("opacity","0")
     }
     ;
 </script>
@@ -304,14 +297,11 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
 <script>
 
     function removeCompany(cid) {
-
         var element = document.getElementById(cid);
         element.parentNode.removeChild(element);
         var id=cid.replace('company','')
         $.post("/BidingApprove/RemoveBidingCompany",{ pid:@ViewBag.pid ,cid:id }, function(){
         })
-
-
     }
 </script>
 <script>
@@ -334,8 +324,6 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
         r = null;
         return context == null || context == "" || context == "undefined" ? "" : context;
     }
-
-
 
     //审核流程遍历
     $(function () {
@@ -421,23 +409,29 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
 
 
     })
-
+    var invited = false;
+    function inviteCompanys() {
+        invited=true
+    }
     function declineApplication() {
+        var invbtn = document.getElementById('invitebtn');
+        if (invbtn != null) {
+            if (!invited) {
+                swal({
+                    title: '请先邀请竞标公司！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                })
+                return;
+            }
+        }
         var feedback = $("#feedback-area").val()
         if (feedback == "") {
             swal({
                 title: '必须填写意见！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-            function () { },
-            // handling the promise rejection
-            function (dismiss) {
-                if (dismiss === 'timer') {
-                    console.log('I was closed by the timer')
-                }
-            }
-        )
+            })
         } else {
 
             swal({
@@ -468,6 +462,17 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
     }
 
     function approveApplication() {
+        var invbtn = document.getElementById('invitebtn');
+        if (invbtn != null) {
+            if (!invited) {
+                swal({
+                    title: '请先邀请竞标公司！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                })
+                return;
+            }
+        }
         var feedback = $("#feedback-area").val()
         swal({
             title: '确定通过该申请？',
@@ -493,7 +498,6 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                 })
             }
         })
-
     }
 
 
