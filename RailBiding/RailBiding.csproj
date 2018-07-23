@@ -620,7 +620,7 @@
     <Content Include="Views\Projects\MakeBidFileDetail.cshtml" />
     <Content Include="Views\Projects\MakeBidFile.cshtml" />
     <Content Include="Views\Companys\ReApply.cshtml" />
-    <Content Include="Views\Companys\EidtCompany.cshtml" />
+    <Content Include="Views\Companys\EditCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

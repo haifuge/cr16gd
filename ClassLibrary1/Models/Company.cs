@@ -195,18 +195,21 @@ namespace DAL.Models
                 sql = "update BidDocument set ProjId=" + i + " where FilePath like '%" + refguid + "%'";
                 DBHelper.ExecuteNonQuery(sql);
             }
-            if(company.Type==1)
-                // 名录内企业
-                CreateApproveProcess(i, uid, "5");
-            else
-                // 名录外企业
-                CreateApproveProcess(i, uid, "1");
+            if (company.AuditStatus == 1)
+            {
+                if (company.Type == 1)
+                    // 名录内企业
+                    CreateApproveProcess(i, uid, "5");
+                else
+                    // 名录外企业
+                    CreateApproveProcess(i, uid, "1");
 
-            Log l = new Log();
-            l.OperType = OperateType.Create;
-            l.UserId = uid;
-            l.Description = "创建公司"+ company.Type =="1"?"名录内":"名录外"+ " - "+company.Name;
-            LogContext.WriteLog(l);
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = uid;
+                l.Description = "创建公司"+ company.Type =="1"?"名录内":"名录外"+ " - "+company.Name;
+                LogContext.WriteLog(l);
+            }
 
             return i;
         }
