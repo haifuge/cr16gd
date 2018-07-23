@@ -91,7 +91,12 @@ namespace RailBiding.API
                         where c.ID=" + oid;
             }
             DataTable dt2 = DBHelper.GetDataTable(sql);
-            dt.Rows.InsertAt(dt2.Rows[0], 0);
+            DataRow dr = dt.NewRow();
+            for(int i=0;i<dt2.Columns.Count;i++)
+            {
+                dr[i] = dt2.Rows[0][i].ToString();
+            }
+            dt.Rows.InsertAt(dr, 0);
             return JsonHelper.DataTableToJSON(dt);
         }
 
