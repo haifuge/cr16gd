@@ -468,13 +468,16 @@ namespace RailBiding.Controllers
         public ActionResult Create()
         {
             Session["outin"] = Request["outin"].ToString();
+            
             if (Request["outin"].ToString() == "1")
             {
+                ViewBag.outin = "1";
                 ViewBag.InActive = " class=active";
                 ViewBag.OutActive = "";
             }
             else
             {
+                ViewBag.outin = "0";
                 ViewBag.InActive = "";
                 ViewBag.OutActive = " class=active";
             }

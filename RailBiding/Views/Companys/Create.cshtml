@@ -279,7 +279,7 @@
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable"><span class="red-word">*</span>推荐人：</td>
+                            <td class="form-lable"><span class="red-word yuijianred" ></span>推荐人：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="refererName"
                                        class="has-clear-input input input3 input4" />
@@ -525,6 +525,11 @@
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
 
+
+    console.log(@ViewBag.outin)
+    if(@ViewBag.outin=="0"){
+       $(".yuijianred").html("*")
+    }
     $("#fileInfoName").change(function () {
         var fileInfoName = $("#fileInfoName").val();
         if (fileInfoName == "") { //点击取消，取消事件的编写
@@ -532,12 +537,12 @@
         }
         $("#fupform").ajaxSubmit(function (res) {
             console.log(res);
-          var fileName = res.split('|');
-          $(".dw").html(fileName[1]);
-          $("#fname").val(fileName[0]);
+            var fileName = res.split('|');
+            $(".dw").html(fileName[1]);
+            $("#fname").val(fileName[0]);
         });
     })
-   
+
     $("#allfileInput1").change(function () {
         $("#bfupform").ajaxSubmit(function (res) {
             $("#referPic").val(res);
@@ -579,7 +584,46 @@
 
             )
             return;
-        }else if (allfileInput2 == "") {
+        }else if ( $(".yuijianred").html()!= "") {
+
+            if (refererName == "") {
+                document.getElementById("refererName").focus();
+                swal({
+                    title: '推荐人不能为空！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer');
+                        }
+                    }
+
+                )
+                return;
+            }else if (allfileInput1 == "") {
+
+                document.getElementById("allfileInput1").focus();
+                swal({
+                    title: '请上传推荐书！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer');
+                        }
+                    }
+                )
+                return;
+            }
+        }
+        
+        else if (allfileInput2 == "") {
 
             document.getElementById("allfileInput2").focus();
             swal({
@@ -778,7 +822,7 @@
             )
             return;
         }
-        
+
         var comName = $("#companyName").val()
         var bt = $("#bType").val()
         var refname = $("#refererName").val()
@@ -796,7 +840,7 @@
         var nn = $("#note").val()
         var refdoc = $("#referPic").val();
         var tdfilename = $("#tworkhistory tr td:last-child").html();
-             
+
         var data = {
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc,
@@ -1031,7 +1075,7 @@
         rowtr.appendChild(tdffileName);
         rowtr.appendChild(tddelete);
         rowtr.appendChild(tdhiddw);
-       
+
         document.getElementById("tworkhistory").appendChild(rowtr);
         $("#projName").val("");
         $("#contractAmount").val("");
@@ -1076,7 +1120,7 @@
         $("#input_zzmc").val("");
         $("#allfileInput3").val("");
         $("#zspicmsg").html("");
-        
+
     }
     $(".canvas_close").on("click", function () {
         $("#zzzsPic").html("")
@@ -1140,7 +1184,7 @@
 
     function CheckCompanyNameUsed() {
         var companyname = $("#companyName").val();
-        $.post("/Companys/CheckCompanyNameUsed", { cName: companyname}, function (data) {
+        $.post("/Companys/CheckCompanyNameUsed", { cName: companyname }, function (data) {
             if (data != "1") {
                 swal("该企业已在库里，请重新录入企业名称！")
             }
