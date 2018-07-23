@@ -171,8 +171,10 @@
                             statusStyle = "status-wcl status-bbh";
                             break;
                         case 4:
-                            auditStatus = "被暂停";
-                            statusStyle = "status-wcl status-bzt";
+                            //auditStatus = "被暂停";
+                            //statusStyle = "status-wcl status-bzt";
+                            auditStatus = "已通过";
+                            statusStyle = "status-wcl status-ytg";
                             break;
                     }
                     htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?id=' + o.id + '&approved=' + o.approved + '\';">' +
