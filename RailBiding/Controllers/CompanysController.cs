@@ -883,5 +883,12 @@ namespace RailBiding.Controllers
                 ViewBag.RefereFile = "";
             return View();
         }
+
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
+        public ActionResult EidtCompany()
+        {
+            return View();
+        }
     }
 }
