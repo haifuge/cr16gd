@@ -456,7 +456,7 @@
         $.post("/Common/GetCompanyCandidate", { pagesize: ps, page: page },function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
-            console.log(obj)
+            companys=jsonData.List
             if (obj.length == 0)
                 return;
             var comhtml = ""

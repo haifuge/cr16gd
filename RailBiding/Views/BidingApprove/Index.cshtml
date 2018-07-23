@@ -51,7 +51,7 @@
             <select class="meet-select js-meet-state">
                 <option value="all">状态</option>
                 <option value="0">未发布</option>
-                <option value="1">审核中</option>
+                <option value="1">待处理</option>
                 <option value="2">已通过</option>
                 <option value="3">被驳回</option>
             </select>
@@ -121,23 +121,23 @@
                         var applyStatus = "";
                         var applyStyle = "";
                         switch (o.status) {
-                            case "0":
+                            case 0:
                                 applyStatus = "未发布";
                                 applyStyle = "status-wcl status-wfb";
                                 break;
-                            case "1":
-                                applyStatus = "审核中";
+                            case 1:
+                                applyStatus = "待处理";
                                 applyStyle = "status-wcl status-shz";
                                 break;
-                            case "2":
+                            case 2:
                                 applyStatus = "已通过";
                                 applyStyle = "status-wcl status-ytg";
                                 break;
-                            case "3":
+                            case 3:
                                 applyStatus = "被驳回";
                                 applyStyle = "status-wcl status-bbh";
                                 break;
-                            case "4":
+                            case 4:
                                 applyStatus = "被暂停";
                                 applyStyle = "status-wcl status-bzt";
                                 break;
