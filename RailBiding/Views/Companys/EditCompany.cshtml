@@ -284,11 +284,13 @@
                                 <input name="roomInfoName" type="text" value="@ViewBag.Referre" id="refererName"
                                        class="has-clear-input input input3 input4" />
                                 <span class="td-cer">推荐书：</span>
-                                <div class="upload-btn upload-btn2 upload-btn3" style="top: 10px;">
-                                    <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput1" id="allfileInput1" value="">
+                                <div class="upload-btn upload-btn2 upload-btn3">
+                                    <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput1" id="allfileInput1" value=""style="opacity:0;">
                                         <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
                                     </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw1" style="padding-left:50px;text-align:left">推荐书图片</div>
                                 </div>
                             </td>
                         </tr>
@@ -296,12 +298,15 @@
                             <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="@ViewBag.BusinessLicensePic">@*class="allfileInput allfileInput2"*@
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
+                                    <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="" style="opacity:0;">
+                                        <input id="busiLicPic" type="text" name="foreRef" hidden>
+                                    </form>                                   
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw2" style="padding-left:50px;text-align:left">营业执照图片</div>
                                 </div>
-                                <div id="busiLicPic" style="display:none"></div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
-                                <input name="youziz" id="socialCreditNo" type="text" value="@ViewBag.CreditNo"
+                                <input name="youziz" id="socialCreditNo" type="text" value=""
                                        class="has-clear-input input input3 input4" required><span class="tips" id="zizhi"></span>
                                 @*onBlur="checkpsd2()"*@
                             </td>
@@ -354,9 +359,12 @@
                             <td class="form-lable"><span class="red-word">*</span>安全证书：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4">
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
-                                    <div id="scPic" style="display:none"></div>
+                                    <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4" style="opacity:0;">
+                                        <input id="scPic" type="text" name="foreRef" hidden>
+                                    </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw3" style="padding-left:50px;text-align:left">安全证书图片</div>
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
@@ -385,11 +393,15 @@
                                                                          class="has-clear-input input input3 input4" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'repSFZ')"
-                                           id="allfileInput5">
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>*@
-                                    <div id="repSFZ" style="display:none"></div>
+                                    <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'repSFZ')"
+                                               id="allfileInput5" style="opacity:0;">
+                                        <input id="repSFZ" type="text" name="foreRef" hidden>
+                                    </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw4" style="padding-left:50px;text-align:left">身份证图片</div>
                                 </div>
+
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -402,9 +414,12 @@
                                                                          class="has-clear-input input input3 input4" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6">
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>*@
-                                    <div id="conSFZ" style="display:none"></div>
+                                    <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6" style="opacity:0;">
+                                        <input id="conSFZ" type="text" name="foreRef" hidden>
+                                    </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw5" style="padding-left:50px;text-align:left">身份证图片</div>
                                 </div>
                             </td>
                         </tr>
@@ -529,30 +544,90 @@
     <script type="text/javascript" src="~/js/up.js"></script>
     <script type='text/javascript'>
 
+
+        //业绩附件上传
     $("#fileInfoName").change(function () {
         var fileInfoName = $("#fileInfoName").val();
         if (fileInfoName == "") { //点击取消，取消事件的编写
             return;
         }
         $("#fupform").ajaxSubmit(function (res) {
-            console.log(res);
+          console.log(res);
           var fileName = res.split('|');
           $(".dw").html(fileName[1]);
           $("#fname").val(fileName[0]);
         });
     })
 
+
+      //推荐书附件上传
     $("#allfileInput1").change(function () {
         var allfileInput1 = $("#allfileInput1").val();
         if (allfileInput1 == "") { //点击取消，取消事件的编写
             return;
         }
-        $("#bfupform").ajaxSubmit(function (res) {
-            console.log(res);
-
-            $("#referPic").val(res);
+        $("#bfupform1").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw1").html(fileName[1]);
+            $("#referPic").val(fileName[0]);
         });
     })
+
+
+    //营业执照附件上传
+    $("#allfileInput2").change(function () {
+        var allfileInput2 = $("#allfileInput2").val();
+        if (allfileInput2 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform2").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw2").html(fileName[1]);
+            $("#busiLicPic").val(fileName[0]);
+        });
+    })
+
+    //安全证书附件上传
+    $("#allfileInput4").change(function () {
+        var allfileInput4 = $("#allfileInput4").val();
+        if (allfileInput4 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform3").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw3").html(fileName[1]);
+            $("#scPic").val(fileName[0]);
+        });
+    })
+
+    //法人身份证附件上传
+    $("#allfileInput5").change(function () {
+        var allfileInput5 = $("#allfileInput5").val();
+        if (allfileInput5 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform4").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw4").html(fileName[1]);
+            $("#repSFZ").val(fileName[0]);
+        });
+    })
+
+
+    //现场负责人身份证附件上传
+    $("#allfileInput6").change(function () {
+        var allfileInput6 = $("#allfileInput6").val();
+        if (allfileInput6 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform5").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw5").html(fileName[1]);
+            $("#repSFZ").val(fileName[0]);
+        });
+    })
+
+
     function saveCompany() {
         var companyName = $("#companyName").val();
         var refererName = $("#refererName").val();
