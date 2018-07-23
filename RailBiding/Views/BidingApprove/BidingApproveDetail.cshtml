@@ -119,8 +119,8 @@
                                             <div style="margin:10px ;">
                                                 <select class="meet-select js-meet-state">
                                                     <option value="all">推荐企业</option>
-                                                    <option value="2">中铁十六局</option>
-                                                    <option value="3">上海轨道交通</option>
+                                                    <option value="2">名录内单位</option>
+                                                    <option value="3">名录外单位</option>
 
                                                 </select>
                                                 <select class="meet-select js-meet-state">
@@ -531,13 +531,17 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=3", function (data) {
             var comhtml=""
             for (var j = 0; j < obj.length; j++) {
                 var o = obj[j];
-                console.log(o)
+                console.log(o.type)
+                var imgjian="";
+                if(o.type!=1){
+                    imgjian='<img src="/img/con-tuijian.png">';
+                }
                 comhtml+='<tr class="white-bg">'+
                               '<td class="check-color">'+
                                  '<input class="icheck" name="addcompenycheck" type="checkbox" value="'+o.id+'|'+o.name+'" id="checkbox-1"/>'+
                               '</td>'+
                               '<td>'+
-                    '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">' + o.name + '<img src="/img/con-tuijian.png"></a>'+
+                    '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">' + o.name + imgjian+'</a>'+
                               '</td>'+
                               '<td>'+o.corporaterepresentative+'</td>'+
                               '<td>'+o.repphone+'</td>'+

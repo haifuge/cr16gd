@@ -233,6 +233,7 @@
     .block-left .meet-form.meet-form3 .form-tr .form-lable {
     width: 120px;
 }
+
 </style>
 
 <div class="left-nav">
@@ -578,40 +579,7 @@
 
             )
             return;
-        } else if (refererName == "") {
-
-            document.getElementById("refererName").focus();
-            swal({
-                title: '请填写推荐人！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        } else if (allfileInput1 == "") {
-            document.getElementById("allfileInput1").focus();
-            swal({
-                title: '请上传推荐书！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        } else if (allfileInput2 == "") {
+        }else if (allfileInput2 == "") {
 
             document.getElementById("allfileInput2").focus();
             swal({
@@ -853,6 +821,7 @@
         $.post("/Companys/Create", data, function (res) {
 
             if (res == "1") {
+                uploadZZPics();
                 uploadWorkHistory();
             } else {
                 //hide
@@ -874,7 +843,10 @@
                 $.post("/Companys/UploadPic", data, function (res) {
                     data = { picdata: ctsfz, name: "ctsfz" }
                     $.post("/Companys/UploadPic", data, function (res) {
-                        uploadZZPics();
+                        removeLoading('test');
+                        swal('公司创建成功').then(function () {
+                            window.location.href = "/Companys/MyRecommend";
+                        });
                     })
                 })
             })
@@ -909,12 +881,6 @@
             var zzcode = cd[3].innerText;
             var data = { picData: b64, name: zzname, code: zzcode };
             $.post("/Companys/UploadZiZhi", data, function () {
-                if (i == lis.length - 1) {
-                    removeLoading('test');
-                    swal('公司创建成功').then(function () {
-                        window.location.href = "/Companys/MyRecommend";
-                    });
-                }
             });
         }
     }

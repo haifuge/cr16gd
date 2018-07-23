@@ -6,7 +6,7 @@
 		var $this = $(this);
 		var _this = this;
 		return this.each(function(){
-		    var loadingPosition ='';
+		    var loadingPosition ='fixed';
 		    var defaultProp = {
 		    	direction: 				'column',												//方向，column纵向   row 横向
 				animateIn: 	 			'fadeInNoTransform',    								//进入类型
@@ -45,7 +45,7 @@
 		    var opt = $.extend(defaultProp,options || {});
 
 		    //根据用户是针对body还是元素  设置对应的定位方式
-		    if($this.selector == 'body'){
+		/*    if($this.selector == 'body'){
 		    	$('body,html').css({
 		    		overflow:'hidden',
 		    	});
@@ -54,10 +54,10 @@
 		    	$this.css({
 			    	position:'relative',
 			    });
-			    loadingPosition = 'absolute';
+		    	loadingPosition = 'fixed';
 		    }else{
-		    	loadingPosition = 'absolute';
-		    }
+		        loadingPosition = 'fixed';
+		    }*/
 
 		    defaultProp._showOriginLoading = function(){
 		    	var smallLoadingMargin = opt.smallLoading ? 0 : '-10px';
@@ -67,7 +67,7 @@
 		      	_this.cpt_loading_mask = $('<div class="cpt-loading-mask animated '+opt.animateIn+' '+opt.direction+'" data-name="'+opt.name+'"></div>').css({
 			        'background':opt.loadingMaskBg,
 			        'z-index':opt.zIndex,
-			        'position':loadingPosition,
+			        'position': loadingPosition,
 				}).appendTo($this);
 
 		      	//中间的显示层

@@ -24,15 +24,15 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
-            <select class="meet-select js-meet-state">
+            <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
+            <select class="meet-select js-meet-state" id="bType">
                 <option value="all">状态</option>
                 <option value="1">待处理</option>
                 <option value="2">已通过</option>
-                <option value="3">已驳回</option>
+                <option value="3">被驳回</option>
             </select>
             <div class="search-con2">
-                <input type="text" name="keyname" placeholder="请输入关键字">
+                <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
 
@@ -83,11 +83,60 @@
         var nowpage = 1;
         var page_size = 10
         var pagenum = 12
-        Paginator(nowpage, page_size)
+        Paginator(nowpage, page_size,"","")
 
 
-        function Paginator(page, ps) {
-            $.post("/Companys/GetMyAudit", { pageSize: ps, pageIndex: page }, function (data) {
+        //全部按钮
+        function allcompany() {
+            Paginator(nowpage, page_size, '', '')
+            $("#searchinput").val("");
+            $("#bType").val("all")
+        }
+        var SearchCompanyName = "";
+        var type = "";
+        //下拉菜单
+        $("#bType").change(function () {
+            if ($("#bType").val() == "all") {
+                type = "";
+            } else {
+                type = $("#bType").val();
+            }
+            console.log(type);
+            SearchCompanyName = $("#searchinput").val();
+            Paginator(nowpage, page_size, SearchCompanyName, type)
+            console.log(type);
+            console.log(SearchCompanyName);
+        })
+        //输入框内容更改
+        $("#searchinput").change(function () {
+            if ($("#bType").val() == "all") {
+                type = "";
+            } else {
+                type = $("#bType").val();
+            }
+            SearchCompanyName = $("#searchinput").val();
+            Paginator(nowpage, page_size, SearchCompanyName, type)
+            
+            console.log(SearchCompanyName);
+        })
+
+        //点击搜索按钮
+        $(".search-btn").on("click", function () {
+            SearchCompanyName = $("#searchinput").val();
+            if ($("#bType").val() == "all") {
+                type = "";
+            } else {
+                type = $("#bType").val();
+            }
+            console.log(type);
+            console.log(SearchCompanyName);
+            Paginator(nowpage, page_size, SearchCompanyName, type)
+        });
+
+
+
+        function Paginator(page, ps, sname, stype) {
+            $.post("/Companys/GetMyAudit", { pageSize: ps, pageIndex: page, cname: sname, ctype: stype }, function (data) {
                 if (data == 'no session') {
                     location.href = "/Login";
                 }
