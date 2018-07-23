@@ -177,11 +177,11 @@ namespace RailBiding.API
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, ID*1 as ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent,Type 
                            into #temp1
-                           from Company where Status=1 order by Id
+                           from Company where Status=1 and AuditStatus=2 order by Id
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
-            sql = "select count(1) from Company ";
+            sql = "select count(1) from Company  where Status=1 and AuditStatus=2 ";
             string total = DBHelper.ExecuteScalar(sql);
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
