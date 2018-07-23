@@ -73,12 +73,6 @@
 
 <script>
 
-    $(function () {
-        pages(1, 2, 12, 5)
-        $.post("/MakeBidFile/GetMyMakeBidFiles", { }, function (data) {
-            console.log(data)
-        })
-    })
     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=4", function (data) {
         var obj = JSON.parse(data);
         for (var i = 0; i < obj.length; i++) {

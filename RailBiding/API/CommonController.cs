@@ -175,7 +175,7 @@ namespace RailBiding.API
             int ps = int.Parse(pagesize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, ID*1 as ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent 
+            string sql = @"select identity(int,1,1) as iid, ID*1 as ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent,Type 
                            into #temp1
                            from Company where Status=1 order by Id
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
