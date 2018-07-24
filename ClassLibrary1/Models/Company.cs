@@ -194,7 +194,7 @@ namespace DAL.Models
                 "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentative=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
                 "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactPhone + "', " +
                 "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", " +
-                "Type=" + company.Type + ", Referre = N'" + company.Referrer + "', BusinessLicensePic=@blpath,ContactIDPic=@cipath" +
+                " Referre = N'" + company.Referrer + "', BusinessLicensePic=@blpath,ContactIDPic=@cipath, AuditStatus=" +company.AuditStatus+
                 ",ReferreIDPic=@refpath, RepIDPic=@ripath, SecurityCertificatePic=@scpath where id=" + company.Id;
             int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
             sql = "";

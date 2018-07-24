@@ -578,7 +578,7 @@ namespace RailBiding.Controllers
         {
             string picData = Request["zz"].ToString();
             string[] zzs = picData.Split('|');
-            string sql = "delete CompanyZiZhiPic where CompanyId="+ Session["newCid"].ToString()+"; ";
+            string sql = "update CompanyZiZhiPic set CompanyId=0 where CompanyId=" + Session["newCid"].ToString()+"; ";
             for(int i=0;i< zzs.Length-1;i++)
             {
                 sql += "update CompanyZiZhiPic set CompanyId = "+ Session["newCid"].ToString() + " where PicPath like '%"+zzs[i]+"%'; ";
@@ -811,6 +811,7 @@ namespace RailBiding.Controllers
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             ViewBag.inout = dr["Type"].ToString();
+            Session["inout"]= dr["Type"].ToString(); 
 
             // 上传图片和文件
             DataTable pics = cc.GetCompanyPics(id);
@@ -929,7 +930,6 @@ namespace RailBiding.Controllers
                 company.ContactAddress = Request["caddress"].ToString();
                 company.ConstructionContent = Request["construction"].ToString();
                 company.Note = Request["note"].ToString();
-                company.Type = int.Parse(Session["outin"].ToString());
                 company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
 
                 company.BusinessLicensePic = Request["blpic"].ToString();

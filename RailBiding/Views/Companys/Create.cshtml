@@ -845,7 +845,9 @@
         }
     }
     var checkcompanynameuserd=false
+    var submitType = 0;
     function saveCompany(auditSt) {
+        submitType = auditSt;
         
         if(!checkcompanynameuserd)
         {
@@ -1197,7 +1199,10 @@
             } else {
                 //hide
                 removeLoading('test');
-                swal('公司创建失败, '+res)
+                if (auditSt == 0)
+                    swal('公司保存失败, ' + res)
+                else
+                    swal('公司创建失败, ' + res)
             }
         })
     }
@@ -1221,9 +1226,14 @@
 
         $.post("/Companys/UploadWorkHistory", { workhistory: data }, function (res) {
             removeLoading('test');
-            swal('公司创建成功').then(function () {
-                window.location.href = "/Companys/MyRecommend";
-            });
+            if (submitType == 1)
+                swal('您提交的信息已到管理部门审核，请及时关注审核状态。').then(function () {
+                    window.location.href = "/Companys/MyRecommend";
+                });
+            else
+                swal('保存成功').then(function () {
+                    window.location.href = "/Companys/MyRecommend";
+                });
         });
     }
     function uploadZZPics() {

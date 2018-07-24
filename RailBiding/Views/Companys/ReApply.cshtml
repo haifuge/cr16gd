@@ -846,9 +846,10 @@
             $("#contactPhone").css('border','1px solid green');
         }
     }
-    var checkcompanynameuserd=false
+        var checkcompanynameuserd = false
+        var submitType = 0;
     function saveCompany(auditSt) {
-
+        submitType = auditSt;
         if(!checkcompanynameuserd)
         {
             $(".chongfuinput").css({"width":"50%","margin-top":"10px"})
@@ -1184,13 +1185,16 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
-        $.post("/Companys/SaveCompany", data, function (res) {
+        $.post("/Companys/Create", data, function (res) {
             if (res == "1") {
                 uploadZZPics();
             } else {
                 //hide
                 removeLoading('test');
-                swal('公司创建失败, '+res)
+                if (auditSt == 0)
+                    swal('公司保存失败, ' + res)
+                else
+                    swal('公司创建失败, '+res)
             }
         })
     }
@@ -1214,9 +1218,14 @@
 
         $.post("/Companys/UploadWorkHistory", { workhistory: data }, function (res) {
             removeLoading('test');
-            swal('公司创建成功').then(function () {
-                window.location.href = "/Companys/MyRecommend";
-            });
+            if (submitType == 1)
+                swal('您提交的信息已到管理部门审核，请及时关注审核状态。').then(function () {
+                    window.location.href = "/Companys/MyRecommend";
+                });
+            else
+                swal('保存成功').then(function () {
+                    window.location.href = "/Companys/MyRecommend";
+                });
         });
     }
     function uploadZZPics() {
