@@ -511,11 +511,11 @@ namespace RailBiding.Controllers
                 company.Type = int.Parse(Session["outin"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
 
-                company.BusinessLicensePic = Request["refd"].ToString();
-                company.ContactIDPic = Request["refd"].ToString();
+                company.BusinessLicensePic = Request["blpic"].ToString();
+                company.ContactIDPic = Request["ctsfz"].ToString();
                 company.ReferreIDPic = Request["refd"].ToString();
-                company.RepIDPic = Request["refd"].ToString();
-                company.SecurityCertificatePic = Request["refd"].ToString();
+                company.RepIDPic = Request["rsfz"].ToString();
+                company.SecurityCertificatePic = Request["scPic"].ToString();
 
                 Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
                 

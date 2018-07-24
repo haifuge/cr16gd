@@ -1033,25 +1033,7 @@
         })
     }
         
-    function uploadPics() {
-        
-        var data = { picdata: blpic, name: "blpic" }
-        $.post("/Companys/UploadPic", data, function (res) {
-            data = { picdata: scPic, name: "scPic" }
-            $.post("/Companys/UploadPic", data, function (res) {
-                data = { picdata: rsfz, name: "rsfz" }
-                $.post("/Companys/UploadPic", data, function (res) {
-                    data = { picdata: ctsfz, name: "ctsfz" }
-                    $.post("/Companys/UploadPic", data, function (res) {
-                        removeLoading('test');
-                        swal('公司创建成功').then(function () {
-                            window.location.href = "/Companys/MyRecommend";
-                        });
-                    })
-                })
-            })
-        })
-    }
+    
     function uploadWorkHistory() {
         var wh = $("#tworkhistory")
         var children = wh.children();
@@ -1069,7 +1051,10 @@
         }
 
         $.post("/Companys/UploadWorkHistory", { workhistory: data }, function (res) {
-            uploadPics();
+            removeLoading('test');
+            swal('公司创建成功').then(function () {
+                window.location.href = "/Companys/MyRecommend";
+            });
         });
     }
     function uploadZZPics() {
