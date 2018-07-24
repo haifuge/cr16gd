@@ -206,13 +206,15 @@ namespace DAL.Models
             sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, ReferreIDPic, CreateDate)" +
+                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, ReferreIDPic, CreateDate,
+                                               BusinessLicensePic, ContactIDPic, SecurityCertificatePic, RepIDPic)" +
             "values(N'" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
             "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
             "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
             "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
             "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " +
-            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + ", @refpath, getdate());";
+            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", @refpath, getdate(),
+            N'"+company.BusinessLicensePic+", N'"+company.ContactIDPic+"', N'"+company.SecurityCertificatePic+"', N'"+company.RepIDPic+"');";
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
             // 更新临时保存的推荐书
