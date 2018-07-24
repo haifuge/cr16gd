@@ -290,7 +290,7 @@
                                         <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw1" style="padding-left:50px;text-align:left">推荐书图片</div>
+                                    <div class="dw1" style="padding-left:50px;text-align:left"></div>
                                 </div>
                             </td>
                         </tr>
@@ -298,12 +298,12 @@
                             <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="" style="opacity:0;">
                                         <input id="busiLicPic" type="text" name="foreRef" hidden>
                                     </form>                                   
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw2" style="padding-left:50px;text-align:left">营业执照图片</div>
+                                    <div class="dw2" style="padding-left:50px;text-align:left"></div>
                                 </div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
                                 <input name="youziz" id="socialCreditNo" type="text" value=""
@@ -359,12 +359,12 @@
                             <td class="form-lable"><span class="red-word">*</span>安全证书：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4" style="opacity:0;">
                                         <input id="scPic" type="text" name="foreRef" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw3" style="padding-left:50px;text-align:left">安全证书图片</div>
+                                    <div class="dw3" style="padding-left:50px;text-align:left"></div>
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
@@ -393,13 +393,13 @@
                                                                          class="has-clear-input input input3 input4" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
-                                    <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'repSFZ')"
                                                id="allfileInput5" style="opacity:0;">
                                         <input id="repSFZ" type="text" name="foreRef" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw4" style="padding-left:50px;text-align:left">身份证图片</div>
+                                    <div class="dw4" style="padding-left:50px;text-align:left"></div>
                                 </div>
 
                             </td>
@@ -414,12 +414,12 @@
                                                                          class="has-clear-input input input3 input4" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
-                                    <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6" style="opacity:0;">
                                         <input id="conSFZ" type="text" name="foreRef" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw5" style="padding-left:50px;text-align:left">身份证图片</div>
+                                    <div class="dw5" style="padding-left:50px;text-align:left"></div>
                                 </div>
                             </td>
                         </tr>
@@ -567,6 +567,7 @@
             return;
         }
         $("#bfupform1").ajaxSubmit(function (res) {
+            console.log(res);
             var fileName = res.split('|');
             $(".dw1").html(fileName[1]);
             $("#referPic").val(fileName[0]);
@@ -623,7 +624,7 @@
         $("#bfupform5").ajaxSubmit(function (res) {
             var fileName = res.split('|');
             $(".dw5").html(fileName[1]);
-            $("#repSFZ").val(fileName[0]);
+            $("#conSFZ").val(fileName[0]);
         });
     })
 
@@ -912,12 +913,18 @@
         var caddress = $("#contactAddress").val()
         var construct = $("#construction").val()
         var nn = $("#note").val()
+
         var refdoc = $("#referPic").val();
+        var busiLicPic = $("#busiLicPic").val();
+        var scPic = $("#scPic").val();
+        var repSFZ = $("#repSFZ").val();
+        var conSFZ = $("#conSFZ").val();
+        
         var tdfilename = $("#tworkhistory tr td:last-child").html();
 
         var data = {
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc,
+            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc, busiLicPic: busiLicPic, scPic: scPic, repSFZ: repSFZ, conSFZ: conSFZ,
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: 1
         }
         // show
@@ -936,7 +943,7 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
-        $.post("/Companys/Create", data, function (res) {
+        $.post("/Companys/UpdateCompany?cid=@ViewBag.cid", data, function (res) {
             console.log(1)
             if (res == "1") {
                 uploadWorkHistory();

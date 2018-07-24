@@ -282,13 +282,15 @@
                             <td class="form-lable"><span class="red-word yuijianred" ></span>推荐人：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="refererName"
-                                       class="has-clear-input input input3 input4" />
+                                       class="has-clear-input input input3 input4"  onblur="refererName()"/>
                                 <span class="td-cer">推荐书：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3" style="top: 10px;">
-                                    <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput1" id="allfileInput1">
+                                    <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput1" id="allfileInput1" value="" style="opacity:0;">
                                         <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
                                     </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw1" style="padding-left:50px;text-align:left"></div>
                                 </div>
                             </td>
                         </tr>
@@ -296,13 +298,16 @@
                             <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2">@*class="allfileInput allfileInput2"*@
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
+                                    <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput" id="allfileInput2" value="" style="opacity:0;"onblur="allfileInputtwo()" >
+                                        <input id="busiLicPic" type="text" name="foreRef" hidden>
+                                    </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw2" style="padding-left:50px;text-align:left"></div>
                                 </div>
-                                <div id="busiLicPic" style="display:none"></div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
                                 <input name="youziz" id="socialCreditNo" type="text"
-                                       class="has-clear-input input input3 input4" required><span class="tips" id="zizhi"></span>
+                                       class="has-clear-input input input3 input4" required onblur="socialCreditNo()"><span class="tips" id="zizhi" ></span>
                                 @*onBlur="checkpsd2()"*@
                             </td>
                         </tr>
@@ -310,7 +315,7 @@
                             <td class="form-lable"><span class="red-word">*</span>资质等级：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="qualificationLevel"
-                                       class="has-clear-input input input5" />
+                                       class="has-clear-input input input5" onblur="qualificationLevel()"/>
                             </td>
                         </tr>
                         <tr class="form-tr tr-pic2">
@@ -354,14 +359,17 @@
                             <td class="form-lable"><span class="red-word">*</span>安全证书：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4">
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">上传资质扫描件</span>*@
-                                    <div id="scPic" style="display:none"></div>
+                                    <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput"  id="allfileInput4" style="opacity:0;" onblur="allfileInputfour()">
+                                        <input id="scPic" type="text" name="foreRef" hidden>
+                                    </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw3" style="padding-left:50px;text-align:left"></div>
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="" id="licenseNo"
                                        class="has-clear-input input input3 input4 "
-                                       required><span class="tips " id="zjbh"></span>
+                                       required onblur="licenseNo()"><span class="tips " id="zjbh"></span>
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -379,16 +387,19 @@
                             <td class="form-lable"><span class="red-word">*</span>法人代表：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="companyRepresentative"
-                                       class="has-clear-input input input3 input4" />
+                                       class="has-clear-input input input3 input4" onblur="companyRepresentative()"/>
                                 <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
                                                                          value="" id="repTelephone"
-                                                                         class="has-clear-input input input3 input4" />
+                                                                         class="has-clear-input input input3 input4" onblur="repTelephone()"/>
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'repSFZ')"
-                                           id="allfileInput5">
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>*@
-                                    <div id="repSFZ" style="display:none"></div>
+                                    <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput" 
+                                               id="allfileInput5" style="opacity:0;" onblur="allfileInputfive()">
+                                        <input id="repSFZ" type="text" name="foreRef" hidden>
+                                    </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw4" style="padding-left:50px;text-align:left"></div>
                                 </div>
                             </td>
                         </tr>
@@ -396,15 +407,18 @@
                             <td class="form-lable"><span class="red-word">*</span>现场负责人：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="contact"
-                                       class="has-clear-input input input3 input4" />
+                                       class="has-clear-input input input3 input4"  onblur="contact()"/>
                                 <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
                                                                          value="" id="contactPhone"
-                                                                         class="has-clear-input input input3 input4" />
+                                                                         class="has-clear-input input input3 input4"  onblur="contactPhone()"/>
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
-                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6">
-                                    @*<img src="~/img/icon-ll.png" alt="" class="up up2"><span class="add-fj">&nbsp;&nbsp;&nbsp;上传身份证反面扫描件</span>*@
-                                    <div id="conSFZ" style="display:none"></div>
+                                    <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                        <input type="file" name="fileInput" id="allfileInput6" style="opacity:0;"onblur="allfileInputsix()">
+                                        <input id="conSFZ" type="text" name="foreRef" hidden>
+                                    </form>
+                                    <img src="/img/icon-add2.png" alt="" class="up up2">
+                                    <div class="dw5" style="padding-left:50px;text-align:left"></div>
                                 </div>
                             </td>
                         </tr>
@@ -525,8 +539,6 @@
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
     
-    console.log( "allfileInput1得值"+$("#allfileInput1").val())
-    console.log(@ViewBag.outin)
     if(@ViewBag.outin=="0"){
        $(".yuijianred").html("*")
     }
@@ -544,12 +556,127 @@
         });
     })
 
+
+    //推荐书附件上传
     $("#allfileInput1").change(function () {
- 
-        $("#bfupform").ajaxSubmit(function (res) {
-            $("#referPic").val(res);
+        var allfileInput1 = $("#allfileInput1").val();
+        if (allfileInput1 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform1").ajaxSubmit(function (res) {
+            console.log(res);
+            var fileName = res.split('|');
+            $(".dw1").html(fileName[1]);
+            $("#referPic").val(fileName[0]);
         });
     })
+
+
+    //营业执照附件上传
+    $("#allfileInput2").change(function () {
+        var allfileInput2 = $("#allfileInput2").val();
+        if (allfileInput2 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform2").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw2").html(fileName[1]);
+            $("#busiLicPic").val(fileName[0]);
+        });
+    })
+
+    //安全证书附件上传
+    $("#allfileInput4").change(function () {
+        var allfileInput4 = $("#allfileInput4").val();
+        if (allfileInput4 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform3").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw3").html(fileName[1]);
+            $("#scPic").val(fileName[0]);
+        });
+    })
+
+    //法人身份证附件上传
+    $("#allfileInput5").change(function () {
+        var allfileInput5 = $("#allfileInput5").val();
+        if (allfileInput5 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform4").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw4").html(fileName[1]);
+            $("#repSFZ").val(fileName[0]);
+        });
+    })
+
+
+    //现场负责人身份证附件上传
+    $("#allfileInput6").change(function () {
+        var allfileInput6 = $("#allfileInput6").val();
+        if (allfileInput6 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform5").ajaxSubmit(function (res) {
+            var fileName = res.split('|');
+            $(".dw5").html(fileName[1]);
+            $("#conSFZ").val(fileName[0]);
+        });
+    })
+
+
+    //验证
+
+    //推荐人验证
+    function refererName(){
+        var refererName = $("#refererName").val();
+    if ( $(".yuijianred").html()!= ""){
+        if (refererName == "") {
+            document.getElementById("refererName").focus();
+            swal({
+                title: '推荐人不能为空！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+
+            )
+            return;
+        }
+    }
+    }
+
+    function allfileInput1(){
+        if ( $(".yuijianred").html()!= ""){
+            var allfileInput1 = $("#allfileInput1").val();
+            if (allfileInput1 == "") {
+                document.getElementById("allfileInput1").focus();
+                swal({
+                    title: '请上传推荐书！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer');
+                        }
+                    }
+                )
+                return;
+            }
+        }
+
+    }
+
     var checkcompanynameuserd=false
     function saveCompany(auditSt) {
         
@@ -864,11 +991,15 @@
         var construct = $("#construction").val()
         var nn = $("#note").val()
         var refdoc = $("#referPic").val();
+        var blpic = document.getElementById("busiLicPic").value
+        var scPic = document.getElementById("scPic").value
+        var rsfz = document.getElementById("repSFZ").value
+        var ctsfz = document.getElementById("conSFZ").value
         var tdfilename = $("#tworkhistory tr td:last-child").html();
         
         var data = {
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc,
+            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc, blpic:blpic,scPic:scPic,rsfz:rsfz,ctsfz:ctsfz,
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
         }
         // show
@@ -902,28 +1033,7 @@
         })
     }
         
-    function uploadPics() {
-        var blpic = document.getElementById("busiLicPic").innerText
-        var scPic = document.getElementById("scPic").innerText
-        var rsfz = document.getElementById("repSFZ").innerText
-        var ctsfz = document.getElementById("conSFZ").innerText
-        var data = { picdata: blpic, name: "blpic" }
-        $.post("/Companys/UploadPic", data, function (res) {
-            data = { picdata: scPic, name: "scPic" }
-            $.post("/Companys/UploadPic", data, function (res) {
-                data = { picdata: rsfz, name: "rsfz" }
-                $.post("/Companys/UploadPic", data, function (res) {
-                    data = { picdata: ctsfz, name: "ctsfz" }
-                    $.post("/Companys/UploadPic", data, function (res) {
-                        removeLoading('test');
-                        swal('公司创建成功').then(function () {
-                            window.location.href = "/Companys/MyRecommend";
-                        });
-                    })
-                })
-            })
-        })
-    }
+    
     function uploadWorkHistory() {
         var wh = $("#tworkhistory")
         var children = wh.children();
@@ -941,7 +1051,10 @@
         }
 
         $.post("/Companys/UploadWorkHistory", { workhistory: data }, function (res) {
-            uploadPics();
+            removeLoading('test');
+            swal('公司创建成功').then(function () {
+                window.location.href = "/Companys/MyRecommend";
+            });
         });
     }
     function uploadZZPics() {
@@ -1212,17 +1325,38 @@
 
 
     function CheckCompanyNameUsed() {
-        var companyname = $("#companyName").val();
-        $.post("/Companys/CheckCompanyNameUsed", { cName: companyname }, function (data) {
-            if (data != "1") {
-                swal("该企业已在库里，请重新录入企业名称！"); 
-                $("#companyName").css('border','1px solid red');
-            } 
-            else{
-                $("#companyName").css('border','1px solid #ccc');
-                checkcompanynameuserd=true;
-            }
-        })
+        var companyName = $("#companyName").val();
 
+        if (companyName == "") {
+            document.getElementById("companyName").focus();
+            swal({
+                title: '企业名称不能为空！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+
+            )
+            return;
+        }else{
+            $.post("/Companys/CheckCompanyNameUsed", { cName: companyName }, function (data) {
+                if (data != "1") {
+                    swal("该企业已在库里，请重新录入企业名称！"); 
+                    $("#companyName").css('border','1px solid red');
+                    
+                } 
+                else{
+                    $("#companyName").css('border','1px solid green');
+                    checkcompanynameuserd=true;
+                }
+            })
+        }
+        
     }
 </script>
