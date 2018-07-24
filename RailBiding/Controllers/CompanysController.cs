@@ -578,10 +578,10 @@ namespace RailBiding.Controllers
         {
             string picData = Request["zz"].ToString();
             string[] zzs = picData.Split('|');
-            string sql = "";
+            string sql = "delete CompanyZiZhiPic where CompanyId="+ Session["newCid"].ToString()+"; ";
             for(int i=0;i< zzs.Length-1;i++)
             {
-                sql += "update CompanyZiZhiPic set CompanyId = "+ Session["newCid"] + " where PicPath like '%"+zzs[i]+"%'; ";
+                sql += "update CompanyZiZhiPic set CompanyId = "+ Session["newCid"].ToString() + " where PicPath like '%"+zzs[i]+"%'; ";
             }
             DBHelper.ExecuteNonQuery(sql);
         }
@@ -590,7 +590,7 @@ namespace RailBiding.Controllers
             string data = Request["workhistory"].ToString();
             char[] separators = { '^' };
             string[] items = data.Split(separators,StringSplitOptions.None);
-            string sql = "";
+            string sql = "delete WorkHistory where CompanyId="+ Session["newCid"].ToString()+"; ";
             string path = Server.MapPath("/projectFiles/WorkHistory");
             for (int i=0;i<items.Length-1;i++)
             {
