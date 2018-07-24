@@ -576,21 +576,13 @@ namespace RailBiding.Controllers
         }
         public void UploadZiZhi()
         {
-            string picData;
-            try { picData = Request["picData"].ToString(); }
-            catch { return; }
-            picData = picData.Substring(picData.IndexOf(',') + 1);
-            string name = Request["name"].ToString();
-            string code = Request["code"].ToString();
-            string cid = Session["newCid"].ToString();
-            string cpic = Server.MapPath("/CompanyPics/Company" + cid);
-            if (!Directory.Exists(cpic))
+            string picData = Request["zz"].ToString();
+            string[] zzs = picData.Split('|');
+            string sql = "";
+            for(int i=0;i< zzs.Length-1;i++)
             {
-                Directory.CreateDirectory(cpic);
+                sql = "update CompanyZiZhiPic set CompanyId = "+ Session["newCid"] + " where PicPath like '%"+zzs[i]+"%'; ";
             }
-            string fullpath = cpic + "/" + name + ".jpeg";
-            ImageBase64.Base64ToImage(picData, fullpath);
-            string sql = "insert into CompanyZiZhiPic values("+cid+", N'"+name+"', N'"+code+"', N'"+ fullpath + "');";
             DBHelper.ExecuteNonQuery(sql);
         }
         public void UploadWorkHistory()
@@ -912,6 +904,7 @@ namespace RailBiding.Controllers
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
 
+            // 上传图片和文件
             DataTable pics = cc.GetCompanyPics(id);
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -952,15 +945,18 @@ namespace RailBiding.Controllers
                     ViewBag.dw5 = "<div class='dw5' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
             }
+
+            // 资质图片
             string pic = "";
             dt = cc.GetZiZhiPics(int.Parse(id));
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'  title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>" + dt.Rows[i]["ZZName"].ToString() + @"</p><p style='text-align: center;'>" + dt.Rows[i]["ZZCode"].ToString() + @"</p></div>";
+                string guid = pic.Substring(pic.LastIndexOf('/') + 1);
+                picHtml += @"<li style='text-align:center'><div><span class='aui-up-span'></span>
+                              <img class='aui-close-up-img' src='../img/close.png'><img src='" + pic + @"' alt=""></div>
+                               <label id='zzmc'>" + dt.Rows[i]["ZZName"].ToString() + "</label><br><label id='zsbh'>" + dt.Rows[i]["ZZCode"].ToString() + "</label><label style='display: none'>" + guid + "</label></li>";
             }
             ViewBag.CompanyPics = picHtml;
 

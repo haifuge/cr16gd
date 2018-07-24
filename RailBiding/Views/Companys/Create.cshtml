@@ -329,32 +329,36 @@
                                             <section class="aui-file-up fl">
                                                 <img src="~/img/up.png" class="add-img">
                                                 @*<input type="file" name="file" id="file" class="file" value=""
-                                                    accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">*@
+                        accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">*@
                                             </section>
                                             <ul class="img-box" id="zzlist"></ul>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- 添加资质弹框 -->
-                                <div class="canvas">
-                                    <div class="canvas_content">
-                                        <span class="canvas_close">×</span>
-                                        <div class="canvas_content_text">
-                                            <ul>
-                                                <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称" onblur="zzmc()" style=""><span id="zzmcmsg"></span></li>
-                                                <li>证书编号： <input type="text" id="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932" onblur="zsbh()"><span id="zsbhmsg"></span></li>
-                                                <li>
-                                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput3"><span id="zspicmsg"></span>
-                                                    <div id="zzzsPic" style="display:none"></div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="canvas_btn">
-                                            <a href="#" class="meet-btn big-btn lightblue-btn" onclick="submitImg()">提交</a>
-                                            <a href="#" class="meet-btn big-btn gray-btn" onclick="cancelImg()">返回</a>
+                                <form id='bfupform7' name='bfupform' method="post" target='frameFile' action="/Common/UploadZiZhiPic" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <div class="canvas">
+                                        <div class="canvas_content">
+                                            <span class="canvas_close">×</span>
+                                            <div class="canvas_content_text">
+
+                                                <ul>
+                                                    <li>资质名称： <input type="text" id="input_zzmc" name="input_zzmc" placeholder="资质名称" onblur="zzmc()" style=""><span id="zzmcmsg"></span></li>
+                                                    <li>证书编号： <input type="text" id="input_zsbh" name="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932" onblur="zsbh()"><span id="zsbhmsg"></span></li>
+                                                    <li>
+                                                        <input type="file" name="fileInput" id="allfileInput3"><span id="zspicmsg"></span>
+                                                        <div id="zzzsPic" style="display:none"></div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                            <div class="canvas_btn">
+                                                <a href="#" class="meet-btn big-btn lightblue-btn" onclick="submitImg()">提交</a>
+                                                <a href="#" class="meet-btn big-btn gray-btn" onclick="cancelImg()">返回</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </td>
                         </tr>
                         <tr class="form-tr ">
@@ -581,6 +585,17 @@
             var fileName = res.split('|');
             $(".dw").html(fileName[1]);
             $("#fname").val(fileName[0]);
+        });
+    })
+    $("#allfileInput3").change(function () {
+
+        var fileInfoName = $("#allfileInput3").val();
+        if (fileInfoName == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform7").ajaxSubmit(function (res) {
+            console.log(res);
+            $("#zzzsPic").text(res);
         });
     })
 
@@ -1178,8 +1193,7 @@
 
             if (res == "1") {
                 uploadZZPics();
-                uploadWorkHistory();
-
+                
 
             } else {
                 //hide
@@ -1215,15 +1229,16 @@
     }
     function uploadZZPics() {
         var lis = $('#zzlist').children();
+        var zzGuids = "";
         for (var i = 0; i < lis.length; i++) {
             var cd = lis[i].childNodes;
-            var b64 = cd[0].childNodes[2].src;
-            var zzname = cd[1].innerText;
-            var zzcode = cd[3].innerText;
-            var data = { picData: b64, name: zzname, code: zzcode };
-            $.post("/Companys/UploadZiZhi", data, function () {
-            });
+            zzGuids += cd[4].innerText + "|"
+
         }
+        if (zzGuids != "")
+            $.post("/Companys/UploadZiZhi", {zz:zzGuids}, function () {
+                uploadWorkHistory();
+            });
     }
     $(function () {
         $.post("/Common/GetCompanyType", {}, function (data) {
@@ -1407,12 +1422,14 @@
             $("#zspicmsg").html("请上传资质文件");
             return;
         }
+        var picinfo = $("#zzzsPic").text().split('|')
         var li = document.createElement('li');
         li.style = 'text-align:center'
         li.innerHTML = '<div><span class="aui-up-span"></span>' +
-            '<img class="aui-close-up-img" src="../img/close.png"><img src="' + document.getElementById("zzzsPic").innerText + '" alt=""></div>' +
-            '<label id="zzmc">' + $("#input_zzmc").val() + '</label><br><label id="zsbh">' + $("#input_zsbh").val() + '</label></li>'
+            '<img class="aui-close-up-img" src="../img/close.png"><img src="' + picinfo[1] + '" alt=""></div>' +
+            '<label id="zzmc">' + $("#input_zzmc").val() + '</label><br><label id="zsbh">' + $("#input_zsbh").val() + '</label><label style="display:none">' + picinfo[0] + '</label>'
         document.getElementById('zzlist').appendChild(li);
+        
         $(".canvas").hide();
         $("#input_zsbh").val("");
         $("#input_zzmc").val("");

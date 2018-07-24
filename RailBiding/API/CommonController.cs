@@ -166,7 +166,7 @@ namespace RailBiding.API
             //    fullPath = pc.GetForeReference(g);
             //    System.IO.File.Delete(fullPath);
             //}
-            string path = Server.MapPath("/projectFiles/Reference");
+            string path = Server.MapPath("/CompanyFiles/Reference");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             var curFile = Request.Files[0];
@@ -177,6 +177,24 @@ namespace RailBiding.API
             //临时存推荐书
             pc.AddProjectFile("0", "1", fullPath, curFile.FileName, "");
             return guid+"|"+curFile.FileName;
+        }
+        public string UploadZiZhiPic()
+        {
+            string input_zzmc = Request["input_zzmc"].ToString();
+            string input_zsbh = Request["input_zsbh"].ToString();
+            ProjectContext pc = new ProjectContext();
+            string fullPath;
+            string path = Server.MapPath("/CompanyFiles/ZiZhiPics");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            var curFile = Request.Files[0];
+            string guid = Guid.NewGuid().ToString();
+            var fileExt = Path.GetExtension(curFile.FileName);
+            fullPath = path + "/" + guid + fileExt;
+            curFile.SaveAs(fullPath);
+            //临时存推荐书
+            string sql = "insert into CompanyZiZhiPic values(0, N'" + input_zzmc + "', N'" + input_zsbh + "', N'" + fullPath + "');";
+            return guid + "|" + fullPath.Replace(Server.MapPath("../"), "../");
         }
         public string UploadTestifyFile()
         {

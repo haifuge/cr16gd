@@ -329,7 +329,7 @@
                                                 @*<input type="file" name="file" id="file" class="file" value=""
                                                     accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">*@
                                             </section>
-                                            <ul class="img-box" id="zzlist"></ul>
+                                            <ul class="img-box" id="zzlist">@Html.Raw(ViewBag.CompanyPics )</ul>
                                         </div>
                                     </div>
                                 </div>
@@ -992,20 +992,19 @@
     }
     function uploadZZPics() {
         var lis = $('#zzlist').children();
+        var zzGuids = "";
         for (var i = 0; i < lis.length; i++) {
             var cd = lis[i].childNodes;
-            var b64 = cd[0].childNodes[2].src;
-            var zzname = cd[1].innerText;
-            var zzcode = cd[3].innerText;
-            var data = { picData: b64, name: zzname, code: zzcode };
+            zzGuids += cd[4].innerText+"|"
+            
+        }
+        if(zzGuids!="")
             $.post("/Companys/UploadZiZhi", data, function () {
                 removeLoading('test');
                 swal('公司创建成功').then(function () {
-                     window.location.href = "/Companys/MyRecommend";
+                    window.location.href = "/Companys/MyRecommend";
                 });
-
             });
-        }
     }
     $(function () {
         $.post("/Common/GetCompanyType", {}, function (data) {
