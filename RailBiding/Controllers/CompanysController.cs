@@ -522,7 +522,7 @@ namespace RailBiding.Controllers
             }
             catch(Exception ex)
             {
-                return "0";
+                return ex.ToString();
             }
         }
         public void UploadPic()

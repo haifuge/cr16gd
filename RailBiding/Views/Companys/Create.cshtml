@@ -524,13 +524,14 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
-
+    
     console.log( "allfileInput1得值"+$("#allfileInput1").val())
     console.log(@ViewBag.outin)
     if(@ViewBag.outin=="0"){
        $(".yuijianred").html("*")
     }
     $("#fileInfoName").change(function () {
+ 
         var fileInfoName = $("#fileInfoName").val();
         if (fileInfoName == "") { //点击取消，取消事件的编写
             return;
@@ -544,11 +545,21 @@
     })
 
     $("#allfileInput1").change(function () {
+ 
         $("#bfupform").ajaxSubmit(function (res) {
             $("#referPic").val(res);
         });
     })
+    var checkcompanynameuserd=false
     function saveCompany(auditSt) {
+        
+        if(!checkcompanynameuserd)
+        {
+            swal("请录入企业名称,或企业名称有重复！");
+            document.getElementById("companyName").focus();
+            return;
+        }
+
         var companyName = $("#companyName").val();
         var refererName = $("#refererName").val();
         var allfileInput1 = $("#allfileInput1").val();
@@ -566,7 +577,7 @@
         var allfileInput6 = $("#allfileInput6").val();
 
 
-        CheckCompanyNameUsed();
+        
         if (companyName == "") {
             document.getElementById("companyName").focus();
             swal({
@@ -693,43 +704,43 @@
             )
             return;
         } 
-   /*     if( $(".yuijianred").html()!= "") {
-            if(allfileInput4 == "") {
-                document.getElementById("allfileInput4").focus();
-                swal({
-                    title: '请上传安全证书！',
-                    text: '2秒后自动关闭。',
-                    timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer');
-                        }
-                    }
-                )
-                return;
-            } 
-            if (licenseNo == "") {
-
-                document.getElementById("licenseNo").focus();
-                swal({
-                    title: '请上传证件编号！',
-                    text: '2秒后自动关闭。',
-                    timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer');
-                        }
-                    }
-                )
-                return;
-            }
-        }*/
+        /*     if( $(".yuijianred").html()!= "") {
+                 if(allfileInput4 == "") {
+                     document.getElementById("allfileInput4").focus();
+                     swal({
+                         title: '请上传安全证书！',
+                         text: '2秒后自动关闭。',
+                         timer: 2000
+                     }).then(
+                         function () { },
+                         // handling the promise rejection
+                         function (dismiss) {
+                             if (dismiss === 'timer') {
+                                 console.log('I was closed by the timer');
+                             }
+                         }
+                     )
+                     return;
+                 } 
+                 if (licenseNo == "") {
+     
+                     document.getElementById("licenseNo").focus();
+                     swal({
+                         title: '请上传证件编号！',
+                         text: '2秒后自动关闭。',
+                         timer: 2000
+                     }).then(
+                         function () { },
+                         // handling the promise rejection
+                         function (dismiss) {
+                             if (dismiss === 'timer') {
+                                 console.log('I was closed by the timer');
+                             }
+                         }
+                     )
+                     return;
+                 }
+             }*/
         if (companyRepresentative == "") {
 
             document.getElementById("companyRepresentative").focus();
@@ -836,8 +847,8 @@
             )
             return;
         }
-
         var comName = $("#companyName").val()
+
         var bt = $("#bType").val()
         var refname = $("#refererName").val()
         var scno = $("#socialCreditNo").val()
@@ -854,7 +865,7 @@
         var nn = $("#note").val()
         var refdoc = $("#referPic").val();
         var tdfilename = $("#tworkhistory tr td:last-child").html();
-
+        
         var data = {
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc,
@@ -886,10 +897,11 @@
             } else {
                 //hide
                 removeLoading('test');
-                swal('公司创建失败')
+                swal('公司创建失败, '+res)
             }
         })
     }
+        
     function uploadPics() {
         var blpic = document.getElementById("busiLicPic").innerText
         var scPic = document.getElementById("scPic").innerText
@@ -1202,7 +1214,12 @@
         var companyname = $("#companyName").val();
         $.post("/Companys/CheckCompanyNameUsed", { cName: companyname }, function (data) {
             if (data != "1") {
-                swal("该企业已在库里，请重新录入企业名称！")
+                swal("该企业已在库里，请重新录入企业名称！"); 
+                $("#companyName").css('border','1px solid red');
+            } 
+            else{
+                $("#companyName").css('border','1px solid #ccc');
+                checkcompanynameuserd=true;
             }
         })
 
