@@ -956,11 +956,11 @@ namespace RailBiding.Controllers
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
                 string guid = pic.Substring(pic.LastIndexOf('/') + 1);
-                picHtml += @"<li style='text-align:center'><div><span class='aui-up-span'></span>
-                              <img class='aui-close-up-img' src='../img/close.png'><img src='" + pic + @"' alt=""></div>
-                               <label id='zzmc'>" + dt.Rows[i]["ZZName"].ToString() + "</label><br><label id='zsbh'>" + dt.Rows[i]["ZZCode"].ToString() + "</label><label style='display: none'>" + guid + "</label></li>";
+                picHtml += "<li style='text-align:center'><div><span class='aui-up-span'></span>"+
+                           "<img class='aui-close-up-img' src='../img/close.png'><img src='" + pic + "'></div>"+
+                           "<label id='zzmc'>" + dt.Rows[i]["ZZName"].ToString() + "</label><br><label id='zsbh'>" + dt.Rows[i]["ZZCode"].ToString() + "</label><label style='display: none'>" + guid + "</label></li>";
             }
-            ViewBag.CompanyPics = picHtml;
+            ViewBag.ZiZhiPics = picHtml;
 
             dt = cc.GetWorkHistory(int.Parse(id));
             StringBuilder sb = new StringBuilder();
@@ -1021,6 +1021,48 @@ namespace RailBiding.Controllers
                 company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
                 string refguid = Request["refd"].ToString();
                 cc.UpdateCompany(company);
+
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
+        public string SaveCompany()
+        {
+            CompanyContext cc = new CompanyContext();
+            try
+            {
+                // TODO: Add insert logic here
+                Company company = new Company();
+                company.Id = int.Parse(Request["id"].ToString());
+                company.Name = Request["cname"].ToString();
+                company.BusinessType = Request["btype"].ToString();
+                company.Referrer = Request["rname"].ToString();
+                company.CreditNo = Request["scno"].ToString();
+                company.QualificationLevel = Request["qlevel"].ToString();
+                company.SecurityCertificateNo = Request["lno"].ToString();
+                company.BusinessScope = Request["bscope"].ToString();
+                company.RegisteredCapital = Request["rmoney"].ToString() == "" ? "0" : Request["rmoney"].ToString();
+                company.CorporateRepresentive = Request["rep"].ToString();
+                company.RepPhone = Request["rtel"].ToString();
+                company.Contact = Request["contact"].ToString();
+                company.ContactPhone = Request["cphone"].ToString();
+                company.Status = 1;
+                company.ContactAddress = Request["caddress"].ToString();
+                company.ConstructionContent = Request["construction"].ToString();
+                company.Note = Request["note"].ToString();
+                company.Type = int.Parse(Session["outin"].ToString());
+                company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
+
+                company.BusinessLicensePic = Request["blpic"].ToString();
+                company.ContactIDPic = Request["ctsfz"].ToString();
+                company.ReferreIDPic = Request["refd"].ToString();
+                company.RepIDPic = Request["rsfz"].ToString();
+                company.SecurityCertificatePic = Request["scPic"].ToString();
+
+                Session["newCid"] = cc.UpdateCompany(company);
 
                 return "1";
             }
