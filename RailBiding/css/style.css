@@ -3454,7 +3454,7 @@ input[name=keyname] {
 .form-tr .upload-btn.upload-btn2.upload-btn3 {
     display: inline-block;
     top: 0;
-    width: 220px;
+    width: auto;
 }
 
     .form-tr .upload-btn.upload-btn2.upload-btn3 .add-fj {
@@ -3463,8 +3463,9 @@ input[name=keyname] {
 
 .form-tr .upload-btn.upload-btn2.upload-btn4 {
     top: 0;
-    width: 210px;
+    width:auto;
     display: inline-block;
+    padding-right:20px;
 }
 
 
@@ -5859,7 +5860,7 @@ ul.cjtb_ul li div.ul-bg {
     cursor: pointer;
 }
 .input#projName{ 
-    width:400px;
+    width:50%;
     height: 30px;
     line-height: 30px;
     border: 1px solid #ccc;

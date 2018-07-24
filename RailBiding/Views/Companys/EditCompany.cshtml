@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "编辑单位内容";
 }
-
 <link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
 <link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
@@ -13,6 +12,7 @@
 <style>
     * {
         margin: 0;
+        position: 0;
     }
 
     ul li {
@@ -234,6 +234,10 @@
     #tworkhistory > tr > td:last-child {
         display: none;
     }
+
+    .block-left .meet-form.meet-form3 .form-tr .form-lable {
+        width: 120px;
+    }
 </style>
 
 <div class="left-nav">
@@ -252,7 +256,7 @@
     <div class="main-wrap">
         <div class="main-top top-bottom">
             <span class="left-line"></span>
-            <span class="page-title">修改企业信息</span>
+            <span class="page-title">编辑企业内容</span>
         </div>
         <div class="wc-container app-dt">
             <div class="wc-nav">
@@ -264,9 +268,11 @@
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>企业名称：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="@ViewBag.Name" id="companyName"
-                                       class="has-clear-input input input3" autofocus />
+                                <input name="roomInfoName" type="text" value="@ViewBag.Name" id="companyName" style="float:left"
+                                       class="has-clear-input input input3 chongfuinput" autofocus onblur="CheckCompanyNameUsed()" />
+                                <span style="color:red;display:none;line-height: 50px;float:left;width:48%" class="chongfu">该企业已在库里，请重新录入企业名称！</span>
                             </td>
+
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable">业务类型：</td>
@@ -274,19 +280,18 @@
                                 <div class="form-item  sel-required">
                                     <select class="select radius-sel dropdown" name="iofnName"
                                             id="bType" value="@ViewBag.BusinessType"></select>
-
                                 </div>
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable"><span class="red-word">*</span>推荐人：</td>
+                            <td class="form-lable"><span class="red-word yuijianred"></span>推荐人：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="@ViewBag.Referre" id="refererName"
-                                       class="has-clear-input input input3 input4" />
+                                       class="has-clear-input input input3 input4" onblur="refererName()" />
                                 <span class="td-cer">推荐书：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput1" id="allfileInput1" value=""style="opacity:0;">
+                                        <input type="file" name="fileInput1" id="allfileInput1" value="" style="opacity:0;">
                                         <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
@@ -299,15 +304,15 @@
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="" style="opacity:0;">
+                                        <input type="file" name="fileInput" id="allfileInput2" value="@ViewBag.CreditNo" style="opacity:0;">
                                         <input id="busiLicPic" type="text" name="foreRef" hidden>
-                                    </form>                                   
+                                    </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
                                     <div class="dw2" style="padding-left:50px;text-align:left"></div>
                                 </div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
-                                <input name="youziz" id="socialCreditNo" type="text" value=""
-                                       class="has-clear-input input input3 input4" required><span class="tips" id="zizhi"></span>
+                                <input name="youziz" id="socialCreditNo" type="text" value="@ViewBag.CreditNo"
+                                       class="has-clear-input input input3 input4" required onblur="socialCreditNo()"><span class="tips"></span>
                                 @*onBlur="checkpsd2()"*@
                             </td>
                         </tr>
@@ -315,7 +320,7 @@
                             <td class="form-lable"><span class="red-word">*</span>资质等级：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="@ViewBag.QualificationLevel" id="qualificationLevel"
-                                       class="has-clear-input input input5" />
+                                       class="has-clear-input input input5" onblur="qualificationLevel()" />
                             </td>
                         </tr>
                         <tr class="form-tr tr-pic2">
@@ -333,7 +338,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 添加资质弹框-->
+                                <!-- 添加资质弹框 -->
                                 <div class="canvas">
                                     <div class="canvas_content">
                                         <span class="canvas_close">×</span>
@@ -360,7 +365,7 @@
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4" style="opacity:0;">
+                                        <input type="file" name="fileInput" id="allfileInput4" style="opacity:0;">
                                         <input id="scPic" type="text" name="foreRef" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
@@ -369,53 +374,52 @@
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
                                        class="has-clear-input input input3 input4 "
-                                       required><span class="tips" id="zjbh"></span>
+                                       required onblur="licenseNo()"><span class="tips " id="zjbh"></span>
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable"><span class="white-word">*</span>业务范围：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="@ViewBag.BusinessScope" id="businessScope"
-                                       class="has-clear-input input input3 input6" />
+                                       class="has-clear-input input input3 input6" onblur="businessScope()" />
                                 <span class="td-cer">注册资金： </span>
-                                <input name="roomInfoName" type="text" id="registerMoney"
+                                <input name="roomInfoName" type="number" id="registerMoney"
                                        value="@ViewBag.RegisteredCapital"
-                                       class="has-clear-input input input3 input4" />万元
+                                       class="has-clear-input input input3 input4" onblur="registerMoney()" />万元
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>法人代表：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="@ViewBag.CorporateRepresentative" id="companyRepresentative"
-                                       class="has-clear-input input input3 input4" />
+                                <input name="roomInfoName" type="text" value="@ViewBag.CorporateRepresentative"  id="companyRepresentative"
+                                       class="has-clear-input input input3 input4" onblur="companyRepresentative()" />
                                 <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
                                                                          value="@ViewBag.RepPhone" id="repTelephone"
-                                                                         class="has-clear-input input input3 input4" />
+                                                                         class="has-clear-input input input3 input4" onblur="repTelephone()" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'repSFZ')"
+                                        <input type="file" name="fileInput"
                                                id="allfileInput5" style="opacity:0;">
                                         <input id="repSFZ" type="text" name="foreRef" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
                                     <div class="dw4" style="padding-left:50px;text-align:left"></div>
                                 </div>
-
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>现场负责人：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="@ViewBag.Contact" id="contact"
-                                       class="has-clear-input input input3 input4" />
+                                       class="has-clear-input input input3 input4" onblur="contact()" />
                                 <span class="td-cer">联系电话： </span><input name="roomInfoName" type="text"
                                                                          value="@ViewBag.ContactPhone" id="contactPhone"
-                                                                         class="has-clear-input input input3 input4" />
+                                                                         class="has-clear-input input input3 input4" onblur="contactPhone()" />
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6" style="opacity:0;">
+                                        <input type="file" name="fileInput" id="allfileInput6" style="opacity:0;">
                                         <input id="conSFZ" type="text" name="foreRef" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
@@ -427,140 +431,164 @@
                             <td class="form-lable"><span class="white-word">*</span>联系地址：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="@ViewBag.ContactAddress" id="contactAddress"
-                                       class="has-clear-input input input3" />
+                                       class="has-clear-input input input3" onblur="contactAddress()" />
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable">施工内容：</td>
                             <td>
-                                <textarea name="roomInfoName" type="text" id="construction"
-                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }">
-                                    @ViewBag.ConstructionContent
-                                    </textarea>
-                                </td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="form-lable">备注：</td>
-                                <td>
-                                    <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note"
-                                           class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='请输入其他说明' }">
-                                </td>
-                            </tr>
-                            <tr class="form-tr detail-user-con gzyj">
-                                <td colspan="2">
-                                    <h3 class="yj-tit">工作业绩:</h3>
-                                    <table style="width: 100%" class="table01">
-                                        <thead class="wc-header gzyjthead">
-                                            <tr>
-                                                <td style="width:150px;padding:0 5px">承包项目</td>
-                                                <td style="width:80px;padding:0 5px">合同金额</tdstyle="width:150px;padding:0>
-                                                <td style="width:100px;padding:0 5px">开工日期</td>
-                                                <td style="width:100px;padding:0 5px">竣工日期</td>
-                                                <td style="width:50px;padding:0 5px">状态</td>
-                                                <td style="width:80px;padding:0 5px">结算金额</td>
-                                                <td style="width:100px;padding:0 5px">合同扫描件</td>
-                                                <td style="width:80px;padding:0 5px">操作</td>
-                                                <td style="display:none;width:80px;padding:0 5px">合同扫描件</td>
+                                <textarea name="roomInfoName" type="text" value="@ViewBag.ConstructionContent" id="construction" onblur="construction()"
+                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }"></textarea>
+                            </td>
+                        </tr>
+                        <tr class="form-tr">
+                            <td class="form-lable">备注：</td>
+                            <td>
+                                <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note" onblur="note()"
+                                       class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='请输入其他说明' }">
+                            </td>
+                        </tr>
+                        <tr class="form-tr detail-user-con gzyj">
+                            <td colspan="2">
+                                <h3 class="yj-tit">工作业绩:</h3>
+                                <table style="width: 100%" class="table01">
+                                    <thead class="wc-header gzyjthead">
+                                        <tr>
+                                            <td style="width:150px;padding:0 5px">承包项目</td>
+                                            <td style="width:80px;padding:0 5px">合同金额</tdstyle="width:150px;padding:0>
+                                            <td style="width:100px;padding:0 5px">开工日期</td>
+                                            <td style="width:100px;padding:0 5px">竣工日期</td>
+                                            <td style="width:50px;padding:0 5px">状态</td>
+                                            <td style="width:80px;padding:0 5px">结算金额</td>
+                                            <td style="width:100px;padding:0 5px">合同扫描件</td>
+                                            <td style="width:80px;padding:0 5px">操作</td>
+                                            <td style="display:none;width:80px;padding:0 5px">合同扫描件</td>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tworkhistory">
-                                            @Html.Raw(ViewBag.WorkHistory)
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- mask begin -->
-                    <div class="aui-mask aui-works-mask">
-                        <div class="aui-mask-content">
-                            <p class="aui-delete-text">确定要删除你上传的资料？</p>
-                            <p class="aui-check-text">
-                                <span class="aui-delete aui-accept-ok">确定</span>
-                                <span class="aui-accept-no">取消</span>
-                            </p>
-                        </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tworkhistory">@Html.Raw(ViewBag.WorkHistory)</tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- mask begin -->
+                <div class="aui-mask aui-works-mask">
+                    <div class="aui-mask-content">
+                        <p class="aui-delete-text">确定要删除你上传的资料？</p>
+                        <p class="aui-check-text">
+                            <span class="aui-delete aui-accept-ok">确定</span>
+                            <span class="aui-accept-no">取消</span>
+                        </p>
                     </div>
-                    <!-- mask end -->
-                    <div class="add-yej">
-                        <h3>添加业绩</h3>
-                        <div class="cb">
-                            <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" maxlength="30" name="roomInfoName" value="" id="projName" />
-                            <label for="" style="width:100px;float:left">合同扫描件：</label>
-                            <div class="upload-btn upload-btn2" style="top:0px;width: 40px;float:left;">
-                                <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/UploadTestifyFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                    <input type='file' id='fileInfoName' name='fup' value="IamPic" style="opacity:0;" />
-                                    <input type="text" id="fname" name="fname" width="20" value="4" style="display:none" />
-                                </form>
-                                <img src="/img/icon-add2.png" alt="" class="up up2">
-                            </div>
-                            <div class="dw"></div>
+                </div>
+                <!-- mask end -->
+                <div class="add-yej">
+                    <h3>添加业绩</h3>
+                    <div class="cb">
+                        <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" maxlength="30" name="roomInfoName" value="" id="projName" />
+                        <label for="" style="width:100px;float:left">合同扫描件：</label>
+                        <div class="upload-btn upload-btn2" style="top:0px;width: 40px;float:left;">
+                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/UploadTestifyFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                <input type='file' id='fileInfoName' name='fup' value="IamPic" style="opacity:0;" />
+                                <input type="text" id="fname" name="fname" width="20" value="4" style="display:none" />
+                            </form>
+                            <img src="/img/icon-add2.png" alt="" class="up up2">
                         </div>
-                        <div class="cb">
-                            <label for="">合同金额：</label><input type="text" class="input8" id="contractAmount">&nbsp;万
-                            <span>状态：</span><select class="select radius-sel dropdown"
-                                                    name="iofnName" id="iofnName">
-                                <option value="正常">正常</option>
-                                <option value="延期">延期</option>
-                            </select><span>开工时间：</span><input name="userTimeBegin" id="timeBegin"
-                                                              class="date-input radius-sel Wdate"
-                                                              type="text" value=""
-                                                              placeholder="开工日期" onfocus="if (placeholder == '开工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '开工日期' }"
-                                                              onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
-                            <span>竣工时间：</span><input name="userTimeBegin" id="timeEnd"
-                                                     class="date-input radius-sel Wdate"
-                                                     type="text" value="" placeholder="竣工日期" onfocus="if (placeholder == '竣工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '竣工日期' }"
-                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
-                            <span>结算金额：</span><input type="text" class="input8" id="settleAmount">&nbsp;万元
-                        </div>
-
-                        <div class="btn-add">
-                            <button class="" onclick="addworkHistory()">添加</button>
-                        </div>
+                        <div class="dw"></div>
+                    </div>
+                    <div class="cb">
+                        <label for="">合同金额：</label><input type="number" class="input8" id="contractAmount">&nbsp;万
+                        <span>状态：</span><select class="select radius-sel dropdown"
+                                                name="iofnName" id="iofnName">
+                            <option value="正常">正常</option>
+                            <option value="延期">延期</option>
+                        </select><span>开工时间：</span><input name="userTimeBegin" id="timeBegin"
+                                                          class="date-input radius-sel Wdate"
+                                                          type="text" value=""
+                                                          placeholder="开工日期" onfocus="if (placeholder == '开工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '开工日期' }"
+                                                          onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
+                        <span>竣工时间：</span><input name="userTimeBegin" id="timeEnd"
+                                                 class="date-input radius-sel Wdate"
+                                                 type="text" value="" placeholder="竣工日期" onfocus="if (placeholder == '竣工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '竣工日期' }"
+                                                 onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
+                        <span>结算金额：</span><input type="number" class="input8" id="settleAmount">&nbsp;万元
                     </div>
 
-                    <div class="form-tr-btn">
-                        <button type="submit" class="meet-btn big-btn lightblue-btn" onclick="saveCompany()">提交</button>@*js-submit*@
-                        @*<button type="submit" class="meet-btn big-btn lightblue-btn js-submit">保存</button>*@
-                        <button type="reset" class="meet-btn big-btn gray-btn" onclick="">取消</button>
+                    <div class="btn-add">
+                        <button class="" onclick="addworkHistory()">添加</button>
                     </div>
+                </div>
+
+                <div class="form-tr-btn">
+                    <button type="submit" class="meet-btn big-btn lightblue-btn" onclick="saveCompany(1)">提交</button>@*js-submit*@
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="saveCompany(0)">保存</button>
+                    <button type="reset" class="meet-btn big-btn gray-btn" onclick="">取消</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
-    <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
-    <script src="~/js/sweetalert2.all.js"></script>
-    <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
-    <script type='text/javascript' src='~/js/js.js'></script>
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/jquery.form.js"></script>
-    <script type="text/javascript" src="~/js/js.js"></script>
-    <script type="text/javascript" src="~/js/loading.js"></script>
-    <script type="text/javascript" src="~/js/up.js"></script>
-    <script type='text/javascript'>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.form.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
+<script type="text/javascript" src="~/js/up.js"></script>
+<script type='text/javascript'>
+    function businessScope(){
+        if($("#businessScope").val()!=""){
+            $("#businessScope").css('border','1px solid green');
+        }
+    }
+    function registerMoney(){
+        if($("#registerMoney").val()!=""){
+            $("#registerMoney").css('border','1px solid green');
+        }
+    }
+    function contactAddress(){
+        if($("#contactAddress").val()!=""){
+            $("#contactAddress").css('border','1px solid green');
+        }
+    }
+    function construction(){
+        if($("#construction").val()!=""){
+            $("#construction").css('border','1px solid green');
+        }
+    }
+    function note(){
+        if($("#note").val()!=""){
+            $("#note").css('border','1px solid green');
+        }
+    }
 
 
-        //业绩附件上传
+    if(@ViewBag.inout=="0"){
+        $(".yuijianred").html("*")
+    }
     $("#fileInfoName").change(function () {
+
         var fileInfoName = $("#fileInfoName").val();
         if (fileInfoName == "") { //点击取消，取消事件的编写
             return;
         }
         $("#fupform").ajaxSubmit(function (res) {
-          console.log(res);
-          var fileName = res.split('|');
-          $(".dw").html(fileName[1]);
-          $("#fname").val(fileName[0]);
+            console.log(res);
+            var fileName = res.split('|');
+            $(".dw").html(fileName[1]);
+            $("#fname").val(fileName[0]);
         });
     })
 
 
-      //推荐书附件上传
+    //推荐书附件上传
     $("#allfileInput1").change(function () {
         var allfileInput1 = $("#allfileInput1").val();
         if (allfileInput1 == "") { //点击取消，取消事件的编写
@@ -629,7 +657,195 @@
     })
 
 
-    function saveCompany() {
+    //验证
+
+    //推荐人验证
+    function refererName(){
+        var refererName = $("#refererName").val();
+        if ( $(".yuijianred").html()!= ""){
+            if (refererName == "") {
+                swal({
+                    title: '推荐人不能为空！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer');
+                        }
+                    }
+
+                )
+                return;
+            }
+        }else{
+            $("#refererName").css('border','1px solid green');
+        }
+    }
+
+
+    //营业执照代号码验证
+    function  socialCreditNo(){
+        var socialCreditNo = $("#socialCreditNo").val();
+        if (socialCreditNo == "") {
+            swal({
+                title: '请填写统一社会信用代码号！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+            )
+            return;
+        }else{
+            $("#socialCreditNo").css('border','1px solid green');
+        }
+    }
+
+    //资质等级验证
+    function  qualificationLevel(){
+
+        var qualificationLevel = $("#qualificationLevel").val();
+        if (qualificationLevel == "") {
+            swal({
+                title: '请填写资质等级！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+            )
+            return;
+        }else{
+            $("#qualificationLevel").css('border','1px solid green');
+        }
+    }
+
+    //安全证书号码验证
+    function  licenseNo(){
+        var licenseNo = $("#licenseNo").val();
+        if (licenseNo != "") {
+            $("#licenseNo").css('border','1px solid green');
+        }
+    }
+
+
+    //法人代表验证
+    function  companyRepresentative(){
+        var companyRepresentative = $("#companyRepresentative").val();
+        if (companyRepresentative == "") {
+            swal({
+                title: '请填写法人代表！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+            )
+            return;
+        }else{
+            $("#companyRepresentative").css('border','1px solid green');
+        }
+    }
+    //法人代表电话验证
+    function repTelephone(){
+        var repTelephone = $("#repTelephone").val();
+        if (repTelephone == "") {
+            swal({
+                title: '请填写法人代表联系电话！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+            )
+            return;
+        }else{
+            $("#repTelephone").css('border','1px solid green');
+        }
+    }
+
+    //现场负责人验证
+    function contact(){
+        var contact = $("#contact").val();
+        if (contact == "") {
+            swal({
+                title: '请填写现场负责人！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+            )
+            return;
+        }else{
+            $("#contact").css('border','1px solid green');
+        }
+
+    }
+    //现场负责人电话验证
+    function contactPhone(){
+        var contactPhone = $("#contactPhone").val();
+        if (contactPhone == "") {
+            swal({
+                title: '请填写现场负责人联系电话！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+            )
+            return;
+        }else{
+            $("#contactPhone").css('border','1px solid green');
+        }
+    }
+    var checkcompanynameuserd=false
+    function saveCompany(auditSt) {
+
+        if(!checkcompanynameuserd)
+        {
+
+            $(".chongfuinput").css({"width":"50%","margin-top":"10px"})
+            $(".chongfu").css({"display":'block','padding-left':'10px'})
+            window.scrollTo(0,0);
+            //
+
+            return;
+        }
+
         var companyName = $("#companyName").val();
         var refererName = $("#refererName").val();
         var allfileInput1 = $("#allfileInput1").val();
@@ -665,40 +881,48 @@
 
             )
             return;
-        } else if (refererName == "") {
+        }
 
-            document.getElementById("refererName").focus();
-            swal({
-                title: '请填写推荐人！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
+        if ( $(".yuijianred").html()!= ""){
+            if (refererName == "") {
+                document.getElementById("refererName").focus();
+                swal({
+                    title: '推荐人不能为空！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer');
+                        }
                     }
-                }
-            )
-            return;
-        } else if (allfileInput1 == "") {
-            document.getElementById("allfileInput1").focus();
-            swal({
-                title: '请上传推荐书！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
+
+                )
+                return;
+            }
+            if (allfileInput1 == "") {
+
+                document.getElementById("allfileInput1").focus();
+                swal({
+                    title: '请上传推荐书！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                }).then(
+                    function () { },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer');
+                        }
                     }
-                }
-            )
-            return;
-        } else if (allfileInput2 == "") {
+                )
+                return;
+            }
+        }
+
+        if (allfileInput2 == "") {
 
             document.getElementById("allfileInput2").focus();
             swal({
@@ -716,7 +940,7 @@
             )
             return;
         }
-        else if (socialCreditNo == "") {
+        if (socialCreditNo == "") {
             document.getElementById("socialCreditNo").focus();
             swal({
                 title: '请填写统一社会信用代码号！',
@@ -732,10 +956,11 @@
                 }
             )
             return;
-        } else if (qualificationLevel == "") {
+        }
+        if (qualificationLevel == "") {
             document.getElementById("qualificationLevel").focus();
             swal({
-                title: '请填写资质等级!!!！',
+                title: '请填写资质等级！',
                 text: '2秒后自动关闭。',
                 timer: 2000
             }).then(
@@ -748,7 +973,8 @@
                 }
             )
             return;
-        } else if (zzlist == "") {
+        }
+        if (zzlist == "") {
             swal({
                 title: '请上传企业资质！',
                 text: '2秒后自动关闭。',
@@ -763,40 +989,45 @@
                 }
             )
             return;
-        } else if (allfileInput4 == "") {
-            document.getElementById("allfileInput4").focus();
-            swal({
-                title: '请上传安全证书！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        } else if (licenseNo == "") {
+        }
+        /*     if( $(".yuijianred").html()!= "") {
+                 if(allfileInput4 == "") {
+                     document.getElementById("allfileInput4").focus();
+                     swal({
+                         title: '请上传安全证书！',
+                         text: '2秒后自动关闭。',
+                         timer: 2000
+                     }).then(
+                         function () { },
+                         // handling the promise rejection
+                         function (dismiss) {
+                             if (dismiss === 'timer') {
+                                 console.log('I was closed by the timer');
+                             }
+                         }
+                     )
+                     return;
+                 }
+                 if (licenseNo == "") {
 
-            document.getElementById("licenseNo").focus();
-            swal({
-                title: '请上传证件编号！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        } else if (companyRepresentative == "") {
+                     document.getElementById("licenseNo").focus();
+                     swal({
+                         title: '请上传证件编号！',
+                         text: '2秒后自动关闭。',
+                         timer: 2000
+                     }).then(
+                         function () { },
+                         // handling the promise rejection
+                         function (dismiss) {
+                             if (dismiss === 'timer') {
+                                 console.log('I was closed by the timer');
+                             }
+                         }
+                     )
+                     return;
+                 }
+             }*/
+        if (companyRepresentative == "") {
 
             document.getElementById("companyRepresentative").focus();
             swal({
@@ -813,7 +1044,8 @@
                 }
             )
             return;
-        } else if (repTelephone == "") {
+        }
+        if (repTelephone == "") {
             document.getElementById("repTelephone").focus();
             swal({
                 title: '请填写法人代表联系电话！',
@@ -829,7 +1061,8 @@
                 }
             )
             return;
-        } else if (allfileInput5 == "") {
+        }
+        if (allfileInput5 == "") {
 
             document.getElementById("allfileInput5").focus();
             swal({
@@ -846,7 +1079,8 @@
                 }
             )
             return;
-        } else if (contact == "") {
+        }
+        if (contact == "") {
             document.getElementById("contact").focus();
             swal({
                 title: '请填写现场负责人！',
@@ -862,7 +1096,8 @@
                 }
             )
             return;
-        } else if (contactPhone == "") {
+        }
+        if (contactPhone == "") {
 
             document.getElementById("contactPhone").focus();
             swal({
@@ -879,7 +1114,8 @@
                 }
             )
             return;
-        } else if (allfileInput6 == "") {
+        }
+        if (allfileInput6 == "") {
 
             document.getElementById("allfileInput6").focus();
             swal({
@@ -897,8 +1133,8 @@
             )
             return;
         }
-
         var comName = $("#companyName").val()
+
         var bt = $("#bType").val()
         var refname = $("#refererName").val()
         var scno = $("#socialCreditNo").val()
@@ -913,19 +1149,17 @@
         var caddress = $("#contactAddress").val()
         var construct = $("#construction").val()
         var nn = $("#note").val()
-
         var refdoc = $("#referPic").val();
-        var busiLicPic = $("#busiLicPic").val();
-        var scPic = $("#scPic").val();
-        var repSFZ = $("#repSFZ").val();
-        var conSFZ = $("#conSFZ").val();
-        
+        var blpic = document.getElementById("busiLicPic").value
+        var scPic = document.getElementById("scPic").value
+        var rsfz = document.getElementById("repSFZ").value
+        var ctsfz = document.getElementById("conSFZ").value
         var tdfilename = $("#tworkhistory tr td:last-child").html();
 
         var data = {
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc, busiLicPic: busiLicPic, scPic: scPic, repSFZ: repSFZ, conSFZ: conSFZ,
-            contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: 1
+            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc, blpic:blpic,scPic:scPic,rsfz:rsfz,ctsfz:ctsfz,
+            contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
         }
         // show
         $('body').loading({
@@ -943,36 +1177,22 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
-        $.post("/Companys/UpdateCompany?cid=@ViewBag.cid", data, function (res) {
-            console.log(1)
+        $.post("/Companys/Create", data, function (res) {
+
             if (res == "1") {
+                uploadZZPics();
                 uploadWorkHistory();
+
+
             } else {
                 //hide
                 removeLoading('test');
-                swal('公司创建失败')
+                swal('公司创建失败, '+res)
             }
         })
     }
-    function uploadPics() {
-        var blpic = document.getElementById("busiLicPic").innerText
-        var scPic = document.getElementById("scPic").innerText
-        var rsfz = document.getElementById("repSFZ").innerText
-        var ctsfz = document.getElementById("conSFZ").innerText
-        var data = { picdata: blpic, name: "blpic" }
-        $.post("/Companys/UploadPic", data, function (res) {
-            data = { picdata: scPic, name: "scPic" }
-            $.post("/Companys/UploadPic", data, function (res) {
-                data = { picdata: rsfz, name: "rsfz" }
-                $.post("/Companys/UploadPic", data, function (res) {
-                    data = { picdata: ctsfz, name: "ctsfz" }
-                    $.post("/Companys/UploadPic", data, function (res) {
-                        uploadZZPics();
-                    })
-                })
-            })
-        })
-    }
+
+
     function uploadWorkHistory() {
         var wh = $("#tworkhistory")
         var children = wh.children();
@@ -990,7 +1210,10 @@
         }
 
         $.post("/Companys/UploadWorkHistory", { workhistory: data }, function (res) {
-            uploadPics();
+            removeLoading('test');
+            swal('公司创建成功').then(function () {
+                window.location.href = "/Companys/MyRecommend";
+            });
         });
     }
     function uploadZZPics() {
@@ -1002,11 +1225,6 @@
             var zzcode = cd[3].innerText;
             var data = { picData: b64, name: zzname, code: zzcode };
             $.post("/Companys/UploadZiZhi", data, function () {
-                removeLoading('test');
-                swal('公司创建成功').then(function () {
-                     window.location.href = "/Companys/MyRecommend";
-                });
-
             });
         }
     }
@@ -1143,7 +1361,6 @@
         tdffileName.innerText = tdffileInfoName;
 
         var tdhiddw = document.createElement("td");
-
         var tdfname = $("#fname").val();
         tdhiddw.innerText = tdfname;
 
@@ -1160,6 +1377,7 @@
         rowtr.appendChild(tdhiddw);
 
         document.getElementById("tworkhistory").appendChild(rowtr);
+        $("#fileInfoName").val("");
         $("#projName").val("");
         $("#contractAmount").val("");
         $("#timeEnd").val("");
@@ -1175,9 +1393,8 @@
 
     }
     function removeRow(rid) {
-        console.log(rid);
-        //var row = document.getElementById(rid)
-        rid.parentNode.removeChild(rid);
+        var row = document.getElementById(rid)
+        row.parentNode.removeChild(row);
     }
     function submitImg() {
         var success = 0;
@@ -1265,5 +1482,43 @@
         }
     }
 
-    </script>
 
+    function CheckCompanyNameUsed() {
+        var companyName = $("#companyName").val();
+
+        if (companyName == "") {
+            document.getElementById("companyName").focus();
+            swal({
+                title: '企业名称不能为空！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            }).then(
+                function () { },
+                // handling the promise rejection
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        console.log('I was closed by the timer');
+                    }
+                }
+
+            )
+            return;
+        }else{
+            $.post("/Companys/CheckCompanyNameUsed", { cName: companyName }, function (data) {
+                if (data != "1") {
+                    swal("该企业已在库里，请重新录入企业名称！");
+                    $("#companyName").css('border','1px solid red');
+
+                }
+                else{
+                    $("#companyName").css('border','1px solid green');
+                    $(".chongfuinput").css({"width":"98%","margin-top":"0px"})
+                    $(".chongfu").css({"display":'none'})
+
+                    checkcompanynameuserd=true;
+                }
+            })
+        }
+
+    }
+</script>

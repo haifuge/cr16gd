@@ -804,6 +804,7 @@ namespace RailBiding.Controllers
             ViewBag.Note = dr["Note"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
+            ViewBag.inout = dr["Type"].ToString();
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -911,7 +912,7 @@ namespace RailBiding.Controllers
             ViewBag.Note = dr["Note"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
-
+            ViewBag.inout = dr["Type"].ToString();
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();
