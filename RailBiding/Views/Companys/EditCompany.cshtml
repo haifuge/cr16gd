@@ -287,10 +287,10 @@
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput1" id="allfileInput1" value=""style="opacity:0;">
-                                        <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
+                                        @Html.Raw(ViewBag.ReferreIDPic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw1" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw1)
                                 </div>
                             </td>
                         </tr>
@@ -300,10 +300,10 @@
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="" style="opacity:0;">
-                                        <input id="busiLicPic" type="text" name="foreRef" hidden>
+                                        @Html.Raw(ViewBag.BusinessLicensePic)
                                     </form>                                   
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw2" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw2)
                                 </div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
                                 <input name="youziz" id="socialCreditNo" type="text" value=""
@@ -361,10 +361,10 @@
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4" style="opacity:0;">
-                                        <input id="scPic" type="text" name="foreRef" hidden>
+                                        @Html.Raw(ViewBag.SecurityCertificatePic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw3" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw3)
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
@@ -396,10 +396,10 @@
                                     <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'repSFZ')"
                                                id="allfileInput5" style="opacity:0;">
-                                        <input id="repSFZ" type="text" name="foreRef" hidden>
+                                        @Html.Raw(ViewBag.RepIDPic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw4" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw4)
                                 </div>
 
                             </td>
@@ -416,10 +416,10 @@
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6" style="opacity:0;">
-                                        <input id="conSFZ" type="text" name="foreRef" hidden>
+                                        @Html.Raw(ViewBag.ContactIDPic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw5" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw5)
                                 </div>
                             </td>
                         </tr>
@@ -434,9 +434,7 @@
                             <td class="form-lable">施工内容：</td>
                             <td>
                                 <textarea name="roomInfoName" type="text" id="construction"
-                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }">
-                                    @ViewBag.ConstructionContent
-                                    </textarea>
+                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }">@ViewBag.ConstructionContent</textarea>
                                 </td>
                             </tr>
                             <tr class="form-tr">
@@ -453,7 +451,7 @@
                                         <thead class="wc-header gzyjthead">
                                             <tr>
                                                 <td style="width:150px;padding:0 5px">承包项目</td>
-                                                <td style="width:80px;padding:0 5px">合同金额</tdstyle="width:150px;padding:0>
+                                                <td style="width:80px;padding:0 5px">合同金额</td>
                                                 <td style="width:100px;padding:0 5px">开工日期</td>
                                                 <td style="width:100px;padding:0 5px">竣工日期</td>
                                                 <td style="width:50px;padding:0 5px">状态</td>
@@ -461,7 +459,6 @@
                                                 <td style="width:100px;padding:0 5px">合同扫描件</td>
                                                 <td style="width:80px;padding:0 5px">操作</td>
                                                 <td style="display:none;width:80px;padding:0 5px">合同扫描件</td>
-
                                             </tr>
                                         </thead>
                                         <tbody id="tworkhistory">
