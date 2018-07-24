@@ -331,10 +331,8 @@
                                         <div class="aui-photo aui-up-img">
                                             <section class="aui-file-up fl">
                                                 <img src="~/img/up.png" class="add-img">
-                                                @*<input type="file" name="file" id="file" class="file" value=""
-                                                    accept="image/jpg,image/jpeg,image/png,image/bmp" multiple="">*@
                                             </section>
-                                            <ul class="img-box" id="zzlist">@Html.Raw(ViewBag.CompanyPics )</ul>
+                                            <ul class="img-box" id="zzlist">@Html.Raw(ViewBag.ZiZhiPics)</ul>
                                         </div>
                                     </div>
                                 </div>
@@ -1157,7 +1155,7 @@
         var ctsfz = document.getElementById("conSFZ").value
         var tdfilename = $("#tworkhistory tr td:last-child").html();
 
-        var data = {
+        var data = { id:@ViewBag.cid,
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc, blpic:blpic,scPic:scPic,rsfz:rsfz,ctsfz:ctsfz,
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
@@ -1178,7 +1176,7 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
-        $.post("/Companys/Create", data, function (res) {
+        $.post("/Companys/SaveCompany", data, function (res) {
 
             if (res == "1") {
                 uploadZZPics();
