@@ -291,11 +291,11 @@
                                 <span class="td-cer">推荐书：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput1" id="allfileInput1" value="" style="opacity:0;">
-                                        <input type="text" id="referPic" name="foreRef" width="20" value="" hidden />
+                                        <input type="file" name="fileInput1" id="allfileInput1" value=""style="opacity:0;">
+                                        @Html.Raw(ViewBag.ReferreIDPic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw1" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw1)
                                 </div>
                             </td>
                         </tr>
@@ -304,11 +304,11 @@
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" id="allfileInput2" value="@ViewBag.CreditNo" style="opacity:0;">
-                                        <input id="busiLicPic" type="text" name="foreRef" hidden>
-                                    </form>
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="" style="opacity:0;">
+                                        @Html.Raw(ViewBag.BusinessLicensePic)
+                                    </form>                                   
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw2" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw2)
                                 </div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
                                 <input name="youziz" id="socialCreditNo" type="text" value="@ViewBag.CreditNo"
@@ -365,11 +365,11 @@
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" id="allfileInput4" style="opacity:0;">
-                                        <input id="scPic" type="text" name="foreRef" hidden>
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4" style="opacity:0;">
+                                        @Html.Raw(ViewBag.SecurityCertificatePic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw3" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw3)
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
@@ -401,10 +401,10 @@
                                     <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput"
                                                id="allfileInput5" style="opacity:0;">
-                                        <input id="repSFZ" type="text" name="foreRef" hidden>
+                                        @Html.Raw(ViewBag.RepIDPic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw4" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw4)
                                 </div>
                             </td>
                         </tr>
@@ -419,11 +419,11 @@
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" id="allfileInput6" style="opacity:0;">
-                                        <input id="conSFZ" type="text" name="foreRef" hidden>
+                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6" style="opacity:0;">
+                                        @Html.Raw(ViewBag.ContactIDPic)
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    <div class="dw5" style="padding-left:50px;text-align:left"></div>
+                                    @Html.Raw(ViewBag.dw5)
                                 </div>
                             </td>
                         </tr>
@@ -437,83 +437,84 @@
                         <tr class="form-tr">
                             <td class="form-lable">施工内容：</td>
                             <td>
-                                <textarea name="roomInfoName" type="text" value="@ViewBag.ConstructionContent" id="construction" onblur="construction()"
-                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }"></textarea>
-                            </td>
-                        </tr>
-                        <tr class="form-tr">
-                            <td class="form-lable">备注：</td>
-                            <td>
-                                <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note" onblur="note()"
-                                       class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='请输入其他说明' }">
-                            </td>
-                        </tr>
-                        <tr class="form-tr detail-user-con gzyj">
-                            <td colspan="2">
-                                <h3 class="yj-tit">工作业绩:</h3>
-                                <table style="width: 100%" class="table01">
-                                    <thead class="wc-header gzyjthead">
-                                        <tr>
-                                            <td style="width:150px;padding:0 5px">承包项目</td>
-                                            <td style="width:80px;padding:0 5px">合同金额</tdstyle="width:150px;padding:0>
-                                            <td style="width:100px;padding:0 5px">开工日期</td>
-                                            <td style="width:100px;padding:0 5px">竣工日期</td>
-                                            <td style="width:50px;padding:0 5px">状态</td>
-                                            <td style="width:80px;padding:0 5px">结算金额</td>
-                                            <td style="width:100px;padding:0 5px">合同扫描件</td>
-                                            <td style="width:80px;padding:0 5px">操作</td>
-                                            <td style="display:none;width:80px;padding:0 5px">合同扫描件</td>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tworkhistory">@Html.Raw(ViewBag.WorkHistory)</tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- mask begin -->
-                <div class="aui-mask aui-works-mask">
-                    <div class="aui-mask-content">
-                        <p class="aui-delete-text">确定要删除你上传的资料？</p>
-                        <p class="aui-check-text">
-                            <span class="aui-delete aui-accept-ok">确定</span>
-                            <span class="aui-accept-no">取消</span>
-                        </p>
-                    </div>
-                </div>
-                <!-- mask end -->
-                <div class="add-yej">
-                    <h3>添加业绩</h3>
-                    <div class="cb">
-                        <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" maxlength="30" name="roomInfoName" value="" id="projName" />
-                        <label for="" style="width:100px;float:left">合同扫描件：</label>
-                        <div class="upload-btn upload-btn2" style="top:0px;width: 40px;float:left;">
-                            <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/UploadTestifyFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                <input type='file' id='fileInfoName' name='fup' value="IamPic" style="opacity:0;" />
-                                <input type="text" id="fname" name="fname" width="20" value="4" style="display:none" />
-                            </form>
-                            <img src="/img/icon-add2.png" alt="" class="up up2">
+                                <textarea name="roomInfoName" type="text" id="construction"
+                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }">@ViewBag.ConstructionContent</textarea>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable">备注：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note"
+                                           class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='请输入其他说明' }">
+                                </td>
+                            </tr>
+                            <tr class="form-tr detail-user-con gzyj">
+                                <td colspan="2">
+                                    <h3 class="yj-tit">工作业绩:</h3>
+                                    <table style="width: 100%" class="table01">
+                                        <thead class="wc-header gzyjthead">
+                                            <tr>
+                                                <td style="width:150px;padding:0 5px">承包项目</td>
+                                                <td style="width:80px;padding:0 5px">合同金额</td>
+                                                <td style="width:100px;padding:0 5px">开工日期</td>
+                                                <td style="width:100px;padding:0 5px">竣工日期</td>
+                                                <td style="width:50px;padding:0 5px">状态</td>
+                                                <td style="width:80px;padding:0 5px">结算金额</td>
+                                                <td style="width:100px;padding:0 5px">合同扫描件</td>
+                                                <td style="width:80px;padding:0 5px">操作</td>
+                                                <td style="display:none;width:80px;padding:0 5px">合同扫描件</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tworkhistory">
+                                            @Html.Raw(ViewBag.WorkHistory)
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- mask begin -->
+                    <div class="aui-mask aui-works-mask">
+                        <div class="aui-mask-content">
+                            <p class="aui-delete-text">确定要删除你上传的资料？</p>
+                            <p class="aui-check-text">
+                                <span class="aui-delete aui-accept-ok">确定</span>
+                                <span class="aui-accept-no">取消</span>
+                            </p>
                         </div>
-                        <div class="dw"></div>
                     </div>
-                    <div class="cb">
-                        <label for="">合同金额：</label><input type="number" class="input8" id="contractAmount">&nbsp;万
-                        <span>状态：</span><select class="select radius-sel dropdown"
-                                                name="iofnName" id="iofnName">
-                            <option value="正常">正常</option>
-                            <option value="延期">延期</option>
-                        </select><span>开工时间：</span><input name="userTimeBegin" id="timeBegin"
-                                                          class="date-input radius-sel Wdate"
-                                                          type="text" value=""
-                                                          placeholder="开工日期" onfocus="if (placeholder == '开工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '开工日期' }"
-                                                          onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
-                        <span>竣工时间：</span><input name="userTimeBegin" id="timeEnd"
-                                                 class="date-input radius-sel Wdate"
-                                                 type="text" value="" placeholder="竣工日期" onfocus="if (placeholder == '竣工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '竣工日期' }"
-                                                 onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
-                        <span>结算金额：</span><input type="number" class="input8" id="settleAmount">&nbsp;万元
-                    </div>
+                    <!-- mask end -->
+                    <div class="add-yej">
+                        <h3>添加业绩</h3>
+                        <div class="cb">
+                            <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" maxlength="30" name="roomInfoName" value="" id="projName" />
+                            <label for="" style="width:100px;float:left">合同扫描件：</label>
+                            <div class="upload-btn upload-btn2" style="top:0px;width: 40px;float:left;">
+                                <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/UploadTestifyFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <input type='file' id='fileInfoName' name='fup' value="IamPic" style="opacity:0;" />
+                                    <input type="text" id="fname" name="fname" width="20" value="4" style="display:none" />
+                                </form>
+                                <img src="/img/icon-add2.png" alt="" class="up up2">
+                            </div>
+                            <div class="dw"></div>
+                        </div>
+                        <div class="cb">
+                            <label for="">合同金额：</label><input type="text" class="input8" id="contractAmount">&nbsp;万
+                            <span>状态：</span><select class="select radius-sel dropdown"
+                                                    name="iofnName" id="iofnName">
+                                <option value="正常">正常</option>
+                                <option value="延期">延期</option>
+                            </select><span>开工时间：</span><input name="userTimeBegin" id="timeBegin"
+                                                              class="date-input radius-sel Wdate"
+                                                              type="text" value=""
+                                                              placeholder="开工日期" onfocus="if (placeholder == '开工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '开工日期' }"
+                                                              onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
+                            <span>竣工时间：</span><input name="userTimeBegin" id="timeEnd"
+                                                     class="date-input radius-sel Wdate"
+                                                     type="text" value="" placeholder="竣工日期" onfocus="if (placeholder == '竣工日期') { placeholder = '' }" onblur="if (value == '') { placeholder = '竣工日期' }"
+                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
+                            <span>结算金额：</span><input type="text" class="input8" id="settleAmount">&nbsp;万元
+                        </div>
 
                     <div class="btn-add">
                         <button class="" onclick="addworkHistory()">添加</button>

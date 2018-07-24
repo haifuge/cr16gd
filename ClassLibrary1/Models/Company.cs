@@ -329,5 +329,11 @@ namespace DAL.Models
             string sql = "select count(1) from Company where Name = '" + cName + "';";
             return DBHelper.ExecuteScalar(sql);
         }
+
+        public DataTable GetCompanyPics(string id)
+        {
+            string sql = "select FilePath, FileName from BidDocument where ProjId="+id+" and FileType=1 ";
+            return DBHelper.GetDataTable(sql);
+        }
     }
 }
