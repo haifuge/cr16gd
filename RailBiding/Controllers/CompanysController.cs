@@ -774,107 +774,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult ReApply()
         {
-            ViewBag.cid = Request["cid"].ToString();
-            string id= Request["cid"].ToString();
-            CompanyContext cc = new CompanyContext();
-            DataTable dt = cc.GetCompany(int.Parse(id));
-            DataRow dr = dt.Rows[0];
-            ViewBag.Name = dr["Name"].ToString();
-            ViewBag.CreditNo = dr["CreditNo"].ToString();
-            ViewBag.CorporateRepresentative = dr["CorporateRepresentative"].ToString();
-            ViewBag.RepPhone = dr["RepPhone"].ToString();
-            ViewBag.RegisteredCapital = dr["RegisteredCapital"].ToString();
-            ViewBag.BusinessScope = dr["BusinessScope"].ToString();
-            ViewBag.Contact = dr["Contact"].ToString();
-            ViewBag.ContactPhone = dr["ContactPhone"].ToString();
-            ViewBag.BusinessType = dr["BusinessType"].ToString();
-            ViewBag.ContactAddress = dr["ContactAddress"].ToString();
-            ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
-            ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
-            ViewBag.SecurityCertificateNo = dr["SecurityCertificateNo"].ToString();
-            
-            ViewBag.Note = dr["Note"].ToString();
-            ViewBag.Referre = dr["Referre"].ToString();
-            ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
-            ViewBag.inout = dr["Type"].ToString();
-
-            string rootPath = Server.MapPath("../");
-            string picHtml = "";
-            string pic = dr["ReferreIDPic"].ToString();
-            //if (pic != "")
-            //{
-            //    pic = pic.Replace(rootPath, "/");
-            //    picHtml += @"<div class='ab_tab2_img'><div>
-            //                 <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='推荐书'><img src = '" + pic + @"'></a>
-            //                  </div><p style='text-align: center; margin-bottom: 2px;'>推荐书</p><p style='text-align: center;'></p></div>";
-            //}
-            pic = dr["BusinessLicensePic"].ToString();
-            if (pic != "")
-            {
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='营业执照'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>营业执照</p><p style='text-align: center;'></p></div>";
-            }
-            pic = dr["SecurityCertificatePic"].ToString();
-            if (pic != "")
-            {
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>安全证书</p><p style='text-align: center;'>" + dr["SecurityCertificateNo"].ToString() + @"</p></div>";
-            }
-            pic = dr["RepIDPic"].ToString();
-            if (pic != "")
-            {
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>法人身份证</p><p style='text-align: center;'></p></div>";
-            }
-            pic = dr["ContactIDPic"].ToString();
-            if (pic != "")
-            {
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>现场负责人身份证</p><p style='text-align: center;'></p></div>";
-            }
-            dt = cc.GetZiZhiPics(int.Parse(id));
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                pic = dt.Rows[i]["PicPath"].ToString();
-                pic = pic.Replace(rootPath, "/");
-                picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall'  title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"'></a>
-                             </div><p style='text-align: center; margin-bottom: 2px;'>" + dt.Rows[i]["ZZName"].ToString() + @"</p><p style='text-align: center;'>" + dt.Rows[i]["ZZCode"].ToString() + @"</p></div>";
-            }
-            ViewBag.CompanyPics = picHtml;
-
-            dt = cc.GetWorkHistory(int.Parse(id));
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                sb.Append("<tr class='white-bg' id='row"+i+"'>");
-                sb.Append("<td>" + dt.Rows[i]["ProjectName"].ToString() + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["StartDate"].ToString() + "</td>");
-                sb.Append("<td>" + dt.Rows[i]["EndDate"].ToString() + "</td>");
-                sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'>"+ dt.Rows[i]["TestifyFile"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'><div class='color01' style='cursor: pointer;' onclick='removeRow(row"+i+")'>删除</div></td>");
-                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString().Replace(rootPath, "/") + "' target='_blank'>" + dt.Rows[i]["FilePath"].ToString().Substring(dt.Rows[i]["FilePath"].ToString().LastIndexOf('/')+1) + "</a></td>");
-
-                sb.Append("</tr>");
-            }
-            ViewBag.WorkHistory = sb.ToString();
-
-            dt = cc.GetCompanyReferee(int.Parse(id));
-            if (dt.Rows.Count > 0)
-                ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
-            else
-                ViewBag.RefereFile = "";
+            FillCompanyInfo();
             return View();
         }
 
@@ -882,8 +782,14 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult EditCompany()
         {
-            ViewBag.cid = Request["id"].ToString();
-            string id = Request["id"].ToString();
+            FillCompanyInfo();
+            return View();
+        }
+
+        private void FillCompanyInfo()
+        {
+            ViewBag.cid = Request["cid"].ToString();
+            string id = Request["cid"].ToString();
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(int.Parse(id));
             DataRow dr = dt.Rows[0];
@@ -920,30 +826,31 @@ namespace RailBiding.Controllers
             RepIDPic = RepIDPic.Substring(RepIDPic.LastIndexOf('/') + 1);
             string ContactIDPic = dr["ContactIDPic"].ToString();
             ContactIDPic = ContactIDPic.Substring(ContactIDPic.LastIndexOf('/') + 1);
-            for(int i = 0; i < pics.Rows.Count; i++)
+            for (int i = 0; i < pics.Rows.Count; i++)
             {
-                if(pics.Rows[i]["FilePath"].ToString().IndexOf(ReferreIDPic)>-1)
+                if (pics.Rows[i]["FilePath"].ToString().IndexOf(ReferreIDPic) > -1&& ReferreIDPic != "")
                 {
-                    ViewBag.ReferreIDPic = @"<input type='text' id='referPic' name='foreRef' width='20' value='"+ ReferreIDPic + "' hidden />";
-                    ViewBag.dw1 = "<div class='dw1' style='padding-left:50px;text-align:left'>"+ pics.Rows[i]["FileName"].ToString() + "</div>";
-                }else if (pics.Rows[i]["FilePath"].ToString().IndexOf(BusinessLicensePic) > -1)
+                    ViewBag.ReferreIDPic = @"<input type='text' id='referPic' name='foreRef' width='20' value='" + ReferreIDPic + "' hidden />";
+                    ViewBag.dw1 = "<div class='dw1' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
+                }
+                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(BusinessLicensePic) > -1&& BusinessLicensePic!="")
                 {
-                    ViewBag.BusinessLicensePic = @"<input id='busiLicPic' type='text' name='foreRef' value='"+ BusinessLicensePic + "' hidden>";
+                    ViewBag.BusinessLicensePic = @"<input id='busiLicPic' type='text' name='foreRef' value='" + BusinessLicensePic + "' hidden>";
                     ViewBag.dw2 = "<div class='dw2' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
-                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(SecurityCertificatePic) > -1)
+                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(SecurityCertificatePic) > -1&& SecurityCertificatePic!="")
                 {
-                    ViewBag.SecurityCertificatePic = @"<input id='scPic' type='text' name='foreRef' value='"+ SecurityCertificatePic + "' hidden>";
+                    ViewBag.SecurityCertificatePic = @"<input id='scPic' type='text' name='foreRef' value='" + SecurityCertificatePic + "' hidden>";
                     ViewBag.dw3 = "<div class='dw3' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
-                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(RepIDPic) > -1)
+                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(RepIDPic) > -1&& RepIDPic!="")
                 {
-                    ViewBag.RepIDPic = @"<input id='repSFZ' type='text' name='foreRef' value='"+ RepIDPic + "' hidden>";
+                    ViewBag.RepIDPic = @"<input id='repSFZ' type='text' name='foreRef' value='" + RepIDPic + "' hidden>";
                     ViewBag.dw4 = "<div class='dw4' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
-                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(ContactIDPic) > -1)
+                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(ContactIDPic) > -1&& ContactIDPic!="")
                 {
-                    ViewBag.ContactIDPic = @"<input id='conSFZ' type='text' name='foreRef' value='"+ ContactIDPic + "' hidden>";
+                    ViewBag.ContactIDPic = @"<input id='conSFZ' type='text' name='foreRef' value='" + ContactIDPic + "' hidden>";
                     ViewBag.dw5 = "<div class='dw5' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
             }
@@ -956,8 +863,8 @@ namespace RailBiding.Controllers
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
                 string guid = pic.Substring(pic.LastIndexOf('/') + 1);
-                picHtml += "<li style='text-align:center'><div><span class='aui-up-span'></span>"+
-                           "<img class='aui-close-up-img' src='../img/close.png'><img src='" + pic + "'></div>"+
+                picHtml += "<li style='text-align:center'><div><span class='aui-up-span'></span>" +
+                           "<img class='aui-close-up-img' src='../img/close.png'><img src='" + pic + "'></div>" +
                            "<label id='zzmc'>" + dt.Rows[i]["ZZName"].ToString() + "</label><br><label id='zsbh'>" + dt.Rows[i]["ZZCode"].ToString() + "</label><label style='display: none'>" + guid + "</label></li>";
             }
             ViewBag.ZiZhiPics = picHtml;
@@ -986,7 +893,6 @@ namespace RailBiding.Controllers
                 ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
             else
                 ViewBag.RefereFile = "";
-            return View();
         }
 
         public string UpdateCompany()
