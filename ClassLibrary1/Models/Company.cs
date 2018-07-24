@@ -158,11 +158,11 @@ namespace DAL.Models
 
         public bool UpdateCompany(Company company)
         {
-            string sql = "update Company set Name='" + company.Name + "', CreditNo='" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
-                "BusinessType='" + company.BusinessType + "', BusinessScope='" + company.BusinessScope + "', QualificationLevel='" + company.QualificationLevel + "', " +
-                "SecurityCertificateNo='" + company.SecurityCertificateNo + "', CorporateRepresentive='" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
-                "Contact = '" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = '" + company.ContactPhone + "', " +
-                "ConstructionContent = '" + company.ConstructionContent + "', Note'" + company.Note + "', Status=" + company.Status + ", AuditDate='" + company.AuditDate + "'" +
+            string sql = "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
+                "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
+                "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentive=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
+                "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactPhone + "', " +
+                "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", AuditDate='" + company.AuditDate + "'" +
                 "Type=" + company.Type + ", Referrer = "+company.Referrer + " where id=" + company.Id;
             int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
             if (i > 0)
