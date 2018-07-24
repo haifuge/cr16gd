@@ -194,6 +194,7 @@ namespace RailBiding.API
             curFile.SaveAs(fullPath);
             //临时存推荐书
             string sql = "insert into CompanyZiZhiPic values(0, N'" + input_zzmc + "', N'" + input_zsbh + "', N'" + fullPath + "');";
+            DBHelper.ExecuteNonQuery(sql);
             return guid + "|" + fullPath.Replace(Server.MapPath("../"), "../");
         }
         public string UploadTestifyFile()

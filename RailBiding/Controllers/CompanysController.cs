@@ -581,7 +581,7 @@ namespace RailBiding.Controllers
             string sql = "";
             for(int i=0;i< zzs.Length-1;i++)
             {
-                sql = "update CompanyZiZhiPic set CompanyId = "+ Session["newCid"] + " where PicPath like '%"+zzs[i]+"%'; ";
+                sql += "update CompanyZiZhiPic set CompanyId = "+ Session["newCid"] + " where PicPath like '%"+zzs[i]+"%'; ";
             }
             DBHelper.ExecuteNonQuery(sql);
         }
