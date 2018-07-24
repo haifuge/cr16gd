@@ -335,5 +335,11 @@ namespace DAL.Models
             string sql = "select FilePath, FileName from BidDocument where ProjId="+id+" and FileType=1 ";
             return DBHelper.GetDataTable(sql);
         }
+
+        public string CheckUpdateCompanyNameUsed(string cName, string cid)
+        {
+            string sql = "select count(1) from Company where Name = '" + cName + "' and Id<>"+cid;
+            return DBHelper.ExecuteScalar(sql);
+        }
     }
 }

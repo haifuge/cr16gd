@@ -1507,7 +1507,7 @@
             )
             return;
         }else{
-            $.post("/Companys/CheckCompanyNameUsed", { cName: companyName }, function (data) {
+            $.post("/Companys/CheckUpdateCompanyNameUsed", { cName: companyName }, function (data) {
                 if (data != "1") {
                     swal("该企业已在库里，请重新录入企业名称！");
                     $("#companyName").css('border','1px solid red');

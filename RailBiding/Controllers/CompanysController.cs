@@ -1071,5 +1071,17 @@ namespace RailBiding.Controllers
                 return ex.ToString();
             }
         }
+        public string CheckUpdateCompanyNameUsed(string cName, string cid)
+        {
+
+            CompanyContext cc = new CompanyContext();
+            string i = cc.CheckUpdateCompanyNameUsed(cName, cid);
+            if (i != "0")
+                //返回“0”该公司名不可用
+                return "0";
+            else
+                //返回“1”该公司名可用
+                return "1";
+        }
     }
 }
