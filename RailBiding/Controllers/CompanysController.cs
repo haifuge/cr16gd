@@ -833,22 +833,32 @@ namespace RailBiding.Controllers
                     ViewBag.ReferreIDPic = @"<input type='text' id='referPic' name='foreRef' width='20' value='" + ReferreIDPic + "' hidden />";
                     ViewBag.dw1 = "<div class='dw1' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
-                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(BusinessLicensePic) > -1&& BusinessLicensePic!="")
+                else if(ReferreIDPic == "")
+                {
+                    ViewBag.ReferreIDPic = @"<input type='text' id='referPic' name='foreRef' width='20' value='' hidden />";
+                    ViewBag.dw1 = "<div class='dw1' style='padding-left:50px;text-align:left'></div>";
+                }
+                if (pics.Rows[i]["FilePath"].ToString().IndexOf(BusinessLicensePic) > -1&& BusinessLicensePic!="")
                 {
                     ViewBag.BusinessLicensePic = @"<input id='busiLicPic' type='text' name='foreRef' value='" + BusinessLicensePic + "' hidden>";
                     ViewBag.dw2 = "<div class='dw2' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
-                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(SecurityCertificatePic) > -1&& SecurityCertificatePic!="")
+                if (pics.Rows[i]["FilePath"].ToString().IndexOf(SecurityCertificatePic) > -1&& SecurityCertificatePic!="")
                 {
                     ViewBag.SecurityCertificatePic = @"<input id='scPic' type='text' name='foreRef' value='" + SecurityCertificatePic + "' hidden>";
                     ViewBag.dw3 = "<div class='dw3' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
-                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(RepIDPic) > -1&& RepIDPic!="")
+                else if(SecurityCertificatePic == "")
+                {
+                    ViewBag.SecurityCertificatePic = @"<input id='scPic' type='text' name='foreRef' value='' hidden>";
+                    ViewBag.dw3 = "<div class='dw3' style='padding-left:50px;text-align:left'></div>";
+                }
+                if (pics.Rows[i]["FilePath"].ToString().IndexOf(RepIDPic) > -1&& RepIDPic!="")
                 {
                     ViewBag.RepIDPic = @"<input id='repSFZ' type='text' name='foreRef' value='" + RepIDPic + "' hidden>";
                     ViewBag.dw4 = "<div class='dw4' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
                 }
-                else if (pics.Rows[i]["FilePath"].ToString().IndexOf(ContactIDPic) > -1&& ContactIDPic!="")
+                if (pics.Rows[i]["FilePath"].ToString().IndexOf(ContactIDPic) > -1&& ContactIDPic!="")
                 {
                     ViewBag.ContactIDPic = @"<input id='conSFZ' type='text' name='foreRef' value='" + ContactIDPic + "' hidden>";
                     ViewBag.dw5 = "<div class='dw5' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";

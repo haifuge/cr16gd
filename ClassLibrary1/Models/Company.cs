@@ -160,10 +160,10 @@ namespace DAL.Models
         {
             string sql = "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
                 "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
-                "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentive=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
+                "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentative=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
                 "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactPhone + "', " +
-                "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", AuditDate='" + company.AuditDate + "'" +
-                "Type=" + company.Type + ", Referrer = "+company.Referrer + " where id=" + company.Id;
+                "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", " +
+                "Type=" + company.Type + ", Referre = N'" + company.Referrer + "' where id=" + company.Id;
             int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
             if (i > 0)
                 return true;

@@ -847,8 +847,8 @@
 
         var companyName = $("#companyName").val();
         var refererName = $("#refererName").val();
-        var allfileInput1 = $("#allfileInput1").val();
-        var allfileInput2 = $("#allfileInput2").val();
+        var dw1 = $("#dw1").val();
+        var dw2 = $("#dw2").val();
         var socialCreditNo = $("#socialCreditNo").val();
         var qualificationLevel = $("#qualificationLevel").val();
         var zzlist = $("#zzlist").html();
@@ -856,10 +856,10 @@
         var licenseNo = $("#licenseNo").val();
         var companyRepresentative = $("#companyRepresentative").val();
         var repTelephone = $("#repTelephone").val();
-        var allfileInput5 = $("#allfileInput5").val();
+        var dw4 = $("#dw4").val();
         var contact = $("#contact").val();
         var contactPhone = $("#contactPhone").val();
-        var allfileInput6 = $("#allfileInput6").val();
+        var dw5 = $("#dw5").val();
 
 
 
@@ -901,7 +901,7 @@
                 )
                 return;
             }
-            if (allfileInput1 == "") {
+            if (dw1 == "") {
 
                 document.getElementById("allfileInput1").focus();
                 swal({
@@ -921,7 +921,7 @@
             }
         }
 
-        if (allfileInput2 == "") {
+        if (dw2 == "") {
 
             document.getElementById("allfileInput2").focus();
             swal({
@@ -1061,7 +1061,7 @@
             )
             return;
         }
-        if (allfileInput5 == "") {
+        if (dw4 == "") {
 
             document.getElementById("allfileInput5").focus();
             swal({
@@ -1114,7 +1114,7 @@
             )
             return;
         }
-        if (allfileInput6 == "") {
+        if (dw5 == "") {
 
             document.getElementById("allfileInput6").focus();
             swal({
@@ -1180,8 +1180,6 @@
 
             if (res == "1") {
                 uploadZZPics();
-                uploadWorkHistory();
-
 
             } else {
                 //hide
@@ -1220,15 +1218,11 @@
         var zzGuids = "";
         for (var i = 0; i < lis.length; i++) {
             var cd = lis[i].childNodes;
-            zzGuids += cd[4].innerText+"|"
-
+            zzGuids += cd[4].innerText + "|"
         }
-        if(zzGuids!="")
-            $.post("/Companys/UploadZiZhi", data, function () {
-                removeLoading('test');
-                swal('公司创建成功').then(function () {
-                    window.location.href = "/Companys/MyRecommend";
-                });
+        if (zzGuids != "")
+            $.post("/Companys/UploadZiZhi", {zz:zzGuids}, function () {
+                uploadWorkHistory();
             });
     }
     $(function () {
