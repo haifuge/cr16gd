@@ -73,7 +73,7 @@ namespace DAL.Models
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userId + @") a on c.ID=a.ObjId
                             left join BusinessType bt on bt.id=c.BusinessType
-                            where " + where + @" c.AuditStatus<>3 and 
+                            where " + where + @" c.AuditStatus<>3 
                             union
                             select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, case when c.AuditStatus=2 then 4 else a.Approved end as Approved
