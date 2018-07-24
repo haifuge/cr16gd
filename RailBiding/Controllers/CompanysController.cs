@@ -495,28 +495,29 @@ namespace RailBiding.Controllers
                 company.Name = Request["cname"].ToString();
                 company.BusinessType = Request["btype"].ToString();
                 company.Referrer = Request["rname"].ToString();
-                //string referPic = Request["rpic"].ToString();
-                //string blpic = Request["blpic"].ToString();
                 company.CreditNo = Request["scno"].ToString();
                 company.QualificationLevel = Request["qlevel"].ToString();
-                //string scpic = Request["scpic"].ToString();
                 company.SecurityCertificateNo = Request["lno"].ToString();
                 company.BusinessScope = Request["bscope"].ToString();
                 company.RegisteredCapital = Request["rmoney"].ToString()==""?"0": Request["rmoney"].ToString();
                 company.CorporateRepresentive = Request["rep"].ToString();
                 company.RepPhone = Request["rtel"].ToString();
-                //string rsfz = Request["rsfz"].ToString();
                 company.Contact = Request["contact"].ToString();
                 company.ContactPhone = Request["cphone"].ToString();
-                //string csfz = Request["csfz"].ToString();
                 company.Status = 1;
                 company.ContactAddress = Request["caddress"].ToString();
                 company.ConstructionContent = Request["construction"].ToString();
                 company.Note = Request["note"].ToString();
                 company.Type = int.Parse(Session["outin"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
-                string refguid = Request["refd"].ToString();
-                Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString(), refguid);
+
+                company.BusinessLicensePic = Request["refd"].ToString();
+                company.ContactIDPic = Request["refd"].ToString();
+                company.ReferreIDPic = Request["refd"].ToString();
+                company.RepIDPic = Request["refd"].ToString();
+                company.SecurityCertificatePic = Request["refd"].ToString();
+
+                Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
                 
                 return "1";
             }

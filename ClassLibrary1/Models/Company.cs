@@ -170,13 +170,39 @@ namespace DAL.Models
             else
                 return false;
         }
-        public string CreateCompany(Company company, string uid, string refguid)
+        public string CreateCompany(Company company, string uid)
         {
-            string sql = @"declare @refpath nvarchar(400); ";
-            if (refguid == "")
+            string sql = @"declare @refpath nvarchar(400);
+                           declare @blpath nvarchar(400);
+                           declare @scpath nvarchar(400);
+                           declare @ripath nvarchar(400);
+                           declare @cipath nvarchar(400);";
+
+            if (company.ReferreIDPic == "")
                 sql += " set @refpath=''; ";
             else
-                sql+=" select @refpath = FilePath from BidDocument where FilePath like '%"+refguid+"%'; ";
+                sql+=" select @refpath = FilePath from BidDocument where FilePath like '%"+ company.ReferreIDPic + "%'; ";
+
+            if (company.BusinessLicensePic == "")
+                sql += " set @blpath=''; ";
+            else
+                sql += " select @blpath = FilePath from BidDocument where FilePath like '%" + company.BusinessLicensePic + "%'; ";
+
+            if (company.SecurityCertificatePic == "")
+                sql += " set @scpath=''; ";
+            else
+                sql += " select @scpath = FilePath from BidDocument where FilePath like '%" + company.SecurityCertificatePic + "%'; ";
+
+            if (company.RepIDPic == "")
+                sql += " set @ripath=''; ";
+            else
+                sql += " select @ripath = FilePath from BidDocument where FilePath like '%" + company.RepIDPic + "%'; ";
+
+            if (company.ContactIDPic == "")
+                sql += " set @cipath=''; ";
+            else
+                sql += " select @cipath = FilePath from BidDocument where FilePath like '%" + company.ContactIDPic + "%'; ";
+
             sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
@@ -190,11 +216,21 @@ namespace DAL.Models
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
             // 更新临时保存的推荐书
-            if (refguid != "")
+            sql = "";
+            if (company.ReferreIDPic != "")
             {
-                sql = "update BidDocument set ProjId=" + i + " where FilePath like '%" + refguid + "%'";
-                DBHelper.ExecuteNonQuery(sql);
+                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.ReferreIDPic + "%'; ";
             }
+            if (company.BusinessLicensePic != "")
+                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.BusinessLicensePic + "%'; ";
+            if (company.SecurityCertificatePic != "")
+                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.SecurityCertificatePic + "%'; ";
+            if (company.RepIDPic != "")
+                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.RepIDPic + "%'; ";
+            if (company.ContactIDPic != "")
+                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.ContactIDPic + "%'; ";
+            DBHelper.ExecuteNonQuery(sql);
+
             if (company.AuditStatus == 1)
             {
                 if (company.Type == 1)
