@@ -158,7 +158,7 @@ namespace RailBiding.API
 
         public string UploadReference()
         {
-            string foreRef = Request["foreRef"].ToString();
+            //string foreRef = Request["foreRef"].ToString();
             ProjectContext pc = new ProjectContext();
             string fullPath;
             //if (foreRef != "") {
@@ -176,7 +176,7 @@ namespace RailBiding.API
             curFile.SaveAs(fullPath);
             //临时存推荐书
             pc.AddProjectFile("0", "1", fullPath, curFile.FileName, "");
-            return guid;
+            return guid+"|"+curFile.FileName;
         }
         public string UploadTestifyFile()
         {

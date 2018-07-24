@@ -132,10 +132,12 @@
             console.log(SearchCompanyName);
             Paginator(nowpage, page_size, SearchCompanyName, type)
         });
+        
 
 
 
         function Paginator(page, ps, sname, stype) {
+        
             sname = $("#searchinput").val();
             if ($("#bType").val() == "all") {
                 stype = "";
