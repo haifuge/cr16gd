@@ -292,10 +292,10 @@
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput1" id="allfileInput1" value="" style="opacity:0;">
-                                        @Html.Raw(ViewBag.ReferreIDPic)
+                                        <input type="text" id="referPic" name="foreRef" width="20" value="@ViewBag.ReferreIDPic" hidden />
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    @Html.Raw(ViewBag.dw1)
+                                    <div class="dw1" style="padding-left:50px;text-align:left">@ViewBag.dw1</div>
                                 </div>
                             </td>
                         </tr>
@@ -304,11 +304,11 @@
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'busiLicPic')" id="allfileInput2" value="" style="opacity:0;">
-                                        @Html.Raw(ViewBag.BusinessLicensePic)
+                                        <input type="file" name="fileInput" id="allfileInput2" value="" style="opacity:0;">
+                                        <input id="busiLicPic" type="text" name="foreRef" value="@ViewBag.BusinessLicensePic" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    @Html.Raw(ViewBag.dw2)
+                                    <div class="dw2" style="padding-left:50px;text-align:left">@ViewBag.dw2</div>
                                 </div>
                                 <span style="font-size: 14px;"> 统一社会信用代码号：</span>
                                 <input name="youziz" id="socialCreditNo" type="text" value="@ViewBag.CreditNo"
@@ -337,25 +337,29 @@
                                     </div>
                                 </div>
                                 <!-- 添加资质弹框 -->
-                                <div class="canvas">
-                                    <div class="canvas_content">
-                                        <span class="canvas_close">×</span>
-                                        <div class="canvas_content_text">
-                                            <ul>
-                                                <li>资质名称： <input type="text" id="input_zzmc" placeholder="资质名称" onblur="zzmc()" style=""><span id="zzmcmsg"></span></li>
-                                                <li>证书编号： <input type="text" id="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932" onblur="zsbh()"><span id="zsbhmsg"></span></li>
-                                                <li>
-                                                    <input type="file" name="fileInput" onchange="gen_base64(this, 'zzzsPic')" id="allfileInput3"><span id="zspicmsg"></span>
-                                                    <div id="zzzsPic" style="display:none"></div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="canvas_btn">
-                                            <a href="#" class="meet-btn big-btn lightblue-btn" onclick="submitImg()">提交</a>
-                                            <a href="#" class="meet-btn big-btn gray-btn" onclick="cancelImg()">返回</a>
+                                <form id='bfupform7' name='bfupform' method="post" target='frameFile' action="/Common/UploadZiZhiPic" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <div class="canvas">
+                                        <div class="canvas_content">
+                                            <span class="canvas_close">×</span>
+                                            <div class="canvas_content_text">
+
+                                                <ul>
+                                                    <li>资质名称： <input type="text" id="input_zzmc" name="input_zzmc" placeholder="资质名称" onblur="zzmc()" style=""><span id="zzmcmsg"></span></li>
+                                                    <li>证书编号： <input type="text" id="input_zsbh" name="input_zsbh" placeholder="(粤)JZ安许可证[2017]020932" onblur="zsbh()"><span id="zsbhmsg"></span></li>
+                                                    <li>
+                                                        <input type="file" name="fileInput" id="allfileInput3"><span id="zspicmsg"></span>
+                                                        <div id="zzzsPic" style="display:none"></div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                            <div class="canvas_btn">
+                                                <a href="#" class="meet-btn big-btn lightblue-btn" onclick="submitImg()">提交</a>
+                                                <a href="#" class="meet-btn big-btn gray-btn" onclick="cancelImg()">返回</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </td>
                         </tr>
                         <tr class="form-tr ">
@@ -363,11 +367,11 @@
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'scPic')" id="allfileInput4" style="opacity:0;">
-                                        @Html.Raw(ViewBag.SecurityCertificatePic)
+                                        <input type="file" name="fileInput" id="allfileInput4" style="opacity:0;">
+                                        <input id="scPic" type="text" name="foreRef" value="@ViewBag.SecurityCertificatePic" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    @Html.Raw(ViewBag.dw3)
+                                    <div class="dw3" style="padding-left:50px;text-align:left">@ViewBag.dw3</div>
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
@@ -399,10 +403,10 @@
                                     <form id='bfupform4' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput"
                                                id="allfileInput5" style="opacity:0;">
-                                        @Html.Raw(ViewBag.RepIDPic)
+                                        <input id="repSFZ" type="text" name="foreRef" value="@ViewBag.RepIDPic" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    @Html.Raw(ViewBag.dw4)
+                                    <div class="dw4" style="padding-left:50px;text-align:left">@ViewBag.dw4</div>
                                 </div>
                             </td>
                         </tr>
@@ -417,11 +421,11 @@
                                 <span class="td-cer">身份证扫描：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform5' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" onchange="gen_base64(this, 'conSFZ')" id="allfileInput6" style="opacity:0;">
-                                        @Html.Raw(ViewBag.ContactIDPic)
+                                        <input type="file" name="fileInput" id="allfileInput6" style="opacity:0;">
+                                        <input id="conSFZ" type="text" name="foreRef" value="@ViewBag.ContactIDPic" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
-                                    @Html.Raw(ViewBag.dw5)
+                                    <div class="dw5" style="padding-left:50px;text-align:left">@ViewBag.dw5</div>
                                 </div>
                             </td>
                         </tr>
@@ -436,14 +440,14 @@
                             <td class="form-lable">施工内容：</td>
                             <td>
                                 <textarea name="roomInfoName" type="text" id="construction"
-                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='输入推荐参与施工内容' }">@ViewBag.ConstructionContent</textarea>
+                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="if (value=='') { placeholder='输入推荐参与施工内容' }">@ViewBag.ConstructionContent</textarea>
                                 </td>
                             </tr>
                             <tr class="form-tr">
                                 <td class="form-lable">备注：</td>
                                 <td>
                                     <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note"
-                                           class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur=" if (value= ='' ) { placeholder='请输入其他说明' }">
+                                           class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="if (value=='') { placeholder='请输入其他说明' }">
                                 </td>
                             </tr>
                             <tr class="form-tr detail-user-con gzyj">
@@ -572,88 +576,99 @@
     if(@ViewBag.inout=="0"){
         $(".yuijianred").html("*")
     }
-    $("#fileInfoName").change(function () {
+        $("#fileInfoName").change(function () {
+ 
+            var fileInfoName = $("#fileInfoName").val();
+            if (fileInfoName == "") { //点击取消，取消事件的编写
+                return;
+            }
+            $("#fupform").ajaxSubmit(function (res) {
+                console.log(res);
+                var fileName = res.split('|');
+                $(".dw").html(fileName[1]);
+                $("#fname").val(fileName[0]);
+            });
+        })
+        $("#allfileInput3").change(function () {
 
-        var fileInfoName = $("#fileInfoName").val();
-        if (fileInfoName == "") { //点击取消，取消事件的编写
-            return;
-        }
-        $("#fupform").ajaxSubmit(function (res) {
-            console.log(res);
-            var fileName = res.split('|');
-            $(".dw").html(fileName[1]);
-            $("#fname").val(fileName[0]);
-        });
-    })
-
-
-    //推荐书附件上传
-    $("#allfileInput1").change(function () {
-        var allfileInput1 = $("#allfileInput1").val();
-        if (allfileInput1 == "") { //点击取消，取消事件的编写
-            return;
-        }
-        $("#bfupform1").ajaxSubmit(function (res) {
-            console.log(res);
-            var fileName = res.split('|');
-            $(".dw1").html(fileName[1]);
-            $("#referPic").val(fileName[0]);
-        });
-    })
+            var fileInfoName = $("#allfileInput3").val();
+            if (fileInfoName == "") { //点击取消，取消事件的编写
+                return;
+            }
+            $("#bfupform7").ajaxSubmit(function (res) {
+                console.log(res);
+                $("#zzzsPic").text(res);
+            });
+        })
 
 
-    //营业执照附件上传
-    $("#allfileInput2").change(function () {
-        var allfileInput2 = $("#allfileInput2").val();
-        if (allfileInput2 == "") { //点击取消，取消事件的编写
-            return;
-        }
-        $("#bfupform2").ajaxSubmit(function (res) {
-            var fileName = res.split('|');
-            $(".dw2").html(fileName[1]);
-            $("#busiLicPic").val(fileName[0]);
-        });
-    })
-
-    //安全证书附件上传
-    $("#allfileInput4").change(function () {
-        var allfileInput4 = $("#allfileInput4").val();
-        if (allfileInput4 == "") { //点击取消，取消事件的编写
-            return;
-        }
-        $("#bfupform3").ajaxSubmit(function (res) {
-            var fileName = res.split('|');
-            $(".dw3").html(fileName[1]);
-            $("#scPic").val(fileName[0]);
-        });
-    })
-
-    //法人身份证附件上传
-    $("#allfileInput5").change(function () {
-        var allfileInput5 = $("#allfileInput5").val();
-        if (allfileInput5 == "") { //点击取消，取消事件的编写
-            return;
-        }
-        $("#bfupform4").ajaxSubmit(function (res) {
-            var fileName = res.split('|');
-            $(".dw4").html(fileName[1]);
-            $("#repSFZ").val(fileName[0]);
-        });
-    })
+        //推荐书附件上传
+        $("#allfileInput1").change(function () {
+            var allfileInput1 = $("#allfileInput1").val();
+            if (allfileInput1 == "") { //点击取消，取消事件的编写
+                return;
+            }
+            $("#bfupform1").ajaxSubmit(function (res) {
+                console.log(res);
+                var fileName = res.split('|');
+                $(".dw1").html(fileName[1]);
+                $("#referPic").val(fileName[0]);
+            });
+        })
 
 
-    //现场负责人身份证附件上传
-    $("#allfileInput6").change(function () {
-        var allfileInput6 = $("#allfileInput6").val();
-        if (allfileInput6 == "") { //点击取消，取消事件的编写
-            return;
-        }
-        $("#bfupform5").ajaxSubmit(function (res) {
-            var fileName = res.split('|');
-            $(".dw5").html(fileName[1]);
-            $("#conSFZ").val(fileName[0]);
-        });
-    })
+        //营业执照附件上传
+        $("#allfileInput2").change(function () {
+            var allfileInput2 = $("#allfileInput2").val();
+            if (allfileInput2 == "") { //点击取消，取消事件的编写
+                return;
+            }
+            $("#bfupform2").ajaxSubmit(function (res) {
+                var fileName = res.split('|');
+                $(".dw2").html(fileName[1]);
+                $("#busiLicPic").val(fileName[0]);
+            });
+        })
+
+        //安全证书附件上传
+        $("#allfileInput4").change(function () {
+            var allfileInput4 = $("#allfileInput4").val();
+            if (allfileInput4 == "") { //点击取消，取消事件的编写
+                return;
+            }
+            $("#bfupform3").ajaxSubmit(function (res) {
+                var fileName = res.split('|');
+                $(".dw3").html(fileName[1]);
+                $("#scPic").val(fileName[0]);
+            });
+        })
+
+        //法人身份证附件上传
+        $("#allfileInput5").change(function () {
+            var allfileInput5 = $("#allfileInput5").val();
+            if (allfileInput5 == "") { //点击取消，取消事件的编写
+                return;
+            }
+            $("#bfupform4").ajaxSubmit(function (res) {
+                var fileName = res.split('|');
+                $(".dw4").html(fileName[1]);
+                $("#repSFZ").val(fileName[0]);
+            });
+        })
+
+
+        //现场负责人身份证附件上传
+        $("#allfileInput6").change(function () {
+            var allfileInput6 = $("#allfileInput6").val();
+            if (allfileInput6 == "") { //点击取消，取消事件的编写
+                return;
+            }
+            $("#bfupform5").ajaxSubmit(function (res) {
+                var fileName = res.split('|');
+                $(".dw5").html(fileName[1]);
+                $("#conSFZ").val(fileName[0]);
+            });
+        })
 
 
     //验证
@@ -836,19 +851,16 @@
 
         if(!checkcompanynameuserd)
         {
-
             $(".chongfuinput").css({"width":"50%","margin-top":"10px"})
             $(".chongfu").css({"display":'block','padding-left':'10px'})
             window.scrollTo(0,0);
-            //
-
             return;
         }
 
         var companyName = $("#companyName").val();
         var refererName = $("#refererName").val();
-        var dw1 = $("#dw1").val();
-        var dw2 = $("#dw2").val();
+        var dw1 = $(".dw1").html();
+        var dw2 = $(".dw2").html();
         var socialCreditNo = $("#socialCreditNo").val();
         var qualificationLevel = $("#qualificationLevel").val();
         var zzlist = $("#zzlist").html();
@@ -856,12 +868,10 @@
         var licenseNo = $("#licenseNo").val();
         var companyRepresentative = $("#companyRepresentative").val();
         var repTelephone = $("#repTelephone").val();
-        var dw4 = $("#dw4").val();
+        var dw4 = $(".dw4").html();
         var contact = $("#contact").val();
         var contactPhone = $("#contactPhone").val();
-        var dw5 = $("#dw5").val();
-
-
+        var dw5 = $(".dw5").html();
 
         if (companyName == "") {
             document.getElementById("companyName").focus();
@@ -877,7 +887,6 @@
                         console.log('I was closed by the timer');
                     }
                 }
-
             )
             return;
         }
@@ -897,7 +906,6 @@
                             console.log('I was closed by the timer');
                         }
                     }
-
                 )
                 return;
             }
@@ -1177,10 +1185,8 @@
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
         $.post("/Companys/SaveCompany", data, function (res) {
-
             if (res == "1") {
                 uploadZZPics();
-
             } else {
                 //hide
                 removeLoading('test');
@@ -1290,7 +1296,7 @@
         }
     }
 
-    var row = 0;
+    var row = @ViewBag.WorkHistoryCount;
     function addworkHistory() {
         var projName = document.getElementById("projName").value;
         if (projName.length == 0) {
@@ -1393,6 +1399,9 @@
         var row = document.getElementById(rid)
         row.parentNode.removeChild(row);
     }
+    function removeRowObj(row) {
+        row.parentNode.removeChild(row);
+    }
     function submitImg() {
         var success = 0;
         success += zzmc();
@@ -1407,12 +1416,14 @@
             $("#zspicmsg").html("请上传资质文件");
             return;
         }
+        var picinfo = $("#zzzsPic").text().split('|')
         var li = document.createElement('li');
         li.style = 'text-align:center'
         li.innerHTML = '<div><span class="aui-up-span"></span>' +
-            '<img class="aui-close-up-img" src="../img/close.png"><img src="' + document.getElementById("zzzsPic").innerText + '" alt=""></div>' +
-            '<label id="zzmc">' + $("#input_zzmc").val() + '</label><br><label id="zsbh">' + $("#input_zsbh").val() + '</label></li>'
+            '<img class="aui-close-up-img" src="../img/close.png"><img src="' + picinfo[1] + '" alt=""></div>' +
+            '<label id="zzmc">' + $("#input_zzmc").val() + '</label><br><label id="zsbh">' + $("#input_zsbh").val() + '</label><label style="display:none">' + picinfo[0] + '</label>'
         document.getElementById('zzlist').appendChild(li);
+
         $(".canvas").hide();
         $("#input_zsbh").val("");
         $("#input_zzmc").val("");

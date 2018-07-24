@@ -830,38 +830,38 @@ namespace RailBiding.Controllers
             {
                 if (pics.Rows[i]["FilePath"].ToString().IndexOf(ReferreIDPic) > -1&& ReferreIDPic != "")
                 {
-                    ViewBag.ReferreIDPic = @"<input type='text' id='referPic' name='foreRef' width='20' value='" + ReferreIDPic + "' hidden />";
-                    ViewBag.dw1 = "<div class='dw1' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
+                    ViewBag.ReferreIDPic = ReferreIDPic;
+                    ViewBag.dw1 = pics.Rows[i]["FileName"].ToString();
                 }
                 else if(ReferreIDPic == "")
                 {
-                    ViewBag.ReferreIDPic = @"<input type='text' id='referPic' name='foreRef' width='20' value='' hidden />";
-                    ViewBag.dw1 = "<div class='dw1' style='padding-left:50px;text-align:left'></div>";
+                    ViewBag.ReferreIDPic = "";
+                    ViewBag.dw1 = "";
                 }
                 if (pics.Rows[i]["FilePath"].ToString().IndexOf(BusinessLicensePic) > -1&& BusinessLicensePic!="")
                 {
-                    ViewBag.BusinessLicensePic = @"<input id='busiLicPic' type='text' name='foreRef' value='" + BusinessLicensePic + "' hidden>";
-                    ViewBag.dw2 = "<div class='dw2' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
+                    ViewBag.BusinessLicensePic = BusinessLicensePic;
+                    ViewBag.dw2 = pics.Rows[i]["FileName"].ToString();
                 }
                 if (pics.Rows[i]["FilePath"].ToString().IndexOf(SecurityCertificatePic) > -1&& SecurityCertificatePic!="")
                 {
-                    ViewBag.SecurityCertificatePic = @"<input id='scPic' type='text' name='foreRef' value='" + SecurityCertificatePic + "' hidden>";
-                    ViewBag.dw3 = "<div class='dw3' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
+                    ViewBag.SecurityCertificatePic = SecurityCertificatePic;
+                    ViewBag.dw3 = pics.Rows[i]["FileName"].ToString();
                 }
                 else if(SecurityCertificatePic == "")
                 {
-                    ViewBag.SecurityCertificatePic = @"<input id='scPic' type='text' name='foreRef' value='' hidden>";
-                    ViewBag.dw3 = "<div class='dw3' style='padding-left:50px;text-align:left'></div>";
+                    ViewBag.SecurityCertificatePic = "";
+                    ViewBag.dw3 = "";
                 }
                 if (pics.Rows[i]["FilePath"].ToString().IndexOf(RepIDPic) > -1&& RepIDPic!="")
                 {
-                    ViewBag.RepIDPic = @"<input id='repSFZ' type='text' name='foreRef' value='" + RepIDPic + "' hidden>";
-                    ViewBag.dw4 = "<div class='dw4' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
+                    ViewBag.RepIDPic = RepIDPic;
+                    ViewBag.dw4 = pics.Rows[i]["FileName"].ToString();
                 }
                 if (pics.Rows[i]["FilePath"].ToString().IndexOf(ContactIDPic) > -1&& ContactIDPic!="")
                 {
-                    ViewBag.ContactIDPic = @"<input id='conSFZ' type='text' name='foreRef' value='" + ContactIDPic + "' hidden>";
-                    ViewBag.dw5 = "<div class='dw5' style='padding-left:50px;text-align:left'>" + pics.Rows[i]["FileName"].ToString() + "</div>";
+                    ViewBag.ContactIDPic = ContactIDPic;
+                    ViewBag.dw5 = pics.Rows[i]["FileName"].ToString();
                 }
             }
 
@@ -891,60 +891,20 @@ namespace RailBiding.Controllers
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
                 sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
                 sb.Append("<td class='gray-time'>" + dt.Rows[i]["TestifyFile"].ToString() + "</td>");
-                sb.Append("<td class='gray-time'><div class='color01' style='cursor: pointer;' onclick='removeRow(row" + i + ")'>删除</div></td>");
+                sb.Append("<td class='gray-time'><div class='color01' style='cursor: pointer;' onclick='removeRowObj(row" + i + ")'>删除</div></td>");
                 sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString().Replace(rootPath, "/") + "' target='_blank'>" + dt.Rows[i]["FilePath"].ToString().Substring(dt.Rows[i]["FilePath"].ToString().LastIndexOf('/') + 1) + "</a></td>");
 
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
-
+            ViewBag.WorkHistoryCount = dt.Rows.Count;
             dt = cc.GetCompanyReferee(int.Parse(id));
             if (dt.Rows.Count > 0)
                 ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
             else
                 ViewBag.RefereFile = "";
         }
-
-        public string UpdateCompany()
-        {
-            CompanyContext cc = new CompanyContext();
-            try
-            {
-                // TODO: Add insert logic here
-                Company company = new Company();
-                company.Name = Request["cname"].ToString();
-                company.BusinessType = Request["btype"].ToString();
-                company.Referrer = Request["rname"].ToString();
-                //string referPic = Request["rpic"].ToString();
-                //string blpic = Request["blpic"].ToString();
-                company.CreditNo = Request["scno"].ToString();
-                company.QualificationLevel = Request["qlevel"].ToString();
-                //string scpic = Request["scpic"].ToString();
-                company.SecurityCertificateNo = Request["lno"].ToString();
-                company.BusinessScope = Request["bscope"].ToString();
-                company.RegisteredCapital = Request["rmoney"].ToString() == "" ? "0" : Request["rmoney"].ToString();
-                company.CorporateRepresentive = Request["rep"].ToString();
-                company.RepPhone = Request["rtel"].ToString();
-                //string rsfz = Request["rsfz"].ToString();
-                company.Contact = Request["contact"].ToString();
-                company.ContactPhone = Request["cphone"].ToString();
-                //string csfz = Request["csfz"].ToString();
-                company.Status = 1;
-                company.ContactAddress = Request["caddress"].ToString();
-                company.ConstructionContent = Request["construction"].ToString();
-                company.Note = Request["note"].ToString();
-                company.Type = int.Parse(Session["outin"].ToString());
-                company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
-                string refguid = Request["refd"].ToString();
-                cc.UpdateCompany(company);
-
-                return "1";
-            }
-            catch (Exception ex)
-            {
-                return ex.ToString();
-            }
-        }
+        
         public string SaveCompany()
         {
             CompanyContext cc = new CompanyContext();
@@ -978,7 +938,7 @@ namespace RailBiding.Controllers
                 company.RepIDPic = Request["rsfz"].ToString();
                 company.SecurityCertificatePic = Request["scPic"].ToString();
 
-                cc.UpdateCompany(company);
+                cc.UpdateCompany(company, Session["UserId"].ToString());
                 Session["newCid"] = company.Id;
                 return "1";
             }
