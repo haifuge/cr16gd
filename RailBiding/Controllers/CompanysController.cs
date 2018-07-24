@@ -968,8 +968,8 @@ namespace RailBiding.Controllers
                 company.RepIDPic = Request["rsfz"].ToString();
                 company.SecurityCertificatePic = Request["scPic"].ToString();
 
-                Session["newCid"] = cc.UpdateCompany(company);
-
+                cc.UpdateCompany(company);
+                Session["newCid"] = company.Id;
                 return "1";
             }
             catch (Exception ex)
