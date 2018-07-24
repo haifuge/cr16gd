@@ -214,7 +214,7 @@ namespace DAL.Models
             "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
             "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " +
             company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", @refpath, getdate(),
-            N'"+company.BusinessLicensePic+", N'"+company.ContactIDPic+"', N'"+company.SecurityCertificatePic+"', N'"+company.RepIDPic+"');";
+            @blpath, @cipath, @scpath, @ripath);";
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
             // 更新临时保存的推荐书
