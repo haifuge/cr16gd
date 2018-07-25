@@ -213,6 +213,17 @@ namespace RailBiding.Controllers
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
+            if (Session["RoleId"].ToString() == "2")
+            {
+                ViewBag.editbtn = @"<a href ='/Companys/EditCompany?cid=" + id + @"' class='js-cancle-meet' title='编辑'>
+                                    <i class='meet-icon icon-cancel icon-edits'>编辑</i>
+                                  </a>";
+            }
+            else
+            {
+                ViewBag.editbtn = "";
+
+            }
             return View();
         }
 
