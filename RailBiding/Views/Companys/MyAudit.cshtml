@@ -54,7 +54,7 @@
                         <td style="width:70px">注册资本</td>
                         <td style="width:60px">业务类型</td>
                         <td style="width:90px">法人代表</td>
-                        <td style="width:80px">现场负责人</td>
+                        <td style="width:80px">推荐人</td>
                         <td style="width:100px">审核时间</td>
                         <td style="width:80px">状态</td>
                     </tr>
@@ -153,6 +153,7 @@
                 var htm = "";
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i];
+                    console.log(o)
                     var auditStatus = "";
                     var statusStyle = "";
                     switch (o.approved) {
