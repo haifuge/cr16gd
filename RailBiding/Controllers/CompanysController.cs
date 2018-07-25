@@ -30,6 +30,7 @@ namespace RailBiding.Controllers
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
+           
             ViewBag.Name = dr["Name"].ToString();
             ViewBag.CreditNo = dr["CreditNo"].ToString();
             ViewBag.CorporateRepresentative = dr["CorporateRepresentative"].ToString();
@@ -111,6 +112,17 @@ namespace RailBiding.Controllers
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
+
+            if (Session["RoleId"].ToString() == "2") {
+                ViewBag.editbtn = @"<a href ='/Companys/EditCompany?cid=" + id + @"' class='js-cancle-meet' title='编辑'>
+                                    <i class='meet-icon icon-cancel icon-edits'>编辑</i>
+                                  </a>";
+            } else {
+                ViewBag.editbtn = "";
+
+            }
+            
+
             return View();
         }
         [VerifyLoginFilter]
@@ -240,7 +252,7 @@ namespace RailBiding.Controllers
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             Session["outin"] = dr["Type"].ToString();
-            ViewBag.outin= dr["Type"].ToString();
+            ViewBag.inout= dr["Type"].ToString();
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();
@@ -468,17 +480,15 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult Create()
         {
-            Session["outin"] = Request["outin"].ToString();
-            
-            if (Request["outin"].ToString() == "1")
+            if (Request["inout"].ToString() == "1")
             {
-                ViewBag.outin = "1";
+                ViewBag.inout = "1";
                 ViewBag.InActive = " class=active";
                 ViewBag.OutActive = "";
             }
             else
             {
-                ViewBag.outin = "0";
+                ViewBag.inout = "0";
                 ViewBag.InActive = "";
                 ViewBag.OutActive = " class=active";
             }
