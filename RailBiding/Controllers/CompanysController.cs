@@ -499,7 +499,7 @@ namespace RailBiding.Controllers
                 company.QualificationLevel = Request["qlevel"].ToString();
                 company.SecurityCertificateNo = Request["lno"].ToString();
                 company.BusinessScope = Request["bscope"].ToString();
-                company.RegisteredCapital = Request["rmoney"]==null?"0": Request["rmoney"].ToString();
+                company.RegisteredCapital = Request["rmoney"].ToString() == ""?"0": Request["rmoney"].ToString();
                 company.CorporateRepresentive = Request["rep"]==null?"": Request["rep"].ToString();
                 company.RepPhone = Request["rtel"]==null?"": Request["rtel"].ToString();
                 company.Contact = Request["contact"] == null ? "": Request["contact"].ToString();

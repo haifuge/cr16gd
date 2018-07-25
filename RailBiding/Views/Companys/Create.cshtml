@@ -581,7 +581,6 @@
             return;
         }
         $("#fupform").ajaxSubmit(function (res) {
-            console.log(res);
             var fileName = res.split('|');
             $(".dw").html(fileName[1]);
             $("#fname").val(fileName[0]);
@@ -594,7 +593,6 @@
             return;
         }
         $("#bfupform7").ajaxSubmit(function (res) {
-            console.log(res);
             $("#zzzsPic").text(res);
         });
     })
@@ -607,7 +605,6 @@
             return;
         }
         $("#bfupform1").ajaxSubmit(function (res) {
-            console.log(res);
             var fileName = res.split('|');
             $(".dw1").html(fileName[1]);
             $("#referPic").val(fileName[0]);
@@ -680,16 +677,7 @@
                 title: '推荐人不能为空！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-
-            )
+            })
             return;
         }
        }else{
@@ -706,15 +694,7 @@
                 title: '请填写统一社会信用代码号！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }else{
             $("#socialCreditNo").css('border','1px solid green');
@@ -730,15 +710,7 @@
                 title: '请填写资质等级！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }else{
             $("#qualificationLevel").css('border','1px solid green');
@@ -762,15 +734,7 @@
                 title: '请填写法人代表！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }else{
             $("#companyRepresentative").css('border','1px solid green');
@@ -784,15 +748,7 @@
                 title: '请填写法人代表联系电话！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }else{
             $("#repTelephone").css('border','1px solid green');
@@ -807,15 +763,7 @@
                 title: '请填写现场负责人！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }else{
             $("#contact").css('border','1px solid green');
@@ -830,15 +778,7 @@
                 title: '请填写现场负责人联系电话！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }else{
             $("#contactPhone").css('border','1px solid green');
@@ -884,16 +824,7 @@
                 title: '企业名称不能为空！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-
-            )
+            })
             return;
         }
         
@@ -904,16 +835,7 @@
                     title: '推荐人不能为空！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer');
-                        }
-                    }
-
-                )
+                })
                 return;
             }
             if (allfileInput1 == "") {
@@ -923,15 +845,7 @@
                     title: '请上传推荐书！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer');
-                        }
-                    }
-                )
+                })
                 return;
             }
         }
@@ -943,15 +857,7 @@
                 title: '请上传营业执照！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (socialCreditNo == "") {
@@ -960,15 +866,7 @@
                 title: '请填写统一社会信用代码号！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (qualificationLevel == "") {
@@ -977,15 +875,7 @@
                 title: '请填写资质等级！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         } 
         if (zzlist == "") {
@@ -993,54 +883,10 @@
                 title: '请上传企业资质！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         } 
-        /*     if( $(".yuijianred").html()!= "") {
-                 if(allfileInput4 == "") {
-                     document.getElementById("allfileInput4").focus();
-                     swal({
-                         title: '请上传安全证书！',
-                         text: '2秒后自动关闭。',
-                         timer: 2000
-                     }).then(
-                         function () { },
-                         // handling the promise rejection
-                         function (dismiss) {
-                             if (dismiss === 'timer') {
-                                 console.log('I was closed by the timer');
-                             }
-                         }
-                     )
-                     return;
-                 } 
-                 if (licenseNo == "") {
-     
-                     document.getElementById("licenseNo").focus();
-                     swal({
-                         title: '请上传证件编号！',
-                         text: '2秒后自动关闭。',
-                         timer: 2000
-                     }).then(
-                         function () { },
-                         // handling the promise rejection
-                         function (dismiss) {
-                             if (dismiss === 'timer') {
-                                 console.log('I was closed by the timer');
-                             }
-                         }
-                     )
-                     return;
-                 }
-             }*/
+ 
         if (companyRepresentative == "") {
 
             document.getElementById("companyRepresentative").focus();
@@ -1048,15 +894,7 @@
                 title: '请填写法人代表！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (repTelephone == "") {
@@ -1065,15 +903,7 @@
                 title: '请填写法人代表联系电话！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (allfileInput5 == "") {
@@ -1083,15 +913,7 @@
                 title: '请上传法人代表身份证扫描件！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         } 
         if (contact == "") {
@@ -1100,15 +922,7 @@
                 title: '请填写现场负责人！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (contactPhone == "") {
@@ -1118,15 +932,7 @@
                 title: '请填写现场负责人联系电话！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (allfileInput6 == "") {
@@ -1136,19 +942,11 @@
                 title: '请上传现场负责人身份证扫描件！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
-        var comName = $("#companyName").val()
 
+        var comName = $("#companyName").val()
         var bt = $("#bType").val()
         var refname = $("#refererName").val()
         var scno = $("#socialCreditNo").val()
@@ -1175,68 +973,92 @@
             lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc, blpic:blpic,scPic:scPic,rsfz:rsfz,ctsfz:ctsfz,
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
         }
-        // show
 
-   /*     swal({
-            title: '确定提交吗？',
-            text: '你将无法恢复它！',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '确定提交！'
-        }).then(
-    function (cc) {
-        if (cc.dismiss != "cancel") {                
-            $.post('/SystemSetup/RemoveDepartment?id=' + cNode.id)
-            swal(
-            '提交成功！',
-            '该部门已经提交。',
-            'success'
-              );    
+
+        if(submitType==0){               
+                 $('body').loading({
+                     loadingWidth: 240,
+                     title: '请稍等!',
+                     name: 'test',
+                     discription: '正在保存...',
+                     direction: 'column',
+                     type: 'origin',
+                     // originBg:'#71EA71',
+                     originDivWidth: 40,
+                     originDivHeight: 40,
+                     originWidth: 6,
+                     originHeight: 6,
+                     smallLoading: false,
+                     loadingMaskBg: 'rgba(0,0,0,0.2)'
+                 });
+
+                 $.post("/Companys/Create", data, function (res) {
+                     if (res == "1") {
+                         uploadZZPics();
+
+                     } else {
+                         //hide
+                         removeLoading('test');
+                         if (auditSt == 0)
+                             swal('公司保存失败, ' + res)
+                         else
+                             swal('公司创建失败, ' + res)
+                     }
+                 })
+        }else{
+            swal({
+                title: '请仔细确认您的信息是否有误，提交后将不能修改，请确认。',
+                //text: '',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定提交！'
+            }).then(
+         function (cc) {
+             if (cc.dismiss != "cancel") {                
+                 $('body').loading({
+                     loadingWidth: 240,
+                     title: '请稍等!',
+                     name: 'test',
+                     discription: '正在创建公司...',
+                     direction: 'column',
+                     type: 'origin',
+                     // originBg:'#71EA71',
+                     originDivWidth: 40,
+                     originDivHeight: 40,
+                     originWidth: 6,
+                     originHeight: 6,
+                     smallLoading: false,
+                     loadingMaskBg: 'rgba(0,0,0,0.2)'
+                 });
+
+                 $.post("/Companys/Create", data, function (res) {
+                     if (res == "1") {
+                         uploadZZPics();
+
+                     } else {
+                         //hide
+                         removeLoading('test');
+                         if (auditSt == 0)
+                             swal('公司保存失败, ' + res)
+                         else
+                             swal('公司创建失败, ' + res)
+                     }
+                 })
+             }
+         })
         }
-        initTree()
-    }
-        )*/
 
 
-        $('body').loading({
-            loadingWidth: 240,
-            title: '请稍等!',
-            name: 'test',
-            discription: '正在创建公司',
-            direction: 'column',
-            type: 'origin',
-            // originBg:'#71EA71',
-            originDivWidth: 40,
-            originDivHeight: 40,
-            originWidth: 6,
-            originHeight: 6,
-            smallLoading: false,
-            loadingMaskBg: 'rgba(0,0,0,0.2)'
-        });
 
-        $.post("/Companys/Create", data, function (res) {
-
-            if (res == "1") {
-                uploadZZPics();
-
-            } else {
-                //hide
-                removeLoading('test');
-                if (auditSt == 0)
-                    swal('公司保存失败, ' + res)
-                else
-                    swal('公司创建失败, ' + res)
-            }
-        })
+        
     }
         
     
     function uploadWorkHistory() {
         var wh = $("#tworkhistory")
         var children = wh.children();
-        //console.log(children)
         var data = "";
         for (var i = 0; i < children.length; i++) {
             var item = children[i].children[0].innerText + '|' + children[i].children[1].innerText + '|' +
@@ -1291,7 +1113,6 @@
         if (file.size / 1024 > 1500) {
             compress = true;
             quality = 1024 * 1500 / file.size;
-            console.log(quality)
         }
         r = new FileReader();  //本地预览
         r.onload = function () {
@@ -1492,7 +1313,6 @@
     })
     $(".aui-close-up-img").click(function () {
         //$(this).parents("li").hide();
-        console.log($(this).parents("li"))
     });
     function cancelImg() {
         $(".canvas").hide();
@@ -1544,7 +1364,6 @@
                 // handling the promise rejection
                 function (dismiss) {
                     if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
                     }
                 }
 
