@@ -1188,6 +1188,7 @@
                 loadingMaskBg: 'rgba(0,0,0,0.2)'
             });
             $.post("/Companys/Create", data, function (res) {
+                res = res + "";
                 if (res.length < 5) {
                     data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
                     $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
