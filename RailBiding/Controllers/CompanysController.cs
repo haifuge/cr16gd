@@ -499,16 +499,16 @@ namespace RailBiding.Controllers
                 company.QualificationLevel = Request["qlevel"].ToString();
                 company.SecurityCertificateNo = Request["lno"].ToString();
                 company.BusinessScope = Request["bscope"].ToString();
-                company.RegisteredCapital = Request["rmoney"].ToString()==""?"0": Request["rmoney"].ToString();
-                company.CorporateRepresentive = Request["rep"].ToString();
-                company.RepPhone = Request["rtel"].ToString();
-                company.Contact = Request["contact"].ToString();
-                company.ContactPhone = Request["cphone"].ToString();
+                company.RegisteredCapital = Request["rmoney"]==null?"0": Request["rmoney"].ToString();
+                company.CorporateRepresentive = Request["rep"]==null?"": Request["rep"].ToString();
+                company.RepPhone = Request["rtel"]==null?"": Request["rtel"].ToString();
+                company.Contact = Request["contact"] == null ? "": Request["contact"].ToString();
+                company.ContactPhone = Request["cphone"]==null?"": Request["cphone"].ToString();
                 company.Status = 1;
-                company.ContactAddress = Request["caddress"].ToString();
-                company.ConstructionContent = Request["construction"].ToString();
-                company.Note = Request["note"].ToString();
-                company.Type = int.Parse(Session["outin"].ToString());
+                company.ContactAddress = Request["caddress"]==null?"": Request["caddress"].ToString();
+                company.ConstructionContent = Request["construction"] == null ? "" : Request["construction"].ToString();
+                company.Note = Request["note"] == null ? "" : Request["note"].ToString();
+                company.Type = int.Parse(Session["outin"]==null? "1": Session["outin"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
 
                 company.BusinessLicensePic = Request["blpic"].ToString();

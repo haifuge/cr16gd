@@ -273,7 +273,7 @@ namespace DAL.Models
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
                                                Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, ReferreIDPic, CreateDate,
                                                BusinessLicensePic, ContactIDPic, SecurityCertificatePic, RepIDPic)" +
-            "values(N'" + company.Name + "', '" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
+            "values(N'" + company.Name + "', N'" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
             "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
             "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
             "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
