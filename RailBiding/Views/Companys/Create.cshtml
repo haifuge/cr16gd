@@ -266,12 +266,12 @@
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="companyName" style="float:left"
                                        class="has-clear-input input input3 chongfuinput" autofocus onblur="CheckCompanyNameUsed()"/>
-                                <span style="color:red;display:none;line-height: 50px;float:left;width:48%" class="chongfu">该企业已在库里，请重新录入企业名称！</span>
+                                <span style="color:red;display:none;line-height: 24px;float:left;width:40%" class="chongfu">该企业已在库里，请重新录入企业名称！</span>
                             </td>
                             
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable">业务类型：</td>
+                            <td class="form-lable"><span class="red-word">*</span>业务类型：</td>
                             <td>
                                 <div class="form-item  sel-required">
                                     <select class="select radius-sel dropdown" name="iofnName"
@@ -379,7 +379,7 @@
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable"><span class="white-word">*</span>业务范围：</td>
+                            <td class="form-lable"><span class="red-word">*</span>业务范围：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="businessScope"
                                        class="has-clear-input input input3 input6" onblur="businessScope()"/>
@@ -429,14 +429,14 @@
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable"><span class="white-word">*</span>联系地址：</td>
+                            <td class="form-lable"><span class="red-word">*</span>联系地址：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="contactAddress"
                                        class="has-clear-input input input3"  onblur="contactAddress()"/>
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable">施工内容：</td>
+                            <td class="form-lable"><span class="red-word">*</span>施工内容：</td>
                             <td>
                                 <textarea name="roomInfoName" type="text" value="" id="construction"  onblur="construction()"
                                           class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="    if (value == '') { placeholder = '输入推荐参与施工内容' }"></textarea>
@@ -451,7 +451,7 @@
                         </tr>
                         <tr class="form-tr detail-user-con gzyj">
                             <td colspan="2">
-                                <h3 class="yj-tit">工作业绩:</h3>
+                                <h3 class="yj-tit"><span class="red-word">* </span> 工作业绩:</h3>
                                 <table style="width: 100%" class="table01">
                                     <thead class="wc-header gzyjthead">
                                         <tr>
@@ -547,21 +547,33 @@
     function businessScope(){
         if($("#businessScope").val()!=""){
             $("#businessScope").css('border','1px solid green');
-        }
+        }else{
+            swal("请填写业务范围！")
+            $("#businessScope").css('border','1px solid red');
+            }
     }
     function registerMoney(){
         if($("#registerMoney").val()!=""){
             $("#registerMoney").css('border','1px solid green');
+        }else{
+            swal("请填写注册资金！")
+            $("#registerMoney").css('border','1px solid red');
         }
     }
     function contactAddress(){
         if($("#contactAddress").val()!=""){
             $("#contactAddress").css('border','1px solid green');
+        }else{
+            swal("请填写联系地址！")
+            $("#contactAddress").css('border','1px solid red');
         }
     }
     function construction(){
         if($("#construction").val()!=""){
             $("#construction").css('border','1px solid green');
+        }else{
+            swal("请填写施工内容！")
+            $("#construction").css('border','1px solid red');
         }
     }
     function note(){
@@ -786,13 +798,15 @@
     }
     var checkcompanynameuserd=false
     var submitType = 0;
+
+
+    //提交按钮
     function saveCompany(auditSt) {
         submitType = auditSt;
-        
         if(!checkcompanynameuserd)
         {
 
-            $(".chongfuinput").css({"width":"50%","margin-top":"10px"})
+            $(".chongfuinput").css({"margin-top":"20px"})
             $(".chongfu").css({"display":'block','padding-left':'10px'})
             window.scrollTo(0,0);
             //
@@ -816,7 +830,7 @@
         var contactPhone = $("#contactPhone").val();
         var allfileInput6 = $("#allfileInput6").val();
 
-
+       
         
         if (companyName == "") {
             document.getElementById("companyName").focus();
@@ -883,7 +897,8 @@
                 title: '请上传企业资质！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            })
+            })   
+            
             return;
         } 
  
@@ -1378,7 +1393,7 @@
                 } 
                 else{
                     $("#companyName").css('border','1px solid green');
-                    $(".chongfuinput").css({"width":"98%","margin-top":"0px"})
+                    $(".chongfuinput").css({"margin-top":"0px"})
                     $(".chongfu").css({"display":'none'})
              
                     checkcompanynameuserd=true;

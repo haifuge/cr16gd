@@ -268,9 +268,9 @@
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>企业名称：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="@ViewBag.Name" id="companyName" style="float:left"
+                                <input name="roomInfoName" type="text" value="@ViewBag.Name" id="companyName" 
                                        class="has-clear-input input input3 chongfuinput" autofocus onblur="CheckCompanyNameUsed()" />
-                                <span style="color:red;display:none;line-height: 50px;float:left;width:48%" class="chongfu">该企业已在库里，请重新录入企业名称！</span>
+                                <span style="color:red;display:none;line-height: 24px;float:left;width:40%" class="chongfu">该企业已在库里，请重新录入企业名称！</span>
                             </td>
 
                         </tr>
@@ -854,7 +854,7 @@
 
         if(!checkcompanynameuserd)
         {
-            $(".chongfuinput").css({"width":"50%","margin-top":"10px"})
+            $(".chongfuinput").css({"margin-top":"20px"})
             $(".chongfu").css({"display":'block','padding-left':'10px'})
             window.scrollTo(0,0);
             return;
@@ -1578,7 +1578,7 @@
                 }
                 else{
                     $("#companyName").css('border','1px solid green');
-                    $(".chongfuinput").css({"width":"98%","margin-top":"0px"})
+                    $(".chongfuinput").css({"margin-top":"0px"})
                     $(".chongfu").css({"display":'none'})
 
                     checkcompanynameuserd=true;
