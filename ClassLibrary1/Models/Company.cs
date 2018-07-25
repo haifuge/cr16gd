@@ -196,7 +196,7 @@ namespace DAL.Models
             sql += "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
                 "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
                 "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentative=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
-                "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactPhone + "', " +
+                "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactAddress + "', " +
                 "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", " +
                 " Referre = N'" + company.Referrer + "', BusinessLicensePic=@blpath,ContactIDPic=@cipath, AuditStatus=" +company.AuditStatus+
                 ",ReferreIDPic=@refpath, RepIDPic=@ripath, SecurityCertificatePic=@scpath where id=" + company.Id;
