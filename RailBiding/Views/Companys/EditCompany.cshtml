@@ -549,27 +549,39 @@
     function businessScope(){
         if($("#businessScope").val()!=""){
             $("#businessScope").css('border','1px solid green');
+        }else{
+            swal("请填写业务范围！")
+            $("#businessScope").css('border','1px solid red');
         }
-    }
+    } 
     function registerMoney(){
         if($("#registerMoney").val()!=""){
             $("#registerMoney").css('border','1px solid green');
+        }else{
+            swal("请填写注册资金！")
+            $("#registerMoney").css('border','1px solid red');
         }
     }
     function contactAddress(){
         if($("#contactAddress").val()!=""){
             $("#contactAddress").css('border','1px solid green');
+        }else{
+            swal("请填写联系地址！")
+            $("#contactAddress").css('border','1px solid red');
         }
     }
     function construction(){
         if($("#construction").val()!=""){
             $("#construction").css('border','1px solid green');
+        }else{
+            swal("请填写施工内容！")
+            $("#construction").css('border','1px solid red');
         }
     }
     function note(){
         if($("#note").val()!=""){
             $("#note").css('border','1px solid green');
-        }
+        }  
     }
 
 
@@ -672,180 +684,129 @@
 
 
     //验证
+        //推荐人验证
+        function refererName(){
+            var refererName = $("#refererName").val();
+            if ( $(".yuijianred").html()!= ""){
+                if (refererName == "") {
+                    swal({
+                        title: '推荐人不能为空！',
+                        text: '2秒后自动关闭。',
+                        timer: 2000
+                    })
+                    $("#refererName").css('border','1px solid red');
+                    return;
+                }
+            }else{
+                $("#refererName").css('border','1px solid green');
+            }
+        }
 
-    //推荐人验证
-    function refererName(){
-        var refererName = $("#refererName").val();
-        if ( $(".yuijianred").html()!= ""){
-            if (refererName == "") {
+
+        //营业执照代号码验证
+        function  socialCreditNo(){
+            var socialCreditNo = $("#socialCreditNo").val();
+            if (socialCreditNo == "") {
                 swal({
-                    title: '推荐人不能为空！',
+                    title: '请填写统一社会信用代码号！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer');
-                        }
-                    }
-
-                )
+                })
+                $("#socialCreditNo").css('border','1px solid red');
                 return;
+            }else{
+                $("#socialCreditNo").css('border','1px solid green');
             }
-        }else{
-            $("#refererName").css('border','1px solid green');
-        }
-    }
-
-
-    //营业执照代号码验证
-    function  socialCreditNo(){
-        var socialCreditNo = $("#socialCreditNo").val();
-        if (socialCreditNo == "") {
-            swal({
-                title: '请填写统一社会信用代码号！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        }else{
-            $("#socialCreditNo").css('border','1px solid green');
-        }
-    }
-
-    //资质等级验证
-    function  qualificationLevel(){
-
-        var qualificationLevel = $("#qualificationLevel").val();
-        if (qualificationLevel == "") {
-            swal({
-                title: '请填写资质等级！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        }else{
-            $("#qualificationLevel").css('border','1px solid green');
-        }
-    }
-
-    //安全证书号码验证
-    function  licenseNo(){
-        var licenseNo = $("#licenseNo").val();
-        if (licenseNo != "") {
-            $("#licenseNo").css('border','1px solid green');
-        }
-    }
-
-
-    //法人代表验证
-    function  companyRepresentative(){
-        var companyRepresentative = $("#companyRepresentative").val();
-        if (companyRepresentative == "") {
-            swal({
-                title: '请填写法人代表！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        }else{
-            $("#companyRepresentative").css('border','1px solid green');
-        }
-    }
-    //法人代表电话验证
-    function repTelephone(){
-        var repTelephone = $("#repTelephone").val();
-        if (repTelephone == "") {
-            swal({
-                title: '请填写法人代表联系电话！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        }else{
-            $("#repTelephone").css('border','1px solid green');
-        }
-    }
-
-    //现场负责人验证
-    function contact(){
-        var contact = $("#contact").val();
-        if (contact == "") {
-            swal({
-                title: '请填写现场负责人！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        }else{
-            $("#contact").css('border','1px solid green');
         }
 
-    }
-    //现场负责人电话验证
-    function contactPhone(){
-        var contactPhone = $("#contactPhone").val();
-        if (contactPhone == "") {
-            swal({
-                title: '请填写现场负责人联系电话！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
-            return;
-        }else{
-            $("#contactPhone").css('border','1px solid green');
+        //资质等级验证
+        function  qualificationLevel(){
+    
+            var qualificationLevel = $("#qualificationLevel").val();
+            if (qualificationLevel == "") {
+                swal({
+                    title: '请填写资质等级！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                })
+                $("#qualificationLevel").css('border','1px solid red');
+                return;
+            }else{
+                $("#qualificationLevel").css('border','1px solid green');
+            }
         }
-    }
+
+        //安全证书号码验证
+        function  licenseNo(){
+            var licenseNo = $("#licenseNo").val();
+            if (licenseNo != "") {
+                $("#licenseNo").css('border','1px solid green');
+            }
+        }
+
+
+        //法人代表验证
+        function  companyRepresentative(){
+            var companyRepresentative = $("#companyRepresentative").val();
+            if (companyRepresentative == "") {
+                swal({
+                    title: '请填写法人代表！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                })
+                $("#companyRepresentative").css('border','1px solid red');
+                return;
+            }else{
+                $("#companyRepresentative").css('border','1px solid green');
+            }
+        }
+        //法人代表电话验证
+        function repTelephone(){
+            var repTelephone = $("#repTelephone").val();
+            if (repTelephone == "") {
+                swal({
+                    title: '请填写法人代表联系电话！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                })
+                $("#repTelephone").css('border','1px solid red');
+                return;
+            }else{
+                $("#repTelephone").css('border','1px solid green');
+            }
+        }
+
+        //现场负责人验证
+        function contact(){
+            var contact = $("#contact").val();
+            if (contact == "") {
+                swal({
+                    title: '请填写现场负责人！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                })
+                $("#contact").css('border','1px solid red');
+                return;
+            }else{
+                $("#contact").css('border','1px solid green');
+            }
+    
+        }
+        //现场负责人电话验证
+        function contactPhone(){
+            var contactPhone = $("#contactPhone").val();
+            if (contactPhone == "") {
+                swal({
+                    title: '请填写现场负责人联系电话！',
+                    text: '2秒后自动关闭。',
+                    timer: 2000
+                })
+                $("#contactPhone").css('border','1px solid red');
+                return;
+            }else{
+                $("#contactPhone").css('border','1px solid green');
+            }
+        }
     var checkcompanynameuserd=false
     var submitType = 0;
 
@@ -875,9 +836,13 @@
         var contact = $("#contact").val();
         var contactPhone = $("#contactPhone").val();
         var dw5 = $(".dw5").html();
+        var businessScope=$("#businessScope").val();
+        var registerMoney=$("#registerMoney").val();
+        var contactAddress=$("#contactAddress").val();
+        var construction=$("#construction").val();
 
         if (companyName == "") {
-            document.getElementById("companyName").focus();
+            //document.getElementById("companyName").focus();
             swal({
                 title: '企业名称不能为空！',
                 text: '2秒后自动关闭。',
@@ -911,6 +876,8 @@
                     }
                 )
                 return;
+            }else{
+                $("#refererName").css('border','1px solid green');
             }
             if (dw1 == "") {
 
@@ -1037,6 +1004,24 @@
                      return;
                  }
              }*/
+        if (businessScope == "") {
+            document.getElementById("businessScope").focus();
+            swal({
+                title: '请填写业务范围！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
+        if (registerMoney == "") {
+            document.getElementById("registerMoney").focus();
+            swal({
+                title: '请填写注册资金！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
         if (companyRepresentative == "") {
 
             document.getElementById("companyRepresentative").focus();
@@ -1143,6 +1128,37 @@
             )
             return;
         }
+        if (contactAddress == "") {
+            document.getElementById("contactAddress").focus();
+            swal({
+                title: '请填写联系地址！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
+        if (construction == "") {
+            document.getElementById("construction").focus();
+            swal({
+                title: '请填写施工内容！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
+
+        var wh = $("#tworkhistory")
+        var children = wh.children();
+        if(children.length==0){
+            swal({
+                title: '请添加工作业绩！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
+
+
         var comName = $("#companyName").val()
 
         var bt = $("#bType").val()

@@ -1010,7 +1010,9 @@
         }
 
 
-        if($("#tworkhistory").html()==""){
+        var wh = $("#tworkhistory")
+        var children = wh.children();
+        if(children.length==0){
             swal({
                 title: '请添加工作业绩！',
                 text: '2秒后自动关闭。',
