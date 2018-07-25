@@ -515,7 +515,7 @@ namespace RailBiding.Controllers
                 company.RepPhone = Request["rtel"]==null?"": Request["rtel"].ToString();
                 company.Contact = Request["contact"] == null ? "": Request["contact"].ToString();
                 company.ContactPhone = Request["cphone"]==null?"": Request["cphone"].ToString();
-                company.Status = 1;
+                //company.Status = 1;
                 company.ContactAddress = Request["caddress"]==null?"": Request["caddress"].ToString();
                 company.ConstructionContent = Request["construction"] == null ? "" : Request["construction"].ToString();
                 company.Note = Request["note"] == null ? "" : Request["note"].ToString();

@@ -32,7 +32,8 @@ namespace DAL.Models
         public string ContactAddress { get; set; }
         public string ConstructionContent { get; set; }
         public string Note { get; set; }
-        public int Status { get; set; }
+        private int status = 1;
+        public int Status { get { return status; } set { status = value; } }
         public string AuditDate { get; set; }
         public int AuditStatus { get; set; }
         private int type = 1;
