@@ -266,7 +266,7 @@
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="companyName" style="float:left"
                                        class="has-clear-input input input3 chongfuinput" autofocus onblur="CheckCompanyNameUsed()"/>
-                                <span style="color:red;display:none;line-height: 24px;float:left;width:40%" class="chongfu">该企业已在库里，请重新录入企业名称！</span>
+                                <span style="color:red;display:none;line-height: 24px;float:left;width:40%" class="chongfu">企业名为空或该企业已在库里，请重新录入企业名称！</span>
                             </td>
                             
                         </tr>
@@ -551,7 +551,7 @@
             swal("请填写业务范围！")
             $("#businessScope").css('border','1px solid red');
             }
-    }
+    } 
     function registerMoney(){
         if($("#registerMoney").val()!=""){
             $("#registerMoney").css('border','1px solid green');
@@ -690,6 +690,7 @@
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
+            $("#refererName").css('border','1px solid red');
             return;
         }
        }else{
@@ -707,6 +708,7 @@
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
+            $("#socialCreditNo").css('border','1px solid red');
             return;
         }else{
             $("#socialCreditNo").css('border','1px solid green');
@@ -723,6 +725,7 @@
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
+            $("#qualificationLevel").css('border','1px solid red');
             return;
         }else{
             $("#qualificationLevel").css('border','1px solid green');
@@ -747,6 +750,7 @@
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
+            $("#companyRepresentative").css('border','1px solid red');
             return;
         }else{
             $("#companyRepresentative").css('border','1px solid green');
@@ -761,6 +765,7 @@
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
+            $("#repTelephone").css('border','1px solid red');
             return;
         }else{
             $("#repTelephone").css('border','1px solid green');
@@ -776,6 +781,7 @@
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
+            $("#contact").css('border','1px solid red');
             return;
         }else{
             $("#contact").css('border','1px solid green');
@@ -791,6 +797,7 @@
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
+            $("#contactPhone").css('border','1px solid red');
             return;
         }else{
             $("#contactPhone").css('border','1px solid green');
@@ -830,12 +837,15 @@
         var contactPhone = $("#contactPhone").val();
         var allfileInput6 = $("#allfileInput6").val();
 
-       
-        
+        var businessScope=$("#businessScope").val();
+        var registerMoney=$("#registerMoney").val();
+        var contactAddress=$("#contactAddress").val();
+        var construction=$("#construction").val();
+
         if (companyName == "") {
             document.getElementById("companyName").focus();
             swal({
-                title: '企业名称不能为空！',
+                title: '请填写企业名称！',
                 text: '2秒后自动关闭。',
                 timer: 2000
             })
@@ -846,11 +856,13 @@
             if (refererName == "") {
                 document.getElementById("refererName").focus();
                 swal({
-                    title: '推荐人不能为空！',
+                    title: '请填写推荐人！',
                     text: '2秒后自动关闭。',
                     timer: 2000
                 })
                 return;
+            }else{
+                $("#refererName").css('border','1px solid green');
             }
             if (allfileInput1 == "") {
 
@@ -901,6 +913,24 @@
             
             return;
         } 
+        if (businessScope == "") {
+            document.getElementById("businessScope").focus();
+            swal({
+                title: '请填写业务范围！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
+        if (registerMoney == "") {
+            document.getElementById("registerMoney").focus();
+            swal({
+                title: '请填写注册资金！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
  
         if (companyRepresentative == "") {
 
@@ -960,6 +990,34 @@
             })
             return;
         }
+        if (contactAddress == "") {
+            document.getElementById("contactAddress").focus();
+            swal({
+                title: '请填写联系地址！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
+        if (construction == "") {
+            document.getElementById("construction").focus();
+            swal({
+                title: '请填写施工内容！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
+
+
+        if($("#tworkhistory").html()==""){
+            swal({
+                title: '请添加工作业绩！',
+                text: '2秒后自动关闭。',
+                timer: 2000
+            })
+            return;
+        }
 
         var comName = $("#companyName").val()
         var bt = $("#bType").val()
@@ -1008,9 +1066,10 @@
                  });
 
                  $.post("/Companys/Create", data, function (res) {
-                     if (res == "1") {
-                         uploadZZPics();
-
+                     res=res+"";
+                     if (res.length < 5) {
+                         data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id:res}
+                         $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
                      } else {
                          //hide
                          removeLoading('test');
@@ -1020,7 +1079,8 @@
                              swal('公司创建失败, ' + res)
                      }
                  })
-        }else{
+        }
+        else{
             swal({
                 title: '请仔细确认您的信息是否有误，提交后将不能修改，请确认。',
                 //text: '',
@@ -1049,6 +1109,7 @@
                  });
 
                  $.post("/Companys/Create", data, function (res) {
+                     res=res+"";
                      if (res.length < 5) {
                          data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id:res}
                          $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
@@ -1065,9 +1126,6 @@
          })
         }
 
-
-
-        
     }
         
     

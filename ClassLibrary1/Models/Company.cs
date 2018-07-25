@@ -261,7 +261,7 @@ namespace DAL.Models
             else
                 sql += " select @cipath = FilePath from BidDocument where FilePath like '%" + company.ContactIDPic + "%'; ";
 
-            sql += "update company BusinessLicensePic=@blpath,ContactIDPic=@cipath,ReferreIDPic=@refpath, RepIDPic=@ripath, SecurityCertificatePic=@scpath where id="+company.Id+"; ";
+            sql += "update company set BusinessLicensePic=@blpath,ContactIDPic=@cipath,ReferreIDPic=@refpath, RepIDPic=@ripath, SecurityCertificatePic=@scpath where id="+company.Id+"; ";
 
             if (company.ReferreIDPic != "")
             {
