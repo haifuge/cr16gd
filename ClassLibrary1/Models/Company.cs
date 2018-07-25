@@ -209,8 +209,6 @@ namespace DAL.Models
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
 
-            DBHelper.ExecuteNonQuery(sql);
-
             if (company.AuditStatus == 1)
             {
                 if (company.Type == 1)
@@ -228,7 +226,7 @@ namespace DAL.Models
             }
             return i;
         }
-        public bool UpdateCompanyPics(Company company)
+        public void UpdateCompanyPics(Company company)
         {
             string sql = @"declare @refpath nvarchar(400);
                            declare @blpath nvarchar(400);
@@ -276,10 +274,6 @@ namespace DAL.Models
             if (company.ContactIDPic != "")
                 sql += "update BidDocument set ProjId=" + company.Id + " where FilePath like '%" + company.ContactIDPic + "%'; ";
             DBHelper.ExecuteNonQuery(sql);
-            int i = DBHelper.ExecuteNonQuery(sql);
-            if (i == 1)
-                return true;
-            return false;
         }
 
         public bool ToggleCompany(string id, string status)
