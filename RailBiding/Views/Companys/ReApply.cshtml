@@ -1166,7 +1166,7 @@
 
         var data = { id:@ViewBag.cid,
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, refd: refdoc, blpic:blpic,scPic:scPic,rsfz:rsfz,ctsfz:ctsfz,
+            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, 
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
         }
 
@@ -1188,8 +1188,9 @@
                 loadingMaskBg: 'rgba(0,0,0,0.2)'
             });
             $.post("/Companys/Create", data, function (res) {
-                if (res == "1") {
-                    uploadZZPics();
+                if (res.length < 5) {
+                    data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
+                    $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
                 } else {
                     //hide
                     removeLoading('test');

@@ -531,13 +531,7 @@ namespace RailBiding.Controllers
                 company.Note = Request["note"] == null ? "" : Request["note"].ToString();
                 company.Type = int.Parse(Request["inout"]==null? "1": Request["inout"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
-
-                company.BusinessLicensePic = Request["blpic"].ToString();
-                company.ContactIDPic = Request["ctsfz"].ToString();
-                company.ReferreIDPic = Request["refd"].ToString();
-                company.RepIDPic = Request["rsfz"].ToString();
-                company.SecurityCertificatePic = Request["scPic"].ToString();
-
+                
                 Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
 
                 if(Request["id"]!=null)
@@ -545,13 +539,14 @@ namespace RailBiding.Controllers
                     cc.DisableCompany(Request["id"].ToString());
                 }
                 
-                return "1";
+                return Session["newCid"].ToString();
             }
             catch(Exception ex)
             {
                 return ex.ToString();
             }
         }
+
         public void UploadPic()
         {
             string cid = Session["newCid"].ToString();
@@ -731,18 +726,7 @@ namespace RailBiding.Controllers
             }
             return Json(new { success = true, msg = "上传成功!", src }, JsonRequestBehavior.AllowGet);
         }
-
-        //[HttpPost]
-        //public void FileUpload()
-        //{
-        //    string path = Server.MapPath("/projectPics/");
-        //    if (!Directory.Exists(path))
-        //        Directory.CreateDirectory(path);
-        //    var curFile = Request.Files[0];
-        //    var fileExt = Path.GetExtension(curFile.FileName);
-        //    string fullPath = path + "/" + curFile.FileName;
-        //    curFile.SaveAs(fullPath);
-        //}
+        
         [HttpPost]
         public void DeleteImg()
         {
@@ -958,12 +942,6 @@ namespace RailBiding.Controllers
                 company.Note = Request["note"].ToString();
                 company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
 
-                company.BusinessLicensePic = Request["blpic"].ToString();
-                company.ContactIDPic = Request["ctsfz"].ToString();
-                company.ReferreIDPic = Request["refd"].ToString();
-                company.RepIDPic = Request["rsfz"].ToString();
-                company.SecurityCertificatePic = Request["scPic"].ToString();
-
                 cc.UpdateCompany(company, Session["UserId"].ToString());
                 Session["newCid"] = company.Id;
                 return "1";
@@ -973,6 +951,19 @@ namespace RailBiding.Controllers
                 return ex.ToString();
             }
         }
+        public void SaveCompanyPics()
+        {
+            Company company = new Company();
+            company.Id = int.Parse(Request["id"].ToString());
+            company.BusinessLicensePic = Request["blpic"].ToString();
+            company.ContactIDPic = Request["ctsfz"].ToString();
+            company.ReferreIDPic = Request["refd"].ToString();
+            company.RepIDPic = Request["rsfz"].ToString();
+            company.SecurityCertificatePic = Request["scPic"].ToString();
+            CompanyContext cc = new CompanyContext();
+            cc.UpdateCompanyPics(company);
+        }
+
         public string CheckUpdateCompanyNameUsed(string cName, string cid)
         {
 

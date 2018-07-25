@@ -162,6 +162,74 @@ namespace DAL.Models
 
         public bool UpdateCompany(Company company, string uid)
         {
+            string sql = "";
+            sql += "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
+                "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
+                "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentative=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
+                "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactAddress + "', " +
+                "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", " +
+                " Referre = N'" + company.Referrer + "',  AuditStatus=" +company.AuditStatus+ " where id=" + company.Id;
+            int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
+            sql = "";
+            
+
+            if (company.AuditStatus == 1)
+            {
+                if (company.Type == 1)
+                    // 名录内企业
+                    CreateApproveProcess(company.Id.ToString(), uid, "5");
+                else
+                    // 名录外企业
+                    CreateApproveProcess(company.Id.ToString(), uid, "1");
+
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = uid;
+                l.Description = "创建公司" + company.Type == "1" ? "名录内" : "名录外" + " - " + company.Name;
+                LogContext.WriteLog(l);
+            }
+            if (i > 0)
+                return true;
+            else
+                return false;
+        }
+        public string CreateCompany(Company company, string uid)
+        {
+            string sql = "";
+            sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
+                                               SecurityCertificateNo, CorporateRepresentative, RepPhone, 
+                                               Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
+                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, CreateDate)" +
+            "values(N'" + company.Name + "', N'" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
+            "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
+            "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
+            "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
+            "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " +
+            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", getdate());";
+            sql += "select max(id) from Company;";
+            string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
+
+            DBHelper.ExecuteNonQuery(sql);
+
+            if (company.AuditStatus == 1)
+            {
+                if (company.Type == 1)
+                    // 名录内企业
+                    CreateApproveProcess(i, uid, "5");
+                else
+                    // 名录外企业
+                    CreateApproveProcess(i, uid, "1");
+
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = uid;
+                l.Description = "创建公司"+ company.Type =="1"?"名录内":"名录外"+ " - "+company.Name;
+                LogContext.WriteLog(l);
+            }
+            return i;
+        }
+        public bool UpdateCompanyPics(Company company)
+        {
             string sql = @"declare @refpath nvarchar(400);
                            declare @blpath nvarchar(400);
                            declare @scpath nvarchar(400);
@@ -193,15 +261,8 @@ namespace DAL.Models
             else
                 sql += " select @cipath = FilePath from BidDocument where FilePath like '%" + company.ContactIDPic + "%'; ";
 
-            sql += "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
-                "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
-                "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentative=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
-                "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactAddress + "', " +
-                "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", " +
-                " Referre = N'" + company.Referrer + "', BusinessLicensePic=@blpath,ContactIDPic=@cipath, AuditStatus=" +company.AuditStatus+
-                ",ReferreIDPic=@refpath, RepIDPic=@ripath, SecurityCertificatePic=@scpath where id=" + company.Id;
-            int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
-            sql = "";
+            sql += "update company BusinessLicensePic=@blpath,ContactIDPic=@cipath,ReferreIDPic=@refpath, RepIDPic=@ripath, SecurityCertificatePic=@scpath where id="+company.Id+"; ";
+
             if (company.ReferreIDPic != "")
             {
                 sql += "update BidDocument set ProjId=" + company.Id + " where FilePath like '%" + company.ReferreIDPic + "%'; ";
@@ -215,116 +276,6 @@ namespace DAL.Models
             if (company.ContactIDPic != "")
                 sql += "update BidDocument set ProjId=" + company.Id + " where FilePath like '%" + company.ContactIDPic + "%'; ";
             DBHelper.ExecuteNonQuery(sql);
-
-            if (company.AuditStatus == 1)
-            {
-                if (company.Type == 1)
-                    // 名录内企业
-                    CreateApproveProcess(company.Id.ToString(), uid, "5");
-                else
-                    // 名录外企业
-                    CreateApproveProcess(company.Id.ToString(), uid, "1");
-
-                Log l = new Log();
-                l.OperType = OperateType.Create;
-                l.UserId = uid;
-                l.Description = "创建公司" + company.Type == "1" ? "名录内" : "名录外" + " - " + company.Name;
-                LogContext.WriteLog(l);
-            }
-            if (i > 0)
-                return true;
-            else
-                return false;
-        }
-        public string CreateCompany(Company company, string uid)
-        {
-            string sql = @"declare @refpath nvarchar(400);
-                           declare @blpath nvarchar(400);
-                           declare @scpath nvarchar(400);
-                           declare @ripath nvarchar(400);
-                           declare @cipath nvarchar(400);";
-
-            if (company.ReferreIDPic == "")
-                sql += " set @refpath=''; ";
-            else
-                sql+=" select @refpath = FilePath from BidDocument where FilePath like '%"+ company.ReferreIDPic + "%'; ";
-
-            if (company.BusinessLicensePic == "")
-                sql += " set @blpath=''; ";
-            else
-                sql += " select @blpath = FilePath from BidDocument where FilePath like '%" + company.BusinessLicensePic + "%'; ";
-
-            if (company.SecurityCertificatePic == "")
-                sql += " set @scpath=''; ";
-            else
-                sql += " select @scpath = FilePath from BidDocument where FilePath like '%" + company.SecurityCertificatePic + "%'; ";
-
-            if (company.RepIDPic == "")
-                sql += " set @ripath=''; ";
-            else
-                sql += " select @ripath = FilePath from BidDocument where FilePath like '%" + company.RepIDPic + "%'; ";
-
-            if (company.ContactIDPic == "")
-                sql += " set @cipath=''; ";
-            else
-                sql += " select @cipath = FilePath from BidDocument where FilePath like '%" + company.ContactIDPic + "%'; ";
-
-            sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
-                                               SecurityCertificateNo, CorporateRepresentative, RepPhone, 
-                                               Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, ReferreIDPic, CreateDate,
-                                               BusinessLicensePic, ContactIDPic, SecurityCertificatePic, RepIDPic)" +
-            "values(N'" + company.Name + "', N'" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
-            "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
-            "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
-            "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
-            "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " +
-            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", @refpath, getdate(),
-            @blpath, @cipath, @scpath, @ripath);";
-            sql += "select max(id) from Company;";
-            string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
-            // 更新临时保存的推荐书
-            sql = "";
-            if (company.ReferreIDPic != "")
-            {
-                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.ReferreIDPic + "%'; ";
-            }
-            if (company.BusinessLicensePic != "")
-                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.BusinessLicensePic + "%'; ";
-            if (company.SecurityCertificatePic != "")
-                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.SecurityCertificatePic + "%'; ";
-            if (company.RepIDPic != "")
-                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.RepIDPic + "%'; ";
-            if (company.ContactIDPic != "")
-                sql += "update BidDocument set ProjId=" + i + " where FilePath like '%" + company.ContactIDPic + "%'; ";
-            DBHelper.ExecuteNonQuery(sql);
-
-            if (company.AuditStatus == 1)
-            {
-                if (company.Type == 1)
-                    // 名录内企业
-                    CreateApproveProcess(i, uid, "5");
-                else
-                    // 名录外企业
-                    CreateApproveProcess(i, uid, "1");
-
-                Log l = new Log();
-                l.OperType = OperateType.Create;
-                l.UserId = uid;
-                l.Description = "创建公司"+ company.Type =="1"?"名录内":"名录外"+ " - "+company.Name;
-                LogContext.WriteLog(l);
-            }
-
-            return i;
-        }
-        public bool UpdateCompanyPics(Company company)
-        {
-            string sql = "update Company set ReferreIDPic='"+company.ReferreIDPic+
-                                        "', BusinessLicensePic='"+company.BusinessLicensePic+
-                                        "', SecurityCertificatePic='"+company.SecurityCertificatePic+
-                                        "', RepIDPic='"+company.RepIDPic+
-                                        "',ContactIDPic='"+company.ContactIDPic+
-                                        "' where ID="+company.Id;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;
