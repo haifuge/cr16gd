@@ -366,7 +366,7 @@ namespace DAL.Models
                             into #temp1
                             from Company c
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where c.SubmitUserId=" + userid + @" and " + where + @" c.Name like '%" + cname+@"%' order by c.id desc
+                            where c.status!=-1 and c.SubmitUserId=" + userid + @" and " + where + @" c.Name like '%" + cname+@"%' order by c.id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
@@ -405,6 +405,12 @@ namespace DAL.Models
         {
             string sql = "select count(1) from Company where Name = '" + cName + "' and Id<>"+cid;
             return DBHelper.ExecuteScalar(sql);
+        }
+
+        public void DisableCompany(string id)
+        {
+            string sql = "update Company set status=-1 where Id=" + id;
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }
