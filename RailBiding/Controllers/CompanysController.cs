@@ -518,6 +518,11 @@ namespace RailBiding.Controllers
                 company.SecurityCertificatePic = Request["scPic"].ToString();
 
                 Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
+
+                if(Request["id"]!=null)
+                {
+                    cc.DisableCompany(Request["id"].ToString());
+                }
                 
                 return "1";
             }
