@@ -240,6 +240,7 @@ namespace RailBiding.Controllers
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             Session["outin"] = dr["Type"].ToString();
+            ViewBag.outin= dr["Type"].ToString();
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();
@@ -508,7 +509,7 @@ namespace RailBiding.Controllers
                 company.ContactAddress = Request["caddress"]==null?"": Request["caddress"].ToString();
                 company.ConstructionContent = Request["construction"] == null ? "" : Request["construction"].ToString();
                 company.Note = Request["note"] == null ? "" : Request["note"].ToString();
-                company.Type = int.Parse(Session["outin"]==null? "1": Session["outin"].ToString());
+                company.Type = int.Parse(Request["outin"]==null? "1": Request["outin"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
 
                 company.BusinessLicensePic = Request["blpic"].ToString();
