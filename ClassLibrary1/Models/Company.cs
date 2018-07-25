@@ -139,7 +139,10 @@ namespace DAL.Models
         public DataTable GetCompanyReferee(int id)
 
         {
-            string sql = "select FileName, FilePath from BidDocument where FileType=1 and ProjId=" + id;
+            string sql = @"select bd.FileName, bd.FilePath 
+                            from BidDocument bd 
+                            inner join Company c on bd.ProjId=c.ID and bd.FileType=1 and c.ReferreIDPic=bd.FilePath 
+                            where bd.FileType=1 and bd.ProjId=" + id;
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetWorkHistory(int id)
