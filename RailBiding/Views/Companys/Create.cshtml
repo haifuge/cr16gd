@@ -1191,6 +1191,7 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
+
         $.post("/Companys/Create", data, function (res) {
 
             if (res == "1") {
@@ -1509,7 +1510,7 @@
         var companyName = $("#companyName").val();
 
         if (companyName == "") {
-            document.getElementById("companyName").focus();
+         //   document.getElementById("companyName").focus();
             swal({
                 title: '企业名称不能为空！',
                 text: '2秒后自动关闭。',

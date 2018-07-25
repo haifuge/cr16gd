@@ -52,23 +52,27 @@ namespace RailBiding.Controllers
             if(Session["RoleId"].ToString()=="2")
             {
                 ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' id='invitebtn' onclick='inviteCompanys()' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
-
-                dt = bc.GetBidingCompanys(pid);
-                StringBuilder cHtml = new StringBuilder();
-                cHtml.Append("<tr class='form-tr detail-user-con'><td colspan='2'><div class='detail-user-list' style='min-height:215px;overflow: auto;'><div class='meet-user-span'>");
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    var cid = "company" + dt.Rows[i]["id"].ToString();
-                    cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('" + cid + "')\"></i></span>");
-                }
-                cHtml.Append(@"</div></div></td></tr>");
-                ViewBag.JoinCompanys = cHtml.ToString();
+                ViewBag.addCompanysbtn = @"<button type='submit' class='add-qy' style='width: 80px;'>
+                                            <a href='#' onclick='ShowDiv('MyDiv','fade')' style='color: #fff'>
+                                                <img src='~/img/icon-add3.png' style='vertical-align: middle' alt=''>添加企业
+                                            </a>
+                                        </button>";
             }
             else
             {
                 ViewBag.InviteCompanyBtn = "";
-                ViewBag.JoinCompanys = "";
+                ViewBag.addCompanysbtn = "";
             }
+            dt = bc.GetBidingCompanys(pid);
+            StringBuilder cHtml = new StringBuilder();
+            cHtml.Append("<tr class='form-tr detail-user-con'><td colspan='2'><div class='detail-user-list' style='min-height:215px;overflow: auto;'><div class='meet-user-span'>");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var cid = "company" + dt.Rows[i]["id"].ToString();
+                cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('" + cid + "')\"></i></span>");
+            }
+            cHtml.Append(@"</div></div></td></tr>");
+            ViewBag.JoinCompanys = cHtml.ToString();
 
             return View();
         }
