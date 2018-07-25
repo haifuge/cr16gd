@@ -403,7 +403,7 @@ namespace DAL.Models
 
         public string CheckUpdateCompanyNameUsed(string cName, string cid)
         {
-            string sql = "select count(1) from Company where Name = '" + cName + "' and Id<>"+cid;
+            string sql = "select count(1) from Company where Name = '" + cName + "' and status<>-1 and Id<>"+cid;
             return DBHelper.ExecuteScalar(sql);
         }
 

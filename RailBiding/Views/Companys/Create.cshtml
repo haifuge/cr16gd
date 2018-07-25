@@ -1176,6 +1176,30 @@
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
         }
         // show
+
+   /*     swal({
+            title: '确定提交吗？',
+            text: '你将无法恢复它！',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定提交！'
+        }).then(
+    function (cc) {
+        if (cc.dismiss != "cancel") {                
+            $.post('/SystemSetup/RemoveDepartment?id=' + cNode.id)
+            swal(
+            '提交成功！',
+            '该部门已经提交。',
+            'success'
+              );    
+        }
+        initTree()
+    }
+        )*/
+
+
         $('body').loading({
             loadingWidth: 240,
             title: '请稍等!',
