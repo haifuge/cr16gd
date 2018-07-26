@@ -821,8 +821,9 @@ namespace RailBiding.Controllers
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             ViewBag.inout = dr["Type"].ToString();
-            Session["inout"]= dr["Type"].ToString(); 
+            Session["inout"]= dr["Type"].ToString();
 
+            ViewBag.roleid = Session["RoleId"].ToString();
             // 上传图片和文件
             DataTable pics = cc.GetCompanyPics(id);
             string rootPath = Server.MapPath("../");

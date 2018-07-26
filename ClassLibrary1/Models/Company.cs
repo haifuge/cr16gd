@@ -163,30 +163,39 @@ namespace DAL.Models
         public bool UpdateCompany(Company company, string uid)
         {
             string sql = "";
-            sql += "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
+            sql = "select RoleId from UserInfo where id=" + uid;
+            string roleid = DBHelper.ExecuteScalar(sql);
+            // 
+            if(roleid=="2")
+            {
+                company.AuditStatus = 2;
+            }
+            sql = "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
                 "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
                 "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', CorporateRepresentative=N'" + company.CorporateRepresentive + "', RepPhone='" + company.RepPhone + "', " +
                 "Contact = N'" + company.Contact + "', ContactPhone = '" + company.ContactPhone + "', ContactAddress = N'" + company.ContactAddress + "', " +
                 "ConstructionContent = N'" + company.ConstructionContent + "', Note=N'" + company.Note + "', Status=" + company.Status + ", " +
                 " Referre = N'" + company.Referrer + "',  AuditStatus=" +company.AuditStatus+ " where id=" + company.Id;
             int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
-            sql = "";
-            
 
-            if (company.AuditStatus == 1)
+            // 非管理员修改要重新走审批流程
+            if (roleid != "2")
             {
-                if (company.Type == 1)
-                    // 名录内企业
-                    CreateApproveProcess(company.Id.ToString(), uid, "5");
-                else
-                    // 名录外企业
-                    CreateApproveProcess(company.Id.ToString(), uid, "1");
+                if (company.AuditStatus == 1)
+                {
+                    if (company.Type == 1)
+                        // 名录内企业
+                        CreateApproveProcess(company.Id.ToString(), uid, "5");
+                    else
+                        // 名录外企业
+                        CreateApproveProcess(company.Id.ToString(), uid, "1");
 
-                Log l = new Log();
-                l.OperType = OperateType.Create;
-                l.UserId = uid;
-                l.Description = "创建公司" + company.Type == "1" ? "名录内" : "名录外" + " - " + company.Name;
-                LogContext.WriteLog(l);
+                    Log l = new Log();
+                    l.OperType = OperateType.Create;
+                    l.UserId = uid;
+                    l.Description = "创建公司" + company.Type == "1" ? "名录内" : "名录外" + " - " + company.Name;
+                    LogContext.WriteLog(l);
+                }
             }
             if (i > 0)
                 return true;

@@ -524,7 +524,7 @@
                 </div>
 
                 <div class="form-tr-btn">
-                    <button type="submit" class="meet-btn big-btn lightblue-btn" onclick="saveCompany(1)">提交</button>@*js-submit*@
+                    <button type="submit" class="meet-btn big-btn lightblue-btn tijiaobth" onclick="saveCompany(1)">提交</button>@*js-submit*@
                     <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="saveCompany(0)">保存</button>
                     <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
                 </div>
@@ -546,6 +546,9 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
+    if (@ViewBag.roleid == 2){
+        $(".tijiaobth").hide()
+    }
     function businessScope(){
         if($("#businessScope").val()!=""){
             $("#businessScope").css('border','1px solid green');
@@ -553,7 +556,7 @@
             swal("请填写业务范围！")
             $("#businessScope").css('border','1px solid red');
         }
-    } 
+    }
     function registerMoney(){
         if($("#registerMoney").val()!=""){
             $("#registerMoney").css('border','1px solid green');
@@ -581,7 +584,7 @@
     function note(){
         if($("#note").val()!=""){
             $("#note").css('border','1px solid green');
-        }  
+        }
     }
 
 
@@ -721,7 +724,7 @@
 
         //资质等级验证
         function  qualificationLevel(){
-    
+
             var qualificationLevel = $("#qualificationLevel").val();
             if (qualificationLevel == "") {
                 swal({
@@ -790,7 +793,7 @@
             }else{
                 $("#contact").css('border','1px solid green');
             }
-    
+
         }
         //现场负责人电话验证
         function contactPhone(){
@@ -1184,7 +1187,7 @@
 
         var data = { id:@ViewBag.cid,
             cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,inout:@ViewBag.inout,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, 
+            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt,
             contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
         }
         if(submitType==0){
@@ -1230,7 +1233,7 @@
                 confirmButtonText: '确定提交！'
             }).then(
              function (cc) {
-                 if (cc.dismiss != "cancel") {  
+                 if (cc.dismiss != "cancel") {
                      // show
                      $('body').loading({
                          loadingWidth: 240,
@@ -1264,7 +1267,7 @@
                      })
                  }
              })
-        }    
+        }
     }
 
 
@@ -1292,7 +1295,15 @@
                 });
             else
                 swal('保存成功').then(function () {
-                    window.location.href = "/Companys/MyRecommend";
+                    if(@ViewBag.roleid == 2){
+                        if(@ViewBag.inout=="0"){
+                            window.location.href = "/Companys/CompanysOut";
+                        }else{
+                            window.location.href = "/Companys";
+                        }
+                    }else{
+                        window.location.href = "/Companys/MyRecommend";
+                    }
                 });
         });
     }
