@@ -522,7 +522,7 @@ namespace RailBiding.Controllers
         }
         // POST: Companys/Create
         [HttpPost]
-        public string Create(FormCollection collection)
+        public string CreateCompany()
         {
             CompanyContext cc = new CompanyContext();
             try

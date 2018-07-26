@@ -1143,10 +1143,8 @@
         var ctsfz = document.getElementById("conSFZ").value
         var tdfilename = $("#tworkhistory tr td:last-child").html();
 
-        var data = { id:@ViewBag.cid,
-            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, 
-            contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
+        var data = {
+            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt
         }
 
         if(submitType==0){
@@ -1166,11 +1164,14 @@
                 smallLoading: false,
                 loadingMaskBg: 'rgba(0,0,0,0.2)'
             });
-            $.post("/Companys/Create", data, function (res) {
+            $.post("/Companys/CreateCompany", data, function (res) {
                 res = res + "";
                 if (res.length < 5) {
-                    data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
-                    $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                    data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
+                    $.post("/Companys/AppendCompanyInfo", data, function () {
+                        data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
+                        $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                    })
                 } else {
                     //hide
                     removeLoading('test');
@@ -1208,11 +1209,14 @@
                              smallLoading: false,
                              loadingMaskBg: 'rgba(0,0,0,0.2)'
                          });
-                         $.post("/Companys/Create", data, function (res) {
+                         $.post("/Companys/CreateCompany", data, function (res) {
                              res = res + "";
                              if (res.length < 5) {
-                                 data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
-                                 $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                                 data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
+                                 $.post("/Companys/AppendCompanyInfo", data, function () {
+                                     data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
+                                     $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                                 })
                              } else {
                                  //hide
                                  removeLoading('test');
