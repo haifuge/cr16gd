@@ -295,9 +295,9 @@ namespace DAL.Models
                 return false;
         }
 
-        public bool DeleteCompany(Company company)
+        public bool DeleteCompany(string id)
         {
-            string sql = @"delete company where id"+company.Id;
+            string sql = @"delete company where id in ("+id+")";
             int i = DBHelper.ExecuteNonQuery(CommandType.Text,sql);
             if (i > 0)
                 return true;
