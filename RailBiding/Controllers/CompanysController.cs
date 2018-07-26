@@ -19,6 +19,13 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName= "itemC")]
         public ActionResult Index()
         {
+           if(Session["RoleId"].ToString() == "2"){
+                ViewBag.delebtn = "<a class='meet-btn red-btn small-size sm-btn' onclick='deleCompany()'>" +
+                                   "<i class='xs-meet-icon icon-dele'></i>删除</a>";
+            }else
+            {
+                ViewBag.delebtn = "";
+            }
             return View();
         }
 
@@ -231,6 +238,15 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult CompanysOut()
         {
+            if (Session["RoleId"].ToString() == "2")
+            {
+                ViewBag.delebtn = "<a class='meet-btn red-btn small-size sm-btn' onclick='deleCompany()'>" +
+                                   "<i class='xs-meet-icon icon-dele'></i>删除</a>";
+            }
+            else
+            {
+                ViewBag.delebtn = "";
+            }
             return View();
         }
         [VerifyLoginFilter]
@@ -268,7 +284,7 @@ namespace RailBiding.Controllers
             string pic = dr["ReferreIDPic"].ToString();
             ViewBag.moretime = "";
             if (Request["auditstatus"].ToString() == "3") {
-                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='moretime()'><i class='meet-icon icon-cancel'>再次申请</i></a>";
+                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='moretime()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
             }
             //if (pic != "")
             //{
@@ -682,11 +698,11 @@ namespace RailBiding.Controllers
             {
                 CompanyContext cc = new CompanyContext();
                 cc.DeleteCompany(ids);
-                return "{\"result\":\"success\"}";
+                return "0";
             }
             catch
             {
-                return "{\"result\":\"fail\"}";
+                return "1";
             }
         }
 
