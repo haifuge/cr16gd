@@ -3,7 +3,7 @@
     ViewBag.Title = "名录内单位";
 }
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-<link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
     #bType{
@@ -40,9 +40,7 @@
             <a class="meet-btn green-btn small-size sm-btn" href="Companys/Create?inout=1">
                 <i class="xs-meet-icon icon-add"></i>添加
             </a>
-            <a class="meet-btn red-btn small-size sm-btn" onclick="deleCompany()">
-                <i class="xs-meet-icon icon-dele"></i>删除
-            </a>
+            @Html.Raw(ViewBag.delebtn)
         </div>
         <div class="wc-container">
             <table class="meet-table text-left">
@@ -73,7 +71,7 @@
 </div>
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
-<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
@@ -206,11 +204,34 @@
             swal("请选择要删除的公司！")
             return;
         }
-        var checkID = "";
-        $("input.icheck:checked").each(function (i) {//把所有被选中的复选框的值存入数组
-            checkID += $(this).val() + ',';
+        swal({
+            title: '确定删除？',
+            text: '确定删除后，公司信息将无法恢复！',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定删除！'
+        }).then( function (cc) {
+            if (cc.dismiss != "cancel") {
+                var checkID = "";
+                $("input.icheck:checked").each(function (i) {//把所有被选中的复选框的值存入数组
+                    checkID += $(this).val() + ',';
+                })
+                checkID = checkID.substr(0, checkID.length - 1)
+                $.post("/Companys/DeleteCompany?ids=" + checkID, {}, function (res) {
+                    if (res == "0") {
+                        swal("删除成功！")
+                    } else {
+                        swal("删除失败！")
+                    }
+                    
+                    window.location.reload(true)
+                });
+               
+            }
         })
-        checkID = checkID.substr(0,checkID.length-1)
-        console.log(checkID);
+        
+        
     }
 </script>
