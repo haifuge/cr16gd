@@ -64,7 +64,7 @@
 
     .canvas_content_text {
         width: 100%;
-        height: 50%;
+        
         margin-top: 10px;
     }
 
@@ -1372,6 +1372,7 @@
     $(".canvas_close").on("click", function () {
         $("#zzzsPic").html("")
         $("#input_zzmc").val("");
+        $("#allfileInput3").val("");
         $("#zzmcmsg").html("");
         $("#input_zsbh").val("")
         $("#zsbhmsg").html("");
@@ -1395,6 +1396,7 @@
     function cancelImg() {
         $(".canvas").hide();
         $("#zzzsPic").html("")
+        $("#allfileInput3").val("");
         $("#input_zzmc").val("");
         $("#zzmcmsg").html("");
         $("#input_zsbh").val("")
