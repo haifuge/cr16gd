@@ -488,7 +488,7 @@
                 <div class="add-yej">
                     <h3>添加业绩</h3>
                     <div class="cb">
-                        <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" maxlength="30" name="roomInfoName" value="" id="projName" />
+                        <label for="">项目名称：</label><input type="text" class="has-clear-input input input3" name="roomInfoName" value="" id="projName" />
                         <label for="" style="width:100px;float:left">合同扫描件：</label>
                         <div class="upload-btn upload-btn2" style="top:0px;width: 40px;float:left;">
                             <form id='fupform' name='fupform' method="post" target='frameFile' action="/Common/UploadTestifyFile" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
@@ -594,13 +594,13 @@
         $(".yuijianred").html("*")
     }
         $("#fileInfoName").change(function () {
-
             var fileInfoName = $("#fileInfoName").val();
             if (fileInfoName == "") { //点击取消，取消事件的编写
+                $(".dw").html("");
+                $("#fname").val("");
                 return;
             }
             $("#fupform").ajaxSubmit(function (res) {
-                console.log(res);
                 var fileName = res.split('|');
                 $(".dw").html(fileName[1]);
                 $("#fname").val(fileName[0]);
@@ -610,6 +610,7 @@
 
             var fileInfoName = $("#allfileInput3").val();
             if (fileInfoName == "") { //点击取消，取消事件的编写
+                $("#zzzsPic").text("");
                 return;
             }
             $("#bfupform7").ajaxSubmit(function (res) {
