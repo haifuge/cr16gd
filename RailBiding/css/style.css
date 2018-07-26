@@ -448,6 +448,10 @@ select::-ms-expand {
 .icon-add {
     background: url(../img/icon-add.png) center center no-repeat;
 }
+.icon-dele {
+    background: url(../img/icon-bh.png) center center no-repeat;
+}
+
 
 .icon-close {
     background: url(../img/icon/icon-close.png) center center no-repeat;
@@ -1630,7 +1634,9 @@ button:hover {
 .red-btn {
     background: #ff0000;
 }
-
+.green-btn {
+    background: #50b033;
+}
 .gray-btn {
     background: #aca9a9
 }
@@ -5016,6 +5022,10 @@ h3.fx_tit {
 .icon-dc {
     background: #29a9ef url(../img/icon-dc.png) no-repeat 10px center;
     padding-left: 7px;
+}
+.icon-daooutbtn{
+    background: #29a9ef url(../img/icon-daoout.png) no-repeat 10px center;
+    padding-left:16px;
 }
 
 .icon-bh {

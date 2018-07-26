@@ -37,8 +37,11 @@
             <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
                 <i class="xs-meet-icon icon-daoout"></i>导出
             </a>
-            <a class="meet-btn red-btn small-size sm-btn" href="Companys/Create?inout=1">
+            <a class="meet-btn green-btn small-size sm-btn" href="Companys/Create?inout=1">
                 <i class="xs-meet-icon icon-add"></i>添加
+            </a>
+            <a class="meet-btn red-btn small-size sm-btn" onclick="deleCompany()">
+                <i class="xs-meet-icon icon-dele"></i>删除
             </a>
         </div>
         <div class="wc-container">
@@ -156,7 +159,7 @@
                 console.log(o)
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
-                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1" /></td >' +
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td >' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.name + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
@@ -195,5 +198,19 @@
             s = 0;
         $.post("/Companys/ToggleCompany?id=" + comid + "&status=" + s, {}, function () { });
 
+    }
+
+    //删除按钮
+    function deleCompany() {
+        if (!$("input.icheck").is(":checked")) {
+            swal("请选择要删除的公司！")
+            return;
+        }
+        var checkID = "";
+        $("input.icheck:checked").each(function (i) {//把所有被选中的复选框的值存入数组
+            checkID += $(this).val() + ',';
+        })
+        checkID = checkID.substr(0,checkID.length-1)
+        console.log(checkID);
     }
 </script>

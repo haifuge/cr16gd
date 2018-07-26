@@ -268,7 +268,7 @@ namespace RailBiding.Controllers
             string pic = dr["ReferreIDPic"].ToString();
             ViewBag.moretime = "";
             if (Request["auditstatus"].ToString() == "3") {
-                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='moretime()'><i class='meet-icon icon-cancel'>再次申请</i></a>";
+                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='moretime()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
             }
             //if (pic != "")
             //{
