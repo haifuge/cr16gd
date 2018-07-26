@@ -1068,7 +1068,7 @@
                      loadingMaskBg: 'rgba(0,0,0,0.2)'
                  });
 
-                 $.post("/Companys/Create", data, function (res) {
+            $.post("/Companys/CreateCompany", data, function (res) {
                      res=res+"";
                      if (res.length < 5) {
                          data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
@@ -1114,7 +1114,7 @@
                      loadingMaskBg: 'rgba(0,0,0,0.2)'
                  });
 
-                 $.post("/Companys/Create", data, function (res) {
+                 $.post("/Companys/CreateCompany", data, function (res) {
                      res=res+"";
                      if (res.length < 5) {
                          data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
