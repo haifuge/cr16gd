@@ -215,13 +215,32 @@ namespace RailBiding.API
 
         public string GetCompanyCandidate(string page, string pagesize)
         {
+            string cname = "";
+            if (Request["cname"] != null)
+                cname = Request["cname"].ToString();
+            string ctype = "";
+            if (Request["ctype"] != null)
+                ctype = Request["ctype"].ToString();
+            string inout = "";
+            if (Request["inout"] != null)
+                inout = Request["inout"].ToString();
+
+            string where = "";
+            if (cname != "")
+                where += " Name like '%"+cname+"%' and ";
+            if (ctype != "")
+                where += " BusinessType = "+ctype+" and ";
+            if (inout != "")
+                where += " Type = "+inout+" and ";
+
+
             int pi = int.Parse(page);
             int ps = int.Parse(pagesize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, ID*1 as ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent,Type 
                            into #temp1
-                           from Company where Status=1 and AuditStatus=2 order by Id
+                           from Company where "+where+@" Status=1 and AuditStatus=2 order by Id
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);

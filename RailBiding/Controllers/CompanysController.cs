@@ -669,14 +669,12 @@ namespace RailBiding.Controllers
 
         // POST: Companys/Delete/5
         [HttpPost]
-        public string DeleteCompany(int id, FormCollection collection)
+        public string DeleteCompany(string ids)
         {
             try
             {
                 CompanyContext cc = new CompanyContext();
-                // TODO: Add insert logic here
-                Company company = new Company();
-                cc.DeleteCompany(company);
+                cc.DeleteCompany(ids);
                 return "{\"result\":\"success\"}";
             }
             catch
