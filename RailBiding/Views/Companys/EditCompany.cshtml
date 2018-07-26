@@ -1248,16 +1248,19 @@
                          loadingMaskBg: 'rgba(0,0,0,0.2)'
                      });
                      $.post("/Companys/SaveCompany", data, function (res) {
-                         if (res == "1") {
-                             uploadZZPics();
-                         } else {
-                             //hide
-                             removeLoading('test');
-                             if (auditSt == 0)
-                                 swal('公司保存失败, ' + res)
-                             else
-                                 swal('公司创建失败, ' + res)
-                         }
+                         data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id:@ViewBag.cid}
+                         $.post("/Companys/SaveCompanyPics", data, function () {
+                             if (res == "1") {
+                                 uploadZZPics();
+                             } else {
+                                 //hide
+                                 removeLoading('test');
+                                 if (auditSt == 0)
+                                     swal('公司保存失败, ' + res)
+                                 else
+                                     swal('公司创建失败, ' + res)
+                             }
+                         })
                      })
                  }
              })

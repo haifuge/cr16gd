@@ -941,7 +941,7 @@ namespace RailBiding.Controllers
                 company.ConstructionContent = Request["construction"].ToString();
                 company.Note = Request["note"].ToString();
                 company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
-
+                company.Type = int.Parse(Request["inout"].ToString());
                 cc.UpdateCompany(company, Session["UserId"].ToString());
                 Session["newCid"] = company.Id;
                 return "1";
