@@ -521,14 +521,6 @@ namespace RailBiding.Controllers
                 company.SecurityCertificateNo = Request["lno"].ToString();
                 company.BusinessScope = Request["bscope"].ToString();
                 company.RegisteredCapital = Request["rmoney"].ToString() == ""?"0": Request["rmoney"].ToString();
-                company.CorporateRepresentive = Request["rep"]==null?"": Request["rep"].ToString();
-                company.RepPhone = Request["rtel"]==null?"": Request["rtel"].ToString();
-                company.Contact = Request["contact"] == null ? "": Request["contact"].ToString();
-                company.ContactPhone = Request["cphone"]==null?"": Request["cphone"].ToString();
-                //company.Status = 1;
-                company.ContactAddress = Request["caddress"]==null?"": Request["caddress"].ToString();
-                company.ConstructionContent = Request["construction"] == null ? "" : Request["construction"].ToString();
-                company.Note = Request["note"] == null ? "" : Request["note"].ToString();
                 company.Type = int.Parse(Request["inout"]==null? "1": Request["inout"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
                 
@@ -545,6 +537,21 @@ namespace RailBiding.Controllers
             {
                 return ex.ToString();
             }
+        }
+
+        public void AppendCompanyInfo()
+        {
+            Company company = new Company();
+            company.Id = int.Parse(Session["newCid"].ToString());
+            company.CorporateRepresentive = Request["rep"] == null ? "" : Request["rep"].ToString();
+            company.RepPhone = Request["rtel"] == null ? "" : Request["rtel"].ToString();
+            company.Contact = Request["contact"] == null ? "" : Request["contact"].ToString();
+            company.ContactPhone = Request["cphone"] == null ? "" : Request["cphone"].ToString();
+            company.ContactAddress = Request["caddress"] == null ? "" : Request["caddress"].ToString();
+            company.ConstructionContent = Request["construction"] == null ? "" : Request["construction"].ToString();
+            company.Note = Request["note"] == null ? "" : Request["note"].ToString();
+            CompanyContext cc = new CompanyContext();
+            cc.AppendCompanyInfo(company);
         }
 
         public void UploadPic()

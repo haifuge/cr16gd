@@ -1044,9 +1044,7 @@
         var tdfilename = $("#tworkhistory tr td:last-child").html();
         
         var data = {
-            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,inout:@ViewBag.inout,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt, 
-            contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
+            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt
         }
 
 
@@ -1070,8 +1068,11 @@
                  $.post("/Companys/Create", data, function (res) {
                      res=res+"";
                      if (res.length < 5) {
-                         data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id:res}
-                         $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                         data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
+                         $.post("/Companys/AppendCompanyInfo", data, function () {
+                             data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
+                             $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                         })
                      } else {
                          //hide
                          removeLoading('test');
@@ -1113,8 +1114,13 @@
                  $.post("/Companys/Create", data, function (res) {
                      res=res+"";
                      if (res.length < 5) {
-                         data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id:res}
-                         $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                         data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
+                         $.post("/Companys/AppendCompanyInfo", data, function () {
+                             data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
+                             $.post("/Companys/SaveCompanyPics", data, function () {
+                                 uploadZZPics();
+                             })
+                         })
                      } else {
                          //hide
                          removeLoading('test');

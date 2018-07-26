@@ -367,5 +367,11 @@ namespace DAL.Models
             string sql = "update Company set status=-1 where Id=" + id;
             DBHelper.ExecuteNonQuery(sql);
         }
+
+        public void AppendCompanyInfo(Company company)
+        {
+            string sql = "update Company set CorporateRepresentative=N'" + company.CorporateRepresentive+"', RepPhone='"+company.RepPhone+"', Contact=N'"+company.Contact+"', ContactPhone='"+company.ContactPhone+"',ContactAddress='"+company.ContactAddress+"',ConstructionContent=N'"+company.ConstructionContent+"',Note=N'"+company.Note+"' where Id=" + company.Id;
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }
