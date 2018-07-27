@@ -342,7 +342,7 @@ namespace DAL.Models
 
         public string CheckCompanyNameUsed(string cName)
         {
-            string sql = "select count(1) from Company where Name = '" + cName + "';";
+            string sql = "select count(1) from Company where Name = '" + cName + "' and status<>-1;";
             return DBHelper.ExecuteScalar(sql);
         }
 
