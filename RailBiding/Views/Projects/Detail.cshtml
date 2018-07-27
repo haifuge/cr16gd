@@ -447,7 +447,7 @@
                 <div class="canvas_content_text">
                     <ul>
                         <li><span>招标文件<br>内容简述</span> <textarea id="bfcontent" placeholder="招标文件简述、主要工程量、预计合同金额" onfocus="if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur="    if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea>
-                             <p class"textinfo" style="color:red;padding-left:30px">请简述招标文件内容！</p>
+                             <p class="textinfo" style="color:red;padding-left:90px;display:none;">请简述招标文件内容！</p>
                         </li>
                         <li>
                             <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none">招标文件</span>
@@ -517,6 +517,9 @@
     $(function () {
 
         $("#bfup").change(function () {
+            if($("#bfup").val()==""){
+                return;
+            }
             $("#bfupform").ajaxSubmit(function (res) {
                 
                 var names = res.split('|')
@@ -544,17 +547,20 @@
     function bidfileSubmit(ss) {
         var bfc = $("#bfcontent").val();
         if(bfc==""){
-            swal("请简述招标文件内容！");
+            $(".textinfo").css("display","block")
             return;
+        }else{
+            $(".textinfo").css("display","none")
         }
         var pid =@ViewBag.ProjId;
         data = { content: bfc, pid: pid, status: ss }
         $.post("/Projects/AddBidFile", data, function (res) {
-        
+       
+            swal('提交成功！');
             $("#bidfileapplylayer").hide();
             $("#bfcontent").val("");
             $("#bffiles").html("");
-            swal('提交成功！')
+            $(".textinfo").css("display","none")
             location.reload(true);
         })
     }
@@ -570,12 +576,14 @@
         $("#bfcontent").val("");
         $("#bffiles").html("");
         $(".canvas").hide();  
+        $(".textinfo").css("display","none")
     })
     $(".backcolse-btn").on("click", function () {
         $("#bidfileapplylayer").hide();
         $("#bfcontent").val("");
         $("#bffiles").html("");
         $(".canvas").hide();  
+        $(".textinfo").css("display","none")
     })
 
 
@@ -591,8 +599,8 @@
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.id = obj[i].filepath
-                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                li.id = obj[i].fid;
+                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')" > 删除</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
         });
@@ -608,8 +616,8 @@
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.id = obj[i].filepath
-                li.innerHTML = obj[i].filename + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].filepath + '\')" > 删除</a>';
+                li.id = obj[i].fid;
+                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')" > 删除</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
         });
