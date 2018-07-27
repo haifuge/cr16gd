@@ -22,10 +22,14 @@ namespace RailBiding.Controllers
            if(Session["RoleId"].ToString() == "2"){
                 ViewBag.delebtn = "<a class='meet-btn red-btn small-size sm-btn' onclick='deleCompany()'>" +
                                    "<i class='xs-meet-icon icon-dele'></i>删除</a>";
-            }else
+                ViewBag.createbtn = "";
+            }
+            else
             {
                 ViewBag.delebtn = "";
-            }
+                ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='Companys/Create?inout=1'>
+                <i class='xs-meet-icon icon-add'></i>添加</a>";
+    }
             return View();
         }
 
@@ -52,6 +56,8 @@ namespace RailBiding.Controllers
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.AuditStatus = dr["AuditStatus"].ToString();
+            ViewBag.Type = dr["Type"].ToString();
+            ViewBag.id = dr["id"].ToString();
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -132,18 +138,11 @@ namespace RailBiding.Controllers
 
             if (ViewBag.AuditStatus == "0")
             {
-                ViewBag.addeditbtn = @"<a href ='/Companys/EditCompany?cid=" + id + @"' class='js-cancle-meet' title='编辑'>
+                ViewBag.addeditbtn = @"<a href ='#' class='js-cancle-meet' onclick='submitCompany()' title='提交'>
+                                    <i class='meet-icon icon-cancel icon-edits'>提交</i>
+                                  </a><a href ='/Companys/EditCompany?cid=" + id + @"' class='js-cancle-meet' title='编辑'>
                                     <i class='meet-icon icon-cancel icon-edits'>编辑</i>
-                                  </a><a href ='#' class='js-cancle-meet' onclick='saveCompany(1)' title='提交'>
-                                    <i class='meet-icon icon-cancel icon-edits'>提交</i>
                                   </a>";
-                
-                if(Session["RoleId"].ToString() == "2")
-                {
-                    ViewBag.addeditbtn = @"<a href ='#' class='js-cancle-meet' onclick='saveCompany(1)' title='提交'>
-                                    <i class='meet-icon icon-cancel icon-edits'>提交</i>
-                                  </a>";
-                }
             }
             else
             {
@@ -301,6 +300,8 @@ namespace RailBiding.Controllers
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             ViewBag.inout= dr["Type"].ToString();
+            ViewBag.AuditStatus = dr["AuditStatus"].ToString();
+            
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();

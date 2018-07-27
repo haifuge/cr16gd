@@ -333,8 +333,6 @@ namespace DAL.Models
 
         private void CreateApproveProcess(string cid, string uid, string apid)
         {
-            string sql = @"insert into AppProcessing(AppProcId, ObjId,Approved, Comment, DealDatetime,DUGUID)
-                            select APID, " + cid + ", 1, null, null, DUGUID from APDetail where APID = 1";
             SqlParameter[] paras = new SqlParameter[3];
             paras[0] = new SqlParameter("@uid",uid);
             paras[1] = new SqlParameter("@objid",cid);
