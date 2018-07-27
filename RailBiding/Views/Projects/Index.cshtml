@@ -38,9 +38,10 @@
             </select>
             <select class="meet-select js-meet-state">
                 <option value="all">项目状态 </option>
-                <option value="1">已结束</option>
-                <option value="2">审核中</option>
-                <option value="2">未启动</option>
+                <option value="0">未提交</option>
+                <option value="1">审核中</option>
+                <option value="2">已通过</option>
+                <option value="2">被驳回</option>
             </select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字">
@@ -111,30 +112,39 @@
                     var jsonData = JSON.parse(data);
                     var obj = jsonData.List;
                     var htm = "";
-
+                    var applyStyle = "";
+                    var applyStatus = "";
                     for (var i = 0; i < obj.length; i++) {
                         var o = obj[i];
+                        console.log(o);
                         switch (o.status) {
                             case "未发布":
                                 applyStyle = "wfb";
+                                applyStatus="未提交"
                                 break;
                             case "招标文件审核中":
                                 applyStyle = "statusstyle";
+                                applyStatus = "招标文件审核中"
                                 break;
                             case "招标文件审核通过":
                                 applyStyle = "statusstyle";
+                                applyStatus = "招标文件审核通过"
                                 break;
                             case "招标审核中":
                                 applyStyle = "statusstyle";
+                                applyStatus = "招标审核中";
                                 break;
                             case "招标审核通过":
                                 applyStyle = "statusstyle";
+                                applyStatus = "招标审核通过"
                                 break;
                             case "定标文件审核中":
                                 applyStyle = "statusstyle";
+                                applyStatus = "定标文件审核中"
                                 break;
                             case "已结束":
                                 applyStyle = "yjs";
+                                applyStatus = "已结束"
                                 break;
                         }
                         htm += "<tr class='white-bg'  onclick=\"location.href='/Projects/Detail?pid="+o.id+"';\">" +
@@ -144,7 +154,7 @@
                     '<td>' + o.location + '</td>' +
                     '<td>' + o.publisher + '</td>' +
                     '<td>' + o.publishdate + '</td>' +
-                    '<td id="' + applyStyle + '" >' + o.status + '</td>';
+                    '<td id="' + applyStyle + '" >' + applyStatus + '</td>';
                     }
                     }
                 $("#tbProjects").html(htm)
