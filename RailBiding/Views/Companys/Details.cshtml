@@ -152,4 +152,26 @@
             }
         });
     });
+
+    function submitCompany(){
+        swal({
+            title: '请仔细确认您的信息是否有误，提交后将不能修改，请确认。',
+            //text: '',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定提交！'
+        }).then(
+            function (cc) {
+                if (cc.dismiss != "cancel") {
+                    $.post("/Companys/SaveCompanyPics", {cid:@ViewBag.id,ctype:@ViewBag.Type}, function () {
+                        
+
+                    })
+
+                }
+            })
+
+    }
 </script>
