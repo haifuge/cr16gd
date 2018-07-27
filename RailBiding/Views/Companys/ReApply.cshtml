@@ -275,7 +275,7 @@
 
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable">业务类型：</td>
+                            <td class="form-lable"><span class="red-word">*</span>业务类型：</td>
                             <td>
                                 <div class="form-item  sel-required">
                                     <select class="select radius-sel dropdown" name="iofnName"
@@ -363,7 +363,7 @@
                             </td>
                         </tr>
                         <tr class="form-tr ">
-                            <td class="form-lable"><span class="red-word">*</span>安全证书：</td>
+                            <td class="form-lable">安全证书：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
@@ -380,7 +380,7 @@
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable"><span class="white-word">*</span>业务范围：</td>
+                            <td class="form-lable"><span class="red-word">*</span>业务范围：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="@ViewBag.BusinessScope" id="businessScope"
                                        class="has-clear-input input input3 input6" onblur="businessScope()" />
@@ -430,14 +430,14 @@
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable"><span class="white-word">*</span>联系地址：</td>
+                            <td class="form-lable"><span class="red-word">*</span>联系地址：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="@ViewBag.ContactAddress" id="contactAddress"
                                        class="has-clear-input input input3" onblur="contactAddress()" />
                             </td>
                         </tr>
                         <tr class="form-tr">
-                            <td class="form-lable">施工内容：</td>
+                            <td class="form-lable"><span class="red-word">*</span>施工内容：</td>
                             <td>
                                 <textarea name="roomInfoName" type="text" id="construction"
                                           class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="if (value=='') { placeholder='输入推荐参与施工内容' }">@ViewBag.ConstructionContent</textarea>
@@ -452,7 +452,7 @@
                             </tr>
                             <tr class="form-tr detail-user-con gzyj">
                                 <td colspan="2">
-                                    <h3 class="yj-tit">工作业绩:</h3>
+                                    <h3 class="yj-tit"><span class="red-word">* </span> 工作业绩:</h3>
                                     <table style="width: 100%" class="table01">
                                         <thead class="wc-header gzyjthead">
                                             <tr>
@@ -527,7 +527,7 @@
                     </div>
 
                     <div class="form-tr-btn">
-                        <button type="submit" class="meet-btn big-btn lightblue-btn" onclick="saveCompany(1)">提交</button>@*js-submit*@
+                        @*<button type="submit" class="meet-btn big-btn lightblue-btn tijiaobth" onclick="saveCompany(1)">提交</button>*@
                         <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="saveCompany(0)">保存</button>
                         <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
                     </div>
@@ -1254,11 +1254,11 @@
             removeLoading('test');
             if (submitType == 1)
                 swal('您提交的信息已到管理部门审核，请及时关注审核状态。').then(function () {
-                    window.location.href = "/Companys/MyRecommend";
+                    window.location.href = "/Companys/Details?id="+res;
                 });
             else
                 swal('保存成功').then(function () {
-                    window.location.href = "/Companys/MyRecommend";
+                    window.location.href = "/Companys/Details?id="+res;
                 });
         });
     }

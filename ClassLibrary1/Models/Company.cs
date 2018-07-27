@@ -131,7 +131,7 @@ namespace DAL.Models
         {
             string sql = @"select c.id, c.Name,c.CreditNo,c.CorporateRepresentative, c.RepPhone,c.RegisteredCapital, c.BusinessScope,c.SecurityCertificateNo,
                                   c.Contact,c.ContactPhone, bt.name as BusinessType, c.ContactAddress,c.QualificationLevel, c.ConstructionContent, c.Note,
-								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.Type
+								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.AuditStatus,c.Type
                            from Company c
                            left join CompanyType bt on bt.id=c.BusinessType 
                            where c.id = " + id;

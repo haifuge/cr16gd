@@ -362,7 +362,7 @@
                             </td>
                         </tr>
                         <tr class="form-tr ">
-                            <td class="form-lable"><span class="red-word">*</span>安全证书：</td>
+                            <td class="form-lable">安全证书：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
@@ -525,7 +525,7 @@
                 </div>
 
                 <div class="form-tr-btn">
-                    <button type="submit" class="meet-btn big-btn lightblue-btn" onclick="saveCompany(1)">提交</button>@*js-submit*@
+                    @*<button type="submit" class="meet-btn big-btn lightblue-btn" onclick="saveCompany(1)">提交</button>*@
                     <button type="submit" class="meet-btn big-btn lightblue-btn js-submit"onclick="saveCompany(0)">保存</button>
                     <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
                 </div>
@@ -1159,11 +1159,11 @@
             removeLoading('test');
             if (submitType == 1)
                 swal('您提交的信息已到管理部门审核，请及时关注审核状态。').then(function () {
-                    window.location.href = "/Companys/MyRecommend";
+                    window.location.href = "/Companys/Details?id="+res;
                 });
             else
                 swal('保存成功').then(function () {
-                    window.location.href = "/Companys/MyRecommend";
+                    window.location.href = "/Companys/Details?id="+res;
                 });
         });
     }

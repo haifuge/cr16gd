@@ -51,6 +51,7 @@ namespace RailBiding.Controllers
             ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
+            ViewBag.AuditStatus = dr["AuditStatus"].ToString();
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -128,7 +129,28 @@ namespace RailBiding.Controllers
                 ViewBag.editbtn = "";
 
             }
-            
+
+            if (ViewBag.AuditStatus == "0")
+            {
+                ViewBag.addeditbtn = @"<a href ='/Companys/EditCompany?cid=" + id + @"' class='js-cancle-meet' title='编辑'>
+                                    <i class='meet-icon icon-cancel icon-edits'>编辑</i>
+                                  </a><a href ='#' class='js-cancle-meet' onclick='saveCompany(1)' title='提交'>
+                                    <i class='meet-icon icon-cancel icon-edits'>提交</i>
+                                  </a>";
+                
+                if(Session["RoleId"].ToString() == "2")
+                {
+                    ViewBag.addeditbtn = @"<a href ='#' class='js-cancle-meet' onclick='saveCompany(1)' title='提交'>
+                                    <i class='meet-icon icon-cancel icon-edits'>提交</i>
+                                  </a>";
+                }
+            }
+            else
+            {
+                ViewBag.addeditbtn = "";
+
+            }
+
 
             return View();
         }
@@ -629,7 +651,7 @@ namespace RailBiding.Controllers
             }
             DBHelper.ExecuteNonQuery(sql);
         }
-        public void UploadWorkHistory()
+        public string UploadWorkHistory()
         {
             string data = Request["workhistory"].ToString();
             char[] separators = { '^' };
@@ -643,6 +665,7 @@ namespace RailBiding.Controllers
             }
             if(sql!="")
                 DBHelper.ExecuteNonQuery(sql);
+            return Session["newCid"].ToString();
         }
 
         // GET: Companys/Edit/5
@@ -825,6 +848,7 @@ namespace RailBiding.Controllers
             DataTable dt = cc.GetCompany(int.Parse(id));
             DataRow dr = dt.Rows[0];
             ViewBag.Name = dr["Name"].ToString();
+            ViewBag.AuditStatus = dr["AuditStatus"].ToString();
             ViewBag.CreditNo = dr["CreditNo"].ToString();
             ViewBag.CorporateRepresentative = dr["CorporateRepresentative"].ToString();
             ViewBag.RepPhone = dr["RepPhone"].ToString();
