@@ -1015,5 +1015,11 @@ namespace RailBiding.Controllers
                 //返回“1”该公司名可用
                 return "1";
         }
+
+        public void SubmitCompany(string cid, string ctype)
+        {
+            CompanyContext cc = new CompanyContext();
+            cc.SubmitCompany(cid, ctype, Session["UserId"].ToString());
+        }
     }
 }

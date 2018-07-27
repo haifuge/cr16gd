@@ -371,5 +371,23 @@ namespace DAL.Models
             string sql = "update Company set CorporateRepresentative=N'" + company.CorporateRepresentive+"', RepPhone='"+company.RepPhone+"', Contact=N'"+company.Contact+"', ContactPhone='"+company.ContactPhone+"',ContactAddress='"+company.ContactAddress+"',ConstructionContent=N'"+company.ConstructionContent+"',Note=N'"+company.Note+"' where Id=" + company.Id;
             DBHelper.ExecuteNonQuery(sql);
         }
+
+        public void SubmitCompany(string cid, string type, string uid)
+        {
+            string sql = "update Company set AuditStatus=1 where Id="+cid;
+            DBHelper.ExecuteNonQuery(sql);
+            if (type == "1")
+                // 名录内企业
+                CreateApproveProcess(cid, uid, "5");
+            else
+                // 名录外企业
+                CreateApproveProcess(cid, uid, "1");
+
+            Log l = new Log();
+            l.OperType = OperateType.Create;
+            l.UserId = uid;
+            l.Description = "创建公司" + type == "1" ? "名录内" : "名录外" + " - " + cid;
+            LogContext.WriteLog(l);
+        }
     }
 }
