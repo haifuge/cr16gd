@@ -1188,12 +1188,9 @@
         var scPic = document.getElementById("scPic").value
         var rsfz = document.getElementById("repSFZ").value
         var ctsfz = document.getElementById("conSFZ").value
-        var tdfilename = $("#tworkhistory tr td:last-child").html();
 
         var data = { id:@ViewBag.cid,
-            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql,inout:@ViewBag.inout,
-            lno: lno, bscope: bs, rmoney: rm, rep: sr, rtel: rt,
-            contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn, auditstatus: auditSt
+            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt, status: 1
         }
         if(submitType==0){
             // show
@@ -1213,19 +1210,22 @@
                 loadingMaskBg: 'rgba(0,0,0,0.2)'
             });
             $.post("/Companys/SaveCompany", data, function (res) {
-                data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id:@ViewBag.cid}
-                $.post("/Companys/SaveCompanyPics", data, function () {
-                    if (res == "1") {
-                        uploadZZPics();
-                    } else {
-                        //hide
-                        removeLoading('test');
-                        if (auditSt == 0)
-                            swal('公司保存失败, ' + res)
-                        else
-                            swal('公司创建失败, ' + res)
-                    }
-                })
+                res = res + "";
+                if (res.length < 5) {
+                    data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
+                    $.post("/Companys/AppendCompanyInfo", data, function () {
+                        data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }
+                        $.post("/Companys/SaveCompanyPics", data, function () { uploadZZPics(); })
+                    })
+                }
+                else {
+                    //hide
+                    removeLoading('test');
+                    if (auditSt == 0)
+                        swal('公司保存失败, ' + res)
+                    else
+                        swal('公司创建失败, ' + res)
+                }
             })
         }else{
             swal({
