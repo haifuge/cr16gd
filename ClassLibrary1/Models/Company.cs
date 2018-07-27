@@ -91,7 +91,7 @@ namespace DAL.Models
                 dt.ImportRow(dataTable.Rows[i]);
             }
             int pagecount = (int)Math.Ceiling(decimal.Parse(total.ToString()) / ps);
-            string data = JsonHelper.DataTableToJSON(dt);
+            string data = JsonHelper.DataTableToJSON(dt).Replace("\r","").Replace("\n","").Replace("	","");
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
@@ -120,7 +120,7 @@ namespace DAL.Models
                            select count(1) from #temp1
                            drop table #temp1";
             DataSet ds = DBHelper.GetDataSet(sql);
-            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]).Replace("\r", "").Replace("\n", "").Replace("	", "");
             string total = ds.Tables[1].Rows[0][0].ToString();
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
@@ -326,7 +326,7 @@ namespace DAL.Models
                             select count(1) from #temp1
                             drop table #temp1";
             DataSet ds = DBHelper.GetDataSet(sql);
-            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]).Replace("\r", "").Replace("\n", "").Replace("	", "");
             string total = ds.Tables[1].Rows[0][0].ToString();
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";

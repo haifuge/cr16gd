@@ -539,6 +539,7 @@ namespace RailBiding.Controllers
                 company.RegisteredCapital = Request["rmoney"].ToString() == ""?"0": Request["rmoney"].ToString();
                 company.Type = int.Parse(Request["inout"]==null? "1": Request["inout"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
+                company.Status = int.Parse(Request["status"].ToString());
                 
                 Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
 
@@ -958,7 +959,7 @@ namespace RailBiding.Controllers
                 company.RepPhone = Request["rtel"].ToString();
                 company.Contact = Request["contact"].ToString();
                 company.ContactPhone = Request["cphone"].ToString();
-                company.Status = 1;
+                company.Status = int.Parse(Request["status"].ToString());
                 company.ContactAddress = Request["caddress"].ToString();
                 company.ConstructionContent = Request["construction"].ToString();
                 company.Note = Request["note"].ToString();
