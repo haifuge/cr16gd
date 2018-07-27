@@ -446,7 +446,7 @@
                 <h3>招标文件申请</h3>
                 <div class="canvas_content_text">
                     <ul>
-                        <li><span>招标文件<br>内容简述</span> <textarea id="bfcontent" placeholder="招标文件简述、主要工程量、预计合同金额"></textarea></li>
+                        <li><span>招标文件<br>内容简述</span> <textarea id="bfcontent" placeholder="招标文件简述、主要工程量、预计合同金额" onfocus="if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur="    if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea></li>
                         <li>
                             <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none">招标文件</span>
                             @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:113px;">*@
@@ -541,6 +541,10 @@
     }
     function bidfileSubmit(ss) {
         var bfc = $("#bfcontent").val();
+        if(bfc==""){
+            swal("请简述招标文件内容！");
+            return;
+        }
         var pid =@ViewBag.ProjId;
         data = { content: bfc, pid: pid, status: ss }
         $.post("/Projects/AddBidFile", data, function (res) {

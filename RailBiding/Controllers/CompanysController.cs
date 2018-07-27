@@ -392,6 +392,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult AuditDetail(int id)
         {
+            ViewBag.UserId = Session["UserId"].ToString();
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];

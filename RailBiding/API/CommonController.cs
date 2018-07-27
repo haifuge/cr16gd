@@ -66,7 +66,7 @@ namespace RailBiding.API
 
         public string GetApproveProcessingInfo(string oid, string apid)
         {
-            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName, ap.Level
+            string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName, ap.Level, ui.id as uid
                             from vw_AppPLevel ap 
                             left join Department d on ap.DepartmentId=d.ID 
                             left join UserInfo ui on ui.ID=ap.UserId
@@ -74,7 +74,7 @@ namespace RailBiding.API
             DataTable dt = DBHelper.GetDataTable(sql);
             if(apid=="1" ||apid=="5")
             {
-                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.CreateDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level
+                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.CreateDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid
                         from Company c 
                         inner join UserInfo ui on c.SubmitUserId=ui.ID 
                         inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 
@@ -83,7 +83,7 @@ namespace RailBiding.API
             }
             else
             {
-                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.PublishDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level
+                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.PublishDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid
                         from Project c 
                         inner join UserInfo ui on c.PublisherId=ui.ID 
                         inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 
