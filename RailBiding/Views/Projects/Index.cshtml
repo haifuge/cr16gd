@@ -18,6 +18,10 @@
    #yjs{
        color:#808080;
    }
+    .meet-select.js-meet-state {    
+        float: left;
+        margin-bottom: 20px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -31,20 +35,16 @@
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
-            <select class="meet-select js-meet-state">
-                <option value="all">项目类型</option>
-                <option value="1">已使用</option>
-                <option value="2">被预定</option>
-            </select>
-            <select class="meet-select js-meet-state">
-                <option value="all">项目状态 </option>
+            <select class="meet-select js-meet-state" id="bType"></select>
+            <select class="meet-select js-meet-state" id="bStatus">
+                <option value="">项目状态 </option>
                 <option value="0">未提交</option>
                 <option value="1">审核中</option>
                 <option value="2">已通过</option>
                 <option value="2">被驳回</option>
             </select>
             <div class="search-con2">
-                <input type="text" name="keyname" placeholder="请输入关键字">
+                <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
             <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
@@ -99,9 +99,24 @@
     var pagenum = 12
     Paginator(nowpage, page_size)
 
+    $(".search-btn").on("click", function () {
+        Paginator(nowpage, page_size)
 
+    })
 
     function Paginator(page, ps) {
+        var cname = $("#searchinput").val();
+        if ($("#bType").val() == "") {
+            var ctype = "";
+        } else {
+            var ctype = $("#bType").val();
+        }
+        if ($("#bStatus").val() == "") {
+            var cstatus = "";
+        } else {
+            var cstatus = $("#bStatus").val();
+        }
+        //alert(cname + "-" + ctype + "-" + cstatus)
         $.ajax({
             url: "/Projects/GetAllProjects",
             datatype: 'json',
@@ -163,5 +178,15 @@
                 }
             })
         };
-   
+  
+        $.post("/Common/GetBusinessType", {}, function (data) {
+            var obj = JSON.parse(data);
+            var btype = $("#bType");
+            btype.append("<option value=''>项目类型</option>");
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
+            }
+        });
+    
 </script>

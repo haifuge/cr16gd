@@ -46,15 +46,15 @@
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
-            <select class="meet-select js-meet-state">
-                <option value="all">状态</option>
+            <select class="meet-select js-meet-state" id="bType">
+                <option value="">状态</option>
                 <option value="1">待处理</option>
                 <option value="2">已通过</option>
                 <option value="3">被驳回</option>
                
             </select>
             <div class="search-con2">
-                <input type="text" name="keyname" placeholder="请输入关键字">
+                <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
         </div>
@@ -103,8 +103,18 @@
     var pagenum = 12
     Paginator(nowpage, page_size)
 
+    $(".search-btn").on("click", function () {
+        Paginator(nowpage, page_size)
+       
+    })
 
-    function Paginator(page, ps) {        
+    function Paginator(page, ps) {       
+        var cname = $("#searchinput").val();
+        if ($("#bType").val() == "") {
+            var cStatus = "";
+        } else {
+            var cStatus = $("#bType").val();
+        }
         $.post("/BidingFile/GetMyFileApprove", { pageSize: ps, pageIndex: page }, function (data) {
             if (data == 'no session') {
                 location.href = "/Login";
@@ -130,7 +140,7 @@
                         applyStyle = "status-wcl status-shz";
                         break;
                     case 2:
-                        applyStatus = "已通过";
+                        applyStatus = "已处理";
                         applyStyle = "status-wcl status-ytg";
                         break;
                     case 3:

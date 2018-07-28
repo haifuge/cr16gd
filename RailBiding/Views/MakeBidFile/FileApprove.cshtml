@@ -52,6 +52,10 @@ i.status-wcl.status-wfb {
     .dbwj-box a .db-con > ul li label {
     width: 100px;
 }
+    .meet-select.js-meet-state {
+        float: left;
+        margin-bottom: 20px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -70,16 +74,16 @@ i.status-wcl.status-wfb {
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
-            <select class="meet-select js-meet-state">
-                <option value="all">状态</option>
+            <select class="meet-select js-meet-state" id="bType">
+                <option value="">状态</option>
+                <option value="0">未发布</option>
                 <option value="1">审核中</option>
-                <option value="2">未发布</option>
-                <option value="1">被驳回</option>
                 <option value="2">已通过</option>
+                <option value="3">被驳回</option>
             </select>
             <div class="search-con2">
 
-                <input type="text" name="keyname" placeholder="请输入关键字">
+                <input type="text" name="keyname" placeholder="请输入关键字"  id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
         </div>
@@ -108,8 +112,19 @@ i.status-wcl.status-wfb {
         var pagenum = 12
         Paginator(nowpage, page_size)
 
-        function Paginator(page, ps) {     
-            $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page }, function (data) {
+        $(".search-btn").on("click", function () {
+            Paginator(nowpage, page_size)
+
+        })
+
+        function Paginator(page, ps) {  
+            var cname = $("#searchinput").val();
+            if ($("#bType").val() == "") {
+                var cStatus = "";
+            } else {
+                var cStatus = $("#bType").val();
+            }
+        $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page }, function (data) {
                 var jsonData = JSON.parse(data);
                 var obj = jsonData.List;
                 var htm = "";
