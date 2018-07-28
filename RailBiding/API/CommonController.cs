@@ -112,6 +112,11 @@ namespace RailBiding.API
             DBHelper.ExecuteSP("UpdateApproveProcess", parameters);
             ApproveProcessLog(apid, oid, aStatus, uid);
         }
+        public void ProjectReapply(string apid, string oid)
+        {
+            string sql = "update AppProcessing set Approved=1 where AppProcId="+ apid + " and ObjId="+ oid + " and Approved=3";
+            DBHelper.ExecuteNonQuery(sql);
+        }
 
         private void ApproveProcessLog(string apid, string oid, string aStatus, string uid)
         {

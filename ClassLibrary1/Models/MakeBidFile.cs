@@ -157,5 +157,11 @@ namespace DAL.Models
             string sql = "update MakeBidingFile set FileExplain = N'"+rtext+"' where ProjId="+pid;
             DBHelper.ExecuteNonQuery(sql);
         }
+
+        public void UpdateMakeBidFile(string pid, string abst)
+        {
+            string sql = "update MakeBidingFile set Abstract=N'"+abst+"', Status=1 where ProjId=" + pid;
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }

@@ -109,7 +109,7 @@ namespace DAL.Models
 
         public bool UpdateBidingFile(string pid, string content)
         {
-            string sql = @"update BidingFile set Content = '" + content + "' where ProjId =" + pid;
+            string sql = @"update BidingFile set Content = N'" + content + "' where ProjId =" + pid;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;

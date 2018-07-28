@@ -58,6 +58,10 @@ namespace RailBiding.Controllers
                     ViewBag.Button = "";
                     ViewBag.BFitem=getBidFileItem(pid);
                     break;
+                case "招标文件被驳回":
+                    ViewBag.Button = "";
+                    ViewBag.BFitem = getBidFileItem(pid);
+                    break;
                 case "招标文件审核通过":
                     ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标申请'>
                                             <i class='meet-icon icon-cancel icon-bh2' onclick='bidApply()'>招标申请</i>
@@ -65,6 +69,11 @@ namespace RailBiding.Controllers
                     ViewBag.BFitem = getBidFileItem(pid);
                     break;
                 case "招标审核中":
+                    ViewBag.Button = "";
+                    ViewBag.BFitem = getBidFileItem(pid);
+                    ViewBag.Bitem = getBidItem(pid);
+                    break;
+                case "招标被驳回":
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
@@ -77,6 +86,12 @@ namespace RailBiding.Controllers
                     ViewBag.Bitem = getBidItem(pid);
                     break;
                 case "定标文件审核中":
+                    ViewBag.Button = "";
+                    ViewBag.BFitem = getBidFileItem(pid);
+                    ViewBag.Bitem = getBidItem(pid);
+                    ViewBag.MBFitem = getMakeBidItem(pid);
+                    break;
+                case "定标文件被驳回":
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
@@ -286,6 +301,30 @@ namespace RailBiding.Controllers
                 }
             return true;
         }
+        public bool ReapplyBidFile()
+        {
+            string userid = Session["UserId"].ToString();
+            string pid = Request["pid"].ToString();
+            string content = Request["content"].ToString();
+            string publisherId = userid;
+            string status = Request["status"].ToString();
+            BidingFileContext bfc = new BidingFileContext();
+            if (bfc.UpdateBidingFile(pid, content))
+                if (status == "1")
+                {
+                    ProjectContext pc = new ProjectContext();
+                    pc.UpdateProjectStatus(pid, "招标文件审核中");
+                    string sql = "update AppProcessing set Approved=1 where AppProcId=3 and ObjId=" + pid + " and Approved=3";
+                    DBHelper.ExecuteNonQuery(sql);
+
+                    Log l = new Log();
+                    l.OperType = OperateType.Create;
+                    l.UserId = userid;
+                    l.Description = "重新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 招标文件";
+                    LogContext.WriteLog(l);
+                }
+            return true;
+        }
         [HttpPost]
         public bool AddBid()
         {
@@ -313,6 +352,33 @@ namespace RailBiding.Controllers
                     LogContext.WriteLog(l);
                 }
             return true;
+        }
+        public void ReapplyBid()
+        {
+            string pid = Request["pid"].ToString();
+            string userid = Session["UserId"].ToString();
+            Bid bid = new Bid();
+            bid.ApplyDate = Request["adate"].ToString();
+            bid.OpenDate = Request["odate"].ToString();
+            bid.BidingNum = Request["bnum"].ToString();
+            bid.ProjId = int.Parse(pid);
+            bid.Status = Request["status"].ToString();
+            bid.PublisherId = int.Parse(userid);
+            BidContext bc = new BidContext();
+            if (bc.UpdateBid(bid))
+                if (bid.Status == "1")
+                {
+                    ProjectContext pc = new ProjectContext();
+                    pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
+                    string sql = "update AppProcessing set Approved=1 where AppProcId=3 and ObjId=" + pid + " and Approved=3";
+                    DBHelper.ExecuteNonQuery(sql);
+
+                    Log l = new Log();
+                    l.OperType = OperateType.Create;
+                    l.UserId = userid;
+                    l.Description = "从新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 邀标申请";
+                    LogContext.WriteLog(l);
+                }
         }
 
         public string GetBidInfo(string pid)
@@ -504,6 +570,42 @@ namespace RailBiding.Controllers
             LogContext.WriteLog(l);
 
             return "1";
+        }
+
+        public void ReapplyMakeBidFile()
+        {
+            MakeBidFileContext mc = new MakeBidFileContext();
+            string pid = Request["pid"].ToString();
+            string abst = Request["abst"].ToString();
+            mc.UpdateMakeBidFile(pid, abst);
+            string joinCompany = Request["joincompany"].ToString();
+            string[] companys = joinCompany.Split('|');
+            string sql = "";
+            foreach (string c in companys)
+            {
+                string[] cc = c.Split('-');
+                sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+            }
+            DBHelper.ExecuteNonQuery(sql);
+            string winCompany = Request["wincompany"].ToString();
+            sql = "";
+            companys = winCompany.Split('|');
+            foreach (string c in companys)
+            {
+                string[] cc = c.Split('-');
+                sql += "update BidingCompany set Win=1,biding=1, Comment=N'" + cc[1] + "' where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+            }
+            DBHelper.ExecuteNonQuery(sql);
+            ProjectContext pc = new ProjectContext();
+            pc.UpdateProjectStatus(pid, "定标文件审核中");
+            sql = "update AppProcessing set Approved=1 where AppProcId=4 and ObjId=" + pid + " and Approved=3";
+            DBHelper.ExecuteNonQuery(sql);
+
+            Log l = new Log();
+            l.OperType = OperateType.Create;
+            l.UserId = Session["UserId"].ToString();
+            l.Description = "重新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 定标文件";
+            LogContext.WriteLog(l);
         }
 
         public string GetMakeBidFiles(string pageSize, string pageIndex)
