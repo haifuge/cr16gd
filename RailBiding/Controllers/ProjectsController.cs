@@ -335,7 +335,7 @@ namespace RailBiding.Controllers
             DataTable dt = pc.GetProjectFiles(pid, ftype);
             string spath = Server.MapPath("../");
             var ndt = from row in dt.AsEnumerable()
-                      select new { FilePath = row[0].ToString().Replace(spath, "../"), FileName = row[1].ToString() };
+                      select new { FilePath = row[0].ToString().Replace(spath, "../"), FileName = row[1].ToString(), fid= row[0].ToString().Substring(row[0].ToString().LastIndexOf('/')+1,36) };
             string json = JsonConvert.SerializeObject(ndt);
             return json;
         }
