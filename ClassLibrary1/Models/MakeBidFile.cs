@@ -151,5 +151,11 @@ namespace DAL.Models
                             where bc.ProjId = " + pid;
             return DBHelper.GetDataTable(sql);
         }
+
+        public void SaveRichText(string pid, string rtext)
+        {
+            string sql = "update MakeBidingFile set FileExplain = N'"+rtext+"' where ProjId="+pid;
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }

@@ -511,5 +511,11 @@ namespace RailBiding.Controllers
             MakeBidFileContext mc = new MakeBidFileContext();
             return mc.GetMakeBidFiles(pageSize, pageIndex);
         }
+
+        public void SaveRichText(string pid, string rtext)
+        {
+            MakeBidFileContext mc = new MakeBidFileContext();
+            mc.SaveRichText(pid, rtext);
+        }
     }
 }
