@@ -127,7 +127,7 @@
         } else {
             var status = $("#bStatus").val();
         }
-        alert(ptype + "-" + status + "-" + pname)
+        //alert(ptype + "-" + status + "-" + pname)
         $.ajax({
             url: "/Projects/GetAllProjects",
             datatype: 'json',
@@ -148,7 +148,7 @@
                                 applyStyle = "wfb";
                                 applyStatus="未提交"
                                 break;
-                            case "招标文件审核中":
+                            case "招标文件审核中": 
                                 applyStyle = "statusstyle";
                                 applyStatus = "招标文件审核中"
                                 break;
