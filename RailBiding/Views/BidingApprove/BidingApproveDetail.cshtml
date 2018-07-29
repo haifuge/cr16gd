@@ -525,12 +525,12 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
     //所添加公司遍历
     function Paginator(page, ps) {
         var cname = $("#searchinput").val();
-        if ($("#bType").val() == "all") {
+        if ($("#bType").val() == "") {
             var ctype = "";
         } else {
             var ctype = $("#bType").val();
         }
-        if ($("#bTypeCompany").val() == "all") {
+        if ($("#bTypeCompany").val() == "") {
             var inout = "";
         } else {
             var inout = $("#bTypeCompany").val();

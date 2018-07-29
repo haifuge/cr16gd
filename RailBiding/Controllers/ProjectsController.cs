@@ -197,7 +197,7 @@ namespace RailBiding.Controllers
             }
             string result = "<h3>招标申请 <span>"+ pdate + "</span></h3>"+
                             "<div class='a-zbwj' onclick=\"location.href='/Projects/BidDetail?pid=" + pid + "'\" sytle='cursor: pointer;'>"+
-                                @"<div class='con-01'>
+                                @"<div class='con-01 con-01-1'>
                                     <p><span class='t-time'>报名时间：</span><span class='time'>" + adate + @"</span>
                                     <span class='t-time'>预计开标时间：</span><span class='time'>" + odate + @"</span>
                                     <span class='t-time'>拟中标单位数量：</span><span class='time'>" + bnum + @"</span></p>

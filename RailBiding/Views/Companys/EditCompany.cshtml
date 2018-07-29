@@ -438,15 +438,15 @@
                         <tr class="form-tr">
                             <td class="form-lable"><span class="red-word">*</span>施工内容：</td>
                             <td>
-                                <textarea name="roomInfoName" type="text" id="construction"
+                                <textarea name="roomInfoName" type="text" id="construction" onblur="construction()"
                                           class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="if (value=='') { placeholder='输入推荐参与施工内容' }">@ViewBag.ConstructionContent</textarea>
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable">备注：</td>
                             <td>
-                                <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note"
-                                       class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="if (value=='') { placeholder='请输入其他说明' }">
+                                <input name="roomInfoName" type="text" value="@ViewBag.Note" id="note" onblur="note()"
+                                       class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '请输入其他说明') { placeholder = '' }" onblur="if (value=='') { placeholder='请输入其他说明' }">
                             </td>
                         </tr>
                         <tr class="form-tr detail-user-con gzyj">
@@ -577,18 +577,18 @@
             $("#contactAddress").css('border','1px solid red');
         }
     }
-    function construction(){
-        if($("#construction").val()!=""){
-            $("#construction").css('border','1px solid green');
-        }else{
+    function construction() {
+        if ($("#construction").val() != "") {
+            $("#construction").css('border', '1px solid green');
+        } else {
             swal("请填写施工内容！")
-            $("#construction").css('border','1px solid red');
+            $("#construction").attr({ 'border': '1px solid red', "placeholder": "输入推荐参与施工内容" });
         }
     }
-    function note(){
-        if($("#note").val()!=""){
-            $("#note").css('border','1px solid green');
-        }
+    function note() {
+        if ($("#note").val() != "") {
+            $("#note").css('border', '1px solid green');
+        } else { $("#note").attr('placeholder', '请输入其他说明') }
     }
 
 

@@ -5,7 +5,12 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
-
+<style>
+    .meet-select.js-meet-state {
+        float: left;
+        margin-bottom: 20px;
+    }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>招标管理</h1>
@@ -21,16 +26,12 @@
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <select class="meet-select js-meet-state" id="bType"></select>
             <select class="meet-select js-meet-state">
-                <option value="all">项目类型</option>
-                <option value="1">围护结构工程</option>
-                <option value="2">围护结构工程</option>
-            </select>
-            <select class="meet-select js-meet-state">
-                <option value="all">状态</option>
-                <option value="1">发布中</option>
-                <option value="2">已结束</option>
-            </select>
+            <option value="">状态</option>
+            <option value="1">发布中</option>
+            <option value="2">已结束</option>
+           </select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
@@ -107,4 +108,13 @@
  
 
     }
+    $.post("/Common/GetBusinessType", {}, function (data) {
+        var obj = JSON.parse(data);
+        var btype = $("#bType");
+        btype.append("<option value=''>项目类型</option>");
+        for (var i = 0; i < obj.length; i++) {
+            var o = obj[i]
+            btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
+        }
+    });
 </script>

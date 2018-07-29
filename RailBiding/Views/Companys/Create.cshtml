@@ -439,14 +439,14 @@
                             <td class="form-lable"><span class="red-word">*</span>施工内容：</td>
                             <td>
                                 <textarea name="roomInfoName" type="text" value="" id="construction"  onblur="construction()"
-                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="    if (value == '') { placeholder = '输入推荐参与施工内容' }"></textarea>
+                                          class="has-clear-input input input3" placeholder="输入推荐参与施工内容" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" ></textarea>
                             </td>
                         </tr>
                         <tr class="form-tr">
                             <td class="form-lable">备注：</td>
                             <td>
                                 <input name="roomInfoName" type="text" value="" id="note"  onblur="note()"
-                                       class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '输入推荐参与施工内容') { placeholder = '' }" onblur="    if (value == '') { placeholder = '请输入其他说明' }">
+                                       class="has-clear-input input input7" placeholder="请输入其他说明" onfocus="if (placeholder == '请输入其他说明') { placeholder = '' }" >
                             </td>
                         </tr>
                         <tr class="form-tr detail-user-con gzyj">
@@ -576,13 +576,13 @@
             $("#construction").css('border','1px solid green');
         }else{
             swal("请填写施工内容！")
-            $("#construction").css('border','1px solid red');
+            $("#construction").attr({ 'border': '1px solid red', "placeholder":"输入推荐参与施工内容"});
         }
     }
     function note(){
         if($("#note").val()!=""){
             $("#note").css('border','1px solid green');
-        }  
+        } else { $("#note").attr('placeholder', '请输入其他说明' )}
     }
 
 
@@ -1416,6 +1416,7 @@
         if (input_zzmc = null || input_zzmc == "") {
             $("#input_zzmc").attr("placeholder", "资质名称");
             $("#zzmcmsg").html("×资质名称不能为空");
+
             return 1;
         } else {
             $("#zzmcmsg").html("");
