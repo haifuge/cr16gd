@@ -115,15 +115,13 @@
 
         function Paginator(page, ps) {
             var pname = $("#projName").val();
-            var status = $("#status").val();
+            var status = ""
                 //leftnav_htm(4);
             var pname = $("#searchinput").val();
-            if ($("#bStatus").val() == "") {
-                var status = "";
-            } else {
-                var status = $("#bStatus").val();
+            if ($("#bStatus").val() != "") {
+                status = $("#bStatus").val();
             }
-            $.post("/BidingApprove/GetBidingApproves", { pageSize: ps, pageIndex: page }, function (data) {
+            $.post("/BidingApprove/GetBidingApproves", { pageSize: ps, pageIndex: page, pname: pname, status: status }, function (data) {
 
                     if (data == 'no session') {
                         location.href = "/Login";
