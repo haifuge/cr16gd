@@ -116,23 +116,23 @@
     })
 
     function Paginator(page, ps) {
-        var cname = $("#searchinput").val();
+        var pname = $("#searchinput").val();
         if ($("#bType").val() == "") {
-            var ctype = "";
+            var ptype = "";
         } else {
-            var ctype = $("#bType").val();
+            var ptype = $("#bType").val();
         }
         if ($("#bStatus").val() == "") {
-            var cstatus = "";
+            var status = "";
         } else {
-            var cstatus = $("#bStatus").val();
+            var status = $("#bStatus").val();
         }
         //alert(cname + "-" + ctype + "-" + cstatus)
         $.ajax({
             url: "/Projects/GetAllProjects",
             datatype: 'json',
             type: "Post",
-            data: "&PageIndex=" + page + "&PageSize=" + ps + "&ptype=" + ctype + "&status=" + cstatus + "&pname=" + cname,
+            data: "&PageIndex=" + page + "&PageSize=" + ps + "&ptype=" + ptype + "&status=" + status + "&pname=" + pname,
             success: function (data) {
                 if (data != null) {
                     var jsonData = JSON.parse(data);
@@ -197,6 +197,8 @@
                     }
                 $("#tbProjects").html(htm)
                 console.log(page, jsonData.PageCount, jsonData.total, ps)
+                console.log(data)
+                
                 pages(page, jsonData.PageCount, jsonData.total, ps)
                 }
             })
