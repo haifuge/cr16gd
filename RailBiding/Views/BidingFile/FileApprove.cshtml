@@ -110,12 +110,13 @@
 
     function Paginator(page, ps) {       
         var cname = $("#searchinput").val();
+        var cStatus = "";
         if ($("#bType").val() == "") {
-            var cStatus = "";
+            cStatus = "";
         } else {
-            var cStatus = $("#bType").val();
+            cStatus = $("#bType").val();
         }
-        $.post("/BidingFile/GetMyFileApprove", { pageSize: ps, pageIndex: page }, function (data) {
+        $.post("/BidingFile/GetMyFileApprove", { pageSize: ps, pageIndex: page, pname:cname, status:cStatus }, function (data) {
             if (data == 'no session') {
                 location.href = "/Login";
 

@@ -21,15 +21,15 @@ namespace RailBiding.Controllers
             ViewBag.UserDepartment = Session["UserDepartment"];
             return View();
         }
-        public string GetBidingFiles(string pageSize, string pageIndex) {
+        public string GetBidingFiles(string pageSize, string pageIndex, string pname) {
             BidingFileContext bc = new BidingFileContext();
-            return bc.GetBidingFiles(pageSize, pageIndex);
+            return bc.GetBidingFiles(pageSize, pageIndex, pname);
         }
-        public string GetMyFileApprove(string pageSize, string pageIndex)
+        public string GetMyFileApprove(string pageSize, string pageIndex, string pname, string status)
         {
             BidingFileContext bc = new BidingFileContext();
             string userid = Session["UserId"].ToString();
-            return bc.GetMyFileApprove(userid, pageSize, pageIndex);
+            return bc.GetMyFileApprove(userid, pageSize, pageIndex, pname, status);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemF")]

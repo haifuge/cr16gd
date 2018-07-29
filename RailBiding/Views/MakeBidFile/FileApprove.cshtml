@@ -76,9 +76,7 @@ i.status-wcl.status-wfb {
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
             <select class="meet-select js-meet-state" id="bType">
                 <option value="">状态</option>
-                <option value="0">未发布</option>
                 <option value="1">审核中</option>
-                <option value="2">已通过</option>
                 <option value="3">被驳回</option>
             </select>
             <div class="search-con2">
@@ -119,12 +117,11 @@ i.status-wcl.status-wfb {
 
         function Paginator(page, ps) {  
             var cname = $("#searchinput").val();
-            if ($("#bType").val() == "") {
-                var cStatus = "";
-            } else {
+            var cStatus=""
+            if ($("#bType").val() != "") {
                 var cStatus = $("#bType").val();
             }
-        $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page }, function (data) {
+        $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page, pname: cname, status:cStatus }, function (data) {
                 var jsonData = JSON.parse(data);
                 var obj = jsonData.List;
                 var htm = "";

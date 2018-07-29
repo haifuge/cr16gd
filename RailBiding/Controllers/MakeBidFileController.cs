@@ -132,11 +132,11 @@ namespace RailBiding.Controllers
             MakeBidFileContext mc = new MakeBidFileContext();
             return mc.GetMakeBidFiles(pageSize, pageIndex).Replace("\r","    ").Replace("\n","</br>");
         }
-        public string GetMyMakeBidFiles(string pageSize, string pageIndex)
+        public string GetMyMakeBidFiles(string pageSize, string pageIndex, string pname, string status)
         {
             string uid = Session["UserId"].ToString();
             MakeBidFileContext mc = new MakeBidFileContext();
-            return mc.GetMyMakeBidFiles(uid, pageSize, pageIndex).Replace("\r", "    ").Replace("\n", "</br>");
+            return mc.GetMyMakeBidFiles(uid, pageSize, pageIndex, pname, status).Replace("\r", "    ").Replace("\n", "</br>");
         }
     }
 }

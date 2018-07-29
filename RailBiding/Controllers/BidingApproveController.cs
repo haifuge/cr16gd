@@ -21,11 +21,11 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetBidingApproves(string pageSize, string pageIndex)
+        public string GetBidingApproves(string pageSize, string pageIndex, string pname, string status)
         {
             BidContext bc = new BidContext();
 
-            return bc.GetBidingApproves(Session["UserId"].ToString(), pageSize, pageIndex);
+            return bc.GetBidingApproves(Session["UserId"].ToString(), pageSize, pageIndex, pname, status);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemB")]

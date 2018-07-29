@@ -23,7 +23,7 @@ namespace DAL.Models
 
     public class BidingFileContext
     {
-        public string GetBidingFiles(string pageSize, string pageIndex)
+        public string GetBidingFiles(string pageSize, string pageIndex, string pname)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -36,6 +36,7 @@ namespace DAL.Models
                             left join UserInfo ui on ui.ID=bf.PublisherId
                             inner join DepartmentUser du on du.UserId=ui.ID
                             left join Department d on du.DepartmentId=d.ID
+                            where p.Name like '%"+pname+@"%'
                             order by bf.ProjId desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
@@ -48,8 +49,13 @@ namespace DAL.Models
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
-        public string GetMyFileApprove(string userid, string pageSize, string pageIndex)
+        public string GetMyFileApprove(string userid, string pageSize, string pageIndex, string pname, string status)
         {
+            string where = "";
+            if (status != "")
+                where += " and bf.Status = "+status;
+            if (pname != "")
+                where += " and p.Name like '%" + pname + "%'";
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
@@ -69,7 +75,7 @@ namespace DAL.Models
                                     inner join (select MAX(level) as level,AppProcId, ObjId 
 			                                    from vw_AppPLevel where AppProcId=2 and Approved=1 group by ObjId, AppProcId
                                 ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                                where a.UserId=" + userid+ @") a on p.ID=a.ObjId order by p.Id desc) a 
+                                where a.UserId=" + userid+ @") a on p.ID=a.ObjId "+where+@" order by p.Id desc) a 
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
