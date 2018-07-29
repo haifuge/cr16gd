@@ -27,10 +27,10 @@ namespace RailBiding.Controllers
               ViewBag.Create = "";
             return View();
         }
-        public string GetAllProjects(string pageSize, string pageIndex)
+        public string GetAllProjects(string pageSize, string pageIndex, string ptype, string status, string pname)
         {
             ProjectContext pc = new ProjectContext();
-            return pc.GetAllProjects(pageSize, pageIndex, Session["UserId"].ToString());
+            return pc.GetAllProjects(pageSize, pageIndex, Session["UserId"].ToString(), ptype, status, pname);
         }
 
         [VerifyLoginFilter]

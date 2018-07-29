@@ -23,15 +23,33 @@ namespace DAL.Models
 
     public class ProjectContext
     {
-        public string GetAllProjects(string pageSize, string pageIndex, string uid)
+        public string GetAllProjects(string pageSize, string pageIndex, string uid, string ptype, string status, string pname)
         {
             SqlParameter[] paras = new SqlParameter[3];
             paras[0] = new SqlParameter("@uid", uid);
             paras[1] = new SqlParameter("@pageSize", pageSize);
             paras[2] = new SqlParameter("@pageIndex", pageIndex);
             DataSet ds = DBHelper.ExecuteDataset(DBHelper.GetConnection(), "GetAllProjectsByUserId", paras);
-            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
-            string total = ds.Tables[1].Rows[0][0].ToString();
+            DataTable dt = ds.Tables[0];
+            List<DataRow> rows=(from row in dt.AsEnumerable()
+                               select row).ToList();
+            if(ptype!="")
+                rows = (from row in rows
+                        where row["ProjType"].ToString() == ptype
+                        select row).ToList();
+            if(status!="")
+                rows= (from row in rows
+                       where row["ProjType"].ToString().Contains(ptype)
+                       select row).ToList();
+            if(pname!="")
+                rows = (from row in rows
+                        where row["ProjType"].ToString().Contains(pname)
+                        select row).ToList();
+            DataTable ndt = dt.Clone();
+            foreach(DataRow row in rows)
+                ndt.ImportRow(row);
+            string data = JsonHelper.DataTableToJSON(ndt);
+            string total = ndt.Rows.Count.ToString();
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / int.Parse(pageSize));
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
