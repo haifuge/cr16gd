@@ -30,7 +30,7 @@ namespace DAL.Models
 
     public class MakeBidFileContext
     {
-        public string GetMakeBidFiles(string pageSize, string pageIndex)
+        public string GetMakeBidFiles(string pageSize, string pageIndex, string pname)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -39,7 +39,7 @@ namespace DAL.Models
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
                             into #temp1
-                            from MakeBidingFile mb inner join Project p on mb.ProjId = p.Id order by p.Id desc; 
+                            from MakeBidingFile mb inner join Project p on mb.ProjId = p.Id where p.Name like '%"+pname+@"%' order by p.Id desc; 
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";

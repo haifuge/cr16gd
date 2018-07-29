@@ -127,10 +127,10 @@ namespace RailBiding.Controllers
             return View();
         }
         
-        public string GetAllMakeBidFile(string pageSize, string pageIndex)
+        public string GetAllMakeBidFile(string pageSize, string pageIndex, string pname)
         {
             MakeBidFileContext mc = new MakeBidFileContext();
-            return mc.GetMakeBidFiles(pageSize, pageIndex).Replace("\r","    ").Replace("\n","</br>");
+            return mc.GetMakeBidFiles(pageSize, pageIndex, pname).Replace("\r","    ").Replace("\n","</br>");
         }
         public string GetMyMakeBidFiles(string pageSize, string pageIndex, string pname, string status)
         {

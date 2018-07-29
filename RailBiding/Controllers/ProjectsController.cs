@@ -608,10 +608,10 @@ namespace RailBiding.Controllers
             LogContext.WriteLog(l);
         }
 
-        public string GetMakeBidFiles(string pageSize, string pageIndex)
+        public string GetMakeBidFiles(string pageSize, string pageIndex, string pname="")
         {
             MakeBidFileContext mc = new MakeBidFileContext();
-            return mc.GetMakeBidFiles(pageSize, pageIndex);
+            return mc.GetMakeBidFiles(pageSize, pageIndex, pname);
         }
 
         public void SaveRichText(string pid, string rtext)

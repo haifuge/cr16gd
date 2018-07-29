@@ -39,7 +39,7 @@ namespace DAL.Models
                         select row).ToList();
             if(status!="")
                 rows= (from row in rows
-                       where row["ProjType"].ToString().Contains(ptype)
+                       where row["ProjType"].ToString().Contains(status)
                        select row).ToList();
             if(pname!="")
                 rows = (from row in rows

@@ -63,7 +63,7 @@
     function Paginator(page, ps) {   
         var cname = $("#searchinput").val();
 
-        $.post("/MakeBidFile/GetAllMakeBidFile", { pageSize: ps, pageIndex: page }, function (data) {
+        $.post("/MakeBidFile/GetAllMakeBidFile", { pageSize: ps, pageIndex: page, pname:cname }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
