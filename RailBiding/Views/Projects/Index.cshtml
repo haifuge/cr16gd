@@ -38,7 +38,7 @@
             <select class="meet-select js-meet-state" id="bType"></select>
             <select class="meet-select js-meet-state" id="bStatus">
                 <option value="">项目状态 </option>
-                <option value="未发布">未发布</option>
+                <option value="未发布">未提交</option>
                 <option value="审核中">审核中</option>
                 <option value="通过">已通过</option>
                 <option value="被驳回">被驳回</option>
@@ -109,7 +109,17 @@
     var page_size = 10
     var pagenum = 12
 
-
+    //下拉菜单
+    $("#bType").change(function () {
+        Paginator(nowpage, page_size)
+    })
+    $("#bStatus").change(function () {
+        Paginator(nowpage, page_size)
+    })
+    //输入框内容更改
+    $("#searchinput").change(function () {
+        Paginator(nowpage, page_size)
+    })
     $(".search-btn").on("click", function () {
         Paginator(nowpage, page_size)
 
