@@ -19,10 +19,10 @@ namespace RailBiding.Controllers
         {
             return View();
         }
-        public string GetBidings(string pageSize, string pageIndex)
+        public string GetBidings(string pageSize, string pageIndex, string pname)
         {
             BidContext bc = new BidContext();
-            return bc.GetAllBids(pageSize, pageIndex);
+            return bc.GetAllBids(pageSize, pageIndex, pname);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemB")]

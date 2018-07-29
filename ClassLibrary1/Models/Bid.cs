@@ -21,7 +21,7 @@ namespace DAL.Models
 
     public class BidContext
     {
-        public string GetAllBids(string pageSize, string pageIndex)
+        public string GetAllBids(string pageSize, string pageIndex, string pname)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -35,6 +35,7 @@ namespace DAL.Models
                             left join UserInfo ui on b.PublisherId=ui.ID
                             left join DepartmentUser du on du.Userid=ui.ID
                             left join Department d on du.DepartmentId=d.ID
+                            where p.Name like '%"+pname+@"%'
                             order by p.Id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1

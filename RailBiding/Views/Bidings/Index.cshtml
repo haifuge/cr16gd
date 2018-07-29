@@ -26,12 +26,6 @@
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
-            <select class="meet-select js-meet-state" id="bType"></select>
-            <select class="meet-select js-meet-state" id="bStatus">
-            <option value="">状态</option>
-            <option value="1">发布中</option>
-            <option value="2">已结束</option>
-           </select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
@@ -91,17 +85,8 @@
 
     function Paginator(page, ps) { 
         var pname = $("#searchinput").val();
-        if ($("#bType").val() == "") {
-            var ptype = "";
-        } else {
-            var ptype = $("#bType").val();
         }
-        if ($("#bStatus").val() == "") {
-            var status = "";
-        } else {
-            var status = $("#bStatus").val();
-        }
-        $.post("/Bidings/GetBidings", { pageSize: ps, pageIndex: page }, function (data) {
+        $.post("/Bidings/GetBidings", { pageSize: ps, pageIndex: page, pname: pname }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
