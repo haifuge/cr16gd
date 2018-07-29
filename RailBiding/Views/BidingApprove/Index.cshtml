@@ -54,13 +54,13 @@
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
 
-            <select class="meet-select js-meet-state" id="status">
+            <select class="meet-select js-meet-state" id="bStatus">
                 <option value="">状态</option>
                 <option value="1">待处理</option>
                 <option value="3">被驳回</option>
             </select>
             <div class="search-con2">
-                <input type="text" name="keyname" placeholder="请输入关键字" id="projName">
+                <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
         </div>
@@ -108,12 +108,23 @@
         var pagenum = 12
         Paginator(nowpage, page_size)
 
+        $(".search-btn").on("click", function () {
+            Paginator(nowpage, page_size)
+
+        })
 
         function Paginator(page, ps) {
             var pname = $("#projName").val();
             var status = $("#status").val();
                 //leftnav_htm(4);
-            $.post("/BidingApprove/GetBidingApproves", { pageSize: ps, pageIndex: page, pname:pname, status: status }, function (data) {
+            var pname = $("#searchinput").val();
+            if ($("#bStatus").val() == "") {
+                var status = "";
+            } else {
+                var status = $("#bStatus").val();
+            }
+            $.post("/BidingApprove/GetBidingApproves", { pageSize: ps, pageIndex: page }, function (data) {
+
                     if (data == 'no session') {
                         location.href = "/Login";
                     }
