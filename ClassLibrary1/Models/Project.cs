@@ -39,11 +39,11 @@ namespace DAL.Models
                         select row).ToList();
             if(status!="")
                 rows= (from row in rows
-                       where row["ProjType"].ToString().Contains(status)
+                       where row["Status"].ToString().Contains(status)
                        select row).ToList();
             if(pname!="")
                 rows = (from row in rows
-                        where row["ProjType"].ToString().Contains(pname)
+                        where row["Name"].ToString().Contains(pname)
                         select row).ToList();
             DataTable ndt = dt.Clone();
             foreach(DataRow row in rows)
