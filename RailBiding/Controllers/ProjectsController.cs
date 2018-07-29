@@ -124,22 +124,27 @@ namespace RailBiding.Controllers
             string content = dr["Content"].ToString();
             string status= dr["Status"].ToString();
             string statusClass = "";
+            string statusnum = "";
             switch (status)
             {
                 case "0":
                     status = "未发布";
+                    statusnum = "0";
                     statusClass = "ytg001 ytg002";
                     break;
                 case "1":
                     status = "审核中";
+                    statusnum = "1";
                     statusClass = "ytg001 ytg004";
                     break;
                 case "2":
                     status = "已通过";
+                    statusnum = "2";
                     statusClass = "ytg001";
                     break;
                 case "3":
                     status = "被驳回";
+                    statusnum = "3";
                     statusClass = "ytg001 ytg003";
                     break;
             }
@@ -149,7 +154,7 @@ namespace RailBiding.Controllers
                 files += "<li><b><img src='../img/icon-file.png'></b>"+dt.Rows[i][0].ToString()+"</li>";
             }
             string result = @"<h3>招标文件 <span>" + pdate + "</span></h3>"+
-                                "<div class='a-zbwj' onclick=\"location.href='/Projects/BidFileDetail?pid=" + pid+ "'\" sytle='cursor: pointer;'>"+
+                                "<div class='a-zbwj' onclick=\"location.href='/Projects/BidFileDetail?pid=" + pid+ "&status="+ statusnum + "'\" sytle='cursor: pointer;'>" +
                                     "<div class='con-01'><p>" + content + @"</p></div>
                                     <div class='con-02'>
                                         <ul>"+files+@"</ul>
@@ -489,6 +494,11 @@ namespace RailBiding.Controllers
             }
             fujian += "</ul></div>";
             ViewBag.Fujian = fujian;
+            ViewBag.moretime = "";
+            if (Request["status"].ToString() == "3")
+            {
+                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='bidFileApply()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+            }
             return View();
         }
         [VerifyLoginFilter]

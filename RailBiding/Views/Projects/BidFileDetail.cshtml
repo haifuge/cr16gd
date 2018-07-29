@@ -27,6 +27,7 @@
                 @*<a href="javascript:;" class="js-cancle-meet" title="驳回">
                     <i class="meet-icon icon-cancel icon-bh">驳回</i>
                 </a>*@
+                @Html.Raw(ViewBag.moretime)
                 <a href='#' onclick="window.history.go(-1)" class="js-cancle-meet" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
@@ -70,6 +71,9 @@
                         </tbody>
                     </table>
                 </div>
+
+
+
                 <div class="block-right block-right2">
                     <div class="block-right-wrap">
                         <div class="block-rigt">
