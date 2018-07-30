@@ -77,7 +77,7 @@ namespace RailBiding.API
                 sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.CreateDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid
                         from Company c 
                         inner join UserInfo ui on c.SubmitUserId=ui.ID 
-                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 
+                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 and du.Status=1
                         inner join Department d on d.ID=du.DepartmentId
                         where c.ID=" + oid;
             }
@@ -86,7 +86,7 @@ namespace RailBiding.API
                 sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.PublishDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid
                         from Project c 
                         inner join UserInfo ui on c.PublisherId=ui.ID 
-                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 
+                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 and du.Status=1
                         inner join Department d on d.ID=du.DepartmentId
                         where c.ID=" + oid;
             }

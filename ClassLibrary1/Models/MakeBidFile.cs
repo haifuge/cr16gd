@@ -68,7 +68,7 @@ namespace DAL.Models
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join MakeBidingFile mb on mb.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
-                            left join DepartmentUser du on du.UserId=ui.ID
+                            left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                             left join Department d on du.DepartmentId=d.ID
                             inner join(
                                 select distinct a.ObjId, a.Approved 
