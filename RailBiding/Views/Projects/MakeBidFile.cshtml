@@ -506,7 +506,6 @@
         } else {
             var inout = $(".bTypeCompany").val();
         }
-      //  alert(inout + "-" + ctype+ "-" + cname)
         $.post("/Common/GetCompanyCandidate", { pagesize: ps, page: page, cname: cname, ctype: ctype, inout: inout },function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
