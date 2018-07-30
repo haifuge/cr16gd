@@ -39,9 +39,7 @@
                                         <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
                                         <p>名录外单位审批</p>
                                     </div>
-                                    <div class="sp-list-right">
-                                        7
-                                    </div>
+                                    <div class="sp-list-right num-one">0</div>
                                 </div>
                             </a>
                         </li>
@@ -52,9 +50,7 @@
                                         <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
                                         <p>招标文件审批</p>
                                     </div>
-                                    <div class="sp-list-right">
-                                        3
-                                    </div>
+                                    <div class="sp-list-right num-two">0</div>
                                 </div>
                             </a>
                         </li>
@@ -65,9 +61,7 @@
                                         <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
                                         <p>招标审批</p>
                                     </div>
-                                    <div class="sp-list-right">
-                                        3
-                                    </div>
+                                    <div class="sp-list-right num-three">0</div>
                                 </div>
                             </a>
                         </li>
@@ -78,9 +72,7 @@
                                         <p style="text-align: right" class="ar-img"><img src="~/img/icon-arrow2.png" alt=""></p>
                                         <p>定标审批</p>
                                     </div>
-                                    <div class="sp-list-right">
-                                        3
-                                    </div>
+                                    <div class="sp-list-right num-four">0</div>
                                 </div>
                             </a>
                         </li>
@@ -164,7 +156,7 @@
             技术支持:传晨赛博  <a href="http://www.saibo.net.cn">www.saibo.net.cn</a>
         </span>
     </div>
-</bodyclass="login-body">
+</body>
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
 
@@ -176,5 +168,27 @@
         }
         $("#department").text($.cookie("UserDepartment"))
         $("#name").text($.cookie("UserName"))
+
+        $.get("/Main/GetToBeDone", {}, function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                console.log(o)
+                if(o.appprocid==1){
+                    $(".num-one").html(o.company)
+                }
+                if(o.appprocid==2){
+                    $(".num-two").html(o.bidfile)
+                }
+                if(o.appprocid==3){
+                    $(".num-three").html(o.b)
+                }
+                if(o.appprocid==4){
+                    $(".num-four").html(o.mb)
+                }
+            }
+           
+        })
     });
+
 </script>

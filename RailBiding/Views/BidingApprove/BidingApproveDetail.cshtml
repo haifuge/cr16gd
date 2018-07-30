@@ -337,10 +337,10 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
             $(".right-block").hide();
             $(".bohui").hide();
         }
-        function initAuditProcess() {
+
             $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:3}, function (data) {
+                console.log(data)
                 var obj = JSON.parse(data);
-                console.log(obj);
                 var cuid=@ViewBag.UserId;
                 if (obj.length == 0)
                     return;
@@ -352,13 +352,14 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                 var ulstyle = 'uc01'; //uc02
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i];
-                    console.log(o)
-                    if(o.uid==cuid){
-                        $("#feedback-area").val(o.comment);
-                    }
+                    
+                    
                     if(i==0){
                         htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
                         continue;
+                    }
+                    if(o.uid==cuid){
+                        $("#feedback-area").val(o.comment);
                     }
                     if (o.pname == pdepart) {
                         if (o.approved == 2) {
@@ -407,7 +408,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                     }
                 }
                 htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
-                console.log("dechtm"+dechtm)
+  
                 $("#transferInfo").html(htm);
                 $("#declineInfo").html(dechtm);
                 $("#passlineInfo").html(passhtm);
@@ -427,7 +428,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                 }
             })
         }
-    })
+    )
     var invited = false;
     function inviteCompanys() {
         invited=true
@@ -565,13 +566,11 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
 
 
         $.post("/Common/GetCompanyCandidate",{ pagesize: ps, page: page, cname: cname, ctype: ctype, inout: inout }, function(data) {
-            console.log(data)
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var comhtml=""
             for (var j = 0; j < obj.length; j++) {
                 var o = obj[j];
-                console.log(o.type)
                 var imgjian="";
                 if(o.type!=1){
                     imgjian='<img src="/img/con-tuijian.png">';
@@ -588,9 +587,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                           '</tr>;'
                 
             }
-            console.log(comhtml)
             $("#comhtm").html(comhtml)
-            console.log(page, jsonData.pagecount, jsonData.total, ps)
             pages(page, jsonData.pagecount, jsonData.total, ps)
 
         })

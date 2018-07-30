@@ -91,7 +91,7 @@ namespace DAL.Models
 
         public DataTable GetMakeBidFileDetail(string id)
         {
-            string sql = @"select p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as Publisher, CONVERT(varchar(20), p.PublishDate, 23) as PublishDate, mf.Abstract,mf.FileExplain,mf.Status 
+            string sql = @"select p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as Publisher,p.PublisherId as uid, CONVERT(varchar(20), p.PublishDate, 23) as PublishDate, mf.Abstract,mf.FileExplain,mf.Status 
                             from MakeBidingFile mf inner join Project p on mf.ProjId=p.Id
                             where p.Id=" + id;
             DataTable dt = DBHelper.GetDataTable(sql);
