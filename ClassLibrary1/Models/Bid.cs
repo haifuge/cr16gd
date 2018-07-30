@@ -99,7 +99,7 @@ namespace DAL.Models
 
         public bool UpdateBid(Bid bid)
         {
-            string sql = "update Bid set ApplyDate="+bid.ApplyDate+"'', OpenDate='"+bid.OpenDate+"', BidingNum="+bid.BidingNum+",PublishDate='"+bid.PublishDate+"',Status=1 where ProjId="+bid.ProjId;
+            string sql = "update Bid set ApplyDate='"+bid.ApplyDate+"', OpenDate='"+bid.OpenDate+"', BidingNum="+bid.BidingNum+",Status=1 where ProjId="+bid.ProjId;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
                 return true;

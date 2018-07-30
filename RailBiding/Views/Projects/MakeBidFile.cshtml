@@ -120,7 +120,7 @@
                                    style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
                             </div>
                             <!--弹出层 begin-->
-                            <div id="fade" class="black_overlay">
+                            <div id="fade" class="black_overlay" style="z-index:100000000">
                                 <div id="MyDiv" class="white_content white_content3">
                                     <div class="btn-close"
                                          style="text-align: right;  height: 20px;">
@@ -175,7 +175,7 @@
                                 <a href="#" onclick="ShowDiv('MyDiv2','fade2')" style="color: #fff"><img src="/img/icon-add2.png" alt=""></a>
                             </div>
                             <!--弹出层 begin-->
-                            <div id="fade2" class="black_overlay">
+                            <div id="fade2" class="black_overlay" style="z-index:100000000">
                                 <div id="MyDiv2" class="white_content white_content3">
                                     <div class="btn-close"
                                          style="text-align: right;  height: 20px;">
@@ -272,6 +272,15 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script src="~/js/WangEditor/wangEditor.min.js"></script>
 <script>
+    $.get("/Projects/GetBidInfo?pid=@ViewBag.pid",function (data) {
+    
+    
+    })
+
+
+
+
+
     // 富文本编辑框
     var E = window.wangEditor
     var editor = new E('#editor')
@@ -296,6 +305,8 @@
     $(".btn-close3").click(function () {
         $(this).parent().parent().hide();
     });
+
+
 </script>
 <script>
     var ss;
@@ -396,13 +407,13 @@
             $(".nxzbdw.nxzbdw2").append(htm);
             if ($("input[name='addcompanywin']").val() == cid) {
                 $("input[name='addcompanywin']").prop("checked", false)
-            } 
+            }
         });
         CloseDiv('MyDiv2', 'fade2');
         $(".searchinput").val("");
         $(".bType").val("")
         $(".bTypeCompany").val("")
- 
+
     }
     //关闭弹出层
     function CloseDiv(show_div, bg_div) {
@@ -425,7 +436,7 @@
     }
     //参加该投标单位添加
     function addcompanytwo() {
-        
+
         $("input[name='addcompanybiding']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
             cid = $(this).val();
             for (var i = 0; i < companys.length; i++) {
@@ -447,19 +458,19 @@
                                 '</li>';
 
                        }
-                    
+
                 }
                 $(".cjtb_ul").append(htmtwo);
                 if($("input[name='addcompanybiding']").val() == cid){
                     $("input[name='addcompanybiding']").prop("checked",false)
-                } 
-          
+                }
+
       });
         $(".searchinput").val("");
         $(".bType").val("")
         $(".bTypeCompany").val("")
      CloseDiv('MyDiv', 'fade');
-        
+
     }
 
     // 移除参标单位
@@ -534,6 +545,17 @@
 
     }
 
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+        var context = "";
+        if (r != null)
+            context = r[2];
+        reg = null;
+        r = null;
+        return context == null || context == "" || context == "undefined" ? "" : context;
+    }
     function makebidbtn() {
         var lis = $(".cjtb_ul").children('li');
         var jc = "";
@@ -553,14 +575,28 @@
         }
         if (wc.length > 0)
             wc = wc.substr(0, wc.length - 1);
-        $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
-
-            $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: editor.txt.html()}, function () {
-                swal('创建成功！').then(function () {
-                    window.history.go(-1)
+        getQueryString('status');
+        
+        if (getQueryString('status') == 3) {
+            $.post("/Projects/ReapplyMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
+                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: editor.txt.html()}, function () {
+                    swal('创建成功！').then(function () {
+                        window.history.go(-1)
+                    })
                 })
-            })
-        });
+            });
+        } else {
+
+       
+            $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
+
+                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: editor.txt.html()}, function () {
+                    swal('创建成功！').then(function () {
+                        window.history.go(-1)
+                    })
+                })
+            });
+        }
     }
 
     $.post("/Common/GetCompanyType", {}, function (data) {

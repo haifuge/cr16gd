@@ -336,6 +336,9 @@
                         ulstyle = 'uc02'
                         htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
                     } else {
+                        if (o.comment != "") {
+                            dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        }
                         hstyle = 'cp02'
                         ulstyle = 'uc02'
                         htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
@@ -357,6 +360,9 @@
                         ulstyle = 'uc02'
                         htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
                     } else {
+                        if (o.comment != "") {
+                            dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        }
                         hstyle = 'cp02'
                         ulstyle = 'uc02'
                         htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'

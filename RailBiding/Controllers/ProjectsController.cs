@@ -79,7 +79,7 @@ namespace RailBiding.Controllers
                     ViewBag.Bitem = getBidItem(pid);
                     break;
                 case "招标审核通过":
-                    ViewBag.Button = @"<a href='/Projects/MakeBidFile?pid="+pid+@"' class='js-cancle-meet' title='定标文件申请'>
+                    ViewBag.Button = @"<a href='/Projects/MakeBidFile?pid="+pid+ @"&status=1' class='js-cancle-meet' title='定标文件申请'>
                                             <i class='meet-icon icon-cancel icon-bh2'>定标文件申请</i>
                                         </a>";
                     ViewBag.BFitem = getBidFileItem(pid);
@@ -325,19 +325,19 @@ namespace RailBiding.Controllers
             string status = Request["status"].ToString();
             BidingFileContext bfc = new BidingFileContext();
             if (bfc.UpdateBidingFile(pid, content))
-                if (status == "1")
-                {
-                    ProjectContext pc = new ProjectContext();
-                    pc.UpdateProjectStatus(pid, "招标文件审核中");
-                    string sql = "update AppProcessing set Approved=1 where AppProcId=3 and ObjId=" + pid + " and Approved=3";
-                    DBHelper.ExecuteNonQuery(sql);
+            {
+                ProjectContext pc = new ProjectContext();
+                pc.UpdateProjectStatus(pid, "招标文件审核中");
+                string sql = "update AppProcessing set Approved=1 where AppProcId=2 and ObjId=" + pid + " and Approved=3; ";
+                sql += " update BidingFile set Status = 1 where ProjId = "+pid;
+                DBHelper.ExecuteNonQuery(sql);
 
-                    Log l = new Log();
-                    l.OperType = OperateType.Create;
-                    l.UserId = userid;
-                    l.Description = "重新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 招标文件";
-                    LogContext.WriteLog(l);
-                }
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = userid;
+                l.Description = "重新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 招标文件";
+                LogContext.WriteLog(l);
+            }
             return true;
         }
         [HttpPost]
@@ -381,19 +381,19 @@ namespace RailBiding.Controllers
             bid.PublisherId = int.Parse(userid);
             BidContext bc = new BidContext();
             if (bc.UpdateBid(bid))
-                if (bid.Status == "1")
-                {
-                    ProjectContext pc = new ProjectContext();
-                    pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
-                    string sql = "update AppProcessing set Approved=1 where AppProcId=3 and ObjId=" + pid + " and Approved=3";
-                    DBHelper.ExecuteNonQuery(sql);
+            {
+                ProjectContext pc = new ProjectContext();
+                pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
+                string sql = "update AppProcessing set Approved=1 where AppProcId=3 and ObjId=" + pid + " and Approved=3; ";
+                sql += " update Bid set Status = 1 where ProjId = "+pid;
+                DBHelper.ExecuteNonQuery(sql);
 
-                    Log l = new Log();
-                    l.OperType = OperateType.Create;
-                    l.UserId = userid;
-                    l.Description = "从新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 邀标申请";
-                    LogContext.WriteLog(l);
-                }
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = userid;
+                l.Description = "从新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 邀标申请";
+                LogContext.WriteLog(l);
+            }
         }
 
         public string GetBidInfo(string pid)
@@ -558,9 +558,9 @@ namespace RailBiding.Controllers
             ViewBag.JoinCompany = joinCompanys;
             ViewBag.WinCompany = winCompanys;
             ViewBag.moretime = "";
-            if (Request["status"].ToString() == "3")
+            if (Request["status"].ToString() =="3")
             {
-                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick=\"location.href='/Projects/MakeBidFileDetail?pid=" + pid + "'\"><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+                ViewBag.moretime = "<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=3' class='js-cancle-meet' title='再次申请' ><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
             }
             return View();
         }
@@ -629,6 +629,7 @@ namespace RailBiding.Controllers
             ProjectContext pc = new ProjectContext();
             pc.UpdateProjectStatus(pid, "定标文件审核中");
             sql = "update AppProcessing set Approved=1 where AppProcId=4 and ObjId=" + pid + " and Approved=3";
+            sql += " update MakeBidingFile set Status = 1 where ProjId = "+pid;
             DBHelper.ExecuteNonQuery(sql);
 
             Log l = new Log();

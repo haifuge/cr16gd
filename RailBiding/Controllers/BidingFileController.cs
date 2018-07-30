@@ -83,6 +83,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileApproveDetail(string pid)
         {
+            ViewBag.UserId = Session["UserId"].ToString();
             if (pid == null)
                 return View("//Login");
             ViewBag.pid = pid;
