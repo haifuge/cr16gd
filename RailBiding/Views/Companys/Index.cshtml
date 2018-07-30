@@ -91,10 +91,20 @@
 
 
     //全部按钮
+    $("#all-check").click(function(){
+    if ($("#all-check").is(":checked")){
+        $("input.icheck").prop("checked", true)
+    } else {
+        $("input.icheck").prop("checked", false)
+    }
+    })
+
     function allcompany() {
-        Paginator(nowpage, page_size, '', '')
-        $("#searchinput").val("");
-        $("#bType").val("All")
+       if( $("input.icheck").is(":checked")){
+           $("input.icheck").prop("checked", false)
+        }else{
+         $("input.icheck").prop("checked",true)
+        }
     }
     var SearchCompanyName = "";
     var type = "";

@@ -127,15 +127,17 @@
 
     function Paginator(page, ps) {
         var pname = $("#searchinput").val();
+        var ptype = "";
+        var status = "";
         if ($("#bType").val() == "") {
-            var ptype = "";
+            ptype = "";
         } else {
-            var ptype = $("#bType").val();
+           ptype = $("#bType").val();
         }
         if ($("#bStatus").val() == "") {
-            var status = "";
+           status = "";
         } else {
-            var status = $("#bStatus").val();
+           status = $("#bStatus").val();
         }
         $.ajax({
             url: "/Projects/GetAllProjects",

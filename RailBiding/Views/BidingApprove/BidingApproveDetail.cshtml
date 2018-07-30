@@ -265,6 +265,9 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
     function CloseDiv(show_div, bg_div) {
         document.getElementById(show_div).style.display = 'none';
         document.getElementById(bg_div).style.display = 'none';
+        if($("input[name='addcompenycheck']").is(":checked")){
+            $("input[name='addcompenycheck']").prop("checked", false)
+        }
     }
     ;
 </script>
@@ -274,6 +277,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
         var checkID = [];
         $("input[name='addcompenycheck']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
             checkID[i] = $(this).val();
+            var cidd= $(this).val();
             var idname=$(this).val().split("|");
             var id =idname[0];
             var name =idname[1];
@@ -284,7 +288,9 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
 
            })
             CloseDiv('MyDiv', 'fade');
-              
+            if($("input[name='addcompenycheck']").val() == cidd){
+                $("input[name='addcompenycheck']").prop("checked",false)
+            }
         })
         }
 
@@ -521,6 +527,14 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
 
     })
 
+    //下拉菜单
+    $("#bType").change(function () {
+        Paginator(nowpage, page_size)
+    })
+    $("#bTypeCompany").change(function () {
+        Paginator(nowpage, page_size)
+    })
+    
 
     //所添加公司遍历
     function Paginator(page, ps) {

@@ -557,6 +557,11 @@ namespace RailBiding.Controllers
             }
             ViewBag.JoinCompany = joinCompanys;
             ViewBag.WinCompany = winCompanys;
+            ViewBag.moretime = "";
+            if (Request["status"].ToString() == "3")
+            {
+                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick=\"location.href='/Projects/MakeBidFileDetail?pid=" + pid + "'\"><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+            }
             return View();
         }
         

@@ -106,6 +106,12 @@
     var pagenum = 12
     Paginator(nowpage, page_size)
 
+
+    //下拉菜单
+    $("#bType").change(function () {
+        Paginator(nowpage, page_size)
+    })
+
     $(".search-btn").on("click", function () {
         Paginator(nowpage, page_size)
        

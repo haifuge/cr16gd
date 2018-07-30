@@ -60,6 +60,11 @@
     var pagenum = 12
     Paginator(nowpage, page_size)
 
+    $(".search-btn").on("click", function () {
+        Paginator(nowpage, page_size)
+
+    })
+
     function Paginator(page, ps) {   
         var cname = $("#searchinput").val();
 

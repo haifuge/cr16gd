@@ -110,6 +110,11 @@ i.status-wcl.status-wfb {
         var pagenum = 12
         Paginator(nowpage, page_size)
 
+        //下拉菜单
+        $("#bStatus").change(function () {
+            Paginator(nowpage, page_size)
+        })
+
         $(".search-btn").on("click", function () {
             Paginator(nowpage, page_size)
 
@@ -118,8 +123,8 @@ i.status-wcl.status-wfb {
         function Paginator(page, ps) {  
             var cname = $("#searchinput").val();
             var cStatus=""
-            if ($("#bType").val() != "") {
-                var cStatus = $("#bType").val();
+            if ($("#bStatus").val() != "") {
+                cStatus = $("#bStatus").val();
             }
         $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page, pname: cname, status:cStatus }, function (data) {
                 var jsonData = JSON.parse(data);
