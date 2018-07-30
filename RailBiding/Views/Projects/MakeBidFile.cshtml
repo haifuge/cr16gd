@@ -103,7 +103,7 @@
                             <span class="red-word">*</span>简述
                         </td>
                         <td>
-                            <textarea id="abst" class="txt02" style="padding: 0 5px;"></textarea>
+                            <textarea id="abst" class="txt02" style="padding: 0 5px;">@ViewBag.Abstract</textarea>
                         </td>
                     </tr>
                     <tr class="form-tr">
@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                             <!--弹出层 end-->
-                            <ul class="cjtb_ul"></ul>
+                            <ul class="cjtb_ul">@ViewBag.JoinCompany</ul>
                         </td>
                     </tr>
                     <tr class="form-tr">
@@ -215,7 +215,7 @@
                                 </div>
                             </div>
                             <!--弹出层 end-->
-                            <ul class="nxzbdw nxzbdw2"></ul>
+                            <ul class="nxzbdw nxzbdw2">@ViewBag.WinCompany</ul>
                         </td>
                     </tr>
                     <tr class="form-tr">
@@ -227,6 +227,7 @@
                         </td>
                         <td>
                             <div id="editor">
+                                @ViewBag.FileExplain
                             </div>
                             @*富文本编辑框*@
                         </td>
@@ -578,7 +579,6 @@
         
         if (getQueryString('status') == 3) {
             $.post("/Projects/ReapplyMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
-                alert('重新申请')
                 var rdata = encodeURIComponent(editor.txt.html())
                 $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
                     swal('创建成功！').then(function () {
