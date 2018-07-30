@@ -87,6 +87,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemM")]
         public ActionResult FileApproveDetail(string pid)
         {
+            ViewBag.UserId = Session["UserId"].ToString();
             ViewBag.pid = pid;
             MakeBidFileContext mc = new MakeBidFileContext();
             DataTable dt = mc.GetMakeBidFileDetail(pid);
