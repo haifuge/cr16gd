@@ -111,6 +111,19 @@ namespace RailBiding.Controllers
         public ActionResult MakeBidFile(string pid)
         {
             ViewBag.pid = pid;
+            string sql = @"select mb.ProjId, mb.Abstract, mb.FileExplain, d.Name+' '+ui.UserName as pName
+                            from MakeBidingFile mb 
+                            inner join DepartmentUser du on mb.PublisherId=du.UserId and du.MainDeparment=1
+                            inner join Department d on d.ID=du.DepartmentId
+                            inner join UserInfo ui on ui.ID=du.UserId and 
+                            where mb.ProjId=" + pid;
+            DataTable dt = DBHelper.GetDataTable(sql);
+            if(dt.Rows.Count>0)
+            {
+                ViewBag.Abstract = dt.Rows[0]["Abstract"].ToString();
+                ViewBag.FileExplain = dt.Rows[0]["FileExplain"].ToString();
+                ViewBag.pName = dt.Rows[0]["pName"].ToString();
+            }
             return View();
         }
         private string getBidFileItem(string pid)
