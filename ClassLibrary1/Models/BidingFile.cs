@@ -89,7 +89,7 @@ namespace DAL.Models
 
         public DataTable getBidingFileDetail(string pid)
         {
-            string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status,  p.ProDescription
+            string sql = @"select p.Id, p.Name, bf.Content, d.Name+' '+ui.UserName as Publisher,ui.id as uid, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status,  p.ProDescription
                             from BidingFile bf 
                             inner join Project p on bf.ProjId=p.Id
                             left join UserInfo ui on ui.ID=bf.PublisherId

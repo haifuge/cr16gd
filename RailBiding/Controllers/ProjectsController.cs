@@ -47,12 +47,19 @@ namespace RailBiding.Controllers
             ViewBag.pProDescription = dr["ProDescription"].ToString().Replace("\n","<br/>");
             // 未发布；定标文件审核中，定标文件审核通过，招标文件审核中；招标文件审核通过；定标文件审核中；已通过
             string pStatus = dr["Status"].ToString();
+
             switch (pStatus)
             {
                 case "未发布":
-                    ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标文件申请'>
+                    if (dr["uid"].ToString() == Session["UserId"].ToString())
+                    {
+                        ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标文件申请'>
                                             <i class='meet-icon icon-cancel icon-bh2' onclick='bidFileApply()'>招标文件申请</i>
                                         </a>";
+                    }else
+                    {
+                        ViewBag.Button = "";
+                    }
                     break;
                 case "招标文件审核中":
                     ViewBag.Button = "";
@@ -63,9 +70,16 @@ namespace RailBiding.Controllers
                     ViewBag.BFitem = getBidFileItem(pid);
                     break;
                 case "招标文件审核通过":
-                    ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标申请'>
+                    if (dr["uid"].ToString() == Session["UserId"].ToString())
+                    {
+                        ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标申请'>
                                             <i class='meet-icon icon-cancel icon-bh2' onclick='bidApply()'>招标申请</i>
                                        </a>";
+                    }
+                    else
+                    {
+                        ViewBag.Button = "";
+                    }
                     ViewBag.BFitem = getBidFileItem(pid);
                     break;
                 case "招标审核中":
@@ -79,9 +93,16 @@ namespace RailBiding.Controllers
                     ViewBag.Bitem = getBidItem(pid);
                     break;
                 case "招标审核通过":
-                    ViewBag.Button = @"<a href='/Projects/MakeBidFile?pid="+pid+ @"&status=1' class='js-cancle-meet' title='定标文件申请'>
+                    if (dr["uid"].ToString() == Session["UserId"].ToString())
+                    {
+                        ViewBag.Button = @"<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=1' class='js-cancle-meet' title='定标文件申请'>
                                             <i class='meet-icon icon-cancel icon-bh2'>定标文件申请</i>
                                         </a>";
+                    }
+                    else
+                    {
+                        ViewBag.Button = "";
+                    }
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
                     break;
@@ -490,8 +511,14 @@ namespace RailBiding.Controllers
             ViewBag.moretime = "";
             if (Request["status"].ToString() == "3")
             {
-                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='bidApply()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
-            }
+                if (dr["uid"].ToString() == Session["UserId"].ToString())
+                {
+                    ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='bidApply()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+                }else
+                {
+                    ViewBag.moretime = "";
+                }
+             }
             return View();
         }
         [VerifyLoginFilter]
@@ -525,7 +552,13 @@ namespace RailBiding.Controllers
             ViewBag.moretime = "";
             if (Request["status"].ToString() == "3")
             {
-                ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='bidFileApply()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+                if (dr["uid"].ToString() == Session["UserId"].ToString())
+                {
+                    ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='bidFileApply()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+                }else
+                {
+                    ViewBag.moretime = "";
+                }
             }
             return View();
         }
@@ -571,9 +604,16 @@ namespace RailBiding.Controllers
             ViewBag.JoinCompany = joinCompanys;
             ViewBag.WinCompany = winCompanys;
             ViewBag.moretime = "";
-            if (Request["status"].ToString() =="3")
+            if (Request["status"].ToString() == "3")
             {
-                ViewBag.moretime = "<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=3' class='js-cancle-meet' title='再次申请' ><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+                if (dr["uid"].ToString() == Session["UserId"].ToString())
+                {
+                    ViewBag.moretime = "<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=3' class='js-cancle-meet' title='再次申请' ><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+                }
+                else
+                {
+                    ViewBag.moretime = "";
+                }
             }
             return View();
         }
