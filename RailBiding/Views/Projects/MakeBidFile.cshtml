@@ -578,18 +578,18 @@
         
         if (getQueryString('status') == 3) {
             $.post("/Projects/ReapplyMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
-                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: editor.txt.html()}, function () {
+                alert('重新申请')
+                var rdata = encodeURIComponent(editor.txt.html())
+                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
                     swal('创建成功！').then(function () {
                         window.history.go(-1)
                     })
                 })
             });
         } else {
-
-       
             $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
-
-                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: editor.txt.html()}, function () {
+                var rdata = encodeURIComponent(editor.txt.html())
+                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
                     swal('创建成功！').then(function () {
                         window.history.go(-1)
                     })

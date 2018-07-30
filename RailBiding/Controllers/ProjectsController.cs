@@ -115,7 +115,7 @@ namespace RailBiding.Controllers
                             from MakeBidingFile mb 
                             inner join DepartmentUser du on mb.PublisherId=du.UserId and du.MainDeparment=1
                             inner join Department d on d.ID=du.DepartmentId
-                            inner join UserInfo ui on ui.ID=du.UserId and 
+                            inner join UserInfo ui on ui.ID=du.UserId 
                             where mb.ProjId=" + pid;
             DataTable dt = DBHelper.GetDataTable(sql);
             if(dt.Rows.Count>0)
@@ -626,19 +626,27 @@ namespace RailBiding.Controllers
             string sql = "";
             foreach (string c in companys)
             {
-                string[] cc = c.Split('-');
-                sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                if (c != "")
+                {
+                    string[] cc = c.Split('-');
+                    sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                }
             }
-            DBHelper.ExecuteNonQuery(sql);
+            if(sql!="")
+                DBHelper.ExecuteNonQuery(sql);
             string winCompany = Request["wincompany"].ToString();
             sql = "";
             companys = winCompany.Split('|');
             foreach (string c in companys)
             {
-                string[] cc = c.Split('-');
-                sql += "update BidingCompany set Win=1,biding=1, Comment=N'" + cc[1] + "' where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                if (c != "")
+                {
+                    string[] cc = c.Split('-');
+                    sql += "update BidingCompany set Win=1,biding=1, Comment=N'" + cc[1] + "' where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                }
             }
-            DBHelper.ExecuteNonQuery(sql);
+            if(sql!="")
+                DBHelper.ExecuteNonQuery(sql);
             ProjectContext pc = new ProjectContext();
             pc.UpdateProjectStatus(pid, "定标文件审核中");
             sql = "update AppProcessing set Approved=1 where AppProcId=4 and ObjId=" + pid + " and Approved=3";
@@ -660,6 +668,7 @@ namespace RailBiding.Controllers
 
         public void SaveRichText(string pid, string rtext)
         {
+            rtext = HttpUtility.UrlDecode(rtext);
             MakeBidFileContext mc = new MakeBidFileContext();
             mc.SaveRichText(pid, rtext);
         }
