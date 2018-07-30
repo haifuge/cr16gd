@@ -121,7 +121,7 @@
                     <div class="bot-left bot-right">
                         <ul>
                             <li>
-                                <a href="/BidingFile?activeMenu=itemF">
+                                <a href="/BidingFile?activeMenu=itemF" name="rightPart">
                                     <dl>
                                         <dt><img src="~/img/icon-index4.png" alt=""></dt>
                                         <dd>招标文件</dd>
@@ -129,7 +129,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/MakeBidFile?activeMenu=itemM">
+                                <a href="/MakeBidFile?activeMenu=itemM"name="rightPart">
                                     <dl>
                                         <dt><img src="~/img/icon-index5.png" alt=""></dt>
                                         <dd>定标管理</dd>
@@ -137,7 +137,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/Bidings?activeMenu=itemB">
+                                <a href="/Bidings?activeMenu=itemB"name="rightPart">
                                     <dl>
                                         <dt><img src="~/img/icon-index2.png" alt=""></dt>
                                         <dd>招标管理</dd>
@@ -171,6 +171,9 @@
 <script src="~/js/jquery.cookie.js"></script>
 <script>
     $(function () {
+        if (@ViewBag.RoleId== 4) {
+            $("a[name='rightPart']").css("display", 'none');
+        }
         $("#department").text($.cookie("UserDepartment"))
         $("#name").text($.cookie("UserName"))
     });
