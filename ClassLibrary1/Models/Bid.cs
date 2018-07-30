@@ -33,9 +33,9 @@ namespace DAL.Models
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
-                            left join DepartmentUser du on du.Userid=ui.ID
+                            left join DepartmentUser du on du.Userid=ui.ID and du.Status=1
                             left join Department d on du.DepartmentId=d.ID
-                            where p.Name like '%"+pname+@"%'
+                            where p.Name like '%" + pname+@"%'
                             order by p.Id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
@@ -220,7 +220,7 @@ namespace DAL.Models
                             from project p inner join bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on ui.id=b.publisherId
-							left join DepartmentUser du on du.UserId=ui.ID
+							left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                             left join Department d on d.ID=du.DepartmentId
                             where p.id=" + pid;
             DataTable dt = DBHelper.GetDataTable(sql);
@@ -257,7 +257,7 @@ namespace DAL.Models
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
-							left join DepartmentUser du on du.UserId=ui.ID
+							left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                             left join Department d on du.DepartmentId=d.ID
                             order by p.Id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
@@ -287,7 +287,7 @@ namespace DAL.Models
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
-                            left join DepartmentUser du on du.UserId=ui.ID
+                            left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                             left join Department d on du.DepartmentId=d.ID
                             inner join(
                                 select distinct a.ObjId, a.Approved 

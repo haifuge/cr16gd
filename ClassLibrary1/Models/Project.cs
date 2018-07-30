@@ -59,7 +59,7 @@ namespace DAL.Models
                                 convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
                             from Project p 
                             left join UserInfo ui on p.PublisherId=ui.ID
-                            left join DepartmentUser du on ui.ID=du.UserId
+                            left join DepartmentUser du on ui.ID=du.UserId and du.Status=1
                             left join Department d on d.ID=du.DepartmentId
                             where p.id=" + id;
             return DBHelper.GetDataTable(sql);

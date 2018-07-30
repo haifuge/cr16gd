@@ -48,12 +48,12 @@ namespace DAL.Models
         {
             string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked, '' as duguid, 
                                 '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen, d.ProjectDp
-                            from Department d left join DepartmentUser du on d.ID=du.DepartmentId left join APDetail ad on du.Guid=ad.DUGUID where d.Status=1
+                            from Department d left join DepartmentUser du on d.ID=du.DepartmentId and du.Status=1 left join APDetail ad on du.Guid=ad.DUGUID where d.Status=1
                             union
                             select convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as id, ui.UserName, du.DepartmentId, d.Level, dbo.GetRootName(d.ID) as rName, 
                                 case when ad.APID is null then 0 else 1 end as checked, du.guid, 
                                 '/img/icon-treeuser.png' as icon, '/img/icon-treeuser.png' as iconClose, '/img/icon-treeuser.png' as iconOpen, 0 as ProjectDp
-                            from UserInfo ui inner join DepartmentUser du on ui.ID=du.UserId inner join Department d on du.DepartmentId = d.ID
+                            from UserInfo ui inner join DepartmentUser du on ui.ID=du.UserId and du.Status=1 inner join Department d on du.DepartmentId = d.ID
                             left join APDetail ad on du.Guid=ad.DUGUID and ad.APID=" + apid+" where ui.Status=1 and du.Status=1";
             return DBHelper.GetDataTable(sql);
         }
@@ -79,7 +79,7 @@ namespace DAL.Models
         {
             string sql = @"select d.Level, dbo.GetRootName(du.DepartmentId) as pname, ui.UserName, d.Name as dname,
                             convert(varchar(10),d.id)+'-'+convert(varchar(10),ui.ID) as uid, d.id as did
-                            from APDetail ad inner join DepartmentUser du on ad.DUGUID=du.Guid inner join UserInfo ui on du.UserId=ui.ID left join Department d on d.ID=du.DepartmentId
+                            from APDetail ad inner join DepartmentUser du on ad.DUGUID=du.Guid and du.Status=1 inner join UserInfo ui on du.UserId=ui.ID left join Department d on d.ID=du.DepartmentId
                             where APID=" + appPid + " order by d.Level desc";
             return DBHelper.GetDataTable(sql);
         }
@@ -88,7 +88,7 @@ namespace DAL.Models
         {
             string sql = @"select ui.ID, ui.UserAccount, ui.UserName, ui.Telphone, ui.Email, d.Name as DepartmentName
                            from UserInfo ui 
-                           left join DepartmentUser du on ui.ID=du.UserId 
+                           left join DepartmentUser du on ui.ID=du.UserId and du.Status=1
                            left join Department d on du.DepartmentId = d.ID where ui.ID =" + uid;
             return DBHelper.GetDataTable(sql);
         }
