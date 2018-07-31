@@ -12,6 +12,9 @@
         .main-header > a .web-title:hover, .main-header > a .web-title:focus {
             color: #000000;
         }
+        .user-face ul li:hover{
+            cursor:pointer;
+        }
     </style>
 </head>
 <body>
@@ -29,7 +32,7 @@
                         <ul>
                             <li class="nav-help"><a href="">帮助</a></li>
                             <li class="nav-wel" onclick="window.location.href ='/Main'"><a href="/Main">首页</a></li>
-                            <li class="nav-user-name"onclick="window.location.href ='/Main'"><label id="department">@ViewBag.UserDepartment</label>&nbsp;&nbsp;<label id="name">@ViewBag.UserName</label></li>
+                            <li class="nav-user-name"onclick="userpage()"><label id="department">@ViewBag.UserDepartment</label>&nbsp;&nbsp;<label id="name">@ViewBag.UserName</label></li>
                         </ul>
                     </div>
                     <div class="web-home"><a href="#" onclick="logout()"><i class="home-icon-white"></i></a></div>

@@ -11,7 +11,13 @@
     <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
     <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
     <link rel="stylesheet" href="~/css/style.css" />
+    <style>
+        .user-face ul li:hover,.user-face ul li label:hover {
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
     <div class="index-bg index-bg2">
         <div class="main-header main-header2">
@@ -22,7 +28,7 @@
                 <div class="user-face">
                     <ul>
                         <li class="nav-help"><a href="" style="color: #fff">帮助</a></li>
-                        <li class="nav-user-name"><label id="department" style="color: #fff"></label>&nbsp;&nbsp;<label id="name" style="color: #fff">@ViewBag.UserName</label></li>
+                        <li class="nav-user-name" onclick="userpage()"><label id="department" style="color: #fff"></label>&nbsp;&nbsp;<label id="name" style="color: #fff">@ViewBag.UserName</label></li>
                     </ul>
                 </div>
                 <div class="web-home"><a href="/Login"><i class="home-icon-white"></i></a></div>
@@ -164,6 +170,11 @@
 <script>
     $(function () {
         if (@ViewBag.RoleId== 4) {
+            $(".sp-list-right").html("0");
+            $(".in-box-top ul li:nth-child(1) a").attr("href","javascript:;")
+            $(".in-box-top ul li:nth-child(2) a").attr("href","javascript:;")
+            $(".in-box-top ul li:nth-child(3) a").attr("href","javascript:;")
+            $(".in-box-top ul li:nth-child(4) a").attr("href","javascript:;")
             $("a[name='rightPart']").css("display", 'none');
         }
         $("#department").text($.cookie("UserDepartment"))
