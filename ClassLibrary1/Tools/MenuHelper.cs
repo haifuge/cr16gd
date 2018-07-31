@@ -34,7 +34,7 @@
                 case 4:
                     // 项目部
                     return @"<li id='itemC'><a href='/Companys?mmenu=Companys'><i class='parent-nav-icon icon-waitread'></i><span class='span2'  id='spanlaowu'  id='spanlaowu'>劳务承分包企业</span></a></li>
-                            <li id='itemB'><a href='/Projects?mmenu=Projects'><i class='parent-nav-icon icon-meetroom'></i><span>招标内容</span></a></li>
+                            <li id='itemP'><a href='/Projects?mmenu=Projects'><i class='parent-nav-icon icon-meetroom'></i><span>招标内容</span></a></li>
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 default:
                     return "";

@@ -8,7 +8,16 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
+<style>
+    .download div {
+        display: block;
+        float: left;
+    }
 
+        .download div.cc {
+            margin-bottom: 100px;
+        }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>招标内容</h1>
@@ -40,13 +49,8 @@
                     <div class="dbwj-wz01">
                         <p>@ViewBag.Abstract</p>
                     </div>
-                    <H3>招标工程项目简介：</H3>
-                    <p>1、工程概况：</p>
-                    <p>（1）钻孔灌注桩：设计要求旋挖钻工艺，桩径为1000mm，共计933根。钻孔桩共22026m，钢筋笼共2753t。</p>
-                    <p>（2）招标项目包含工作内容</p>
-                    <p>
-                        (1) 钻孔灌注桩: 钻机成孔、钢筋制安、混凝土灌注等施工全过程，泥浆及土方外运另行分包。
-                    </p>
+                    <H3>招标内容介绍：</H3>
+                    <p>@ViewBag.ProDescription</p>
                     <h3>参加投标单位及投标报价：</h3>
                     <div style="display: block;overflow: hidden">
                         <ul class="ull ulll">
@@ -59,9 +63,11 @@
                     </ul>
                     <h3>定标文件详细说明</h3>
                     @Html.Raw(ViewBag.FileExplain)
-                    <div style="margin-top: 10px;">
-                        <div style="display: inline-block"><i class="meet-icon icon-file"></i></div>
-                        <ul id="bffiles"></ul>
+                    <div class="download" style="margin-top: 10px;">
+                        <div><i class="meet-icon icon-file"></i></div>
+                        <div class="cc">
+                            <ul id="bffiles"></ul>
+                        </div>
                     </div>
                 </div>
                 <div class="block-right block-right2">

@@ -5,7 +5,15 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
-
+<style>
+    .download div {
+    display: block;
+    float: left;
+}
+    .download div.cc{
+        margin-bottom:100px
+    }
+    </style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>定标文件</h1>
@@ -35,13 +43,10 @@
             </h2>
             <div class="art-tit"><span>发布单位：</span>@ViewBag.Publisher <span>发布时间：</span> @ViewBag.PublishDate</div>
             <div class="dbwj-wz01">
-                <p>中原分公司并公司“三项招标”领导小组：</p>
-                <P>
-                    我部于2017年1月4日上午10：00在中原分公司书记刘振华的监督下进行了市民大道站、中原西路站钻孔桩开标会。项目三项招标领导小组成员参与了本次开标，现将开标、议标等情况向公司报告如下：
-                </P>
+                @ViewBag.Abstract
             </div>
-            <H3>招标工程项目简介：</H3>
-            <p>@Html.Raw(ViewBag.Abstract)</p>
+            <H3>招标内容介绍：</H3>
+            <p>@ViewBag.ProDescription</p>
             <h3>参加投标单位及投标报价：</h3>
             <div style="display: block;overflow: hidden">
                 <ul class="ull">
@@ -53,10 +58,12 @@
                 @Html.Raw(ViewBag.WinCompany)
             </ul>
             <h3>定标文件详细说明</h3>
-            <p>@ViewBag.FileExplain</p>
-            <div style="margin-top: 10px;">
-                <div style="display: inline-block"><i class="meet-icon icon-file"></i></div>
-                <ul id="bffiles"></ul>
+            @Html.Raw(@ViewBag.FileExplain)
+            <div class="download" style="margin-top: 10px;">
+                <div><i class="meet-icon icon-file"></i></div>
+                <div class="cc">
+                    <ul id="bffiles"></ul>
+                </div>
             </div>
         </div>
     </div>

@@ -32,6 +32,7 @@ namespace RailBiding.Controllers
             DataRow dr = dt.Rows[0];
             ViewBag.PName = dr["Name"].ToString();
             ViewBag.Publisher = dr["Publisher"].ToString();
+            ViewBag.ProDescription = dr["ProDescription"].ToString().Replace("\n", "<br/>");
             ViewBag.PublishDate = dr["PublishDate"].ToString();
             ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
             ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
@@ -96,6 +97,7 @@ namespace RailBiding.Controllers
             ViewBag.PName = dr["Name"].ToString();
             ViewBag.Publisher= dr["Publisher"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
+            ViewBag.ProDescription = dr["ProDescription"].ToString().Replace("\n", "<br/>");
             ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n","</br>");
             ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
 
@@ -116,7 +118,7 @@ namespace RailBiding.Controllers
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>
-                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), row["QualificationLevel"].ToString().Substring(0,16), row["RegisteredCapital"].ToString(), ConstructionContent);
+                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
                 }
                 if(row["Win"].ToString()=="1")
                 {

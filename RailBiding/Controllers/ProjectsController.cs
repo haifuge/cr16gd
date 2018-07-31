@@ -154,17 +154,30 @@ namespace RailBiding.Controllers
                         ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
                         string QualificationLevel = row["QualificationLevel"].ToString();
                         QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
-                        joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
-                                <p>投标报价：<span class='colblue'>{1}元</span></p>
-                                <p>二次报价：<span class='colblue'>{2}元</span></p>
-                                <p>资质等级：{3}</p>
-                                <p>注册资金：{4}万元</p>
-                                <p>{5}</p>
-                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
+                        joinCompanys += "<li id='companyb" + row["CompanyId"].ToString() + "'>" +
+                                        "<div class='pca'>" +
+                                           "<div class='btn-close2'><img src='/img/icon-close.png' alt='' onclick='removeCompanytwo(companyb" + row["CompanyId"].ToString() + ")'></div>" +
+                                           "<div class='ul-bg'>" +
+                                               "<p class='f18'>"+row["Name"].ToString()+"</p>" +
+                                                "<p>资质等级："+ QualificationLevel + "</p>" +
+                                                "<p>注册资金："+ row["RegisteredCapital"].ToString() + "万元</p>" +
+                                                "<p>"+ ConstructionContent + "</p>" +
+                                            "</div>"+
+                                            "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
+                                            "<div class='tbbj'>投标报价：<input type='text' name='fp' id='price1' onkeyup='clearNoNum(this)' placeholder='0.00' value='"+ row["FirstPrice"].ToString() + "'>元</div>" +
+                                            "<div class='tbbj'>二次报价：<input type='text' name='sp' id='price2' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["SecondPrice"].ToString() + "'>元</div>" +
+                                        "</div>" +
+                                        "</li>";
                     }
                     if (row["Win"].ToString() == "1")
                     {
-                        winCompanys += string.Format(@"<li><h3>{0}</h3><p>{1}</p></li>", row["Name"].ToString(), row["Comment"].ToString());
+                        winCompanys += "<li id='companyw" + row["CompanyId"].ToString() + "'><div class='pca'>" +
+                            "<div class='btn-close3'><img src='/img/icon-close.png' alt='' onclick='removeCompany(companyw" + row["CompanyId"].ToString() + ")'></div>" +
+                            "<h3>"+ row["Name"].ToString()+" </h3>" +
+                            "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
+                            "<div style='padding: 10px;'><textarea name='' id='area' class='tar' placeholder='请输入文本内容'>"+ row["Comment"].ToString()+" </textarea><div style='font-size:12px; text-align:right;'></div></div>" +
+                            "</div>" +
+                            "</li>";
                     }
                 }
                 ViewBag.JoinCompany = joinCompanys;
@@ -609,6 +622,7 @@ namespace RailBiding.Controllers
 
             DataRow dr = dt.Rows[0];
             ViewBag.PName = dr["Name"].ToString();
+            ViewBag.ProDescription = dr["ProDescription"].ToString().Replace("\n", "<br/>");
             ViewBag.Publisher = dr["Publisher"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
             ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");

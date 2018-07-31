@@ -5993,3 +5993,6 @@ span#updatebmnamemsg,span#updatespjbmsg,span#bmnamemsg,span#spjbmsg {
 td{
     padding:0 5px;
 }
+div#editor {
+    margin-bottom: 20px;
+}
