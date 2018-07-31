@@ -809,6 +809,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AliMessage\AliMessage.csproj">
+      <Project>{eca57b76-8090-49a2-a6ca-e1f1ddf0cd28}</Project>
+      <Name>AliMessage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClassLibrary1\DAL.csproj">
       <Project>{7b889946-4049-4f11-9e28-7ad372fdd5cf}</Project>
       <Name>DAL</Name>

@@ -104,36 +104,49 @@
         <table class="bid-table">
             <tr>
                 <td>项目名称:</td>
-                <td>名称</td>
-            </tr>
-            <tr>
-                <td>招标单位:</td>
-                <td>单位</td>
+                <td>@ViewBag.PName</td>
             </tr>
             <tr>
                 <td>项目地点:</td>
-                <td>地点</td>
+                <td>@ViewBag.PLocation</td>
             </tr>
             <tr>
                 <td>项目类型:</td>
-                <td>类型</td>
+                <td>@ViewBag.ProjType</td>
             </tr>
             <tr>
-                <td>起止时间:</td>
-                <td>2222222222222</td>
+                <td>申请时间:</td>
+                <td>@ViewBag.ApplyDate</td>
+            </tr>
+            <tr>
+                <td>开始时间:</td>
+                <td>@ViewBag.OpenDate</td>
             </tr>
             <tr>
                 <td>项目说明:</td>
-                <td>发发是否斯蒂芬</td>
+                <td>@ViewBag.PDescription</td>
             </tr>
         </table>
         <div class="bid-btn">
             <ul>
-                <li><a href="" class="bid-redbtn">不参加</a></li>
-                <li><a href="" class="bid-greenbtn">参加</a></li>
+                <li><a href="" class="bid-redbtn" onclick="response(2)">不参加</a></li>
+                <li><a href="" class="bid-greenbtn" onclick="response(1)">参加</a></li>
 
             </ul>
         </div>
     </div>
 </body>
 </html>
+<script src="~/jsMobile/jquery-1.11.0.js"></script>
+<script>
+    function response(res) {
+        $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
+            if (res == 1) {
+                alert('您已参加竞标，')
+            }
+            else {
+                alert('您已拒绝参加竞标')
+            }
+        });
+    }
+</script>

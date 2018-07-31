@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using DAL.Models;
 using DAL.Tools;
 using RailBiding.Common;
+using AliMessage;
 
 namespace RailBiding.Controllers
 {
@@ -118,6 +119,22 @@ namespace RailBiding.Controllers
             string cid = Request["cid"].ToString();
             BidContext bc = new BidContext();
             bc.RemoveBidingCompany(pid, cid);
+        }
+        public void InviteBiding(string cids, string pid, string pname)
+        {
+            string[] cid = cids.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+            SendMessage sm = new SendMessage();
+            string sql = "select ID, RepPhone from Company where Id in (" + cids+")";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            string guid = "";
+            sql = "";
+            for(int i = 0; i < dt.Rows.Count; i++)
+            {
+                guid = Guid.NewGuid().ToString().Replace("-", "");
+                sm.InviteCompany(dt.Rows[i][1].ToString(), pname, guid);
+                sql += " update BidingCompany set VerifyCode='"+guid+"' where ProjId = "+pid+" and CompanyId = "+dt.Rows[i][0].ToString()+"; ";
+            }
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }

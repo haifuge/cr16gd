@@ -13,7 +13,7 @@ namespace AliMessage
 {
     public class SendMessage
     {
-        public void Send(string phoneNumber, string pname, string url)
+        public void InviteCompany(string phoneNumber, string pname, string token)
         {
             String product = "Dysmsapi";//短信API产品名称（短信产品名固定，无需修改）
             String domain = "dysmsapi.aliyuncs.com";//短信API产品域名（接口地址固定，无需修改）
@@ -35,7 +35,7 @@ namespace AliMessage
                 //必填:短信模板-可在短信控制台中找到，发送国际/港澳台消息时，请使用国际/港澳台短信模版
                 request.TemplateCode = "SMS_140721964";
                 //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-                request.TemplateParam = "{\"name\":\""+pname+"\"， \"code\":\""+url+"\"}";
+                request.TemplateParam = "{\"name\":\""+pname+"\"， \"token\":\""+token+"\"}";
                 //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
                 request.OutId = "yourOutId";
                 //请求失败这里会抛ClientException异常
