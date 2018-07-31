@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>劳务招标系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/light/light7.min.css">
+    <link rel="stylesheet" href="css/phone.css" />
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <img src="img/login_bg.jpg" alt="">
+            <header class="bar bar-nav meetp-nav">
+                <div class="meetp-header meetp-header2">
+                    <img src="img/lw-logo.png" />
+                </div>
+            </header>
+
+            <div class="content native-scroll login-center3">
+                <div class="login-tit">
+                    <p>劳务招标系统</p>
+                </div>
+
+                <div class="loginbar">
+                    <div class="loginbar-re">
+                        <h3>账号登录</h3>
+                        <ul>
+                            <li>
+                                <input id="txtUserName" name="txtUserName" type="text" placeholder="用户名">
+                            </li>
+                            <li>
+                                <input id="txtPassword" name="txtPassword" type="password" placeholder="密码">
+                            </li>
+                            <li>
+                                <input id="txtCode" name="txtCode" type="txt" placeholder="验证码" class="txtcode">
+                                <span><input type="txt" name="" value="获取验证码" class="getCode"></span>
+                            </li>
+                        </ul>
+                        <div class="btn-box">
+                            <div class="col">
+                                <input id="btnSubmit" name="btnSubmit" class="submit" type="submit" value="登 录">
+                            </div>
+                        </div>
+                        <div class="oauth-box">
+                            <a href="retrieve_password.html" class="regi">忘记密码</a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="lw-footer">
+                <p>
+                    © 版权所有：中铁十六局集团轨道公司 010-69526115 技术支持:传晨赛博 <a href="http://www.saibo.net.cn" style="color: #fff">www.saibo.net.cn</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <script type='text/javascript' src='js/jquery-1.11.0.js' charset='utf-8'></script>
+    <script type='text/javascript' src='js/light/light7.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script>
+    $("#picker").picker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+			  <button class="button button-link pull-left">按钮</button>\
+			  <button class="button button-link pull-right close-picker">确定</button>\
+			  <h1 class="title">标题</h1>\
+			  </header>',
+        cols: [
+            {
+                textAlign: 'center',
+                values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
+            }
+        ]
+    });
+    $("#my-input").calendar({
+        value: ['2015-12-05']
+    });
+    </script>
+
+</body>
+</html>
