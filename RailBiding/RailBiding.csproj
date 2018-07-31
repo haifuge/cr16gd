@@ -187,7 +187,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mobile\MobileBidController.cs" />
+    <Compile Include="Mobile\MobileBidingFileController.cs" />
+    <Compile Include="Mobile\MobileCompanyController.cs" />
+    <Compile Include="Mobile\MobileListController.cs" />
     <Compile Include="Mobile\MobileLoginController.cs" />
+    <Compile Include="Mobile\MobileMainController.cs" />
+    <Compile Include="Mobile\MobileMakeBidFileController.cs" />
+    <Compile Include="Mobile\MobileResetPasswordController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -769,6 +776,14 @@
     <Content Include="Views\Companys\ReApply.cshtml" />
     <Content Include="Views\Companys\EditCompany.cshtml" />
     <Content Include="Views\MobileLogin\Index.cshtml" />
+    <Content Include="Views\MobileMain\Index.cshtml" />
+    <Content Include="Views\MobileResetPassword\Index.cshtml" />
+    <Content Include="Views\MobileResetPassword\ResetPassword.cshtml" />
+    <Content Include="Views\MobileList\Index.cshtml" />
+    <Content Include="Views\MobileMakeBidFile\Index.cshtml" />
+    <Content Include="Views\MobileCompany\Index.cshtml" />
+    <Content Include="Views\MobileBidingFile\Index.cshtml" />
+    <Content Include="Views\MobileBid\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

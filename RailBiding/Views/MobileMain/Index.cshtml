@@ -1,0 +1,125 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>中国铁建房地产行政办公系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="~/cssMobile/light/light7.min.css">
+    <link rel="stylesheet" href="~/cssMobile/phone.css" />
+    <style>
+        .bar.meetp-nav.bar-nav2 {
+            height: 8rem;
+        }
+
+        .bar-nav ~ .content.con1 {
+            top: 8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <header class="bar bar-nav meetp-nav bar-nav2">
+                <div class="meetp-header">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                        <a href="login.html">
+                            <img src="~/imgMobile/loginout-icon.png" alt="">
+                        </a>
+                    </span>
+                </div>
+                <div class="dlwz">
+                    <p>欢迎登录劳务招标管理系统</p>
+                    <p>经济管理部 谢红</p>
+                </div>
+                <!--<div class="meetp-bar">-->
+                <!--&lt;!&ndash;<a class="button button-link button-nav pull-left back" href="check.html">&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<span class="icon icon-left"></span>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--<h1 class="title">招标审核-招标详情</h1>-->
+                <!--</div>-->
+            </header>
+            <div class="content native-scroll con1" style="padding-bottom: 3rem;">
+                <div class="sh-list">
+                    <ul>
+                        <li>
+                            <p class="sz">2</p>
+                            <p class="wz">企业审核</p>
+                        </li>
+                        <li>
+                            <p class="sz">8</p>
+                            <p class="wz">招标审核</p>
+                        </li>
+                        <li>
+                            <p class="sz">11</p>
+                            <p class="wz">文件审核</p>
+                        </li>
+                        <li>
+                            <p class="sz">7</p>
+                            <p class="wz">定标审核</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sh-list2">
+                    <ul>
+                        <li>
+                            <a href="list.html?type=0">
+                                <p class="sz"><img src="~/imgMobile/tb01.png" alt=""></p>
+                                <p class="wz">企业审批</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="list.html?type=1" style="display: block">
+                                <p class="sz">
+                                    <img src="~/imgMobile/tb02.png" alt="">
+                                </p>
+                                <p class="wz">招标审批</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="list.html?type=2">
+                                <p class="sz"><img src="~/imgMobile/tb03.png" alt=""></p>
+                                <p class="wz">文件审批</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="list.html?type=3">
+                                <p class="sz"><img src="~/imgMobile/tb04.png" alt=""></p>
+                                <p class="wz">定标审批</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer">
+                <p>版权所有：中铁十六局集团北京轨道交通工程建设有限公司</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $.config = {
+            router: false
+        }
+    </script>
+    <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js' charset='utf-8'></script>
+    <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="~/jsMobile/js.js"></script>
+    <script>
+        $(function () {
+            $(document).on('click', '.meetp-user-list .card .card-header', function () {
+                $(this).siblings(".card-content").toggleClass("active");
+                $(this).find(".icon").toggleClass("icon-right")
+            });
+
+        })
+    </script>
+</body>
+</html>
