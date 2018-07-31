@@ -190,6 +190,7 @@
     <Compile Include="Mobile\MobileBidController.cs" />
     <Compile Include="Mobile\MobileBidingFileController.cs" />
     <Compile Include="Mobile\MobileCompanyController.cs" />
+    <Compile Include="Mobile\MobileInviteBidingController.cs" />
     <Compile Include="Mobile\MobileListController.cs" />
     <Compile Include="Mobile\MobileLoginController.cs" />
     <Compile Include="Mobile\MobileMainController.cs" />
@@ -784,6 +785,7 @@
     <Content Include="Views\MobileCompany\Index.cshtml" />
     <Content Include="Views\MobileBidingFile\Index.cshtml" />
     <Content Include="Views\MobileBid\Index.cshtml" />
+    <Content Include="Views\MobileInviteBiding\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
