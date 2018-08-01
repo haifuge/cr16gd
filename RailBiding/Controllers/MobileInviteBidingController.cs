@@ -20,7 +20,7 @@ namespace RailBiding.Mobile
         public string GetBidDetail(string pid)
         {
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetBidDetail(ViewBag.ProjId);
+            DataTable dt = bc.GetBidDetail(pid);
             return JsonHelper.DataTableToJSON(dt);
         }
     }

@@ -143,6 +143,17 @@
 </html>
 <script src="~/jsMobile/jquery-1.11.0.js"></script>
 <script>
+    
+    $.get("/MobileInviteBiding/GetBidDetail?pid=@ViewBag.ProjId", {}, function (res) {
+        var jsonData = JSON.parse(res);
+        console.log(jsonData)
+        $(".bid-table tr:nth-child(1) td:nth-child(2)").html(jsonData[0].name)
+        $(".bid-table tr:nth-child(2) td:nth-child(2)").html(jsonData[0].location)
+        $(".bid-table tr:nth-child(3) td:nth-child(2)").html(jsonData[0].projtype)
+        $(".bid-table tr:nth-child(4) td:nth-child(2)").html(jsonData[0].applydate)
+        $(".bid-table tr:nth-child(5) td:nth-child(2)").html(jsonData[0].opendate)
+        $(".bid-table tr:nth-child(6) td:nth-child(2)").html(jsonData[0].prodescription)
+    })
     function response(res) {
         $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
             if (res == 1) {

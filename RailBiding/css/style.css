@@ -3016,28 +3016,32 @@ input[name=keyname] {
 }
 
 .login-foot {
-    width: 80%;
+    width: 100%;
     height: 40px;
     background: #0383d4;
     position: fixed;
     bottom: 0;
     z-index: 10000;
     color: #fff;
-    padding: 0 10%;
+  
     padding-top: 40px;
 }
+.login-footcon{
+    width:80%;
+    margin:0 auto;
 
-    .login-foot .support {
-        float: right;
-    }
+}
+.login-foot .support {
+   float: right;
+ }
 
-        .login-foot .support a {
-            color: #fff;
-        }
+ .login-foot .support a {
+   color: #fff;
+ }
 
-            .login-foot .support a:hover {
-                text-decoration: underline;
-            }
+ .login-foot .support a:hover {
+  text-decoration: underline;
+ }
 
 .divAll {
     width: 800px;
