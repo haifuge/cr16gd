@@ -130,8 +130,8 @@ namespace RailBiding.Controllers
             sql = "";
             for(int i = 0; i < dt.Rows.Count; i++)
             {
-                guid = Guid.NewGuid().ToString().Replace("-", "");
-                sm.InviteCompany(dt.Rows[i][1].ToString(), pname, guid+"&pid="+pid+"&cid="+ dt.Rows[i][0].ToString());
+                guid = Guid.NewGuid().ToString().Replace("-", "").Substring(0,19);
+                sm.InviteCompany(dt.Rows[i][1].ToString(), pname, guid,pid, dt.Rows[i][0].ToString());
                 sql += " update BidingCompany set VerifyCode='"+guid+"' where ProjId = "+pid+" and CompanyId = "+dt.Rows[i][0].ToString()+"; ";
             }
             DBHelper.ExecuteNonQuery(sql);
