@@ -11,6 +11,9 @@ namespace RailBiding.Mobile
         // GET: MobileMain
         public ActionResult Index()
         {
+            ViewBag.UserName = Session["UserName"];
+            ViewBag.UserDepartment = Session["UserDepartment"];
+            ViewBag.RoleId = Session["RoleId"];
             return View();
         }
     }

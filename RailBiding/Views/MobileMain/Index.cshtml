@@ -30,7 +30,7 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav bar-nav2">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
                         <a href="login.html">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="dlwz">
                     <p>欢迎登录劳务招标管理系统</p>
-                    <p>经济管理部 谢红</p>
+                    <p>@ViewBag.UserDepartment @ViewBag.UserName</p>
                 </div>
                 <!--<div class="meetp-bar">-->
                 <!--&lt;!&ndash;<a class="button button-link button-nav pull-left back" href="check.html">&ndash;&gt;-->
@@ -51,19 +51,19 @@
                 <div class="sh-list">
                     <ul>
                         <li>
-                            <p class="sz">2</p>
+                            <p class="sz company">2</p>
                             <p class="wz">企业审核</p>
                         </li>
                         <li>
-                            <p class="sz">8</p>
-                            <p class="wz">招标审核</p>
-                        </li>
-                        <li>
-                            <p class="sz">11</p>
+                            <p class="sz bidfile">11</p>
                             <p class="wz">文件审核</p>
                         </li>
                         <li>
-                            <p class="sz">7</p>
+                            <p class="sz bid">8</p>
+                            <p class="wz">招标审核</p>
+                        </li>
+                        <li>
+                            <p class="sz makebid">7</p>
                             <p class="wz">定标审核</p>
                         </li>
                     </ul>
@@ -71,27 +71,28 @@
                 <div class="sh-list2">
                     <ul>
                         <li>
-                            <a href="list.html?type=0">
+                            <a href="#" onclick="gotolist(1)">
                                 <p class="sz"><img src="~/imgMobile/tb01.png" alt=""></p>
                                 <p class="wz">企业审批</p>
                             </a>
                         </li>
                         <li>
-                            <a href="list.html?type=1" style="display: block">
+                            <a href="#" onclick="gotolist(3)">
+                                <p class="sz"><img src="~/imgMobile/tb03.png" alt=""></p>
+                                <p class="wz">文件审批</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="gotolist(2)">
                                 <p class="sz">
                                     <img src="~/imgMobile/tb02.png" alt="">
                                 </p>
                                 <p class="wz">招标审批</p>
                             </a>
                         </li>
+
                         <li>
-                            <a href="list.html?type=2">
-                                <p class="sz"><img src="~/imgMobile/tb03.png" alt=""></p>
-                                <p class="wz">文件审批</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="list.html?type=3">
+                            <a href="#" onclick="gotolist(4)">
                                 <p class="sz"><img src="~/imgMobile/tb04.png" alt=""></p>
                                 <p class="wz">定标审批</p>
                             </a>
@@ -105,15 +106,77 @@
         </div>
     </div>
 
-    <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js' charset='utf-8'></script>
-    <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js'></script>
+    <script type='text/javascript' src='~/jsMobile/light/light7.min.js'></script>
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
     <script>
-        $(function () {
-            $(document).on('click', '.meetp-user-list .card .card-header', function () {
-                $(this).siblings(".card-content").toggleClass("active");
-                $(this).find(".icon").toggleClass("icon-right")
-            });
+        function gotolist(type) {
+            window.location.href = '/MobileList?type=' + type;
+            setMenuActive()
+        }
+        function setMenuActive()
+        {
+            var type = getQueryString('type')
+            console.log(type)
+
+            if (type == 1) {
+                $("#type1").addClass("active");
+                $("#type1").siblings().removeClass("active");
+
+                $("#tab0").addClass("active");
+                $("#tab0").siblings().removeClass("active");
+            }
+            if (type == 2) {
+                $("#type2").addClass("active");
+                $("#type2").siblings().removeClass("active");
+                $("#tab1").addClass("active");
+                $("#tab1").siblings().removeClass("active");
+
+            }
+            if (type == 3) {
+                $("#type3").addClass("active");
+                $("#type3").siblings().removeClass("active");
+                $("#tab2").addClass("active");
+                $("#tab2").siblings().removeClass("active");
+
+            }
+            if (type == 4) {
+                $("#type4").addClass("active");
+                $("#type4").siblings().removeClass("active");
+                $("#tab3").addClass("active");
+                $("#tab3").siblings().removeClass("active");
+            }
+        }
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = r[2];
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+        }
+
+        //待审核记录
+        $.get("/Main/GetToBeDone", {}, function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                console.log(o)
+                if (o.appprocid == 1) {
+                    $(".company").html(o.company)
+                }
+                if (o.appprocid == 2) {
+                    $(".bidfile").html(o.bidfile)
+                }
+                if (o.appprocid == 3) {
+                    $(".bid").html(o.b)
+                }
+                if (o.appprocid == 4) {
+                    $(".makebid").html(o.mb)
+                }
+            }
 
         })
     </script>

@@ -613,9 +613,9 @@ p {
     margin-top: 0.8rem;
 }
 
-.meetp-deal-list li.onling {
-    background: url(../../img/phone/oning.png) no-repeat;
-}
+    .meetp-deal-list li.onling {
+        background: url('../imgMobile/oning.png') no-repeat;
+    }
 
 .advice-text-wrap textarea {
     height: 5rem;

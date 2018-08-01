@@ -4,15 +4,13 @@
 }
 
 <!DOCTYPE html>
-<html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>中国铁建房地产行政办公系统</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="~/cssMobile/light/light7.min.css">
     <link rel="stylesheet" href="~/cssMobile/phone.css" />
     <style>
@@ -24,6 +22,7 @@
     </style>
 </head>
 <body>
+
     <div class="page-group">
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav bar-nav2">
@@ -44,10 +43,10 @@
             </header>
             <div class="content native-scroll con1 tbq" style="padding-bottom: 3rem;">
                 <div class="buttons-tab meetp-buttons-tab meetp-buttons-tab2 tb2 shxt">
-                    <a href="#tab0" class="tab-link active button button2">企业审批</a>
-                    <a href="#tab1" class="tab-link button button2">招标审批</a>
-                    <a href="#tab2" class="tab-link  button button2">文件审批</a>
-                    <a href="#tab3" class="tab-link button button2">定标审批</a>
+                    <a href="#tab0" class="tab-link button button2" id="type1">企业审批</a>
+                    <a href="#tab2" class="tab-link button button2" id="type3">文件审批</a>
+                    <a href="#tab1" class="tab-link button button2" id="type2">招标审批</a>
+                    <a href="#tab3" class="tab-link button button2" id="type4">定标审批</a>
 
                 </div>
                 <div class="content-block tbk">
@@ -129,6 +128,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            
                         </div>
                         <div id="tab1" class="tab">
                             <div class="list-block media-list meetp-list-block meetp-deal-list meetp2">
@@ -359,9 +359,111 @@
             </div>
         </div>
     </div>
-    <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js' charset='utf-8'></script>
-    <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
+    </body>
+    <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js'></script>
+    <script type='text/javascript' src='~/jsMobile/light/light7.min.js' ></script>
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
+    <script>
+        $(function () { 
+            var type = getQueryString('type')
 
-</body>
-</html>
+            if (type == 1) {
+                $("#type1").addClass("active");
+                $("#type1").siblings().removeClass("active");
+
+                $("#tab0").addClass("active");
+                $("#tab0").siblings().removeClass("active");
+            }
+            if (type == 2) {
+                $("#type2").addClass("active");
+                $("#type2").siblings().removeClass("active");
+                $("#tab1").addClass("active");
+                $("#tab1").siblings().removeClass("active");
+
+            }
+            if (type == 3) {
+                $("#type3").addClass("active");
+                $("#type3").siblings().removeClass("active");
+                $("#tab2").addClass("active");
+                $("#tab2").siblings().removeClass("active");
+
+            }
+            if (type == 4) {
+                $("#type4").addClass("active");
+                $("#type4").siblings().removeClass("active");
+                $("#tab3").addClass("active");
+                $("#tab3").siblings().removeClass("active");
+            }
+        })
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+                var context = "";
+                if (r != null)
+                    context = r[2];
+                reg = null;
+                r = null;
+                return context == null || context == "" || context == "undefined" ? "" : context;
+            }
+    </script>
+
+<script type="text/javascript">
+    //文件审批
+    var cur_num = 1
+    var clickpagenum = "" //所点击页码
+    //当前所在页码
+    var nowpage = 1;
+    var page_size = 10
+    var pagenum = 12
+    Paginator(nowpage, page_size)
+    function Paginator(page, ps) {
+        $.post("/BidingFile/GetMyFileApprove", { pageSize: ps, pageIndex: page, pname: "", status: "" }, function (data) {
+            if (data == 'no session') {
+                location.href = "/MobileLogin";
+            }
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            console.log(obj)
+            var htm = "";
+            var applyStatus = "";
+            var applyStyle = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                console.log(o);
+                switch (o.status) {
+                    case 0:
+                        applyStatus = "未发布";
+                        applyStyle = "status-wcl status-wfb";
+                        break;
+                    case 1:
+                        applyStatus = "待处理";
+                        applyStyle = "status-wcl status-shz";
+                        break;
+                    case 2:
+                        applyStatus = "已处理";
+                        applyStyle = "status-wcl status-ytg";
+                        break;
+                    case 3:
+                        applyStatus = "被驳回";
+                        applyStyle = "status-wcl status-bbh";
+                        break;
+                    case 4:
+                        applyStatus = "被暂停";
+                        applyStyle = "status-wcl status-bzt";
+                        break;
+                }
+                htm += '<tr class="white-bg" onclick = "location.href=\'/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '\';" >' +
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td>' +
+                    '<td>' + o.name + '</td>' +
+                    '<td>' + o.content + '</td>' +
+                    '<td>' + o.publisher + '</td>' +
+                    '<td>' + o.publishdate + '</td>' +
+                    '<td><i class="' + applyStyle + '">' + applyStatus + '</i></td>' +
+                    '</tr >'
+            }
+            $("#tbBidingFiles").html(htm);
+        });
+    }
+</script>
+
+    
