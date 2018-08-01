@@ -254,5 +254,20 @@ namespace RailBiding.API
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
         }
+        /// <summary>
+        /// 收到邀标，用户反馈更新数据库
+        /// </summary>
+        /// <param name="cid"></param>
+        /// <param name="pid"></param>
+        /// <param name="token">验证码</param>
+        /// <param name="res"></param>
+        public void ResponseInvite(string cid, string pid, string token, string res)
+        {
+            string biding = "0";
+            if (res == "1")
+                biding = "1";
+            string sql = @"update BidingCompany set CompanyResponse="+res+ ", Biding="+biding+" where ProjId=" + pid+" and CompanyId="+cid+" and VerifyCode='"+ token + "'; ";
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }
