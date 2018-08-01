@@ -30,21 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="aliyun-net-sdk-core">
-      <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\aliyun-net-sdk-core.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="aliyun-net-sdk-core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\aliyun-net-sdk-core.dll</HintPath>
     </Reference>
-    <Reference Include="aliyun-net-sdk-dybaseapi">
-      <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\aliyun-net-sdk-dybaseapi.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="aliyun-net-sdk-dybaseapi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\aliyun-net-sdk-dybaseapi.dll</HintPath>
     </Reference>
-    <Reference Include="aliyun-net-sdk-dysmsapi">
-      <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\aliyun-net-sdk-dysmsapi.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="aliyun-net-sdk-dysmsapi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\aliyun-net-sdk-dysmsapi.dll</HintPath>
     </Reference>
-    <Reference Include="Aliyun.MNS">
-      <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\Aliyun.MNS.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="Aliyun.MNS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Aliyun.MNS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
