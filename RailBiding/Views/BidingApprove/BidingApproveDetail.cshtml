@@ -327,7 +327,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
         return context == null || context == "" || context == "undefined" ? "" : context;
     }
 
-   
+
     //审核流程遍历
     $(function () {
 
@@ -352,8 +352,8 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                 var ulstyle = 'uc01'; //uc02
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i];
-                    
-                    
+
+
                     if(i==0){
                         htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
                         continue;
@@ -408,7 +408,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                     }
                 }
                 htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
-  
+
                 $("#transferInfo").html(htm);
                 $("#declineInfo").html(dechtm);
                 $("#passlineInfo").html(passhtm);
@@ -431,8 +431,23 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
     )
     var invited = false;
     function inviteCompanys() {
-        invited=true
+        //invited=true
+        var cid="";
+        for(var i=1;i<=$(".meet-user-span span").length;i++){
+            cid += $(".meet-user-span span:nth-child("+i+")").attr("id").replace('company','')+',';
+        }
+        if(cid=="")
+            return;
+       var cids =cid.substr(0,cid.length-1)
+       var pid=@ViewBag.pid;
+       var pname=@ViewBag.Name;
+        $.post("/BidingApprove/InviteBiding", { cids:cids,pid:pid,pname:pname}, function () {
+            swal("邀标短信已发送！")
+        })
     }
+
+
+
     function declineApplication() {
         var invbtn = document.getElementById('invitebtn');
         if (invbtn != null) {

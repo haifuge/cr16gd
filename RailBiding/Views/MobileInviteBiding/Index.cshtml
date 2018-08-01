@@ -142,7 +142,7 @@
     function response(res) {
         $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
             if (res == 1) {
-                alert('您已参加竞标，')
+                alert('您已参加竞标')
             }
             else {
                 alert('您已拒绝参加竞标')

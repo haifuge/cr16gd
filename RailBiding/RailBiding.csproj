@@ -180,6 +180,15 @@
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\MakeBidFileController.cs" />
+    <Compile Include="Controllers\MobileBidController.cs" />
+    <Compile Include="Controllers\MobileBidingFileController.cs" />
+    <Compile Include="Controllers\MobileCompanyController.cs" />
+    <Compile Include="Controllers\MobileInviteBidingController.cs" />
+    <Compile Include="Controllers\MobileListController.cs" />
+    <Compile Include="Controllers\MobileLoginController.cs" />
+    <Compile Include="Controllers\MobileMainController.cs" />
+    <Compile Include="Controllers\MobileMakeBidFileController.cs" />
+    <Compile Include="Controllers\MobileResetPasswordController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
@@ -187,15 +196,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mobile\MobileBidController.cs" />
-    <Compile Include="Mobile\MobileBidingFileController.cs" />
-    <Compile Include="Mobile\MobileCompanyController.cs" />
-    <Compile Include="Mobile\MobileInviteBidingController.cs" />
-    <Compile Include="Mobile\MobileListController.cs" />
-    <Compile Include="Mobile\MobileLoginController.cs" />
-    <Compile Include="Mobile\MobileMainController.cs" />
-    <Compile Include="Mobile\MobileMakeBidFileController.cs" />
-    <Compile Include="Mobile\MobileResetPasswordController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
