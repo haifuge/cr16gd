@@ -32,15 +32,19 @@
   <ItemGroup>
     <Reference Include="aliyun-net-sdk-core">
       <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\aliyun-net-sdk-core.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="aliyun-net-sdk-dybaseapi">
       <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\aliyun-net-sdk-dybaseapi.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="aliyun-net-sdk-dysmsapi">
       <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\aliyun-net-sdk-dysmsapi.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Aliyun.MNS">
       <HintPath>C:\Users\ALIENWARE\Downloads\net\msg_sdk\dll\Aliyun.MNS.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
