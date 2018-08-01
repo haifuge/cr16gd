@@ -37,12 +37,12 @@
                 </div>
                 <div id="form-itemGroup">
                     <label for="userPhone">验证码：</label>
-                    <input type="text" id="userPhone" class="userName user2" onBlur="checkPhone()" oninput="checkPhone()">
-                    <i>获取验证码</i>
+                    <input type="text" id="code" class="userName user2" onBlur="checkPhone()" oninput="checkPhone()">
+                    <i style="cursor:pointer" onclick="checkSendMessage()">获取验证码</i>
                 </div>
             </form>
             <div class="next-step">
-                <a href="#" onclick="checkNext()">下一步</a>
+                <a href="#" onclick="checkNext()" style="display:block">下一步</a>
             </div>
         </div>
         <div class="login-foot">
@@ -57,9 +57,17 @@
 <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
 <script type="text/javascript">
     function checkSendMessage() {
+        $.post("/ForgetPassword/CheckSendMessage", { account: $("#userName").val(), phone: $("#userPhone").val() }, function (res) {
+            alert(res);
+        })
 
     }
     function checkNext() {
-
+        $.post("/ForgetPassword/CheckNext", { vcode: $("#code").val() }, function (res) {
+            if (res == "1")
+                window.location.href = '/ForgetPassword/ResetPassword?code=' + $("#code").val() + '&account=' + $("#userName").val();
+            else
+                alert('验证码错误');
+        })
     }
 </script>

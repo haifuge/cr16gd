@@ -42,7 +42,7 @@
                             </li>
                             <li>
                                 <input id="txtCode" name="txtCode" type="text" placeholder="验证码" class="txtcode">
-                                <span><input type="text" name="" value="获取验证码" class="getCode"></span>
+                                <span><img id="imgVerifyCode" src="/MobileLogin/GenerateVerifyCode" alt='换一张图' style="display: block; cursor: pointer; margin-left: 10px;" onclick="this.src = '/MobileLogin/GenerateVerifyCode?tmp=' + Math.random();" width='75' height='30'/></span>
                             </li>
                         </ul>
                         <div class="btn-box">
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="oauth-box">
-                            <a href="retrieve_password.html" class="regi">忘记密码</a>
+                            <a href="/MobileResetPassword" class="regi">忘记密码</a>
 
                         </div>
 
@@ -70,22 +70,21 @@
     <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
     <script>
-        $("#picker").picker({
-            toolbarTemplate: '<header class="bar bar-nav">\
-                  <button class="button button-link pull-left">按钮</button>\
-                  <button class="button button-link pull-right close-picker">确定</button>\
-                  <h1 class="title">标题</h1>\
-                  </header>',
-            cols: [
-                {
-                    textAlign: 'center',
-                    values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
+        function checkForm() {
+
+            var username = document.getElementById('txtUserName');
+            var userpasswd = document.getElementById('txtPassword');
+            var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
+            $.post("MobileLogin/Login", { account: username.value, psd: userpasswd.value }, function (data) {
+                console.log(data);
+                if (data == "1") {
+                    window.location = "/Main";
+                    //console.log("成功");
                 }
-            ]
-        });
-        $("#my-input").calendar({
-            value: ['2015-12-05']
-        });
+                else
+                    alert("用户名或密码错误!");
+            });
+        }
     </script>
 
 </body>
