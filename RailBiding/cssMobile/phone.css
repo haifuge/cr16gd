@@ -50,27 +50,27 @@
 }
 
 .icon.icon-sy {
-    background-image: url(../../img/phone/icon-sy.png);
+    background-image: url(../../imgMobile/phone/icon-sy.png);
 }
 
 .icon.icon-ck {
-    background-image: url(../../img/phone/icon-ck.png);
+    background-image: url(../../imgMobile/phone/icon-ck.png);
 }
 
 .icon.icon-sq {
-    background-image: url(../../img/phone/icon-sq.png);
+    background-image: url(../../imgMobile/phone/icon-sq.png);
 }
 
 .icon.icon-cy {
-    background-image: url(../../img/phone/icon-cy.png);
+    background-image: url(../../imgMobile/phone/icon-cy.png);
 }
 
 .icon.icon-sh {
-    background-image: url(../../img/phone/icon-sh.png);
+    background-image: url(../../imgMobile/phone/icon-sh.png);
 }
 
 .icon.icon-yd {
-    background-image: url(../../img/phone/icon-yd.png);
+    background-image: url(../../imgMobile/phone/icon-yd.png);
 }
 
 .bar-tab .tab-item.active .meetp-icon {
@@ -79,27 +79,27 @@
 }
 
 .bar-tab .tab-item.active .icon-sy {
-    background-image: url(../../img/phone/icon-sy-w.png);
+    background-image: url(../../imgMobile/phone/icon-sy-w.png);
 }
 
 .bar-tab .tab-item.active .icon-ck {
-    background-image: url(../../img/phone/icon-ck-w.png);
+    background-image: url(../../imgMobile/phone/icon-ck-w.png);
 }
 
 .bar-tab .tab-item.active .icon-sq {
-    background-image: url(../../img/phone/icon-sq-w.png);
+    background-image: url(../../imgMobile/phone/icon-sq-w.png);
 }
 
 .bar-tab .tab-item.active .icon-cy {
-    background-image: url(../../img/phone/icon-cy-w.png);
+    background-image: url(../../imgMobile/phone/icon-cy-w.png);
 }
 
 .bar-tab .tab-item.active .icon-sh {
-    background-image: url(../../img/phone/icon-sh-w.png);
+    background-image: url(../../imgMobile/phone/icon-sh-w.png);
 }
 
 .bar-tab .tab-item.active .icon-yd {
-    background-image: url(../../img/phone/icon-yd-w.png);
+    background-image: url(../../imgMobile/phone/icon-yd-w.png);
 }
 
 .bar.meetp-bar-tab {
@@ -112,8 +112,8 @@
 
 .content-block {
     color: #070707;
-    margin: 0;
     padding: 0;
+    padding:0;
 }
 
 .meetp-content-block {
@@ -158,7 +158,7 @@
 
 .meetp-buttons-tab {
     position: fixed;
-    bottom: 0;
+    top:4.5rem;
     width: 100%;
     background-color: #d3edfb;
     z-index: 999;
@@ -179,17 +179,13 @@
     content: '';
     display: block;
     position: absolute;
-    top: -1px;
+    bottom: -3px;
     left: 43%;
     width: 0;
     height: 0;
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
-    border-top: 12px solid #fff;
-}
-
-.buttons-row .button.active {
-    background-color: #008cd6;
+    border-bottom: 12px solid #fff;
 }
 
 .button.button-fill {
@@ -378,7 +374,7 @@ p {
 }
 
 .icon-mynew {
-    background: url(../../img/phone/icon-new.png) no-repeat center center;
+    background: url(../../imgMobile/phone/icon-new.png) no-repeat center center;
     width: 22px;
     height: 28px;
     display: block;
@@ -440,27 +436,27 @@ p {
 }
 
 .meetp-nav-list .icon-eye {
-    background: url(../../img/phone/icon-eye.png) no-repeat center center;
+    background: url(../../imgMobile/phone/icon-eye.png) no-repeat center center;
     background-size: 60%;
 }
 
 .meetp-nav-list .icon-shenq {
-    background: url(../../img/phone/icon-shenq.png) no-repeat center center;
+    background: url(../../imgMobile/phone/icon-shenq.png) no-repeat center center;
     background-size: 60%;
 }
 
 .meetp-nav-list .icon-cany {
-    background: url(../../img/phone/icon-cany.png) no-repeat center center;
+    background: url(../../imgMobile/phone/icon-cany.png) no-repeat center center;
     background-size: 50%;
 }
 
 .meetp-nav-list .icon-shenh {
-    background: url(../../img/phone/icon-shenh.png) no-repeat center center;
+    background: url(../../imgMobile/phone/icon-shenh.png) no-repeat center center;
     background-size: 40%;
 }
 
 .meetp-nav-list .icon-yued {
-    background: url(../../img/phone/icon-yued.png) no-repeat center center;
+    background: url(../../imgMobile/phone/icon-yued.png) no-repeat center center;
     background-size: 40%;
 }
 
@@ -554,17 +550,17 @@ p {
 }
 
 .feed-icon.icon-bhreason {
-    background: url(../img/icon-bhreason.png) no-repeat center center;
+    background: url(../imgMobile/icon-bhreason.png) no-repeat center center;
     background-size: 100%;
 }
 
 .feed-icon.icon-hfreason {
-    background: url(../img/icon-hfreason.png) no-repeat center center;
+    background: url(../imgMobile/icon-hfreason.png) no-repeat center center;
     background-size: 100%;
 }
 
 .feed-icon.icon-srreason {
-    background: url(../img/icon-srreason.png) no-repeat center center;
+    background: url(../imgMobile/icon-srreason.png) no-repeat center center;
     background-size: 100%;
 }
 
@@ -687,7 +683,7 @@ p {
 
 .meetp-advice-content {
     border: 1px solid #d9d9d9;
-    margin: 0.5rem;
+    margin: 0.5rem 0.5rem 6rem;
 }
 
 .meetp-advice-title {
@@ -711,7 +707,7 @@ p {
 .meetp-buttons-row .button {
     height: 1.7rem;
     font-size: 0.8rem;
-    margin: 0 0.1rem;
+    margin: 0 0.3rem;
     border-radius: 0.05rem;
     line-height: 1.7rem;
     color: #231815;
@@ -870,7 +866,7 @@ tbody tr {
 .loginbar {
     width: 100%;
     height: 340px;
-    /*background: url(../img/login-bg3.png) repeat;*/
+    /*background: url(../imgMobile/login-bg3.png) repeat;*/
 
     margin: 0 auto
 }
@@ -1001,12 +997,16 @@ tbody tr {
 }
 
 .btn-row {
-    margin-bottom: 2rem;
-    margin-top: 1rem;
+    background:#fff;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
 }
 
 .row.btn-row {
     width: 100%;
+    position:fixed;
+    bottom:0;
+    border-top:1px solid #1d9ded;
     margin-left: 0;
     text-align: center;
 }
@@ -1045,7 +1045,7 @@ tbody tr {
 }
 
 .right-ss {
-    padding: 0.5rem 0.15rem 0.5rem 0.25rem
+    padding: 0.5rem 0.15rem 3rem 0.25rem
 }
 
 .right-ss h4 {
@@ -1337,7 +1337,7 @@ tbody tr {
 }
 
 .icon-file {
-    background: url(../img/icon-file.png) center center no-repeat;
+    background: url(../imgMobile/icon-file.png) center center no-repeat;
     width: 0.75rem;
     height: 0.75rem;
 }
@@ -1600,7 +1600,7 @@ tbody tr {
     left: 0;
     width: 40px;
     height: 480px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
 }
 
 #fancybox-overlay {
@@ -1671,7 +1671,7 @@ tbody tr {
     right: -15px;
     width: 30px;
     height: 30px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px 0px;
     cursor: pointer;
     z-index: 11103;
@@ -1741,7 +1741,7 @@ tbody tr {
 
 #fancybox-title-over {
     padding: 5px;
-    background-image: url('../img/fancy_title_over.png');
+    background-image: url('../imgMobile/fancy_title_over.png');
     display: block;
 }
 
@@ -1756,7 +1756,7 @@ tbody tr {
 
 #fancybox-title-left {
     padding-left: 15px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px -90px;
     background-repeat: no-repeat;
 }
@@ -1764,14 +1764,14 @@ tbody tr {
 #fancybox-title-main {
     font-weight: bold;
     line-height: 29px;
-    background-image: url('../img/fancybox-x.png');
+    background-image: url('../imgMobile/fancybox-x.png');
     background-position: 0px -40px;
     color: #FFF;
 }
 
 #fancybox-title-right {
     padding-left: 15px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -55px -90px;
     background-repeat: no-repeat;
 }
@@ -1783,7 +1783,7 @@ tbody tr {
     width: 35%;
     cursor: pointer;
     outline: none;
-    background-image: url('../img/blank.gif');
+    background-image: url('../imgMobile/blank.gif');
     z-index: 1102;
     display: none;
 }
@@ -1809,12 +1809,12 @@ tbody tr {
 }
 
 #fancybox-left-ico {
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px -30px;
 }
 
 #fancybox-right-ico {
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px -60px;
 }
 
@@ -1845,13 +1845,13 @@ tbody tr {
     top: -20px;
     left: 0;
     width: 100%;
-    background-image: url('../img/fancybox-x.png');
+    background-image: url('../imgMobile/fancybox-x.png');
 }
 
 #fancy-bg-ne {
     top: -20px;
     right: -20px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px -162px;
 }
 
@@ -1859,14 +1859,14 @@ tbody tr {
     top: 0;
     right: -20px;
     height: 100%;
-    background-image: url('../img/fancybox-y.png');
+    background-image: url('../imgMobile/fancybox-y.png');
     background-position: -20px 0px;
 }
 
 #fancy-bg-se {
     bottom: -20px;
     right: -20px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px -182px;
 }
 
@@ -1874,14 +1874,14 @@ tbody tr {
     bottom: -20px;
     left: 0;
     width: 100%;
-    background-image: url('../img/fancybox-x.png');
+    background-image: url('../imgMobile/fancybox-x.png');
     background-position: 0px -20px;
 }
 
 #fancy-bg-sw {
     bottom: -20px;
     left: -20px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px -142px;
 }
 
@@ -1889,14 +1889,17 @@ tbody tr {
     top: 0;
     left: -20px;
     height: 100%;
-    background-image: url('../img/fancybox-y.png');
+    background-image: url('../imgMobile/fancybox-y.png');
 }
 
 #fancy-bg-nw {
     top: -20px;
     left: -20px;
-    background-image: url('../img/fancybox.png');
+    background-image: url('../imgMobile/fancybox.png');
     background-position: -40px -122px;
+}
+.ab_tab2_img:last-child{
+    padding-bottom:6rem
 }
 
 /*!* IE *!*/
