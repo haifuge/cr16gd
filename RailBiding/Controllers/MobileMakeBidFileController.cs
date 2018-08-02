@@ -13,5 +13,9 @@ namespace RailBiding.Mobile
         {
             return View();
         }
+        public ActionResult AuditAction()
+        {
+            return View();
+        }
     }
 }

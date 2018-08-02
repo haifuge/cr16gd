@@ -1,0 +1,88 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>中国铁建房地产行政办公系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="~/cssMobile/light/light7.min.css">
+    <link rel="stylesheet" href="~/cssMobile/phone.css" />
+    <script type='text/javascript' src='~/jsMobile/jquery.js'></script>
+    <style>
+        textarea#auditaction-con {
+            width: 90%;
+            height: 90%;
+            margin: 0.3rem 5%;
+            border: 0px;
+        }
+
+        .row.btn-row {
+            border-top: 0px;
+        }
+
+        .button.active, .button.active:active {
+            width: 80%;
+            margin: 0 auto;
+            color: #fff;
+            background: #0a8ddf;
+            border-radius: 0.1rem;
+            font-size: .8rem;
+            line-height: 1.7rem;
+            height: 1.7rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <header class="bar bar-nav meetp-nav">
+                <div class="meetp-header">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                        <a href="login.html">
+                            <img src="~/imgMobile/loginout-icon.png" alt="">
+                        </a>
+                    </span>
+                </div>
+                <div class="meetp-bar">
+                    <a class="button button-link button-nav pull-left back" href="list.html">
+                        <span class="icon icon-left"></span>
+                    </a>
+                    <h1 class="title">文件审批-审批意见</h1>
+                </div>
+            </header>
+            <div class="content native-scroll audit">
+                <textarea id="auditaction-con" placeholder="请输入审批意见"></textarea>
+                <div class="row btn-row">
+                    <a href="#" class="button active">确认</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js' charset='utf-8'></script>
+    <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="~/jsMobile/js.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script>
+        $(function () {
+            $(document).on('click', '.meetp-user-list .card .card-header', function () {
+                $(this).siblings(".card-content").toggleClass("active");
+                $(this).find(".icon").toggleClass("icon-right")
+            });
+
+        })
+        $('.content .buttons-tab a').click(function () {
+            var index = $(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+            $('.content-block .tabs .tab').eq(index).addClass('active').siblings().removeClass('active');
+        });
+    </script>
+</body>
+</html>

@@ -9,9 +9,7 @@
     #bType{
         float:left;
     }
-    .wc-container{
-        margin-top:20px;
-    }
+
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -167,7 +165,7 @@
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td >' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.name + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
+                    '<td class="texthide3" onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.businesstype + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +

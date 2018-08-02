@@ -307,7 +307,6 @@
             $(".right-block").hide();
             $(".bohui").hide();
         }
-        pages(1, 2, 12, 5)
         $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: @ViewBag.apid}, function (data) {
             var obj = JSON.parse(data);
             console.log(obj);
