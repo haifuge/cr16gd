@@ -12,7 +12,10 @@ namespace RailBiding.Controllers
         public ActionResult Index()
         {
             Session.Abandon();
-            return View("\\Login");
+            if (Request["mobile"] != null)
+                return View("\\MobileLogin");
+            else
+                return View("\\Login");
         }
     }
 }

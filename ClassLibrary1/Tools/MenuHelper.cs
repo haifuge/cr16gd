@@ -55,7 +55,7 @@
                                     <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
                                     <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
                         case "Projects":
-                            return "<li><a href='/Projects' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
+                            return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
                         case "BidingFile":
                             return @"<li> <a href='/BidingFile' class='active'> <i class='icon icon-eye1'> </i> 招标文件</a> </li>
                                     <li> <a href='/BidingFile/FileApprove'> <i class='icon icon-hand3'> </i> 文件审批</a> </li>";
@@ -68,7 +68,7 @@
                         case "Statistic":
                             return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>统计分析</a></li>";
                         case "SystemSetup":
-                            return @"<li><a href='/SystemSetup/PersonalCenter'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                            return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
                     }
                     return "";
                 case 2:
@@ -81,7 +81,7 @@
                                     <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
                                     <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
                         case "Projects":
-                            return "<li><a href='/Projects' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
+                            return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
                         case "BidingFile":
                             return @"<li> <a href='/BidingFile' class='active'> <i class='icon icon-eye1'> </i> 招标文件</a> </li>
                                     <li> <a href='/BidingFile/FileApprove'> <i class='icon icon-hand3'> </i> 文件审批</a> </li>";
@@ -112,7 +112,7 @@
                                     <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
                                     <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
                         case "Projects":
-                            return "<li><a href='/Projects' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
+                            return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
                         case "BidingFile":
                             return @"<li> <a href='/BidingFile' class='active'> <i class='icon icon-eye1'> </i> 招标文件</a> </li>
                                     <li> <a href='/BidingFile/FileApprove'> <i class='icon icon-hand3'> </i> 文件审批</a> </li>";
@@ -125,7 +125,7 @@
                         case "Statistic":
                             return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>统计分析</a></li>";
                         case "SystemSetup":
-                            return @"<li><a href='/SystemSetup/PersonalCenter'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                            return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
                     }
                     return "";
                 case 4:
@@ -138,7 +138,7 @@
                                     <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
                                     <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
                         case "Projects":
-                            return "<li><a href='/Projects' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
+                            return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
                         case "BidingFile":
                             return @"<li> <a href='/BidingFile' class='active'> <i class='icon icon-eye1'> </i> 招标文件</a> </li>
                                     <li> <a href='/BidingFile/FileApprove'> <i class='icon icon-hand3'> </i> 文件审批</a> </li>";
@@ -151,7 +151,7 @@
                         case "Statistic":
                             return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>统计分析</a></li>";
                         case "SystemSetup":
-                            return @"<li><a href='/SystemSetup/PersonalCenter'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                            return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
                     }
                     return "";
                 default:

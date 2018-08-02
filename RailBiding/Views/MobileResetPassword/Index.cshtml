@@ -38,9 +38,9 @@
                             </li>
                             <li>
                                 <input id="txtCode" name="txtCode" type="text" placeholder="手机号码" class="txtcode">
-                                <span><input type="text" name="" value="获取验证码" class="getCode"></span>
+                                <span><input type="text" id="code" value="获取验证码" class="getCode"></span>
                             </li>
-                            <li><input type="text" placeholder="验证码" style="width: 5rem"></li>
+                            <li><i style="cursor:pointer" onclick="checkSendMessage()">获取验证码</i></li>
                         </ul>
                         <div class="btn-box">
                             <div class="col">
@@ -50,8 +50,6 @@
                                 </a>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -66,22 +64,19 @@
     <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
     <script>
-        $("#picker").picker({
-            toolbarTemplate: '<header class="bar bar-nav">\
-                  <button class="button button-link pull-left">按钮</button>\
-                  <button class="button button-link pull-right close-picker">确定</button>\
-                  <h1 class="title">标题</h1>\
-                  </header>',
-            cols: [
-                {
-                    textAlign: 'center',
-                    values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
-                }
-            ]
-        });
-        $("#my-input").calendar({
-            value: ['2015-12-05']
-        });
+        function checkSendMessage() {
+            $.post("/MobileResetPassword/CheckSendMessage", { account: $("#txtUserName").val(), phone: $("#txtCode").val() }, function (res) {
+                alert(res);
+            })
+        }
+        function checkNext() {
+            $.post("/MobileResetPassword/CheckNext", { vcode: $("#code").val() }, function (res) {
+                if (res == "1")
+                    window.location.href = '/ForgetPassword/ResetPassword?code=' + $("#code").val() + '&account=' + $("#userName").val();
+                else
+                    alert('验证码错误');
+            })
+        }
     </script>
 
 </body>

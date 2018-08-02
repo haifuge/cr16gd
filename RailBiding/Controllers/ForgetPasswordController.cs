@@ -21,7 +21,7 @@ namespace RailBiding.Controllers
             string vcode = Request["code"].ToString();
             Session["uAccount"] = Request["account"].ToString();
             if (vcode != Session["VCode"].ToString())
-                return View("ForgetPassword");
+                return View("//ForgetPassword");
             return View();
         }
         public string CheckNext(string vcode)

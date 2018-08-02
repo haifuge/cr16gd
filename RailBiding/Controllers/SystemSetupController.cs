@@ -18,7 +18,7 @@ namespace RailBiding.Controllers
         {
             if(Session["RoleId"].ToString()!="2")
             {
-                ViewBag.SecondMenu = @"<li><a href='SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                ViewBag.SecondMenu = @"<li><a href='/SystemSetup/PersonalCenter' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
                 return View("PersonalCenter");
             }
             else

@@ -99,8 +99,8 @@ namespace DAL.Models
         public UserInfo CheckLogin(string account, string password)
         {
             password = EncryptHelper.Encrypt(password, "IamKey12");
-            //string sql = "select * from UserInfo where UserAccount='" + account + "' and Password = '" + password + "'";
-            string sql = "select * from UserInfo where UserAccount='" + account + "'";
+            string sql = "select * from UserInfo where UserAccount='" + account + "' and Password = '" + password + "'";
+            //string sql = "select * from UserInfo where UserAccount='" + account + "'";
             DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
             if (dt.Rows.Count > 0)
                 return JsonHelper.ConvertTableToObj<UserInfo>(dt)[0];
