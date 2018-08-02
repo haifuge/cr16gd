@@ -51,6 +51,7 @@ namespace DAL.Models
         Delete=3,
         Insert=4,
         Approve=5,
-        Decline=6
+        Decline=6,
+        InviteBiding=7
     }
 }
