@@ -87,7 +87,7 @@
                                 <td class="blue-word form-lable">招标内容介绍：</td>
                                 <td>@ViewBag.ProjDescription</td>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">招标文件内容简述：</td>
+                                <td class="blue-word form-lable">招标文件简述：</td>
                                 <td>@ViewBag.Content</td>
                             </tr>
                             <tr class="form-tr">
@@ -440,7 +440,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
             return;
        var cids =cid.substr(0,cid.length-1)
        var pid=@ViewBag.pid;
-       var pname=@ViewBag.Name;
+       var pname='@ViewBag.Name';
         $.post("/BidingApprove/InviteBiding", { cids:cids,pid:pid,pname:pname}, function () {
             swal("邀标短信已发送！")
         })

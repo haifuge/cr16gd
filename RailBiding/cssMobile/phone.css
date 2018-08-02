@@ -610,7 +610,7 @@ p {
 }
 
     .meetp-deal-list li.onling {
-        background: url('../imgMobile/oning.png') no-repeat;
+       /* background: url('../imgMobile/oning.png') no-repeat;*/
     }
 
 .advice-text-wrap textarea {
