@@ -266,7 +266,7 @@ namespace RailBiding.API
             string biding = "0";
             if (res == "1")
                 biding = "1";
-            string sql = @"update BidingCompany set CompanyResponse="+res+ ", Biding="+biding+" where ProjId=" + pid+" and CompanyId="+cid+" and VerifyCode='"+ token + "'; ";
+            string sql = @"update BidingCompany set CompanyResponse=" + res + ", Biding=" + biding + " where ProjId=" + pid + " and CompanyId=" + cid + " and VerifyCode='" + token + "'; ";
             DBHelper.ExecuteNonQuery(sql);
         }
     }
