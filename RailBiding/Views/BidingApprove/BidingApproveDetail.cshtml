@@ -431,7 +431,7 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
     )
     var invited = false;
     function inviteCompanys() {
-        //invited=true
+        invited=true
         var cid="";
         for(var i=1;i<=$(".meet-user-span span").length;i++){
             cid += $(".meet-user-span span:nth-child("+i+")").attr("id").replace('company','')+',';

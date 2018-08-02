@@ -61,7 +61,7 @@
                     <h1 class="title">企业审核-企业信息详情</h1>
                 </div>
             </header>
-            <div class="content native-scroll " style="padding-bottom: 3rem;">
+            <div class="content native-scroll ">
                 <div class="buttons-tab meetp-buttons-tab">
                     <a href="#tab1" class="tab-link active button">基本信息</a>
                     <a href="#tab2" class="tab-link button">资质证明</a>
@@ -76,7 +76,7 @@
                                 <p></p>
                             </div>
                             <div class="list-block meetp-detail-list meetp-detail-list2  meetp-content-block sjdlb"
-                                 style="padding:0 0.25rem">
+                                 style="padding:0 0.25rem 3rem">
                                 <dl>
                                     <dt>企业名称:</dt>
                                     <dd>
@@ -85,6 +85,10 @@
                                 </dl>
                                 <dl>
                                     <dt>注册资金:</dt>
+                                    <dd>5000万元</dd>
+                                </dl>
+                                <dl>
+                                    <dt>业务类型:</dt>
                                     <dd>围护结构工程</dd>
                                 </dl>
                                 <dl>
@@ -293,7 +297,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="meetp-advice-content">
+                                @*<div class="meetp-advice-content">
                                     <div class="meetp-advice-title">
                                         <p>
                                             <i class="icon feed-icon icon-srreason"></i>请输入意见：
@@ -304,26 +308,25 @@
                                             <textarea name="" rows="" cols="" placeholder="请输入"></textarea>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row btn-row">
-
-                                    <div class="buttons-row col-80 meetp-buttons-row">
-                                        <a href="#" class="button active">通过</a>
-                                        <a href="#" class="button active">驳回</a>
-
-                                    </div>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="row btn-row">
+                    <div class="buttons-row col-80 meetp-buttons-row">
+                        <a href="#" class="button active">同意</a>
+                        <a href="#" class="button active">驳回</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js' charset='utf-8'></script>
     <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
+    <script src="~/js/wow.min.js"></script>
     <script>
         $(function () {
             $(document).on('click', '.meetp-user-list .card .card-header', function () {
@@ -338,5 +341,6 @@
             $('.content-block .tabs .tab').eq(index).addClass('active').siblings().removeClass('active');
         });
     </script>
+
 </body>
 </html>
