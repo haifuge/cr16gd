@@ -95,7 +95,7 @@ namespace RailBiding.Controllers
         {
             if (checkCode == null || checkCode.Trim() == String.Empty)
                 return null;
-            System.Drawing.Bitmap image = new System.Drawing.Bitmap(70, 24);
+            Bitmap image = new Bitmap(70, 24);
             Graphics g = Graphics.FromImage(image);
             try
             {

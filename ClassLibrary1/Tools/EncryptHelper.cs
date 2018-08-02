@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Tools
 {
-    class EncryptHelper
+    public class EncryptHelper
     {
         #region  利用DES加密算法加密字符串（可解密）
         /// <summary>   
