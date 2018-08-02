@@ -53,7 +53,7 @@ namespace RailBiding.Mobile
             Log l = new Log();
             l.OperType = OperateType.Login;
             l.UserId = ui.ID.ToString();
-            l.Description = "登陆系统";
+            l.Description = "移动端登陆系统";
             LogContext.WriteLog(l);
             return "1";
         }

@@ -47,7 +47,7 @@
                         </ul>
                         <div class="btn-box">
                             <div class="col">
-                                <input id="btnSubmit" name="btnSubmit" class="submit" type="submit" value="登 录">
+                                <input id="btnSubmit" name="btnSubmit" class="submit" type="submit" value="登 录" onclick="checkForm()">
                             </div>
                         </div>
                         <div class="oauth-box">
@@ -75,10 +75,10 @@
             var username = document.getElementById('txtUserName');
             var userpasswd = document.getElementById('txtPassword');
             var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
-            $.post("MobileLogin/Login", { account: username.value, psd: userpasswd.value }, function (data) {
+            $.post("/MobileLogin/Login", { account: username.value, psd: userpasswd.value }, function (data) {
                 console.log(data);
                 if (data == "1") {
-                    window.location = "/Main";
+                    window.location = "/MobileMain";
                     //console.log("成功");
                 }
                 else
