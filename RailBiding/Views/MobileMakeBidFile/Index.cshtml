@@ -74,17 +74,17 @@
                                 <dl>
                                     <dt>项目简述：</dt>
                                     <dd>
-                                       @ViewBag.Abstract
+                                       @Html.Raw(ViewBag.Abstract)
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>招标内容 <br>简介：</dt>
+                                    <dt>招标内容<br>简介：</dt>
                                     <dd>
-                                       @ViewBag.ProDescription
+                                       @Html.Raw(ViewBag.ProDescription)
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>定标文件 <br>详细说明：</dt>
+                                    <dt>定标文件<br>详细说明：</dt>
                                     <dd>
                                         @Html.Raw(ViewBag.FileExplain)
                                     </dd>
