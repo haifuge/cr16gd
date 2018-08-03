@@ -240,220 +240,216 @@
 
     //参与单位移除
     $(".meet-user-span span i").click(function ()
-                                {
+    {
         $(this).parent(".meet-user-span span").hide();
-                                });
+    });
 
-$.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data)
-                                {
-                                    var obj = JSON.parse(data);
-                                    for (var i = 0; i < obj.length; i++)
-                                    {
-                                        var li = document.createElement('li');
-                                        li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "' + obj[i].FilePath + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
-                                                                document.getElementById("bffiles").appendChild(li)
-                                                            }
-                                });
+    $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data)
+    {
+        var obj = JSON.parse(data);
+        for (var i = 0; i < obj.length; i++)
+        {
+            var li = document.createElement('li');
+            li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "' + obj[i].FilePath + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
+            document.getElementById("bffiles").appendChild(li)
+        }
+    });
     //弹出隐藏层
     function ShowDiv(show_div, bg_div)
-                                {
-                                    document.getElementById(show_div).style.display = 'block';
-                                    document.getElementById(bg_div).style.display = 'block';
-                                    var bgdiv = document.getElementById(bg_div);
-                                    bgdiv.style.width = document.body.scrollWidth;
+    {
+        document.getElementById(show_div).style.display = 'block';
+        document.getElementById(bg_div).style.display = 'block';
+        var bgdiv = document.getElementById(bg_div);
+        bgdiv.style.width = document.body.scrollWidth;
         $("#" + bg_div).height($(window).height());
-                                }
+    }
 
-                                //关闭弹出层
-                                function CloseDiv(show_div, bg_div)
-                                {
-                                    document.getElementById(show_div).style.display = 'none';
-                                    document.getElementById(bg_div).style.display = 'none';
-                                    if ($("input[name='addcompenycheck']").is(":checked")){
+    //关闭弹出层
+    function CloseDiv(show_div, bg_div)
+    {
+        document.getElementById(show_div).style.display = 'none';
+        document.getElementById(bg_div).style.display = 'none';
+        if ($("input[name='addcompenycheck']").is(":checked")){
             $("input[name='addcompenycheck']").prop("checked", false)
-                                                             }
-                                }
-                                ;
+        }
+    }
 </script>
 <script>
     //参与单位添加
     function addcompeny()
-                                {
-                                    var checkID = [];
+    {
+        var checkID = [];
         $("input[name='addcompenycheck']:checked").each(function(i) {//把所有被选中的复选框的值存入数组
-                                        checkID[i] = $(this).val();
-                                        var cidd = $(this).val();
-                                        var idname =$(this).val().split("|");
-                                        var id = idname[0];
-                                        var name = idname[1];
-                                        var cid = 'company' + id;
-           $.post("/BidingApprove/AddBidingCompany",{ pid: @ViewBag.pid ,cid: id }, function(){
-                                            var htm = '<span id="' + cid + '">' + name + '<i><img src="/img/icon-del.png" onclick="removeCompany(\'' + cid + '\')"></i></span>';
+            checkID[i] = $(this).val();
+            var cidd = $(this).val();
+            var idname =$(this).val().split("|");
+            var id = idname[0];
+            var name = idname[1];
+            var cid = 'company' + id;
+            $.post("/BidingApprove/AddBidingCompany",{ pid: @ViewBag.pid ,cid: id }, function(){
+                var htm = '<span id="' + cid + '">' + name + '<i><img src="/img/icon-del.png" onclick="removeCompany(\'' + cid + '\')"></i></span>';
                 $(".meet-user-span").append(htm);
-
-                                        })
+            })
             CloseDiv('MyDiv', 'fade');
-                                        if ($("input[name='addcompenycheck']").val() == cidd){
-                $("input[name='addcompenycheck']").prop("checked", false)
-                                                                 }
-                                    })
-        }
+            if ($("input[name='addcompenycheck']").val() == cidd){
+                    $("input[name='addcompenycheck']").prop("checked", false)
+            }
+        })
+    }
 
 
 </script>
 <script>
 
     function removeCompany(cid)
-                                {
-                                    var element = document.getElementById(cid);
-                                    element.parentNode.removeChild(element);
-                                    var id = cid.replace('company', '')
-        $.post("/BidingApprove/RemoveBidingCompany",{ pid: @ViewBag.pid ,cid: id }, function(){
-                                    })
+    {
+        var element = document.getElementById(cid);
+        element.parentNode.removeChild(element);
+        var id = cid.replace('company', '')
+        $.post("/BidingApprove/RemoveBidingCompany",{ pid: @ViewBag.pid ,cid: id }, function(){})
     }
 </script>
 <script>
     var ss;
-                                window.onload = function()
-                                {
-                                    var h = document.documentElement.clientHeight;//可见区域高度
-                                    ss = document.getElementById('MyDiv');
-                                    ss.style.height = h - 90 + "px";
-                                }
+    window.onload = function()
+    {
+        var h = document.documentElement.clientHeight;//可见区域高度
+        ss = document.getElementById('MyDiv');
+        ss.style.height = h - 90 + "px";
+    }
 </script>
 <script>
 
     function getQueryString(name)
-                                {
-                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-                                    var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
-                                    var context = "";
-                                    if (r != null)
-                                        context = r[2];
-                                    reg = null;
-                                    r = null;
-                                    return context == null || context == "" || context == "undefined" ? "" : context;
-                                }
+    {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+        var context = "";
+        if (r != null)
+            context = r[2];
+        reg = null;
+        r = null;
+        return context == null || context == "" || context == "undefined" ? "" : context;
+    }
 
 
     //审核流程遍历
     $(function()
-                                {
+    {
 
-                                    var status = getQueryString('status');
-                                    if (status == "2" || status == "3")
-                                    {
+        var status = getQueryString('status');
+        if (status == "2" || status == "3")
+        {
             $(".deal-apply-btn.deal-apply-btn2").hide();
             $(".right-block").hide();
             $(".bohui").hide();
-                                    }
+        }
 
-            $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: 3}, function(data) {
-                                        console.log(data)
-                var obj = JSON.parse(data);
-                                        var cuid = @ViewBag.UserId;
-                                        if (obj.length == 0)
-                                            return;
-                                        var pdepart = obj[0].pname;
-                                        var dechtm = "";
-                                        var passhtm = "";
-                                        var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
-                                        var hstyle = 'cp01'; //cp02
-                                        var ulstyle = 'uc01'; //uc02
-                                        for (var i = 0; i < obj.length; i++)
-                                        {
-                                            var o = obj[i];
+        $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: 3}, function(data) {
+            var obj = JSON.parse(data);
+            var cuid = @ViewBag.UserId;
+            if (obj.length == 0)
+                return;
+            var pdepart = obj[0].pname;
+            var dechtm = "";
+            var passhtm = "";
+            var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+            var hstyle = 'cp01'; //cp02
+            var ulstyle = 'uc01'; //uc02
+            for (var i = 0; i < obj.length; i++)
+            {
+                var o = obj[i];
 
 
-                                            if (i == 0)
-                                            {
-                                                htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
-                                                                        continue;
-                                            }
-                                            if (o.uid == cuid)
-                                            {
-                        $("#feedback-area").val(o.comment);
-                                            }
-                                            if (o.pname == pdepart)
-                                            {
-                                                if (o.approved == 2)
-                                                {
-                                                    if (o.comment != "")
-                                                    {
-                                                        passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg"  id="comlenght" > ' + o.comment + '</p >'
-                                                                            }
-                                                    htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
-                                                                        }
-                                                else if (o.approved == 3)
-                                                {
-                                                    dechtm = '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >' + dechtm
-                                                                            hstyle = 'cp02'
-                                                                            ulstyle = 'uc02'
-                                                                            htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
-                                                                        }
-                                                else
-                                                {
-                                                    if (o.comment != "")
-                                                    {
-                                                        dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
-                                                                            }
-                                                    hstyle = 'cp02'
-                                                                            ulstyle = 'uc02'
-                                                                            htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
-                                                                        }
-                                            }
-                                            else
-                                            {
-                                                htm += '</ul>';
-                                                pdepart = o.pname;
-                                                htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
-                                                if (o.approved == 2)
-                                                {
-                                                    if (o.comment != "")
-                                                    {
-                                                        passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg" id="comlenght" > ' + o.comment + '</p >'
-                                                                            }
-                                                    htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
-                                                                        }
-                                                else if (o.approved == 3)
-                                                {
-                                                    dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
-                                                                            hstyle = 'cp02'
-                                                                            ulstyle = 'uc02'
-                                                                            htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
-                                                                        }
-                                                else
-                                                {
-                                                    if (o.comment != "")
-                                                    {
-                                                        dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
-                                                                            }
-                                                    hstyle = 'cp02'
-                                                                            ulstyle = 'uc02'
-                                                                            htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
-                                                                        }
-                                            }
-                                        }
-                                        htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
-
-                $("#transferInfo").html(htm);
-                $("#declineInfo").html(dechtm);
-                $("#passlineInfo").html(passhtm);
-                                        var comlenght = $('#passlineInfo').children('p').length
-                $(".js-feed-count").html(comlenght);
-
-                                        if ($("#passlineInfo").html() == "") {
-                    $(".feedback-item.js-myattend").hide()
-                                                                } else {
-                    $(".feedback-item.js-myattend").show()
+                if (i == 0)
+                {
+                    htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                                            continue;
                 }
-
-                                        if ($("#declineInfo").html() == "") {
-                    $(".feedback-item.decfeedback-item").hide()
-                                                                } else {
-                    $(".feedback-item.decfeedback-item").show()
+                if (o.uid == cuid)
+                {
+                    $("#feedback-area").val(o.comment);
                 }
-                                    })
+                if (o.pname == pdepart)
+                {
+                    if (o.approved == 2)
+                    {
+                        if (o.comment != "")
+                        {
+                            passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg"  id="comlenght" > ' + o.comment + '</p >'
+                                                }
+                        htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                                            }
+                    else if (o.approved == 3)
+                    {
+                        dechtm = '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >' + dechtm
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                    }
+                    else
+                    {
+                        if (o.comment != "")
+                        {
+                            dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        }
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                    }
+                }
+                else
+                {
+                    htm += '</ul>';
+                    pdepart = o.pname;
+                    htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                    if (o.approved == 2)
+                    {
+                        if (o.comment != "")
+                        {
+                            passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg" id="comlenght" > ' + o.comment + '</p >'
+                                                }
+                        htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                                            }
+                    else if (o.approved == 3)
+                    {
+                        dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                    }
+                    else
+                    {
+                        if (o.comment != "")
+                        {
+                            dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                        }
+                        hstyle = 'cp02'
+                        ulstyle = 'uc02'
+                        htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                    }
+                }
+            }
+            htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+
+            $("#transferInfo").html(htm);
+            $("#declineInfo").html(dechtm);
+            $("#passlineInfo").html(passhtm);
+            var comlenght = $('#passlineInfo').children('p').length
+            $(".js-feed-count").html(comlenght);
+
+            if ($("#passlineInfo").html() == "") {
+                $(".feedback-item.js-myattend").hide()
+            } else {
+                $(".feedback-item.js-myattend").show()
+            }
+
+            if ($("#declineInfo").html() == "") {
+                $(".feedback-item.decfeedback-item").hide()
+            } else {
+                $(".feedback-item.decfeedback-item").show()
+            }
+            })
         }
     )
 
@@ -472,50 +468,46 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data)
         })
     }
 
+    function declineApplication()
+    {
 
-
-                                function declineApplication()
-                                {
-
-                                    var feedback = $("#feedback-area").val()
-                                                            if (feedback == "")
-                                    {
-                                        swal({
-                                        title: '必须填写意见！',
-                text: '2秒后自动关闭。',
-                timer: 2000
-                                                                })
+        var feedback = $("#feedback-area").val()
+        if (feedback == "")
+        {
+            swal({
+            title: '必须填写意见！',
+            text: '2秒后自动关闭。',
+            timer: 2000})
         }
-                                    else
-                                    {
-
-                                        swal({
-                                        title: '确定驳回该申请？',
-                text: '你将无法撤回！',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+        else
+        {
+            swal({
+            title: '确定驳回该申请？',
+            text: '你将无法撤回！',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
                 confirmButtonText: '确定驳回！'
-                                                                }).then(
-function(cc) {
-                                            if (cc.dismiss != "cancel")
-                                            {
-                                                swal(
-                                              '成功！',
-                                              '您以驳回该申请。',
-                                              'success'
-                                                );
-                $(".deal-apply-btn.deal-apply-btn2").hide();
-                $(".right-block").hide();
-                $(".bohui").hide();
-                $.post("/Common/UpdateApproveProcess", { apid: 3, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function() {
-                                                    window.history.go(-1);
-                                                })
-            }
-                                        })
+            }).then(
+                function (cc) {
+                if (cc.dismiss != "cancel")
+                {
+                    swal(
+                    '成功！',
+                    '您以驳回该申请。',
+                    'success'
+                    );
+                    $(".deal-apply-btn.deal-apply-btn2").hide();
+                    $(".right-block").hide();
+                    $(".bohui").hide();
+                    $.post("/Common/UpdateApproveProcess", { apid: 3, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function() {
+                        window.history.go(-1);
+                    })
+                }
+            })
         }
-                                }
+    }
 
     function approveApplication() {
         var invbtn = document.getElementById('invitebtn');
@@ -534,7 +526,7 @@ function(cc) {
                     title: '请先邀请竞标公司！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                                                                    })
+                 })
                 return;
             }
         })
@@ -550,22 +542,22 @@ function(cc) {
             cancelButtonColor: '#d33',
             confirmButtonText: '确定通过！'
         }).then(
-          function(cc) {
-                                        if (cc.dismiss != "cancel")
-                                        {
-                                            swal(
-                                          '通过！',
-                                          '您以同意该申请。',
-                                          'success'
-                                            );
+        function(cc) {
+            if (cc.dismiss != "cancel")
+            {
+                swal(
+                '通过！',
+                '您以同意该申请。',
+                'success'
+                );
                 $(".deal-apply-btn.deal-apply-btn2").hide();
                 $(".right-block").hide();
                 $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
                 $.post("/Common/UpdateApproveProcess", { apid: 3, oid: @ViewBag.pid, astatus: 2, comment: feedback }, function() {
-                                                window.history.go(-1);
-                                            })
+                    window.history.go(-1);
+                })
             }
-                                    })
+        })
     }
 
 
@@ -578,7 +570,7 @@ function(cc) {
     var clickpagenum = "" //所点击页码
     //当前所在页码
     var nowpage = 1;
-                                var page_size = 10
+    var page_size = 10
     var pagenum = 12
     Paginator(nowpage, page_size)
 
@@ -603,48 +595,45 @@ function(cc) {
 
     //所添加公司遍历
     function Paginator(page, ps)
-                                {
-                                    var cname = $("#searchinput").val();
-                                    if ($("#bType").val() == "") {
-                                        var ctype = "";
-                                    } else {
-                                        var ctype = $("#bType").val();
-                                    }
-                                    if ($("#bTypeCompany").val() == "") {
-                                        var inout = "";
-                                    } else {
-                                        var inout = $("#bTypeCompany").val();
-                                    }
+    {
+        var cname = $("#searchinput").val();
+        if ($("#bType").val() == "") {
+            var ctype = "";
+        } else {
+            var ctype = $("#bType").val();
+        }
+        if ($("#bTypeCompany").val() == "") {
+            var inout = "";
+        } else {
+            var inout = $("#bTypeCompany").val();
+        }
 
 
         $.post("/Common/GetCompanyCandidate",{ pagesize: ps, page: page, cname: cname, ctype: ctype, inout: inout }, function(data) {
-                                        var jsonData = JSON.parse(data);
-                                        var obj = jsonData.List;
-                                        var comhtml = ""
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            var comhtml = ""
             for (var j = 0; j < obj.length; j++)
-                                        {
-                                            var o = obj[j];
-                                            var imgjian = "";
-                                            if (o.type != 1)
-                                            {
-                                                imgjian = '<img src="/img/con-tuijian.png">';
-                                            }
-                                            comhtml += '<tr class="white-bg">' +
-                                                          '<td class="check-color">' +
-                                                             '<input class="icheck" name="addcompenycheck" type="checkbox" value="' + o.id + '|' + o.name + '" id="checkbox-1"/>' +
-                                                          '</td>' +
-                                                          '<td>' +
-                                                '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">' + o.name + imgjian + '</a>' +
-                                                          '</td>' +
-                                                          '<td>' + o.corporaterepresentative + '</td>' +
-                                                          '<td>' + o.repphone + '</td>' +
-                                                      '</tr>;'
-
-
+            {
+                var o = obj[j];
+                var imgjian = "";
+                if (o.type != 1)
+                {
+                    imgjian = '<img src="/img/con-tuijian.png">';
+                }
+                comhtml += '<tr class="white-bg">' +
+                            '<td class="check-color">' +
+                            '<input class="icheck" name="addcompenycheck" type="checkbox" value="' + o.id + '|' + o.name + '" id="checkbox-1"/>' +
+                            '</td>' +
+                            '<td>' +
+                            '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">' + o.name + imgjian + '</a>' +
+                            '</td>' +
+                            '<td>' + o.corporaterepresentative + '</td>' +
+                            '<td>' + o.repphone + '</td>' +
+                            '</tr>'
             }
             $("#comhtm").html(comhtml)
             pages(page, jsonData.pagecount, jsonData.total, ps)
-
         })
        @* function a(str){
             str=str.replace(/&lt;/g,"<").replace(/&gt;/g,">");
