@@ -45,14 +45,14 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
                         <a href="login.html">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
                 </div>
                 <div class="meetp-bar">
-                    <a class="button button-link button-nav pull-left back" href="list.html">
+                    <a class="button button-link button-nav pull-left back" onclick="winHistory()" href="#">
                         <span class="icon icon-left"></span>
                     </a>
                     <h1 class="title">定标审批-审批意见</h1>
@@ -61,7 +61,7 @@
             <div class="content native-scroll audit">
                 <textarea id="auditaction-con" placeholder="请输入审批意见"></textarea>
                 <div class="row btn-row">
-                    <a href="#" class="button active">确认</a>
+                    <a href="#" class="button active" onclick="Application()">确认</a>
                 </div>
             </div>
         </div>
@@ -71,18 +71,50 @@
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
     <script src="~/js/wow.min.js"></script>
     <script>
-        $(function () {
-            $(document).on('click', '.meetp-user-list .card .card-header', function () {
-                $(this).siblings(".card-content").toggleClass("active");
-                $(this).find(".icon").toggleClass("icon-right")
-            });
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = r[2];
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+        }
+        getQueryString("type");
+        console.log(getQueryString("type"))
+        function Application() {
 
-        })
-        $('.content .buttons-tab a').click(function () {
-            var index = $(this).index();
-            $(this).addClass('active').siblings().removeClass('active');
-            $('.content-block .tabs .tab').eq(index).addClass('active').siblings().removeClass('active');
-        });
+            var feedback = $("#auditaction-con").val()
+            if(getQueryString("type")==1){
+                if (confirm("确定通过该申请？"))
+                {
+                    $(".deal-apply-btn.deal-apply-btn2").hide();
+                    $(".right-block").hide();
+                    $(".apply-opt a.js-cancle-meet:nth-child(1)").hide();
+                    $.post("/Common/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 2, comment: feedback }, function () {
+                        location.href = "/MobileList?type=4"
+                    })
+                }
+            }else{
+                if (feedback =="") {
+                    alert("请填写驳回理由！");
+                    return;
+                }
+                if (confirm("确定驳回该申请？"))
+                {
+                    $(".deal-apply-btn.deal-apply-btn2").hide();
+                    $(".right-block").hide();
+                    $(".bohui").hide();
+                    $.post("/Common/UpdateApproveProcess", { apid:4, oid: @ViewBag.pid, astatus: 3, comment: feedback }, function () {
+                        location.href = "/MobileList?type=4"
+                    })
+                }
+            }
+        }
+        function winHistory() {
+            window.history.go(-1)
+        }
     </script>
 </body>
 </html>

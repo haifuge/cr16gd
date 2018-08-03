@@ -24,14 +24,14 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
                         <a href="login.html">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
                 </div>
                 <div class="meetp-bar">
-                    <a class="button button-link button-nav pull-left back" href="list.html">
+                    <a class="button button-link button-nav pull-left back" href="#" onclick="winHistory()">
                         <span class="icon icon-left"></span>
                     </a>
                     <h1 class="title">企业审核-企业信息详情</h1>
@@ -61,7 +61,7 @@
                                 </dl>
                                 <dl>
                                     <dt>注册资金:</dt>
-                                    <dd>@ViewBag.RegisteredCapital万元</dd>
+                                    <dd>@ViewBag.RegisteredCapital 万元</dd>
                                 </dl>
                                 <dl>
                                     <dt>业务类型:</dt>
@@ -373,6 +373,10 @@
             $(".meetp-advice-red").show()
         }
     })
+
+        function winHistory(){
+            window.history.go(-1)
+        }
     </script>
 </body>
 </html>

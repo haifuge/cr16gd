@@ -11,7 +11,7 @@
 <style>
 
     .meet-form.meet-form7 .form-tr .blue-word{
-        color:dodgerblue;
+        color:#008cd6;
     }
    .meet-form.meet-form7 .form-tr td:nth-child(2){
        color:#3e3a39
@@ -396,7 +396,7 @@
                
                 console.log(obj[i].FilePath);
                 
-                li.innerHTML = '<a href = "'+obj[i].FilePath+'" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].FileName+'</a>';
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName+'<a href = "'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>';
                 document.getElementById("bffiles").appendChild(li)
             }
     });

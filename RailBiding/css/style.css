@@ -1466,8 +1466,11 @@ button:hover {
         padding-right: 10px;
         font-size: 14px;
         line-height: 20px;
+        padding:10px
     }
-
+     .block-left .meet-form tr.ifortd td {
+         padding:0px;
+    }
     .block-left .meet-form .form-tr-title-bg td {
         font-size: 1.2em;
     }

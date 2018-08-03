@@ -153,7 +153,7 @@
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.innerHTML = '<a href = "'+obj[i].FilePath+'" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].FileName+'</a>';
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName+'<a href = "'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
                 document.getElementById("bffiles").appendChild(li)
             }
     });
