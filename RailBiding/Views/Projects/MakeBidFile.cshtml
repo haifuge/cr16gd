@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/loading.css" rel="stylesheet" />
 <style>
 
     .app-dt .meet-form tr:nth-child(1) {
@@ -78,6 +79,7 @@
                 color: #008cd6;
                 padding-left: 10px;
             }
+
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -130,12 +132,12 @@
                                     </div>
                                     <h3>劳务单位</h3>
                                     <div style = "margin:10px ;" >
-                                        < select class="meet-select js-meet-state bTypeCompany">
+                                        <select class="meet-select js-meet-state bTypeCompany">
                                             <option value = "" > 推荐企业 </option >
                                             <option value="1">名录内单位</option>
                                             <option value = "0" > 名录外单位 </option >
-                                        </ select >
-                                        < select class="meet-select js-meet-state bType"></select>
+                                        </select >
+                                        <select class="meet-select js-meet-state bType"></select>
                                     </div>
                                     <div class="search-con2">
                                         <input type = "text" name="keyname" placeholder="请输入关键字" class="searchinput">
@@ -145,7 +147,7 @@
                                         <tbody id = "bidingcompanysc" class="mbidcompany"></tbody>
                                     </table>
                                     <div style = "bottom:10px;text-align:center;" >
-                                        < div class="page">
+                                        <div class="page">
                                         </div>
                                         <div class="form-tr-btn">
                                             <button class="meet-btn big-btn lightblue-btn js-submit" onclick="addcompanytwo()">
@@ -157,7 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                      
+                            </div>
                             <!--弹出层 end-->
                             <ul class="cjtb_ul">@Html.Raw(ViewBag.JoinCompany)</ul>
                         </td>
@@ -270,6 +272,7 @@
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.form.js"></script>
+<script src="~/js/loading.js"></script>
 <script src="~/js/WangEditor/wangEditor.js"></script>
 <script>
 
@@ -321,10 +324,12 @@
     window.onload = function () {
         var h = document.documentElement.clientHeight;//可见区域高度
         ss = document.getElementById('MyDiv');
-        ss2 = document.getElementById('MyDiv2');
+        //ss2 = document.getElementById('MyDiv2');
 
-        ss.style.height = h - 90 + "px";
-        ss2.style.height = h - 90 + "px";
+        ss.style.height=h-90+"px";
+       // ss2.style.height=h-90+"px";
+       // console.log(ss2)
+        
     }
 </script>
 <script type="text/javascript">
@@ -605,6 +610,14 @@
             jc=jc.substr(0, jc.length - 1);
 
         var abstr = $("#abst").val();
+        if(abstr==""){
+            swal("请简述定标文件！");
+            return;
+        }
+        if($(".cjtb_ul").html()==""){
+            swal("参加该投标单位不能为空！");
+            return;
+        }
         var wc = "";
         lis = $(".nxzbdw.nxzbdw2").children('li');
         for (var i = 0; i < lis.length; i++) {
@@ -613,24 +626,43 @@
         }
         if (wc.length > 0)
             wc = wc.substr(0, wc.length - 1);
+        if($(".nxzbdw2").html()==""){
+            swal("请选择拟选中标单位！");
+            return;
+        }
         getQueryString('status');
-
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在提交招标文件...',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         if (getQueryString('status') == 3) {
              $.post("/Projects/ReapplyMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
                 var rdata = encodeURIComponent(editor.txt.html())
                 $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
-                    swal('创建成功！').then(function () {
-                        window.location.href = "/Projects/Detail?pid="+@ViewBag.pid;
-                    })
+                    removeLoading('test');
+                    swal('创建成功！');
+                    window.location.href = "/Projects/Detail?pid="+@ViewBag.pid;
+                  
                 })
             });
         } else {
             $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
                 var rdata = encodeURIComponent(editor.txt.html())
                 $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
-                    swal('创建成功！').then(function () {
-                        window.location.href = "/Projects/Detail?pid="+@ViewBag.pid;
-                    })
+                    removeLoading('test');
+                    swal('创建成功！');
+                    window.location.href = "/Projects/Detail?pid="+@ViewBag.pid;
                 })
             });
         }

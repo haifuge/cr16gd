@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
-
+<link href="~/css/loading.css" rel="stylesheet" />
 <style type="text/css">
     .accordion {
         width: 100%;
@@ -13,7 +13,6 @@
     .allfileInput2 {
         opacity: 1;
     }
-
         .accordion .link {
             cursor: pointer;
             display: block;
@@ -138,7 +137,7 @@
         top: 0;
         left: 0;
         background: rgba(0, 0, 0, .6);
-        z-index: 9999;
+        z-index:111;
         display: none;
     }
 
@@ -521,6 +520,7 @@
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.form.js"></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" language="javascript">
     $(function () {
 
@@ -540,15 +540,44 @@
         })
     })
     function bidSubmit(ss) {
+
         var adate = $("#applydate").val()
         var odate = $("#opendate").val()
         var bnum = $("#bidingnum").val()
+        if(adate==''){
+            swal("请选择报名时间！");
+            return;
+        }
+        if(odate==''){
+            swal("请选择预计开标时间！");
+            return;
+        }
+        if(bnum==''){
+            swal("请填写拟中标单位数量！");
+            return;
+        }
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在提交招标申请...',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         var pid =@ViewBag.ProjId;
         data = { adate: adate, odate: odate, bnum: bnum, pid: pid, status: ss }
        $.post("/Projects/AddBid", data, function (res) {
-              $("#bidapplylayer").hide();
-                    swal('提交成功！')
-                location.reload(true);
+                    removeLoading('test');
+                    swal('提交成功！');
+                    $("#bidapplylayer").hide();
+                    location.reload(true);
             
         })
     }
@@ -561,17 +590,33 @@
         }else{
             $(".textinfo").css("display","none")
         }
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在提交招标文件...',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         var pid =@ViewBag.ProjId;
         data = { content: bfc, pid: pid, status: ss }
         $.post("/Projects/AddBidFile", data, function (res) {
-       
+            removeLoading('test');
             swal('提交成功！');
             $("#bidfileapplylayer").hide();
             $("#bfcontent").val("");
             $("#bffiles").html("");
             $(".textinfo").css("display","none")
-            location.reload(true);
+           
         })
+        location.reload(true);
     }
     function deleteFile(name) {
         console.log(name);
