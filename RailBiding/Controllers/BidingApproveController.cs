@@ -131,7 +131,8 @@ namespace RailBiding.Controllers
             for(int i = 0; i < dt.Rows.Count; i++)
             {
                 guid = Guid.NewGuid().ToString().Replace("-", "").Substring(0,19);
-                string res=sm.InviteCompany(dt.Rows[i][1].ToString(), pname.Substring(0,20), guid,pid, dt.Rows[i][0].ToString());
+                pname = pname.Length > 20 ? pname.Substring(0, 20) : pname;
+                string res=sm.InviteCompany(dt.Rows[i][1].ToString(), pname, guid,pid, dt.Rows[i][0].ToString());
                 
                 Log l = new Log();
                 l.UserId = Session["UserId"].ToString();
