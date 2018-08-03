@@ -41,8 +41,9 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
-                        <a href="login.html">
+                    <a href="#" onclick="logindex()"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span>
+                    <span class="span2">
+                        <a href="#" onclick="logout()">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
@@ -82,7 +83,7 @@
                                 </dl>
                                 <dl>
                                     <dt>招标内容:</dt>
-                                    <dd>@ViewBag.ProjDescription</dd>
+                                    <dd>@Html.Raw(ViewBag.ProjDescription)</dd>
                                 </dl>
                                 <dl>
                                     <dt>项目类型:</dt>
@@ -102,7 +103,7 @@
                                 </dl>
                                 <dl>
                                     <dt>招标文件简述：</dt>
-                                    <dd>@ViewBag.Content</dd>
+                                    <dd>@Html.Raw(ViewBag.Content)</dd>
                                 </dl>
                                 <dl>
                                     <dt>招标文档:</dt>
@@ -364,6 +365,16 @@
                 }
             })
         })
+        function logout() {
+            if (confirm("要确定系统么？")) {
+                window.location.href = "/MobileLogin";
+            }
+        }
+        function logindex() {
+         
+            window.location.href = "/MobileMain";
+        }
     </script>
+
 </body>
 </html>

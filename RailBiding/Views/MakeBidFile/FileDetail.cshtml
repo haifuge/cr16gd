@@ -43,10 +43,10 @@
             </h2>
             <div class="art-tit"><span>发布单位：</span>@ViewBag.Publisher <span>发布时间：</span> @ViewBag.PublishDate</div>
             <div class="dbwj-wz01">
-                @ViewBag.Abstract
+                @Html.Raw(ViewBag.Abstract)
             </div>
             <H3>招标内容介绍：</H3>
-            <p>@ViewBag.ProDescription</p>
+            <p> @Html.Raw(ViewBag.ProDescription)</p>
             <h3>参加投标单位及投标报价：</h3>
             <div style="display: block;overflow: hidden">
                 <ul class="ull">

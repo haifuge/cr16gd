@@ -509,7 +509,7 @@ namespace RailBiding.Controllers
         public ActionResult BidDetail(string pid)
         {
             if (pid == null)
-                return View("Login");
+                return View("/Login");
             ViewBag.pid = pid;
             BidContext bc = new BidContext();
             DataTable dt = bc.GetBidDetail(pid);

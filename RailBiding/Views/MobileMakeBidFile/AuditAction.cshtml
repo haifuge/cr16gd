@@ -45,8 +45,9 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
-                        <a href="login.html">
+                    <a href="#" onclick="logindex()"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span>
+                    <span class="span2">
+                        <a href="#" onclick="logout()">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
@@ -114,6 +115,14 @@
         }
         function winHistory() {
             window.history.go(-1)
+        } 
+        function logout() {
+            if (confirm("要确定系统么？")) {
+                window.location.href = "/MobileLogin";
+            }
+        }
+        function logindex() {
+            window.location.href = "/MobileMain";
         }
     </script>
 </body>

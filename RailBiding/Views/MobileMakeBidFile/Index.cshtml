@@ -41,8 +41,9 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
-                        <a href="login.html">
+                    <a href="#" onclick="logindex()"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span>
+                    <span class="span2">
+                        <a href="#" onclick="logout()">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
@@ -73,17 +74,17 @@
                                 <dl>
                                     <dt>项目简述：</dt>
                                     <dd>
-                                       @ViewBag.Abstract
+                                       @Html.Raw(ViewBag.Abstract)
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>招标内容 <br>简介：</dt>
+                                    <dt>招标内容<br>简介：</dt>
                                     <dd>
-                                       @ViewBag.ProDescription
+                                       @Html.Raw(ViewBag.ProDescription)
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>定标文件 <br>详细说明：</dt>
+                                    <dt>定标文件<br>详细说明：</dt>
                                     <dd>
                                         @Html.Raw(ViewBag.FileExplain)
                                     </dd>
@@ -349,6 +350,14 @@
         })
         function winHistory(){
             window.history.go(-1)
+        }
+        function logout() {
+            if (confirm("要确定系统么？")) {
+                window.location.href = "/MobileLogin";
+            }
+        }
+        function logindex() {
+            window.location.href = "/MobileMain";
         }
     </script>
 </body>
