@@ -31,7 +31,9 @@
         .list-block.cards-list.meetp-user-list {
             margin-bottom: 3rem;
         }
-        
+        .lw-zb li{
+            margin-bottom:0px;
+        }
     </style>
 </head>
 <body>
@@ -39,14 +41,14 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
                         <a href="login.html">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
                 </div>
                 <div class="meetp-bar">
-                    <a class="button button-link button-nav pull-left back" href="list.html">
+                    <a class="button button-link button-nav pull-left back" onclick="winHistory()" href="#">
                         <span class="icon icon-left"></span>
                     </a>
                     <h1 class="title">招标审核-招标详情</h1>
@@ -68,52 +70,52 @@
 
                                 <dl>
                                     <dt>项目名称:</dt>
-                                    <dd>中铁十六局轨道公司上海项目部</dd>
-                                </dl>
-                                <dl>
-                                    <dt>项目地点:</dt>
-                                    <dd>北京市</dd>
-                                </dl>
-                                <dl>
-                                    <dt>发布时间:</dt>
-                                    <dd>2018-10-23</dd>
-                                </dl>
-                                <dl>
-                                    <dt>招标内容:</dt>
-                                    <dd>上海市轨道交通2号线一期工程指挥部</dd>
-                                </dl>
-                                <dl>
-                                    <dt>项目类型:</dt>
-                                    <dd>围护结构工程</dd>
-                                </dl>
-                                <dl>
-                                    <dt>报名时间:</dt>
-                                    <dd>2018-10-23</dd>
-                                </dl>
-                                <dl>
-                                    <dt>预计开标时间:</dt>
-                                    <dd>2018-10-23</dd>
-                                </dl>
-                                <dl>
-                                    <dt>拟中标单位数量:</dt>
-                                    <dd>6</dd>
-                                </dl>
-                                <dl>
-                                    <dt>项目说明:</dt>
-                                    <dd> 建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁。</dd>
-                                </dl>
-                                <dl>
-                                    <dt>招标文档:</dt>
-                                    <dd><img src="~/imgMobile/icon-file.png" alt="" style="vertical-align: middle">&nbsp;预览附件</dd>
+                                    <dd>@ViewBag.Name</dd>
                                 </dl>
                                 <dl>
                                     <dt>提交人:</dt>
-                                    <dd>王海兵</dd>
+                                    <dd>@ViewBag.Publisher</dd>
                                 </dl>
                                 <dl>
-                                    <dt>发布时间:</dt>
-                                    <dd>2018-04-23</dd>
+                                    <dt>项目地点:</dt>
+                                    <dd>@ViewBag.Location</dd>
                                 </dl>
+                                <dl>
+                                    <dt>招标内容:</dt>
+                                    <dd>@ViewBag.ProjDescription</dd>
+                                </dl>
+                                <dl>
+                                    <dt>项目类型:</dt>
+                                    <dd>@ViewBag.Type</dd>
+                                </dl>
+                                <dl>
+                                    <dt>预计开标时间:</dt>
+                                    <dd>@ViewBag.OpenDate</dd>
+                                </dl>
+                                <dl>
+                                    <dt>报名时间:</dt>
+                                    <dd>@ViewBag.ApplyDate</dd>
+                                </dl>
+                                <dl>
+                                    <dt>拟中标单位数量:</dt>
+                                    <dd>@ViewBag.BidingNum</dd>
+                                </dl>
+                                <dl>
+                                    <dt>招标文件简述：</dt>
+                                    <dd>@ViewBag.Content</dd>
+                                </dl>
+                                <dl>
+                                    <dt>招标文档:</dt>
+                                    <dd>
+                                        <div style="display:inline-block;vertical-align: top;width:15px;vertical-align: top">
+                                            <img src="/imgMobile/icon-file.png" alt="" style="vertical-align: middle">
+                                        </div>
+                                        <div style="display:inline-block">
+                                            <ul id="bffiles"></ul>
+                                        </div>
+                                    </dd>
+                                </dl>
+
 
 
                             </div>
@@ -122,86 +124,39 @@
                         <div id="tab2" class="tab">
                             <div class="list-block cards-list meetp-user-list">
                                 <ul class="lw-zb">
-                                    <li>上海思绕建设集团有限公司 <span class="tjqy">推荐企业</span></li>
-                                    <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>
-                                    <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>
-                                    <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>
-                                    <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>
-                                    <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>
-                                    <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>
-                                    <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>
+                                    @*<li>上海思绕建设集团有限公司 <span class="tjqy">推荐企业</span></li>
+                                      <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>*@
+                                    @Html.Raw(ViewBag.JoinCompanys)
 
                                 </ul>
                             </div>
                         </div>
                         <div id="tab3" class="tab">
                             <div class="content-block">
-                                <div class="meetp-advice-content">
+                                <div class="meetp-advice-content meetp-advice-red">
                                     <div class="meetp-advice-title">
                                         <p>
-                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bhreason"></i>共4条回复信息
+                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bohui"></i>驳回理由
                                         </p>
                                     </div>
-                                    <ul class="meetp-feedback-list">
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title">
-                                                            财务部 张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title">
-                                                            财务部 张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title" 财务部>
-                                                            张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                    </ul>
+                                    <ul class="meetp-feedback-list meetp-feedback-red"></ul>
                                 </div>
-                                @*<div class="meetp-advice-content">
+                                <div class="meetp-advice-content meetp-advice-green">
                                     <div class="meetp-advice-title">
                                         <p>
-                                            <i class="icon feed-icon icon-srreason"></i>请输入意见：
+                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bhreason"></i>共<span class="js-feed-count"></span>条回复信息
                                         </p>
                                     </div>
-                                    <div class="meetp-advice-text">
-                                        <div class="advice-text-wrap">
-                                            <textarea name="" rows="" cols="" placeholder="请输入"></textarea>
-                                        </div>
-                                    </div>
-                                </div>*@
-
+                                    <ul class="meetp-feedback-list meetp-feedback-green"></ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row btn-row">
                     <div class="buttons-row col-80 meetp-buttons-row">
-                        <a href="#" class="button active">通过</a>
-                        <a href="#" class="button active">驳回</a>
+                        <a href="#" onclick="greenbtn()" class="button active">同意</a>
+                        <a href="#" onclick="redbtn()" class="button active">驳回</a>
                     </div>
                 </div>
             </div>
@@ -212,12 +167,202 @@
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
     <script>
         $(function () {
-
+            
             $(document).on('click', '.meetp-user-list .card .card-header', function () {
                 $(this).siblings(".card-content").toggleClass("active");
                 $(this).find(".icon").toggleClass("icon-right")
             });
 
+        })
+        function winHistory() {
+            window.history.go(-1)
+        }
+        function greenbtn(){
+            location.href = "/MobileBid/AuditAction?pid=@ViewBag.pid&type=1";
+
+        }
+        function redbtn(){
+            location.href = "/MobileBid/AuditAction?pid=@ViewBag.pid&type=2";
+        }
+
+        //附件
+        $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "' + obj[i].FilePath + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
+                document.getElementById("bffiles").appendChild(li)
+            }
+        });
+    </script>
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = r[2];
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+        }
+
+
+        //审核流程遍历
+        $(function () {
+
+            var status = getQueryString('status');
+            if (status == "2" || status == "3") {
+                $(".row.btn-row").hide();
+            }
+            $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:3}, function (data) {
+                var obj = JSON.parse(data);
+                var cuid=@ViewBag.UserId;
+                if (obj.length == 0)
+                    return;
+                var pdepart = obj[0].pname;
+                var dechtm = "";
+                var passhtm = "";
+                var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+                var hstyle = 'cp01'; //cp02
+                var ulstyle = 'uc01'; //uc02
+                for (var i = 0; i < obj.length; i++) {
+                    var o = obj[i];
+
+
+                    if(i==0){
+                        htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                        continue;
+                    }
+                    if(o.uid==cuid){
+                        $("#feedback-area").val(o.comment);
+                    }
+                    if (o.pname == pdepart) {
+                        if (o.approved == 2) {
+                            if (o.comment != "") {
+                                passhtm += '<li>'+
+                                        '<label class="item-content">'+
+                                            '<div class="item-inner">'+
+                                                '<div class="item-title-row">'+
+                                                    '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="item-text"> '+ o.comment + '</div>'+
+                                            '</div>'+
+                                        '</label>'+
+                                    '</li>';
+                            }
+                            htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                        }
+                        else if (o.approved == 3) {
+                            dechtm = '<li>'+
+                                '<label class="item-content">'+
+                                    '<div class="item-inner">'+
+                                        '<div class="item-title-row">'+
+                                            '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="item-text"> '+ o.comment + '</div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</li>';
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                        } else {
+                            if (o.comment != "") {
+                                dechtm += '<li>'+
+                                '<label class="item-content">'+
+                                    '<div class="item-inner">'+
+                                        '<div class="item-title-row">'+
+                                            '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="item-text"> '+ o.comment + '</div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</li>';
+                            }
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                        }
+                    }
+                    else {
+                        htm += '</ul>';
+                        pdepart = o.pname;
+                        htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                        if (o.approved == 2) {
+                            if (o.comment != "") {
+                                passhtm += '<li>'+
+                                        '<label class="item-content">'+
+                                            '<div class="item-inner">'+
+                                                '<div class="item-title-row">'+
+                                                    '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="item-text"> '+ o.comment + '</div>'+
+                                            '</div>'+
+                                        '</label>'+
+                                    '</li>';
+                            }
+                            htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                        }
+                        else if (o.approved == 3) {
+                            dechtm +='<li>'+
+                                '<label class="item-content">'+
+                                    '<div class="item-inner">'+
+                                        '<div class="item-title-row">'+
+                                            '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="item-text"> '+ o.comment + '</div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</li>';
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                        } else {
+                            if (o.comment != "") {
+                                dechtm +='<li>'+
+                                '<label class="item-content">'+
+                                    '<div class="item-inner">'+
+                                        '<div class="item-title-row">'+
+                                            '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="item-text"> '+ o.comment + '</div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</li>';
+                            }
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                        }
+                    }
+                }
+                htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+
+                $("#transferInfo").html(htm);
+                $(".meetp-feedback-red").html(dechtm);
+                $(".meetp-feedback-green").html(passhtm);
+                var comlenght=$('.meetp-feedback-green').children('li').length
+                $(".js-feed-count").html(comlenght);
+
+                if($(".meetp-feedback-green").html()==""){
+                    $(".meetp-advice-green").hide()
+                }else{
+                    $(".meetp-advice-green").show()
+                }
+
+                if($(".meetp-feedback-red").html()==""){
+                    $(".meetp-advice-red").hide()
+                }else{
+                    $(".meetp-advice-red").show()
+                }
+            })
         })
     </script>
 </body>

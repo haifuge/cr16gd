@@ -11,7 +11,7 @@
 <style>
 
     .meet-form.meet-form7 .form-tr .blue-word{
-        color:dodgerblue;
+        color:#008cd6;
     }
    .meet-form.meet-form7 .form-tr td:nth-child(2){
        color:#3e3a39
@@ -208,7 +208,7 @@
                 <div class="canvas_content_text">
 
                     <ul>
-                        <li><i>*</i><span style="width:auto">报名截止时间：</span><input id="applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
+                        <li><i>*</i><span style="width:auto">报名时间：</span><input id="applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
                         <li><i>*</i><span style="width:auto">预计开标时间：</span><input id="opendate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
                         <li><i>*</i><span style="width:auto">拟中标单位数量：</span><input id="bidingnum" type="text" name="" class="input3"></li>
                     </ul>
@@ -248,7 +248,7 @@
                                 <td>@ViewBag.Type</td>
                             </tr>
                             <tr class="form-tr">
-                                <td class="blue-word form-lable">报名截止时间：</td>
+                                <td class="blue-word form-lable">报名时间：</td>
                                 <td>@ViewBag.ApplyDate</td>
                             </tr>
                             <tr class="form-tr">
@@ -396,7 +396,7 @@
                
                 console.log(obj[i].FilePath);
                 
-                li.innerHTML = '<a href = "'+obj[i].FilePath+'" style = "color:#3e3a39;margin-left: 5px;" target="_blank"> ' + obj[i].FileName+'</a>';
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName+'<a href = "'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>';
                 document.getElementById("bffiles").appendChild(li)
             }
     });

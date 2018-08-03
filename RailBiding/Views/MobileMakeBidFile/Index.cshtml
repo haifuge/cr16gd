@@ -41,14 +41,14 @@
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
                         <a href="login.html">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
                 </div>
                 <div class="meetp-bar">
-                    <a class="button button-link button-nav pull-left back" href="list.html">
+                    <a class="button button-link button-nav pull-left back" onclick="winHistory()" href="#">
                         <span class="icon icon-left"></span>
                     </a>
                     <h1 class="title">定标审批-定标审批详情</h1>
@@ -73,32 +73,19 @@
                                 <dl>
                                     <dt>项目简述：</dt>
                                     <dd>
-                                        <p>中原分公司并公司“三项招标”领导小组：</p>
-                                        <p> 我部于2017年1月4日上午10：00在中原分公司书记刘振华的监督下进行了市民大道站、中原西路站钻孔桩开标会。项目三项招标领导小组成员参与了本次开标，现将开标、议标等情况向公司报告如下：</p>
+                                       @ViewBag.Abstract
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>招标工程 <br>简介：</dt>
+                                    <dt>招标内容 <br>简介：</dt>
                                     <dd>
-                                        <p>工程概况：</p>
-                                        <p>（1）钻孔灌注桩：设计要求旋挖钻工艺，桩径为1000mm，共计933根。钻孔桩共22026m，钢筋笼共2753t。</p>
-                                        <p>（2）招标项目包含工作内容</p>
-                                        <p>(1) 钻孔灌注桩: 钻机成孔、钢筋制安、混凝土灌注等施工全过程，泥浆及土方外运另行分包。</p>
+                                       @ViewBag.ProDescription
                                     </dd>
                                 </dl>
                                 <dl>
                                     <dt>定标文件 <br>详细说明：</dt>
                                     <dd>
-                                        <p>一、议标情况</p>
-                                        <p>开标之后，中原分公司及项目部“三项招项“领导小组按照公司下发的劳务招标评标管理办法单独对各施工进行了二次澄清报价（详见附件）</p>
-                                        <p>（1）上海思尧建设集团有限公司二次澄清后，报价为6687172元；</p>
-                                        <p>（2）四川华业天成建筑工程有限公司二次澄清后，报价为6436455元；</p>
-                                        <p>（3）郑州大力神基础工程有限公司二次澄清后，报价为6578682元；</p>
-                                        <p>（4）徐州市国顺建筑工程劳务有限公司二次澄清后，报价为6436455元；</p>
-                                        <p>（5）四川乾亨建设工程有限公司二次澄清后，不再降价，报价为原投标价格7947992元；</p>
-                                        <p>（6）河南鸿宸建设有限公司二次澄清后，报价为6111296元。</p>
-                                        <p> 我部认真组织了评标，并且在评标过程中要求相关单位进行了澄清。最后组织分公司领导、项目部领导人员召开了定标会。经商讨选择施工能力强，经验丰富，机械设备为自有且目前为闲置状态、设备为近三年生产，状况良好故障率低、钢筋笼加工能采用滚笼机加工、施工队负责人能够亲自在施工现场负责施工的单位为中标单位。
-                                        <p> 议标具体情况如下：</p>
+                                        @Html.Raw(ViewBag.FileExplain)
                                     </dd>
                                 </dl>
 
@@ -107,44 +94,7 @@
                         </div>
                         <div id="tab2" class="tab">
                             <div class="list-block cards-list meetp-user-list">
-                                <ul class="lw-zb">
-                                    <li>
-                                        <div class="download">
-                                            <div class="meet-icon icon-file"></div>
-                                            <div class="cc">
-                                                开标记标记标记录表.doc
-                                                <div class="dowl"><a href="">下载</a></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="download">
-                                            <div class="meet-icon icon-file"></div>
-                                            <div class="cc">
-                                                开标记标记标记录表.doc
-                                                <div class="dowl"><a href="">下载</a></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="download">
-                                            <div class="meet-icon icon-file"></div>
-                                            <div class="cc">
-                                                开标记标记标记录表.doc
-                                                <div class="dowl"><a href="">下载</a></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="download">
-                                            <div class="meet-icon icon-file"></div>
-                                            <div class="cc">
-                                                开标记标记标记录表.doc
-                                                <div class="dowl"><a href="">下载</a></div>
-                                            </div>
-                                        </div>
-                                    </li>
-
+                                <ul class="lw-zb" id="appendli">
 
                                 </ul>
                             </div>
@@ -152,202 +102,43 @@
                         <div id="tab3" class="tab">
                             <div class="list-block media-list meetp-list-block meetp-deal-list meetp2">
                                 <ul class="acte ate2">
-                                    <li class="onling">
-                                        <a href="detail.html" class="item-link item-content">
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title t2">集团公司召开合作项目土地经营工作培训会</div>
-                                                </div>
-
-                                                <div class="item-text">
-                                                    资质等级：<span>地基与基础工程专业</span></span>
-                                                </div>
-                                                <div class="item-text">
-                                                    注册资金：<span>5000万元</span>
-                                                </div>
-                                                <div class="item-text">
-                                                    <span>集团公司召开合作项目土地经营工作培训会集团公司召开合作项目土地经营工作培训会集团公司召开合作项目土地经营工作培训会</span>
-                                                </div>
-                                                <div class="item-text">
-                                                    投标报价：<span class="col02">5000万元</span>
-                                                    二次报价：<span class="col02">7000万元</span>
-                                                </div>
-
-
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="detail.html" class="item-link item-content">
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title t2">集团公司召开合作项目土地经营工作培训会</div>
-                                                </div>
-
-                                                <div class="item-text">
-                                                    资质等级：<span>地基与基础工程专业</span></span>
-                                                </div>
-                                                <div class="item-text">
-                                                    注册资金：<span>5000万元</span>
-                                                </div>
-                                                <div class="item-text">
-                                                    <span>集团公司召开合作项目土地经营工作培训会集团公司召开合作项目土地经营工作培训会集团公司召开合作项目土地经营工作培训会</span>
-                                                </div>
-                                                <div class="item-text">
-                                                    投标报价：<span class="col02">5000万元</span>
-                                                    二次报价：<span class="col02">7000万元</span>
-                                                </div>
-
-
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="detail.html" class="item-link item-content">
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title t2">集团公司召开合作项目土地经营工作培训会</div>
-                                                </div>
-
-                                                <div class="item-text">
-                                                    资质等级：<span>地基与基础工程专业</span></span>
-                                                </div>
-                                                <div class="item-text">
-                                                    注册资金：<span>5000万元</span>
-                                                </div>
-                                                <div class="item-text">
-                                                    <span>集团公司召开合作项目土地经营工作培训会集团公司召开合作项目土地经营工作培训会集团公司召开合作项目土地经营工作培训会</span>
-                                                </div>
-                                                <div class="item-text">
-                                                    投标报价：<span class="col02">5000万元</span>
-                                                    二次报价：<span class="col02">7000万元</span>
-                                                </div>
-
-
-                                            </div>
-                                        </a>
-                                    </li>
+                                   @Html.Raw(ViewBag.JoinCompany)
                                 </ul>
                             </div>
                         </div>
                         <div id="tab4" class="tab">
                             <div class="list-block media-list meetp-list-block meetp-deal-list meetp2">
                                 <ul class="acte ate2 ate3">
-                                    <li class="onling">
-                                        <a href="#" class="item-link item-content">
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title t2">集团公司召开合作项目土地经营工作培训会</div>
-                                                </div>
-
-
-                                                <div class="item-text">
-                                                    <span>
-                                                        建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁械设备租赁建筑工程机械设备租赁。建筑工程机械设备租赁建筑工程机械设备租赁
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="item-link item-content">
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title t2">集团公司召开合作项目土地经营工作培训会</div>
-                                                </div>
-
-
-                                                <div class="item-text">
-                                                    <span>赁建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁械设备租赁建筑工程机械设备租赁。建筑工程机工作培训会</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="item-link item-content">
-                                            <div class="item-inner">
-                                                <div class="item-title-row">
-                                                    <div class="item-title t2">集团公司召开合作项目土地经营工作培训会</div>
-                                                </div>
-
-
-                                                <div class="item-text">
-                                                    <span>赁建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁械设备租赁建筑工程机械设备租赁。建筑工程机培训会</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    @Html.Raw(ViewBag.WinCompany)
                                 </ul>
                             </div>
                         </div>
                         <div id="tab5" class="tab">
                             <div class="content-block">
-                                <div class="meetp-advice-content">
+                                <div class="meetp-advice-content meetp-advice-red">
                                     <div class="meetp-advice-title">
                                         <p>
-                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bhreason"></i>共4条回复信息
+                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bohui"></i>驳回理由
                                         </p>
                                     </div>
-                                    <ul class="meetp-feedback-list">
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title">
-                                                            财务部 张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title">
-                                                            财务部 张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title" 财务部>
-                                                            张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                    </ul>
+                                    <ul class="meetp-feedback-list meetp-feedback-red"></ul>
                                 </div>
-                                @*<div class="meetp-advice-content">
-                                        <div class="meetp-advice-title">
-                                            <p>
-                                                <i class="icon feed-icon icon-srreason"></i>请输入意见：
-                                            </p>
-                                        </div>
-                                        <div class="meetp-advice-text">
-                                            <div class="advice-text-wrap">
-                                                <textarea name="" rows="" cols="" placeholder="请输入"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>*@
-
+                                <div class="meetp-advice-content meetp-advice-green">
+                                    <div class="meetp-advice-title">
+                                        <p>
+                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bhreason"></i>共<span class="js-feed-count"></span>条回复信息
+                                        </p>
+                                    </div>
+                                    <ul class="meetp-feedback-list meetp-feedback-green"></ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row btn-row">
                     <div class="buttons-row col-80 meetp-buttons-row">
-                        <a href="#" class="button active">通过</a>
-                        <a href="#" class="button active">驳回</a>
+                        <a href="#" onclick="greenbtn()" class="button active">同意</a>
+                        <a href="#" onclick="redbtn()" class="button active">驳回</a>
                     </div>
                 </div>
             </div>
@@ -363,8 +154,202 @@
                 $(this).siblings(".card-content").toggleClass("active");
                 $(this).find(".icon").toggleClass("icon-right")
             });
+        })
+        function greenbtn(){
+            location.href = "/MobileMakeBidFile/AuditAction?pid=@ViewBag.pid&type=1";
+
+        }
+        function redbtn(){
+            location.href = "/MobileMakeBidFile/AuditAction?pid=@ViewBag.pid&type=2";
+        }
+
+        $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=4", function (data) {
+            var obj = JSON.parse(data);
+            
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.innerHTML = '<li>' +
+                                    '<div class="download">' +
+                                        '<div class="meet-icon icon-file"></div>' +
+                                        '<div class="cc">'+
+                                           '<div class="dowl">' + obj[i].FileName + '<a href="' + obj[i].FilePath + '"  style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a></div>' 
+                                        '</div>' +
+                                    '</div>' +
+                                 '</li>';
+                 document.getElementById("appendli").appendChild(li)
+            }
+  
+        });
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = r[2];
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+        }
+
+        $(function () {
+            var status = getQueryString('status');
+            if (status == "2" || status == "3") {
+                $(".row.btn-row").hide();
+            }
+
+            $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:4}, function (data) {
+                var obj = JSON.parse(data);
+                var cuid=@ViewBag.UserId;
+           
+                if (obj.length == 0)
+                    return;
+                var pdepart = obj[0].pname;
+                var dechtm = "";
+                var passhtm = "";
+                var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+                var hstyle = 'cp01'; //cp02
+                var ulstyle = 'uc01'; //uc02
+                for (var i = 0; i < obj.length; i++) {
+                    var o = obj[i];
+                    if(o.uid==cuid){
+                        $("#feedback-area").val(o.comment);
+                    }
+                    if(i==0){
+                        htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                        continue;
+                    }
+                    if (o.pname == pdepart) {
+                        if (o.approved == 2) {
+                            if (o.comment != "") {
+                                passhtm += '<li>'+
+                                        '<label class="item-content">'+
+                                            '<div class="item-inner">'+
+                                                '<div class="item-title-row">'+
+                                                    '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="item-text"> '+ o.comment + '</div>'+
+                                            '</div>'+
+                                        '</label>'+
+                                    '</li>';
+                            }
+                            htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                        }
+                        else if (o.approved == 3) {
+                            dechtm = '<li>'+
+                                            '<label class="item-content">'+
+                                                '<div class="item-inner">'+
+                                                    '<div class="item-title-row">'+
+                                                        '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                        '</div>'+
+                                                    '</div>'+
+                                                    '<div class="item-text"> '+ o.comment + '</div>'+
+                                                '</div>'+
+                                            '</label>'+
+                                        '</li>';
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                        } else {
+                            if (o.comment != "") {
+                                dechtm += '<li>'+
+                                            '<label class="item-content">'+
+                                                '<div class="item-inner">'+
+                                                    '<div class="item-title-row">'+
+                                                        '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                        '</div>'+
+                                                    '</div>'+
+                                                    '<div class="item-text"> '+ o.comment + '</div>'+
+                                                '</div>'+
+                                            '</label>'+
+                                        '</li>';
+                            }
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                        }
+                    }
+                    else {
+                        htm += '</ul>';
+                        pdepart = o.pname;
+                        htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                        if (o.approved == 2) {
+                            if (o.comment != "") {
+                                passhtm += '<li>'+
+                                        '<label class="item-content">'+
+                                            '<div class="item-inner">'+
+                                                '<div class="item-title-row">'+
+                                                    '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="item-text"> '+ o.comment + '</div>'+
+                                            '</div>'+
+                                        '</label>'+
+                                    '</li>';
+                            }
+                            htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                        }
+                        else if (o.approved == 3) {
+                            dechtm += '<li>'+
+                                            '<label class="item-content">'+
+                                                '<div class="item-inner">'+
+                                                    '<div class="item-title-row">'+
+                                                        '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                        '</div>'+
+                                                    '</div>'+
+                                                    '<div class="item-text"> '+ o.comment + '</div>'+
+                                                '</div>'+
+                                            '</label>'+
+                                        '</li>';
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                        } else {
+                            if (o.comment != "") {
+                                dechtm += '<li>'+
+                                                '<label class="item-content">'+
+                                                    '<div class="item-inner">'+
+                                                        '<div class="item-title-row">'+
+                                                            '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="item-text"> '+ o.comment + '</div>'+
+                                                    '</div>'+
+                                                '</label>'+
+                                            '</li>';
+                            }
+                            hstyle = 'cp02'
+                            ulstyle = 'uc02'
+                            htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                        }
+                    }
+                }
+                htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+                $("#transferInfo").html(htm);
+                $(".meetp-feedback-red").html(dechtm);
+                $(".meetp-feedback-green").html(passhtm);
+                var comlenght=$('.meetp-feedback-green').children('li').length
+                $(".js-feed-count").html(comlenght);
+
+                if($(".meetp-feedback-green").html()==""){
+                    $(".meetp-advice-green").hide()
+                }else{
+                    $(".meetp-advice-green").show()
+                }
+
+                if($(".meetp-feedback-red").html()==""){
+                    $(".meetp-advice-red").hide()
+                }else{
+                    $(".meetp-advice-red").show()
+                }
+            })
+
 
         })
+        function winHistory(){
+            window.history.go(-1)
+        }
     </script>
 </body>
 

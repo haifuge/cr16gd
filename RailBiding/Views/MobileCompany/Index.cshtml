@@ -17,45 +17,21 @@
     <link rel="stylesheet" href="~/cssMobile/phone.css" />
     <script type='text/javascript' src='~/jsMobile/jquery.js'></script>
     <script src="~/js/wow.min.js"></script>
-    <script>
-        //资质荣誉 图片放大
-        $(function () {
-            var abtab2_img = 1;
-            $("a[rel=group]").fancybox({
-                'titlePosition': 'over',
-                'cyclic': true,
-                'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
-                    return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
-                },
-                onComplete: function () {
-                    var w = $(window).width(),
-                        pc = w > 1200 ? 1 : 2;
-                    if (abtab2_img && pc === 1) {
-                        abtab2_img = 0;
-                        $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
-                    }
-                    if (abtab2_img && pc === 2) {
-                        abtab2_img = 0;
-                        $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({ 'margin-left': -140 }).fadeIn().delay(2000).fadeOut();
-                    }
-                }
-            });
-        });
-    </script>
+ 
 </head>
-<body>
+<body >
     <div class="page-group">
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header">
-                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">张海燕</span><span class="span2">
+                    <a href="index.html"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span><span class="span2">
                         <a href="login.html">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
                 </div>
                 <div class="meetp-bar">
-                    <a class="button button-link button-nav pull-left back" href="list.html">
+                    <a class="button button-link button-nav pull-left back" href="#" onclick="winHistory()">
                         <span class="icon icon-left"></span>
                     </a>
                     <h1 class="title">企业审核-企业信息详情</h1>
@@ -80,43 +56,45 @@
                                 <dl>
                                     <dt>企业名称:</dt>
                                     <dd>
-                                        上海思绕建设集团有限公司 <span class="tjqy">推荐企业</span>&nbsp;&nbsp;<span class="mln">名录内</span>
+                                        @ViewBag.Name <span class="tjqy">推荐企业</span>&nbsp;&nbsp;<span class="mln">名录内</span>
                                     </dd>
                                 </dl>
                                 <dl>
                                     <dt>注册资金:</dt>
-                                    <dd>5000万元</dd>
+                                    <dd>@ViewBag.RegisteredCapital 万元</dd>
                                 </dl>
                                 <dl>
                                     <dt>业务类型:</dt>
-                                    <dd>围护结构工程</dd>
+                                    <dd>@ViewBag.BusinessType</dd>
                                 </dl>
                                 <dl>
                                     <dt>业务范围:</dt>
-                                    <dd>建筑工程机械设备租赁、建筑劳务分包、土方建筑工程机械设备租赁、建筑劳务分包、土方</dd>
+                                    <dd>@ViewBag.BusinessScope</dd>
                                 </dl>
                                 <dl>
                                     <dt>资质等级:</dt>
-                                    <dd>地基与基础工程专业承包</dd>
+                                    <dd>@ViewBag.QualificationLevel</dd>
                                 </dl>
                                 <dl>
                                     <dt>法人代表:</dt>
-                                    <dd>甘霞 <span class="lxdh">联系电话:</span>185555222</dd>
+                                    <dd>@ViewBag.CorporateRepresentative<span class="lxdh">联系电话:</span>@ViewBag.RepPhone</dd>
                                 </dl>
                                 <dl>
                                     <dt>联系人:</dt>
-                                    <dd>李功明:<span class="lxdh">联系电话:</span>185555222</dd>
+                                    <dd>@ViewBag.Contact<span class="lxdh">联系电话:</span>@ViewBag.ContactPhone</dd>
                                 </dl>
                                 <dl>
                                     <dt>联系地址:</dt>
-                                    <dd>上海市普陀区交通路4621弄10号</dd>
+                                    <dd>@ViewBag.ContactAddress</dd>
                                 </dl>
-
                                 <dl>
                                     <dt>施工内容:</dt>
-                                    <dd>建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁建筑工程机械设备租赁。</dd>
+                                    <dd>@ViewBag.ConstructionContent</dd>
                                 </dl>
-
+                                <dl>
+                                    <dt>备注:</dt>
+                                    <dd>@ViewBag.Note</dd>
+                                </dl>
                             </div>
 
                         </div>
@@ -124,124 +102,25 @@
                             <div class="content-block">
                                 <div class="ab_con">
                                     <div class="ab_con_tip">提示：方向键切换图片，点击外侧关闭图片。</div>
-                                    <div class="ab_tab2_img">
-                                        <p style="text-align: center;">安全证书</p>
-                                        <div>
-                                            <a href="~/imgMobile/zzry1.png" rel="group" class="pirobox_gall"
-                                               title="58555555dddd5555">
-                                                <img src="~/imgMobile/zzry1.png" alt="">
-                                            </a>
-                                        </div>
-                                        <i>58555555dddd5555</i>
-                                    </div>
-                                    <div class="ab_tab2_img">
-                                        <p style="text-align: center;">营业执照</p>
-                                        <div>
-                                            <a href="~/imgMobile/zzry2.png" rel="group" class="pirobox_gall" title="f法人身份证">
-                                                <img src="~/imgMobile/zzry2.png" alt="">
-                                            </a>
-                                        </div>
-                                        <i>f法人身份证</i>
-                                    </div>
-                                    <div class="ab_tab2_img">
-                                        <p style="text-align: center;">安全证书</p>
-                                        <div>
-
-                                            <a href="~/imgMobile/pic01.jpg" rel="group" class="pirobox_gall" title="f法人身份证">
-                                                <img src="~/imgMobile/pic01.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <i>f法人身份证</i>
-                                    </div>
-                                    <div class="ab_tab2_img">
-                                        <p style="text-align: center;">安全证书</p>
-                                        <div>
-                                            <a href="~/imgMobile/pic01.jpg" rel="group" class="pirobox_gall" title="f法人身份证">
-                                                <img src="~/imgMobile/pic01.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <i>f法人身份证</i>
-                                    </div>
+                                    @Html.Raw(ViewBag.CompanyPics)
                                 </div>
                             </div>
                         </div>
                         <div id="tab3" class="tab">
                             <div class="content-block right-ss">
                                 <div class="meet-user-span" style="display: block;">
-                                    <table>
+                                    <table style="width:100%">
                                         <thead>
                                             <tr>
-                                                <td style="width: 10%">序号</td>
-                                                <td style="width: 30%">承包内容</td>
-                                                <td style="width: 20%">合同金额</td>
-                                                <td style="width: 20%">状态</td>
-                                                <td style="width:20% ">结算金额</td>
+                                                <td style="width:40%">承包内容</td>
+                                                <td style="width:20%">合同金额</td>
+                                                <td style="width:20%">状态</td>
+                                                <td style="width:20%">结算金额</td>
+                                                <td style="display:none">合同扫描附件</td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="white-bg">
-                                                <td>01</td>
-                                                <td>上海思尧建设集团有限公司</td>
-
-                                                <td>500万</td>
-                                                <td>工期延误</td>
-                                                <td>500万</td>
-
-                                            </tr>
-                                            <tr class="white-bg">
-                                                <td>02</td>
-                                                <td>上海思尧建设集团有限公司</td>
-
-                                                <td>500万</td>
-                                                <td>工期延误</td>
-                                                <td>500万</td>
-
-                                            </tr>
-                                            <tr class="white-bg">
-                                                <td>03</td>
-                                                <td>上海思尧建设集团有限公司</td>
-
-                                                <td>500万</td>
-                                                <td>工期延误</td>
-                                                <td>500万</td>
-
-                                            </tr>
-                                            <tr class="white-bg">
-                                                <td>04</td>
-                                                <td>上海思尧建设集团有限公司</td>
-
-                                                <td>500万</td>
-                                                <td>工期延误</td>
-                                                <td>500万</td>
-
-                                            </tr>
-                                            <tr class="white-bg">
-                                                <td>05</td>
-                                                <td>上海思尧建设集团有限公司</td>
-
-                                                <td>500万</td>
-                                                <td>工期延误</td>
-                                                <td>500万</td>
-
-                                            </tr>
-                                            <tr class="white-bg">
-                                                <td>06</td>
-                                                <td>上海思尧建设集团有限公司</td>
-
-                                                <td>500万</td>
-                                                <td>工期延误</td>
-                                                <td>500万</td>
-
-                                            </tr>
-                                            <tr class="white-bg">
-                                                <td>07</td>
-                                                <td>上海思尧建设集团有限公司</td>
-
-                                                <td>500万</td>
-                                                <td>工期延误</td>
-                                                <td>500万</td>
-
-                                            </tr>
+                                            @Html.Raw(ViewBag.WorkHistory)
                                         </tbody>
                                     </table>
 
@@ -252,63 +131,23 @@
 
                         <div id="tab4" class="tab">
                             <div class="content-block">
-                                <div class="meetp-advice-content">
+                                <div class="meetp-advice-content meetp-advice-red">
                                     <div class="meetp-advice-title">
                                         <p>
-                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bhreason"></i>共4条回复信息
+                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bohui"></i>驳回理由
                                         </p>
                                     </div>
-                                    <ul class="meetp-feedback-list">
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title">
-                                                            财务部 张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title">
-                                                            财务部 张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label class="item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title" 财务部>
-                                                            张旭<span class="gray-word">2017-10-22  08:45</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item-text">资料合格，同意！</div>
-                                                </div>
-                                            </label>
-                                        </li>
-                                    </ul>
+                                    <ul class="meetp-feedback-list meetp-feedback-red"></ul>
                                 </div>
-                                @*<div class="meetp-advice-content">
+                                <div class="meetp-advice-content meetp-advice-green">
                                     <div class="meetp-advice-title">
                                         <p>
-                                            <i class="icon feed-icon icon-srreason"></i>请输入意见：
+                                            <span style="color: #008cd6">各部门反馈意见：</span><i class="icon feed-icon icon-bhreason"></i>共<span class="js-feed-count"></span>条回复信息
                                         </p>
                                     </div>
-                                    <div class="meetp-advice-text">
-                                        <div class="advice-text-wrap">
-                                            <textarea name="" rows="" cols="" placeholder="请输入"></textarea>
-                                        </div>
-                                    </div>
-                                </div>*@
+                                    <ul class="meetp-feedback-list meetp-feedback-green"></ul>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -316,8 +155,8 @@
 
                 <div class="row btn-row">
                     <div class="buttons-row col-80 meetp-buttons-row">
-                        <a href="#" class="button active">同意</a>
-                        <a href="#" class="button active">驳回</a>
+                        <a href="#" onclick="greenbtn()" class="button active">同意</a>
+                        <a href="#" onclick="redbtn()" class="button active">驳回</a>
                     </div>
                 </div>
             </div>
@@ -328,10 +167,18 @@
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
     <script src="~/js/wow.min.js"></script>
     <script>
+        function greenbtn(){
+            location.href = "/MobileCompany/AuditAction?id=@ViewBag.cid&type=1";
+
+        }
+        function redbtn(){
+            location.href = "/MobileCompany/AuditAction?id=@ViewBag.cid&type=2";
+        }
         $(function () {
             $(document).on('click', '.meetp-user-list .card .card-header', function () {
                 $(this).siblings(".card-content").toggleClass("active");
                 $(this).find(".icon").toggleClass("icon-right")
+
             });
 
         })
@@ -340,7 +187,196 @@
             $(this).addClass('active').siblings().removeClass('active');
             $('.content-block .tabs .tab').eq(index).addClass('active').siblings().removeClass('active');
         });
-    </script>
 
+        //资质荣誉 图片放大
+        $(function () {
+            var abtab2_img = 1;
+            $("a[rel=group]").fancybox({
+                'titlePosition': 'over',
+                'cyclic': true,
+                'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
+                    return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
+                },
+                onComplete: function () {
+                    var w = $(window).width(),
+                        pc = w > 1200 ? 1 : 2;
+                    if (abtab2_img && pc === 1) {
+                        abtab2_img = 0;
+                        $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
+                    }
+                    if (abtab2_img && pc === 2) {
+                        abtab2_img = 0;
+                        $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({ 'margin-left': -140 }).fadeIn().delay(2000).fadeOut();
+                    }
+                }
+            });
+        });
+
+       function getQueryString(name) {
+             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                 context = r[2];
+             reg = null;
+             r = null;
+             return context == null || context == "" || context == "undefined" ? "" : context;
+      }
+
+    var apstatus = getQueryString('approved');
+    if (apstatus == "2" || apstatus == "3" || apstatus == "4") {
+        $(".row.btn-row").hide();
+    }
+    $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: @ViewBag.apid}, function (data) {
+        var obj = JSON.parse(data);
+        console.log(obj);
+        var cuid=@ViewBag.UserId;
+        if(obj.length==0)
+            return;
+        var pdepart = obj[0].pname;
+        var dechtm = "";
+        var passhtm = "";
+        var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
+        var hstyle = 'cp01'; //cp02
+        var ulstyle= 'uc01'; //uc02
+        for (var i = 0; i < obj.length; i++) {
+            var o = obj[i];
+            if(i==0){
+                htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                continue;
+            }
+
+            if(o.uid==cuid)
+                $("#feedback-area").val(o.comment);
+            if(o.pname == pdepart) {
+                if (o.approved == 2) {
+                    if(o.comment!=""){
+                        passhtm += '<li>'+
+                                        '<label class="item-content">'+
+                                            '<div class="item-inner">'+
+                                                '<div class="item-title-row">'+
+                                                    '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="item-text"> '+ o.comment + '</div>'+
+                                            '</div>'+
+                                        '</label>'+
+                                    '</li>';
+                    }
+                    htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                }
+                else if (o.approved == 3) {
+                    dechtm = '<li>'+
+                                '<label class="item-content">'+
+                                    '<div class="item-inner">'+
+                                        '<div class="item-title-row">'+
+                                            '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="item-text"> '+ o.comment + '</div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</li>';
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                } else {
+                    if (o.comment != "") {
+                        dechtm += '<li>'+
+                                        '<label class="item-content">'+
+                                            '<div class="item-inner">'+
+                                                '<div class="item-title-row">'+
+                                                    '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="item-text"> '+ o.comment + '</div>'+
+                                            '</div>'+
+                                        '</label>'+
+                                    '</li>';
+                    }
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                }
+            }
+            else {
+                htm += '</ul>';
+                pdepart = o.pname;
+                htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                if (o.approved == 2) {
+                    if(o.comment!=""){
+                        passhtm += '<li>'+
+                                        '<label class="item-content">'+
+                                            '<div class="item-inner">'+
+                                                '<div class="item-title-row">'+
+                                                    '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                                '<div class="item-text"> '+ o.comment + '</div>'+
+                                            '</div>'+
+                                        '</label>'+
+                                    '</li>';
+                    }
+                    htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li>'
+                }
+                else if (o.approved == 3) {
+                    dechtm += '<li>'+
+                                '<label class="item-content">'+
+                                    '<div class="item-inner">'+
+                                        '<div class="item-title-row">'+
+                                            '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="item-text"> '+ o.comment + '</div>'+
+                                    '</div>'+
+                                '</label>'+
+                            '</li>';
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                } else {
+                    if (o.comment != "") {
+                        dechtm += '<li>'+
+                                    '<label class="item-content">'+
+                                        '<div class="item-inner">'+
+                                            '<div class="item-title-row">'+
+                                                '<div class="item-title">'+ o.name + ' ' + o.username + '<span class="gray-word">' + o.dd + '</span>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div class="item-text"> '+ o.comment + '</div>'+
+                                        '</div>'+
+                                    '</label>'+
+                                '</li>';
+                    }
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                }
+            }
+        }
+        htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+        $("#transferInfo").html(htm);
+        $(".meetp-feedback-red").html(dechtm);
+        $(".meetp-feedback-green").html(passhtm);
+        var comlenght=$('.meetp-feedback-green').children('li').length
+        $(".js-feed-count").html(comlenght);
+
+        if($(".meetp-feedback-green").html()==""){
+            $(".meetp-advice-green").hide()
+        }else{
+            $(".meetp-advice-green").show()
+        }
+
+        if($(".meetp-feedback-red").html()==""){
+            $(".meetp-advice-red").hide()
+        }else{
+            $(".meetp-advice-red").show()
+        }
+    })
+
+        function winHistory(){
+            window.history.go(-1)
+        }
+    </script>
 </body>
 </html>

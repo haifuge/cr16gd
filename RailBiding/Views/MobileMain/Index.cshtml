@@ -51,19 +51,19 @@
                 <div class="sh-list">
                     <ul>
                         <li>
-                            <p class="sz company">2</p>
+                            <p class="sz company">0</p>
                             <p class="wz">企业审核</p>
                         </li>
                         <li>
-                            <p class="sz bidfile">11</p>
+                            <p class="sz bidfile">0</p>
                             <p class="wz">文件审核</p>
                         </li>
                         <li>
-                            <p class="sz bid">8</p>
+                            <p class="sz bid">0</p>
                             <p class="wz">招标审核</p>
                         </li>
                         <li>
-                            <p class="sz makebid">7</p>
+                            <p class="sz makebid">0</p>
                             <p class="wz">定标审核</p>
                         </li>
                     </ul>
@@ -110,6 +110,27 @@
     <script type='text/javascript' src='~/jsMobile/light/light7.min.js'></script>
     <script type="text/javascript" src="~/jsMobile/js.js"></script>
     <script>
+        //待审核记录
+        $.get("/Main/GetToBeDone", {}, function (data) {
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                console.log(o)
+                if (o.appprocid == 1) {
+                    $(".company").html(o.company)
+                }
+                if (o.appprocid == 2) {
+                    $(".bidfile").html(o.bidfile)
+                }
+                if (o.appprocid == 3) {
+                    $(".bid").html(o.b)
+                }
+                if (o.appprocid == 4) {
+                    $(".makebid").html(o.mb)
+                }
+            }
+
+        })
         function gotolist(type) {
             window.location.href = '/MobileList?type=' + type;
             setMenuActive()
@@ -158,27 +179,7 @@
             return context == null || context == "" || context == "undefined" ? "" : context;
         }
 
-        //待审核记录
-        $.get("/Main/GetToBeDone", {}, function (data) {
-            var obj = JSON.parse(data);
-            for (var i = 0; i < obj.length; i++) {
-                var o = obj[i];
-                console.log(o)
-                if (o.appprocid == 1) {
-                    $(".company").html(o.company)
-                }
-                if (o.appprocid == 2) {
-                    $(".bidfile").html(o.bidfile)
-                }
-                if (o.appprocid == 3) {
-                    $(".bid").html(o.b)
-                }
-                if (o.appprocid == 4) {
-                    $(".makebid").html(o.mb)
-                }
-            }
 
-        })
     </script>
 </body>
 </html>

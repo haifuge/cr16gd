@@ -550,10 +550,13 @@ p {
 }
 
 .feed-icon.icon-bhreason {
-    background: url(../imgMobile/icon-bhreason.png) no-repeat center center;
+    background: url(../img/icon-message.png) no-repeat center center;
     background-size: 100%;
 }
-
+.feed-icon.icon-bohui{
+    background: url(../img/icon-message-on.png) no-repeat center center;
+    background-size: 100%;
+}
 .feed-icon.icon-hfreason {
     background: url(../imgMobile/icon-hfreason.png) no-repeat center center;
     background-size: 100%;
@@ -683,9 +686,11 @@ p {
 
 .meetp-advice-content {
     border: 1px solid #d9d9d9;
+    margin: 0.5rem;
+}
+.meetp-advice-content:nth-child(2){
     margin: 0.5rem 0.5rem 6rem;
 }
-
 .meetp-advice-title {
     background-color: #eaf6fd;
     padding: 0.05rem 0.5rem;
@@ -1901,7 +1906,25 @@ tbody tr {
 .ab_tab2_img:last-child{
     padding-bottom:6rem
 }
-
+        .audit textarea#auditaction-con {
+            width: 90%;
+            height: 90%;
+            margin: 0.3rem 5%;
+            border:0px;
+        }
+        .audit .row.btn-row{
+            border-top:0px;
+        }
+        .audit .button.active, .button.active:active{
+            width:80%;
+            margin:0 auto;
+            color: #fff;
+            background: #0a8ddf;
+            border-radius: 0.1rem;
+            font-size: .8rem;
+            line-height: 1.7rem;
+            height: 1.7rem;
+        }
 /*!* IE *!*/
 
 /*#fancybox-loading.fancybox-ie div	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/fancy_loading.png', sizingMethod='scale'); }*/
