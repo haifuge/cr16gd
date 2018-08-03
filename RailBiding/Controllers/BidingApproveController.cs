@@ -143,5 +143,11 @@ namespace RailBiding.Controllers
             }
             DBHelper.ExecuteNonQuery(sql);
         }
+
+        public string CheckCompanyInvited(string cids, string pid)
+        {
+            string sql = "select count(1) from Company where Id in ("+cids+") and ID in (select CompanyId from BidingCompany where ProjId="+pid+" and VerifyCode=null)";
+            return DBHelper.ExecuteScalar(sql);
+        }
     }
 }

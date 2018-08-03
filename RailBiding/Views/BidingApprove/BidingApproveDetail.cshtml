@@ -429,9 +429,8 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
             })
         }
     )
-    var invited = false;
+
     function inviteCompanys() {
-        invited=true
         var cid="";
         for(var i=1;i<=$(".meet-user-span span").length;i++){
             cid += $(".meet-user-span span:nth-child("+i+")").attr("id").replace('company','')+',';
@@ -487,9 +486,16 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
     }
 
     function approveApplication() {
-        var invbtn = document.getElementById('invitebtn');
-        if (invbtn != null) {
-            if (!invited) {
+        var cid="";
+        for(var i=1;i<=$(".meet-user-span span").length;i++){
+            cid += $(".meet-user-span span:nth-child("+i+")").attr("id").replace('company','')+',';
+        }
+        if(cid=="")
+            return;
+       var cids =cid.substr(0,cid.length-1)
+       var pid=@ViewBag.pid;
+        $.post("/BidingApprove/CheckCompanyInvited", { cids: cids, pid: pid}, function (data) {
+            if (data != "0") {
                 swal({
                     title: '请先邀请竞标公司！',
                     text: '2秒后自动关闭。',
@@ -497,7 +503,8 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
                 })
                 return;
             }
-        }
+        })
+        
         var feedback = $("#feedback-area").val()
         swal({
             title: '确定通过该申请？',
