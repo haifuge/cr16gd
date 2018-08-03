@@ -82,15 +82,15 @@
                             </tr>
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标内容介绍：</td>
-                                <td>@ViewBag.ProjDescription</td>
-                            </tr>
+                                <td>@Html.Raw(ViewBag.ProjDescription) </td >
+                            </tr >
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件简述：</td>
-                                <td>@ViewBag.Content</td>
-                            </tr>
+                                <td>@Html.Raw(ViewBag.Content)</td >
+                            </tr >
                             <tr class="form-tr">
                                 <td class="blue-word form-lable">招标文件：</td>
-                                <td><ul id="bffiles"></ul>
+                                <td><ul id = "bffiles" ></ul >
                                     @*<i class="meet-icon icon-file"></i>
                                       <a href="#" target="_blank" class="form-border-btn  bttn2">附件预览</a>*@
                                 </td>

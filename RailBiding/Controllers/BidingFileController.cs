@@ -85,7 +85,7 @@ namespace RailBiding.Controllers
         {
             ViewBag.UserId = Session["UserId"].ToString();
             if (pid == null)
-                return View("//Login");
+                return View("/Login");
             ViewBag.pid = pid;
             BidingFileContext bc = new BidingFileContext();
             DataTable dt = bc.getBidingFileDetail(pid);

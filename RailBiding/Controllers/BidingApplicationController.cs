@@ -31,7 +31,7 @@ namespace RailBiding.Controllers
         public ActionResult BidingApplicationDetail(string bid)
         {
             if (bid == null)
-                return View("Login");
+                return View("/Login");
             BidContext bc = new BidContext();
             DataTable dt = bc.GetBidDetail(bid);
             DataRow dr = dt.Rows[0];

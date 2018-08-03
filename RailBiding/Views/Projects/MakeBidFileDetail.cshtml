@@ -43,14 +43,14 @@
 
                 <div class="block-left block-left2 block-left4">
                     <h2>
-                        @ViewBag.PName
+                        @Html.Raw(ViewBag.PName)
                     </h2>
                     <div class="art-tit"><span>发布单位：</span>@ViewBag.Publisher <span>发布时间：</span> @ViewBag.PublishDate</div>
                     <div class="dbwj-wz01">
-                        <p>@ViewBag.Abstract</p>
+                        <p>@Html.Raw(ViewBag.Abstract)</p>
                     </div>
                     <H3>招标内容介绍：</H3>
-                    <p>@ViewBag.ProDescription</p>
+                    <p>@Html.Raw(ViewBag.ProDescription)</p>
                     <h3>参加投标单位及投标报价：</h3>
                     <div style="display: block;overflow: hidden">
                         <ul class="ull ulll">

@@ -13,9 +13,9 @@ namespace RailBiding.Controllers
         {
             Session.Abandon();
             if (Request["mobile"] != null)
-                return View("\\MobileLogin");
+                return View("/MobileLogin");
             else
-                return View("\\Login");
+                return View("/Login");
         }
     }
 }
