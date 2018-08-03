@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using RailBiding.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ namespace RailBiding.Mobile
     public class MobileCompanyController : Controller
     {
         // GET: MobileCompany
+        [VerifyMobileLoginFilter]
         public ActionResult Index(int id)
         {
             ViewBag.UserId = Session["UserId"].ToString();
@@ -111,6 +113,7 @@ namespace RailBiding.Mobile
             ViewBag.WorkHistory = sb.ToString();
             return View();
         }
+        [VerifyMobileLoginFilter]
         public ActionResult AuditAction(int id)
         {
             ViewBag.UserId = Session["UserId"].ToString();

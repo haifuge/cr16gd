@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using RailBiding.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +12,7 @@ namespace RailBiding.Mobile
     public class MobileListController : Controller
     {
         // GET: MobileList
+        [VerifyMobileLoginFilter]
         public ActionResult Index()
         {
             ViewBag.UserName = Session["UserName"];

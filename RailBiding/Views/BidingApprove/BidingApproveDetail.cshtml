@@ -456,21 +456,19 @@ $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data)
                                     })
         }
     )
-    var invited = false;
-                                function inviteCompanys()
-                                {
-                                    invited = true
-                                                            var cid = "";
-                                    for (var i = 1; i <=$(".meet-user-span span").length; i++){
-                                        cid += $(".meet-user-span span:nth-child(" + i + ")").attr("id").replace('company', '') + ',';
-                                    }
-                                    if (cid == "")
-                                        return;
-                                    var cids = cid.substr(0, cid.length - 1)
-                                                           var pid = @ViewBag.pid;
-                                    var pname = '@ViewBag.Name';
-        $.post("/BidingApprove/InviteBiding", { cids: cids,pid: pid,pname: pname}, function() {
-                                        swal("邀标短信已发送！")
+
+    function inviteCompanys() {
+        var cid="";
+        for(var i=1;i<=$(".meet-user-span span").length;i++){
+            cid += $(".meet-user-span span:nth-child("+i+")").attr("id").replace('company','')+',';
+        }
+        if(cid=="")
+            return;
+       var cids =cid.substr(0,cid.length-1)
+       var pid=@ViewBag.pid;
+       var pname='@ViewBag.Name';
+        $.post("/BidingApprove/InviteBiding", { cids:cids,pid:pid,pname:pname}, function () {
+            swal("邀标短信已发送！")
         })
     }
 
@@ -519,24 +517,29 @@ function(cc) {
         }
                                 }
 
-                                function approveApplication()
-                                {
-                                    var invbtn = document.getElementById('invitebtn');
-                                    if (invbtn != null)
-                                    {
-                                        if (!invited)
-                                        {
-                                            swal({
-                                            title: '请先邀请竞标公司！',
+    function approveApplication() {
+        var cid="";
+        for(var i=1;i<=$(".meet-user-span span").length;i++){
+            cid += $(".meet-user-span span:nth-child("+i+")").attr("id").replace('company','')+',';
+        }
+        if(cid=="")
+            return;
+       var cids =cid.substr(0,cid.length-1)
+       var pid=@ViewBag.pid;
+        $.post("/BidingApprove/CheckCompanyInvited", { cids: cids, pid: pid}, function (data) {
+            if (data != "0") {
+                swal({
+                    title: '请先邀请竞标公司！',
                     text: '2秒后自动关闭。',
                     timer: 2000
                                                                     })
                 return;
-                                        }
-                                    }
-                                    var feedback = $("#feedback-area").val()
-                                                            swal({
-                                    title: '确定通过该申请？',
+            }
+        })
+        
+        var feedback = $("#feedback-area").val()
+        swal({
+            title: '确定通过该申请？',
             text: '你将无法撤回！',
             type: 'warning',
             showCancelButton: true,
