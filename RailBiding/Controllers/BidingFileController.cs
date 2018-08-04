@@ -23,7 +23,7 @@ namespace RailBiding.Controllers
         }
         public string GetBidingFiles(string pageSize, string pageIndex, string pname) {
             BidingFileContext bc = new BidingFileContext();
-            return bc.GetBidingFiles(pageSize, pageIndex, pname);
+            return bc.GetBidingFiles(pageSize, pageIndex, pname, Session["UserId"].ToString());
         }
         public string GetMyFileApprove(string pageSize, string pageIndex, string pname, string status)
         {

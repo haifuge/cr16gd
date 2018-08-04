@@ -22,7 +22,7 @@ namespace RailBiding.Controllers
         public string GetBidings(string pageSize, string pageIndex, string pname)
         {
             BidContext bc = new BidContext();
-            return bc.GetAllBids(pageSize, pageIndex, pname);
+            return bc.GetAllBids(pageSize, pageIndex, pname, Session["UserId"].ToString());
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemB")]

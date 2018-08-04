@@ -755,7 +755,7 @@ namespace RailBiding.Controllers
         public string GetMakeBidFiles(string pageSize, string pageIndex, string pname="")
         {
             MakeBidFileContext mc = new MakeBidFileContext();
-            return mc.GetMakeBidFiles(pageSize, pageIndex, pname);
+            return mc.GetMakeBidFiles(pageSize, pageIndex, pname, Session["UserId"].ToString());
         }
 
         public void SaveRichText(string pid, string rtext)

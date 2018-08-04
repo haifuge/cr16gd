@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,29 +24,20 @@ namespace DAL.Models
 
     public class BidingFileContext
     {
-        public string GetBidingFiles(string pageSize, string pageIndex, string pname)
+        public string GetBidingFiles(string pageSize, string pageIndex, string pname, string uid)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
-            int startIndex = (pi - 1) * ps + 1;
-            int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), bf.PublishDate, 23) as PublishDate, bf.Status
-                            into #temp1
-                            from BidingFile bf 
-                            inner join Project p on bf.ProjId=p.Id
-                            left join UserInfo ui on ui.ID=bf.PublisherId
-                            inner join DepartmentUser du on du.UserId=ui.ID and du.Status=1
-                            left join Department d on du.DepartmentId=d.ID
-                            where p.Name like '%" + pname+@"%'
-                            order by bf.ProjId desc
-                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
-                            select count(1) from #temp1
-                            drop table #temp1";
-            DataSet ds = DBHelper.GetDataSet(sql);
-            string data = JsonHelper.DataTableToJSON(ds.Tables[0]);
+            SqlParameter[] paras = new SqlParameter[4];
+            paras[0] = new SqlParameter("@uid", uid);
+            paras[1] = new SqlParameter("@pageSize", pageSize);
+            paras[2] = new SqlParameter("@pageIndex", pageIndex);
+            paras[3] = new SqlParameter("@pname", pname);
+            DataSet ds = DBHelper.ExecuteDataset(DBHelper.GetConnection(), "GetBidFileByUserId", paras);
+            DataTable dt = ds.Tables[0];
+            string data = JsonHelper.DataTableToJSON(dt);
             string total = ds.Tables[1].Rows[0][0].ToString();
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
-            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
