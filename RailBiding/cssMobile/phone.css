@@ -1,3 +1,4 @@
+
 .bar.meetp-nav {
     height: 4.5rem;
     padding: 0;
@@ -30,9 +31,6 @@
     color: #fff;
 }
 
-.bar-nav ~ .content {
-    top: 4.7rem;
-}
 
 .meetp-icon {
     border-radius: 100%;
@@ -107,7 +105,8 @@
 }
 
 .page, .page-group {
-    background-color: #fff;
+    position:relative;
+    top:0px
 }
 
 .content-block {
@@ -856,8 +855,10 @@ tbody tr {
 }
 
 .lw-footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    width: 100%;
+    z-index: 9999;
     height: 4rem;
     background-color: #0d6fc9;
     color: #fff;
@@ -1915,7 +1916,7 @@ tbody tr {
         .audit .row.btn-row{
             border-top:0px;
         }
-        .audit .button.active, .button.active:active{
+    /*    .audit .button.active, .button.active:active{
             width:80%;
             margin:0 auto;
             color: #fff;
@@ -1925,6 +1926,7 @@ tbody tr {
             line-height: 1.7rem;
             height: 1.7rem;
         }
+        */
 /*!* IE *!*/
 
 /*#fancybox-loading.fancybox-ie div	{ background: transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/fancy_loading.png', sizingMethod='scale'); }*/
