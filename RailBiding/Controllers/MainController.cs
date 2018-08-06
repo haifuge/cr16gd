@@ -26,7 +26,7 @@ namespace RailBiding.Controllers
 			                        inner join (select MAX(level) as level,AppProcId, ObjId 
 						                        from vw_AppPLevel where Approved=1 group by ObjId, AppProcId
 		                        ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-		                        where a.UserId="+Session["UserId"].ToString()+@") a 
+		                        where a.UserId="+Session["UserId"].ToString()+ @" and a.Approved=1) a 
 	                        left join Company c on a.ObjId=c.ID and a.AppProcId=1 and c.AuditStatus=1 and c.Type=1
 	                        left join BidingFile bf on a.ObjId=bf.ProjId and a.AppProcId=2 and bf.Status=1
 	                        left join Bid b on a.ObjId=b.ProjId and a.AppProcId=3 and b.Status=1
