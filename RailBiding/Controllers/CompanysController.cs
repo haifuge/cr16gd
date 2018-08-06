@@ -9,6 +9,7 @@ using DAL.Models;
 using DAL.Tools;
 using System.Text;
 using RailBiding.Common;
+using OperateExcel;
 
 namespace RailBiding.Controllers
 {
@@ -1023,6 +1024,14 @@ namespace RailBiding.Controllers
         {
             CompanyContext cc = new CompanyContext();
             cc.SubmitCompany(cid, ctype, Session["UserId"].ToString());
+        }
+
+        public ActionResult ExportCompanysExcel(string cids)
+        {
+            string sql = "";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            string file = ExcelOperator.writeExcel(dt, "");
+            return File(file, "1", Url.Encode("a.xlsx"));
         }
     }
 }
