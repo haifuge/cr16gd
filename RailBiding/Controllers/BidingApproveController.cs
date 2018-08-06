@@ -71,7 +71,7 @@ namespace RailBiding.Controllers
             }
             dt = bc.GetBidingCompanys(pid);
             StringBuilder cHtml = new StringBuilder();
-            cHtml.Append("<tr class='form-tr detail-user-con'><td colspan='2'><div class='detail-user-list1' style='overflow: auto;'><div class='meet-user-span' id='inviteCompany'>");
+            cHtml.Append("<tr class='form-tr detail-user-con invitejoincom'><td colspan='2'><div class='detail-user-list1' style='overflow: auto;'><div class='meet-user-span' id='inviteCompany'>");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 var cid = "company" + dt.Rows[i]["id"].ToString();

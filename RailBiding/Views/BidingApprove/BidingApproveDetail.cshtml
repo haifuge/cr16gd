@@ -118,7 +118,7 @@
                                             <h3>劳务单位</h3>
                                             <div style = "margin:10px ;" >
                                                 <select class="meet-select js-meet-state" id="bTypeCompany">
-                                                    <option value = "" > 推荐企业 </option >
+                                                    <option value = "" > 企业类型 </option >
                                                     <option value="1">名录内单位</option>
                                                     <option value = "0" > 名录外单位 </option >
 
@@ -480,8 +480,8 @@
     )
 
     function inviteCompanys() {
-        if($("#inviteCompany span").length<3){
-            swal("邀标企业少于三家！")
+        if($("#inviteCompany span").length<5){
+            swal("邀标企业少于五家！")
             return;
         }
         var cid="";
