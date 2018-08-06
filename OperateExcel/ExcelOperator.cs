@@ -9,12 +9,12 @@ namespace OperateExcel
     public class ExcelOperator
     {
         //将数据写入已存在Excel
-        public static string writeExcel(System.Data.DataTable data, string filepath)
+        public static string writeExcel(System.Data.DataTable data, string tempPath)
         {
             Application xApp = new Application();
 
             //2.得到workbook对象，打开已有的文件
-            Workbook xBook = xApp.Workbooks.Open(filepath,
+            Workbook xBook = xApp.Workbooks.Open(tempPath+ "/ExcelTemplate/CompanyTemplate.xlsx",
                                    Missing.Value, Missing.Value, Missing.Value, Missing.Value,
                                    Missing.Value, Missing.Value, Missing.Value, Missing.Value,
                                    Missing.Value, Missing.Value, Missing.Value, Missing.Value);
@@ -36,12 +36,25 @@ namespace OperateExcel
                 for(int j=0;j<data.Columns.Count;j++)
                 {
                     column = j + 1;
-                    xSheet.Cells[row][column] = data.Rows[i][j].ToString();
+                    if(j== data.Columns.Count-1)
+                    {
+                        if (data.Rows[i][j].ToString() == "1")
+                        {
+                            xSheet.Cells[column][row] = "启用";
+                        }
+                        else
+                            xSheet.Cells[column][row] = "停用";
+                    }
+                    else
+                        xSheet.Cells[column][row] = data.Rows[i][j].ToString();
                 }
             }
-            if (Directory.Exists("/ExcelTemplate/CompanysData"))
-                Directory.CreateDirectory("/ExcelTemplate/CompanysData");
-            string fName = "/ExcelTemplate/CompanysData/Companys" + DateTime.Now.ToShortDateString().Replace(":","").Replace(" ","")+".xlsx";
+            string fpath = tempPath + "ExcelFiles";
+            if (!Directory.Exists(fpath))
+                Directory.CreateDirectory(fpath);
+            string fName = fpath+"/Companys" + DateTime.Now.ToShortDateString().Replace(":","").Replace(" ","").Replace("/","")+".xlsx";
+            if (File.Exists(fName))
+                File.Delete(fName);
             //5.保存保存WorkBook
             xBook.SaveAs(fName);
             //6.从内存中关闭Excel对象

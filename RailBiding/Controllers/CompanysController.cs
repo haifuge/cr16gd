@@ -1028,10 +1028,14 @@ namespace RailBiding.Controllers
 
         public ActionResult ExportCompanysExcel(string cids)
         {
-            string sql = "";
+            string sql = @"select c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, c.RepPhone, c.Status 
+                            from Company c
+                            left join CompanyType bt on c.BusinessType=bt.ID
+                            where c.ID in (" + cids+")";
             DataTable dt = DBHelper.GetDataTable(sql);
-            string file = ExcelOperator.writeExcel(dt, "");
-            return File(file, "1", Url.Encode("a.xlsx"));
+            string tempPath = Server.MapPath("/");
+            string file = ExcelOperator.writeExcel(dt, tempPath);
+            return File(file, "xlsx", Url.Encode("a.xlsx"));
         }
     }
 }
