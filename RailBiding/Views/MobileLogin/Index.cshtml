@@ -75,10 +75,10 @@
             var userpasswd = document.getElementById('txtPassword');
             var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
             $.post("/MobileLogin/Login", { account: username.value, psd: userpasswd.value }, function (data) {
-                console.log(data);
+        
                 if (data == "1") {
                     window.location = "/MobileMain";
-                    //console.log("成功");
+               
                 }
                 else
                     alert("用户名或密码错误!");

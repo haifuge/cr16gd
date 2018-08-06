@@ -232,7 +232,7 @@
     }
     $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: @ViewBag.apid}, function (data) {
         var obj = JSON.parse(data);
-        console.log(obj);
+
         var cuid=@ViewBag.UserId;
         if(obj.length==0)
             return;
