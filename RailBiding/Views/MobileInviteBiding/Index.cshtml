@@ -146,7 +146,7 @@
     
     $.get("/MobileInviteBiding/GetBidDetail?pid=@ViewBag.ProjId", {}, function (res) {
         var jsonData = JSON.parse(res);
-        console.log(jsonData)
+
         $(".bid-table tr:nth-child(1) td:nth-child(2)").html(jsonData[0].name)
         $(".bid-table tr:nth-child(2) td:nth-child(2)").html(jsonData[0].location)
         $(".bid-table tr:nth-child(3) td:nth-child(2)").html(jsonData[0].projtype)

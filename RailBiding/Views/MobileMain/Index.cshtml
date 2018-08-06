@@ -19,9 +19,9 @@
         .bar.meetp-nav.bar-nav2 {
             height: 8rem;
         }
-        .bar-nav ~ .content.con1 {
-            top: 8rem;
-        }
+.bar-nav ~ .content.con1 {
+    top: 8rem;
+}
     </style>
 </head>
 <body>
@@ -116,7 +116,6 @@
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                console.log(o)
                 if (o.appprocid == 1) {
                     $(".company").html(o.company)
                 }
@@ -139,7 +138,6 @@
         function setMenuActive()
         {
             var type = getQueryString('type')
-            console.log(type)
 
             if (type == 1) {
                 $("#type1").addClass("active");

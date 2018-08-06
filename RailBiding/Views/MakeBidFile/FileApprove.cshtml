@@ -73,7 +73,7 @@ i.status-wcl.status-wfb {
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <a class="meet-btn blue-btn sm-btn" href="#"  onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bStatus">
                 <option value="">状态</option>
                 <option value="1">审核中</option>
@@ -119,6 +119,12 @@ i.status-wcl.status-wfb {
             Paginator(nowpage, page_size)
 
         })
+
+        function allcompany() {
+            $("#searchinput").val("");
+            $("#bStatus").val("")
+            Paginator(nowpage, page_size, '', '')
+        }
 
         function Paginator(page, ps) {  
             var cname = $("#searchinput").val();

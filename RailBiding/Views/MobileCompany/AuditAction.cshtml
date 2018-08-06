@@ -16,7 +16,29 @@
     <link rel="stylesheet" href="~/cssMobile/phone.css" />
     <link href="~/css/sweetalert2.css" rel="stylesheet" />
     <script type='text/javascript' src='~/jsMobile/jquery.js'></script>
+    <style>
+        textarea#auditaction-con {
+            width: 90%;
+            height: 90%;
+            margin: 0.3rem 5%;
+            border: 0px;
+        }
 
+        .row.btn-row {
+            border-top: 0px;
+        }
+
+        .button.active, .button.active:active {
+            width: 80%;
+            margin: 0 auto;
+            color: #fff;
+            background: #0a8ddf;
+            border-radius: 0.1rem;
+            font-size: .8rem;
+            line-height: 1.7rem;
+            height: 1.7rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -63,7 +85,7 @@
             return context == null || context == "" || context == "undefined" ? "" : context;
         }
         getQueryString("type");
-        console.log(getQueryString("type"))
+
         function Application() {
 
             var feedback = $("#auditaction-con").val()

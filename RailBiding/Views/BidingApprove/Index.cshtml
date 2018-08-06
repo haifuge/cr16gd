@@ -52,7 +52,7 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <a class="meet-btn blue-btn sm-btn" href="#"  onclick="allcompany()">全部</a>
 
             <select class="meet-select js-meet-state" id="bStatus">
                 <option value="">状态</option>
@@ -108,6 +108,22 @@
         var pagenum = 12
         Paginator(nowpage, page_size)
 
+
+        //全部按钮
+        function allcompany() {
+            $("#searchinput").val("");
+            $("#bStatus").val("");
+            Paginator(nowpage, page_size, '', '')
+        }
+        $("#all-check").click(function () {
+            if ($("#all-check").is(":checked")) {
+                $("input.icheck").prop("checked", true)
+            } else {
+                $("input.icheck").prop("checked", false)
+            }
+        })
+
+
         //下拉菜单
         $("#bStatus").change(function () {
             Paginator(nowpage, page_size)
@@ -161,13 +177,13 @@
                                 applyStyle = "status-wcl status-bzt";
                                 break;
                         }
-                        htm += '<tr class="white-bg" onclick="location.href=\'/BidingApprove/BidingApproveDetail?pid=' + o.id + '&status='+o.status+'\';">' +
+                        htm += '<tr class="white-bg" >' +
                             '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td>' +
-                            '<td>' + o.name + '</td>' +
-                            '<td>' + o.location + '</td>' +
-                            '<td>' + o.content + '</td>' +
-                            '<td>' + o.publisher + '</td>' +
-                            '<td class="gray-time">' + o.publishdate + '</td>' +
+                            '<td onclick=\'location.href="/BidingApprove/BidingApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.name + '</td>' +
+                            '<td onclick=\'location.href="/BidingApprove/BidingApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.location + '</td>' +
+                            '<td onclick=\'location.href="/BidingApprove/BidingApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.content + '</td>' +
+                            '<td onclick=\'location.href="/BidingApprove/BidingApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.publisher + '</td>' +
+                            '<td onclick=\'location.href="/BidingApprove/BidingApproveDetail?pid=' + o.id + '&status=' + o.status + '";\' class="gray-time">' + o.publishdate + '</td>' +
                             //'<td class="gray-time">' + o.applydate + '</td>' +
                             //'<td class="gray-word gray-time">' + o.opendate + '</td>' +
                             '<td class="gray-word "><i class="' + applyStyle + '">' + applyStatus + '</i></td>' +

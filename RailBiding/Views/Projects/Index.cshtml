@@ -37,7 +37,7 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a class="meet-btn blue-btn sm-btn" href="#">全部</a>
+            <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bType"></select>
             <select class="meet-select js-meet-state" id="bStatus">
                 <option value="">项目状态 </option>
@@ -99,8 +99,9 @@
         var btype = $("#bType");
         btype.append("<option value=''>项目类型</option>");
         for (var i = 0; i < obj.length; i++) {
-            var o = obj[i]
-            btype.append("<option value='" + o.name + "'>" + o.name + "</option>")
+            var o = obj[i];
+            console.log(o)
+            btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
         }
         Paginator(nowpage, page_size)
     });
@@ -111,6 +112,20 @@
     var nowpage = 1;
     var page_size = 10
     var pagenum = 12
+
+    //全部按钮
+    function allcompany() {
+        $("#searchinput").val("");
+        $("#bType").val("");
+        Paginator(nowpage, page_size, '', '')
+    }
+    $("#all-check").click(function () {
+        if ($("#all-check").is(":checked")) {
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
+        }
+    })
 
     //下拉菜单
     $("#bType").change(function () {
@@ -199,14 +214,14 @@
                                 applyStatus = "已结束"
                                 break;
                         }
-                        htm += "<tr class='white-bg'  onclick=\"location.href='/Projects/Detail?pid=" + o.id + "';\">" +
-                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" /></td >' +
-                    '<td>' + o.name + '</td>' +
-                    '<td>' + o.projtype + '</td>' +
-                    '<td>' + o.location + '</td>' +
-                    '<td>' + o.publisher + '</td>' +
-                    '<td>' + o.publishdate + '</td>' +
-                    '<td id="' + applyStyle + '" >' + applyStatus + '</td>';
+                        htm += "<tr class='white-bg'>" +
+                    '<td class="check-color" ><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" /></td >' +
+                    '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.name + '</td>' +
+                    '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.projtype + '</td>' +
+                    '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.location + '</td>' +
+                    '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.publisher + '</td>' +
+                    '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.publishdate + '</td>' +
+                    '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\' id="' + applyStyle + '" >' + applyStatus + '</td>';
                     }
                     }
                 $("#tbProjects").html(htm)

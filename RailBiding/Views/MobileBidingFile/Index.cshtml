@@ -161,7 +161,6 @@
             }
             $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:2}, function (data) {
                 var obj = JSON.parse(data);
-                console.log(obj);
                 var cuid=@ViewBag.UserId;
                 if (obj.length == 0)
                     return;
@@ -309,7 +308,7 @@
 
         })
         function winHistory(){
-            window.history.go(-1)
+            window.location.href = "/MobileList?type=3";
         }
         function logout() {
             if (confirm("要确定系统么？")) {

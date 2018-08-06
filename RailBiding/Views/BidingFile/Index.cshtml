@@ -52,7 +52,11 @@
             <table class="meet-table text-left">
                 <thead class="wc-header">
                     <tr>
-                        <td class="check-color" style="width:20px;padding:0px 5px"> <span class="table-all-check"> <input type="checkbox" class="icheck" name="all-check" id="all-check" / > </span> </td>
+                        <td class="check-color" style="width:20px;padding:0px 5px">
+                            <span class="table-all-check"> 
+                               <input type="checkbox" class="icheck" name="all-check" id="all-check" />
+                            </span>
+                        </td>
                         <td style="width:150px;padding:0px 5px"> 项目名称</td>
                         <td style="width:300px;padding:0px 5px"> 招标文件简述</td>
                         <td style="width:80px;padding:0px 5px"> 提交人</td>
@@ -65,8 +69,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="~/js/jquery-1.11.0.js">
-</script>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
 <script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
@@ -88,6 +91,14 @@
 
     })
 
+    $("#all-check").click(function () {
+        if ($("#all-check").is(":checked")) {
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
+        }
+    })
+
     function Paginator(page, ps) {
         var cname = $("#searchinput").val();
 
@@ -101,12 +112,12 @@
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
-                htm += '<tr class="white-bg" onclick = "location.href=\'/BidingFile/FileDetail?pid=' + o.id + '\';" >' +
+                htm += '<tr class="white-bg" >' +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"/></td>' +
-                    '<td>' + o.name + '</td>' +
-                    '<td>' + o.content + '</td>' +
-                    '<td>' + o.publisher + '</td>' +
-                    '<td>' + o.publishdate + '</td>' +
+                    '<td onclick =\'location.href="/BidingFile/FileDetail?pid=' + o.id + '";\'>' + o.name + '</td>' +
+                    '<td onclick =\'location.href="/BidingFile/FileDetail?pid=' + o.id + '";\'>' + o.content + '</td>' +
+                    '<td onclick =\'location.href="/BidingFile/FileDetail?pid=' + o.id + '";\'>' + o.publisher + '</td>' +
+                    '<td onclick =\'location.href="/BidingFile/FileDetail?pid=' + o.id + '";\'>' + o.publishdate + '</td>' +
                     '</tr >'
             }
             $("#tbBidingFiles").html(htm);

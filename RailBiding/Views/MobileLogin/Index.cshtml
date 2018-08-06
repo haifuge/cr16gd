@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +13,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="~/cssMobile/light/light7.min.css">
     <link rel="stylesheet" href="~/cssMobile/phone.css" />
+    <style>
+        .bar{
+                position: relative;
+        }
+    </style>
 </head>
 <body>
     <div class="page-group">
@@ -24,12 +28,10 @@
                     <img src="~/imgMobile/lw-logo.png" />
                 </div>
             </header>
-
             <div class="content native-scroll login-center3">
                 <div class="login-tit">
                     <p>劳务招标系统</p>
                 </div>
-
                 <div class="loginbar">
                     <div class="loginbar-re">
                         <h3>账号登录</h3>
@@ -42,7 +44,7 @@
                             </li>
                             <li>
                                 <input id="txtCode" name="txtCode" type="text" placeholder="验证码" class="txtcode">
-                                <span><img id="imgVerifyCode" src="/MobileLogin/GenerateVerifyCode" alt='换一张图' style="display: block; cursor: pointer; margin-left: 10px;" onclick="this.src = '/MobileLogin/GenerateVerifyCode?tmp=' + Math.random();" width='75' height='30'/></span>
+                                <span><img id="imgVerifyCode" src="/MobileLogin/GenerateVerifyCode" alt='换一张图' style="display: block; cursor: pointer; margin-left: 10px;" onclick="this.src = '/MobileLogin/GenerateVerifyCode?tmp=' + Math.random();" width='75' height='30' /></span>
                             </li>
                         </ul>
                         <div class="btn-box">
@@ -52,9 +54,7 @@
                         </div>
                         <div class="oauth-box">
                             <a href="/MobileResetPassword" class="regi">忘记密码</a>
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -64,7 +64,6 @@
                 </p>
             </div>
         </div>
-
     </div>
     <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js' charset='utf-8'></script>
     <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
@@ -76,16 +75,15 @@
             var userpasswd = document.getElementById('txtPassword');
             var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
             $.post("/MobileLogin/Login", { account: username.value, psd: userpasswd.value }, function (data) {
-                console.log(data);
+        
                 if (data == "1") {
                     window.location = "/MobileMain";
-                    //console.log("成功");
+               
                 }
                 else
                     alert("用户名或密码错误!");
             });
         }
     </script>
-
 </body>
 </html>

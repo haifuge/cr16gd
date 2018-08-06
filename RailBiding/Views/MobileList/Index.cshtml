@@ -207,9 +207,6 @@
                                         '<div class="item-title">' + o.name + '</div>' +
                                     '</div>' +
                                     '<div class="item-text">' +
-                                        '推荐人：<span>张霞 2017-10-2 22:45</span></span>' +
-                                    '</div>' +
-                                    '<div class="item-text">' +
                                         '资质等级：<span>' + o.qualificationlevel + '</span></span>' +
                                     '</div>' +
                                     '<div class="item-text">' +
@@ -361,7 +358,6 @@
 
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
-                console.log(o);
                 switch (o.status) {
                     case 0:
                         applyStatus = "未发布";

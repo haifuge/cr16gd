@@ -15,11 +15,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="~/cssMobile/light/light7.min.css">
     <link rel="stylesheet" href="~/cssMobile/phone.css" />
-    <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 
 
     <script src="~/jsMobile/jquery-1.11.0.js"></script>
-    <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
     <script src="~/js/wow.min.js"></script>
 
 </head>
@@ -234,7 +232,7 @@
     }
     $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: @ViewBag.apid}, function (data) {
         var obj = JSON.parse(data);
-        console.log(obj);
+
         var cuid=@ViewBag.UserId;
         if(obj.length==0)
             return;
@@ -380,7 +378,7 @@
     })
 
         function winHistory(){
-            window.history.go(-1)
+            window.location.href = "/MobileList?type=1";
         }
         function logout() {
             if (confirm("要确定系统么？")) {

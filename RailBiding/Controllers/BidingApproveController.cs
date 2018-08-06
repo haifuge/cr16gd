@@ -33,6 +33,8 @@ namespace RailBiding.Controllers
         public ActionResult BidingApproveDetail(string pid)
         {
             ViewBag.UserId = Session["UserId"].ToString();
+            ViewBag.RoleId = Session["RoleId"].ToString();
+            ViewBag.status = Request["status"].ToString();
             if (pid == null)
                 return View("/Login");
             ViewBag.pid = pid;
@@ -51,7 +53,8 @@ namespace RailBiding.Controllers
             ViewBag.ProjDescription = dr["ProDescription"].ToString();
             ViewBag.Content = dr["Content"].ToString();
 
-            string removebtn = "";;
+
+                string removebtn = "";;
             if(Session["RoleId"].ToString()=="2"&& Request["status"].ToString()=="1")
             {
                 ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' id='invitebtn' onclick='inviteCompanys()' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
@@ -68,14 +71,64 @@ namespace RailBiding.Controllers
             }
             dt = bc.GetBidingCompanys(pid);
             StringBuilder cHtml = new StringBuilder();
-            cHtml.Append("<tr class='form-tr detail-user-con'><td colspan='2'><div class='detail-user-list' style='min-height:215px;overflow: auto;'><div class='meet-user-span'>");
+            cHtml.Append("<tr class='form-tr detail-user-con'><td colspan='2'><div class='detail-user-list1' style='overflow: auto;'><div class='meet-user-span' id='inviteCompany'>");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 var cid = "company" + dt.Rows[i]["id"].ToString();
                 cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() +string.Format(removebtn, cid) + "</span>");
             }
             cHtml.Append(@"</div></div></td></tr>");
+            ViewBag.inviteJoinCompanys = cHtml.ToString();
+
+            dt = bc.GetBidingCompanys(pid);
+            var joinC = (from c in dt.AsEnumerable()
+                         where c.Field<int>("CompanyResponse") == 1
+                         select new { name = c["Name"].ToString() }).ToList();
+            var noJoinC = (from c in dt.AsEnumerable()
+                           where c.Field<int>("CompanyResponse") == 2
+                           select new { name = c["Name"].ToString() }).ToList();
+            var noResponseC = (from c in dt.AsEnumerable()
+                               where c.Field<int>("CompanyResponse") == 0
+                               select new { name = c["Name"].ToString() }).ToList();
+            ViewBag.joinNum = joinC.Count;
+            ViewBag.noJoinNum = noJoinC.Count;
+            ViewBag.noResponseNum = noResponseC.Count;
+            cHtml = new StringBuilder();
+            foreach (var c in joinC)
+            {
+                cHtml.Append("<span>" + c.name + "</span>");
+            }
             ViewBag.JoinCompanys = cHtml.ToString();
+            cHtml.Clear();
+            foreach (var c in noJoinC)
+            {
+                cHtml.Append("<span>" + c.name + "</span>");
+            }
+            ViewBag.NoJoinCompanys = cHtml.ToString();
+            cHtml.Clear();
+            foreach (var c in noResponseC)
+            {
+                cHtml.Append("<span>" + c.name + "</span>");
+            }
+            ViewBag.NoResponseCompanys = cHtml.ToString();
+
+
+            if (Session["RoleId"].ToString() == "2")
+            {
+                if (ViewBag.joinNum < 3){
+                    ViewBag.approvebtn = "";
+                }else
+                {
+                    ViewBag.approvebtn = @"<div class='deal-apply-btn deal-apply-btn2'>
+                                                <a class='meet-btn big-btn blue-btn js-deal green-btn blue-btn2' onclick='approveApplication()'>审核通过</a>
+                                            </div>";
+                }
+            }else
+            {
+                ViewBag.approvebtn = @"<div class='deal-apply-btn deal-apply-btn2'>
+                                                <a class='meet-btn big-btn blue-btn js-deal green-btn blue-btn2' onclick='approveApplication()'>审核通过</a>
+                                            </div>";
+            }
 
             return View();
         }
@@ -124,7 +177,7 @@ namespace RailBiding.Controllers
         {
             string[] cid = cids.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
             SendMessage sm = new SendMessage();
-            string sql = "select ID, RepPhone from Company where Id in (" + cids+")";
+            string sql = "select ID, RepPhone from Company where Id in (" + cids+ ") and ID in (select CompanyId from BidingCompany where ProjId=" + pid + " and VerifyCode is null)";
             DataTable dt = DBHelper.GetDataTable(sql);
             string guid = "";
             sql = "";
@@ -142,12 +195,13 @@ namespace RailBiding.Controllers
                 LogContext.WriteLog(l);
                 sql += " update BidingCompany set VerifyCode='"+guid+"' where ProjId = "+pid+" and CompanyId = "+dt.Rows[i][0].ToString()+"; ";
             }
-            DBHelper.ExecuteNonQuery(sql);
+            if(sql!="")
+                DBHelper.ExecuteNonQuery(sql);
         }
 
         public string CheckCompanyInvited(string cids, string pid)
         {
-            string sql = "select count(1) from Company where Id in ("+cids+") and ID in (select CompanyId from BidingCompany where ProjId="+pid+" and VerifyCode=null)";
+            string sql = "select count(1) from Company where Id in ("+cids+") and ID in (select CompanyId from BidingCompany where ProjId="+pid+" and VerifyCode is null)";
             return DBHelper.ExecuteScalar(sql);
         }
     }
