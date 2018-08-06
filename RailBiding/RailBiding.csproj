@@ -688,6 +688,7 @@
     <Content Include="js\ztree\js\ztree.3.5.26.zip" />
     <Content Include="js\WangEditor\wangEditor.min.js.map" />
     <Content Include="js\WangEditor\fonts\w-e-icon.woff" />
+    <Content Include="ExcelTemplate\CompanyTemplate.xlsx" />
     <None Include="Properties\PublishProfiles\cr16.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -820,6 +821,10 @@
     <ProjectReference Include="..\ClassLibrary1\DAL.csproj">
       <Project>{7b889946-4049-4f11-9e28-7ad372fdd5cf}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OperateExcel\OperateExcel.csproj">
+      <Project>{ce80dae8-442f-4542-85e8-0fea491beb29}</Project>
+      <Name>OperateExcel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
