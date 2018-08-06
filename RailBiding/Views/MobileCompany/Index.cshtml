@@ -59,7 +59,11 @@
                                 <dl>
                                     <dt>企业名称:</dt>
                                     <dd>
-                                        @ViewBag.Name <span class="tjqy">推荐企业</span>&nbsp;&nbsp;<span class="mln">名录内</span>
+                                        @ViewBag.Name  
+                                        @if (ViewBag.apid == "1")
+                                        {
+                                            <span class="tjqy">推荐企业</span>
+                                        }
                                     </dd>
                                 </dl>
                                 <dl>
@@ -115,11 +119,11 @@
                                     <table style="width:100%">
                                         <thead>
                                             <tr>
-                                                <td style="width:40%">承包内容</td>
+                                                <td style="width:30%">承包内容</td>
                                                 <td style="width:20%">合同金额</td>
-                                                <td style="width:20%">状态</td>
+                                                <td style="width:10%">状态</td>
                                                 <td style="width:20%">结算金额</td>
-                                                <td style="display:none">合同扫描附件</td>
+                                                <td style="width:150px">合同附件</td>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -107,7 +107,7 @@ namespace RailBiding.Mobile
                 sb.Append("<td>" + dt.Rows[i]["ContractAmount"].ToString() + "</td>");
                 sb.Append("<td class=’gray-time>" + dt.Rows[i]["DelayStatus"].ToString() + "</td>");
                 sb.Append("<td class='gray-time'>" + dt.Rows[i]["SettlementAmount"].ToString() + "</td>");
-                sb.Append("<td class='gray-time' style='display:none'><a href='" + dt.Rows[i]["FilePath"].ToString().Replace(rootPath, "/") + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
+                sb.Append("<td class='gray-time'><a href='" + dt.Rows[i]["FilePath"].ToString().Replace(rootPath, "/") + "' target='_blank'>" + dt.Rows[i]["TestifyFile"].ToString() + "</a></td>");
                 sb.Append("</tr>");
             }
             ViewBag.WorkHistory = sb.ToString();
