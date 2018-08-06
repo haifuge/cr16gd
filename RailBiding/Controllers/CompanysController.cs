@@ -1030,8 +1030,8 @@ namespace RailBiding.Controllers
         {
             string sql = "";
             DataTable dt = DBHelper.GetDataTable(sql);
-            string file = OperateExcel.ExcelOperator(dt, "");
-            
+            string file = ExcelOperator.writeExcel(dt, "");
+            return File(file, "1", Url.Encode("a.xlsx"));
         }
     }
 }
