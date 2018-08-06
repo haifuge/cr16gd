@@ -88,6 +88,14 @@
     var pagenum = 12
     Paginator(nowpage, page_size)
 
+    $("#all-check").click(function () {
+        if ($("#all-check").is(":checked")) {
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
+        }
+    })
+
     function Paginator(page, ps) {    
         $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page }, function (data) {
             console.log(data)
@@ -97,14 +105,14 @@
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                htm += '<tr class="white-bg" onclick="location.href=\'/Statistic/StatisticDetail?cid=' + o.id +'\'; " style = "cursor: pointer" >'+
+                htm += '<tr class="white-bg" style = "cursor: pointer" >'+
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" /></td>'+
-                    '<td>' + o.name + '</td>' +
-                    '<td>' + o.jointimes + '</td>' +
-                    '<td>' + o.nojointimes + '</td>' +
-                    '<td>' + o.winbids + '</td>' +
-                    '<td class="gray-time">' + o.nowinbids + '</td>' +
-                    '<td class="gray-time">' + o.lastjoindate + '</td>' +
+                    '<td  onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.name + '</td>' +
+                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.jointimes + '</td>' +
+                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.nojointimes + '</td>' +
+                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.winbids + '</td>' +
+                    '<td class="gray-time" onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.nowinbids + '</td>' +
+                    '<td class="gray-time" onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.lastjoindate + '</td>' +
                     '</tr >';
             }
             $("#tbCompany").html(htm);

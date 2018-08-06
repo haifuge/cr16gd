@@ -29,7 +29,7 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
+            <a class="meet-btn blue-btn sm-btn" href="javascript:;" onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bType"></select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
@@ -96,10 +96,17 @@
 
     //全部按钮
     function allcompany() {
-        Paginator(nowpage, page_size, '', '')
         $("#searchinput").val("");
         $("#bType").val("All")
+        Paginator(nowpage, page_size, '', '')
     }
+    $("#all-check").click(function () {
+        if ($("#all-check").is(":checked")) {
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
+        }
+    })
     var SearchCompanyName = "";
     var type = "";
     //下拉菜单

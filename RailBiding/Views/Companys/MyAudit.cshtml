@@ -54,7 +54,7 @@
                                        id="all-check" />
                             </span>
                         </td>
-                        <td style="width:200px;padding:0px 10px">劳务承包企业名称</tdstyle="width:15%;padding:0px>
+                        <td style="width:200px;padding:0px 10px">劳务承包企业名称</td>
                         <td style="width:240px;padding:0px 10px">资质等级</td>
                         <td style="width:70px">注册资本</td>
                         <td style="width:90px">业务类型</td>
@@ -93,10 +93,17 @@
 
         //全部按钮
         function allcompany() {
-            Paginator(nowpage, page_size, '', '')
             $("#searchinput").val("");
-            $("#bType").val("all")
+            $("#bType").val("all");
+            Paginator(nowpage, page_size, '', '')
         }
+        $("#all-check").click(function () {
+            if ($("#all-check").is(":checked")) {
+                $("input.icheck").prop("checked", true)
+            } else {
+                $("input.icheck").prop("checked", false)
+            }
+        })
         var SearchCompanyName = "";
         var type = "";
         //下拉菜单

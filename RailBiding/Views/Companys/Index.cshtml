@@ -9,7 +9,10 @@
     #bType{
         float:left;
     }
-
+    .main-top{
+        margin-bottom: 20px;
+    }
+        
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -26,7 +29,7 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top">
-            <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
+            <a class="meet-btn blue-btn sm-btn" href="javascript:;" onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bType"></select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
@@ -97,12 +100,12 @@
     }
     })
 
+    //全部按钮
     function allcompany() {
-       if( $("input.icheck").is(":checked")){
-           $("input.icheck").prop("checked", false)
-        }else{
-         $("input.icheck").prop("checked",true)
-        }
+        $("#searchinput").val("");
+        $("#bType").val("All")
+        Paginator(nowpage, page_size, '', '')
+        
     }
     var SearchCompanyName = "";
     var type = "";

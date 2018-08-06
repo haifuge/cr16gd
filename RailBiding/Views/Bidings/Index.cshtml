@@ -80,6 +80,13 @@ input#searchinput {
 
     })
 
+    $("#all-check").click(function () {
+        if ($("#all-check").is(":checked")) {
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
+        }
+    })
 
     function Paginator(page, ps) { 
         var pname = $("#searchinput").val();
@@ -90,15 +97,15 @@ input#searchinput {
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
-                htm += '<tr class="white-bg" onclick="location.href=\'/Bidings/BidDetail?pid='+o.id+'\';">'+
+                htm += '<tr class="white-bg" >'+
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id +'" id="checkbox-1" /></td>'+
-                    '<td>'+o.name+'</td>'+
-                    '<td>' + o.location +'</td>'+
+                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\'>' + o.name + '</td>' +
+                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\'>' + o.location + '</td>' +
                    // '<td>' + o.content +'</td>'+
-                    '<td>' + o.publisher +'</td>'+
-                    '<td class="gray-time">' + o.publishdate +'</td>'+
-                    '<td class="gray-time">' + o.applydate +'</td>'+
-                    '<td class="gray-word gray-time">' + o.opendate +'</td>'+
+                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\'>' + o.publisher + '</td>' +
+                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\' class="gray-time">' + o.publishdate + '</td>' +
+                    '<td  onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\' class="gray-time">' + o.applydate + '</td>' +
+                    '<td  onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\' class="gray-word gray-time">' + o.opendate + '</td>' +
                 '</tr>'
             }
             $("#tbBidings").html(htm)

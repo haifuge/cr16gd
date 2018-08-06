@@ -92,10 +92,18 @@
 
         //全部按钮
         function allcompany() {
-            Paginator(nowpage, page_size, '', '')
+            
             $("#searchinput").val("");
-            $("#bType").val("all")
+            $("#bType").val("all");
+            Paginator(nowpage, page_size, '', '');
         }
+        $("#all-check").click(function () {
+            if ($("#all-check").is(":checked")) {
+                $("input.icheck").prop("checked", true)
+            } else {
+                $("input.icheck").prop("checked", false)
+            }
+        })
         var SearchCompanyName = "";
         var type = "";
         //下拉菜单
