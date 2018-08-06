@@ -31,7 +31,9 @@
     color: #fff;
 }
 
-
+.bar-nav ~ .content {
+    top: 4.7rem;
+}
 .meetp-icon {
     border-radius: 100%;
     border: 1px solid #808080;
@@ -105,8 +107,7 @@
 }
 
 .page, .page-group {
-    position:relative;
-    top:0px
+     background-color: #fff;
 }
 
 .content-block {
@@ -855,10 +856,8 @@ tbody tr {
 }
 
 .lw-footer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    width: 100%;
-    z-index: 9999;
     height: 4rem;
     background-color: #0d6fc9;
     color: #fff;

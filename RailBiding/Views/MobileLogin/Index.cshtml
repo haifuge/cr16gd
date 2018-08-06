@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,31 +14,24 @@
     <link rel="stylesheet" href="~/cssMobile/light/light7.min.css">
     <link rel="stylesheet" href="~/cssMobile/phone.css" />
     <style>
-        body {
-            height: 100%;
-            width: 100%;
-            background-image: url('../../imgMobile/login_bg.jpg');
-            background-size: cover;
-            overflow:hidden;
-            background-repeat:no-repeat
-        } 
+        .bar{
+                position: relative;
+        }
     </style>
 </head>
 <body>
     <div class="page-group">
         <div class="page page-current">
-
+            <img src="~/imgMobile/login_bg.jpg" alt="">
             <header class="bar bar-nav meetp-nav">
                 <div class="meetp-header meetp-header2">
                     <img src="~/imgMobile/lw-logo.png" />
                 </div>
             </header>
-
             <div class="content native-scroll login-center3">
                 <div class="login-tit">
                     <p>劳务招标系统</p>
                 </div>
-
                 <div class="loginbar">
                     <div class="loginbar-re">
                         <h3>账号登录</h3>
@@ -52,7 +44,7 @@
                             </li>
                             <li>
                                 <input id="txtCode" name="txtCode" type="text" placeholder="验证码" class="txtcode">
-                                <span><img id="imgVerifyCode" src="/MobileLogin/GenerateVerifyCode" alt='换一张图' style="display: block; cursor: pointer; margin-left: 10px;" onclick="this.src = '/MobileLogin/GenerateVerifyCode?tmp=' + Math.random();" width='75' height='30'/></span>
+                                <span><img id="imgVerifyCode" src="/MobileLogin/GenerateVerifyCode" alt='换一张图' style="display: block; cursor: pointer; margin-left: 10px;" onclick="this.src = '/MobileLogin/GenerateVerifyCode?tmp=' + Math.random();" width='75' height='30' /></span>
                             </li>
                         </ul>
                         <div class="btn-box">
@@ -62,19 +54,16 @@
                         </div>
                         <div class="oauth-box">
                             <a href="/MobileResetPassword" class="regi">忘记密码</a>
-
                         </div>
-
                     </div>
                 </div>
             </div>
-
+            <div class="lw-footer">
+                <p>
+                    © 版权所有：中铁十六局集团轨道公司 010-69526115 技术支持:传晨赛博 <a href="http://www.saibo.net.cn" style="color: #fff">www.saibo.net.cn</a>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="lw-footer">
-        <p>
-            © 版权所有：中铁十六局集团轨道公司 010-69526115 技术支持:传晨赛博 <a href="http://www.saibo.net.cn" style="color: #fff">www.saibo.net.cn</a>
-        </p>
     </div>
     <script type='text/javascript' src='~/jsMobile/jquery-1.11.0.js' charset='utf-8'></script>
     <script type='text/javascript' src='~/jsMobile/light/light7.min.js' charset='utf-8'></script>
@@ -96,6 +85,5 @@
             });
         }
     </script>
-
 </body>
 </html>
