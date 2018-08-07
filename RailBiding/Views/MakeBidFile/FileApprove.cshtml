@@ -109,7 +109,7 @@ i.status-wcl.status-wfb {
         var page_size = 10
         var pagenum = 12
         $(document).ready(function () { Paginator(nowpage, page_size)});
-        
+
         //下拉菜单
         $("#bStatus").change(function () {
             Paginator(nowpage, page_size)
@@ -126,13 +126,13 @@ i.status-wcl.status-wfb {
             Paginator(nowpage, page_size, '', '')
         }
 
-        function Paginator(page, ps) {  
+        function Paginator(page, ps) {
             var cname = $("#searchinput").val();
             var cStatus = ""
             if ($("#bStatus").val() != "") {
                 cStatus = $("#bStatus").val();
             }
-        $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page, pname: cname, fstatus:cStatus }, function (data) {
+            $.post("/MakeBidFile/GetMyMakeBidFiles", { pageSize: ps, pageIndex: page, pname: cname, fstatus:cStatus }, function (data) {
                 var jsonData = JSON.parse(data);
                 var obj = jsonData.List;
                 var htm = "";
@@ -152,7 +152,7 @@ i.status-wcl.status-wfb {
                             applyStyle = "status-wcl status-shz";
                             break;
                         case 2:
-                            applyStatus = "已通过";
+                            applyStatus = "已处理";
                             applyStyle = "status-wcl status-ytg";
                             break;
                         case 3:
@@ -194,4 +194,6 @@ i.status-wcl.status-wfb {
                 pages(page, jsonData.PageCount, jsonData.total, ps)
             })
         }
-    </script>
+        
+</script>
+

@@ -80,16 +80,32 @@
             padding-left: 10px;
         }
         .white_content{
-            width: 24%;
-            max-width: 24%;
-            min-width: 500px;
+            width: 800px;
+            position:relative;
+            top:15%;
+            margin: 0 auto;
+            right:auto;
         }
         .page{
             padding:1em;
         }
-        .black_overlay {
-            background: rgba(0,0,0,0.5);
+        .black_overlay{
+            background:rgba(0,0,0,0.5);
         }
+        select.meet-select.js-meet-state {
+            float: left;
+        }
+    .black_overlay .big-btn {
+        height: 30px;
+        font-size: 14px;
+        line-height: 30px;
+        width: 100px;
+        text-align: center;
+        padding: 0;
+    }
+    .black_overlay .meet-table tr.white-bg td{
+        line-height:16px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -141,7 +157,7 @@
                                         </span>
                                     </div>
                                     <h3>劳务单位</h3>
-                                    <div style= "margin:10px ;" >
+                                    <div style= "margin:20px 10px ;" >
                                         <select class="meet-select js-meet-state bTypeCompany">
                                             <option value="" > 推荐企业 </option >
                                             <option value="1">名录内单位</option>
@@ -154,7 +170,19 @@
                                         <a class="search-btn"><i class="search-icon meet-icon"></i></a>
                                     </div>
                                     <table class="meet-table text-left">
-                                        <tbody id= "bidingcompanysc" class="mbidcompany"></tbody>
+                                        <thead>
+                                            <tr style="background-color:#40cbe16b;line-height: 32px;">
+                                                <th style="width:10px;padding:0 5px;font-weight:800;text-align:center"><input class="icheck" name="addcompanybiding" type="checkbox" value="" id="all-icheck" /></th>
+                                                <th style="width:250px;padding:0 5px;font-weight:800;text-align:center">劳务承分包企业名称</th>
+                                                <th style="width:240px;padding:0 5px;font-weight:800;text-align:center">资质等级</th>
+                                                <th style="width:60px;padding:0 5px;font-weight:800;text-align:center">注册资本</th>
+                                                <th style="width:80px;padding:0 5px;font-weight:800;text-align:center">法人代表</th>
+                                                <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">联系电话</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id= "bidingcompanysc" class="mbidcompany">
+                                            
+                                        </tbody>
                                     </table>
                                     <div style= "bottom:10px;text-align:center;" >
                                         <div class="page">
@@ -570,24 +598,28 @@
                 var o= obj[i];
                 console.log(o)
                 comhtml+='<tr class="white-bg">'+
-                              '<td class="check-color"  style="width:10px;padding:0 5px">'+
+                              '<td class="check-color">'+
                                  '<input class="icheck" name="addcompanybiding" type="checkbox"  value="' + o.id +'" />' +
                               '</td>'+
-                              '<td style="width:150px;padding:0 5px">'+
-                                  '<a href="/Companys/Details?id=' + o.id + '"  target="_blank"  class="comoname" style="display:block;line-height:18px;">'+o.name+'</a>'+
+                              '<td>'+
+                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:18px;">'+o.name+'</a>'+
                               '</td>'+
-                              '<td style="width:80px;padding:0 5px">'+o.corporaterepresentative+'</td>'+
-                              '<td style="width:100px;padding:0 5px">'+o.repphone+'</td>'+
+                              '<td>'+o.qualificationlevel+'</td>'+
+                              '<td>'+o.registeredcapital+'</td>'+
+                              '<td>'+o.corporaterepresentative+'</td>'+
+                              '<td>'+o.repphone+'</td>'+
                     '</tr>'
                 comhhtm2 += '<tr class="white-bg">' +
-                    '<td class="check-color" style="width:10px;padding:0 5px">' +
+                    '<td class="check-color">' +
                     '<input class="icheck" name="addcompanywin" type="checkbox" value="' + o.id + '" />' +
                     '</td>' +
-                    '<td style="width:150px;padding:0 5px">' +
+                    '<td >' +
                     '<a href="/Companys/Details?id=' + o.id + '"  target="_blank" class="comoname" style="display:block;line-height:18px;">' + o.name + '</a>' +
                     '</td>' +
-                    '<td style="width:80px;padding:0 5px">' + o.corporaterepresentative + '</td>' +
-                    '<td style="width:100px;padding:0 5px">' + o.repphone + '</td>' +
+                    '<td>' + o.qualificationlevel + '</td>'+
+                    '<td>' + o.registeredcapital + '</td>'+
+                    '<td>' + o.corporaterepresentative + '</td>'+
+                    '<td>' + o.repphone + '</td>' +
                     '</tr>'
             }
 

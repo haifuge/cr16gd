@@ -261,24 +261,27 @@
                                 }
                             });
     //弹出隐藏层
-    function ShowDiv(show_div, bg_div)
-                            {
-                                document.getElementById(show_div).style.display = 'block';
-                                document.getElementById(bg_div).style.display = 'block';
-                                var bgdiv = document.getElementById(bg_div);
-                                bgdiv.style.width = document.body.scrollWidth;
+    function ShowDiv()
+    {
+        show_div='MyDiv'
+        bg_div='fade'
+        document.getElementById(show_div).style.display = 'block';
+        document.getElementById(bg_div).style.display = 'block';
+        var bgdiv = document.getElementById(bg_div);
+        bgdiv.style.width = document.body.scrollWidth;
         $("#" + bg_div).height($(window).height());
-                            }
+        
+    }
 
                             //关闭弹出层
-                            function CloseDiv(show_div, bg_div)
-                            {
-                                document.getElementById(show_div).style.display = 'none';
-                                document.getElementById(bg_div).style.display = 'none';
-                                if ($("input[name='addcompenycheck']").is(":checked")){
+    function CloseDiv(show_div, bg_div)
+    {
+        document.getElementById(show_div).style.display = 'none';
+        document.getElementById(bg_div).style.display = 'none';
+        if ($("input[name='addcompenycheck']").is(":checked")){
             $("input[name='addcompenycheck']").prop("checked", false)
-                                }
-                            }
+        }
+    }
 </script>
 <script>
     //参与单位添加

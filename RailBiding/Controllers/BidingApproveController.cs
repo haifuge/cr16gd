@@ -101,11 +101,11 @@ namespace RailBiding.Controllers
                                               "</td>" +
                                               "<td>" +
                                                     "<div class='detail-user'>" +
-                                                         "<button type='submit' class='add-qy' style='width: 80px;'>" +
-                                                            "<a href='#' onclick=\"ShowDiv('MyDiv','fade')\" style='color: #fff'>" +
+                                                            //"<button type='submit'  style=''>" +
+                                                            "<a href='#' onclick=\"ShowDiv()\" class='add-qy' style='width: 80px;color: #fff'>" +
                                                                 "<img src='/img/icon-add3.png' style='vertical-align: middle' alt=''>添加企业" +
                                                             "</a>" +
-                                                         "</button>" +
+                                                         //"</button>" +
                                                      "</div>" +
                                               "</td >" +
                                            "</tr>";

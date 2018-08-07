@@ -2694,7 +2694,7 @@ input[name=keyname] {
     position: relative;
 }
 
-    .detail-user button.add-qy {
+    .detail-user .add-qy {
         position: absolute;
         right: 15px;
         background: #008cd6;

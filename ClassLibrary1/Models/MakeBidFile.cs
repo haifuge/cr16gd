@@ -59,7 +59,7 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
             string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
-                            convert(varchar(20),mb.PublishDate,23) as PublishDate, mb.Status
+                            convert(varchar(20),mb.PublishDate,23) as PublishDate, a.Approved as Status
                             into #temp1
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join MakeBidingFile mb on mb.ProjId=p.Id
