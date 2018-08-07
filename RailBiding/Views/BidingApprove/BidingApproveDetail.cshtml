@@ -67,7 +67,7 @@
             <div class="detail-wrap detail-con">
                 <!--弹出层 begin-->
                 <div id="fade" class="black_overlay">
-                    <div id="MyDiv" class="white_content white_content3">
+                    <div id="MyDiv" class="white_content white_content3" style="height:80%;">
                         <div class="btn-close"
                              style="text-align: right;  height: 20px;">
                             <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
@@ -321,7 +321,7 @@
                             {
                                 var h = document.documentElement.clientHeight;//可见区域高度
                                 ss = document.getElementById('MyDiv');
-                                ss.style.height = h - 90 + "px";
+                                ss.style.height = "80%";
                             }
 </script>
 <script>
@@ -680,7 +680,7 @@
                                                     '<input class="icheck" name="addcompenycheck" type="checkbox" value="' + o.id + '|' + o.name + '" id="checkbox-1"/>' +
                                                     '</td>' +
                                                     '<td>' +
-                                                    '<a href="list_business_details.html" class="comoname" style="display:block;line-height:18px;">' + o.name + imgjian + '</a>' +
+                                                    '<a href="/Companys/Details?id=' + o.id + '"  target="_blank" class="comoname" style="display:block;line-height:18px;">' + o.name + imgjian + '</a>' +
                                                     '</td>' +
                                                     '<td>' + o.corporaterepresentative + '</td>' +
                                                     '<td>' + o.repphone + '</td>' +

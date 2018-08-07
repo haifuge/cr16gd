@@ -57,31 +57,31 @@ namespace RailBiding.Controllers
             dt = bc.GetBidingCompanys(pid); 
             var joinC = (from c in dt.AsEnumerable()
                          where c.Field<int>("CompanyResponse") == 1
-                         select new { name = c["Name"].ToString() }).ToList();
+                         select new { id=c["id"].ToString(), name = c["Name"].ToString() }).ToList();
             var noJoinC = (from c in dt.AsEnumerable()
                            where c.Field<int>("CompanyResponse") == 2
-                           select new { name = c["Name"].ToString() }).ToList();
+                           select new { id = c["id"].ToString(), name = c["Name"].ToString() }).ToList();
             var noResponseC = (from c in dt.AsEnumerable()
                                where c.Field<int>("CompanyResponse") == 0
-                               select new { name = c["Name"].ToString() }).ToList();
+                               select new { id = c["id"].ToString(), name = c["Name"].ToString() }).ToList();
 
             //单位反馈-单位显示框
             StringBuilder comHtml = new StringBuilder();
             foreach (var c in joinC)
             {
-                comHtml.Append("<span>" + c.name + "</span>");
+                comHtml.Append("<span><a href='/Companys/Details?id=" + c.id + "' target='_blank' >" + c.name + "</a></span>");
             }
             ViewBag.JoinCompanys = comHtml.ToString();
             comHtml.Clear();
             foreach (var c in noJoinC)
             {
-                comHtml.Append("<span>" + c.name + "</span>");
+                comHtml.Append("<span><a href='/Companys/Details?id=" + c.id + "' target='_blank'>" + c.name + "</a></span>");
             }
             ViewBag.NoJoinCompanys = comHtml.ToString();
             comHtml.Clear();
             foreach (var c in noResponseC)
             {
-                comHtml.Append("<span>" + c.name + "</span>");
+                comHtml.Append("<span><a href='/Companys/Details?id=" + c.id + "' target='_blank'>" + c.name + "</a></span>");
             }
             ViewBag.NoResponseCompanys = comHtml.ToString();
 

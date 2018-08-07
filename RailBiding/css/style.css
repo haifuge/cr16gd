@@ -6004,3 +6004,6 @@ div#editor {
     margin-bottom: 20px;
 }
 
+.detail-user-list6 .meet-user-span a,.detail-user-list6 .meet-user-span a:hover,.detail-user-list6 .meet-user-span a:focus{
+    color:#008cd6;
+}
