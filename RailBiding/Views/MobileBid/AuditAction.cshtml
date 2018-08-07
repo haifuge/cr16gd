@@ -37,6 +37,17 @@
             line-height: 1.7rem;
             height: 1.7rem;
         }
+        .bar.meetp-nav {
+            height: auto;
+        }
+
+        .bar-nav ~ .content {
+            top: 2.2rem;
+        }
+
+        .meetp-buttons-tab {
+            top: 2.2rem;
+        }
     </style>
 </head>
 
@@ -44,14 +55,14 @@
     <div class="page-group">
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
-                <div class="meetp-header">
+                <!--<div class="meetp-header">
                     <a href="#" onclick="logindex()"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span>
                     <span class="span2">
                         <a href="#" onclick="logout()">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
-                </div>
+                </div>-->
                 <div class="meetp-bar">
                     <a class="button button-link button-nav pull-left back" onclick="winHistory()" href="#">
                         <span class="icon icon-left"></span>

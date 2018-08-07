@@ -52,35 +52,9 @@ namespace RailBiding.Controllers
             ViewBag.PublishDate = dr["PublishDate"].ToString();
             ViewBag.ProjDescription = dr["ProDescription"].ToString();
             ViewBag.Content = dr["Content"].ToString();
-
-
-                string removebtn = "";;
-            if(Session["RoleId"].ToString()=="2"&& Request["status"].ToString()=="1")
-            {
-                ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' id='invitebtn' onclick='inviteCompanys()' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
-                ViewBag.addCompanysbtn = "<button type='submit' class='add-qy' style='width: 80px;'>"+
-                                            "<a href='#' onclick=\"ShowDiv('MyDiv','fade')\" style='color: #fff'>"+
-                                                "<img src='/img/icon-add3.png' style='vertical-align: middle' alt=''>添加企业"+
-                                            "</a></button>";
-                removebtn = "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('{0}')\"></i>";
-            }
-            else
-            {
-                ViewBag.InviteCompanyBtn = "";
-                ViewBag.addCompanysbtn = "";
-            }
-            dt = bc.GetBidingCompanys(pid);
-            StringBuilder cHtml = new StringBuilder();
-            cHtml.Append("<tr class='form-tr detail-user-con invitejoincom'><td colspan='2'><div class='detail-user-list1' style='overflow: auto;'><div class='meet-user-span' id='inviteCompany'>");
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                var cid = "company" + dt.Rows[i]["id"].ToString();
-                cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() +string.Format(removebtn, cid) + "</span>");
-            }
-            cHtml.Append(@"</div></div></td></tr>");
-            ViewBag.inviteJoinCompanys = cHtml.ToString();
-
-            dt = bc.GetBidingCompanys(pid);
+            
+            //单位反馈
+            dt = bc.GetBidingCompanys(pid); 
             var joinC = (from c in dt.AsEnumerable()
                          where c.Field<int>("CompanyResponse") == 1
                          select new { name = c["Name"].ToString() }).ToList();
@@ -90,32 +64,165 @@ namespace RailBiding.Controllers
             var noResponseC = (from c in dt.AsEnumerable()
                                where c.Field<int>("CompanyResponse") == 0
                                select new { name = c["Name"].ToString() }).ToList();
-            ViewBag.joinNum = joinC.Count;
-            ViewBag.noJoinNum = noJoinC.Count;
-            ViewBag.noResponseNum = noResponseC.Count;
-            cHtml = new StringBuilder();
+
+            //单位反馈-单位显示框
+            StringBuilder comHtml = new StringBuilder();
             foreach (var c in joinC)
             {
-                cHtml.Append("<span>" + c.name + "</span>");
+                comHtml.Append("<span>" + c.name + "</span>");
             }
-            ViewBag.JoinCompanys = cHtml.ToString();
-            cHtml.Clear();
+            ViewBag.JoinCompanys = comHtml.ToString();
+            comHtml.Clear();
             foreach (var c in noJoinC)
             {
-                cHtml.Append("<span>" + c.name + "</span>");
+                comHtml.Append("<span>" + c.name + "</span>");
             }
-            ViewBag.NoJoinCompanys = cHtml.ToString();
-            cHtml.Clear();
+            ViewBag.NoJoinCompanys = comHtml.ToString();
+            comHtml.Clear();
             foreach (var c in noResponseC)
             {
-                cHtml.Append("<span>" + c.name + "</span>");
+                comHtml.Append("<span>" + c.name + "</span>");
             }
-            ViewBag.NoResponseCompanys = cHtml.ToString();
+            ViewBag.NoResponseCompanys = comHtml.ToString();
 
+            StringBuilder cHtml = new StringBuilder();
 
+            
+            if (Session["RoleId"].ToString()=="2")
+            {
+                if (Request["status"].ToString() == "1")
+                {
+                    string removebtn ="";
+                    removebtn = "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('{0}')\"></i>";
+                    ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' id='invitebtn' onclick='inviteCompanys()' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
+                    ViewBag.addCompanysbtn = "<tr class='form-tr detail-user-con tr-border ifortd'>" +
+                                              "<td class='form-lable label2'>" +
+                                                  "<span style ='color:#008cd6' > 参与单位：</span>" +
+                                              "</td>" +
+                                              "<td>" +
+                                                    "<div class='detail-user'>" +
+                                                         "<button type='submit' class='add-qy' style='width: 80px;'>" +
+                                                            "<a href='#' onclick=\"ShowDiv('MyDiv','fade')\" style='color: #fff'>" +
+                                                                "<img src='/img/icon-add3.png' style='vertical-align: middle' alt=''>添加企业" +
+                                                            "</a>" +
+                                                         "</button>" +
+                                                     "</div>" +
+                                              "</td >" +
+                                           "</tr>";
+                    //参与单位-单位显示框
+                    dt = bc.GetBidingCompanys(pid);
+                    cHtml.Append("<tr class='form-tr detail-user-con invitejoincom'><td colspan='2'><div class='detail-user-list1' style='overflow: auto;'><div class='meet-user-span' id='inviteCompany'>");
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        var cid = "company" + dt.Rows[i]["id"].ToString();
+                        cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + string.Format(removebtn, cid) + "</span>");
+                    }
+                    cHtml.Append(@"</div></div></td></tr>");
+                    ViewBag.inviteJoinCompanys = cHtml.ToString();
+                }
+                else
+                {
+                    ViewBag.InviteCompanyBtn = "";
+                    ViewBag.addCompanysbtn = " <tr class='form-tr detail-user-con tr-border ifortd'>" +
+                              "<td class='form-lable label2'>" +
+                                  "<span style ='color:#008cd6' > 参与单位：</span>" +
+                              "</td>" +
+                              "<td>" +
+                                    "<div class='detail-user'>" +
+                                     "</div>" +
+                              "</td >" +
+                           "</tr>";
+                    //参与单位-单位显示框
+                    dt = bc.GetBidingCompanys(pid);
+                    cHtml.Append("<tr class='form-tr detail-user-con invitejoincom'><td colspan='2'><div class='detail-user-list1' style='overflow: auto;'><div class='meet-user-span' id='inviteCompany'>");
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        var cid = "company" + dt.Rows[i]["id"].ToString();
+                        cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + "</span>");
+                    }
+                    cHtml.Append(@"</div></div></td></tr>");
+                    ViewBag.inviteJoinCompanys = cHtml.ToString();
+                }
+                
+                ViewBag.comjion = @"<tr class='form-tr detail-user-con tr-border ifortd'>" +
+                               "<td class='form-lable label2'>" +
+                                   "<span style = 'color: #008cd6'> 单位反馈：</span>" +
+                               "</td>" +
+                               "<td>" +
+                                   "<div class='detail-user'>" +
+                                        "<a class='meet-btn medium-btn active'>参加<span>" + joinC.Count + "</span></a>" +
+                                        "<a class='meet-btn medium-btn'>不参加<span>" + noJoinC.Count + "</span></a>" +
+                                        "<a class='meet-btn medium-btn'>未响应<span>" + noResponseC.Count + "</span></a>" +
+                                   "</div>" +
+                               "</td>" +
+                           "</tr>";
+                ViewBag.ResponseCompanysHtml = @"<tr class='form-tr detail-user-con'>" +
+                                            "<td colspan ='2' >" +
+                                                "<div class='detail-user-list detail-user-list6' style='overflow: auto;'>" +
+                                                    "<div class='meet-user-span' style='display: block;'>" + ViewBag.JoinCompanys + "</div>" +
+                                                    "<div class='meet-user-span'>" + ViewBag.NoJoinCompanys + "</div>" +
+                                                    "<div class='meet-user-span'>" + ViewBag.NoResponseCompanys + "</div>" +
+                                                "</div>" +
+                                            "</td>" +
+                                        "</tr>";
+            }
+            else if (Session["RoleId"].ToString() == "1" )
+            {
+                //参与单位-单位显示框
+                dt = bc.GetBidingCompanys(pid);
+                cHtml.Append("<tr class='form-tr detail-user-con invitejoincom'><td colspan='2'><div class='detail-user-list1' style='overflow: auto;'><div class='meet-user-span' id='inviteCompany'>");
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var cid = "company" + dt.Rows[i]["id"].ToString();
+                    cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() +"</span>");
+                }
+                cHtml.Append(@"</div></div></td></tr>");
+                ViewBag.inviteJoinCompanys = cHtml.ToString();
+                ViewBag.InviteCompanyBtn ="";
+                ViewBag.addCompanysbtn = "<tr class='form-tr detail-user-con tr-border ifortd'>" +
+                                              "<td class='form-lable label2'>" +
+                                                  "<span style ='color:#008cd6' > 参与单位：</span>" +
+                                              "</td>" +
+                                              "<td>" +
+                                                    "<div class='detail-user'>" +
+                                                    "</div>" +
+                                              "</td >" +
+                                           "</tr>";
+                ViewBag.comjion = @"<tr class='form-tr detail-user-con tr-border ifortd'>" +
+                               "<td class='form-lable label2'>" +
+                                   "<span style = 'color: #008cd6'> 单位反馈：</span>" +
+                               "</td>" +
+                               "<td>" +
+                                   "<div class='detail-user'>" +
+                                        "<a class='meet-btn medium-btn active'>参加<span>" + joinC.Count + "</span></a>" +
+                                        "<a class='meet-btn medium-btn'>不参加<span>" + noJoinC.Count + "</span></a>" +
+                                        "<a class='meet-btn medium-btn'>未响应<span>" + noResponseC.Count + "</span></a>" +
+                                   "</div>" +
+                               "</td>" +
+                           "</tr>";
+                ViewBag.ResponseCompanysHtml = @"<tr class='form-tr detail-user-con'>" +
+                                            "<td colspan ='2' >" +
+                                                "<div class='detail-user-list detail-user-list6' style='overflow: auto;'>" +
+                                                    "<div class='meet-user-span' style='display: block;'>" + ViewBag.JoinCompanys + "</div>" +
+                                                    "<div class='meet-user-span'>" + ViewBag.NoJoinCompanys + "</div>" +
+                                                    "<div class='meet-user-span'>" + ViewBag.NoResponseCompanys + "</div>" +
+                                                "</div>" +
+                                            "</td>" +
+                                        "</tr>";
+            }
+            else
+            {
+                ViewBag.inviteJoinCompanys ="";
+                ViewBag.InviteCompanyBtn = "";
+                ViewBag.addCompanysbtn = "";
+                ViewBag.comjion = "";
+                ViewBag.ResponseCompanysHtml = "";
+            }
+
+     //判断审核通过按钮显示与隐藏
             if (Session["RoleId"].ToString() == "2")
             {
-                if (ViewBag.joinNum < 3){
+                if (joinC.Count < 5){
                     ViewBag.approvebtn = "";
                 }else
                 {

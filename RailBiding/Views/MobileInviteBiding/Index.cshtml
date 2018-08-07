@@ -45,52 +45,52 @@
             width: 100%;
         }
 
-            .bid-table tr {
-                display: block;
-                margin-bottom: 8px;
-            }
+        .bid-table tr {
+            display: block;
+            margin-bottom: 8px;
+        }
 
-                .bid-table tr td:nth-child(1) {
-                    vertical-align: top;
-                    color: #008cd6;
-                    width: 80px;
-                    padding-right: 5px;
-                    text-align: right;
-                }
+        .bid-table tr td:nth-child(1) {
+            vertical-align: top;
+            color: #008cd6;
+            width: 80px;
+            padding-right: 5px;
+            text-align: right;
+        }
 
         .bid-btn {
             margin-top: 30px;
         }
 
-            .bid-btn ul {
-                list-style-type: none;
-                text-align: center;
-            }
+        .bid-btn ul {
+            list-style-type: none;
+            text-align: center;
+        }
 
-                .bid-btn ul li {
-                    display: inline-block;
-                    width: 120px;
-                    padding: 5px 0px;
-                    text-align: center;
-                }
+        .bid-btn ul li {
+            display: inline-block;
+            width: 120px;
+            padding: 5px 0px;
+            text-align: center;
+        }
 
-                    .bid-btn ul li:nth-child(2) {
-                        margin-left: 40px;
-                    }
+        .bid-btn ul li:nth-child(2) {
+            margin-left: 40px;
+        }
 
-                    .bid-btn ul li a {
-                        color: #fff;
-                        padding: 8px 0px;
-                        display: block;
-                        position: relative;
-                        width: 120px;
-                        border-radius: 3px;
-                        text-decoration: none;
-                    }
+        .bid-btn ul li a {
+            color: #fff;
+            padding: 8px 0px;
+            display: block;
+            position: relative;
+            width: 120px;
+            border-radius: 3px;
+            text-decoration: none;
+        }
 
-                        .bid-btn ul li a:hover, .bid-btn ul li a:focus {
-                            text-decoration: none;
-                        }
+        .bid-btn ul li a:hover, .bid-btn ul li a:focus {
+            text-decoration: none;
+        }
 
         .bid-greenbtn {
             background: green;
@@ -98,6 +98,11 @@
 
         .bid-redbtn {
             background: red;
+        }
+        bid-clickafterbtn{
+            background: #fff;
+            color:red;
+            border:1px solid red;
         }
     </style>
 </head>
@@ -157,9 +162,13 @@
     function response(res) {
         $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
             if (res == 1) {
+                $(".bid-btn ul").css("text-align", "center");
+                $(".bid-btn ul").html("<li><a href='#' class='bid-clickafterbtn'>已参加</a></li>")
                 alert('您已参加竞标')
             }
             else {
+                $(".bid-btn ul").css("text-align", "center");
+                $(".bid-btn ul").html("<li><a href='#' class='bid-clickafterbtn'>不参加</a></li>")
                 alert('您已拒绝参加竞标')
             }
         });

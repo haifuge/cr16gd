@@ -45,6 +45,12 @@
     -webkit-box-orient: vertical;
    
         }
+        .bar.meetp-nav.bar-nav2 {
+            height: 3rem;
+        }
+        .bar-nav ~ .content.con1 {
+            top: 3rem;
+        }
     </style>
 </head>
 <body>
@@ -59,8 +65,8 @@
                         </a>
                     </span>
                 </div>
-                <div class="dlwz">欢迎登录劳务招标管理系统</div>
-                <!--<div class="meetp-bar">-->
+                <!--<div class="dlwz">欢迎登录劳务招标管理系统</div>
+                <div class="meetp-bar">-->
                 <!--&lt;!&ndash;<a class="button button-link button-nav pull-left back" href="check.html">&ndash;&gt;-->
                 <!--&lt;!&ndash;&lt;!&ndash;<span class="icon icon-left"></span>&ndash;&gt;&ndash;&gt;-->
                 <!--&lt;!&ndash;</a>&ndash;&gt;-->
@@ -330,10 +336,7 @@
                                     '项目地点：<span>' + o.location + '</span>' +
                                 '</div>' +
                                 '<div class="item-text">' +
-                                    '招标内容：<span class="con">' + o.content + '</span>' +
-                                '</div>' +
-                                '<div class="item-text">' +
-                                    '报名时间：<span>' + o.applydate + '</span>预计开标时间：<span>' + o.opendate + '</span>' +
+                                    '报名截止时间：<span>' + o.applydate + '</span>预计开标时间：<span>' + o.opendate + '</span>' +
                                 '</div> ' +
                                 '<div class="item-text deal-num">' +
                                     '<i class="feed-icon feed-xsicon "></i>' +

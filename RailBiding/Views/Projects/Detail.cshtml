@@ -409,7 +409,7 @@
 
 <div class="left-nav">
     <div class="left-nav-con">
-        <h1>招标内容</h1>
+        <h1>招标内容介绍</h1>
         <ul class="left-nav-list">
             <li><a href="/Projects" class="active"><i class="icon icon-eye1"></i>内容列表</a></li>
         </ul>
@@ -434,7 +434,7 @@
                 <div class="canvas_content_text">
 
                     <ul>
-                        <li><i>*</i><span style="width:auto">报名时间：</span><input id="applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
+                        <li><i>*</i><span style="width:auto">报名截止时间：</span><input id="applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
                         <li><i>*</i><span style="width:auto">预计开标时间：</span><input id="opendate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
                         <li><i>*</i><span style="width:auto">拟中标单位数量：</span><input id="bidingnum" type="text" name="" class="input3"></li>
 
@@ -545,7 +545,7 @@
         var odate = $("#opendate").val()
         var bnum = $("#bidingnum").val()
         if(adate==''){
-            swal("请选择报名时间！");
+            swal("请选择报名截止时间！");
             return;
         }
         if(odate==''){

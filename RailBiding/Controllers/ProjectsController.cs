@@ -292,7 +292,7 @@ namespace RailBiding.Controllers
             string result = "<h3>招标申请 <span>"+ pdate + "</span></h3>"+
                             "<div class='a-zbwj' onclick=\"location.href='/Projects/BidDetail?pid=" + pid + "&status=" + statusnum + "'\" sytle='cursor: pointer;'>" +
                                 @"<div class='con-01 con-01-1'>
-                                    <p><span class='t-time'>报名时间：</span><span class='time'>" + adate + @"</span>
+                                    <p><span class='t-time'>报名截止时间：</span><span class='time'>" + adate + @"</span>
                                     <span class='t-time'>预计开标时间：</span><span class='time'>" + odate + @"</span>
                                     <span class='t-time'>拟中标单位数量：</span><span class='time'>" + bnum + @"</span></p>
                                 </div>
@@ -528,36 +528,7 @@ namespace RailBiding.Controllers
             ViewBag.ProDescription = dr["ProDescription"].ToString();
             dt = bc.GetBidingCompanys(pid);
 
-            var joinC = (from c in dt.AsEnumerable()
-                         where c.Field<int>("CompanyResponse") == 1
-                         select new { name = c["Name"].ToString() }).ToList();
-            var noJoinC = (from c in dt.AsEnumerable()
-                           where c.Field<int>("CompanyResponse") == 2
-                           select new { name = c["Name"].ToString() }).ToList();
-            var noResponseC = (from c in dt.AsEnumerable()
-                               where c.Field<int>("CompanyResponse") == 0
-                               select new { name = c["Name"].ToString() }).ToList();
-            ViewBag.joinNum = joinC.Count;
-            ViewBag.noJoinNum = noJoinC.Count;
-            ViewBag.noResponseNum = noResponseC.Count;
-            StringBuilder cHtml = new StringBuilder();
-            foreach (var c in joinC)
-            {
-                cHtml.Append("<span>" + c.name + "</span>");
-            }
-            ViewBag.JoinCompanys = cHtml.ToString();
-            cHtml.Clear();
-            foreach (var c in noJoinC)
-            {
-                cHtml.Append("<span>" + c.name + "</span>");
-            }
-            ViewBag.NoJoinCompanys = cHtml.ToString();
-            cHtml.Clear();
-            foreach (var c in noResponseC)
-            {
-                cHtml.Append("<span>" + c.name + "</span>");
-            }
-            ViewBag.NoResponseCompanys = cHtml.ToString();
+
             ViewBag.moretime = "";
             if (Request["status"].ToString() == "3")
             {
@@ -569,6 +540,66 @@ namespace RailBiding.Controllers
                     ViewBag.moretime = "";
                 }
              }
+
+            if (Request["status"].ToString() == "2")
+            {
+                var joinC = (from c in dt.AsEnumerable()
+                             where c.Field<int>("CompanyResponse") == 1
+                             select new { name = c["Name"].ToString() }).ToList();
+                var noJoinC = (from c in dt.AsEnumerable()
+                               where c.Field<int>("CompanyResponse") == 2
+                               select new { name = c["Name"].ToString() }).ToList();
+                var noResponseC = (from c in dt.AsEnumerable()
+                                   where c.Field<int>("CompanyResponse") == 0
+                                   select new { name = c["Name"].ToString() }).ToList();
+                ViewBag.joinNum = joinC.Count;
+                ViewBag.noJoinNum = noJoinC.Count;
+                ViewBag.noResponseNum = noResponseC.Count;
+                StringBuilder cHtml = new StringBuilder();
+                foreach (var c in joinC)
+                {
+                    cHtml.Append("<span>" + c.name + "</span>");
+                }
+                ViewBag.JoinCompanys = cHtml.ToString();
+                cHtml.Clear();
+                foreach (var c in noJoinC)
+                {
+                    cHtml.Append("<span>" + c.name + "</span>");
+                }
+                ViewBag.NoJoinCompanys = cHtml.ToString();
+                cHtml.Clear();
+                foreach (var c in noResponseC)
+                {
+                    cHtml.Append("<span>" + c.name + "</span>");
+                }
+                ViewBag.NoResponseCompanys = cHtml.ToString();
+
+                ViewBag.comjion = @"<tr class='form-tr detail-user-con tr-border ifortd'>" +
+                                       "<td class='form-lable label2'>" +
+                                           "<span style = 'color: #008cd6'> 单位反馈：</span>" +
+                                       "</td>" +
+                                       "<td>" +
+                                           "<div class='detail-user'>" +
+                                                "<a class='meet-btn medium-btn active'>参加<span>" + joinC.Count + "</span></a>" +
+                                                "<a class='meet-btn medium-btn'>不参加<span>" + noJoinC.Count + "</span></a>" +
+                                                "<a class='meet-btn medium-btn'>未响应<span>" + noResponseC.Count + "</span></a>" +
+                                           "</div>" +
+                                       "</td>" +
+                                   "</tr>";
+                ViewBag.ResponseCompanysHtml = @"<tr class='form-tr detail-user-con'>" +
+                                            "<td colspan ='2' >" +
+                                                "<div class='detail-user-list detail-user-list6' style='overflow: auto;'>" +
+                                                    "<div class='meet-user-span' style='display: block;'>" + ViewBag.JoinCompanys + "</div>" +
+                                                    "<div class='meet-user-span'>" + ViewBag.NoJoinCompanys + "</div>" +
+                                                    "<div class='meet-user-span'>" + ViewBag.NoResponseCompanys + "</div>" +
+                                                "</div>" +
+                                            "</td>" +
+                                        "</tr>";
+            }else
+            {
+                ViewBag.comjion = "";
+                ViewBag.ResponseCompanysHtml = "";
+            }
             return View();
         }
         [VerifyLoginFilter]

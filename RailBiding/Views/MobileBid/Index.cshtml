@@ -34,20 +34,36 @@
         .lw-zb li{
             margin-bottom:0px;
         }
+        .bar.meetp-nav {
+            height: auto;
+        }
+
+        .bar-nav ~ .content {
+            top: 2rem;
+        }
+        .meetp-buttons-tab{
+            top: 2rem;
+        }
+        .lw-zb li{
+            font-size: 0.7rem;
+        }
+        .lw-zb li i{
+            display:none;
+        }
     </style>
 </head>
 <body>
     <div class="page-group">
         <div class="page page-current">
             <header class="bar bar-nav meetp-nav">
-                <div class="meetp-header">
+                <!--<div class="meetp-header">
                     <a href="#" onclick="logindex()"><img src="~/imgMobile/logo.png" /></a><span class="span1">@ViewBag.UserName</span>
                     <span class="span2">
                         <a href="#" onclick="logout()">
                             <img src="~/imgMobile/loginout-icon.png" alt="">
                         </a>
                     </span>
-                </div>
+                </div>-->
                 <div class="meetp-bar">
                     <a class="button button-link button-nav pull-left back" onclick="winHistory()" href="#">
                         <span class="icon icon-left"></span>
@@ -82,7 +98,7 @@
                                     <dd>@ViewBag.Location</dd>
                                 </dl>
                                 <dl>
-                                    <dt>招标内容:</dt>
+                                    <dt>招标内容介绍:</dt>
                                     <dd>@Html.Raw(ViewBag.ProjDescription)</dd>
                                 </dl>
                                 <dl>
@@ -90,13 +106,14 @@
                                     <dd>@ViewBag.Type</dd>
                                 </dl>
                                 <dl>
+                                    <dt>报名截止时间:</dt>
+                                    <dd>@ViewBag.ApplyDate</dd>
+                                </dl>
+                                <dl>
                                     <dt>预计开标时间:</dt>
                                     <dd>@ViewBag.OpenDate</dd>
                                 </dl>
-                                <dl>
-                                    <dt>报名时间:</dt>
-                                    <dd>@ViewBag.ApplyDate</dd>
-                                </dl>
+
                                 <dl>
                                     <dt>拟中标单位数量:</dt>
                                     <dd>@ViewBag.BidingNum</dd>

@@ -16,12 +16,12 @@
     <link rel="stylesheet" href="~/cssMobile/light/light7.min.css">
     <link rel="stylesheet" href="~/cssMobile/phone.css" />
     <style>
-        .bar.meetp-nav.bar-nav2 {
-            height: 8rem;
+        .bar.meetp-nav.bar-nav2,.bar.meetp-nav{
+            height:3rem;
         }
-.bar-nav ~ .content.con1 {
-    top: 8rem;
-}
+        .bar-nav ~ .content.con1 {
+            top: 4rem;
+        }
     </style>
 </head>
 <body>
@@ -37,11 +37,11 @@
                         </a>
                     </span>
                 </div>
-                <div class="dlwz">
+                <!--<div class="dlwz">
                     <p>欢迎登录劳务招标管理系统</p>
                     <p>@ViewBag.UserDepartment @ViewBag.UserName</p>
                 </div>
-                <!--<div class="meetp-bar">-->
+                <div class="meetp-bar">-->
                 <!--&lt;!&ndash;<a class="button button-link button-nav pull-left back" href="check.html">&ndash;&gt;-->
                 <!--&lt;!&ndash;&lt;!&ndash;<span class="icon icon-left"></span>&ndash;&gt;&ndash;&gt;-->
                 <!--&lt;!&ndash;</a>&ndash;&gt;-->
@@ -51,19 +51,19 @@
             <div class="content native-scroll con1" style="padding-bottom: 3rem;">
                 <div class="sh-list">
                     <ul>
-                        <li>
+                        <li onclick="gotolist(1)">
                             <p class="sz company">0</p>
                             <p class="wz">企业审核</p>
                         </li>
-                        <li>
+                        <li  onclick="gotolist(3)">
                             <p class="sz bidfile">0</p>
                             <p class="wz">文件审核</p>
                         </li>
-                        <li>
+                        <li onclick="gotolist(2)">
                             <p class="sz bid">0</p>
                             <p class="wz">招标审核</p>
                         </li>
-                        <li>
+                        <li onclick="gotolist(4)">
                             <p class="sz makebid">0</p>
                             <p class="wz">定标审核</p>
                         </li>

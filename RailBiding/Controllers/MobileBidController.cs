@@ -55,7 +55,7 @@ namespace RailBiding.Mobile
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 var cid = "company" + dt.Rows[i]["id"].ToString();
-                cHtml.Append("<li id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + string.Format(removebtn, cid) + "</li>");
+                cHtml.Append("<li id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + "</li>");
             }
             ViewBag.JoinCompanys = cHtml.ToString();
             return View();
