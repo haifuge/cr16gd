@@ -757,7 +757,7 @@ namespace RailBiding.Controllers
                 if (c != "")
                 {
                     string[] cc = c.Split('-');
-                    sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                    sql += "update BidingCompany set biding=1,Win=0, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
                 }
             }
             if(sql!="")
