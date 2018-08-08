@@ -45,36 +45,38 @@ namespace RailBiding.Controllers
             ViewBag.ProjDescription = dr["ProDescription"].ToString();
             ViewBag.Content = dr["Content"].ToString();
 
+
+            //单位反馈
             dt = bc.GetBidingCompanys(pid);
-            
             var joinC = (from c in dt.AsEnumerable()
-                        where c.Field<int>("CompanyResponse")==1
-                        select new { name = c["Name"].ToString() }).ToList();
-            var noJoinC= (from c in dt.AsEnumerable()
-                         where c.Field<int>("CompanyResponse") == 2
-                         select new { name = c["Name"].ToString() }).ToList();
+                         where c.Field<int>("CompanyResponse") == 1
+                         select new { id = c["id"].ToString(), name = c["Name"].ToString() }).ToList();
+            var noJoinC = (from c in dt.AsEnumerable()
+                           where c.Field<int>("CompanyResponse") == 2
+                           select new { id = c["id"].ToString(), name = c["Name"].ToString() }).ToList();
             var noResponseC = (from c in dt.AsEnumerable()
-                          where c.Field<int>("CompanyResponse") == 0
-                          select new { name = c["Name"].ToString() }).ToList();
+                               where c.Field<int>("CompanyResponse") == 0
+                               select new { id = c["id"].ToString(), name = c["Name"].ToString() }).ToList();
+
             ViewBag.joinNum = joinC.Count;
             ViewBag.noJoinNum = noJoinC.Count;
             ViewBag.noResponseNum = noResponseC.Count;
             StringBuilder cHtml = new StringBuilder();
             foreach (var c in joinC)
             {
-                cHtml.Append("<span>"+c.name+"</span>");
+                cHtml.Append("<span><a href='/Companys/Details?id=" + c.id + "' target='_blank'>" + c.name+ "</a></span>");
             }
             ViewBag.JoinCompanys = cHtml.ToString();
             cHtml.Clear();
             foreach (var c in noJoinC)
             {
-                cHtml.Append("<span>" + c.name + "</span>");
+                cHtml.Append("<span><a href='/Companys/Details?id=" + c.id + "' target='_blank'>" + c.name + "</a></span>");
             }
             ViewBag.NoJoinCompanys = cHtml.ToString();
             cHtml.Clear();
             foreach (var c in noResponseC)
             {
-                cHtml.Append("<span>" + c.name + "</span>");
+                cHtml.Append("<span><a href='/Companys/Details?id=" + c.id + "' target='_blank'>" + c.name + "</a></span>");
             }
             ViewBag.NoResponseCompanys = cHtml.ToString();
             return View();

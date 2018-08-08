@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/loading.css" rel="stylesheet" />
 <style>
     .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2){
         color:#3e3a39;
@@ -33,6 +34,12 @@
     }
     .white_content3{
         height:80%;
+    }
+    .black_overlay{
+        z-index:100;
+    }
+    .white_content{
+         z-index:102
     }
 </style>
 <div class="left-nav">
@@ -239,6 +246,7 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
 
 
 <script>
@@ -296,16 +304,24 @@
             var name = idname[1];
             var cid = 'company' + id;
             var htm = '';
+
+            var wc= "";
+            var csc="";
+            var lis= $("#inviteCompany").children('span');
+            for (var i= 0; i < lis.length; i++) {
+                csc= lis[i];
+                if(csc.innerText==name){
+                    swal("请勿重复添加企业！");
+                    return;
+                }
+            }
             $.post("/BidingApprove/AddBidingCompany",{ pid: @ViewBag.pid ,cid: id }, function(){
                 htm = '<span id="' + cid + '">' + name + '<i><img src="/img/icon-del.png" onclick="removeCompany(\'' + cid + '\')"></i></span>';
-            })
-            if($("#inviteCompany span").attr("id")==cid){
-                swal("改单位已添加！请勿重复添加！")
-                $("#inviteCompany").append("");
-         
-            }else{
                 $("#inviteCompany").append(htm);
-            }
+            })
+            
+            
+            
             CloseDiv('MyDiv', 'fade');
             if ($("input[name='addcompenycheck']").val() == cidd){
                 $("input[name='addcompenycheck']").prop("checked", false)
@@ -488,8 +504,24 @@
         var cids = cid.substr(0, cid.length - 1)
         var pid = @ViewBag.pid;
         var pname = '@ViewBag.Name';
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在保存...',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         $.post("/BidingApprove/InviteBiding", { cids: cids,pid: pid,pname: pname}, function() {
-            swal("邀标短信已发送！").then(function(){ window.location.reload()});
+            removeLoading('test');
+            swal("邀标短信已发送！").then(function(){  window.location.reload()});
 
         })
     }

@@ -258,9 +258,9 @@ namespace RailBiding.API
         public string GetBidingCompanys()
         {
             string pid = Request["pid"].ToString();
-            string sql = @"select ID, Name, CorporateRepresentative, RepPhone,RegisteredCapital, ConstructionContent 
+            string sql = @"select ID, Name, CorporateRepresentative, RepPhone,RegisteredCapital, ConstructionContent, QualificationLevel
                             from Company 
-                            where id in(select CompanyId from BidingCompany where ProjId = "+pid+")";
+                            where id in(select CompanyId from BidingCompany where ProjId = " + pid+")";
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }
