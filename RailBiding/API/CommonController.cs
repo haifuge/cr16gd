@@ -254,6 +254,16 @@ namespace RailBiding.API
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
             return "{\"List\":" + JsonHelper.DataTableToJSON(dt) + ", \"total\":" + total + ", \"pagecount\":" + pagecount + "}";
         }
+
+        public string GetBidingCompanys()
+        {
+            string pid = Request["pid"].ToString();
+            string sql = @"select ID, Name, CorporateRepresentative, RepPhone,RegisteredCapital, ConstructionContent 
+                            from Company 
+                            where id in(select CompanyId from BidingCompany where ProjId = "+pid+")";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
         /// <summary>
         /// 收到邀标，用户反馈更新数据库
         /// </summary>
