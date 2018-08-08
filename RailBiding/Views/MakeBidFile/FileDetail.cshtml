@@ -49,16 +49,17 @@
             <p> @Html.Raw(ViewBag.ProDescription)</p>
             <h3>参加投标单位及投标报价：</h3>
             <div style="display: block;overflow: hidden">
-                <ul class="ull">
+                <ul class="ull ulll">
                     @Html.Raw(ViewBag.JoinCompany)
                 </ul>
             </div>
             <h3>拟选中标单位：</h3>
-            <ul class="nxzbdw">
-                @Html.Raw(ViewBag.WinCompany)
-            </ul>
+                <ul class="nxzbdw">
+                       
+                        @Html.Raw(ViewBag.WinCompany)
+                </ul>
             <h3>定标文件详细说明</h3>
-            @Html.Raw(@ViewBag.FileExplain)
+            @Html.Raw(ViewBag.FileExplain)
             <div class="download" style="margin-top: 10px;">
                 <div><i class="meet-icon icon-file"></i></div>
                 <div class="cc">

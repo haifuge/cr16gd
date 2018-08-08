@@ -23,9 +23,9 @@ namespace RailBiding.Controllers
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemM")]
-        public ActionResult FileDetail()
+        public ActionResult FileDetail(string pid)
         {
-            string pid= Request["pid"].ToString();
+            
             ViewBag.pid = pid;
             MakeBidFileContext mc = new MakeBidFileContext();
             DataTable dt = mc.GetMakeBidFileDetail(pid);
@@ -63,7 +63,6 @@ namespace RailBiding.Controllers
             }
             ViewBag.JoinCompany = joinCompanys;
             ViewBag.WinCompany = winCompanys;
-
             return View();
         }
         [VerifyLoginFilter]

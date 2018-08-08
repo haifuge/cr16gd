@@ -142,46 +142,6 @@ namespace RailBiding.Controllers
                 ViewBag.PublishDate = dr["PublishDate"].ToString();
                 ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
                 ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
-
-                dt = mc.GetBidingCompany(pid);
-                string joinCompanys = "";
-                string winCompanys = "";
-                foreach (DataRow row in dt.Rows)
-                {
-                    if (row["Biding"].ToString() == "1")
-                    {
-                        string ConstructionContent = row["ConstructionContent"].ToString();
-                        ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
-                        string QualificationLevel = row["QualificationLevel"].ToString();
-                        QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
-                        joinCompanys += "<li id='companyb" + row["CompanyId"].ToString() + "'>" +
-                                        "<div class='pca'>" +
-                                           "<div class='btn-close2'><img src='/img/icon-close.png' alt='' onclick='removeCompanytwo(companyb" + row["CompanyId"].ToString() + ")'></div>" +
-                                           "<div class='ul-bg'>" +
-                                               "<p class='f18'>"+row["Name"].ToString()+"</p>" +
-                                                "<p>资质等级："+ QualificationLevel + "</p>" +
-                                                "<p>注册资金："+ row["RegisteredCapital"].ToString() + "万元</p>" +
-                                                "<p>"+ ConstructionContent + "</p>" +
-                                            "</div>"+
-                                            "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
-                                            "<div class='tbbj'>投标报价：<input type='text' name='fp' id='price1' onkeyup='clearNoNum(this)' placeholder='0.00' value='"+ row["FirstPrice"].ToString() + "'>元</div>" +
-                                            "<div class='tbbj'>二次报价：<input type='text' name='sp' id='price2' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["SecondPrice"].ToString() + "'>元</div>" +
-                                        "</div>" +
-                                        "</li>";
-                    }
-                    if (row["Win"].ToString() == "1")
-                    {
-                        winCompanys += "<li id='companyw" + row["CompanyId"].ToString() + "'><div class='pca'>" +
-                            "<div class='btn-close3'><img src='/img/icon-close.png' alt='' onclick='removeCompany(companyw" + row["CompanyId"].ToString() + ")'></div>" +
-                            "<h3>"+ row["Name"].ToString()+" </h3>" +
-                            "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
-                            "<div style='padding: 10px;'><textarea name='' id='area' class='tar' placeholder='请输入文本内容'>"+ row["Comment"].ToString()+" </textarea><div style='font-size:12px; text-align:right;'></div></div>" +
-                            "</div>" +
-                            "</li>";
-                    }
-                }
-                ViewBag.JoinCompany = joinCompanys;
-                ViewBag.WinCompany = winCompanys;
                 ViewBag.moretime = "";
                 if (Request["status"].ToString() == "3")
                 {
@@ -195,6 +155,48 @@ namespace RailBiding.Controllers
                     }
                 }
             }
+
+            dt = mc.GetBidingCompany(pid);
+            string joinCompanys = "";
+            string winCompanys = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["Biding"].ToString() == "1")
+                {
+                    string ConstructionContent = row["ConstructionContent"].ToString();
+                    ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
+                    string QualificationLevel = row["QualificationLevel"].ToString();
+                    QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
+                    joinCompanys += "<li id='companyb" + row["CompanyId"].ToString() + "'>" +
+                                    "<div class='pca'>" +
+                                       "<div></div>" +
+                                       "<div class='ul-bg'>" +
+                                           "<p class='f18'>" + row["Name"].ToString() + "</p>"+
+                                            "<p>资质等级：" + QualificationLevel + "</p>" +
+                                            "<p>注册资金：" + row["RegisteredCapital"].ToString() + "万元</p>" +
+                                            "<p>" + ConstructionContent + "</p>" +
+                                        "</div>" +
+                                        "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
+                                        "<div class='tbbj'>投标报价：<input type='text' name='fp' class='price1' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["FirstPrice"].ToString() + "' required='required'>元</div>" +
+                                        "<div class='tbbj'>二次报价：<input type='text' name='sp' class='price2' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["SecondPrice"].ToString() + "' required='required'>元</div>" +
+                                    "</div>" +
+                                    "</li>";
+                }
+                if (row["Win"].ToString() == "1")
+                {
+                    winCompanys += "<li id='companyw" + row["CompanyId"].ToString() + "'><div class='pca'>" +
+                        "<div class='btn-close3'><img src='/img/icon-close.png' alt='' onclick='removeCompany(companyw" + row["CompanyId"].ToString() + ")'></div>" +
+                        "<h3>" + row["Name"].ToString() + " </h3>" +
+                        "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
+                        "<div style='padding: 10px;'><textarea name='' id='area' class='tar' placeholder='请输入文本内容'>" + row["Comment"].ToString() + " </textarea><div style='font-size:12px; text-align:right;'></div></div>" +
+                        "</div>" +
+                        "</li>";
+                }
+            }
+            ViewBag.JoinCompany = joinCompanys;
+            ViewBag.WinCompany = winCompanys;
+
+
             return View();
         }
         private string getBidFileItem(string pid)

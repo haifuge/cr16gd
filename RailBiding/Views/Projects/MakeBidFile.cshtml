@@ -105,7 +105,9 @@
     }
     .black_overlay .meet-table tr.white-bg td{
         line-height:16px;
+        padding: 10px 0px;
     }
+
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -142,11 +144,6 @@
                             </span>
                         </td>
                         <td>
-                            <div>
-                                <a href= "#"
-                                   onclick="ShowDiv('MyDiv','fade', 'join')"
-                                   style="color: #fff"><img src= "/img/icon-add2.png" alt=""></a>
-                            </div>
                             <!--弹出层 begin-->
                             <div id= "fade" class="black_overlay" >
                                 <div id= "MyDiv" class="white_content white_content3">
@@ -157,7 +154,7 @@
                                         </span>
                                     </div>
                                     <h3>劳务单位</h3>
-                                    <div style= "margin:20px 10px ;" >
+                                    <div style= "margin:20px;" >
                                         <select class="meet-select js-meet-state bTypeCompany">
                                             <option value="" > 推荐企业 </option >
                                             <option value="1">名录内单位</option>
@@ -180,9 +177,7 @@
                                                 <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">联系电话</th>
                                             </tr>
                                         </thead>
-                                        <tbody id= "bidingcompanysc" class="mbidcompany">
-                                            
-                                        </tbody>
+                                        <tbody id= "bidingcompanysc" class="mbidcompany"></tbody>
                                     </table>
                                     <div style= "bottom:10px;text-align:center;" >
                                         <div class="page">
@@ -503,15 +498,21 @@
                                                 '<p>' + companys[i].constructioncontent + '</p>' +
                                             '</div>' +
                                             '<div style="display:none">'+ companys[i].id+'</div>'+
-                                            '<div class="tbbj">投标报价：<input type="text" name="fp" id="price1" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
-                                            '<div class="tbbj">二次报价：<input type="text" name="sp" id="price2" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
+                                            '<div class="tbbj">投标报价：<input type="text" name="fp" class="price1" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
+                                            '<div class="tbbj">二次报价：<input type="text" name="sp" class="price2" onkeyup="clearNoNum(this)" placeholder="0.00">&nbsp;&nbsp;元</div>' +
                                        '</div>' +
                                     '</li>';
 
                     }
 
                 }
-                $(".cjtb_ul").append(htmtwo);
+                if($(".cjtb_ul li").attr("id")==cidtwo){
+                    swal("改单位已添加！请勿重复添加！")
+                    $(".cjtb_ul").append("");
+            
+                }else{
+                    $(".cjtb_ul").append(htmtwo);
+                }
                 if($("input[name='addcompanybiding']").val()== cid){
                     $("input[name='addcompanybiding']").prop("checked",false)
                 }
@@ -534,7 +535,14 @@
                             '</li>';
                     }
                 }
-                $(".nxzbdw.nxzbdw2").append(htm);
+                if($(".nxzbdw.nxzbdw2").attr("id")==companyid){
+                    swal("改单位已添加！请勿重复添加！")
+                    $(".nxzbdw.nxzbdw2").append("");
+         
+                }else{
+                    $(".nxzbdw.nxzbdw2").append(htm);
+                }
+
                 if ($("input[name='addcompanybiding']").val()== cid) {
                     $("input[name='addcompanybiding']").prop("checked", false)
                 }
@@ -544,7 +552,7 @@
         $(".searchinput").val("");
         $(".bType").val("")
         $(".bTypeCompany").val("")
-     CloseDiv('MyDiv', 'fade');
+        CloseDiv('MyDiv', 'fade');
 
     }
 
@@ -630,7 +638,6 @@
 
     }
 
-
     function getQueryString(name) {
         var reg= new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r= window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
@@ -642,15 +649,6 @@
         return context== null || context== "" || context== "undefined" ? "" : context;
     }
     function makebidbtn() {
-        var lis= $(".cjtb_ul").children('li');
-        var jc= "";
-        for (var i= 0; i < lis.length; i++) {
-            var cs= lis[i].children[0].children;
-            jc += cs[2].innerText + "-" + cs[3].children[0].value + "-" + cs[4].children[0].value + "|"
-        }
-        if (jc.length > 0)
-            jc=jc.substr(0, jc.length - 1);
-
         var abstr= $("#abst").val();
         if(abstr==""){
             swal("请简述定标文件！");
@@ -660,18 +658,47 @@
             swal("参加该投标单位不能为空！");
             return;
         }
-        var wc= "";
-        lis= $(".nxzbdw.nxzbdw2").children('li');
+        var lis= $(".cjtb_ul").children('li');
+        var jc= "";
+        var cs="";
         for (var i= 0; i < lis.length; i++) {
-            var cs= lis[i].children[0].children;
-            wc += cs[2].innerText + "-" + cs[3].children[0].value + "|";
+            cs= lis[i].children[0].children;
+
+            if(cs[3].children[0].value==''){
+                swal("请填写投标报价！");
+                return;
+            }else if(cs[4].children[0].value==''){
+                swal("请填写二次报价！");
+                return;
+            }else{
+                jc += cs[2].innerText + "-" + cs[3].children[0].value + "-" + cs[4].children[0].value + "|";
+            }
         }
-        if (wc.length > 0)
-            wc= wc.substr(0, wc.length - 1);
+        if (jc.length > 0)
+            jc=jc.substr(0, jc.length - 1);
+
+        
+       
         if($(".nxzbdw2").html()==""){
             swal("请选择拟选中标单位！");
             return;
         }
+
+        var wc= "";
+        var csc="";
+        lis= $(".nxzbdw.nxzbdw2").children('li');
+        for (var i= 0; i < lis.length; i++) {
+            csc= lis[i].children[0].children;
+            if(csc[3].children[0].value==''){
+                swal("请简介拟选中单位！");
+                return;
+            }else{      
+                wc += csc[2].innerText + "-" + csc[3].children[0].value + "|";
+            }
+        }
+        if (wc.length > 0)
+            wc= wc.substr(0, wc.length - 1);
+  
         getQueryString('status');
         $('body').loading({
             loadingWidth: 240,
@@ -719,4 +746,5 @@
             btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
         }
     });
+
 </script>
