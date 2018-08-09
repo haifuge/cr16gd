@@ -35,7 +35,7 @@
                 <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
-            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
+            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle" onclick="exportExcel()">
                 <i class="xs-meet-icon icon-daoout"></i>导出
             </a>
             <a class="meet-btn green-btn small-size sm-btn" href="Create?inout=0">
@@ -238,6 +238,12 @@
                 });
 
             }
+        })
+    }
+    function exportExcel() {
+        $.post("/Companys/ExportCompanysExcel", { cids: '3,50,51,156' }, function (expfile) {
+            var fpath = String(expfile)
+            window.open(fpath);
         })
     }
 </script>

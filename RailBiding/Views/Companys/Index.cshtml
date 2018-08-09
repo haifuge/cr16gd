@@ -118,8 +118,6 @@
         }
         SearchCompanyName = $("#searchinput").val();
         Paginator(nowpage, page_size, SearchCompanyName, type)
-        console.log(type);
-        console.log(SearchCompanyName);
     })
     //输入框内容更改
     $("#searchinput").change(function () {
@@ -129,9 +127,7 @@
             type = $("#bType").val();
         }
         SearchCompanyName = $("#searchinput").val();
-        Paginator(nowpage, page_size, SearchCompanyName, type)
-        console.log(type);
-        console.log(SearchCompanyName);
+        Paginator(nowpage, page_size, SearchCompanyName, type);
     })
 
     //点击搜索按钮
@@ -142,8 +138,6 @@
         } else {
             type = $("#bType").val();
         }
-        console.log(type);
-        console.log(SearchCompanyName);
         Paginator(nowpage, page_size, SearchCompanyName, type)
     });
 
@@ -163,7 +157,6 @@
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
-                console.log(o)
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td >' +
@@ -242,6 +235,9 @@
         })        
     }
     function exportExcel() {
-        $.post("/Companys/ExportCompanysExcel", { cids: '3,50,51,156'}, function () { })
+        $.post("/Companys/ExportCompanysExcel", { cids: '3,50,51,156' }, function (expfile) {
+            var fpath = String(expfile)
+            window.open(fpath);
+        })
     }
 </script>

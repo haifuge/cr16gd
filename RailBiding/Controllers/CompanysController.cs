@@ -1026,7 +1026,7 @@ namespace RailBiding.Controllers
             cc.SubmitCompany(cid, ctype, Session["UserId"].ToString());
         }
 
-        public ActionResult ExportCompanysExcel(string cids)
+        public string ExportCompanysExcel(string cids)
         {
             string sql = @"select c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, c.RepPhone, c.Status 
                             from Company c
@@ -1034,8 +1034,8 @@ namespace RailBiding.Controllers
                             where c.ID in (" + cids+")";
             DataTable dt = DBHelper.GetDataTable(sql);
             string tempPath = Server.MapPath("/");
-            string file = ExcelOperator.writeExcel(dt, tempPath);
-            return File(file, "xlsx", Url.Encode("a.xlsx"));
+            string file = ExcelOperator.ExportCompany(dt, tempPath);
+            return file.Replace(tempPath, "/");
         }
     }
 }
