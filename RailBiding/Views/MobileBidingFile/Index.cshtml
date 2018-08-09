@@ -162,7 +162,7 @@
            
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "" id="file'+i+'" title="'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank" >下载</a><span>'
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href= "" id="file'+i+'" title="'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank" >下载</a><span>'
                 document.getElementById("bffiles").appendChild(li);
                 $("#file"+i+"").click(function(){  
                     window.open(""+$(this).attr('title')+"");  
