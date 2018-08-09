@@ -9,7 +9,7 @@ namespace OperateExcel
     public class ExcelOperator
     {
         //将数据写入已存在Excel
-        public static string writeExcel(System.Data.DataTable data, string tempPath)
+        public static string ExportCompany(System.Data.DataTable data, string tempPath)
         {
             Application xApp = new Application();
 
