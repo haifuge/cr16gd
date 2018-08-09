@@ -44,6 +44,16 @@
         .meetp-buttons-tab {
             top: 2.2rem;
         }
+    .lw-zb li{
+        height:auto;
+        margin-bottom:0; 
+    }
+    .download {
+        padding: 5px 0% 5px;
+    }
+        .sjdlb dl dt {
+            width: auto;
+        }
     </style>
 </head>
 <body>
@@ -88,13 +98,13 @@
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>招标内容<br>介绍：</dt>
+                                    <dt>招标内容介绍：</dt>
                                     <dd>
                                        @Html.Raw(ViewBag.ProDescription)
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt>定标文件<br>详细说明：</dt>
+                                    <dt>定标文件详细说明：</dt>
                                     <dd>
                                         @Html.Raw(ViewBag.FileExplain)
                                     </dd>
@@ -183,14 +193,19 @@
                                     '<div class="download">' +
                                         '<div class="meet-icon icon-file"></div>' +
                                         '<div class="cc">'+
-                                           '<div class="dowl">' + obj[i].FileName + '<a href="' + obj[i].FilePath + '"  style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a></div>' 
+                                           '<div class="dowl">' + obj[i].FileName + '<a href="" id="file'+i+'"  style = "color:#008cd6;margin-left: 5px;" title="'+obj[i].FilePath+'" target="_blank">下载</a></div>' 
                                         '</div>' +
                                     '</div>' +
                                  '</li>';
-                 document.getElementById("appendli").appendChild(li)
-            }
-  
+                                document.getElementById("appendli").appendChild(li)        
+                                $("#file"+i+"").click(function(){  
+                                    window.open(""+$(this).attr('title')+"");  
+                                });
+                            }
+            
+            
         });
+            
 
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

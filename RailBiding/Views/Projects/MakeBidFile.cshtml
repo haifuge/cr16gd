@@ -401,14 +401,15 @@
         //element.parentNode.removeChild(element);
         cid.parentNode.removeChild(cid);
     }
+ 
     //拟选中标单位添加
     function addcompanytwo() {
        
             $("input[name='addcompanybiding']:checked").each(function () {
                 cid= $(this).val();
-                for (var k= 0; k < companys.length; k++) {
-                    var companyid="";
-                    var htm= "";
+                var companyid="";
+                var htm="";
+                for (var k= 0; k < companys.length; k++) {                       
                     if (cid== companys[k].id) {
                         companyid= 'companyw' + cid;
                         htm += '<li id="' + companyid + '"><div class="pca" >' +
@@ -418,23 +419,24 @@
                             '<div style="padding: 10px;"><textarea name="" id="area" class="tar" placeholder="请输入考评意见"></textarea><div style="font-size: 12px;text-align: right;"></div></div>' +
                             '</div>' +
                             '</li>';
-                       
+                           
                     }
-                    var wc= "";
-                    var csc="";
-                    var lis= $(".nxzbdw.nxzbdw2").children('li');
-                    for (var i= 0; i < lis.length; i++) {
-                        csc= lis[i].children[0].children;
-                        if(csc[2].innerText==cid){
-                            swal("请勿重复添加企业！");
-                            return;
-                        }
+              }
+            var wc= "";
+            var csc="";
+            if($(".nxzbdw.nxzbdw2").html()!=""){
+                var lis= $(".nxzbdw.nxzbdw2").children('li');
+                for (var i= 0; i < lis.length; i++) {
+                    csc= lis[i].children[0].children;
+                    if(csc[2].innerText==cid){
+                        swal("请勿重复添加企业!");
+                        return;
                     }
-                     $(".nxzbdw.nxzbdw2").append(htm);
+                } 
                 
-                }
+            }
+            $(".nxzbdw.nxzbdw2").append(htm)
                 
-
                 if ($("input[name='addcompanybiding']").val()== cid) {
                     $("input[name='addcompanybiding']").prop("checked", false)
                 }

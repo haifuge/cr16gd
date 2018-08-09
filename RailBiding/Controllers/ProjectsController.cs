@@ -629,9 +629,9 @@ namespace RailBiding.Controllers
             for(int i=0;i<dt.Rows.Count;i++)
             {
                 if (i == 0)
-                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath, "/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
+                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath, "/") + "' target='_blank' download='11'> &nbsp;&nbsp;下载 </a></li>";
                 else
-                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath,"/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
+                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath,"/") + "' target='_blank' download='11'> &nbsp;&nbsp;下载 </a></li>";
             }
             fujian += "</ul></div>";
             ViewBag.Fujian = fujian;

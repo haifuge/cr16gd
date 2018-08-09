@@ -181,6 +181,16 @@
     #bidapplylayer .canvas_close{
         background:transparent;
     }
+    #bidapplylayer .canvas_content {
+        width: 500px;
+        height: 300px;
+    }
+   #bidapplylayer .canvas_content_text {
+        height: auto;
+    }
+   #bidapplylayer .canvas_btn{
+       padding-top:20px;
+   }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -498,6 +508,18 @@
         var adate = $("#applydate").val()
         var odate = $("#opendate").val()
         var bnum = $("#bidingnum").val()
+        if(adate==""){
+            swal("请输入报名截止时间！")
+            return;
+        }
+        if(odate==""){
+            swal("请输入预计开标时间！")
+            return;
+        }
+        if(bnum==""){
+            swal("请输入拟中标单位数量！")
+            return;
+        }
         var pid =@ViewBag.pid;
         data = { adate: adate, odate: odate, bnum: bnum, pid: pid, status: ss }
         $.post("/Projects/ReapplyBid", data, function (res) {
