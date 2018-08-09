@@ -163,7 +163,7 @@
                 var o = obj[i]
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
-                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td >' +
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)"/></td >' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.name + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
@@ -240,9 +240,27 @@
             }
         })
     }
+    var checkID = [];
+    function checkedid(boxid) {
+
+        if (boxid.checked) {
+            checkID.push(boxid.value)
+            console.log(checkID)
+        } else {
+            checkID.pop(boxid.value)
+        }
+    }
+
     function exportExcel() {
-        $.post("/Companys/ExportCompanysExcel", { cids: '3,50,51,156' }, function (expfile) {
+
+        var cids = checkID.join(",")
+        if (cids == "") {
+            swal("请选择要导出的企业！")
+            return;
+        }
+        $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
             var fpath = String(expfile)
+            $(".js-output-excle").attr("href", fpath)
             window.open(fpath);
         })
     }
