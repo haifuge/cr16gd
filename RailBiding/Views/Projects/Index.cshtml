@@ -50,7 +50,7 @@
                 <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
-            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
+            <a href="" class="meet-btn orange-btn small-size sm-btn js-output-excle" onclick="exportExcel()">
                 <i class="xs-meet-icon icon-daoout"></i>导出
             </a>
             @Html.Raw(ViewBag.Create)
@@ -62,9 +62,8 @@
                         <td class="check-color" style="width:20px;padding:0px 5px">
                             <span class="table-all-check">
                                 <input type="checkbox"
-                                       class="icheck"
                                        name="all-check"
-                                       id="all-check" />
+                                       id="all-check" value=""/>
                             </span>
                         </td>
                         <td style="width:150px;padding:0px 5px">名称</td>
@@ -100,7 +99,6 @@
         btype.append("<option value=''>项目类型</option>");
         for (var i = 0; i < obj.length; i++) {
             var o = obj[i];
-            console.log(o)
             btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
         }
         Paginator(nowpage, page_size)
@@ -119,9 +117,15 @@
         $("#bType").val("");
         Paginator(nowpage, page_size, '', '')
     }
+
+    $(".page").click(function () {
+        $("#all-check").prop("checked", false)
+    })
+    var allid;
     $("#all-check").click(function () {
         if ($("#all-check").is(":checked")) {
             $("input.icheck").prop("checked", true)
+            
         } else {
             $("input.icheck").prop("checked", false)
         }
@@ -171,7 +175,6 @@
                     var applyStatus = "";
                     for (var i = 0; i < obj.length; i++) {
                         var o = obj[i];
-                        console.log(o);
                         switch (o.status) {
                             case "未发布":
                                 applyStyle = "wfb";
@@ -215,7 +218,7 @@
                                 break;
                         }
                         htm += "<tr class='white-bg'>" +
-                    '<td class="check-color" ><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" /></td >' +
+                    '<td class="check-color" ><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" onchange="checkedid(this)" /></td >' +
                     '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.name + '</td>' +
                     '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.projtype + '</td>' +
                     '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.location + '</td>' +
@@ -225,13 +228,32 @@
                     }
                     }
                 $("#tbProjects").html(htm)
-                console.log(page, jsonData.PageCount, jsonData.total, ps)
-                console.log(data)
+              
                 
                 pages(page, jsonData.PageCount, jsonData.total, ps)
                 }
             })
-        };
-  
-    
+    };
+    var checkID = [];
+    function checkedid(boxid) {
+            
+    if (boxid.checked) {
+        checkID.push(boxid.value )
+        console.log(checkID)
+    } else {
+        checkID.pop(boxid.value )
+    }
+    }
+
+    function exportExcel() {
+        var cids=checkID.join(",")
+        if (cids == "") {
+            swal("请选择要导出的项目！")
+            return;
+        }
+        $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
+             var fpath = String(expfile)
+              window.open(fpath);
+         })
+    }
 </script>
