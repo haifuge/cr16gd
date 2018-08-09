@@ -256,7 +256,6 @@
         }
         $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
             var fpath = String(expfile)
-            console.log(fpath);
             $(".js-output-excle").attr("href", fpath)
             window.open(fpath)
          })
