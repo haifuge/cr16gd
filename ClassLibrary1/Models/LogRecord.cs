@@ -28,7 +28,7 @@ namespace DAL.Models
             int endIndex = pi * ps;
             string sql= @"select identity(int,1,1) as iid, lr.Id*1 as Id, ui.UserName, OperateType, CONVERT(varchar(20), lr.operateDate, 20) as OperateDate, Description 
                             into #temp1 
-                            from LogRecord lr left join UserInfo ui on lr.UserAccount = ui.UserAccount order by lr.operateDate desc
+                            from LogRecord lr left join UserInfo ui on lr.UserAccount = ui.id order by lr.operateDate desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
