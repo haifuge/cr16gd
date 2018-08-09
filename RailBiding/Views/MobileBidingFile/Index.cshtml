@@ -27,6 +27,7 @@
         .meetp-buttons-tab {
             top: 2.2rem;
         }
+
     </style>
 </head>
 <body>
@@ -73,6 +74,13 @@
                                 <dl>
                                     <dt>发布时间:</dt>
                                     <dd>@ViewBag.BidFilePublishDate</dd>
+                                </dl>
+                                <dl>
+                                    <dt>招标内容<br>介绍:</dt>
+                                    <dd>
+                                        @Html.Raw(ViewBag.BidFileProDescription)
+                                    </dd>
+
                                 </dl>
                                 <dl>
                                     <dt>招标文件<br>简述:</dt>
@@ -146,14 +154,25 @@
         }
 
         //附件
+       
+        
         $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
-            var obj = JSON.parse(data);
+            var obj ="";
+           obj = JSON.parse(data);
+           
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "' + obj[i].FilePath + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
-                document.getElementById("bffiles").appendChild(li)
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "" id="file'+i+'" title="'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank" >下载</a><span>'
+                document.getElementById("bffiles").appendChild(li);
+                $("#file"+i+"").click(function(){  
+                    window.open(""+$(this).attr('title')+"");  
+                });
             }
+            
+            
         });
+       
+        
     </script>
     <script>
         function getQueryString(name) {

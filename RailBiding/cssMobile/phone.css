@@ -1003,8 +1003,8 @@ tbody tr {
 
 .btn-row {
     background:#fff;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .row.btn-row {

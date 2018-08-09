@@ -98,10 +98,6 @@
                                     <dd>@ViewBag.Location</dd>
                                 </dl>
                                 <dl>
-                                    <dt>招标内容介绍:</dt>
-                                    <dd>@Html.Raw(ViewBag.ProjDescription)</dd>
-                                </dl>
-                                <dl>
                                     <dt>项目类型:</dt>
                                     <dd>@ViewBag.Type</dd>
                                 </dl>
@@ -113,10 +109,13 @@
                                     <dt>预计开标时间:</dt>
                                     <dd>@ViewBag.OpenDate</dd>
                                 </dl>
-
                                 <dl>
                                     <dt>拟中标单位数量:</dt>
                                     <dd>@ViewBag.BidingNum</dd>
+                                </dl>
+                                <dl>
+                                    <dt>招标内容介绍:</dt>
+                                    <dd>@Html.Raw(ViewBag.ProjDescription)</dd>
                                 </dl>
                                 <dl>
                                     <dt>招标文件简述：</dt>
@@ -141,12 +140,7 @@
                         </div>
                         <div id="tab2" class="tab">
                             <div class="list-block cards-list meetp-user-list">
-                                <ul class="lw-zb">
-                                    @*<li>上海思绕建设集团有限公司 <span class="tjqy">推荐企业</span></li>
-                                      <li>上海思绕建设集团有限公司 <span class="mln">名录内</span></li>*@
-                                    @Html.Raw(ViewBag.JoinCompanys)
-
-                                </ul>
+                                <ul class="lw-zb">@Html.Raw(ViewBag.JoinCompanys)</ul>
                             </div>
                         </div>
                         <div id="tab3" class="tab">
@@ -173,7 +167,7 @@
                 </div>
                 <div class="row btn-row">
                     <div class="buttons-row col-80 meetp-buttons-row">
-                        <a href="#" onclick="greenbtn()" class="button active">同意</a>
+                        <a href="#" onclick="greenbtn()" class="button active greenbtn">同意</a>
                         <a href="#" onclick="redbtn()" class="button active">驳回</a>
                     </div>
                 </div>
@@ -208,9 +202,14 @@
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "' + obj[i].FilePath + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
-                document.getElementById("bffiles").appendChild(li)
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + '<a href = "" id="file'+i+'" title="'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank" >下载</a><span>'
+                document.getElementById("bffiles").appendChild(li);
+                $("#file"+i+"").click(function(){  
+                    window.open(""+$(this).attr('title')+"");  
+                });
             }
+            
+            
         });
     </script>
     <script>
@@ -390,6 +389,12 @@
         function logindex() {
          
             window.location.href = "/MobileMain";
+        }
+        if($(".lw-zb").html()==""){
+            $(".greenbtn").hide()
+            $(".buttons-row .button:last-child").css("margin","0 auto")
+        }else{
+            $(".greenbtn").show()
         }
     </script>
 

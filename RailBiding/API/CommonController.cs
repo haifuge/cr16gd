@@ -260,7 +260,7 @@ namespace RailBiding.API
             string pid = Request["pid"].ToString();
             string sql = @"select ID, Name, CorporateRepresentative, RepPhone,RegisteredCapital, ConstructionContent, QualificationLevel
                             from Company 
-                            where id in(select CompanyId from BidingCompany where ProjId = " + pid+")";
+                            where id in(select CompanyId from BidingCompany where Biding = 1 and ProjId = " + pid+")";
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }

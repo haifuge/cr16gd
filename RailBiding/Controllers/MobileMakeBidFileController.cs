@@ -56,8 +56,8 @@ namespace RailBiding.Mobile
                                                     <span>{5}</span>
                                                 </div>
                                                 <div class='item-text'>
-                                                    投标报价：<span class='col02'>{1}万元</span>
-                                                    二次报价：<span class='col02'>{2}万元</span>
+                                                    <div style='display:inline-block'>投标报价：<span class='col02'>{1}万元</span></div>
+                                                    <div style='display:inline-block'>二次报价：<span class='col02'>{2}万元</span></div>
                                                 </div>
                                             </div>
                                         </a>

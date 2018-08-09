@@ -35,7 +35,7 @@ namespace RailBiding.Mobile
             ViewBag.ProjDescription = dr["ProDescription"].ToString();
             ViewBag.Content = dr["Content"].ToString();
 
-            string removebtn = ""; ;
+          
             if (Session["RoleId"].ToString() == "2" && Request["status"].ToString() == "1")
             {
                 ViewBag.InviteCompanyBtn = @"<a href='javascript:;' class='js-cancle-meet' id='invitebtn' onclick='inviteCompanys()' title='邀标'><i class='meet-icon icon-cancel icon-yb'>邀标</i></a>";
@@ -43,21 +43,28 @@ namespace RailBiding.Mobile
                                             "<a href='#' onclick=\"ShowDiv('MyDiv','fade')\" style='color: #fff'>" +
                                                 "<img src='/img/icon-add3.png' style='vertical-align: middle' alt=''>添加企业" +
                                             "</a></button>";
-                removebtn = "<i><img src='/img/icon-del.png'  onclick=\"removeCompany('{0}')\"></i>";
+               
             }
             else
             {
                 ViewBag.InviteCompanyBtn = "";
                 ViewBag.addCompanysbtn = "";
             }
+            //单位反馈
             dt = bc.GetBidingCompanys(pid);
-            StringBuilder cHtml = new StringBuilder();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            var joinC = (from c in dt.AsEnumerable()
+                         where c.Field<int>("CompanyResponse") == 1
+                         select new { id = c["id"].ToString(), name = c["Name"].ToString() }).ToList();
+
+            //单位反馈-单位显示框
+            StringBuilder comHtml = new StringBuilder();
+            foreach (var c in joinC)
             {
-                var cid = "company" + dt.Rows[i]["id"].ToString();
-                cHtml.Append("<li id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + "</li>");
+                comHtml.Append("<li id='" + c.id + "'>" + c.name + "</li>");
             }
-            ViewBag.JoinCompanys = cHtml.ToString();
+            ViewBag.JoinCompanys = comHtml.ToString();
+    
+
             return View();
         }
         [VerifyMobileLoginFilter]
