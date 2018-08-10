@@ -42,18 +42,18 @@
     <div class="wc-container">
         <div class="detail-user detail-user2 detail-user3">
             <a class="meet-btn medium-btn">
-                全部<span>20</span>
+                全部<span>@ViewBag.Total</span>
             </a>
             <a class="meet-btn medium-btn active">
-                参加<span>20</span>
+                参加<span>@ViewBag.JoinBiding</span>
             </a>
-            <a class="meet-btn medium-btn">不参加<span>2</span></a>
-            <a class="meet-btn medium-btn">未响应<span>4</span></a>
-            <a class="meet-btn medium-btn">未中标<span>2</span></a>
-            <a class="meet-btn medium-btn">中标<span>4</span></a>
+            <a class="meet-btn medium-btn">不参加<span>@ViewBag.NoJoin</span></a>
+            <a class="meet-btn medium-btn">未响应<span>@ViewBag.NoResponse</span></a>
+            <a class="meet-btn medium-btn">未中标<span>@ViewBag.NoWin</span></a>
+            <a class="meet-btn medium-btn">中标<span>@ViewBag.Win</span></a>
         </div>
         <div style="position: absolute;right: 30px;top:10px;font-weight: bold">
-            总中金额：<span style="color: #008cd6">3000万</span>
+            总中金额：<span style="color: #008cd6">@ViewBag.TotalAmount万</span>
         </div>
         <div class="detail-user-list" style="min-height:215px;overflow: auto;padding-top: 10px;">
             <div class="meet-user-span" style="display: block;">
@@ -333,8 +333,6 @@
                 </table>
             </div>
         </div>
-        <div class="page">
-        </div>
     </div>
 </div>
 
@@ -352,7 +350,12 @@
 
 
 <script>
-    $(function () {
-        pages(1, 2, 12, 5)
-    })
+    $.post("/Statistic/GetCompanyStatById", { cid: @ViewBag.cid}, function (res) {
+        var data = JSON.parse(res);
+        console.log(data);
+    });
+    $.post("/Statistic/GetCompanyBidDetail", { cid: @ViewBag.cid}, function (res) {
+        var data = JSON.parse(res);
+        console.log(data)
+    });
 </script>

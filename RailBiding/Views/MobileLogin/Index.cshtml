@@ -86,18 +86,25 @@
     <script>
         function checkForm() {
 
-            var username = document.getElementById('txtUserName');
-            var userpasswd = document.getElementById('txtPassword');
-            var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
-            $.post("/MobileLogin/Login", { account: username.value, psd: userpasswd.value }, function (data) {
-        
-                if (data == "1") {
-                    window.location = "/MobileMain";
-               
+            $.post("/MobileLogin/GetVerifyCode", {}, function (res) {
+                if (res != $("#txtCode").val()) {
+                    alert('验证码不正确')
+                    return;
                 }
-                else
-                    alert("用户名或密码错误!");
-            });
+                var username = document.getElementById('txtUserName');
+                var userpasswd = document.getElementById('txtPassword');
+                var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
+                $.post("/MobileLogin/Login", { account: username.value, psd: userpasswd.value }, function (data) {
+
+                    if (data == "1") {
+                        window.location = "/MobileMain";
+
+                    }
+                    else
+                        alert("用户名或密码错误!");
+                });
+            })
+            
         }
         $(document).on('focusin', function () {
             //软键盘弹出的事件处理
