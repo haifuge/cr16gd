@@ -2382,6 +2382,9 @@ input[name=keyname] {
      background-position: center -282px;
     background-color: #fff;
 }*/
+.parent-nav-icon.icon-meetcon {
+    background-position: center -282px;
+}
 .parent-nav-icon.icon-meetroom {
     background-position: center -76px;
 }
@@ -2391,11 +2394,11 @@ input[name=keyname] {
 }
 
 .parent-nav-icon.icon-cardprint {
-    background-position: center -216px;
+    background-position: center -215px;
 }
 
 .parent-nav-icon.icon-sealapply {
-    background-position: center -282px;
+    background-position: center -146px;
 }
 
 .parent-nav-icon.icon-travelapply {
