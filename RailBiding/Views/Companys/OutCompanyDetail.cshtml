@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/loading.css" rel="stylesheet" />
 <style>
     .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2) {
         color: #3e3a39;
@@ -32,7 +33,7 @@
             <span class="js-page-name">查看企业</span>
             <div class="apply-opt">
                 @Html.Raw(ViewBag.editbtn)
-                <a href='javascript:;' class='js-cancle-meet' title='导出'>
+                <a href='#' class='js-cancle-meet' title='导出' onclick="exportExcel()">
                     <i class='meet-icon icon-cancel icon-dc'>导出</i>
                 </a>
                 <a href='#' class='js-cancle-meet' onclick="window.history.go(-1)" title='返回'>
@@ -138,6 +139,7 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
 <script src="~/js/wow.min.js"></script>
 
 
@@ -167,5 +169,27 @@
         });
     });
 
-
+    function exportExcel() {
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在导出...',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+        var cids = @ViewBag.id;
+        $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
+            var fpath = String(expfile)
+            window.open(fpath);
+            removeLoading('test');
+        })
+    }
 </script>
