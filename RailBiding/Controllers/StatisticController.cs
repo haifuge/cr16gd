@@ -29,6 +29,19 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemS")]
         public ActionResult StatisticDetail(string cid)
         {
+            ViewBag.cid = cid;
+            BidContext bc = new BidContext();
+            DataTable dt = bc.GetCompanyStatById(cid);
+            if (dt.Rows.Count > 0)
+            {
+                ViewBag.Total = dt.Rows[0]["Total"].ToString();
+                ViewBag.JoinBiding = dt.Rows[0]["JoinBiding"].ToString();
+                ViewBag.NoJoin = dt.Rows[0]["NoJoin"].ToString();
+                ViewBag.NoResponse = dt.Rows[0]["NoResponse"].ToString();
+                ViewBag.NoWin = dt.Rows[0]["NoWin"].ToString();
+                ViewBag.Win = dt.Rows[0]["Win"].ToString();
+                ViewBag.TotalAmount = dt.Rows[0]["TotalAmount"].ToString();
+            }
             return View();
         }
         public string GetCompanyStatById(string cid)
