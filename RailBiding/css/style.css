@@ -2396,9 +2396,17 @@ input[name=keyname] {
 .parent-nav-icon.icon-cardprint {
     background-position: center -215px;
 }
-
-.parent-nav-icon.icon-sealapply {
-    background-position: center -146px;
+ .main-nav ul li a i.parent-nav-icon.icon-sealapply{
+    background-image:url(../img/icon-tongji.png);
+    background-position: center 0px;
+}
+ .main-nav ul li.active a i.parent-nav-icon.icon-sealapply{
+    background-image:url(../img/icon-tongji2.png);
+    background-position: center 0px;
+}
+.main-nav ul li a:hover .parent-nav-icon.icon-sealapply{
+    background-image:url(../img/icon-tongji2.png);
+    background-color:#fff
 }
 
 .parent-nav-icon.icon-travelapply {

@@ -442,6 +442,7 @@
     <Content Include="imgMobile\loginout-icon2.png" />
     <Content Include="imgMobile\login_bg.jpg" />
     <Content Include="imgMobile\login_bg.png" />
+    <Content Include="imgMobile\login_bg1.jpg" />
     <Content Include="imgMobile\logo %282%29.png" />
     <Content Include="imgMobile\logo.png" />
     <Content Include="imgMobile\lw-logo %282%29.png" />
@@ -538,7 +539,10 @@
     <Content Include="img\icon-message.png" />
     <Content Include="img\icon-output.png" />
     <Content Include="img\icon-px.png" />
+    <Content Include="img\icon-tongji.png" />
+    <Content Include="img\icon-tongji2.png" />
     <Content Include="img\icon-treeuser.png" />
+    <Content Include="img\index-7.png" />
     <Content Include="img\index-bg.jpg" />
     <Content Include="img\login-01.png" />
     <Content Include="img\login-bg.png" />

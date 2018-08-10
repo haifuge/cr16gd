@@ -25,13 +25,7 @@
        body{
            background:#39bdf7;
        }
-       .index-center{
-           padding-top:0px;
-       }
-       .index-center .index-box{
-           height:auto;
-           margin-top: 13%;
-       }
+
         @@media screen and (max-width: 1280px) {
             .index-bg2 {
                 width: 1280px;
@@ -143,7 +137,7 @@
                             <li>
                                 <a href="/BidingFile?activeMenu=itemF" name="rightPart">
                                     <dl>
-                                        <dt><img src="~/img/icon-index4.png" alt=""></dt>
+                                        <dt><img src="~/img/index-7.png" alt=""></dt>
                                         <dd>招标文件</dd>
                                     </dl>
                                 </a>
@@ -202,6 +196,9 @@
             $(".in-box-top ul li:nth-child(4) a").attr("href","javascript:;")
             //$("a[name='rightPart']").css("display", 'none');
             $(".in-box-top ").css("display","none")
+            $(".index-center").css("padding-top","0px")
+            $(".index-center .index-box").css({"height":"auto","margin-top":"13%"})
+             
         }
         $("#department").text($.cookie("UserDepartment"))
         $("#name").text($.cookie("UserName"))
