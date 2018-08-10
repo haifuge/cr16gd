@@ -33,15 +33,15 @@
             <span class="js-page-name">查看企业</span>
             <div class="apply-opt">
                 @Html.Raw(ViewBag.editbtn)
-                <a href='#' class='js-cancle-meet' title='导出' onclick="exportExcel()">
-                    <i class='meet-icon icon-cancel icon-dc'>导出</i>
+                <a href='javascript:;' class='js-cancle-meet' title='导出'>
+                    <i class='meet-icon icon-cancel icon-dc' id="exportbtn">导出</i>
                 </a>
                 <a href='#' class='js-cancle-meet' onclick="window.history.go(-1)" title='返回'>
                     <i class='meet-icon icon-del icon-tb'>返回</i>
                 </a>
             </div>
         </div>
-        <div class="wc-container  ccata">
+        <div class="wc-container  ccata" id="printArea">
             <div class="wc-nav">
             </div>
             <div class="detail-wrap detail-con">
@@ -168,28 +168,13 @@
             }
         });
     });
-
-    function exportExcel() {
-        $('body').loading({
-            loadingWidth: 240,
-            title: '请稍等!',
-            name: 'test',
-            discription: '正在导出...',
-            direction: 'column',
-            type: 'origin',
-            // originBg:'#71EA71',
-            originDivWidth: 40,
-            originDivHeight: 40,
-            originWidth: 6,
-            originHeight: 6,
-            smallLoading: false,
-            loadingMaskBg: 'rgba(0,0,0,0.2)'
-        });
-        var cids = @ViewBag.id;
-        $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
-            var fpath = String(expfile)
-            window.open(fpath);
-            removeLoading('test');
-        })
+    var downPdf = document.getElementById("exportbtn");
+    downPdf.onclick = function () {
+        var printData = document.getElementById("printArea").innerHTML;
+        var oldstr = document.body.innerHTML;
+        document.body.innerHTML = printData;
+        window.print();
+        document.body.innerHTML = oldstr;   //保持原页面格式   
     }
+
 </script>
