@@ -405,7 +405,19 @@
 .con-01-1 p {
         height: auto
     }
-
+    #bidapplylayer .canvas_close{
+        background:transparent;
+    }
+    #bidapplylayer .canvas_content {
+        width: 500px;
+        height: 300px;
+    }
+   #bidapplylayer .canvas_content_text {
+        height: auto;
+    }
+   #bidapplylayer .canvas_btn{
+       padding-top:20px;
+   }
 </style>
 
 <div class="left-nav">
@@ -422,7 +434,7 @@
             <span class="js-page-name">项目详情</span>
             <div class="apply-opt">
                 @Html.Raw(ViewBag.Button)
-                <a href="javascript:history.go(-1);" class="js-cancle-meet" title="返回">
+                <a href="#" onclick="window.history.go(-1)" class="js-cancle-meet" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
             </div>
@@ -443,7 +455,7 @@
                 </div>
                 <div class="canvas_btn">
                     <a href="#" class="meet-btn big-btn lightblue-btn subm" onclick="bidSubmit(1)">提交</a>
-                    <a href="add_enterprise.html" class="meet-btn big-btn gray-btn">返回</a>
+                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
                 </div>
             </div>
         </div>
@@ -454,8 +466,7 @@
                 <h3>招标文件申请</h3>
                 <div class="canvas_content_text">
                     <ul>
-                        <li><span>招标文件<br>内容简述</span> <textarea id="bfcontent" placeholder="招标文件简述、主要工程量、预计合同金额" onfocus="if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur="    if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea>
-                             <p class="textinfo" style="color:red;padding-left:90px;display:none;">请简述招标文件内容！</p>
+                        <li><span>招标文件<br>内容简述</span> <textarea id="bfcontent" placeholder="招标文件简述、主要工程量、预计合同金额" onfocus="if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur="if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea>
                         </li>
                         <li>
                             <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none">招标文件</span>
@@ -470,8 +481,7 @@
                             
                         </li>
                         <li>
-                            <ul id="bffiles">
-                            </ul>
+                            <ul id="bffiles"></ul>
                         </li>
                     </ul>
                 </div>
@@ -585,11 +595,14 @@
 
     function bidfileSubmit(ss) {
         var bfc = $("#bfcontent").val();
+        var bffiles = $("#bffiles").html();
         if(bfc==""){
-            $(".textinfo").css("display","block")
+            swal("请简述招标文件内容!");
             return;
-        }else{
-            $(".textinfo").css("display","none")
+        }
+        if(bffiles==""){
+            swal("请上传招标文件!");
+            return;
         }
         $('body').loading({
             loadingWidth: 240,
@@ -634,10 +647,11 @@
         $(".textinfo").css("display","none")
     })
     $(".backcolse-btn").on("click", function () {
-        $("#bidfileapplylayer").hide();
+        
         $("#bfcontent").val("");
         $("#bffiles").html("");
         $(".canvas").hide();  
+        $("#bidfileapplylayer").hide();
         $(".textinfo").css("display","none")
     })
 

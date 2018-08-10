@@ -49,8 +49,8 @@ namespace RailBiding.Controllers
                     string QualificationLevel = row["QualificationLevel"].ToString();
                     QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
-                                <p>投标报价：<span class='colblue'>{1}元</span></p>
-                                <p>二次报价：<span class='colblue'>{2}元</span></p>
+                                <p>投标报价：<span class='colblue'>{1}万元</span></p>
+                                <p>二次报价：<span class='colblue'>{2}万元</span></p>
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>
@@ -112,8 +112,8 @@ namespace RailBiding.Controllers
                     string QualificationLevel = row["QualificationLevel"].ToString();
                     QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
-                                <p>投标报价：<span class='colblue'>{1}元</span></p>
-                                <p>二次报价：<span class='colblue'>{2}元</span></p>
+                                <p>投标报价：<span class='colblue'>{1}万元</span></p>
+                                <p>二次报价：<span class='colblue'>{2}万元</span></p>
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>

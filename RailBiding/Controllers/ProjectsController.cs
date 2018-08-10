@@ -177,8 +177,8 @@ namespace RailBiding.Controllers
                                             "<p>" + ConstructionContent + "</p>" +
                                         "</div>" +
                                         "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
-                                        "<div class='tbbj'>投标报价：<input type='text' name='fp' class='price1' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["FirstPrice"].ToString() + "' required='required'>元</div>" +
-                                        "<div class='tbbj'>二次报价：<input type='text' name='sp' class='price2' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["SecondPrice"].ToString() + "' required='required'>元</div>" +
+                                        "<div class='tbbj'>投标报价：<input type='text' name='fp' class='price1' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["FirstPrice"].ToString() + "' required='required'>万元</div>" +
+                                        "<div class='tbbj'>二次报价：<input type='text' name='sp' class='price2' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["SecondPrice"].ToString() + "' required='required'>万元</div>" +
                                     "</div>" +
                                     "</li>";
                 }
@@ -629,9 +629,9 @@ namespace RailBiding.Controllers
             for(int i=0;i<dt.Rows.Count;i++)
             {
                 if (i == 0)
-                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath, "/") + "' target='_blank' download='11'> &nbsp;&nbsp;下载 </a></li>";
+                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath, "/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
                 else
-                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath,"/") + "' target='_blank' download='11'> &nbsp;&nbsp;下载 </a></li>";
+                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath,"/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
             }
             fujian += "</ul></div>";
             ViewBag.Fujian = fujian;
@@ -676,8 +676,8 @@ namespace RailBiding.Controllers
                     string QualificationLevel = row["QualificationLevel"].ToString();
                     QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
-                                <p>投标报价：<span class='colblue'>{1}元</span></p>
-                                <p>二次报价：<span class='colblue'>{2}元</span></p>
+                                <p>投标报价：<span class='colblue'>{1}万元</span></p>
+                                <p>二次报价：<span class='colblue'>{2}万元</span></p>
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>
@@ -718,7 +718,10 @@ namespace RailBiding.Controllers
             foreach(string c in companys)
             {
                 string[] cc = c.Split('-');
-                sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0]+"; ";
+                string sp = "";
+                if (cc[2] != "")
+                    sp = ", SecondPrice=" + cc[2];
+                sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + sp + " where ProjId=" + pid + " and CompanyId=" + cc[0]+"; ";
             }
             DBHelper.ExecuteNonQuery(sql);
             string winCompany = Request["wincompany"].ToString();
@@ -757,7 +760,10 @@ namespace RailBiding.Controllers
                 if (c != "")
                 {
                     string[] cc = c.Split('-');
-                    sql += "update BidingCompany set biding=1,Win=0, FirstPrice=" + cc[1] + ", SecondPrice=" + cc[2] + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                    string sp = "";
+                    if (cc[2] != "")
+                        sp = ", SecondPrice=" + cc[2];
+                    sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + sp + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
                 }
             }
             if(sql!="")

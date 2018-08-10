@@ -615,22 +615,24 @@
     //修改部门弹框显示
     function zTreeOnDblClick(event, treeId, treeNode) {
         console.log(treeNode);
-        console.log(treeNode.id);
         treenode = treeNode
+        $(".canvas.canvas5").show()
         var parent = treeNode.getParentNode();
-        console.log(parent)
         if (parent == "" || parent==null) {
             $(".parentname").val("")
         } else {
             $(".parentname").val(parent.name);
         }
         if (treeNode.projectdp == 1) {
-            $(".updatebumenbox").attr("checked",true)
+            console.log("yes")
+            $(".updatebumenbox").prop("checked", true)
         } else {
-            $(".updatebumenbox").attr("checked", false)
+            console.log("no")
+            $(".updatebumenbox").prop("checked", false);
+            
         }
-        $(".canvas.canvas5").show()
-
+        
+        
     }
 
     //修改部门弹框隐藏
@@ -659,15 +661,7 @@
            title: '保存成功！',
            text: '2秒后自动关闭。',
            timer: 2000
-       }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer')
-                        }
-                    }
-                )
+       })
        $(".canvas.canvas5").hide();
        $("#updatespjbmsg").html("");
        $("#updatebmnamemsg").html("");
@@ -720,7 +714,6 @@
     var nodes;
     function initTree() {
         $.get("/SystemSetup/GetOrganizations", {}, function (data) {
-           console.log(data)
             data = data.replace(/pid/g, 'pId').replace(/iconclose/g, 'iconClose').replace(/iconopen/g, 'iconOpen')
             nodes = JSON.parse(data);
             $.fn.zTree.init($("#tree"), setting, nodes);
@@ -846,7 +839,6 @@
     
     //选择人员弹框显示
     $(".xzadd-img").on("click", function () {
-        console.log($("#dlevel").val())
         if ($("#dlevel").val() == null || $("#dlevel").val() == "") {
             swal("请选择部门");
         } else {
@@ -930,7 +922,6 @@
                 initTree();
                 var zTree = $.fn.zTree.getZTreeObj("tree");
                 var node = zTree.getNodeByParam("id", parseInt(nid), null); //根据新的id找到新添加的节点
-                console.log(node)
                 zTree.selectNode(node); //让新添加的节点处于选中状态
                 zTree.expandNode(node, true, false, true);
             }
@@ -963,7 +954,6 @@
     function createNewUser() {
         
         var success = 0;
-        console.log(yzzh('uaccount', 'd1'))
         success += yzzh('uaccount', 'd1');
         success += yzxm('uname', 'xm');
         success += checkphone('utel', 'phonemsg');
@@ -975,7 +965,6 @@
             return;
         }
         var rol = $(".rol").val();
-        console.log(rol);
         var account = $("#uaccount").val();
         var password = $("#upsd").val();
         var name = $("#uname").val();
@@ -1010,15 +999,7 @@
                     title: '创建失败！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer')
-                        }
-                    }
-                )
+                })
                 $("#uaccount").val("");
                 $("#upsd").val("");
                 $("#uname").val("");
@@ -1042,7 +1023,6 @@
         var addhtm = "";
         $.post("/SystemSetup/SearchUsers", { uname: searchpeo }, function (res) {
             var obj = JSON.parse(res);
-            console.log(obj);
             if (obj.length == 0) {
                 $("#xzaddinputmsg").html("查无此人");
                 return;
@@ -1054,7 +1034,6 @@
                           '<td style="width:27%">' + obj[0].telphone + '</td>' +
                          '<td style="width:27%">' + obj[0].email + '</td>' +
                        '</tr>';
-            console.log(obj);
             $("#searchtbody").html(addhtm);
             })
        
@@ -1080,16 +1059,7 @@
                 title: '添加成功！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                                function () { },
-                                // handling the promise rejection
-                                function (dismiss) {
-                                    if (dismiss === 'timer') {
-                                        console.log('I was closed by the timer')
-                                    }
-                                }
-                            )
-            
+            })
         })
         $(".canvas4").hide()
       
@@ -1101,14 +1071,11 @@
     function getDepartmentUsers() {
         nowpage = 1;
         page_size = 10;
-        console.log(1)
         Paginator(nowpage, page_size)
     }
     function Paginator(page, ps) {
         $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id ,pageIndex: page , pageSize: ps}, function (res) {
-            console.log(res)
             var jsonData = JSON.parse(res);
-            console.log(jsonData)
             var obj = jsonData.List;
             $("#tbusers").empty();
             var htm = "";
@@ -1116,7 +1083,6 @@
             var role = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                console.log(o)
                 if (o.roleid == 1) {
                     role = "轨道公司领导";
                 } else if (o.roleid == 2) {
@@ -1136,7 +1102,6 @@
                     '</tr >';
             }
             $("#tbusers").html(htm)
-            console.log(page, jsonData.pagecount, jsonData.total, parseInt(ps))
             pages(page, jsonData.pagecount, jsonData.total, parseInt(ps))
         })
 
@@ -1174,9 +1139,7 @@
         $(".canvas.canvas3").show();
         for (var i = 0; i < users.length; i++) {
             var o = users[i];
-            console.log(o);
             if (o.id == id) {
-
                 $('#xgbType').val(o.roleid);
                 $('#xguaccount').val(o.useraccount);
                 $('#xguname').val(o.username);
@@ -1197,7 +1160,6 @@
         }
 
         var xgbType = $('#xgbType').val();
-        console.log(xgbType);
         var xguaccount = $('#xguaccount').val();
         var xguname = $('#xguname').val();
         var xgutel = $('#xgutel').val();
@@ -1218,15 +1180,7 @@
                     title: '修改失败！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                 function () { },
-                  // handling the promise rejection
-                 function (dismiss) {
-                 if (dismiss === 'timer') {
-                       console.log('I was closed by the timer')
-                       }
-                     }
-               )
+                })
         })
         $(".canvas.canvas3").hide();
     }
@@ -1360,7 +1314,6 @@
     //选择人员搜索验证
     function xzaddinputcon() {
         var searchpeocon = $(".xzaddinputcon").val();
-        console.log(searchpeocon);
         if (searchpeocon = null || searchpeocon == "") {
             $("#xzaddinputmsg").html("请输入要查询的用户名或姓名");
             return 1;

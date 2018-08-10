@@ -210,7 +210,7 @@ namespace DAL.Models
                                 bf.Content, p.ProDescription, b.Status
                             from project p inner join bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
-                            left join BusinessType bt on bt.id=p.ProjType
+                            left join CompanyType bt on bt.id=p.ProjType
                             left join UserInfo ui on ui.id=b.publisherId
 							left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                             left join Department d on d.ID=du.DepartmentId

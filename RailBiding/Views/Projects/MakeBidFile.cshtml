@@ -211,7 +211,7 @@
                         </td>
                         <td>
                             <div id="editor">
-                                @Html.Raw(ViewBag.FileExplain)
+                                
                             </div>
                             @*富文本编辑框*@
                         </td>
@@ -277,6 +277,8 @@
     var editor= new E('#editor')
     // 或者 var editor= new E( document.getElementById('editor') )
     editor.create()
+    editor.txt.html('@Html.Raw(ViewBag.FileExplain)')
+
 
     var JoinWin='';
     //弹出隐藏层
@@ -521,14 +523,12 @@
         var lis= $(".cjtb_ul").children('li');
         var jc= "";
         var cs="";
+        console.log("lis"+lis.length)
         for (var i= 0; i < lis.length; i++) {
             cs= lis[i].children[0].children;
 
             if(cs[3].children[0].value==''){
                 swal("请填写投标报价！");
-                return;
-            }else if(cs[4].children[0].value==''){
-                swal("请填写二次报价！");
                 return;
             }else{
                 jc += cs[2].innerText + "-" + cs[3].children[0].value + "-" + cs[4].children[0].value + "|";
@@ -536,7 +536,7 @@
         }
         if (jc.length > 0)
             jc=jc.substr(0, jc.length - 1);
-
+        
         
        
         if($(".nxzbdw2").html()==""){
@@ -558,7 +558,7 @@
         }
         if (wc.length > 0)
             wc= wc.substr(0, wc.length - 1);
-  
+        console.log("jc"+jc)
         getQueryString('status');
         $('body').loading({
             loadingWidth: 240,
@@ -575,20 +575,20 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
-        if (getQueryString('status')== 3) {
+       if (getQueryString('status')== 3) {
              $.post("/Projects/ReapplyMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
                 var rdata= encodeURIComponent(editor.txt.html())
-                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
-                    removeLoading('test');
-                    swal('创建成功！');
-                    window.location.href= "/Projects/Detail?pid="+@ViewBag.pid;
-                  
-                })
+               $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
+                   removeLoading('test');
+                   swal('创建成功！');
+                   window.location.href= "/Projects/Detail?pid="+@ViewBag.pid;
+              
+               })
             });
         } else {
-            $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
+           $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
                 var rdata= encodeURIComponent(editor.txt.html())
-                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
+               $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
                     removeLoading('test');
                     swal('创建成功！');
                     window.location.href= "/Projects/Detail?pid="+@ViewBag.pid;

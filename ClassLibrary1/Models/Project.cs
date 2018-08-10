@@ -48,7 +48,7 @@ namespace DAL.Models
             string sql = @"select p.Id, p.Name, bt.Name as ProjType, Location, d.Name+' '+ui.UserName as publisher, ui.id as uid,
                                 convert(varchar(20),p.PublishDate, 23) as PublishDate, p.ProDescription, p.Status 
                             from Project p 
-                            left join BusinessType bt on bt.id=p.ProjType
+                            left join CompanyType bt on bt.id=p.ProjType
                             left join UserInfo ui on p.PublisherId=ui.ID
                             left join DepartmentUser du on ui.ID=du.UserId and du.Status=1
                             left join Department d on d.ID=du.DepartmentId

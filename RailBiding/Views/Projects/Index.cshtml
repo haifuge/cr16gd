@@ -25,6 +25,10 @@
         float: left;
         margin-bottom: 20px;
     }
+    .sel-companytype{
+    background: url(../img/icon-arrow.png) no-repeat 160px center;
+    padding-right: 20px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -38,7 +42,7 @@
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
-            <select class="meet-select js-meet-state" id="bType"></select>
+            <select class="meet-select js-meet-state sel-companytype" id="bType" style="width:180px"></select>
             <select class="meet-select js-meet-state" id="bStatus">
                 <option value="">项目状态 </option>
                 <option value="未发布">未提交</option>
@@ -94,7 +98,7 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type='text/javascript'>
 
-    $.post("/Common/GetBusinessType", {}, function (data) {
+    $.post("/Common/GetCompanyType", {}, function (data) {
         var obj = JSON.parse(data);
         var btype = $("#bType");
         btype.append("<option value=''>项目类型</option>");
@@ -176,6 +180,7 @@
                     var applyStatus = "";
                     for (var i = 0; i < obj.length; i++) {
                         var o = obj[i];
+                        console.log(o)
                         switch (o.status) {
                             case "未发布":
                                 applyStyle = "wfb";
@@ -240,7 +245,6 @@
             
     if (boxid.checked) {
         checkID.push(boxid.value )
-        console.log(checkID)
     } else {
         checkID.pop(boxid.value )
     }
@@ -267,7 +271,6 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
-        console.log(cids)
         $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
             var fpath = String(expfile)
             window.open(fpath);
