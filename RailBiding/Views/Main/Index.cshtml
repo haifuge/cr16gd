@@ -25,6 +25,13 @@
        body{
            background:#39bdf7;
        }
+       .index-center{
+           padding-top:0px;
+       }
+       .index-center .index-box{
+           height:auto;
+           margin-top: 13%;
+       }
         @@media screen and (max-width: 1280px) {
             .index-bg2 {
                 width: 1280px;
@@ -116,7 +123,7 @@
                                 <a href="/Projects">
                                     <dl>
                                         <dt><img src="~/img/icon-index6.png" alt=""></dt>
-                                        <dd>招标内容介绍</dd>
+                                        <dd>招标内容</dd>
                                     </dl>
                                 </a>
                             </li>
@@ -142,6 +149,14 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="/Bidings?activeMenu=itemB" name="rightPart">
+                                    <dl>
+                                        <dt><img src="~/img/icon-index2.png" alt=""></dt>
+                                        <dd>招标管理</dd>
+                                    </dl>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="/MakeBidFile?activeMenu=itemM"name="rightPart">
                                     <dl>
                                         <dt><img src="~/img/icon-index5.png" alt=""></dt>
@@ -149,14 +164,7 @@
                                     </dl>
                                 </a>
                             </li>
-                            <li>
-                                <a href="/Bidings?activeMenu=itemB"name="rightPart">
-                                    <dl>
-                                        <dt><img src="~/img/icon-index2.png" alt=""></dt>
-                                        <dd>招标管理</dd>
-                                    </dl>
-                                </a>
-                            </li>
+
                             @*<li>
                                 <a href="/Statistic?activeMenu=itemS">
                                     <dl>
@@ -187,13 +195,13 @@
 <script>
     $(function () {
         if (@ViewBag.RoleId== 4) {
-            $(".sp-list-right").html("0");
+            $(".sp-list-right").html("");
             $(".in-box-top ul li:nth-child(1) a").attr("href","javascript:;")
             $(".in-box-top ul li:nth-child(2) a").attr("href","javascript:;")
             $(".in-box-top ul li:nth-child(3) a").attr("href","javascript:;")
             $(".in-box-top ul li:nth-child(4) a").attr("href","javascript:;")
-            $("a[name='rightPart']").css("display", 'none');
-            $(".in-box-top ul li a").css("display", 'none');
+            //$("a[name='rightPart']").css("display", 'none');
+            $(".in-box-top ").css("display","none")
         }
         $("#department").text($.cookie("UserDepartment"))
         $("#name").text($.cookie("UserName"))
@@ -202,7 +210,7 @@
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                console.log(o)
+             console.log(o)
                 if(o.appprocid==1){
                     $(".num-one").html(o.company)
                 }

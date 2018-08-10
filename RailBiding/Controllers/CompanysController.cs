@@ -162,6 +162,7 @@ namespace RailBiding.Controllers
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
             ViewBag.Name = dr["Name"].ToString();
+            ViewBag.id = dr["id"].ToString();
             ViewBag.CreditNo = dr["CreditNo"].ToString();
             ViewBag.CorporateRepresentative = dr["CorporateRepresentative"].ToString();
             ViewBag.RepPhone = dr["RepPhone"].ToString();

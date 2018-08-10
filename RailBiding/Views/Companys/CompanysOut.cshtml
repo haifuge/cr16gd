@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/loading.css" rel="stylesheet" />
 <style>
     #bType {
         float: left;
@@ -80,6 +81,7 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
 <script src="~/js/jquery.cookie.js"></script>
 
 <script type='text/javascript'>
@@ -252,16 +254,31 @@
     }
 
     function exportExcel() {
-
+        
         var cids = checkID.join(",")
         if (cids == "") {
             swal("请选择要导出的企业！")
             return;
         }
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在导出...',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
         $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
             var fpath = String(expfile)
-            $(".js-output-excle").attr("href", fpath)
             window.open(fpath);
+            removeLoading('test');
         })
     }
 </script>
