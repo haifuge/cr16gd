@@ -581,8 +581,6 @@
     <Content Include="js\bootstrap-table-zh-CN.js" />
     <Content Include="js\bootstrap-table.js" />
     <Content Include="js\bootstrap.min.js" />
-    <Content Include="js\html2canvas.js" />
-    <Content Include="js\html2canvas.min.js" />
     <Content Include="js\icheck\icheck.min.js" />
     <Content Include="js\jquery-1.11.0.js" />
     <Content Include="js\jquery-ui.min.js" />
@@ -592,7 +590,6 @@
     <Content Include="js\jquery.ztree.excheck.js" />
     <Content Include="js\jquery.ztree.exedit.js" />
     <Content Include="js\js.js" />
-    <Content Include="js\jspdf.js" />
     <Content Include="js\loading.js" />
     <Content Include="js\My97DatePicker\calendar.js" />
     <Content Include="js\My97DatePicker\lang\en.js" />

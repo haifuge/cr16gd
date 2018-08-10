@@ -33,14 +33,14 @@
             <div class="apply-opt">
                 @Html.Raw(ViewBag.editbtn)
                 <a href='javascript:;' class='js-cancle-meet' title='导出'>
-                    <i class='meet-icon icon-cancel icon-dc'>导出</i>
+                    <i class='meet-icon icon-cancel icon-dc' id="exportbtn">导出</i>
                 </a>
                 <a href='#' class='js-cancle-meet' onclick="window.history.go(-1)" title='返回'>
                     <i class='meet-icon icon-del icon-tb'>返回</i>
                 </a>
             </div>
         </div>
-        <div class="wc-container  ccata">
+        <div class="wc-container  ccata" id="printArea">
             <div class="wc-nav">
             </div>
             <div class="detail-wrap detail-con">
@@ -166,6 +166,13 @@
             }
         });
     });
-
+    var downPdf = document.getElementById("exportbtn");
+    downPdf.onclick = function () {
+        var printData = document.getElementById("printArea").innerHTML;
+        var oldstr = document.body.innerHTML;
+        document.body.innerHTML = printData;
+        window.print();
+        document.body.innerHTML = oldstr;   //保持原页面格式   
+    }
 
 </script>
