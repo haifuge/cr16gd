@@ -25,13 +25,7 @@
        body{
            background:#39bdf7;
        }
-       .index-center{
-           padding-top:0px;
-       }
-       .index-center .index-box{
-           height:auto;
-           margin-top: 13%;
-       }
+
         @@media screen and (max-width: 1280px) {
             .index-bg2 {
                 width: 1280px;
@@ -202,6 +196,9 @@
             $(".in-box-top ul li:nth-child(4) a").attr("href","javascript:;")
             //$("a[name='rightPart']").css("display", 'none');
             $(".in-box-top ").css("display","none")
+            $(".index-center").css("padding-top","0px")
+            $(".index-center .index-box").css({"height":"auto","margin-top":"13%"})
+             
         }
         $("#department").text($.cookie("UserDepartment"))
         $("#name").text($.cookie("UserName"))
