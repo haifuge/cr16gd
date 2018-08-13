@@ -142,8 +142,7 @@
         </table>
         <div class="bid-btn">
             <ul>
-                <li><a href="#" class="bid-redbtn" onclick="response(2)">不参加</a></li>
-                <li><a href="#" class="bid-greenbtn" onclick="response(1)">参加</a></li>
+                @Html.Raw(ViewBag.btn)
             </ul>
         </div>
     </div>
@@ -165,13 +164,11 @@
         $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
             if (res == 1) {
                 $(".bid-btn ul").css("text-align", "center");
-                $(".bid-btn ul").html("<li><a href='javascript:;' class='bid-clickafterbtn'>已参加</a></li>")
                 $(".bid-btn ul li a").css({"color":"red","border":"1px solid red"});
                 alert('您已参加竞标')
             }
             else {
                 $(".bid-btn ul").css("text-align", "center");
-                $(".bid-btn ul").html("<li><a href='javascript:;' class='bid-clickafterbtn'>不参加</a></li>")
                 $(".bid-btn ul li a").css({ "color": "red", "border": "1px solid red" });
                 alert('您已拒绝参加竞标')
             }

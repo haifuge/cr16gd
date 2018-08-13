@@ -34,6 +34,7 @@ namespace RailBiding.Controllers
             DataTable dt = bc.GetCompanyStatById(cid);
             if (dt.Rows.Count > 0)
             {
+                ViewBag.Name = dt.Rows[0]["Name"].ToString();
                 ViewBag.Total = dt.Rows[0]["Total"].ToString();
                 ViewBag.JoinBiding = dt.Rows[0]["JoinBiding"].ToString();
                 ViewBag.NoJoin = dt.Rows[0]["NoJoin"].ToString();
