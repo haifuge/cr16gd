@@ -243,9 +243,10 @@ namespace RailBiding.API
             int ps = int.Parse(pagesize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, ID*1 as ID, Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent,Type 
+            string sql = @"select identity(int,1,1) as iid, c.ID*1 as ID, c.Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent,Type, ct.Name as companyType 
                            into #temp1
-                           from Company where "+where+@" Status=1 and AuditStatus=2 order by Id
+                           from Company c left join CompanyType ct on c.BusinessType=ct.ID 
+                            where " + where+@" Status=1 and AuditStatus=2 order by Id
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             drop table #temp1";
             DataTable dt = DBHelper.GetDataTable(sql);
@@ -258,9 +259,9 @@ namespace RailBiding.API
         public string GetBidingCompanys()
         {
             string pid = Request["pid"].ToString();
-            string sql = @"select ID, Name, CorporateRepresentative, RepPhone,RegisteredCapital, ConstructionContent, QualificationLevel
-                            from Company 
-                            where id in(select CompanyId from BidingCompany where Biding = 1 and ProjId = " + pid+")";
+            string sql = @" select c.ID, c.Name, CorporateRepresentative, RepPhone,RegisteredCapital, ConstructionContent, QualificationLevel, ct.Name as companyType
+                            from Company c left join CompanyType ct on c.BusinessType=ct.ID
+                            where c.id in(select CompanyId from BidingCompany where Biding = 1 and ProjId = "+pid+")";
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }

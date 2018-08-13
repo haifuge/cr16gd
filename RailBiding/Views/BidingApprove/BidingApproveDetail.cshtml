@@ -24,19 +24,46 @@
     .detail-user-list {
     padding:0px 
 }
-    .white_content{
-        width: 24%;
-        max-width: 24%;
-        min-width: 500px;
-    }
+
     .page{
         padding:1em;
     }
     .white_content3{
         height:80%;
     }
+   #MyDiv{
+            width: 1200px;
+            position:relative;
+            top:15%;
+            margin: 0 auto;
+            right:auto;
+        }
+        .page{
+            padding:1em;
+        }
+        .black_overlay{
+            background:rgba(0,0,0,0.5);
+        }
+     select.meet-select.js-meet-state {
+            float: left;
+        }
     .black_overlay{
         z-index:100;
+    }
+   .black_overlay .big-btn {
+        height: 30px;
+        font-size: 14px;
+        line-height: 30px;
+        width: 100px;
+        text-align: center;
+        padding: 0;
+    }
+    .black_overlay .meet-table tr.white-bg td{
+        line-height:16px;
+        padding: 10px 0px;
+    }
+    .black_overlay .meet-table.text-left{
+        width:100%;
     }
     .white_content{
          z-index:102
@@ -97,12 +124,15 @@
                             <a class="search-btn"><i class="search-icon meet-icon"></i></a>
                         </div>
                         <table class="meet-table text-left">
-                            <thead>
-                                <tr>
-                                    <th style="width:20px;padding:0px 5px"></th>
-                                    <th style="width:150px;padding:0px 5px">公司名称</th>
-                                    <th style="width:80px;padding:0px 5px"> 法人代表 </th>
-                                    <th style="width:60px;padding:0px 5px">联系电话</th>
+                            <thead>  
+                                <tr style="background-color:#40cbe16b;line-height: 36px;">
+                                    <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="icheck" name="addcompanybiding" type="checkbox" value="" id="all-check" /></th>
+                                    <th style="width:250px;padding:0 5px;font-weight:800;text-align:center">劳务承分包企业名称</th>
+                                    <th style="width:150px;padding:0 5px;font-weight:800;text-align:center">企业类型</th>
+                                    <th style="width:240px;padding:0 5px;font-weight:800;text-align:center">资质等级</th>
+                                    <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">注册资本</th>
+                                    <th style="width:70px;padding:0 5px;font-weight:800;text-align:center">法人代表</th>
+                                    <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">联系电话</th>
                                 </tr>
                             </thead>
                             <tbody id="comhtm"></tbody>
@@ -250,7 +280,14 @@
 
 
 <script>
-
+    //全部按钮
+    $("#all-check").click(function(){
+        if ($("#all-check").is(":checked")){
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
+        }
+    })
 
     //参与单位移除
     $("#inviteCompany span i").click(function ()
@@ -712,21 +749,30 @@
             for (var j = 0; j < obj.length; j++)
             {
                 var o = obj[j];
+                console.log(o)
                 var imgjian = "";
                 if (o.type != 1)
                 {
                     imgjian = '<img src="/img/con-tuijian.png">';
                 }
-                comhtml += '<tr class="white-bg">' +
-                            '<td class="check-color">' +
-                            '<input class="icheck" name="addcompenycheck" type="checkbox" value="' + o.id + '|' + o.name + '" id="checkbox-1"/>' +
-                            '</td>' +
-                            '<td>' +
-                            '<a href="/Companys/Details?id=' + o.id + '"  target="_blank" class="comoname" style="display:block;line-height:18px;">' + o.name + imgjian + '</a>' +
-                            '</td>' +
-                            '<td>' + o.corporaterepresentative + '</td>' +
-                            '<td>' + o.repphone + '</td>' +
-                            '</tr>'
+                comhtml += '<tr class="white-bg">'+
+                              '<td style="width:10px;padding:0 0 0 20px" class="check-color">'+
+                                 '<input class="icheck" name="addcompanybiding" type="checkbox"  value="' + o.id +'" />' +
+                              '</td>'+
+                              '<td style="width:250px;padding:0 5px;">'+
+                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.name+'</a>'+
+                              '</td>'+
+                              '<td style="width:150px;padding:10px 5px;">'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.companytype+'</a></td>'+
+                              '<td style="width:240px;padding:10px 5px;">'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.qualificationlevel+'</a></td>'+
+                              '<td style="width:60px;padding:0 5px;">'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.registeredcapital+'万元</a></td>'+
+                              '<td style="width:70px;padding:0 5px;">'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.corporaterepresentative+'</a></td>'+
+                              '<td style="width:100px;padding:0 5px;">'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.repphone+'</a></td>'+
+                          '</tr>'
             }
             $("#comhtm").html(comhtml)
             pages(page, jsonData.pagecount, jsonData.total, ps)

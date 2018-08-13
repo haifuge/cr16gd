@@ -80,7 +80,7 @@
             padding-left: 10px;
         }
         .white_content{
-            width: 800px;
+            width: 1200px;
             position:relative;
             top:15%;
             margin: 0 auto;
@@ -163,10 +163,11 @@
                                     <table class="meet-table text-left" >
                                         <thead>
                                             <tr style="background-color:#40cbe16b;line-height: 36px;">
-                                                <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="icheck" name="addcompanybiding" type="checkbox" value="" id="all-icheck" /></th>
+                                                <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="icheck" name="addcompanybiding" type="checkbox" value="" id="all-check" /></th>
                                                 <th style="width:250px;padding:0 5px;font-weight:800;text-align:center">劳务承分包企业名称</th>
+                                                <th style="width:150px;padding:0 5px;font-weight:800;text-align:center">企业类型</th>
                                                 <th style="width:240px;padding:0 5px;font-weight:800;text-align:center">资质等级</th>
-                                                <th style="width:60px;padding:0 5px;font-weight:800;text-align:center">注册资本</th>
+                                                <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">注册资本</th>
                                                 <th style="width:70px;padding:0 5px;font-weight:800;text-align:center">法人代表</th>
                                                 <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">联系电话</th>
                                             </tr>
@@ -472,6 +473,15 @@
         Paginator(nowpage, page_size)
     })
 
+    //全部按钮
+    $("#all-check").click(function(){
+        if ($("#all-check").is(":checked")){
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
+        }
+    })
+
     function Paginator(page, ps) {
         $.post("/Common/GetBidingCompanys", { pid: @ViewBag.pid },function (data) {
             var obj= JSON.parse(data);
@@ -485,16 +495,18 @@
                                  '<input class="icheck" name="addcompanybiding" type="checkbox"  value="' + o.id +'" />' +
                               '</td>'+
                               '<td style="width:250px;padding:0 5px;">'+
-                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:18px;">'+o.name+'</a>'+
+                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.name+'</a>'+
                               '</td>'+
+                              '<td style="width:150px;padding:10px 5px;">'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.companytype+'</a></td>'+
                               '<td style="width:240px;padding:10px 5px;">'+
-                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:18px;">'+o.qualificationlevel+'</a></td>'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.qualificationlevel+'</a></td>'+
                               '<td style="width:60px;padding:0 5px;">'+
-                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:18px;">'+o.registeredcapital+'</a></td>'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.registeredcapital+'万元</a></td>'+
                               '<td style="width:70px;padding:0 5px;">'+
-                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:18px;">'+o.corporaterepresentative+'</a></td>'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.corporaterepresentative+'</a></td>'+
                               '<td style="width:100px;padding:0 5px;">'+
-                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:18px;">'+o.repphone+'</a></td>'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.repphone+'</a></td>'+
                           '</tr>'
             }
             $("#bidingcompanysc").html(comhtml)
