@@ -181,12 +181,13 @@ namespace DAL.Models
         public DataTable GetCompanyBidDetail(string cId)
         {
             string sql = @"select c.Name, p.Name, convert(varchar(20),b.OpenDate, 23) as OpenDate, p.ProDescription, p.Location, case when bc.win=1 and bc.SecondPrice is NULL then bc.FirstPrice when bc.win=1 then bc.SecondPrice else 0 end as Amount, 
-	                            case when bc.Win=1 then '中标' when bc.CompanyResponse=2 then '不参加' when bc.CompanyResponse=0 then '未响应' when bc.Win=0 and bc.CompanyResponse=1 then '参加' end as Status
+	                            case when bc.Win=1 then '中标' when bc.CompanyResponse=2 then '不参加' when bc.CompanyResponse=0 then '未响应' when bc.Win=0 and bc.CompanyResponse=1 then '参加' end as Status, 
+                                case when bc.win=1 and bc.SecondPrice is NULL then bc.FirstPrice when bc.win=1 then bc.SecondPrice else 0 end as Amount
                             from Company c
                             left join BidingCompany bc  on c.ID=bc.CompanyId
                             left join Bid b on bc.ProjId=b.ProjId 
                             left join Project p on bc.ProjId=p.Id
-                            where c.Id = "+cId+" order by b.OpenDate desc";
+                            where c.Id = " + cId+" order by b.OpenDate desc";
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetCompanyStatById(string cId)
