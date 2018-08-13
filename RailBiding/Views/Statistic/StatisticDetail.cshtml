@@ -29,13 +29,13 @@
             </a>
         </div>
         <div style="margin-top: 10px;">
-            <a class="meet-btn blue-btn sm-btn" href="#" style="text-align: center;padding-left: 0">全部</a>&nbsp;&nbsp;<input name="userTimeBegin" id="userTimeBegin" class="date-input radius-sel Wdate" type="text"
-                                                                                                                             value="" placeholder=""
-                                                                                                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">&nbsp;&nbsp;至&nbsp;&nbsp;<input name="userTimeEnd" id="userTimeEnd" class="date-input radius-sel Wdate" type="text" value=""
-                                                                                                                                                                                                                                         placeholder="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd ',minDate:'',maxDate:''})">
+            @*<a class="meet-btn blue-btn sm-btn" href="#" style="text-align: center;padding-left: 0">全部</a>&nbsp;&nbsp;<input name="userTimeBegin" id="userTimeBegin" class="date-input radius-sel Wdate" type="text"
+    value="" placeholder=""
+      onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">&nbsp;&nbsp;至&nbsp;&nbsp;<input name="userTimeEnd" id="userTimeEnd" class="date-input radius-sel Wdate" type="text" value=""
+                                                                                                                  placeholder="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd ',minDate:'',maxDate:''})">
             &nbsp;&nbsp;<a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
                 <i class="xs-meet-icon icon-daoout"></i>导出
-            </a>
+            </a>*@
         </div>
         <h3 class="fx_tit">@ViewBag.Name</h3>
     </div>
@@ -53,7 +53,7 @@
             <a class="meet-btn medium-btn">中标<span>@ViewBag.Win</span></a>
         </div>
         <div style="position: absolute;right: 30px;top:10px;font-weight: bold">
-            总中金额：<span style="color: #008cd6">@ViewBag.TotalAmount万</span>
+            总中金额：<span style="color: #008cd6">@ViewBag.TotalAmount 万</span>
         </div>
         <div class="detail-user-list" style="min-height:215px;overflow: auto;padding-top: 10px;">
             <div class="meet-user-span" >
@@ -180,7 +180,7 @@
                         '<td>'+o.opendate+'</td>'+
                         '<td>'+o.prodescription+'</td>'+
                         '<td>'+o.location+'</td>'+
-                        '<td class="gray-time">500万</td>'+
+                        '<td class="gray-time">'+o.amount+'万</td>'+
                         '<td class="gray-time">'+o.status+'</td>'+
                     '</tr>';
 
@@ -190,7 +190,7 @@
                                 '<td>'+o.opendate+'</td>'+
                                 '<td>'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
-                                '<td class="gray-time">500万</td>'+
+                                '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
                             '</tr>';
                 }
@@ -200,7 +200,7 @@
                                 '<td>'+o.opendate+'</td>'+
                                 '<td>'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
-                                '<td class="gray-time">500万</td>'+
+                                '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
                             '</tr>';
                 }
@@ -210,7 +210,7 @@
                                 '<td>'+o.opendate+'</td>'+
                                 '<td>'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
-                                '<td class="gray-time">500万</td>'+
+                                '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
                             '</tr>';
                 }
@@ -220,7 +220,7 @@
                                 '<td>'+o.opendate+'</td>'+
                                 '<td>'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
-                                '<td class="gray-time">500万</td>'+
+                                '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
                             '</tr>';
                 }
@@ -230,7 +230,7 @@
                                 '<td>'+o.opendate+'</td>'+
                                 '<td>'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
-                                '<td class="gray-time">500万</td>'+
+                                '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
                             '</tr>';
                 }

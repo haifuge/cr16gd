@@ -220,22 +220,22 @@ namespace RailBiding.Controllers
             }
 
      //判断审核通过按钮显示与隐藏
-            if (Session["RoleId"].ToString() == "2")
-            {
-                if (joinC.Count < 5){
-                    ViewBag.approvebtn = "";
-                }else
-                {
-                    ViewBag.approvebtn = @"<div class='deal-apply-btn deal-apply-btn2'>
-                                                <a class='meet-btn big-btn blue-btn js-deal green-btn blue-btn2' onclick='approveApplication()'>审核通过</a>
-                                            </div>";
-                }
-            }else
-            {
+            //if (Session["RoleId"].ToString() == "2")
+            //{
+            //    if (joinC.Count < 5){
+            //        ViewBag.approvebtn = "";
+            //    }else
+            //    {
+            //        ViewBag.approvebtn = @"<div class='deal-apply-btn deal-apply-btn2'>
+            //                                    <a class='meet-btn big-btn blue-btn js-deal green-btn blue-btn2' onclick='approveApplication()'>审核通过</a>
+            //                                </div>";
+            //    }
+            //}else
+            //{
                 ViewBag.approvebtn = @"<div class='deal-apply-btn deal-apply-btn2'>
                                                 <a class='meet-btn big-btn blue-btn js-deal green-btn blue-btn2' onclick='approveApplication()'>审核通过</a>
                                             </div>";
-            }
+            //}
 
             return View();
         }
