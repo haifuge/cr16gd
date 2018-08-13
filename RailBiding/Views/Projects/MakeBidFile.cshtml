@@ -110,7 +110,10 @@
     .black_overlay .meet-table.text-left{
         width:100%;
     }
-
+    .tbbj input{
+        width:180px;
+        margin-right:10px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -533,6 +536,7 @@
             }else{
                 jc += cs[2].innerText + "-" + cs[3].children[0].value + "-" + cs[4].children[0].value + "|";
             }
+            console.log(cs[4].children[0].value)
         }
         if (jc.length > 0)
             jc=jc.substr(0, jc.length - 1);

@@ -39,6 +39,15 @@ namespace RailBiding.Mobile
                     ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
                     string QualificationLevel = row["QualificationLevel"].ToString();
                     QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
+                    string secondprice = "";
+                    if (row["SecondPrice"].ToString() == "")
+                    {
+                        secondprice = string.Format(@"<div style='display:inline-block'>二次报价：<span class='col02'></span></div>");
+                    }
+                    else
+                    {
+                        secondprice = string.Format(@"<div style='display:inline-block'>二次报价：<span class='col02'>" + row["SecondPrice"].ToString() + "万元</span></div>");
+                    }
                     joinCompanys += string.Format(@"<li class='onling'>
                                         <a href = '#' class='item-link item-content'>
                                             <div class='item-inner'>
@@ -57,11 +66,11 @@ namespace RailBiding.Mobile
                                                 </div>
                                                 <div class='item-text'>
                                                     <div style='display:inline-block'>投标报价：<span class='col02'>{1}万元</span></div>
-                                                    <div style='display:inline-block'>二次报价：<span class='col02'>{2}万元</span></div>
+                                                    {2}                                               
                                                 </div>
                                             </div>
                                         </a>
-                                    </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
+                                    </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), secondprice, QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
                 }
                 if (row["Win"].ToString() == "1")
                 {

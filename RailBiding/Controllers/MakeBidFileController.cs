@@ -48,13 +48,21 @@ namespace RailBiding.Controllers
                     ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
                     string QualificationLevel = row["QualificationLevel"].ToString();
                     QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
+                    string secondprice = "";
+                    if (row["SecondPrice"].ToString() == "")
+                    {
+                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'></span></p>");
+                    }else
+                    {
+                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'>" + row["SecondPrice"].ToString()+"万元</span></p>");
+                    }
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
                                 <p>投标报价：<span class='colblue'>{1}万元</span></p>
-                                <p>二次报价：<span class='colblue'>{2}万元</span></p>
+                                {2}
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>
-                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
+                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), secondprice, QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
                 }
                 if (row["Win"].ToString() == "1")
                 {
@@ -111,13 +119,22 @@ namespace RailBiding.Controllers
                     ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
                     string QualificationLevel = row["QualificationLevel"].ToString();
                     QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
+                    string secondprice = "";
+                    if (row["SecondPrice"].ToString() == "")
+                    {
+                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'></span></p>");
+                    }
+                    else
+                    {
+                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'>" + row["SecondPrice"].ToString() + "万元</span></p>");
+                    }
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
                                 <p>投标报价：<span class='colblue'>{1}万元</span></p>
-                                <p>二次报价：<span class='colblue'>{2}万元</span></p>
+                                {2}
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>
-                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
+                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), secondprice, QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
                 }
                 if(row["Win"].ToString()=="1")
                 {
