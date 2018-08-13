@@ -177,8 +177,8 @@ namespace RailBiding.Controllers
                                             "<p>" + ConstructionContent + "</p>" +
                                         "</div>" +
                                         "<div style='display: none'>" + row["CompanyId"].ToString() + "</div>" +
-                                        "<div class='tbbj'>投标报价：<input type='text' name='fp' class='price1' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["FirstPrice"].ToString() + "' required='required'>万元</div>" +
-                                        "<div class='tbbj'>二次报价：<input type='text' name='sp' class='price2' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["SecondPrice"].ToString() + "' required='required'>万元</div>" +
+                                        "<div class='tbbj'>投标报价：<input type='text' name='fp' class='price1' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["FirstPrice"].ToString() + "' >万元</div>" +
+                                        "<div class='tbbj'>二次报价：<input type='text' name='sp' class='price2' onkeyup='clearNoNum(this)' placeholder='0.00' value='" + row["SecondPrice"].ToString() + "'>万元</div>" +
                                     "</div>" +
                                     "</li>";
                 }
@@ -675,13 +675,22 @@ namespace RailBiding.Controllers
                     ConstructionContent = ConstructionContent.Substring(0, ConstructionContent.Length > 40 ? 40 : ConstructionContent.Length);
                     string QualificationLevel = row["QualificationLevel"].ToString();
                     QualificationLevel = QualificationLevel.Substring(0, QualificationLevel.Length > 16 ? 16 : QualificationLevel.Length);
+                    string secondprice = "";
+                    if (row["SecondPrice"].ToString() == "")
+                    {
+                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'></span></p>");
+                    }
+                    else
+                    {
+                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'>" + row["SecondPrice"].ToString() + "万元</span></p>");
+                    }
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
                                 <p>投标报价：<span class='colblue'>{1}万元</span></p>
-                                <p>二次报价：<span class='colblue'>{2}万元</span></p>
+                                {2}
                                 <p>资质等级：{3}</p>
                                 <p>注册资金：{4}万元</p>
                                 <p>{5}</p>
-                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), row["SecondPrice"].ToString(), QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
+                            </li>", row["Name"].ToString(), row["FirstPrice"].ToString(), secondprice, QualificationLevel, row["RegisteredCapital"].ToString(), ConstructionContent);
                 }
                 if (row["Win"].ToString() == "1")
                 {
@@ -763,6 +772,8 @@ namespace RailBiding.Controllers
                     string sp = "";
                     if (cc[2] != "")
                         sp = ", SecondPrice=" + cc[2];
+                    else
+                        sp = ", SecondPrice=null ";
                     sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + sp + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
                 }
             }
