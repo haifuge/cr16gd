@@ -150,7 +150,7 @@
 </html>
 <script src="~/jsMobile/jquery-1.11.0.js"></script>
 <script>
-    
+
     $.get("/MobileInviteBiding/GetBidDetail?pid=@ViewBag.ProjId", {}, function (res) {
         var jsonData = JSON.parse(res);
         $(".bid-table tr:nth-child(1) td:nth-child(2)").html(jsonData[0].name)
@@ -161,17 +161,23 @@
         $(".bid-table tr:nth-child(6) td:nth-child(2)").html(jsonData[0].prodescription)
     })
     function response(res) {
-        $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
-            if (res == 1) {
-                $(".bid-btn ul").css("text-align", "center");
-                $(".bid-btn ul li a").css({"color":"red","border":"1px solid red"});
-                alert('您已参加竞标')
+        if (res == 1) {
+            if (comfirm("确定参加竞标？")) {
+                $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
+                    $(".bid-btn ul").css("text-align", "center");
+                    $(".bid-btn ul li a").css({ "color": "red", "border": "1px solid red" });
+                    alert('您已参加竞标')
+                });
             }
-            else {
-                $(".bid-btn ul").css("text-align", "center");
-                $(".bid-btn ul li a").css({ "color": "red", "border": "1px solid red" });
-                alert('您已拒绝参加竞标')
+        }
+        else {
+            if (comfirm("确定拒绝参加竞标？")) {
+                $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
+                    $(".bid-btn ul").css("text-align", "center");
+                    $(".bid-btn ul li a").css({ "color": "red", "border": "1px solid red" });
+                    alert('您已拒绝参加竞标')
+                });
             }
-        });
+        }
     }
 </script>

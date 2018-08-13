@@ -13,18 +13,22 @@ namespace RailBiding.Mobile
             ViewBag.Token = Request["token"].ToString();
             ViewBag.CompanyId = Request["cid"].ToString();
             ViewBag.ProjId = Request["pid"].ToString();
-            if (1== 1) { 
-            ViewBag.btn ="<li><a href='#' class='bid-redbtn' onclick='response(2)'>不参加</a></li>"+
-                         "<li><a href= '#' class='bid-greenbtn' onclick='response(1)'>参加</a></li>";
+            BidContext bc = new BidContext();
+            string responnse = bc.GetCompanyResponse(ViewBag.ProjId, ViewBag.CompanyId);
+            if (responnse == "0")
+            {
+                ViewBag.btn = "<li><a href='#' class='bid-redbtn' onclick='response(2)'>不参加</a></li>" +
+                             "<li><a href= '#' class='bid-greenbtn' onclick='response(1)'>参加</a></li>";
             }
-             if(1== 2) { 
-               ViewBag.btn = "<li><a href= 'javascript:;' class='bid-clickafterbtn'>不参加</a></li>";
+            if (responnse == "2")
+            {
+                ViewBag.btn = "<li><a href= 'javascript:;' class='bid-clickafterbtn'>不参加</a></li>";
             }
-            if (1== 3)
+            if (responnse == "1")
             {
                 ViewBag.btn = "<li><a href= 'javascript:;' class='bid-clickafterbtn'>已参加</a></li>";
             }
-                return View();
+            return View();
         }
 
         public string GetBidDetail(string pid)
