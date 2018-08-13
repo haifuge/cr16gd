@@ -22,11 +22,11 @@ namespace RailBiding.Mobile
             }
             if (responnse == "2")
             {
-                ViewBag.btn = "<li><a href= 'javascript:;' class='bid-clickafterbtn'>不参加</a></li>";
+                ViewBag.btn = "<li><a href= 'javascript:;' class='bid-clickafterbtn' style='color:red'>不参加</a></li>";
             }
             if (responnse == "1")
             {
-                ViewBag.btn = "<li><a href= 'javascript:;' class='bid-clickafterbtn'>已参加</a></li>";
+                ViewBag.btn = "<li><a href= 'javascript:;' class='bid-clickafterbtn' style='color:red'>已参加</a></li>";
             }
             return View();
         }

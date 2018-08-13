@@ -166,6 +166,7 @@
                 $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
                     $(".bid-btn ul").css("text-align", "center");
                     alert('您已参加竞标')
+                    window.location.reload(true)
                 });
             }
         }
@@ -174,6 +175,7 @@
                 $.post("/Common/ResponseInvite?cid=@ViewBag.CompanyId&pid=@ViewBag.ProjId&token=@ViewBag.Token&res=" + res, {}, function () {
                     $(".bid-btn ul").css("text-align", "center");
                     alert('您已拒绝参加竞标')
+                    window.location.reload(true)
                 });
             }
         }
