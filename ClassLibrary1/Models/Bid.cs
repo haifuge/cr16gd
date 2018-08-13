@@ -299,6 +299,11 @@ namespace DAL.Models
             DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
+        public string GetCompanyResponse(string pid, string cid)
+        {
+            string sql = "select CompanyResponse from BidingCompany where ProjId="+pid+" and CompanyId="+cid;
+            return DBHelper.ExecuteScalar(sql);
+        }
     }
     public class BidCompany
     {
