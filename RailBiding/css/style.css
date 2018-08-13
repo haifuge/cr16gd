@@ -1418,9 +1418,7 @@ button:hover {
     padding: 0.3em 0;
 }
 
-.detail-user-list .meet-user-span:first-of-type {
-    display: block;
-}
+
 
 .detail-user-list .meet-user-span {
     display: none;
