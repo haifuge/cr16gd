@@ -26,7 +26,7 @@
 
     </style>
 </head>
-<body>
+<body onkeydown="checkkeyForm();">
     <div class="index-bg">
         <img src="~/img/lw-bg.jpg" alt="">
         <div class="logobar">
@@ -89,6 +89,13 @@
 <script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+
+
+        function checkkeyForm(){  
+            if (event.keyCode == 13) {
+                checkForm()
+            }
+        }
     function checkForm() {
         
         var username = document.getElementById('txtUserName');
