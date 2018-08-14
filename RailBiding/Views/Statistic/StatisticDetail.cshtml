@@ -10,7 +10,20 @@
 <link rel="stylesheet" href="~/css/select/easydropdown.metro.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
-
+<style>
+     .meet-table tr td{
+    border: 0px solid ;
+     }
+    .white-bg td:nth-child(3){
+    height:60px;
+    margin:10px 0px;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>统计分析</h1>
@@ -28,7 +41,7 @@
                 <i class="meet-icon icon-del icon-tb">返回</i>
             </a>
         </div>
-        <div style="margin-top: 10px;">
+        <div style="margin-top: 23px;">
             @*<a class="meet-btn blue-btn sm-btn" href="#" style="text-align: center;padding-left: 0">全部</a>&nbsp;&nbsp;<input name="userTimeBegin" id="userTimeBegin" class="date-input radius-sel Wdate" type="text"
     value="" placeholder=""
       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">&nbsp;&nbsp;至&nbsp;&nbsp;<input name="userTimeEnd" id="userTimeEnd" class="date-input radius-sel Wdate" type="text" value=""
@@ -178,7 +191,7 @@
             allhtm+='<tr class="white-bg">'+
                         '<td>'+o.name1+'</td>'+
                         '<td>'+o.opendate+'</td>'+
-                        '<td>'+o.prodescription+'</td>'+
+                        '<td style="height:60px;">'+o.prodescription+'</td>'+
                         '<td>'+o.location+'</td>'+
                         '<td class="gray-time">'+o.amount+'万</td>'+
                         '<td class="gray-time">'+o.status+'</td>'+
@@ -188,7 +201,7 @@
                     nojoinhtm+='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td>'+o.prodescription+'</td>'+
+                                '<td style="height:60px;">'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
@@ -198,7 +211,7 @@
                     joinhtm+='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td>'+o.prodescription+'</td>'+
+                                '<td style="height:60px;">'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
@@ -218,7 +231,7 @@
                     winhtm+='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td>'+o.prodescription+'</td>'+
+                                '<td style="height:60px;">'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
@@ -228,7 +241,7 @@
                     nowinhtm='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td>'+o.prodescription+'</td>'+
+                                '<td style="height:60px;">'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
