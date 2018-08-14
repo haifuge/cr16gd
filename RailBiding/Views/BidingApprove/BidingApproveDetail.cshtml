@@ -616,8 +616,11 @@
                 for (var i = 1; i <= $("#inviteCompany span").length; i++) {
                     cid += $("#inviteCompany span:nth-child(" + i + ")").attr("id").replace('company', '') + ',';
                 }
-                if (cid == "")
+                if (cid == ""){
+                    swal("请先选择竞标公司！")
                     return;
+                }
+                   
                 var cids = cid.substr(0, cid.length - 1)
                 var pid = @ViewBag.pid;
                 $.post("/BidingApprove/CheckCompanyInvited", { cids: cids, pid: pid}, function(data) {
