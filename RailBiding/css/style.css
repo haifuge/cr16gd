@@ -973,11 +973,12 @@ p.meetroom-type {
 }
 
 .meet-table tr.white-bg:hover {
+   background-color: #f2f2f2;
 }
 
 /*.meet-table tr.white-bg:hover td {*/
 /*color: #fff;*/
-/*background-color: #29a9ef;*/
+/*background-color: #f2f2f2;*/
 /*}*/
 
 .meet-table input[type=checkbox] {
