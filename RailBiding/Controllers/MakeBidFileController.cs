@@ -19,13 +19,14 @@ namespace RailBiding.Controllers
         {
             ViewBag.UserName = Session["UserName"];
             ViewBag.UserDepartment = Session["UserDepartment"];
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("MakeBidFile", Session["RoleId"].ToString());
             return View();
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemM")]
         public ActionResult FileDetail(string pid)
         {
-            
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("MakeBidFile", Session["RoleId"].ToString());
             ViewBag.pid = pid;
             MakeBidFileContext mc = new MakeBidFileContext();
             DataTable dt = mc.GetMakeBidFileDetail(pid);

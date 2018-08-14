@@ -17,6 +17,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult Index()
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("BidingFile", Session["RoleId"].ToString());
             ViewBag.UserName = Session["UserName"];
             ViewBag.UserDepartment = Session["UserDepartment"];
             return View();
@@ -58,6 +59,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemF")]
         public ActionResult FileDetail(string pid)
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("BidingFile", Session["RoleId"].ToString());
             if (pid == null)
                 return View("/Login");
             ViewBag.pid = pid;

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
-
+<link href="~/css/loading.css" rel="stylesheet" />
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>统计分析</h1>
@@ -21,10 +21,11 @@
     <div class="main-wrap">
         <div class="main-top tt02">
             <div class="search-con2">
-                <input type="text" name="keyname" placeholder="输入关键字">
+                <input type="text" name="keyname" placeholder="输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
-            &nbsp;&nbsp;<a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle">
+            &nbsp;&nbsp;
+            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle"  onclick="exportExcel()">
                 <i class="xs-meet-icon icon-daoout"></i>导出
             </a>
         </div>
@@ -64,6 +65,7 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
 
 <script>
     //分页点击
@@ -75,6 +77,11 @@
     var pagenum = 12
     Paginator(nowpage, page_size)
 
+    //点击搜索按钮
+    $(".search-btn").on("click", function () {
+       Paginator(nowpage, page_size)
+    });
+
     $("#all-check").click(function () {
         if ($("#all-check").is(":checked")) {
             $("input.icheck").prop("checked", true)
@@ -83,8 +90,9 @@
         }
     })
 
-    function Paginator(page, ps) {    
-        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page }, function (data) {
+    function Paginator(page, ps) {
+        var SearchCompanyName = $("#searchinput").val();
+        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page/*, pname: cname*/ }, function (data) {
             console.log(data)
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
@@ -93,7 +101,7 @@
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
                 htm += '<tr class="white-bg" style = "cursor: pointer" >'+
-                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" /></td>'+
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)"/></td>' +
                     '<td  onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.name + '</td>' +
                     '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.jointimes + '</td>' +
                     '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.nojointimes + '</td>' +
@@ -107,5 +115,43 @@
             pages(page, jsonData.pagecount, jsonData.total, ps)
         });
         
+    }
+    var checkID = [];
+    function checkedid(boxid) {
+
+        if (boxid.checked) {
+            checkID.push(boxid.value)
+        } else {
+            checkID.pop(boxid.value)
+
+        }
+    }
+
+    function exportExcel() {
+        var cids = checkID.join(",")
+        if (cids == "") {
+            swal("请选择要导出的企业！")
+            return;
+        }
+        $('body').loading({
+            loadingWidth: 240,
+            title: '请稍等!',
+            name: 'test',
+            discription: '正在导出...',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+       // $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
+       //     var fpath = String(expfile)
+       //     window.open(fpath)
+       //     removeLoading('test');
+       // })
     }
 </script>

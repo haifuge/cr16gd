@@ -36,8 +36,9 @@
     <div class="left-nav-con">
         <h1> 招标文件</h1>
         <ul class="left-nav-list">
-            <li> <a href='/BidingFile' class='active'> <i class='icon icon-eye1'> </i> 招标文件</a> </li>
-            <li> <a href='/BidingFile/FileApprove'> <i class='icon icon-hand3'> </i> 文件审批</a> </li>
+            @*<li> <a href='/BidingFile' class='active'> <i class='icon icon-eye1'> </i> 招标文件</a> </li>
+            <li> <a href='/BidingFile/FileApprove'> <i class='icon icon-hand3'> </i> 文件审批</a> </li>*@
+            @Html.Raw(ViewBag.SecondMenu)
         </ul>
     </div>
 </div>

@@ -21,8 +21,9 @@
     <div class="left-nav-con">
         <h1>定标文件</h1>
         <ul class="left-nav-list">
-            <li><a href='/MakeBidFile' class='active'><i class='icon icon-eye1'></i>定标文件</a></li>
-            <li><a href='/MakeBidFile/FileApprove'><i class='icon icon-user1'></i>文件审批</a></li>
+            @*<li><a href='/MakeBidFile' class='active'><i class='icon icon-eye1'></i>定标文件</a></li>
+            <li><a href='/MakeBidFile/FileApprove'><i class='icon icon-user1'></i>文件审批</a></li>*@
+            @Html.Raw(ViewBag.SecondMenu)
         </ul>
     </div>
 </div>

@@ -20,7 +20,8 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName= "itemC")]
         public ActionResult Index()
         {
-           if(Session["RoleId"].ToString() == "2"){
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("Companys", Session["RoleId"].ToString());
+            if (Session["RoleId"].ToString() == "2"){
                 ViewBag.delebtn = "<a class='meet-btn red-btn small-size sm-btn' onclick='deleCompany()'>" +
                                    "<i class='xs-meet-icon icon-dele'></i>删除</a>";
                 ViewBag.createbtn = "";
@@ -261,6 +262,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult CompanysOut()
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("Companysout", Session["RoleId"].ToString());
             if (Session["RoleId"].ToString() == "2")
             {
                 ViewBag.delebtn = "<a class='meet-btn red-btn small-size sm-btn' onclick='deleCompany()'>" +
@@ -276,6 +278,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult MyRecommend()
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("CompanysMyRecommend", Session["RoleId"].ToString());
             return View();
         }
         [VerifyLoginFilter]
@@ -388,6 +391,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult MyAudit()
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("CompanysMyAudit", Session["RoleId"].ToString());
             return View();
         }
         [VerifyLoginFilter]

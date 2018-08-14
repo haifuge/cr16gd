@@ -126,7 +126,7 @@
                         <table class="meet-table text-left">
                             <thead>  
                                 <tr style="background-color:#40cbe16b;line-height: 36px;">
-                                    <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="icheck" name="addcompanybiding" type="checkbox" value="" id="all-check" /></th>
+                                    <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="" name="addcompanybiding" type="checkbox" value="" id="all-check" /></th>
                                     <th style="width:250px;padding:0 5px;font-weight:800;text-align:center">劳务承分包企业名称</th>
                                     <th style="width:150px;padding:0 5px;font-weight:800;text-align:center">企业类型</th>
                                     <th style="width:240px;padding:0 5px;font-weight:800;text-align:center">资质等级</th>
@@ -331,7 +331,7 @@
 <script>
     //参与单位添加
     function addcompeny()
-    {
+    { 
         var checkID = [];
         $("input[name='addcompenycheck']:checked").each(function(i) {//把所有被选中的复选框的值存入数组
             checkID[i] = $(this).val();
@@ -341,7 +341,7 @@
             var name = idname[1];
             var cid = 'company' + id;
             var htm = '';
-
+            
             var wc= "";
             var csc="";
             var lis= $("#inviteCompany").children('span');
@@ -760,7 +760,7 @@
                 }
                 comhtml += '<tr class="white-bg">'+
                               '<td style="width:10px;padding:0 0 0 20px" class="check-color">'+
-                                 '<input class="icheck" name="addcompanybiding" type="checkbox"  value="' + o.id +'" />' +
+                                 '<input class="icheck" name="addcompenycheck" type="checkbox"  value="' + o.id +'|'+ o.name +'" />' +
                               '</td>'+
                               '<td style="width:250px;padding:0 5px;">'+
                                   '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.name+'</a>'+
