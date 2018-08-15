@@ -693,6 +693,7 @@
     <Content Include="js\WangEditor\wangEditor.min.js.map" />
     <Content Include="js\WangEditor\fonts\w-e-icon.woff" />
     <Content Include="ExcelTemplate\CompanyTemplate.xlsx" />
+    <Content Include="ExcelTemplate\CompanyStatTemplate.xlsx" />
     <None Include="Properties\PublishProfiles\cr16.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

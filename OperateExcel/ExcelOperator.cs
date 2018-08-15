@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text;
 using System;
 using System.IO;
+using System.Data;
 
 namespace OperateExcel
 {
@@ -53,6 +54,50 @@ namespace OperateExcel
             if (!Directory.Exists(fpath))
                 Directory.CreateDirectory(fpath);
             string fName = fpath+"/Companys" + DateTime.Now.ToShortDateString().Replace(":","").Replace(" ","").Replace("/","")+".xlsx";
+            if (File.Exists(fName))
+                File.Delete(fName);
+            //5.保存保存WorkBook
+            xBook.SaveAs(fName);
+            //6.从内存中关闭Excel对象
+            xSheet = null;
+            xBook.Close();
+            xBook = null;
+            //关闭EXCEL的提示框
+            xApp.DisplayAlerts = false;
+            //Excel从内存中退出
+            xApp.Quit();
+            xApp = null;
+            return fName;
+        }
+
+        public static string ExportCompanysStat(System.Data.DataTable data, string tempPath)
+        {
+            Application xApp = new Application();
+
+            //2.得到workbook对象，打开已有的文件
+            Workbook xBook = xApp.Workbooks.Open(tempPath + "/ExcelTemplate/CompanyStatTemplate.xlsx",
+                                   Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                                   Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+                                   Missing.Value, Missing.Value, Missing.Value, Missing.Value);
+
+            //3.指定要操作的Sheet
+            Worksheet xSheet = (Worksheet)xBook.Sheets[1];
+
+            int row = 0;
+            int column = 0;
+            for (int i = 0; i < data.Rows.Count; i++)
+            {
+                row = i + 2;
+                for (int j = 0; j < data.Columns.Count; j++)
+                {
+                    column = j + 1;
+                    xSheet.Cells[column][row] = data.Rows[i][j].ToString();
+                }
+            }
+            string fpath = tempPath + "ExcelFiles";
+            if (!Directory.Exists(fpath))
+                Directory.CreateDirectory(fpath);
+            string fName = fpath + "/CompanysStat" + DateTime.Now.ToShortDateString().Replace(":", "").Replace(" ", "").Replace("/", "") + ".xlsx";
             if (File.Exists(fName))
                 File.Delete(fName);
             //5.保存保存WorkBook
