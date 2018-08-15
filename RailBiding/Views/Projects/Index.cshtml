@@ -63,13 +63,13 @@
             <table class="meet-table text-left">
                 <thead class="wc-header">
                     <tr>
-                        <td class="check-color" style="width:20px;padding:0px 5px">
+                        <!--<td class="check-color" style="width:20px;padding:0px 5px">
                             <span class="table-all-check">
                                 <input type="checkbox"
                                        name="all-check"
                                        id="all-check" value=""/>
                             </span>
-                        </td>
+                        </td>-->
                         <td style="width:150px;padding:0px 5px">名称</td>
                         <td style="width:80px;padding:0px 5px">类型</td>
                         <td style="width:100px;padding:0px 5px">地点</td>
@@ -224,7 +224,7 @@
                                 break;
                         }
                         htm += "<tr class='white-bg'>" +
-                    '<td class="check-color" ><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" onchange="checkedid(this)" /></td >' +
+                    //'<td class="check-color" ><input class="icheck" name="id" type="checkbox" value="'+o.id+'" id="checkbox-1" onchange="checkedid(this)" /></td >' +
                     '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.name + '</td>' +
                     '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.projtype + '</td>' +
                     '<td onclick=\'location.href="/Projects/Detail?pid=' + o.id + '";\'>' + o.location + '</td>' +

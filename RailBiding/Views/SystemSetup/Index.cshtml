@@ -1057,7 +1057,7 @@
         }
         var searchpeo = $(".inputsystemsearch").val();
         var addhtm = "";
-        $.post("/SystemSetup/SearchUsers", { uname: searchpeo }, function (res) {
+        $.post("/SystemSetup/SearchUsersByPage", { uname: searchpeo, pageIndex:1, pageSize: 10}, function (res) {
             var obj = JSON.parse(res);
             if (obj.length == 0) {
                 swal("查无此人");

@@ -315,5 +315,10 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             ss.UpdateCompanyBusinessType(id, name);
         }
+        public string SearchUsersByPage(string uname, string pageSize, string pageIndex)
+        {
+            SystemSetup ss = new SystemSetup();
+            return ss.SearchUsersByPage(uname, pageSize, pageIndex);
+        }
     }
 }
