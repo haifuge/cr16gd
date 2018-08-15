@@ -60,14 +60,17 @@ namespace RailBiding.Controllers
         }
         public string ExportCompanysStat(string cids)
         {
+            string where = "";
+            if (cids == "0")
+                where = " where c.Status = 1 ";
+            else
+                where = " where c.ID in (" + cids + ") ";
             string sql = @"select c.Name, SUM(isnull(bc.Biding,0)) as JoinTimes, sum(case when bc.CompanyResponse=0 then 1 else 0 end) as NoJoinTimes,
                                 SUM(isnull(bc.Win, 0)) as WinBids, sum(case when bc.Win = 0 then 1 else 0 end) as NoWinBids, convert(varchar(20), max(p.PublishDate), 23) as LastJoinDate
                         from Company c
-                        left
-                        join BidingCompany bc on c.ID = bc.CompanyId
-                        left
-                        join Project p on bc.ProjId = p.Id
-                        where c.ID in ("+cids+@")
+                        left join BidingCompany bc on c.ID = bc.CompanyId
+                        left join Project p on bc.ProjId = p.Id
+                        "+where+@"
                         group by c.Name
                         order by c.Name";
             DataTable dt = DBHelper.GetDataTable(sql);

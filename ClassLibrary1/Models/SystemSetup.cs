@@ -195,6 +195,26 @@ namespace DAL.Models
             return JsonHelper.DataTableToJSON(dt);
         }
 
+        public string SearchUsersByPage(string uname, string pageSize, string pageIndex)
+        {
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone, Email, d.Name as dName 
+                            into #temp
+                            from UserInfo ui
+                            inner
+                            join DepartmentUser du on ui.id = du.userid
+                            inner
+                            join Department d on d.id = du.departmentid
+                            where ui.UserName like '%" + uname + "%' or ui.UserAccount like '%" + uname + @"%'
+                            select * from #temp where iid between "+startIndex+" and "+endIndex+@"
+                            drop table #temp";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
+
         public void UpdateCompanyBusinessType(string id, string name)
         {
             string sql = "update CompanyType set Name=N'" + name + "' where id = " + id;
