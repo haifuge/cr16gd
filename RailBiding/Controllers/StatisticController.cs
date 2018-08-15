@@ -67,7 +67,7 @@ namespace RailBiding.Controllers
                         join BidingCompany bc on c.ID = bc.CompanyId
                         left
                         join Project p on bc.ProjId = p.Id
-                        where c.ID in ()
+                        where c.ID in ("+cids+@")
                         group by c.Name
                         order by c.Name";
             DataTable dt = DBHelper.GetDataTable(sql);

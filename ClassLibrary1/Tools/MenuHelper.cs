@@ -131,7 +131,6 @@
                                     <li><a href='/SystemSetup/PersonalCenter'><i class='icon icon-hand2'></i>个人中心</a></li>
                                     <li><a href='/SystemSetup/SystemLog'><i class='icon icon-hand3'></i>系统日志</a></li>
                                     <li><a href='/SystemSetup/CategoryManagement'><i class='icon icon-hand4'></i>类别管理</a></li>
-                                    <li><a href='/SystemSetup/SystemUser'><i class='icon icon-hand5'></i>系统用户</a></li>
                                     <li><a href='/SystemSetup/ApproveProcessManagement'><i class='icon icon-hand4'></i>审核流程</a></li>";
                     }
                     return "";

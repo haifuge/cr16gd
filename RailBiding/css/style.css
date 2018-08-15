@@ -4644,12 +4644,12 @@ h3.fx_tit {
 .bmgl {
     background: #008cd6;
     height: 25px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right:20px;
     color: #fff;
     line-height: 25px;
     text-align: center;
-    margin-right:15px;
+    margin-left:15px;
     display: block;
     float: left;
 }

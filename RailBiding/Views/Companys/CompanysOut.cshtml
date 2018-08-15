@@ -52,9 +52,9 @@
                         <td class="check-color" style="width:30px;padding:0px 5px">
                             <span class="table-all-check">
                                 <input type="checkbox"
-                                       class="icheck"
                                        name="all-check"
-                                       id="all-check" />
+                                       id="checkall"
+                                       onclick="selectAll()" />
                             </span>
                         </td>
                         <td style="width:200px;padding:0px 5px">劳务承包企业名称</td>
@@ -103,13 +103,6 @@
         $("#bType").val("All")
         Paginator(nowpage, page_size, '', '')
     }
-    $("#all-check").click(function () {
-        if ($("#all-check").is(":checked")) {
-            $("input.icheck").prop("checked", true)
-        } else {
-            $("input.icheck").prop("checked", false)
-        }
-    })
     var SearchCompanyName = "";
     var type = "";
     //下拉菜单
@@ -166,7 +159,7 @@
                 var o = obj[i]
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
-                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)"/></td >' +
+                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)" onclick="setSelectAll()"/></td >' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.name + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
@@ -182,8 +175,18 @@
             var tbody = $("#tbCompany")
             //tbody.empty();
             tbody.html(htm)
-            console.log(page, jsonData.PageCount, jsonData.total, ps)
             pages(page, jsonData.PageCount, jsonData.total, ps)
+            setSelectAll()
+            var cks = $("input.icheck");
+            for (var i = 0; i < cks.length; i++) {
+                for (var j = 0; j < checkID.length; j++) {
+                    if (cks[i].value == checkID[j]) {
+                        cks[i].checked = true;
+                        break;
+                    }
+
+                }
+            }
         });
     }
     function comischecked(comid, chk) {
@@ -244,15 +247,66 @@
         })
     }
     var checkID = [];
+    var cids = "";
+
+    //全选、取消全选的事件  
+    function selectAll() {
+        if ($("#checkall").prop("checked")) {
+            $("input.icheck").prop("checked", true);//全选
+            for (var i = 0 ; i < $("input.icheck:checked").length; i++) {
+                if (!checkID.contains($("input.icheck:checked")[i].value))
+                    checkID.push($("input.icheck:checked")[i].value)
+            }
+
+        } else {
+            $("input.icheck").prop("checked", false);  //取消全选   
+            for (var i = 0 ; i < $("input.icheck").length; i++) {
+                checkID.remove($("input.icheck")[i].value)
+            }
+        }
+
+    }
+    //子复选框的事件  
+    function setSelectAll() {
+        //当没有选中某个子复选框时，SelectAll取消选中  
+        if (!$("input.icheck").checked) {
+            $("#checkall").prop("checked", false);
+
+        }
+        var chsub = $("input.icheck").length; //获取subcheck的个数  
+        var checkedsub = $("input.icheck:checked").length; //获取选中的subcheck的个数  
+        if (checkedsub == chsub) {
+            $("#checkall").prop("checked", true);
+        }
+    }
     function checkedid(boxid) {
 
         if (boxid.checked) {
-            checkID.push(boxid.value)
-            console.log(checkID)
+            if (!checkID.contains(boxid.value))
+                checkID.push(boxid.value)
         } else {
-            checkID.pop(boxid.value)
+            checkID.remove(boxid.value)
         }
     }
+    Array.prototype.remove = function (b) {
+        var a = this.indexOf(b);
+        if (a >= 0) {
+            this.splice(a, 1);
+            return true;
+        }
+        return false;
+    };
+
+    Array.prototype.contains = function (obj) {
+        var i = this.length;
+        while (i--) {
+            if (this[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     function exportExcel() {
         
