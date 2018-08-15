@@ -774,7 +774,7 @@ namespace RailBiding.Controllers
                         sp = ", SecondPrice=" + cc[2];
                     else
                         sp = ", SecondPrice=null ";
-                    sql += "update BidingCompany set biding=1, FirstPrice=" + cc[1] + sp + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
+                    sql += "update BidingCompany set biding=1,Win=0, FirstPrice=" + cc[1] + sp + " where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
                 }
             }
             if(sql!="")

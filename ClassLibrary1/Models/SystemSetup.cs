@@ -184,9 +184,13 @@ namespace DAL.Models
 
         public string SearchUsers(string uname)
         {
-            string sql = "select ID, UserAccount, UserName, Telphone from UserInfo where UserAccount like '%"+uname+ @"%'
-                          union
-                          select ID, UserAccount, UserName, Telphone from UserInfo where UserName like '%" + uname + "%'";
+            string sql = @"select ui.ID, UserAccount, UserName, Telphone, Email, d.Name as dName 
+                            from UserInfo ui
+                            inner
+                            join DepartmentUser du on ui.id = du.userid
+                            inner
+                            join Department d on d.id = du.departmentid
+                            where ui.UserName like '%"+uname+ "%' or ui.UserAccount like '%" + uname + "%'";
             DataTable dt= DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }

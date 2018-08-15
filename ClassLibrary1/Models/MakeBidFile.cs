@@ -51,7 +51,7 @@ namespace DAL.Models
         {
             string where = "";
             if (status != "")
-                where += " and b.Status = " + status;
+                where += " and a.Approved = " + status;
             if (pname != "")
                 where += " and p.Name like '%" + pname + "%'";
             int pi = int.Parse(pageIndex);

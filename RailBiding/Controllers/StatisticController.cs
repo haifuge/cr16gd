@@ -36,7 +36,7 @@ namespace RailBiding.Controllers
             {
                 ViewBag.Name = dt.Rows[0]["Name"].ToString();
                 ViewBag.Total = dt.Rows[0]["Total"].ToString();
-                ViewBag.JoinBiding = int.Parse(dt.Rows[0]["JoinBiding"].ToString())+int.Parse(dt.Rows[0]["Win"].ToString());
+                ViewBag.JoinBiding = dt.Rows[0]["JoinBiding"].ToString();
                 ViewBag.NoJoin = dt.Rows[0]["NoJoin"].ToString();
                 ViewBag.NoResponse = dt.Rows[0]["NoResponse"].ToString();
                 ViewBag.NoWin = dt.Rows[0]["NoWin"].ToString();

@@ -210,6 +210,19 @@
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+  .add-xzry{
+     height:390px;
+     overflow:auto;
+   }
+    .canvas .canvas_content.xzaddcanvas_content{
+        width:820px;
+        min-height: 250px;
+        max-height:550px;
+    }
+
+    .form-tr-btn {
+        margin-top: 40px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -340,10 +353,10 @@
                             </thead>
                             <tbody id="searchtbody"></tbody>
                         </table>
-                        <div class="form-tr-btn xzryform-tr-btn">
-                            <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="chooseNewUser()">确定</button>
-                            <button type="reset" class="meet-btn big-btn gray-btn canvas_close4">取消</button>
-                        </div>
+                    </div>
+                    <div class="form-tr-btn xzryform-tr-btn">
+                        <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="chooseNewUser()">确定</button>
+                        <button type="reset" class="meet-btn big-btn gray-btn canvas_close4">取消</button>
                     </div>
                 </div>
             </div>
@@ -429,6 +442,7 @@
                                     </tbody>
 
                                 </table>
+               
                                 <div class="form-tr-btn">
                                     <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="createNewUser()">确定</button>
                                     <button type="reset" class="meet-btn big-btn gray-btn canvas_close1">取消</button>
@@ -578,9 +592,6 @@
 <script type="text/javascript" src="~/js/ztree/js/jquery.ztree.excheck.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-        pages(1, 2, 12, 5)
-    })
     var setting = {
         view: {
             addHoverDom: addHoverDom,
@@ -614,7 +625,6 @@
 
     //修改部门弹框显示
     function zTreeOnDblClick(event, treeId, treeNode) {
-        console.log(treeNode);
         treenode = treeNode
         $(".canvas.canvas5").show()
         var parent = treeNode.getParentNode();
@@ -624,10 +634,8 @@
             $(".parentname").val(parent.name);
         }
         if (treeNode.projectdp == 1) {
-            console.log("yes")
             $(".updatebumenbox").prop("checked", true)
         } else {
-            console.log("no")
             $(".updatebumenbox").prop("checked", false);
             
         }
@@ -851,6 +859,7 @@
     $(".canvas_close4").on("click", function () {
         $(".canvas.canvas4").hide();
         $(".xzaddinputcon").val("");
+        $("#searchtbody").html("");
         $("#xzaddinputmsg").html("");
         if ($(".xzryradio").is(":checked")) {
             $(".xzryradio").prop("checked", false);
@@ -1027,13 +1036,16 @@
                 $("#xzaddinputmsg").html("查无此人");
                 return;
             }
-            addhtm += '<tr>' +
-                          '<td><input type="radio" name="chooseid" value="'+obj[0].id+'" class="xzryradio"/><label></label></td>' +
-                          '<td  style="width:23%" class="searchname">' + obj[0].username + '</td>' +
-                          '<td  style="width:23%">' + obj[0].department + '</td>' +
-                          '<td style="width:27%">' + obj[0].telphone + '</td>' +
-                         '<td style="width:27%">' + obj[0].email + '</td>' +
-                       '</tr>';
+            console.log(obj)
+            for (var i = 0; i < obj.length; i++) {
+                addhtm += '<tr>' +
+                              '<td style="width:20px" ><input type="radio" style="width:18px;height:18px" name="chooseid" value="' + obj[i].id + '" class="xzryradio"/><label></label></td>' +
+                              '<td style="width:100px" class="searchname">' + obj[i].username + '</td>' +
+                              '<td style="width:200px">' + obj[i].dname + '</td>' +
+                              '<td style="width:100px">' + obj[i].telphone + '</td>' +
+                             '<td style="width:100px">' + obj[i].email + '</td>' +
+                           '</tr>';
+            }
             $("#searchtbody").html(addhtm);
             })
        
@@ -1073,6 +1085,7 @@
         page_size = 10;
         Paginator(nowpage, page_size)
     }
+
     function Paginator(page, ps) {
         $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id ,pageIndex: page , pageSize: ps}, function (res) {
             var jsonData = JSON.parse(res);

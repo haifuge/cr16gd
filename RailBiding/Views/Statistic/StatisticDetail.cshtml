@@ -23,6 +23,12 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     }
+    .meet-table2{
+        border:1px solid #ececec;       
+    }
+    .meet-table{
+        margin-bottom:100px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -251,9 +257,11 @@
         }
         $("#table-all").html(allhtm)
         $("#table-join").html(joinhtm)
+        $("#table-join").append(winhtm)
         $("#table-nojoin").html(nojoinhtm)
         $("#table-noresponse").html(noresponsehtm)
         $("#table-nowin").html(nowinhtm)
+        $("#table-nowin").append(joinhtm)
         $("#table-win").html(winhtm)
     });
 </script>
