@@ -1033,10 +1033,18 @@ namespace RailBiding.Controllers
 
         public string ExportCompanysExcel(string cids)
         {
+            string where = "";
+            if (cids == "0")
+            {
+                where = " where c.Status=1 ";
+            }
+            else
+            {
+                where = " where c.ID in ("+cids+") ";
+            }
             string sql = @"select c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, c.RepPhone, c.Status 
                             from Company c
-                            left join CompanyType bt on c.BusinessType=bt.ID
-                            where c.ID in (" + cids+")";
+                            left join CompanyType bt on c.BusinessType=bt.ID"+where;
             DataTable dt = DBHelper.GetDataTable(sql);
             string tempPath = Server.MapPath("/");
             string file = ExcelOperator.ExportCompany(dt, tempPath);
