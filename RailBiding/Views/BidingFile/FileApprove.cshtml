@@ -66,14 +66,14 @@
             <table class="meet-table text-left">
                 <thead class="wc-header">
                     <tr>
-                        <td class="check-color" style="width:20px;padding:0px 5px">
+                        <!--<td class="check-color" style="width:20px;padding:0px 5px">
                             <span class="table-all-check">
                                 <input type="checkbox"
                                        class="icheck"
                                        name="all-check"
                                        id="all-check" />
                             </span>
-                        </td>
+                        </td>-->
                         <td style="width:150px;padding:0px 5px">项目名称</td>
                         <td style="width:300px;padding:0px 5px">招标文件简述</td>
                         <td style="width:80px;padding:0px 5px">提交人</td>
@@ -178,7 +178,7 @@
                         break;
                 }
                 htm += '<tr class="white-bg">' +
-                    '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td>' +
+                    //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td>' +
                     '<td  onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.name + '</td>'+
                     '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.content + '</td>' +
                     '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.publisher + '</td>' +

@@ -29,11 +29,11 @@
         <div class="wc-container">
             <table class="meet-table text-left">
                 <thead class="wc-header">
-                <td>序号</td>
-                <td>流程名称</td>
-                <td>状态</td>
-                <td>操作</td>
-                </tr>
+                   <tr>
+                        <td>序号</td>
+                        <td>流程名称</td>
+                        <td>操作</td>
+                   </tr>
                 </thead>
                 <tbody id="apbody">
                     
@@ -68,8 +68,7 @@
                     }
                     htm += '<tr class="white-bg">'+
                         '<td>'+o.id+'</td >'+
-                            '<td>'+o.name+'</td>'+
-                        '<td>' + ss +'</td>'+
+                        '<td>'+o.name+'</td>'+
                         '<td><a href="/SystemSetup/ApproveProcessDetail?apid='+o.id+'" class="xg">修改</a></td>'+
                     '</tr >';
                 }

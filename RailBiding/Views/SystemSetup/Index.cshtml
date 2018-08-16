@@ -223,6 +223,13 @@
     .form-tr-btn {
         margin-top: 40px;
     }
+    .meet-table tr.white-bg td {
+        background: transparent;
+    }
+    .meet-table{
+        background: transparent;
+    }
+
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -591,6 +598,8 @@
 <script type="text/javascript" src="~/js/ztree/js/jquery.ztree.excheck.js"></script>
 
 <script type="text/javascript">
+
+
     var setting = {
         view: {
             addHoverDom: addHoverDom,
@@ -1055,9 +1064,10 @@
             swal("请输入搜索关键词！")
             return;
         }
+        
         var searchpeo = $(".inputsystemsearch").val();
         var addhtm = "";
-        $.post("/SystemSetup/SearchUsersByPage", { uname: searchpeo, pageIndex:1, pageSize: 10}, function (res) {
+        $.post("/SystemSetup/SearchUsersByPage", { uname: searchpeo, pageIndex:1, pageSize: 100}, function (res) {
             var obj = JSON.parse(res);
             if (obj.length == 0) {
                 swal("查无此人");
@@ -1073,6 +1083,9 @@
                             '</tr >';
             }
             $("#tbusers").html(addhtm);
+            $("#tbusers").css({ "height": "600px", "overflow": "auto" });
+            $("#tbusers tr:odd").css("background-color", "#f0f9ff");
+            
         })
 
 
@@ -1141,6 +1154,7 @@
             }
             $("#tbusers").html(htm)
             pages(page, jsonData.pagecount, jsonData.total, parseInt(ps))
+            $("#tbusers tr:odd").css("background-color", "#f0f9ff");
         })
 
     }
