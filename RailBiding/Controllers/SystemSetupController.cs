@@ -59,10 +59,10 @@ namespace RailBiding.Controllers
                 return View();
             }
         }
-        public string GetLogs(string pageSize, string pageIndex)
+        public string GetLogs(string pageSize, string pageIndex, string username, string startdate, string enddate)
         {
             LogRecordContext lr = new LogRecordContext();
-            return lr.GetLogRecords(pageSize, pageIndex);
+            return lr.GetLogRecords(pageSize, pageIndex, username, startdate, enddate);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemSS")]

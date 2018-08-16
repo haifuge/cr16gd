@@ -10,8 +10,11 @@
     .Wdate{
         height:25px;
     }
-    .main-top a.meet-btn{
+    #datesearch{
         float:none;
+    }
+    #allsearch{
+        float:left;
     }
 </style>
 <div class="left-nav">
@@ -31,8 +34,9 @@
             <div class="main-top">
                 <span class="js-page-name">系统日志</span>
                 <div style="margin-top: 10px;">
+                    <a class="meet-btn blue-btn sm-btn" href="#" id="allsearch" onclick="allcompany()">全部</a>
                     <div class="search-con2">
-                        <input type="text" name="keyname" placeholder="用户名称">
+                        <input type="text" name="keyname" placeholder="用户名称" id="searchusername">
                         <a class="search-btn"><i class="search-icon meet-icon"></i></a>
                     </div>
 
@@ -42,26 +46,27 @@
                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">&nbsp;&nbsp;至&nbsp;&nbsp;
                     <input name="userTimeEnd" id="userTimeEnd" class="date-input radius-sel Wdate" type="text" value="" placeholder="结束时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd ',minDate:'',maxDate:''})">
                     &nbsp;&nbsp;
-                    <a class="meet-btn blue-btn sm-btn" href="#">查询</a>
+                    <a class="meet-btn blue-btn sm-btn" id="datesearch" href="#">查询</a>
 
                 </div>
             </div>
             <div class="wc-container">
                 <table class="meet-table text-left">
                     <thead class="wc-header">
-                    <td class="check-color" style="width: 80px;">
-                        <span class="table-all-check">
-                            <input type="checkbox"
-                                   class="icheck"
-                                   name="all-check"
-                                   id="all-check" />
-                        </span>
-                    </td>
-                    <td>用户名称</td>
-                    <td>操作类型</td>
-                    <td>操作时间</td>
-                    <td>描述</td>
-                    </tr>
+                        <tr>
+                            <!--<td class="check-color" style="width: 80px;">
+                                <span class="table-all-check">
+                                    <input type="checkbox"
+                                           class="icheck"
+                                           name="all-check"
+                                           id="all-check" />
+                                </span>
+                            </td>-->
+                            <td>用户名称</td>
+                            <td>操作类型</td>
+                            <td>操作时间</td>
+                            <td>描述</td>
+                        </tr>
                     </thead>
                     <tbody id="tbLog">
                     </tbody>
@@ -94,15 +99,35 @@
         var pagenum = 12
         Paginator(nowpage, page_size)
 
+        //全部按钮
+        function allcompany() {
+            $("#searchusername").val("");
+            $("#userTimeBegin").val("");
+            $("#userTimeEnd").val("");
+            Paginator(nowpage, page_size)
+        }
+
+        //点击搜索按钮
+        $(".search-btn").on("click", function () {
+            Paginator(nowpage, page_size)
+        });
+        $("#datesearch").on("click", function () {
+            Paginator(nowpage, page_size)
+        });
+        
         function Paginator(page, ps) {    
-            $.post("/SystemSetup/GetLogs", { pageSize: ps, pageIndex: page }, function (data) {
+            var username=$("#searchusername").val();
+            var userTimeBegin=$("#userTimeBegin").val();
+            var userTimeEnd=$("#userTimeEnd").val();
+            
+            $.post("/SystemSetup/GetLogs", { pageSize: ps, pageIndex: page, username: username, startdate: userTimeBegin, enddate: userTimeEnd }, function (data) {
                 var jsonData = JSON.parse(data);
                 var obj = jsonData.List;
                 var htm = "";
                 for (var i = 0; i < obj.length; i++) {
                     var o=obj[i]
                     htm += '<tr class="white-bg">'+
-                        '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id+'" id="checkbox-1" /></td >'+
+                       // '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id+'" id="checkbox-1" /></td >'+
                         '<td>' + o.username+'</td>'+
                         '<td>' + o.operatetype+'</td>'+
                         '<td>' + o.operatedate+'</td>'+

@@ -156,7 +156,7 @@ namespace DAL.Models
             return JsonHelper.ConvertTableToObj<BidCompany>(dt);
         }
 
-        public string GetCompanyStats(string pageSize, string pageIndex)
+        public string GetCompanyStats(string pageSize, string pageIndex, string pname)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -168,6 +168,7 @@ namespace DAL.Models
                             from Company c
                             left join BidingCompany bc on c.ID=bc.CompanyId
                             left join Project p on bc.ProjId=p.Id
+                            where c.Name like '%"+pname+@"%'
                             group by c.Name, c.id
                             order by c.Name
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"

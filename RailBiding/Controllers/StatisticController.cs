@@ -21,10 +21,10 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetCompaniesStatistic(string pageSize, string pageIndex)
+        public string GetCompaniesStatistic(string pageSize, string pageIndex, string pname)
         {
             BidContext bc = new BidContext();
-            return bc.GetCompanyStats(pageSize, pageIndex);
+            return bc.GetCompanyStats(pageSize, pageIndex, pname);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemS")]

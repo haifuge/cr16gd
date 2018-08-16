@@ -20,6 +20,7 @@
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top tt02">
+            <a class="meet-btn blue-btn sm-btn" href="#" id="allsearch" onclick="allcompany()">全部</a>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
@@ -77,6 +78,12 @@
     var pagenum = 12
     Paginator(nowpage, page_size)
 
+    //全部按钮
+    function allcompany() {
+        $("#searchinput").val("");
+        Paginator(nowpage, page_size)
+    }
+
     //点击搜索按钮
     $(".search-btn").on("click", function () {
        Paginator(nowpage, page_size)
@@ -84,7 +91,7 @@
 
     function Paginator(page, ps) {
         var SearchCompanyName = $("#searchinput").val();
-        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page/*, pname: cname*/ }, function (data) {
+        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page, pname: SearchCompanyName }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";

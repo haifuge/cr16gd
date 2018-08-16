@@ -211,8 +211,9 @@
     border-radius: 4px;
 }
   .add-xzry{
-     height:390px;
-     overflow:auto;
+    max-height: 390px;
+    overflow: auto;
+    height: auto;
    }
     .canvas .canvas_content.xzaddcanvas_content{
         width:820px;
@@ -1042,6 +1043,7 @@
             var obj = JSON.parse(res);
             if (obj.length == 0) {
                 $("#xzaddinputmsg").html("查无此人");
+                $("#searchtbody").html("");
                 return;
             }
             console.log(obj)
@@ -1067,10 +1069,11 @@
         
         var searchpeo = $(".inputsystemsearch").val();
         var addhtm = "";
-        $.post("/SystemSetup/SearchUsersByPage", { uname: searchpeo, pageIndex:1, pageSize: 100}, function (res) {
+        $.post("/SystemSetup/SearchUsersByPage", { uname: searchpeo, pageIndex:1, pageSize: 1000}, function (res) {
             var obj = JSON.parse(res);
             if (obj.length == 0) {
                 swal("查无此人");
+                $("#tbusers").html("");
                 return;
             }
             for (var i = 0; i < obj.length; i++) {
@@ -1085,7 +1088,7 @@
             $("#tbusers").html(addhtm);
             $("#tbusers").css({ "height": "600px", "overflow": "auto" });
             $("#tbusers tr:odd").css("background-color", "#f0f9ff");
-            
+            $(".page").html("");
         })
 
 

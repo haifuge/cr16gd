@@ -482,6 +482,10 @@ namespace DAL.Tools
         {
             return ExecuteDataset(connectionString, commandType, commandText, (SqlParameter[])null);
         }
+        public static DataSet ExecuteDataset(string commandText)
+        {
+            return ExecuteDataset(GetConnSting(), CommandType.Text, commandText);
+        }
 
         /// <summary> 
         /// 执行指定数据库连接字符串的命令,返回DataSet. 
