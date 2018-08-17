@@ -26,12 +26,16 @@ namespace RailBiding.Controllers
                                    "<i class='xs-meet-icon icon-dele'></i>删除</a>";
                 ViewBag.createbtn = "";
             }
-            else
+            else if(Session["RoleId"].ToString() == "4")
             {
                 ViewBag.delebtn = "";
                 ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='Companys/Create?inout=1'>
                 <i class='xs-meet-icon icon-add'></i>添加</a>";
-    }
+            }else
+            {
+                ViewBag.delebtn = "";
+                ViewBag.createbtn = "";
+            }
             return View();
         }
 
@@ -267,10 +271,18 @@ namespace RailBiding.Controllers
             {
                 ViewBag.delebtn = "<a class='meet-btn red-btn small-size sm-btn' onclick='deleCompany()'>" +
                                    "<i class='xs-meet-icon icon-dele'></i>删除</a>";
+                ViewBag.createbtn = "";
+            }
+            else if (Session["RoleId"].ToString() == "4")
+            {
+                ViewBag.delebtn = "";
+                ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='Companys/Create?inout=1'>
+                <i class='xs-meet-icon icon-add'></i>添加</a>";
             }
             else
             {
                 ViewBag.delebtn = "";
+                ViewBag.createbtn = "";
             }
             return View();
         }

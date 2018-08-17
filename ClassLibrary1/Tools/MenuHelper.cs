@@ -13,7 +13,6 @@
                             <li id='itemF'><a href='/BidingFile?mmenu=BidingFile'><i class='parent-nav-icon icon-carmanage'></i><span>招标文件</span></a></li>
                             <li id='itemB'><a href='/Bidings?mmenu=Bidings'><i class='parent-nav-icon icon-meetroom'></i><span>招标管理</span></a></li>
                             <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>
-                            <li id='itemS'><a href='/Statistic?mmenu=Statistic'><i class='parent-nav-icon icon-sealapply'></i><span>统计分析</span></a></li>
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 case 2:
                     // 管理员
@@ -63,18 +62,15 @@
                         case "Companysout":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut' class='active'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>                   
-                                    <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li> ";
                         case "CompanysMyAudit":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit' class='active'><i class='icon icon-edit'></i>我审核的</a></li>                   
-                                    <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit' class='active'><i class='icon icon-edit'></i>我审核的</a></li>";
                         case "CompanysMyRecommend":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li> 
-                                    <li><a href='/Companys/MyRecommend' class='active'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li> ";
                         case "Projects":
                             return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";
                         case "BidingFile":
@@ -145,18 +141,15 @@
                         case "Companysout":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut' class='active'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>                   
-                                    <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li> ";
                         case "CompanysMyAudit":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit' class='active'><i class='icon icon-edit'></i>我审核的</a></li>                   
-                                    <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit' class='active'><i class='icon icon-edit'></i>我审核的</a></li>";
                         case "CompanysMyRecommend":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li> 
-                                    <li><a href='/Companys/MyRecommend' class='active'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li> ";
 
                         case "Projects":
                             return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>内容列表</a></li>";

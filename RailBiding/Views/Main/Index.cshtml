@@ -118,7 +118,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/Projects">
+                                <a href="/Projects" class="hid4">
                                     <dl>
                                         <dt><img src="~/img/icon-index6.png" alt=""></dt>
                                         <dd>招标内容</dd>
@@ -139,7 +139,7 @@
                     <div class="bot-left bot-right">
                         <ul>
                             <li>
-                                <a href="/BidingFile?activeMenu=itemF" name="rightPart">
+                                <a href="/BidingFile?activeMenu=itemF" name="rightPart" class="hid4">
                                     <dl>
                                         <dt><img src="~/img/index-7.png" alt=""></dt>
                                         <dd>招标文件</dd>
@@ -147,7 +147,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/Bidings?activeMenu=itemB" name="rightPart">
+                                <a href="/Bidings?activeMenu=itemB" name="rightPart" class="hid4">
                                     <dl>
                                         <dt><img src="~/img/icon-index2.png" alt=""></dt>
                                         <dd>招标管理</dd>
@@ -155,7 +155,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/MakeBidFile?activeMenu=itemM"name="rightPart">
+                                <a href="/MakeBidFile?activeMenu=itemM"name="rightPart" class="hid4">
                                     <dl>
                                         <dt><img src="~/img/icon-index5.png" alt=""></dt>
                                         <dd>定标管理</dd>
@@ -194,15 +194,21 @@
     $(function () {
         if (@ViewBag.RoleId== 4) {
             $(".sp-list-right").html("");
-            $(".in-box-top ul li:nth-child(1) a").attr("href","javascript:;")
-            $(".in-box-top ul li:nth-child(2) a").attr("href","javascript:;")
-            $(".in-box-top ul li:nth-child(3) a").attr("href","javascript:;")
-            $(".in-box-top ul li:nth-child(4) a").attr("href","javascript:;")
             //$("a[name='rightPart']").css("display", 'none');
             $(".in-box-top ").css("display","none")
             $(".index-center").css("padding-top","0px")
             $(".index-center .index-box").css({"height":"auto","margin-top":"13%"})
-             
+
+        }
+        if (@ViewBag.RoleId== 5) {
+            $(".sp-list-right").html("");
+         
+            //$("a[name='rightPart']").css("display", 'none');
+            $(".in-box-top ").css("display","none");
+            $(".hid4").attr("href","javascript:;");
+            $(".index-center").css("padding-top","0px")
+            $(".index-center .index-box").css({"height":"auto","margin-top":"13%"})
+            
         }
         $("#department").text($.cookie("UserDepartment"))
         $("#name").text($.cookie("UserName"))
@@ -225,7 +231,7 @@
                     $(".num-four").html(o.mb)
                 }
             }
-           
+
         })
     });
 
