@@ -97,7 +97,6 @@
 <script>
     $.get("/SystemSetup/GetPersenalInfo", {}, function (data) {
         var obj = JSON.parse(data)[0];
-        console.log(obj.departmentname)
         $("#dname").text(obj.departmentname);
         $("#useraccount").text(obj.useraccount);
         $("#uname").val(obj.username);

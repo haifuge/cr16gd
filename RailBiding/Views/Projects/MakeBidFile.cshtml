@@ -264,7 +264,6 @@
 <script>
 
     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=4", function (data) {
-        console.log(data)
         //$("#bffiles").html(data);
         var obj= JSON.parse(data);
         for (var i= 0; i < obj.length; i++) {
@@ -317,7 +316,6 @@
 
         ss.style.height="500px";
        // ss2.style.height=h-90+"px";
-       // console.log(ss2)
         
     }
 </script>
@@ -489,7 +487,6 @@
             var comhtml= "";
             for (var i= 0; i < obj.length; i++) {
                 var o= obj[i];
-                console.log(o)
                 comhtml+='<tr class="white-bg">'+
                               '<td style="width:10px;padding:0 0 0 20px" class="check-color">'+
                                  '<input class="icheck" name="addcompanybiding" type="checkbox"  value="' + o.id +'" />' +
@@ -538,7 +535,6 @@
         var lis= $(".cjtb_ul").children('li');
         var jc= "";
         var cs="";
-        console.log("lis"+lis.length)
         for (var i= 0; i < lis.length; i++) {
             cs= lis[i].children[0].children;
 
@@ -548,7 +544,6 @@
             }else{
                 jc += cs[2].innerText + "-" + cs[3].children[0].value + "-" + cs[4].children[0].value + "|";
             }
-            console.log(cs[4].children[0].value)
         }
         if (jc.length > 0)
             jc=jc.substr(0, jc.length - 1);
@@ -574,7 +569,6 @@
         }
         if (wc.length > 0)
             wc= wc.substr(0, wc.length - 1);
-        console.log("jc"+jc)
         getQueryString('status');
         $('body').loading({
             loadingWidth: 240,

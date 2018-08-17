@@ -188,7 +188,6 @@
 <script>
     $.post("/Statistic/GetCompanyBidDetail", { cid: @ViewBag.cid}, function (res) {
         var data = JSON.parse(res);
-        console.log(data)
         var allhtm='';
         var joinhtm='';
         var nojoinhtm='';

@@ -633,7 +633,6 @@
         location.reload(true);
     }
     function deleteFile(name) {
-        console.log(name);
         var li = document.getElementById(name)
         li.parentNode.removeChild(li);
         $.post("/Common/FileDelete", { fname: name }, function () {});
@@ -680,7 +679,6 @@
             $("#bfcontent").html(data)
         });
         $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
-            console.log(data)
             //$("#bffiles").html(data);
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {

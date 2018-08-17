@@ -552,8 +552,7 @@
     if (@ViewBag.roleid == 2){
         $(".tijiaobth").hide()
     }
-
-    console.log("AuditStatus是"+@ViewBag.AuditStatus);
+    
     function businessScope(){
         if($("#businessScope").val()!=""){
             $("#businessScope").css('border','1px solid green');
@@ -617,7 +616,6 @@
                 return;
             }
             $("#bfupform7").ajaxSubmit(function (res) {
-                console.log(res);
                 $("#zzzsPic").text(res);
             });
         })
@@ -630,7 +628,6 @@
                 return;
             }
             $("#bfupform1").ajaxSubmit(function (res) {
-                console.log(res);
                 var fileName = res.split('|');
                 $(".dw1").html(fileName[1]);
                 $("#referPic").val(fileName[0]);
@@ -856,15 +853,7 @@
                 title: '企业名称不能为空！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
 
@@ -875,15 +864,7 @@
                     title: '推荐人不能为空！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer');
-                        }
-                    }
-                )
+                })
                 return;
             }else{
                 $("#refererName").css('border','1px solid green');
@@ -895,15 +876,7 @@
                     title: '请上传推荐书！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                    function () { },
-                    // handling the promise rejection
-                    function (dismiss) {
-                        if (dismiss === 'timer') {
-                            console.log('I was closed by the timer');
-                        }
-                    }
-                )
+                })
                 return;
             }
         }
@@ -915,15 +888,7 @@
                 title: '请上传营业执照！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (socialCreditNo == "") {
@@ -932,15 +897,7 @@
                 title: '请填写统一社会信用代码号！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (qualificationLevel == "") {
@@ -949,15 +906,7 @@
                 title: '请填写资质等级！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (zzlist == "") {
@@ -965,15 +914,7 @@
                 title: '请上传企业资质！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         /*     if( $(".yuijianred").html()!= "") {
@@ -983,15 +924,7 @@
                          title: '请上传安全证书！',
                          text: '2秒后自动关闭。',
                          timer: 2000
-                     }).then(
-                         function () { },
-                         // handling the promise rejection
-                         function (dismiss) {
-                             if (dismiss === 'timer') {
-                                 console.log('I was closed by the timer');
-                             }
-                         }
-                     )
+                     })
                      return;
                  }
                  if (licenseNo == "") {
@@ -1001,15 +934,7 @@
                          title: '请上传证件编号！',
                          text: '2秒后自动关闭。',
                          timer: 2000
-                     }).then(
-                         function () { },
-                         // handling the promise rejection
-                         function (dismiss) {
-                             if (dismiss === 'timer') {
-                                 console.log('I was closed by the timer');
-                             }
-                         }
-                     )
+                     })
                      return;
                  }
              }*/
@@ -1038,15 +963,7 @@
                 title: '请填写法人代表！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (repTelephone == "") {
@@ -1055,15 +972,7 @@
                 title: '请填写法人代表联系电话！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (dw4 == "") {
@@ -1073,15 +982,7 @@
                 title: '请上传法人代表身份证扫描件！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (contact == "") {
@@ -1090,15 +991,7 @@
                 title: '请填写现场负责人！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (contactPhone == "") {
@@ -1108,15 +1001,7 @@
                 title: '请填写现场负责人联系电话！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (dw5 == "") {
@@ -1126,15 +1011,7 @@
                 title: '请上传现场负责人身份证扫描件！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-            )
+            })
             return;
         }
         if (contactAddress == "") {
@@ -1280,7 +1157,6 @@
     function uploadWorkHistory() {
         var wh = $("#tworkhistory")
         var children = wh.children();
-        //console.log(children)
         var data = "";
         for (var i = 0; i < children.length; i++) {
             var item = children[i].children[0].innerText + '|' + children[i].children[1].innerText + '|' +
@@ -1351,7 +1227,6 @@
         if (file.size / 1024 > 1500) {
             compress = true;
             quality = 1024 * 1500 / file.size;
-            console.log(quality)
         }
         r = new FileReader();  //本地预览
         r.onload = function () {
@@ -1557,7 +1432,6 @@
     })
     $(".aui-close-up-img").click(function () {
         //$(this).parents("li").hide();
-        console.log($(this).parents("li"))
     });
     function cancelImg() {
         $(".canvas").hide();
@@ -1605,16 +1479,7 @@
                 title: '企业名称不能为空！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer');
-                    }
-                }
-
-            )
+            })
             return;
         }else{
             $.post("/Companys/CheckUpdateCompanyNameUsed", {cid:@ViewBag.cid, cName: companyName }, function (data) {

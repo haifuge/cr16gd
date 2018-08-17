@@ -227,17 +227,14 @@
         })
         function addBtype() {
             var btval = $("#btype").val();
-            console.log(btval);
             if (btval.trim() == "")
             {
                 alert('请输入类型名称')
                 $("#btype").focus();
                 return;
             }
-            console.log(addtype)
             if(addtype=="1"){
                 $.post("/SystemSetup/AddBusinessType", { bt: btval }, function (bid) {
-                    console.log(btval)
                     var htm = '<tr class="white-bg">' +
                         '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '"/></td>' +
                         '<td>' + btval + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + btval + '\',' + bid + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + bid +')">删除</a></td>' +
@@ -263,7 +260,6 @@
         function updateBusinessType() {
             var btn = $("#btname").val();
             var bti = $("#btid").val();
-            console.log(btn, bti, addtype)
             if (addtype == "1"){
                 $.post("/SystemSetup/UpdateBusinessType", { id: bti, name: btn }, function () { initBusinessType() });
                 return;
@@ -283,8 +279,6 @@
             $("#btname").val(bname)
             $(".canvas.canvas1").show();
             $("#btid").val(id)
-            console.log($("#btname").val(bname))
-            console.log($("#btid").val(id))
         }
 
 
@@ -295,8 +289,6 @@
             })
         })
         function delname(obj, btid) {
-            console.log(obj.parentNode.parentNode);
-            
              if (confirm("确认要删除该类型？")) {
                 var row = obj.parentNode.parentNode;
                 row.parentNode.removeChild(row);

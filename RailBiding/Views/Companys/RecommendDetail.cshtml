@@ -186,10 +186,7 @@
 
     //资质荣誉 图片放大
     $(function () {
-
-        console.log();
-
-
+    
         var abtab2_img = 1;
         $("a[rel=group]").fancybox({
             'titlePosition': 'over',
@@ -214,7 +211,6 @@
     });
     $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: @ViewBag.apid}, function (data) {
             var obj = JSON.parse(data);
-            console.log(obj);
             if(obj.length==0)
                 return;
             var pdepart = obj[0].pname;
@@ -295,15 +291,7 @@
                 title: '必须填写意见！',
                 text: '2秒后自动关闭。',
                 timer: 2000
-            }).then(
-            function () {},
-            // handling the promise rejection
-            function (dismiss) {
-                if (dismiss === 'timer') {
-                    console.log('I was closed by the timer')
-                }
-            }
-        )
+            })
         }else {
             swal({
                 title: '确定驳回该申请？',

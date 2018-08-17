@@ -134,13 +134,11 @@
         var pdescription = document.getElementById("pdescription").value;
         
         $.post("/Projects/AddProject", { name:pname, type:tt, location:plocation, description:pdescription}, function (data) {
-            console.log(data);
-            
-            
+            swal("提交成功").then(function () {
+                window.location.href = "/Projects";
+            });
         })
-        swal("提交成功").then(function () {
-            window.location.href = "/Projects";
-        });
+        
 
 
     }

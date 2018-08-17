@@ -1043,7 +1043,6 @@
                 $("#searchtbody").html("");
                 return;
             }
-            console.log(obj)
             for (var i = 0; i < obj.length; i++) {
                 addhtm += '<tr>' +
                               '<td style="width:20px" ><input type="radio" style="width:18px;height:18px" name="chooseid" value="' + obj[i].id + '" class="xzryradio"/><label></label></td>' +
@@ -1292,7 +1291,6 @@
             usValid= 1;
         } else {
             $.post("/Common/CheckUserAccountExist", { uact: uaccount }, function (res) {
-                console.log(res)
                 if (res == 0) {
                     // useraccount 不存在
                     document.getElementById(wid).innerHTML = "√";
@@ -1386,7 +1384,6 @@
             for (var i = 0; i < data.length; i++) {
                 htm += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
             }
-            console.log(htm)
             $("#bType").html(htm);
             $("#xgbType").html(htm);
             })

@@ -1160,7 +1160,6 @@
         }
 
         $.post("/Companys/UploadWorkHistory", { workhistory: data }, function (res) {
-            console.log("您提交的信息已到管理部门审核"+res)
             removeLoading('test');
             if (submitType == 1)
                 swal('您提交的信息已到管理部门审核，请及时关注审核状态。').then(function () {

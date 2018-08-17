@@ -37,7 +37,6 @@
                 $('#formFile').ajaxSubmit(function (data) {
                     if (data.success) {
                         $('#uploadLog').html('上传成功');
-                        console.log(data.src);
                         document.getElementById("imgShow").src = data.src;
                         //$('#imgShow').attr('src', data.src);
                     }
