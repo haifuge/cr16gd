@@ -280,5 +280,11 @@ namespace RailBiding.API
             string sql = @"update BidingCompany set CompanyResponse=" + res + ", Biding=" + biding + " where ProjId=" + pid + " and CompanyId=" + cid + " and VerifyCode='" + token + "'; ";
             DBHelper.ExecuteNonQuery(sql);
         }
+        public string GetUserRoles()
+        {
+            string sql = "select ID, Name from UserRole order by ID";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
     }
 }
