@@ -178,18 +178,16 @@ namespace DAL.Models
 
         public void DeleteUser(string uid)
         {
-            string sql = "update DepartmentUser set Status = 0 where Guid = '" + uid+"'";
+            string sql = "update DepartmentUser set Status = 0 where Guid = '" + uid+ "'; update UserInfo set userinfo.Status = 0  from DepartmentUser where DepartmentUser.Guid='" + uid + "' and DepartmentUser.UserId=UserInfo.ID";
             DBHelper.ExecuteNonQuery(sql);
         }
 
         public string SearchUsers(string uname)
         {
-            string sql = @"select ui.ID, UserAccount, UserName, Telphone, Email, d.Name as dName 
+            string sql = @"select du.guid as id, UserAccount, UserName, Telphone, Email, d.Name as dName 
                             from UserInfo ui
-                            inner
-                            join DepartmentUser du on ui.id = du.userid
-                            inner
-                            join Department d on d.id = du.departmentid
+                            inner join DepartmentUser du on ui.id = du.userid
+                            inner join Department d on d.id = du.departmentid
                             where ui.UserName like '%"+uname+ "%' or ui.UserAccount like '%" + uname + "%'";
             DataTable dt= DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);

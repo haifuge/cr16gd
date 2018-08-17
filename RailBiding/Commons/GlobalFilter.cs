@@ -36,6 +36,15 @@ namespace RailBiding.Common
             }
         }
     }
+    public class AdministratorPagesFilter:ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            base.OnActionExecuting(filterContext);
+            if (filterContext.HttpContext.Session["RoleId"].ToString() != "2")
+                filterContext.Result = new RedirectResult("/Main");
+        }
+    }
 
     public class VerifyMobileLoginFilter : ActionFilterAttribute
     {
