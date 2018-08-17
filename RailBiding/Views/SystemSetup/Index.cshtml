@@ -1382,5 +1382,13 @@
             $("#bType").html(htm);
             $("#xgbType").html(htm);
             })
-        }
+    }
+    function checkUserAccountExist() {
+        var useraccount = $("#uaccount").val();
+        $.post("/Common/CheckUserAccountExist", { uact: useraccount }, function (res) {
+            if (res == "0") {
+                // useraccount 不存在
+            }
+        })
+    }
 </script>
