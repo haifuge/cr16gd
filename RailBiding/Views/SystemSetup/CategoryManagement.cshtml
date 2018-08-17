@@ -136,12 +136,11 @@
         <div class="wc-container szwc-container">
             <table class="meet-table text-left">
                 <thead class="wc-header">
-                <td class="check-color" style="width: 30px;">
-                    选择
-                </td>
-                <td style="width:150px;padding:0 5px">类型名称</td>
-                <td style="width:150px;padding:0 5px">操作</tdstyle="width:150px;padding:0>
-                </tr>
+                    <tr>
+                        
+                        <td style="width:150px;padding:0 5px">类型名称</td>
+                        <td style="width:150px;padding:0 5px">操作</td>
+                   </tr>
                 </thead>
                 <tbody id="tbType"></tbody>
             </table>
@@ -214,7 +213,7 @@
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i]
                     htm += '<tr class="white-bg">' +
-                        '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"/></td>' +
+                        //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"/></td>' +
                         '<td>' + o.name + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + o.name + '\',' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + o.id + ')">删除</a></td>' +
                         '</tr>';
                 }
