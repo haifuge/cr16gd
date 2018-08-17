@@ -29,7 +29,7 @@ namespace RailBiding.Controllers
             else if(Session["RoleId"].ToString() == "4")
             {
                 ViewBag.delebtn = "";
-                ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='Companys/Create?inout=1'>
+                ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='/Companys/Create?inout=1'>
                 <i class='xs-meet-icon icon-add'></i>添加</a>";
             }else
             {
@@ -278,7 +278,7 @@ namespace RailBiding.Controllers
             else if (Session["RoleId"].ToString() == "4")
             {
                 ViewBag.delebtn = "";
-                ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='Companys/Create?inout=1'>
+                ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='/Companys/Create?inout=0'>
                 <i class='xs-meet-icon icon-add'></i>添加</a>";
             }
             else
