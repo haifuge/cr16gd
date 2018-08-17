@@ -286,5 +286,10 @@ namespace RailBiding.API
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }
+        public string CheckUserAccountExist(string uact)
+        {
+            string sql = "select count(1) from UserInfo where UserAccount='" + uact + "' and Status=1'";
+            return DBHelper.ExecuteScalar(sql).ToString();
+        }
     }
 }
