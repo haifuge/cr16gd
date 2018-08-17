@@ -138,12 +138,10 @@
         $.get("/SystemSetup/GetOrganizationUser?appPid=@ViewBag.apppid", {}, function (data) {
             data = data.replace(/pid/g, 'pId')
             nodes1 = JSON.parse(data);
-            console.log('人员部门节点：',nodes1)
             $.fn.zTree.init($("#treeDemo"), setting, nodes1);
         });
         // 加载已配置审批流程
         @*$.get("/SystemSetup/GetApprovePrcess?appPid=@ViewBag.apppid", {}, function (data) {
-            console.log('审批流程节点',data)
             var obj = JSON.parse(data);
             appProcess = obj;
             var pname = "";
@@ -167,7 +165,6 @@
     });
 
     function zTreeOnClick(event, treeId, treeNode) {
-        console.log("id=" + treeNode.id + ", name=" + treeNode.name + ",pId=" + treeNode.pId);
     };
     function getDepartmentLeve(id) {
         for (var i = 0; i < nodes1.length; i++) {
@@ -177,8 +174,6 @@
         }
     }
     function onCheck(e, treeId, treeNode) {
-        console.log($(".wc-container .dc-right2>ul>li>ul>li"));
-        console.log("id=" + treeNode.id + " ,name=" + treeNode.name + " ,pId=" + treeNode.pId + ", root=" + treeNode.rname + ", level=" + treeNode.level);
         var rootname = treeNode.rname;
         var uname = treeNode.name;
         var department = treeNode.getParentNode();
@@ -190,7 +185,6 @@
             rootname = root.name;
             //root = getNodeValue(root.id);
             var o = { level: lev, pname: rootname, username: uname, dname: department.name, uid: userid, did: department.id}
-            console.log(o)
             var c = 0;
             var inserted = false;
             for (var i = 0; i < appProcess.length; i++) {
@@ -264,7 +258,6 @@
                 }
             }
         }
-        console.log(appProcess);
     }
    
     function getNodeValue(nid) {
@@ -290,18 +283,15 @@
         node.remove();
         var dname = du.split(' ')[0]
         var uname = du.split(' ')[1]
-        console.log(dname, uname)
         for (var i = 0; i < appProcess.length; i++) {
             if (dname == appProcess[i].dname && uname== appProcess[i].username)
             {
                 var uid = appProcess[i].uid
                 appProcess.splice(i, 1);
-                console.log(uid)
                 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
                 var node = zTree.getNodeByParam("id", uid, null);
                 node.checked = false;
                 zTree.updateNode(node);
-                console.log(node)
             }
         }
     }
@@ -333,7 +323,6 @@
     function saveApproveProcess() {
         var appnodes = getCheckNodes();
         var data = JSON.stringify(appnodes);
-        console.log(data);
 
         swal({
             title: '确定要保存该审核流程？',

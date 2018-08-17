@@ -406,16 +406,13 @@
     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {          
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
-                var li = document.createElement('li');  
-                console.log(obj[i].FilePath);
-                
+                var li = document.createElement('li');                  
                 li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName+'<a href = "'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>';
                 document.getElementById("bffiles").appendChild(li)
             }
     });
     $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: "3"}, function (data) {
         var obj = JSON.parse(data);
-        console.log(obj);
         if(obj.length==0)
             return;
         var pdepart = obj[0].pname;
@@ -534,7 +531,6 @@
     }
 
     function deleteFile(name) {
-        console.log(name);
         var li = document.getElementById(name)
         li.parentNode.removeChild(li);
         $.post("/Common/FileDelete", { fname: name }, function () {});

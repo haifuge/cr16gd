@@ -150,11 +150,9 @@
                     }
                     var jsonData = JSON.parse(data);
                     var obj = jsonData.List;
-                    console.log(jsonData)
                     var htm = "";
                     for (var i = 0; i < obj.length; i++) {
                         var o = obj[i]
-                        console.log(o);
                         var applyStatus = "";
                         var applyStyle = "";
                         switch (o.status) {
@@ -193,7 +191,6 @@
                     }
 
                     $("#tbBidApprove").html(htm);
-                    console.log(page, jsonData.PageCount, jsonData.total, ps)
                     pages(page, jsonData.PageCount, jsonData.total, ps)
                 });
               

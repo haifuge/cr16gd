@@ -330,7 +330,6 @@
 
         $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.pid, apid: "2"}, function (data) {
             var obj = JSON.parse(data);
-            console.log(obj);
             if(obj.length==0)
                 return;
             var pdepart = obj[0].pname;
@@ -444,7 +443,6 @@
         })
     }
     function deleteFile(name) {
-        console.log(name);
         var li = document.getElementById(name)
         li.parentNode.removeChild(li);
         $.post("/Common/FileDelete", { fname: name }, function () {});
@@ -490,7 +488,6 @@
             $("#bfcontent").html(data)
         });
         $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {
-            console.log(data)
             //$("#bffiles").html(data);
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {

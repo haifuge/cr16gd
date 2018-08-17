@@ -112,8 +112,6 @@
         }
         SearchCompanyName = $("#searchinput").val();
         Paginator(nowpage, page_size, SearchCompanyName, type)
-        console.log(type);
-        console.log(SearchCompanyName);
     })
     //输入框内容更改
     $("#searchinput").change(function () {
@@ -124,8 +122,6 @@
         }
         SearchCompanyName = $("#searchinput").val();
         Paginator(nowpage, page_size, SearchCompanyName, type)
-        console.log(type);
-        console.log(SearchCompanyName);
     })
 
     //点击搜索按钮
@@ -136,8 +132,6 @@
         } else {
             type = $("#bType").val();
         }
-        console.log(type);
-        console.log(SearchCompanyName);
         Paginator(nowpage, page_size, SearchCompanyName, type)
     });
 
@@ -188,7 +182,6 @@
         });
     }
     function comischecked(comid, chk) {
-        console.log(chk.checked);
         var s = 0;
         if (chk.checked)
             s = 1;

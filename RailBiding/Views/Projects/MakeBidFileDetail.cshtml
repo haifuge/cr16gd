@@ -157,7 +157,6 @@
             }
             $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:4}, function (data) {
             var obj = JSON.parse(data);
-            console.log(obj);
             if (obj.length == 0)
                 return;
             var pdepart = obj[0].pname;
@@ -242,15 +241,7 @@
                     title: '必须填写意见！',
                     text: '2秒后自动关闭。',
                     timer: 2000
-                }).then(
-                function () { },
-                // handling the promise rejection
-                function (dismiss) {
-                    if (dismiss === 'timer') {
-                        console.log('I was closed by the timer')
-                    }
-                }
-            )
+                })
             } else {
 
                 swal({

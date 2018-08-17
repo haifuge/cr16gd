@@ -117,11 +117,8 @@
             } else {
                 type = $("#bType").val();
             }
-            console.log(type);
             SearchCompanyName = $("#searchinput").val();
             Paginator(nowpage, page_size, SearchCompanyName, type)
-            console.log(type);
-            console.log(SearchCompanyName);
         })
         //输入框内容更改
         $("#searchinput").change(function () {
@@ -132,8 +129,7 @@
             }
             SearchCompanyName = $("#searchinput").val();
             Paginator(nowpage, page_size, SearchCompanyName, type)
-
-            console.log(SearchCompanyName);
+            
         })
 
         //点击搜索按钮
@@ -144,8 +140,6 @@
             } else {
                 type = $("#bType").val();
             }
-            console.log(type);
-            console.log(SearchCompanyName);
             Paginator(nowpage, page_size, SearchCompanyName, type)
         });
 
@@ -167,7 +161,6 @@
                 var htm = "";
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i]
-                    console.log(o)
                     var auditStatus = "";
                     var statusStyle = "";
                     switch (o.auditstatus) {
@@ -210,7 +203,6 @@
                     '</tr>';
                 }
                 $("#tCompanys").html(htm);
-                console.log(page, jsonData.PageCount, jsonData.total, ps)
                 pages(page, jsonData.PageCount, jsonData.total, ps)
             })
            
