@@ -40,6 +40,10 @@
                             <li id='itemB'><a href='/Bidings?mmenu=Bidings'><i class='parent-nav-icon icon-meetroom'></i><span>招标管理</span></a></li>
                             <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
+                case 5:
+                    // 轨道公司业务部
+                    return @"<li id='itemC'><a href='/Companys?mmenu=Companys'><i class='parent-nav-icon icon-waitread'></i><span class='span2'  id='spanlaowu'>劳务承分包企业</span></a></li>
+                            <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 default:
                     return "";
             }
@@ -55,8 +59,7 @@
                         case "Companys":
                             return @"<li><a href='/Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
-                                    <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>";
                         case "Companysout":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut' class='active'><i class='icon icon-hand'></i>名录外单位</a></li>
@@ -138,8 +141,7 @@
                         case "Companys":
                             return @"<li><a href='/Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
-                                    <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>";
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>";
                         case "Companysout":
                             return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
                                     <li><a href='/Companys/CompanysOut' class='active'><i class='icon icon-hand'></i>名录外单位</a></li>
@@ -197,6 +199,26 @@
                             return @"<li><a href='/Bidings' class='active'><i class='icon icon-eye1'></i>招标信息</a></li>";
                         case "MakeBidFile":
                             return @"<li><a href='/MakeBidFile' class='active'><i class='icon icon-eye1'></i>定标文件</a></li>";
+                        case "SystemSetup":
+                            return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                    }
+                    return "";
+                case "5":
+                // 轨道公司业务部
+                    switch (mmenu)
+                    {
+                        case "Companys":
+                            return @"<li><a href='/Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
+                                    <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>";
+                        case "Companysout":
+                            return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
+                                    <li><a href='/Companys/CompanysOut' class='active'><i class='icon icon-hand'></i>名录外单位</a></li>
+                                    <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>";
+                        case "CompanysMyAudit":
+                            return @"<li><a href='/Companys'><i class='icon icon-eye'></i>名录内单位</a></li>
+                                    <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
+                                    <li><a href='/Companys/MyAudit' class='active'><i class='icon icon-edit'></i>我审核的</a></li>";
                         case "SystemSetup":
                             return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
                     }

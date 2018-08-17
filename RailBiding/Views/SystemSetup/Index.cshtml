@@ -287,10 +287,6 @@
                                         <td class="form-lable">角色：</td>
                                         <td>
                                             <select class="has-clear-input input input3 xgrol" name="xgiofnName" id="xgbType">
-                                                <option value="1">轨道公司领导</option>
-                                                <option value="2">管理员</option>
-                                                <option value="3">分公司领导</option>
-                                                <option value="4">分公司项目部</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -394,10 +390,6 @@
                                             <td class="form-lable">角色：</td>
                                             <td >
                                                 <select class="has-clear-input input input3 rol" name="iofnName" id="bType">
-                                                    <option value="1">轨道公司领导</option>
-                                                    <option value="2">管理员</option>
-                                                    <option value="3">分公司领导</option>
-                                                    <option value="4">分公司项目部</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -741,6 +733,7 @@
     }
     $(document).ready(function () {
         initTree();
+        getUserRoles();
     });
     var cNode;
     var cNodename;
@@ -1380,6 +1373,17 @@
             $("#xzaddinputmsg").html("");
             return 0;
         }
-        
     }
+    function getUserRoles() {
+        $.get("/Common/GetUserRoles", {}, function (res) {
+            var data = JSON.parse(res);
+            var htm = "";
+            for (var i = 0; i < data.length; i++) {
+                htm += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+            }
+            console.log(htm)
+            $("#bType").html(htm);
+            $("#xgbType").html(htm);
+            })
+        }
 </script>
