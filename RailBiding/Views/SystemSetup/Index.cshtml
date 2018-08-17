@@ -968,7 +968,8 @@
     function createNewUser() {
         
         var success = 0;
-        success += yzzh('uaccount', 'd1');
+        success = usValid;
+        //success += yzzh('uaccount', 'd1');
         success += yzxm('uname', 'xm');
         success += checkphone('utel', 'phonemsg');
         success += checkpwd('upsd', 'pwdmsg');
@@ -1283,22 +1284,26 @@
             return 0;
         }
     }
-
+    var usValid=0
     function yzzh(elementName, wid) {
-        var _uaccount = document.getElementById(elementName).value;
-        /*$.post("/SystemSetup/SearchUseraccount", { saccount: _uaccount }, function (res) {*/
-            
-        if (_uaccount == "1") {//获得用户名字段
-                document.getElementById(wid).innerHTML = "×用户名已存在";
-                return 1;
-            }else if (_uaccount = null || _uaccount == "") {
-                document.getElementById(wid).innerHTML = "×用户名不能为空"
-                return 1;
-            }else{
-                document.getElementById(wid).innerHTML = "√";
-                return 0;
-            }
-        
+        var uaccount = document.getElementById(elementName).value;
+        if (uaccount == null || uaccount == "") {
+            document.getElementById(wid).innerHTML = "×用户名不能为空"
+            usValid= 1;
+        } else {
+            $.post("/Common/CheckUserAccountExist", { uact: uaccount }, function (res) {
+                console.log(res)
+                if (res == 0) {
+                    // useraccount 不存在
+                    document.getElementById(wid).innerHTML = "√";
+                    usValid= 0;
+                }
+                else {
+                    document.getElementById(wid).innerHTML = "×用户名已存在";
+                    usValid= 1;
+                }
+            })
+        }
     }
 
     function yzxm(elementName, wid) {
@@ -1385,13 +1390,5 @@
             $("#bType").html(htm);
             $("#xgbType").html(htm);
             })
-    }
-    function checkUserAccountExist() {
-        var useraccount = $("#uaccount").val();
-        $.post("/Common/CheckUserAccountExist", { uact: useraccount }, function (res) {
-            if (res == "0") {
-                // useraccount 不存在
-            }
-        })
     }
 </script>

@@ -243,10 +243,11 @@
     <div class="left-nav-con">
         <h1>劳务承分包企业</h1>
         <ul class="left-nav-list">
-            <li><a href="/Companys" @ViewBag.InActive><i class="icon icon-eye"></i>名录内单位</a></li>
-            <li><a href="/Companys/CompanysOut" @ViewBag.OutActive><i class="icon icon-hand"></i>名录外单位</a></li>
-            <li><a href="/Companys/MyAudit"><i class="icon icon-edit"></i>我审核的</a></li>
-            <li><a href="/Companys/MyRecommend" ><i class="icon icon-user"></i>我提交的</a></li>
+            @*<li><a href='Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
+                <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
+                <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
+                <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>*@
+            @Html.Raw(ViewBag.SecondMenu)
         </ul>
     </div>
 </div>

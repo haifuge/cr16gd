@@ -44,6 +44,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult Details(int id)
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("Companys", Session["RoleId"].ToString());
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
@@ -163,6 +164,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult OutCompanyDetail(int id)
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("Companysout", Session["RoleId"].ToString());
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
@@ -297,6 +299,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult RecommendDetail(int id)
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("CompanysMyRecommend", Session["RoleId"].ToString());
             ViewBag.cid = id;
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
@@ -410,6 +413,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult AuditDetail(int id)
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("CompanysMyAudit", Session["RoleId"].ToString());
             ViewBag.UserId = Session["UserId"].ToString();
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
@@ -857,6 +861,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult EditCompany()
         {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("Companys", Session["RoleId"].ToString());
             FillCompanyInfo();
             return View();
         }

@@ -288,7 +288,7 @@ namespace RailBiding.API
         }
         public string CheckUserAccountExist(string uact)
         {
-            string sql = "select count(1) from UserInfo where UserAccount='" + uact + "' and Status=1'";
+            string sql = "select count(1) from UserInfo where UserAccount='" + uact + "' and Status=1";
             return DBHelper.ExecuteScalar(sql).ToString();
         }
     }
