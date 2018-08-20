@@ -237,6 +237,9 @@
               
                 
                 pages(page, jsonData.PageCount, jsonData.total, ps)
+                var oheight = $(".main-con").height();
+                $(".main-nav").css("height", oheight + "px")
+                $(".left-nav").css("height", oheight + "px")
                 }
             })
     };
@@ -277,4 +280,7 @@
             removeLoading('test');
          })
     }
+
+
+
 </script>

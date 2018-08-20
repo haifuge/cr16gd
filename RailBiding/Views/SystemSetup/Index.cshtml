@@ -1153,6 +1153,9 @@
             }
             $("#tbusers").html(htm)
             pages(page, jsonData.pagecount, jsonData.total, parseInt(ps))
+            var oheight = $(".main-con").height();
+            $(".main-nav").css("height", oheight + "px")
+            $(".left-nav").css("height", oheight + "px")
             $("#tbusers tr:odd").css("background-color", "#f0f9ff");
         })
 

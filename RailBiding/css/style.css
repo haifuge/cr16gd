@@ -468,10 +468,8 @@ select::-ms-expand {
 
 .left-nav {
     width: 150px;
-    height: 100%;
-    position: fixed;
-    top: 80px;
-    left: 170px;
+    min-height:655px;
+    position:absolute;
     background-color: #EAF6FD;
 }
 
@@ -646,6 +644,7 @@ select::-ms-expand {
 
 .main-wrap {
     padding: 20px 20px 40px 20px;
+
 }
 
 .main-top {
@@ -2296,7 +2295,7 @@ input[name=keyname] {
     box-sizing: border-box;
     background-color: #fff;
     border-bottom: 1px solid #b3b3b3;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     z-index: 9999;
@@ -2316,10 +2315,10 @@ input[name=keyname] {
 
 .main-nav{
     width: 170px;
+    min-height:655px;
     background-color: #008cd6;
-    min-height: 100%;
-    position: fixed;
-    top: 80px;
+    height: 100%;
+    position: absolute;
     left: 0;
 }
  .main-nav.active {
@@ -2422,7 +2421,9 @@ input[name=keyname] {
 
 .main-container {
     padding-left: 80px;
-    padding-top: 80px;
+    padding-top: 0px;
+    position: relative;
+    top: 0;
 }
 
     .main-container.active {
@@ -3032,11 +3033,10 @@ input[name=keyname] {
     width: 100%;
     height: 40px;
     background: #0383d4;
-    position: fixed;
-    bottom: 0;
+    position:fixed;
+    bottom:0;
     z-index: 10000;
     color: #fff;
-  
     padding-top: 40px;
 }
 .login-footcon{
@@ -3178,7 +3178,7 @@ input[name=keyname] {
     background: url(../img/login-bg.png) repeat;
     position: relative;
     z-index: 9999;
-    margin-top: 110px;
+    margin-top:3%;
 }
 
 .login-zx {
@@ -3283,7 +3283,7 @@ input[name=keyname] {
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: auto;
+
 }
 
 .main-header2 {
@@ -4338,13 +4338,13 @@ h3.fx_tit {
 
 .main-container {
     padding-left: 170px;
-    padding-top: 80px;
+    padding-top: 0px;
 }
 .main-container.active {
     padding-left: 80px;
 }
 .main-container.active .left-nav {
-    left: 80px;
+    left: 0px;
 }
 .main-nav.active {
     width: 80px;
@@ -6025,6 +6025,6 @@ div#editor {
             }
             
             .left-nav{
-                z-index:99
+                z-index:98
             }
         }
