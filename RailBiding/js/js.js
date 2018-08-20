@@ -277,3 +277,20 @@ function checkpsd2(){
 
 
 
+window.onscroll = function () {
+                 var topScroll = $(document).scrollTop(); //滚动的距离,距离顶部的距离
+                 console.log(topScroll)
+                 if (topScroll > 80) {  //当滚动距离大于80px时执行下面的东西
+    
+                     $(".main-nav").css({"position":"fixed","top":"0"})
+                     $(".left-nav").css({ "position": "fixed", "top": "0","left":"auto" })
+             
+                 }else{//当滚动距离小于250的时候执行下面的内容，也就是让导航栏恢复原状
+                     $(".main-nav").css({ "position": "absolute", "top": "80px" })
+                     $(".left-nav").css({ "position": "absolute", "left": "auto" })
+                 }
+}
+
+
+var navheight = $(".main-nav").height();
+$(".left-nav").css("height",navheight)

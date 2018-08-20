@@ -467,9 +467,9 @@ select::-ms-expand {
 }
 
 .left-nav {
-    width: 150px;
-    min-height:655px;
     position:absolute;
+    width: 150px;
+    min-height:100%;
     background-color: #EAF6FD;
 }
 
@@ -1964,7 +1964,7 @@ button:hover {
 .foot-con p {
     text-align: center;
     color: #9fa0a0;
-    background-color: #fff;
+   // background-color: #fff;
 }
 
     .foot-con p a {
@@ -2315,7 +2315,7 @@ input[name=keyname] {
 
 .main-nav{
     width: 170px;
-    min-height:655px;
+    min-height:100%;
     background-color: #008cd6;
     height: 100%;
     position: absolute;
