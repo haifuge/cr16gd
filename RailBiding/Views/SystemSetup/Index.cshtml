@@ -1082,11 +1082,12 @@
                             '</tr >';
             }
             $("#tbusers").html(addhtm);
-            $("#tbusers").css({ "height": "600px", "overflow": "auto" });
+       
+            $(".dc-right").css({ "height": "600px", "overflow": "auto" });
             $("#tbusers tr:odd").css("background-color", "#f0f9ff");
             $(".page").html("");
         })
-
+        
 
     }
 
@@ -1153,6 +1154,9 @@
             }
             $("#tbusers").html(htm)
             pages(page, jsonData.pagecount, jsonData.total, parseInt(ps))
+            var oheight = $(".main-con").height();
+            $(".main-nav").css("height", oheight + "px")
+            $(".left-nav").css("height", oheight + "px")
             $("#tbusers tr:odd").css("background-color", "#f0f9ff");
         })
 

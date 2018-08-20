@@ -26,9 +26,10 @@
         margin-bottom: 20px;
     }
     .sel-companytype{
-    background: url(../img/icon-arrow.png) no-repeat 160px center;
-    padding-right: 20px;
-    }
+     width:150px;
+     padding-right: 10px;
+     background: url(../img/icon-arrow.png) no-repeat right center;
+     } 
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -42,7 +43,7 @@
     <div class="main-wrap">
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
-            <select class="meet-select js-meet-state sel-companytype" id="bType" style="width:180px"></select>
+            <select class="meet-select js-meet-state sel-companytype" id="bType"></select>
             <select class="meet-select js-meet-state" id="bStatus">
                 <option value="">项目状态 </option>
                 <option value="未发布">未提交</option>
@@ -236,6 +237,9 @@
               
                 
                 pages(page, jsonData.PageCount, jsonData.total, ps)
+                var oheight = $(".main-con").height();
+                $(".main-nav").css("height", oheight + "px")
+                $(".left-nav").css("height", oheight + "px")
                 }
             })
     };
@@ -272,8 +276,12 @@
         });
         $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
             var fpath = String(expfile)
+            $(".js-output-excle").attr("href", fpath)
             window.open(fpath);
             removeLoading('test');
          })
     }
+
+
+
 </script>

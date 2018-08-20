@@ -111,6 +111,9 @@
             }
             $("#tbCompany").html(htm);
             pages(page, jsonData.pagecount, jsonData.total, ps)
+            var oheight = $(".main-con").height();
+            $(".main-nav").css("height", oheight + "px")
+            $(".left-nav").css("height", oheight + "px")
             setSelectAll()
             var cks = $("input.icheck");
             for(var i= 0; i < cks.length;i++){
@@ -156,8 +159,10 @@
         }
         var chsub = $("input.icheck").length; //获取subcheck的个数  
         var checkedsub = $("input.icheck:checked").length; //获取选中的subcheck的个数  
-        if (checkedsub == chsub) {
-            $("#checkall").prop("checked", true);
+        if (chsub != 0) {
+            if (checkedsub == chsub) {
+                $("#checkall").prop("checked", true);
+            }
         }
     }
     function checkedid(boxid) {
@@ -189,8 +194,9 @@
     }
     
     function exportExcel() {
+        
         cids = checkID.join(",")
-        return; if (cids == "") {
+         if (cids == "") {
             swal("请选择要导出的企业！")
             return;
         }
@@ -210,7 +216,8 @@
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
         $.post("/Statistic/ExportCompanysStat", { cids: cids }, function (expfile) {
-           var fpath = String(expfile)
+            var fpath = String(expfile)
+            $(".js-output-excle").attr("href", fpath)
             window.open(fpath)
             removeLoading('test');
         })

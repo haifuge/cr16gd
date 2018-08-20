@@ -13,7 +13,11 @@
     .main-top{
         margin-bottom: 20px;
     }
-        
+     .meet-select{
+     width:150px;
+     padding-right: 10px;
+     background: url(../img/icon-arrow.png) no-repeat right center;
+     }   
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -183,6 +187,9 @@
             $("#tbCompany").html(htm)
 
             pages(page, jsonData.PageCount, jsonData.total, ps)
+            var oheight = $(".main-con").height();
+            $(".main-nav").css("height", oheight + "px")
+            $(".left-nav").css("height", oheight + "px")
             setSelectAll()
             var cks = $("input.icheck");
             for (var i = 0; i < cks.length; i++) {
@@ -281,8 +288,10 @@
         }
         var chsub = $("input.icheck").length; //获取subcheck的个数  
         var checkedsub = $("input.icheck:checked").length; //获取选中的subcheck的个数  
-        if (checkedsub == chsub) {
-            $("#checkall").prop("checked", true);
+        if (chsub!=0){
+            if (checkedsub == chsub) {
+                $("#checkall").prop("checked", true);
+            }
         }
     }
     function checkedid(boxid) {
@@ -334,8 +343,8 @@
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
         $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
-            var fpath = String(expfile)
-
+            var fpath = String(expfile);
+            $(".js-output-excle").attr("href", fpath)
             window.open(fpath)
             removeLoading('test');
          })
