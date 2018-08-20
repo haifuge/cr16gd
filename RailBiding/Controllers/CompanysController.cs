@@ -1064,8 +1064,15 @@ namespace RailBiding.Controllers
                             left join CompanyType bt on c.BusinessType=bt.ID"+where;
             DataTable dt = DBHelper.GetDataTable(sql);
             string tempPath = Server.MapPath("/");
-            string file = ExcelOperator.ExportCompany(dt, tempPath);
-            return file.Replace(tempPath, "/");
+            try
+            {
+                string file = ExcelOperator.ExportCompany(dt, tempPath);
+                return file.Replace(tempPath, "/");
+            }
+            catch(Exception ex)
+            {
+                return ex.ToString();
+            }
         }
     }
 }

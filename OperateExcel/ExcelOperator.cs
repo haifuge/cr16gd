@@ -41,13 +41,13 @@ namespace OperateExcel
                     {
                         if (data.Rows[i][j].ToString() == "1")
                         {
-                            xSheet.Cells[column][row] = "启用";
+                            xSheet.Cells[row, column] = "启用";
                         }
                         else
-                            xSheet.Cells[column][row] = "停用";
+                            xSheet.Cells[row, column] = "停用";
                     }
                     else
-                        xSheet.Cells[column][row] = data.Rows[i][j].ToString();
+                        xSheet.Cells[row, column] = data.Rows[i][j].ToString();
                 }
             }
             string fpath = tempPath + "ExcelFiles";
@@ -91,7 +91,7 @@ namespace OperateExcel
                 for (int j = 0; j < data.Columns.Count; j++)
                 {
                     column = j + 1;
-                    xSheet.Cells[column][row] = data.Rows[i][j].ToString();
+                    xSheet.Cells[row, column] = data.Rows[i][j].ToString();
                 }
             }
             string fpath = tempPath + "ExcelFiles";

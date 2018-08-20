@@ -108,7 +108,7 @@ namespace DAL.Models
             }
             if(roleid!="2")
             {
-                where = " c.Status=1 and ";
+                where += " c.Status=1 and ";
             }
             string sql = @"select identity(int,1,1) as iid,c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
                                   c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
