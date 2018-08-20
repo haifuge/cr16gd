@@ -343,7 +343,8 @@
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
         $.post("/Companys/ExportCompanysExcel", { cids: cids }, function (expfile) {
-            var fpath = String(expfile)
+            var fpath = String(expfile);
+            $(".js-output-excle").attr("href", fpath)
             window.open(fpath)
             removeLoading('test');
          })

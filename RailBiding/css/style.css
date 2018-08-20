@@ -2447,10 +2447,9 @@ input[name=keyname] {
     
     height: 100%;
     float: left;
- 
     top: 0;
     margin-right:60px;
-    padding: 0 15px;
+    padding: 0px;
 }
 
     .user-face ul li {
@@ -2540,7 +2539,7 @@ input[name=keyname] {
     position: absolute;
     left: 400px;
     line-height: 80px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
 }
 
@@ -2551,11 +2550,14 @@ input[name=keyname] {
     }
 
 .search-con {
-    width: 400px;
+    width:auto;
     float: left;
-    padding-left: 160px;
+    padding-left: 130px;
 }
-
+.search-con img{
+    width:350px;
+    padding-top:5px;
+}
 .search-con2 {
     width: 330px;
     position: relative;
@@ -4368,8 +4370,9 @@ h3.fx_tit {
 
 .detail-con .block-left2.block-left4 {
     width: 70%;
-    float: left;
+     float: left;
     margin-bottom: 150px;
+   
 }
 
 .block-right.block-right2 {
@@ -6019,9 +6022,9 @@ div#editor {
     color:#008cd6;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1280px) {
             body{
-                width: 1400px;
+                width: 1280px;
             }
             
             .left-nav{
