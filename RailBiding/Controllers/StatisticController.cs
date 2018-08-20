@@ -11,6 +11,8 @@ using OperateExcel;
 
 namespace RailBiding.Controllers
 {
+
+    [AdministratorPagesFilter]
     public class StatisticController : Controller
     {
         // GET: Statistic
