@@ -14,6 +14,11 @@
     .wc-container {
         margin-top: 20px;
     }
+    .meet-select{
+     width:150px;
+     padding-right: 10px;
+     background: url(../img/icon-arrow.png) no-repeat right center;
+     } 
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -266,8 +271,10 @@
         }
         var chsub = $("input.icheck").length; //获取subcheck的个数  
         var checkedsub = $("input.icheck:checked").length; //获取选中的subcheck的个数  
-        if (checkedsub == chsub) {
-            $("#checkall").prop("checked", true);
+        if (chsub != 0) {
+            if (checkedsub == chsub) {
+                $("#checkall").prop("checked", true);
+            }
         }
     }
     function checkedid(boxid) {
