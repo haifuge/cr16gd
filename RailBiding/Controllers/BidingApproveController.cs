@@ -286,13 +286,17 @@ namespace RailBiding.Controllers
             SendMessage sm = new SendMessage();
             string sql = "select ID, RepPhone from Company where Id in (" + cids+ ") and ID in (select CompanyId from BidingCompany where ProjId=" + pid + " and VerifyCode is null)";
             DataTable dt = DBHelper.GetDataTable(sql);
+            sql = "select ui.UserName, ui.Telphone from Project p inner join UserInfo ui on p.PublisherId=ui.ID where p.Id=" + pid;
+            DataTable dt2 = DBHelper.GetDataTable(sql);
+            string sender = dt2.Rows[0]["UserName"].ToString();
+            string senderTel= dt2.Rows[0]["Telphone"].ToString();
             string guid = "";
             sql = "";
             for(int i = 0; i < dt.Rows.Count; i++)
             {
                 guid = Guid.NewGuid().ToString().Replace("-", "").Substring(0,19);
                 pname = pname.Length > 20 ? pname.Substring(0, 20) : pname;
-                string res=sm.InviteCompany(dt.Rows[i][1].ToString(), pname, guid,pid, dt.Rows[i][0].ToString());
+                string res=sm.InviteCompany(dt.Rows[i][1].ToString(), pname, guid,pid, dt.Rows[i][0].ToString(),sender, senderTel);
                 
                 Log l = new Log();
                 l.UserId = Session["UserId"].ToString();
