@@ -232,11 +232,11 @@ namespace RailBiding.API
 
             string where = "";
             if (cname != "")
-                where += " Name like '%"+cname+"%' and ";
+                where += " c.Name like '%"+cname+"%' and ";
             if (ctype != "")
-                where += " BusinessType = "+ctype+" and ";
+                where += " c.BusinessType = "+ctype+" and ";
             if (inout != "")
-                where += " Type = "+inout+" and ";
+                where += " c.Type = "+inout+" and ";
 
 
             int pi = int.Parse(page);

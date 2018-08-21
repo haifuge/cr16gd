@@ -141,19 +141,27 @@
         display: none;
     }
 
-        .canvas .canvas_content {
+        #bidfileapplylayer .canvas_content {
             width: 790px;
             height: 530px;
             background: #fff;
             position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            margin: auto;
+            top:50%;
+            left:50%;
+            margin-top: -240px;
+            margin-left: -350px;
             border: 1px solid #008cd6;
         }
-
+        #bidapplylayer .canvas_content {
+        
+            background: #fff;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-top: -150px;
+            margin-left: -250px;
+            border: 1px solid #008cd6;
+        }
         .canvas h3 {
             height: 45px;
             padding-left: 20px;
@@ -673,22 +681,7 @@
             }
         });
     }
-    function bidFileApply() {
-        $("#bidfileapplylayer").show();
-        $.get("/Projects/GetBidFileInfo?pid=@ViewBag.ProjId", function (data) {
-            $("#bfcontent").html(data)
-        });
-        $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
-            //$("#bffiles").html(data);
-            var obj = JSON.parse(data);
-            for (var i = 0; i < obj.length; i++) {
-                var li = document.createElement('li');
-                li.id = obj[i].fid;
-                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')" > 删除</a>';
-                document.getElementById("bffiles").appendChild(li)
-            }
-        });
-    }
+
 </script>
 <script>
     // 伸缩详情页内容
