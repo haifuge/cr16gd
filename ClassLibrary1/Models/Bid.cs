@@ -196,7 +196,7 @@ namespace DAL.Models
 	                            SUM(case when bc.CompanyResponse=0 then 1 else 0 end) as NoResponse, SUM(case when bc.biding=1 and bc.win=0 then 1 else 0 end) as NoWin,SUM(isnull(bc.win,0)) as Win, 
 	                            SUM(case when bc.win=1 and bc.SecondPrice is NULL then bc.FirstPrice when bc.win=1 then bc.SecondPrice else 0 end) as TotalAmount
                             from Company c
-                            inner join BidingCompany bc  on c.ID=bc.CompanyId
+                            left join BidingCompany bc  on c.ID=bc.CompanyId
                             left join Bid b on bc.ProjId=b.ProjId 
                             left join Project p on bc.ProjId=p.Id
                             where c.Id = "+cId+" group by c.Name";

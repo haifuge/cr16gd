@@ -27,7 +27,7 @@ namespace RailBiding.Controllers
 						                        from vw_AppPLevel where Approved=1 group by ObjId, AppProcId
 		                        ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
 		                        where a.UserId="+Session["UserId"].ToString()+ @" and a.Approved=1) a 
-	                        left join Company c on a.ObjId=c.ID and a.AppProcId=1 and c.AuditStatus=1
+	                        left join Company c on a.ObjId=c.ID and (a.AppProcId=1 or a.AppProcId=5) and c.AuditStatus=1
 	                        left join BidingFile bf on a.ObjId=bf.ProjId and a.AppProcId=2 and bf.Status=1
 	                        left join Bid b on a.ObjId=b.ProjId and a.AppProcId=3 and b.Status=1
 	                        left join MakeBidingFile mb on a.ObjId=mb.ProjId and a.AppProcId=4 and mb.Status=1
