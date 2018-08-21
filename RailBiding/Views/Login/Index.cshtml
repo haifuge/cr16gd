@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <title>劳务招标平台</title>
     <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
-    <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
+    <link href="~/css/sweetalert2.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/style.css" />
     <style>
         @@media screen and (max-width: 1280px) {
@@ -86,6 +86,7 @@
 <script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
 <script src="~/Scripts/jquery-3.3.1.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript">
     var oUser = "";
     var oPswd = "";
@@ -129,7 +130,7 @@
         //        window.location = "/Main";
         //    }
         //    else
-        //        alert("用户名或密码错误!");
+        //        swal("用户名或密码错误!");
         //});
         var nametip = checkUserName();
         var passtip = checkPassword();
@@ -162,7 +163,7 @@
                                     window.location = "/Main";
                                     }
                                 else
-                                    alert("用户名或密码错误!");
+                                    swal("用户名或密码错误!");
                             });
                         }
 
