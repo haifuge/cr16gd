@@ -293,4 +293,12 @@ window.onscroll = function () {
 
 
 var navheight = $(".main-nav").height();
-$(".left-nav").css("height",navheight)
+$(".left-nav").css("height", navheight)
+
+
+
+
+//表单提交事件触发时，如果复选框是勾选状态则保存cookie
+function checkForm() {
+
+};
