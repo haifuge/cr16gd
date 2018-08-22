@@ -6026,7 +6026,20 @@ div#editor {
 .detail-user-list6 .meet-user-span a,.detail-user-list6 .meet-user-span a:hover,.detail-user-list6 .meet-user-span a:focus{
     color:#008cd6;
 }
-
+.leftnav-hid{
+            width:20px;
+            background: #eaf6fd;
+            display:none;
+            height: 60px;
+            font-size: 25px;
+            line-height:60px;
+            color: #fff;
+            position: absolute;
+            cursor:pointer;
+            top: 50%;
+            margin-top: -40px;
+            margin-left: 150px;
+            }
 @media screen and (max-width: 1280px) {
             body{
                 width: 1280px;

@@ -14,8 +14,10 @@
      .meet-table tr td{
     border: 0px solid ;
      }
+    .meet-table tr.white-bg td {
+           height:auto
+    }
     .white-bg td:nth-child(3){
-    height:60px;
     margin:10px 0px;
     display: -webkit-box;
     overflow: hidden;
@@ -199,7 +201,7 @@
             allhtm+='<tr class="white-bg">'+
                         '<td>'+o.name1+'</td>'+
                         '<td>'+o.opendate+'</td>'+
-                        '<td style="height:60px;">'+o.prodescription+'</td>'+
+                        '<td  >'+o.prodescription+'</td>'+
                         '<td>'+o.location+'</td>'+
                         '<td class="gray-time">'+o.amount+'万</td>'+
                         '<td class="gray-time">'+o.status+'</td>'+
@@ -209,7 +211,7 @@
                     nojoinhtm+='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td style="height:60px;">'+o.prodescription+'</td>'+
+                                '<td  >'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
@@ -219,7 +221,7 @@
                     joinhtm+='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td style="height:60px;">'+o.prodescription+'</td>'+
+                                '<td  >'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
@@ -229,7 +231,7 @@
                     noresponsehtm+='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td style="height:60px;">'+o.prodescription+'</td>'+
+                                '<td  >'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
@@ -239,7 +241,7 @@
                     winhtm+='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td style="height:60px;">'+o.prodescription+'</td>'+
+                                '<td  >'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
@@ -249,7 +251,7 @@
                     nowinhtm='<tr class="white-bg">'+
                                 '<td>'+o.name1+'</td>'+
                                 '<td>'+o.opendate+'</td>'+
-                                '<td style="height:60px;">'+o.prodescription+'</td>'+
+                                '<td  >'+o.prodescription+'</td>'+
                                 '<td>'+o.location+'</td>'+
                                 '<td class="gray-time">'+o.amount+'万</td>'+
                                 '<td class="gray-time">'+o.status+'</td>'+
