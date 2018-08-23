@@ -55,7 +55,7 @@
         top: 0;
         left: 0;
         background: rgba(0, 0, 0, .6);
-        z-index: 9999;
+        z-index: 199;
         display: none;
     }
 
@@ -1093,7 +1093,7 @@
 
     //添加选择人员
     function chooseNewUser() {
-         xzaddsearch();
+        xzaddsearch();
          var choosecnode = cnode;  //选择人员所添加到的部门id
          var choosenameid = $("input[name='chooseid']:checked").val();  //选择人员的姓名id
          if( $("input[name='chooseid']").is(":checked")) {
@@ -1101,9 +1101,9 @@
              $("#xzaddinputmsg").html("请输入要查询的用户名或姓名");
              return;
          } else {
-             $("#xzaddinputmsg").html("请选择添加人员");
+             swal("请选择添加人员")
              return;
-          }
+         }
         $.post("/SystemSetup/AddUserToDepartment", { did: choosecnode, uid: choosenameid }, function (res) {
             swal({
                 title: '添加成功！',

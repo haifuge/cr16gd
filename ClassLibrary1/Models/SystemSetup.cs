@@ -184,7 +184,7 @@ namespace DAL.Models
 
         public string SearchUsers(string uname)
         {
-            string sql = @"select du.guid as id, UserAccount, UserName, Telphone, Email, d.Name as dName 
+            string sql = @"select ui.Id as id, UserAccount, UserName, Telphone, Email, d.Name as dName 
                             from UserInfo ui
                             inner join DepartmentUser du on ui.id = du.userid
                             inner join Department d on d.id = du.departmentid
