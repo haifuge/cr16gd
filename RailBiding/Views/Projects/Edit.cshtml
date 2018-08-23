@@ -4,4 +4,146 @@
 }
 
 
+<link rel="stylesheet" href="~/css/jquery-ui-timepicker-addon.css" />
+<link rel="stylesheet" href="~/js/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/style.css" />
+<style>
+    .block-left {
+        padding-right: 0;
+    }
+
+    .meet-form.meet-form9.meet-form3 .form-tr:nth-child(1) {
+        background: #eaf6fd;
+    }
+
+    .meet-select {
+        background: url(../img/icon-arrow.png) no-repeat 160px center;
+        padding-right: 20px;
+    }
+
+    .block-left .meet-form.meet-form3 .form-tr .form-lable {
+        width: 115px;
+    }
+</style>
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>招标内容</h1>
+        <ul class="left-nav-list">
+            <li><a href="/Projects" class="active"><i class="icon icon-eye1"></i>内容列表</a></li>
+        </ul>
+    </div>
+</div>
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top top-bottom">
+            <span class="left-line"></span>
+            <span class="page-title">添加项目</span>
+        </div>
+        <div class="wc-container app-dt">
+            <div class="wc-nav">
+            </div>
+            <div class="block-left ">
+                <form action="" name="form1" method="post" class="js-form">
+                    <table class="meet-form meet-form9 meet-form3">
+                        <tbody>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="red-word">*</span>项目名称：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value="@ViewBag.pname" id="pname"
+                                           class="has-clear-input input input3" autofocus />
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="red-word">*</span>项目类型：</td>
+                                <td>
+                                    <div class="form-item  sel-required">
+                                        <select class="meet-select js-meet-state" value="@ViewBag.ProjType" id="bType" style="width: 180px;"></select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="form-tr">
+                                <td class="form-lable"><span class="red-word">*</span>项目地点：</td>
+                                <td>
+                                    <input name="roomInfoName" type="text" value="@ViewBag.Location" id="plocation"
+                                           class="has-clear-input input input5" />
+                                </td>
+                            </tr>
+                            <tr class="form-tr ">
+                                <td class="form-lable">招标内容介绍：</td>
+                                <td>
+                                    <textarea class="txt02" style="padding: 0 5px;" id="pdescription">@Html.Raw(ViewBag.ProDescription)</textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="form-tr-btn">
+                    <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="submitP()">提交</button>
+                    <button type="reset" class="meet-btn big-btn lightblue-btn j-cancel" onclick="backprepage()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="~/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="~/js/ztree/jquery.ztree.excheck.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/js/select/jquery.easydropdown.js"></script>
+<script type="text/javascript" src="~/js/upload.js"></script>
+<script type="text/javascript" src="~/js/js.js"></script>
+<script type="text/javascript" src="~/js/up.js"></script>
+<script>
+    $(function () {
+        $.post("/Common/GetCompanyType", {}, function (data) {
+            var obj = JSON.parse(data);
+            var btype = $("#bType");
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                if(o.name=='@ViewBag.ProjType'){
+                    btype.append("<option value='" + o.id + "' selected>" + o.name + "</option>")
+                }else
+                    btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
+            }
+        });
+    });
+
+    function submitP() {
+
+        var pname = document.getElementById("pname").value;
+        var plocation = document.getElementById("plocation").value;
+        if (pname == "" || pname == null) {
+            swal("项目名称不能为空");
+            document.getElementById("pname").focus();
+            return;
+        }
+        if (plocation == "" || plocation == null) {
+            swal("项目地点不能为空");
+            document.getElementById("plocation").focus();
+            return;
+        }
+        var ptype = document.getElementById("bType");
+        var tt = ptype.options[ptype.selectedIndex].value
+
+        var pdescription = document.getElementById("pdescription").value;
+
+        $.post("/Projects/SaveProject", { id:@ViewBag.pid, name: pname, type: tt, location: plocation, description: pdescription }, function (data) {
+            swal("提交成功").then(function () {
+                window.history.go(-1)
+            });
+        })
+
+
+
+    }
+    function backprepage(){
+        window.history.go(-1)
+    }
+</script>
 

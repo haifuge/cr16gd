@@ -155,7 +155,7 @@
                     if (vcode == $.trim(data)) {
                         $("#txtCheckCode").removeClass("error");
                         $("#txtCheckCode").addClass("success");
-                        $(".success").html("OK");
+                        $(".success").html("");
                         if (nametip && passtip) {
                             var para = "{account:\"" + username.value + "\",psd:\"" + userpasswd.value + "\"}";
                             $.post("Login/Login", { account: username.value, psd: userpasswd.value }, function (data) {
@@ -215,7 +215,7 @@
             return false;
         }
         else {
-            errname.innerHTML = "OK"
+            errname.innerHTML = ""
             errname.className = "success";
             return true;
         }
@@ -232,7 +232,7 @@
             return false;
         }
         else {
-            errPasswd.innerHTML = "OK"
+            errPasswd.innerHTML = ""
             errPasswd.className = "success";
             return true;
         }
@@ -249,7 +249,7 @@
             return false;
         }
         else {
-            errConPasswd.innerHTML = "OK"
+            errConPasswd.innerHTML = ""
             errConPasswd.className = "success";
             return true;
         }
@@ -266,7 +266,7 @@
             return false;
         }
         else {
-            phonrErr.innerHTML = "OK"
+            phonrErr.innerHTML = ""
             phonrErr.className = "success";
             return true;
         }
@@ -288,7 +288,7 @@
                     if (vcode == $.trim(data)) {
                         $("#txtCheckCode").removeClass("error");
                         $("#txtCheckCode").addClass("success");
-                        $(".success").html("OK");
+                        $(".success").html("");
                         matchResult = true;
                         
                     }

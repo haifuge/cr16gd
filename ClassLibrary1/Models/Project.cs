@@ -94,7 +94,7 @@ namespace DAL.Models
 
         public bool UpdateProject(Project p)
         {
-            string sql = @"update Project set Name = N'" + p.Name + "', ProjType = N'" + p.ProjType + "', Location = N'" + p.Location + "', ProjDescription = N'" + p.ProDescription + "' where id="+p.Id;
+            string sql = @"update Project set Name = N'" + p.Name + "', ProjType = N'" + p.ProjType + "', Location = N'" + p.Location + "', ProDescription = N'" + p.ProDescription + "' where id="+p.Id;
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
             {

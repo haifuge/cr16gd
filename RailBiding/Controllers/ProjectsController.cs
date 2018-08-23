@@ -68,6 +68,7 @@ namespace RailBiding.Controllers
                 case "招标文件被驳回":
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
+                    ViewBag.EditProject = "<a href = '/Projects/Edit?pid="+pid+"' class='js-cancle-meet' title='编辑招标项目'><i class='meet-icon icon-cancel icon-editbtn'>编辑招标项目</i></a>";
                     break;
                 case "招标文件审核通过":
                     if (dr["uid"].ToString() == Session["UserId"].ToString())
@@ -91,6 +92,7 @@ namespace RailBiding.Controllers
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
+                    ViewBag.EditProject = "<a href = '/Projects/Edit?pid=" + pid + "' class='js-cancle-meet' title='编辑招标项目'><i class='meet-icon icon-cancel icon-editbtn'>编辑招标项目</i></a>";
                     break;
                 case "招标审核通过":
                     if (dr["uid"].ToString() == Session["UserId"].ToString())
@@ -117,6 +119,7 @@ namespace RailBiding.Controllers
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
                     ViewBag.MBFitem = getMakeBidItem(pid);
+                    ViewBag.EditProject = "<a href = '/Projects/Edit?pid=" + pid + "' class='js-cancle-meet' title='编辑招标项目'><i class='meet-icon icon-cancel icon-editbtn'>编辑招标项目</i></a>";
                     break;
                 case "已结束":
                     ViewBag.Button = "";
@@ -125,6 +128,7 @@ namespace RailBiding.Controllers
                     ViewBag.MBFitem = getMakeBidItem(pid);
                     break;
             }
+
             return View();
         }
 

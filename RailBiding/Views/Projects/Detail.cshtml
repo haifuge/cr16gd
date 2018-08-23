@@ -437,7 +437,8 @@
             <span class="js-page-name">项目详情</span>
             <div class="apply-opt">
                 @Html.Raw(ViewBag.Button)
-                <a href="#" onclick="window.history.go(-1)" class="js-cancle-meet" title="返回">
+                @Html.Raw(ViewBag.EditProject)
+                <a href = "#" onclick = "window.history.go(-1)" class="js-cancle-meet" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
             </div>
@@ -450,15 +451,15 @@
                 <div class="canvas_content_text">
 
                     <ul>
-                        <li><i>*</i><span style="width:auto">报名截止时间：</span><input id="applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
-                        <li><i>*</i><span style="width:auto">预计开标时间：</span><input id="opendate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
-                        <li><i>*</i><span style="width:auto">拟中标单位数量：</span><input id="bidingnum" type="text" name="" class="input3"></li>
+                        <li><i>*</i><span style = "width:auto"> 报名截止时间：</span><input id = "applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
+                        <li><i>*</i><span style = "width:auto"> 预计开标时间：</span><input id = "opendate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
+                        <li><i>*</i><span style = "width:auto"> 拟中标单位数量：</span><input id = "bidingnum" type="text" name="" class="input3"></li>
 
                     </ul>
                 </div>
                 <div class="canvas_btn">
-                    <a href="#" class="meet-btn big-btn lightblue-btn subm" onclick="bidSubmit(1)">提交</a>
-                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
+                    <a href = "#" class="meet-btn big-btn lightblue-btn subm" onclick="bidSubmit(1)">提交</a>
+                    <a href = "#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
                 </div>
             </div>
         </div>
@@ -469,10 +470,10 @@
                 <h3>招标文件申请</h3>
                 <div class="canvas_content_text">
                     <ul>
-                        <li><span>招标文件<br>内容简述</span> <textarea id="bfcontent" placeholder="招标文件简述、主要工程量、预计合同金额" onfocus="if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur="if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea>
+                        <li><span>招标文件<br> 内容简述</span> <textarea id = "bfcontent" placeholder= "招标文件简述、主要工程量、预计合同金额" onfocus= "if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur= "if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea>
                         </li>
                         <li>
-                            <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none">招标文件</span>
+                            <i><img src= "~/img/icon-fj.png" alt= ""></i><span style= "float:none"> 招标文件 </span>
                             @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:113px;">*@
                             <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;background:transparent">
                                 <img src="~/img/icon-03.png" alt="" class="up up2" style="position:absolute;vertical-align: middle">
@@ -490,7 +491,7 @@
                 </div>
                 <div class="canvas_btn">
                     <a href="#" class="meet-btn big-btn lightblue-btn subm"  onclick="bidfileSubmit(1)">提交</a>
-                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn" >返回</a>
+                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
                 </div>
             </div>
         </div>
@@ -547,7 +548,7 @@
                 var names = res.split('|')
                 var li = document.createElement("li");
                 li.id = names[0].trim()
-                li.innerHTML = names[1] + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + names[0].trim() + '\')" > 删除</a>'
+                li.innerHTML = names[1] + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + names[0].trim() + '\')"> 删除</a>'
                 document.getElementById("bffiles").appendChild(li);
                 $("#bfup").val("");
             });
@@ -668,10 +669,10 @@
         });
         $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
             var obj = JSON.parse(data);
-            for (var i = 0; i < obj.length; i++) {
+            for (var i = 0; i <obj.length; i++) {
                 var li = document.createElement('li');
                 li.id = obj[i].fid;
-                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')" > 删除</a>';
+                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')"> 删除</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
         });
@@ -720,10 +721,10 @@
         $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
             //$("#bffiles").html(data);
             var obj = JSON.parse(data);
-            for (var i = 0; i < obj.length; i++) {
+            for (var i = 0; i <obj.length; i++) {
                 var li = document.createElement('li');
                 li.id = obj[i].fid;
-                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')" > 删除</a>';
+                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')"> 删除</a>';
                 document.getElementById("bffiles").appendChild(li)
             }
         });
