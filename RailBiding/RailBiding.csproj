@@ -796,6 +796,7 @@
     <Content Include="Views\MobileBidingFile\AuditAction.cshtml" />
     <Content Include="Views\MobileCompany\AuditAction.cshtml" />
     <Content Include="Views\MobileMakeBidFile\AuditAction.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

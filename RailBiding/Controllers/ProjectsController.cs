@@ -127,6 +127,46 @@ namespace RailBiding.Controllers
             }
             return View();
         }
+
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemP")]
+        public ActionResult Edit(string pid)
+        {
+            ProjectContext pc = new ProjectContext();
+            DataTable dt = pc.GetProject(pid);
+            if (dt.Rows.Count > 0)
+            {
+                ViewBag.pid = dt.Rows[0]["Id"].ToString();
+                ViewBag.pname = dt.Rows[0]["Name"].ToString();
+                ViewBag.ProjType = dt.Rows[0]["ProjType"].ToString();
+                ViewBag.ProDescription = dt.Rows[0]["ProDescription"].ToString();
+                ViewBag.Location = dt.Rows[0]["Location"].ToString();
+            }
+            return View();
+        }
+
+        public string SaveProject()
+        {
+            Project p = new Project();
+            p.Id = int.Parse(Request["id"].ToString());
+            p.Name = Request["name"].ToString();
+            p.ProjType = Request["type"].ToString();
+            p.Location = Request["location"].ToString();
+            p.PublisherId = int.Parse(Session["UserId"].ToString());
+            p.ProDescription = Request["description"].ToString();
+            ProjectContext pc = new ProjectContext();
+            if (pc.UpdateProject(p))
+            {
+                Log l = new Log();
+                l.OperType = OperateType.Update;
+                l.UserId = p.PublisherId.ToString();
+                l.Description = "创建项目 - " + p.Name;
+                LogContext.WriteLog(l);
+                return "1";
+            }
+            return "0";
+        }
+
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemP")]
         public ActionResult MakeBidFile(string pid)
