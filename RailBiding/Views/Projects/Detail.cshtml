@@ -137,7 +137,7 @@
         top: 0;
         left: 0;
         background: rgba(0, 0, 0, .6);
-        z-index:111;
+        z-index:200;
         display: none;
     }
 
@@ -712,5 +712,20 @@
 
         var accordion = new Accordion($('#accordion'), false);
     });
-
+    function bidFileApply() {
+        $("#bidfileapplylayer").show();
+        $.get("/Projects/GetBidFileInfo?pid=@ViewBag.ProjId", function (data) {
+            $("#bfcontent").html(data)
+        });
+        $.get("/Projects/GetFiles?pid=@ViewBag.ProjId&ftype=2", function (data) {
+            //$("#bffiles").html(data);
+            var obj = JSON.parse(data);
+            for (var i = 0; i < obj.length; i++) {
+                var li = document.createElement('li');
+                li.id = obj[i].fid;
+                li.innerHTML = obj[i].FileName + '<a href = "#" style = "color: #008cd6;margin-left: 5px;" onclick="deleteFile(\'' + obj[i].fid + '\')" > 删除</a>';
+                document.getElementById("bffiles").appendChild(li)
+            }
+        });
+    }
 </script>
