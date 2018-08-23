@@ -326,3 +326,20 @@ $(".leftnav-hid2").click(function () {
     $(".leftnav-hid2").hide();
 })
 
+//主导航显示隐藏
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+    var context = "";
+    if (r != null)
+        context = r[2];
+    reg = null;
+    r = null;
+    return context == null || context == "" || context == "undefined" ? "" : context;
+}
+if (getQueryString("isactive") == 1) {
+    $(".main-nav").removeClass("active")
+    $(".main-container").removeClass("active")
+    $(".leftnav-hid").css("margin-left", "315px")
+    $(".leftnav-hid2").css("margin-left", "170px")
+}
