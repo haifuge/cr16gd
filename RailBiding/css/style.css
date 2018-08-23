@@ -6026,20 +6026,40 @@ div#editor {
 .detail-user-list6 .meet-user-span a,.detail-user-list6 .meet-user-span a:hover,.detail-user-list6 .meet-user-span a:focus{
     color:#008cd6;
 }
-.leftnav-hid{
-            width:20px;
+ .leftnav-hid{
+            width:25px;
             background: #eaf6fd;
+            height: 60px;
+            font-size: 22px;
+            line-height:60px;
+            color: #92dcff;
+            text-align:center;
+            position: absolute;
+            cursor:pointer;
+            top: 50%;
+            margin-top:80px;
+            margin-left: 225px;
+            z-index:199;
+            font-weight: bold;
+            }
+ .leftnav-hid2{
+            width:20px;
+            background: #008cd6;
             display:none;
             height: 60px;
-            font-size: 25px;
+            font-size: 22px;
             line-height:60px;
             color: #fff;
             position: absolute;
             cursor:pointer;
             top: 50%;
-            margin-top: -40px;
-            margin-left: 150px;
+            margin-top: 80px;
+            margin-left: 80px;
+            z-index:100;
+            font-weight: bold;
             }
+
+
 @media screen and (max-width: 1280px) {
             body{
                 width: 1280px;

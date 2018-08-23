@@ -44,10 +44,14 @@
         <ul>
             @Html.Raw(ViewBag.MainMenuList)
         </ul>
+
     </div>
+    <div class="leftnav-hid">《</div>
+    <div class="leftnav-hid2">》</div>
     <div class="main-container active">
         <div class="container">
             @RenderBody()
+            
             <footer>
                 <div class="foot-con" style="z-index:10">
                     <div class="foot-wrap">

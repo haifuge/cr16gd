@@ -206,6 +206,13 @@ $(function(){
     $(".js-nav-open").on("click",function(){
         $(this).parent(".main-nav").toggleClass("active");
         $(".main-container").toggleClass("active");
+        if ($(".main-nav").width() == "170") {
+            $(".leftnav-hid").css("margin-left", "315px")
+            $(".leftnav-hid2").css("margin-left", "170px")
+        } else {
+            $(".leftnav-hid").css("margin-left", "225px")
+            $(".leftnav-hid2").css("margin-left", "80px")
+        }
     });
 
     //切换查看参加不参加人员
@@ -283,18 +290,39 @@ window.onscroll = function () {
                  if (topScroll > 80) {  //当滚动距离大于80px时执行下面的东西
     
                      $(".main-nav").css({"position":"fixed","top":"0"})
-                     $(".left-nav").css({ "position": "fixed", "top": "0","left":"auto" })
+                     $(".left-nav").css({ "position": "fixed", "top": "0", "left": "auto" })
+                     $(".leftnav-hid").css({ "position": "fixed", "margin-top": "-30px" })
+                     $(".leftnav-hid2").css({ "position": "fixed", "margin-top": "-30px" })
              
                  }else{//当滚动距离小于250的时候执行下面的内容，也就是让导航栏恢复原状
                      $(".main-nav").css({ "position": "absolute", "top": "80px" })
                      $(".left-nav").css({ "position": "absolute", "left": "auto" })
+                     $(".leftnav-hid").css({ "position": "absolute", "margin-top": "80px" })
+                     $(".leftnav-hid2").css({ "position": "absolute", "margin-top": "80px" })
                  }
 }
 
-
+$(".main-nav ul li a").mouseover(function () {
+    $(".leftnav-hid2").css("z-index","0");
+})
+$(".main-nav ul li a").mouseout(function () {
+    $(".leftnav-hid2").css("z-index", "100");
+})
 var navheight = $(".main-nav").height();
 $(".left-nav").css("height", navheight)
 
 
+$(".leftnav-hid").click(function () {
+        $(".main-con").css("padding-left", "0px");
+        $(".left-nav").css({ "display": "none" });
+        $(".leftnav-hid").hide()
+        $(".leftnav-hid2").show();
+})
 
+$(".leftnav-hid2").click(function () {
+    $(".main-con").css("padding-left", "150px");
+    $(".left-nav").css({ "display": "block" });
+    $(".leftnav-hid").show()
+    $(".leftnav-hid2").hide();
+})
 
