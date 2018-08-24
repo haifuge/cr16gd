@@ -188,7 +188,7 @@ namespace DAL.Models
                             from UserInfo ui
                             inner join DepartmentUser du on ui.id = du.userid
                             inner join Department d on d.id = du.departmentid
-                            where ui.UserName like '%"+uname+ "%' or ui.UserAccount like '%" + uname + "%'";
+                            where ui.UserName like '%" + uname+ "%' or ui.UserAccount like '%" + uname + "%'";
             DataTable dt= DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }
@@ -199,7 +199,7 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone, Email, d.Name as dName 
+            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId 
                             into #temp
                             from UserInfo ui
                             inner join DepartmentUser du on ui.id = du.userid

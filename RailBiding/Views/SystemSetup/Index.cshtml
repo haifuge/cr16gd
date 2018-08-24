@@ -1057,6 +1057,7 @@
        
         
     }
+    var users;
     function systemsearch() {
         if ($(".inputsystemsearch").val() == "") {
             swal("请输入搜索关键词！")
@@ -1067,6 +1068,7 @@
         var addhtm = "";
         $.post("/SystemSetup/SearchUsersByPage", { uname: searchpeo, pageIndex:1, pageSize: 1000}, function (res) {
             var obj = JSON.parse(res);
+            users = obj;
             if (obj.length == 0) {
                 swal("查无此人");
                 $("#tbusers").html("");
@@ -1075,8 +1077,8 @@
             for (var i = 0; i < obj.length; i++) {
                 addhtm += '<tr class="white-bg" id="utr' + obj[i].id + '"><td class="check-color">' + obj[i].useraccount + '</td>' +
                             '<td>' + obj[i].username + '</td>' +
-                            '<td>' + obj[i].dname + '</td>' +
-                            '<td>' + obj[i].telphone + '</td>' +
+                            '<td>' + obj[i].department + '</td>' +
+                            '<td>' + obj[i].telephone + '</td>' +
                             '<td>' + obj[i].email + '</td>' +
                             '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + obj[i].id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + obj[i].id + '\')">删除</a></td>' +
                             '</tr >';
@@ -1115,7 +1117,7 @@
       
     }
 
-    var users;
+
     var nowpage = 1;
     var page_size = 10
     function getDepartmentUsers() {
@@ -1128,6 +1130,7 @@
         $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id ,pageIndex: page , pageSize: ps}, function (res) {
             var jsonData = JSON.parse(res);
             var obj = jsonData.List;
+            console.log(obj)
             $("#tbusers").empty();
             var htm = "";
             users = obj;
@@ -1191,6 +1194,7 @@
         $(".canvas.canvas3").show();
         for (var i = 0; i < users.length; i++) {
             var o = users[i];
+            console.log(o)
             if (o.id == id) {
                 $('#xgbType').val(o.roleid);
                 $('#xguaccount').val(o.useraccount);
