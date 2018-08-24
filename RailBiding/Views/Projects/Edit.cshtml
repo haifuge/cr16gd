@@ -135,7 +135,7 @@
 
         $.post("/Projects/SaveProject", { id:@ViewBag.pid, name: pname, type: tt, location: plocation, description: pdescription }, function (data) {
             swal("提交成功").then(function () {
-                window.history.go(-1)
+                window.location.href = "/Projects/Detail?pid="+@ViewBag.pid;
             });
         })
 

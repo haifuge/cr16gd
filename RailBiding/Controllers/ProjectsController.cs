@@ -56,7 +56,9 @@ namespace RailBiding.Controllers
                         ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标文件申请'>
                                             <i class='meet-icon icon-cancel icon-bh2' onclick='bidFileApply()'>招标文件申请</i>
                                         </a>";
-                    }else
+                        ViewBag.EditProject = "<a href = '/Projects/Edit?pid=" + pid + "' class='js-cancle-meet' title='编辑招标项目'><i class='meet-icon icon-cancel icon-editbtn'>编辑招标项目</i></a>";
+                    }
+                    else
                     {
                         ViewBag.Button = "";
                     }
