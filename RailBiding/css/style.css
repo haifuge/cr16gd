@@ -6042,7 +6042,7 @@ div#editor {
             cursor:pointer;
             top: 50%;
             margin-top:80px;
-            margin-left: 225px;
+            margin-left: 315px;
             z-index:199;
             font-weight: bold;
             }
@@ -6058,7 +6058,7 @@ div#editor {
             cursor:pointer;
             top: 50%;
             margin-top: 80px;
-            margin-left: 80px;
+            margin-left: 170px;
             z-index:100;
             font-weight: bold;
             }

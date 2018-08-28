@@ -327,6 +327,7 @@ $(".leftnav-hid2").click(function () {
 })
 
 //主导航显示隐藏
+/*
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
@@ -342,4 +343,4 @@ if (getQueryString("isactive") == 1) {
     $(".main-container").removeClass("active")
     $(".leftnav-hid").css("margin-left", "315px")
     $(".leftnav-hid2").css("margin-left", "170px")
-}
+}*/
