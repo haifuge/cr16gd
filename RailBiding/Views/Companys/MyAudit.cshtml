@@ -163,6 +163,7 @@
                 var htm = "";
                 for (var i = 0; i < obj.length; i++) {
                     var o = obj[i];
+                    console.log(o)
                     var auditStatus = "";
                     var statusStyle = "";
                     switch (o.approved) {
@@ -189,9 +190,15 @@
                             statusStyle = "status-wcl status-ytg";
                             break;
                     }
+                    if (o.type == 0) {
+                        var jianimg="<img src='../img/con-tuijian.png'>";
+
+                    } else {
+                        var jianimg="";
+                    }
                     htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?id=' + o.id + '&approved=' + o.approved + '\';">' +
                         //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1"/></td >' +
-                        '<td>' + o.name + '</td>' +
+                        '<td>' + o.name + jianimg + '</td>' +
                         '<td>' + o.qualificationlevel + '</td>' +
                         '<td>' + o.registeredcapital + '万元</td>' +
                         '<td>' + o.businesstype + '</td>' +

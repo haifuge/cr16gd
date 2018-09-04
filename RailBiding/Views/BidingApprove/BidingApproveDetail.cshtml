@@ -48,7 +48,7 @@
             float: left;
         }
     .black_overlay{
-        z-index:100;
+        z-index:200;
     }
    .black_overlay .big-btn {
         height: 30px;
@@ -752,7 +752,6 @@
             for (var j = 0; j < obj.length; j++)
             {
                 var o = obj[j];
-                console.log(o)
                 var imgjian = "";
                 if (o.type != 1)
                 {
@@ -763,7 +762,7 @@
                                  '<input class="icheck" name="addcompenycheck" type="checkbox"  value="' + o.id +'|'+ o.name +'" />' +
                               '</td>'+
                               '<td style="width:250px;padding:0 5px;">'+
-                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.name+'</a>'+
+                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.name+imgjian+'</a>'+
                               '</td>'+
                               '<td style="width:150px;padding:10px 5px;">'+
                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.companytype+'</a></td>'+

@@ -64,7 +64,7 @@ namespace DAL.Models
                 where = "c.AuditStatus = " + ctype + @" and ";
             }
             string sql = @"select top 100 percent * from (
-                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+                            select c.id,c.Type,c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, case when c.AuditStatus=2 then 4 else a.Approved end as Approved
                             from Company c inner join(
                                 select distinct a.ObjId, a.Approved 
@@ -76,7 +76,7 @@ namespace DAL.Models
                             left join BusinessType bt on bt.id=c.BusinessType
                             where " + where + @" c.AuditStatus=1
                             union
-                            select c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+                            select c.id,c.Type, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, case when c.AuditStatus=2 then 4 else a.Approved end as Approved
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                             left join CompanyType bt on bt.id=c.BusinessType
