@@ -244,15 +244,15 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+            string sql = @" select identity(int,1,1) as iid, a.* into #temp1 from (
+                            select distinct p.Id as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, b.Status
-                            into #temp1
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join BidingFile bf on bf.ProjId=p.Id
                             left join UserInfo ui on b.PublisherId=ui.ID
 							left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                             left join Department d on du.DepartmentId=d.ID
-                            order by p.Id desc
+                            ) a order by a.Id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
@@ -274,22 +274,24 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
-	                            convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, a.Approved as Status
-                            into #temp1
-                            from project p inner join Bid b on p.Id=b.ProjId
-                            inner join BidingFile bf on bf.ProjId=p.Id
-                            left join UserInfo ui on b.PublisherId=ui.ID
-                            left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
-                            left join Department d on du.DepartmentId=d.ID
-                            inner join(
-                                select distinct a.ObjId, a.Approved 
-                                from vw_AppPLevel a 
-                                inner join (select MAX(level) as level,AppProcId, ObjId 
-			                                from vw_AppPLevel where AppProcId=3 and Approved=1 group by ObjId, AppProcId
-                            ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                            where a.UserId=" + userid + @") a on p.ID=a.ObjId "+where+@"
-                            order by p.Id desc
+            string sql = @"select identity(int,1,1) as iid, a.* 
+                            into #temp1 
+                            from( select distinct p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
+	                                convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, a.Approved as Status
+                                from project p inner join Bid b on p.Id=b.ProjId
+                                inner join BidingFile bf on bf.ProjId=p.Id
+                                left join UserInfo ui on b.PublisherId=ui.ID
+                                left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
+                                left join Department d on du.DepartmentId=d.ID
+                                inner join(
+                                    select distinct a.ObjId, a.Approved 
+                                    from vw_AppPLevel a 
+                                    inner join (select MAX(level) as level,AppProcId, ObjId 
+			                                    from vw_AppPLevel where AppProcId=3 and Approved=1 group by ObjId, AppProcId
+                                ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
+                                where a.UserId=" + userid + @") a on p.ID=a.ObjId "+where+@"
+                            ) a
+                            order by a.Id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
