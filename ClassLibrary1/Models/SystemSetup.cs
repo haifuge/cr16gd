@@ -115,7 +115,11 @@ namespace DAL.Models
         public string CreateUser(string acc, string pasd, string nam, string telephone, string em, string did, string roleid)
         {
             pasd = EncryptHelper.Encrypt(pasd, "IamKey12");
-            string sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,"+ roleid + "); ";
+            string sql = "select * from UserInfo where userAccount='"+acc+"'";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            if (dt.Rows.Count > 0)
+                return "该用户已存在！";
+            sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,"+ roleid + "); ";
             sql += @"declare @uid int
                      select @uid=max(id) from UserInfo
                      insert into DepartmentUser values(NEWID(), "+did+", @uid, 1, 1)";
