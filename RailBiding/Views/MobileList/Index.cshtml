@@ -182,6 +182,8 @@
                 var o = obj[i];
                 var auditStatus = "";
                 var statusStyle = "";
+                if (o.approved == 2)
+                    continue;
                 switch (o.approved) {
                     case 0:
                         auditStatus = "未发布";
@@ -246,6 +248,8 @@
             var applyStyle = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
+                if (o.status == 2)
+                    continue;
                 switch (o.status) {
                     case 0:
                         applyStatus = "未发布";
@@ -301,6 +305,8 @@
                 var o = obj[i];
                 var applyStatus = "";
                 var applyStyle = "";
+                if (o.status == 2)
+                    continue;
                 switch (o.status) {
                     case 0:
                         applyStatus = "未发布";
@@ -364,6 +370,8 @@
 
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i]
+                if (o.status == 2)
+                    continue;
                 switch (o.status) {
                     case 0:
                         applyStatus = "未发布";
