@@ -206,7 +206,7 @@ namespace DAL.Models
             string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId 
                             into #temp
                             from UserInfo ui
-                            inner join DepartmentUser du on ui.id = du.userid
+                            inner join DepartmentUser du on ui.id = du.userid and du.Status=1
                             inner join Department d on d.id = du.departmentid
                             where ui.UserName like '%" + uname + "%' or ui.UserAccount like '%" + uname + @"%'
                             select * from #temp where iid between "+startIndex+" and "+endIndex+@"
