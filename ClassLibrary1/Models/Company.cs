@@ -73,7 +73,7 @@ namespace DAL.Models
 			                                from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
                             ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                             where a.UserId=" + userId + @") a on c.ID=a.ObjId
-                            left join BusinessType bt on bt.id=c.BusinessType
+                            left join CompanyType bt on bt.id=c.BusinessType
                             where " + where + @" c.AuditStatus=1
                             union
                             select c.id,c.Type, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
