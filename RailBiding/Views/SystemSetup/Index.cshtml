@@ -1080,7 +1080,7 @@
                             '<td>' + obj[i].department + '</td>' +
                             '<td>' + obj[i].telephone + '</td>' +
                             '<td>' + obj[i].email + '</td>' +
-                            '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + obj[i].id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + obj[i].id + '\')">删除</a></td>' +
+                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + obj[i].id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + obj[i].id + '\',\'' + o.did + '\')">删除</a></td>' +
                             '</tr >';
             }
             $("#tbusers").html(addhtm);
@@ -1152,7 +1152,7 @@
                     //'<td>' + role + '</td>' +
                     '<td>' + o.telephone + '</td>' +
                     '<td>' + o.email + '</td>' +
-                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + o.id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + o.id + '\')">删除</a></td>' +
+                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + o.id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + o.id + '\',\'' + o.did + '\')">删除</a></td>' +
                     '</tr >';
             }
             $("#tbusers").html(htm)
@@ -1162,7 +1162,7 @@
 
     }
     /*删除用户*/
-    function deleteUser(id) {
+    function deleteUser(id, did) {
         swal({
             title: '确定删除该用户吗？',
             text: '你将无法恢复它！',
@@ -1174,7 +1174,7 @@
         }).then(
         function (cc) {
             if (cc.dismiss != "cancel"){
-                $.post("/SystemSetup/DeleteUser", { uid: id }, function () {
+                $.post("/SystemSetup/DeleteUser", { uid: id, did: did }, function () {
                     swal(
                   '删除！',
                   '该用户已经被删除。',

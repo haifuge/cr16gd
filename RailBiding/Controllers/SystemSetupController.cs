@@ -283,10 +283,10 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             ss.UpdateBusinessType(id, name);
         }
-        public void DeleteUser(string uid)
+        public void DeleteUser(string uid, string did)
         {
             SystemSetup ss = new SystemSetup();
-            ss.DeleteUser(uid);
+            ss.DeleteUser(uid, did);
         }
         public void AddUserToDepartment(string did, string uid)
         {

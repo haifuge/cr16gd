@@ -180,18 +180,18 @@ namespace DAL.Models
             DBHelper.ExecuteNonQuery(sql);
         }
 
-        public void DeleteUser(string uid)
+        public void DeleteUser(string uid, string did)
         {
-            string sql = "update DepartmentUser set Status = 0 where Guid = '" + uid+ "'; update UserInfo set userinfo.Status = 0  from DepartmentUser where DepartmentUser.Guid='" + uid + "' and DepartmentUser.UserId=UserInfo.ID";
+            string sql = "delete DepartmentUser where UserId = " + uid+ " and DepartmentId = "+did;
             DBHelper.ExecuteNonQuery(sql);
         }
 
         public string SearchUsers(string uname)
         {
-            string sql = @"select ui.Id as id, UserAccount, UserName, Telphone, Email, d.Name as dName 
+            string sql = @"select ui.Id as id, UserAccount, UserName, Telphone, Email, d.Name as dName, d.id as did 
                             from UserInfo ui
-                            inner join DepartmentUser du on ui.id = du.userid
-                            inner join Department d on d.id = du.departmentid
+                            left join DepartmentUser du on ui.id = du.userid
+                            left join Department d on d.id = du.departmentid
                             where ui.UserName like '%" + uname+ "%' or ui.UserAccount like '%" + uname + "%'";
             DataTable dt= DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
@@ -203,11 +203,11 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId 
+            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId,d.id as did
                             into #temp
                             from UserInfo ui
-                            inner join DepartmentUser du on ui.id = du.userid and du.Status=1
-                            inner join Department d on d.id = du.departmentid
+                            left join DepartmentUser du on ui.id = du.userid and du.Status=1
+                            left join Department d on d.id = du.departmentid
                             where ui.UserName like '%" + uname + "%' or ui.UserAccount like '%" + uname + @"%'
                             select * from #temp where iid between "+startIndex+" and "+endIndex+@"
                             drop table #temp";
