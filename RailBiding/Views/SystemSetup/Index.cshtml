@@ -1211,8 +1211,10 @@
         }
     }
     /*修改用户信息*/
-    function xgUser(){
-        var success = 0; 
+    function xgUser() {
+        var success = 0;
+        success = usValid;
+        //success += yzzh('uaccount', 'd1');
         success += yzxm('xguname', 'xgxm');
         success += checkphone('xgutel', 'xgphonemsg');
         success += checkmail('xguemail', 'xgmailmess');
