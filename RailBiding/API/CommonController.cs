@@ -66,12 +66,14 @@ namespace RailBiding.API
 
         public string GetApproveProcessingInfo(string oid, string apid)
         {
+            // 获取审批流程数据
             string sql = @"select ap.Approved, ap.Comment, CONVERT(varchar(20),ap.DealDatetime,20) as dd, d.Name, ui.UserName, dbo.GetRootName(d.id) as pName, ap.Level, ui.id as uid
                             from vw_AppPLevel ap 
                             left join Department d on ap.DepartmentId=d.ID 
                             left join UserInfo ui on ui.ID=ap.UserId
                             where ap.AppProcId=" + apid + " and ap.ObjId=" + oid + " order by case when ap.DealDatetime is null then 0 else 1 end desc, ap.Level desc, ap.DealDatetime asc";
             DataTable dt = DBHelper.GetDataTable(sql);
+            // 获取提交人数据
             if(apid=="1" ||apid=="5")
             {
                 sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.CreateDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid
