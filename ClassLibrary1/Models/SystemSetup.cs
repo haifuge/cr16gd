@@ -93,16 +93,16 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public string UpdateUserInfo(string account, string uname, string psd, string tel, string email, string roleid)
+        public string UpdateUserInfo(string uid, string account, string uname, string psd, string tel, string email, string roleid)
         {
             string sql;
             if (psd != "") { 
                 psd = EncryptHelper.Encrypt(psd, "IamKey12");
-                sql = "update UserInfo set UserName=N'"+uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"', RoleId="+roleid+" where UserAccount='"+ account+"'";
+                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"', RoleId="+roleid+" where ID="+ uid;
             }
             else
             {
-                sql = "update UserInfo set UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where UserAccount='" + account + "'";
+                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where ID=" + uid;
             }
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
