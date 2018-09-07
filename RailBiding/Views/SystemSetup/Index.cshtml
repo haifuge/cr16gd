@@ -274,6 +274,8 @@
                         <div class="wc-container">
                             <table class="meet-form meet-form2 meet-form5">
                                 <tbody>
+                                    <input name="roomInfoName" type="text" value="" id="uid"
+                                           class="has-clear-input input input3" hidden/>
                                     <tr class="form-tr">
                                         <td class="form-lable">部门：</td>
                                         <td>
@@ -294,7 +296,7 @@
                                         <td class="form-lable">账号：</td>
                                         <td>
                                             <input name="roomInfoName" type="text" value="" id="xguaccount"
-                                                   class="has-clear-input input input3  " onblur="yzzh('xguaccount', 'xgd1')"  disabled/>
+                                                   class="has-clear-input input input3  " onblur="yzzh('xguaccount', 'xgd1')" />
                                             <span id="xgd1"></span>
                                         </td>
                                     </tr>
@@ -1080,7 +1082,7 @@
                             '<td>' + obj[i].department + '</td>' +
                             '<td>' + obj[i].telephone + '</td>' +
                             '<td>' + obj[i].email + '</td>' +
-                    '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + obj[i].id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + obj[i].id + '\',\'' + o.did + '\')">删除</a></td>' +
+                            '<td style="width: 100px;"><a href="#" class="xg" style="display: inline-block" onclick="updateUser(\'' + obj[i].id + '\')">修改</a>&nbsp;&nbsp;<a href="#" class="xg" style="display: inline-block" onclick="deleteUser(\'' + obj[i].id + '\',\'' + obj[i].did + '\')">删除</a></td>' +
                             '</tr >';
             }
             $("#tbusers").html(addhtm);
@@ -1137,6 +1139,7 @@
             var role = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
+                console.log(o)
                 if (o.roleid == 1) {
                     role = "轨道公司领导";
                 } else if (o.roleid == 2) {
@@ -1196,6 +1199,7 @@
             var o = users[i];
             console.log(o)
             if (o.id == id) {
+                $('#uid').val(o.id);
                 $('#xgaddpeo').val(o.department);
                 $('#xgbType').val(o.roleid);
                 $('#xguaccount').val(o.useraccount);
@@ -1207,7 +1211,7 @@
         }
     }
     /*修改用户信息*/
-    function xgUser() {
+    function xgUser(){
         var success = 0; 
         success += yzxm('xguname', 'xgxm');
         success += checkphone('xgutel', 'xgphonemsg');
@@ -1215,13 +1219,13 @@
         if (success > 0) {
             return;
         }
-
+        var uid = $('#uid').val();
         var xgbType = $('#xgbType').val();
         var xguaccount = $('#xguaccount').val();
         var xguname = $('#xguname').val();
         var xgutel = $('#xgutel').val();
         var xguemail = $('#xguemail').val();
-        var obj = { uname: xguname, tel: xgutel, em: xguemail, account: xguaccount, roleid: xgbType }
+        var obj = {uid:uid,uname: xguname, tel: xgutel, em: xguemail, account: xguaccount, roleid: xgbType }
         $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
             if (res = "1"){
                 swal(
