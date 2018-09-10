@@ -55,7 +55,7 @@ namespace RailBiding.Controllers
                     {
                         if(pc.AllowDelete(pid))
                         {
-                            ViewBag.DelButton= @"<a href='#' class='js-cancle-meet' title='删除'>
+                            ViewBag.DelButton= @"<a href='#' class='js-cancle-meet  deljs-cancle-meet' title='删除'>
                                             <i class='meet-icon icon-cancel icon-bh2' onclick='deleteProject()'>删除</i>
                                         </a>";
                         }
