@@ -134,5 +134,23 @@ namespace DAL.Models
             paras[2] = new SqlParameter("@apid", apid);
             DBHelper.ExecuteSP("CreateApproveProcessing", paras);
         }
+
+        public void DeleteBidFile(string pid)
+        {
+            string sql = "delete Project Id="+pid;
+            sql += "; delete BidingFile where ProjId="+pid;
+            sql += "; delete AppProcessing where AppProcId=2 and ObjId="+pid;
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public bool AllowDelete(string pid)
+        {
+            string sql = "select max(Approved) from AppProcessing where AppProcId=2 and ObjId=" + pid;
+            string approved = DBHelper.ExecuteScalar(sql);
+            if (approved == "" || approved == "1")
+                return true;
+            else
+                return false;
+        }
     }
 }
