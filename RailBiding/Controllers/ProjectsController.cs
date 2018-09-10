@@ -53,6 +53,16 @@ namespace RailBiding.Controllers
                 case "未发布":
                     if (dr["uid"].ToString() == Session["UserId"].ToString())
                     {
+                        if(pc.AllowDelete(pid))
+                        {
+                            ViewBag.DelButton= @"<a href='#' class='js-cancle-meet' title='删除'>
+                                            <i class='meet-icon icon-cancel icon-bh2' onclick='deleteProject()'>删除</i>
+                                        </a>";
+                        }
+                        else
+                        {
+                            ViewBag.DelButton = "";
+                        }
                         ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标文件申请'>
                                             <i class='meet-icon icon-cancel icon-bh2' onclick='bidFileApply()'>招标文件申请</i>
                                         </a>";
