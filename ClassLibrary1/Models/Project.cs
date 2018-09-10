@@ -137,7 +137,7 @@ namespace DAL.Models
 
         public void DeleteBidFile(string pid)
         {
-            string sql = "delete Project Id="+pid;
+            string sql = "delete Project where Id="+pid;
             sql += "; delete BidingFile where ProjId="+pid;
             sql += "; delete AppProcessing where AppProcId=2 and ObjId="+pid;
             DBHelper.ExecuteNonQuery(sql);

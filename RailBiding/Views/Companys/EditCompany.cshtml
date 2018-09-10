@@ -237,6 +237,33 @@
     .block-left .meet-form.meet-form3 .form-tr .form-lable {
         width: 120px;
     }
+        .dw1 {
+       float:left;
+       padding-right:50px;
+
+    }
+    .dw3 {
+       float:left;
+       padding-right:45px;
+
+    }
+    .delfile {
+        position:relative;
+        text-decoration:none;
+        left: -45px;
+        color:red;
+        line-height: 30px;
+    }
+    .delfile2 {
+        position:relative;
+        text-decoration:none;
+        left: -40px;
+        color:red;
+        line-height: 30px;
+    }
+    .form-tr .upload-btn.upload-btn2.upload-btn3 {
+       position:relative;
+    }
 </style>
 
 <div class="left-nav">
@@ -291,11 +318,12 @@
                                 <span class="td-cer">推荐书：</span>
                                 <div class="upload-btn upload-btn2 upload-btn3">
                                     <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput1" id="allfileInput1" value="" style="opacity:0;">
+                                        <input type="file" name="fileInput1" id="allfileInput1" value=""style="opacity:0;position: absolute;left:0px;width:40px;">
                                         <input type="text" id="referPic" name="foreRef" width="20" value="@ViewBag.ReferreIDPic" hidden />
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
                                     <div class="dw1" style="padding-left:50px;text-align:left">@ViewBag.dw1</div>
+                                    <a href="#" class="delfile" onclick="delfile()">删除</a>
                                 </div>
                             </td>
                         </tr>
@@ -367,11 +395,13 @@
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
                                     <form id='bfupform3' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
-                                        <input type="file" name="fileInput" id="allfileInput4" style="opacity:0;">
+                                        <input type="file" name="fileInput" id="allfileInput4" style="opacity:0;width:40px;position: absolute;
+    left: 0;">
                                         <input id="scPic" type="text" name="foreRef" value="@ViewBag.SecurityCertificatePic" hidden>
                                     </form>
                                     <img src="/img/icon-add2.png" alt="" class="up up2">
                                     <div class="dw3" style="padding-left:50px;text-align:left">@ViewBag.dw3</div>
+                                    <a href="#" class="delfile2" onclick="delfile2()">删除</a>
                                 </div>
                                 <span style="font-size: 14px;">证件编号：</span>
                                 <input name="youbh" type="text" value="@ViewBag.SecurityCertificateNo" id="licenseNo"
@@ -1498,5 +1528,16 @@
             })
         }
 
+    }
+
+    function delfile(){
+        $(".dw1").html("");
+        $("#referPic").val("");
+        $("#allfileInput1").val("");
+    }
+    function delfile2(){
+        $(".dw3").html("");
+        $("#scPic").val("");
+        $("#allfileInput4").val("");
     }
 </script>

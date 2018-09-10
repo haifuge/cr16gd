@@ -421,6 +421,11 @@
    #bidapplylayer .canvas_btn{
        padding-top:20px;
    }
+    .deljs-cancle-meet .icon-bh2{
+       width:50px;
+       background: #29a9ef url(/img/btn-close.png) no-repeat 13px 7px;
+       background-size:15px;
+    }
 </style>
 
 <div class="left-nav">
@@ -436,6 +441,7 @@
         <div class="main-top">
             <span class="js-page-name">项目详情</span>
             <div class="apply-opt">
+                @Html.Raw(ViewBag.DelButton)
                 @Html.Raw(ViewBag.Button)
                 @Html.Raw(ViewBag.EditProject)
                 <a href = "#" onclick = "window.history.go(-1)" class="js-cancle-meet" title="返回">
@@ -728,5 +734,24 @@
                 document.getElementById("bffiles").appendChild(li)
             }
         });
+    }
+
+    function deleteProject(){
+        swal({
+            title: '确定删除？',
+            text: '确定删除后，该项目将无法恢复！',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '确定删除！'
+        }).then( function (cc) {
+            if (cc.dismiss != "cancel") {
+                $.post("/Projects/DeleteProject?pid=@ViewBag.ProjId", function (data) {
+                    swal("删除成功！");
+                    window.location.href = "/Projects"
+                });
+            }
+        })
     }
 </script>

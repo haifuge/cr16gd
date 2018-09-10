@@ -74,6 +74,16 @@ namespace RailBiding.Controllers
                     }
                     break;
                 case "招标文件审核中":
+                    if (pc.AllowDelete(pid))
+                    {
+                        ViewBag.DelButton = @"<a href='#' class='js-cancle-meet deljs-cancle-meet' title='删除'>
+                                            <i class='meet-icon icon-cancel icon-bh2' onclick='deleteProject()'>删除</i>
+                                        </a>";
+                    }
+                    else
+                    {
+                        ViewBag.DelButton = "";
+                    }
                     ViewBag.Button = "";
                     ViewBag.BFitem=getBidFileItem(pid);
                     break;
@@ -96,6 +106,7 @@ namespace RailBiding.Controllers
                     ViewBag.BFitem = getBidFileItem(pid);
                     break;
                 case "招标审核中":
+                    
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
@@ -121,6 +132,7 @@ namespace RailBiding.Controllers
                     ViewBag.Bitem = getBidItem(pid);
                     break;
                 case "定标文件审核中":
+                    
                     ViewBag.Button = "";
                     ViewBag.BFitem = getBidFileItem(pid);
                     ViewBag.Bitem = getBidItem(pid);
@@ -872,6 +884,12 @@ namespace RailBiding.Controllers
             rtext = HttpUtility.UrlDecode(rtext);
             MakeBidFileContext mc = new MakeBidFileContext();
             mc.SaveRichText(pid, rtext);
+        }
+
+        public void DeleteProject(string pid)
+        {
+            ProjectContext pc = new ProjectContext();
+            pc.DeleteBidFile(pid);
         }
     }
 }
