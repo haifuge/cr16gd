@@ -209,11 +209,15 @@
 
         $.get("/Main/GetToBeDone", {}, function (data) {
             var obj = JSON.parse(data);
+            console.log(data)
+            var cc = 0;
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                if(o.appprocid==1){
-                    $(".num-one").html(o.company)
+                console.log(o)
+                if (o.appprocid == 1 || o.appprocid == 5){
+                    cc = cc + o.company;
                 }
+                console.log(cc)
                 if(o.appprocid==2){
                     $(".num-two").html(o.bidfile)
                 }
@@ -224,6 +228,7 @@
                     $(".num-four").html(o.mb)
                 }
             }
+            $(".num-one").html(cc)
 
         })
     });

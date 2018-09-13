@@ -61,7 +61,7 @@ namespace DAL.Models
             string where = "";
             if (ctype != "")
             {
-                where = "c.AuditStatus = " + ctype + @" and ";
+                where = "a.Approved = " + ctype + @" and ";
             }
             string sql = @"select top 100 percent * from (
                             select c.id,c.Type,c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
