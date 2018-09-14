@@ -6078,9 +6078,9 @@ div#editor {
         margin-top:0px;
         top: 0%;
     }
-        .index-center .index-box {
+    .index-center .index-box {
         
-        margin:50px auto 80px;
+        margin:50px auto 130px;
         }
     .login-center2 {
         position: relative;
@@ -6089,5 +6089,8 @@ div#editor {
     }
     .login-zx {
         margin: 50px auto 130px;
+    }
+    .in-box-top {
+        height:50px;
     }
 }

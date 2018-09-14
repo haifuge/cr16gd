@@ -189,16 +189,23 @@
         if (@ViewBag.RoleId== 4) {
             $(".sp-list-right").html("");
             //$("a[name='rightPart']").css("display", 'none');
-            $(".in-box-top ").css({"visibility":"hidden","height":"50px"})
+            $(".in-box-top ").css({"visibility":"hidden","height":"0px"})
+            var result1 = window.matchMedia('(max-width:1500px)');
+            if(result1.matches) {
+                $(".in-box-top ").css({"visibility":"hidden","height":"50px"})
+            }
             $(".index-center").css("padding-top","0px")
             $(".index-center").css({"margin-top":"-170px"})
 
         }
         if (@ViewBag.RoleId== 5) {
             $(".sp-list-right").html("");
-         
             //$("a[name='rightPart']").css("display", 'none');
-            $(".in-box-top ").css({"visibility":"hidden","height":"50px"});
+            $(".in-box-top ").css({"visibility":"hidden","height":"0px"});
+            var result1 = window.matchMedia('(max-width:1500px)');
+            if(result1.matches) {
+                $(".in-box-top ").css({"visibility":"hidden","height":"50px"});
+            }
             $(".hid4").attr("href","javascript:;");
             $(".index-center").css("padding-top","0px")
               $(".index-center").css({"margin-top":"-170px"})
