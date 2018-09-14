@@ -950,10 +950,11 @@ tbody tr {
 }
 
 .login-tit p {
-    font-size: 2rem;
+    font-size:26px;
     color: #fff;
     text-align: center;
-    padding: 1rem 0 1rem;
+    padding:25px 0px 10px;
+    margin:0px;
 }
 
 .page.page-current > img {

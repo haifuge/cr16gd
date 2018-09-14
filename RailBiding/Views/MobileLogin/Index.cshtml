@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>劳务招标平台</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes "/>
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -158,20 +158,33 @@
 
         $(document).on('focusin', function () {
             //软键盘弹出的事件处理
-            $(".lw-footer").css("position", "static")
+            $(".lw-footer").css("display", "none");
+            $("header").css("display", "none");
+            $(".bar-nav ~ .content").css("top", "0");
+            $(".login-tit p").css("padding", "15px 0px");
+
         });
         $(document).on('focusout', function () {
-            $(".lw-footer").css("position", "absolute")
+            $(".lw-footer").css("display", "block")
+            $("header").css("display", "block");
+            $(".bar-nav ~ .content").css("top", "3rem");
+            $(".login-tit p").css("padding", "25px 0px 15px");
         });
         var clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
         $(window).on('resize', function () {
             var nowClientHeight = document.documentElement.clientHeight || document.body.clientHeight;
             if (clientHeight > nowClientHeight) {
-                $(".lw-footer").css("position", "static")
+                $(".lw-footer").css("display", "none");
+                $("header").css("display", "none");
+                $(".bar-nav ~ .content").css("top", "0");
+                $(".login-tit p").css("padding", "15px 0px");s
             }
             else {
                 //键盘收起的事件处理
-                $(".lw-footer").css("position", "absolute")
+                $(".lw-footer").css("display", "block")
+                $("header").css("display", "block");
+                $(".bar-nav ~ .content").css("top", "3rem");
+                $(".login-tit p").css("padding", "25px 0px 15px");
             }
         });
         var u = navigator.userAgent, app = navigator.appVersion;
