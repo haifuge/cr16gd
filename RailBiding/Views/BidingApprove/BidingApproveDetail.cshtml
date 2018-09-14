@@ -133,6 +133,7 @@
                                     <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">注册资本</th>
                                     <th style="width:70px;padding:0 5px;font-weight:800;text-align:center">法人代表</th>
                                     <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">联系电话</th>
+                                    <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">推荐单位</th>
                                 </tr>
                             </thead>
                             <tbody id="comhtm"></tbody>
@@ -752,6 +753,7 @@
             for (var j = 0; j < obj.length; j++)
             {
                 var o = obj[j];
+                console.log(o);
                 var imgjian = "";
                 if (o.type != 1)
                 {
@@ -774,6 +776,9 @@
                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.corporaterepresentative+'</a></td>'+
                               '<td style="width:100px;padding:0 5px;">'+
                                  '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.repphone+'</a></td>'+
+                              '<td style="width:100px;padding:0 5px;">'+
+                                 '<a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">'+o.refdepartment
++'</a></td>'
                           '</tr>'
             }
             $("#comhtm").html(comhtml)

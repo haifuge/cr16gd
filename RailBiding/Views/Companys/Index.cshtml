@@ -60,9 +60,10 @@
                         <td style="width:240px;padding:0px 5px">资质等级</td>
                         <td style="width:100px;padding:0px 5px">注册资本</td>
                         <td style="width:130px;padding:0px 5px">业务类型</td>
-                        <td style="width:80px;padding:0px 5px">法人代表</td>
-                        <td style="width:80px;padding:0px 5px">项场负责人</td>
+                        <td style="width:100px;padding:0px 5px">法人代表</td>
+                        <td style="width:100px;padding:0px 5px">项场负责人</td>
                         <td style="width:100px;padding:0px 5px">联系电话</td>
+                        <td style="width:100px;padding:0px 5px">推荐单位</td>
                         <td style="width:100px;padding:0px 5px; display:none" id="cstatus">状态</td>
                         <!--<td style="width:180px;padding:0px 5px">联系地址</td>-->
                     </tr>
@@ -177,7 +178,8 @@
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.businesstype + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
                     '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.contact + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.contactphone + '</td>'
+                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.contactphone + '</td>'+
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.refdepartment + '</td>'
                 if ($.cookie("RoleId") == 2)
                     htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
                 // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +

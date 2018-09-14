@@ -245,7 +245,7 @@ namespace RailBiding.API
             int ps = int.Parse(pagesize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, c.ID*1 as ID, c.Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent,Type, ct.Name as companyType 
+            string sql = @"select identity(int,1,1) as iid, c.ID*1 as ID, c.Name, CorporateRepresentative,QualificationLevel, RepPhone,RegisteredCapital,ConstructionContent,Type, ct.Name as companyType, [dbo].[GetProjectDepartmentByUserId](c.SubmitUserId) as refDepartment 
                            into #temp1
                            from Company c left join CompanyType ct on c.BusinessType=ct.ID 
                             where " + where+@" Status=1 and AuditStatus=2 order by Id
