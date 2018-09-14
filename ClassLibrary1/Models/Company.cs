@@ -111,11 +111,11 @@ namespace DAL.Models
                 where += " c.Status=1 and ";
             }
             string sql = @"select identity(int,1,1) as iid,c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
-                                  c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status 
+                                  c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status, [dbo].[GetProjectDepartmentByUserId](c.SubmitUserId) as refDepartment
                            into #temp1
                            from Company c
                            left join CompanyType bt on bt.id=c.BusinessType
-                           where c.AuditStatus=2 and c.Type = "+cType+" and "+where+" c.Name like '%"+cname+@"%' order by c.id desc;
+                           where c.AuditStatus=2 and c.Type = " + cType+" and "+where+" c.Name like '%"+cname+@"%' order by c.id desc;
                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                            select count(1) from #temp1
                            drop table #temp1";
