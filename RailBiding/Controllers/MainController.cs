@@ -40,8 +40,8 @@ namespace RailBiding.Controllers
         public string GetNotifications()
         {
             NotificationContext nc = new NotificationContext();
-            DataTable dt = nc.GetNotifications();
-            return JsonHelper.DataTableToJSON(dt);
+            string res = nc.GetNotifications("10","1","");
+            return res;
         }
     }
 }

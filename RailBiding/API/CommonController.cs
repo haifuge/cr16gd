@@ -221,7 +221,7 @@ namespace RailBiding.API
         }
         public string UploadNotificationFile()
         {
-            string path = Server.MapPath("/Notification");
+            string path = Server.MapPath("/NotificationFiles");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             string guid = Guid.NewGuid().ToString();
@@ -231,7 +231,7 @@ namespace RailBiding.API
             if (System.IO.File.Exists(fullPath))
                 System.IO.File.Delete(fullPath);
             curFile.SaveAs(fullPath);
-            return "Notification/" + guid + fileExt;
+            return curFile.FileName+"|"+"NotificationFiles/" + guid + fileExt;
 
 
         }

@@ -20,13 +20,26 @@ namespace DAL.Models
         }
         public void DeleteNotification(string id)
         {
-            string sql = "delete Notification where Id = " + id;
+            string sql = "delete Notification where Id in (" + id+")";
             DBHelper.ExecuteNonQuery(sql);
         }
-        public DataTable GetNotifications()
+        public string GetNotifications(string pageSize, string pageIndex, string pname)
         {
-            string sql = "select * from Notification order by Id desc";
-            return DBHelper.GetDataTable(sql);
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string sql = @"select identity(int,1,1) as iid, 1*Id as Id, Name, FileName, convert(varchar(20),PublishDate,23) as PublishDate, PublisherId 
+                            into #temp1 
+                            from Notification where Name like '%" + pname+@"%' order by Id desc
+                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                           select count(1) from #temp1
+                           drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]).Replace("\r", "").Replace("\n", "").Replace("	", "");
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
     }
 }

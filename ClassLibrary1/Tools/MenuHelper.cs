@@ -13,6 +13,7 @@
                             <li id='itemF'><a href='/BidingFile?mmenu=BidingFile'><i class='parent-nav-icon icon-carmanage'></i><span>招标文件</span></a></li>
                             <li id='itemB'><a href='/Bidings?mmenu=Bidings'><i class='parent-nav-icon icon-meetroom'></i><span>招标管理</span></a></li>
                             <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>
+                            <li id='itemN'><a href='/Notification?mmenu=Notification'><i class='parent-nav-icon icon-cardprint'></i><span>通知公告</span></a></li>                            
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 case 2:
                     // 管理员
@@ -21,7 +22,8 @@
                             <li id='itemF'><a href='/BidingFile?mmenu=BidingFile'><i class='parent-nav-icon icon-carmanage'></i><span>招标文件</span></a></li>
                             <li id='itemB'><a href='/Bidings?mmenu=Bidings'><i class='parent-nav-icon icon-meetroom'></i><span>招标管理</span></a></li>
                             <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>
-                            <li id='itemS'><a href='/Statistic?mmenu=Statistic'><i class='parent-nav-icon icon-sealapply'></i><span>统计分析</span></a></li>
+                            <li id='itemS'><a href='/Statistic?mmenu=Statistic'><i class='parent-nav-icon icon-sealapply'></i><span>统计分析</span></a></li>                            
+                            <li id='itemN'><a href='/Notification?mmenu=Notification'><i class='parent-nav-icon icon-cardprint'></i><span>通知公告</span></a></li>
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 case 3:
                     // 审批部门
@@ -29,7 +31,8 @@
                             <li id='itemP'><a href='/Projects?mmenu=Projects'><i class='parent-nav-icon icon-meetcon'></i><span>招标内容</span></a></li>
                             <li id='itemF'><a href='/BidingFile?mmenu=BidingFile'><i class='parent-nav-icon icon-carmanage'></i><span>招标文件</span></a></li>
                             <li id='itemB'><a href='/Bidings?mmenu=Bidings'><i class='parent-nav-icon icon-meetroom'></i><span>招标管理</span></a></li>
-                            <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>
+                            <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>                            
+                            <li id='itemM'><a href='/Notification?mmenu=Notification'><i class='parent-nav-icon icon-cardprint'></i><span>通知公告</span></a></li>
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 case 4:
                     // 项目部
@@ -37,11 +40,13 @@
                             <li id='itemP'><a href='/Projects?mmenu=Projects'><i class='parent-nav-icon icon-meetcon'></i><span>招标内容</span></a></li>
                             <li id='itemF'><a href='/BidingFile?mmenu=BidingFile'><i class='parent-nav-icon icon-carmanage'></i><span>招标文件</span></a></li>
                             <li id='itemB'><a href='/Bidings?mmenu=Bidings'><i class='parent-nav-icon icon-meetroom'></i><span>招标管理</span></a></li>
-                            <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>
+                            <li id='itemM'><a href='/MakeBidFile?mmenu=MakeBidFile'><i class='parent-nav-icon icon-cardprint'></i><span>定标管理</span></a></li>                            
+                            <li id='itemN'><a href='/Notification?mmenu=Notification'><i class='parent-nav-icon icon-cardprint'></i><span>通知公告</span></a></li>
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 case 5:
                     // 轨道公司业务部
-                    return @"<li id='itemC'><a href='/Companys?mmenu=Companys'><i class='parent-nav-icon icon-waitread'></i><span class='span2'  id='spanlaowu'>劳务承分包企业</span></a></li>
+                    return @"<li id='itemC'><a href='/Companys?mmenu=Companys'><i class='parent-nav-icon icon-waitread'></i><span class='span2'  id='spanlaowu'>劳务承分包企业</span></a></li>                            
+                            <li id='itemN'><a href='/Notification?mmenu=Notification'><i class='parent-nav-icon icon-cardprint'></i><span>通知公告</span></a></li>
                             <li id='itemSS'><a href='/SystemSetup?mmenu=SystemSetup'><i class='parent-nav-icon icon-sysset'></i><span>系统设置</span></a></li>";
                 default:
                     return "";
@@ -85,7 +90,9 @@
                         case "Statistic":
                             return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>统计分析</a></li>";
                         case "SystemSetup":
-                            return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                            return @"<li><a href='#' class='active'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                        case "Notification":
+                            return @"<li><a href='#' class='active'><i class='icon icon-eye1'></i>通知公告</a></li>";
                     }
                     return "";
                 case "2":
@@ -128,6 +135,8 @@
                                     <li><a href='/SystemSetup/SystemLog'><i class='icon icon-hand3'></i>系统日志</a></li>
                                     <li><a href='/SystemSetup/CategoryManagement'><i class='icon icon-hand4'></i>类别管理</a></li>
                                     <li><a href='/SystemSetup/ApproveProcessManagement'><i class='icon icon-hand4'></i>审核流程</a></li>";
+                        case "Notification":
+                            return @"<li><a href='#' class='active'><i class='icon icon-eye1'></i>通知公告</a></li>";
                     }
                     return "";
                 case "3":
@@ -166,6 +175,8 @@
                             return "<li><a href='#' class='active'><i class='icon icon-eye1'></i>统计分析</a></li>";
                         case "SystemSetup":
                             return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                        case "Notification":
+                            return @"<li><a href='#' class='active'><i class='icon icon-eye1'></i>通知公告</a></li>";
                     }
                     return "";
                 case "4":
@@ -194,6 +205,8 @@
                             return @"<li><a href='/MakeBidFile' class='active'><i class='icon icon-eye1'></i>定标文件</a></li>";
                         case "SystemSetup":
                             return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                        case "Notification":
+                            return @"<li><a href='#' class='active'><i class='icon icon-eye1'></i>通知公告</a></li>";
                     }
                     return "";
                 case "5":
@@ -214,6 +227,8 @@
                                     <li><a href='/Companys/MyAudit' class='active'><i class='icon icon-edit'></i>我审核的</a></li>";
                         case "SystemSetup":
                             return @"<li><a href='#'><i class='icon icon-hand2'></i>个人中心</a></li>";
+                        case "Notification":
+                            return @"<li><a href='#' class='active'><i class='icon icon-eye1'></i>通知公告</a></li>";
                     }
                     return "";
                 default:

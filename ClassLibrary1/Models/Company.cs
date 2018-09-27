@@ -123,7 +123,6 @@ namespace DAL.Models
             string data = JsonHelper.DataTableToJSON(ds.Tables[0]).Replace("\r", "").Replace("\n", "").Replace("	", "");
             string total = ds.Tables[1].Rows[0][0].ToString();
             int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
-            DataTable dt = DBHelper.GetDataTable(CommandType.Text, sql);
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
