@@ -2,6 +2,7 @@
 using RailBiding.Common;
 using System.Data;
 using System.Web.Mvc;
+using DAL.Models;
 
 namespace RailBiding.Controllers
 {
@@ -33,6 +34,13 @@ namespace RailBiding.Controllers
 	                        left join MakeBidingFile mb on a.ObjId=mb.ProjId and a.AppProcId=4 and mb.Status=1
 	                        group by a.AppProcId";
             DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
+
+        public string GetNotifications()
+        {
+            NotificationContext nc = new NotificationContext();
+            DataTable dt = nc.GetNotifications();
             return JsonHelper.DataTableToJSON(dt);
         }
     }

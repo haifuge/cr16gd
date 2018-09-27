@@ -219,6 +219,22 @@ namespace RailBiding.API
             curFile.SaveAs(fullPath);
             return guid + fileExt+"|"+curFile.FileName;
         }
+        public string UploadNotificationFile()
+        {
+            string path = Server.MapPath("/Notification");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            string guid = Guid.NewGuid().ToString();
+            var curFile = Request.Files[0];
+            var fileExt = Path.GetExtension(curFile.FileName);
+            string fullPath = path + "/" + guid + fileExt;
+            if (System.IO.File.Exists(fullPath))
+                System.IO.File.Delete(fullPath);
+            curFile.SaveAs(fullPath);
+            return "Notification/" + guid + fileExt;
+
+
+        }
 
         public string GetCompanyCandidate(string page, string pagesize)
         {

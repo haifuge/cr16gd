@@ -189,6 +189,7 @@
     <Compile Include="Controllers\MobileMainController.cs" />
     <Compile Include="Controllers\MobileMakeBidFileController.cs" />
     <Compile Include="Controllers\MobileResetPasswordController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
@@ -797,6 +798,7 @@
     <Content Include="Views\MobileCompany\AuditAction.cshtml" />
     <Content Include="Views\MobileMakeBidFile\AuditAction.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
