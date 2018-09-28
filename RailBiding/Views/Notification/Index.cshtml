@@ -100,6 +100,10 @@ color:rgba(0, 0, 0, .6)
     #bffiles {
     padding-left:40px;
     }
+.meet-table.text-left tbody tr td{
+    text-align:left;
+    padding-left:10px;
+    }
 </style>
 
 <div class="left-nav">
@@ -152,16 +156,16 @@ color:rgba(0, 0, 0, .6)
         </div>
         <div class="wc-container">
             <table class="meet-table text-left">
-                <thead class="wc-header">
+                <thead class="wc-header wc-notification">
                     <tr>
                         <td class="check-color" style="width:30px;padding:0px 5px">
                             <span class="table-all-check">
                                 <input type="checkbox" value="" name="all-check" id="checkall" onclick="selectAll()">
                             </span>
                         </td>
-                        <td>名称</td>
-                        <td style="width:150px;padding:0px 5px;">发布时间</td>
-                        <td style="width:100px;padding:0px 5px;">点击下载</td>
+                        <td style="text-align:center">名称</td>
+                        <td style="width:150px;padding:0px 5px;text-align:center"">发布时间</td>
+                        <td style="width:100px;padding:0px 5px;text-align:center"">点击下载</td>
                     </tr>
                 </thead>
                 <tbody id="tbCompany"></tbody>
@@ -214,7 +218,7 @@ color:rgba(0, 0, 0, .6)
 
                 htm += '<tr class="white-bg" style = "cursor: pointer" >' +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"   onchange="checkedid(this)" onclick="setSelectAll()"/></td>' +
-                    '<td>' + o.name + '</td>' +
+                    '<td class="noticename">' + o.name + '</td>' +
                     '<td>' + o.publishdate + '</td>' +
                     '<td><a href="' + o.filename + '" target="blank"><img src="/img/download.png" /></a></td>';
                     '</tr >';

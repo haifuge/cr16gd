@@ -3486,17 +3486,17 @@ input[name=keyname] {
         margin-right: 0;
     }
 .bot-right ul {
-    font-size:14px;
-    padding:15px;
+    font-size:12px;
+    padding:10px;
 }
 .bot-right ul li a {
     color:#fff;
-    line-height: 28px;
+    line-height: 24px;
 }
 .main_noticename {
    display:inline-block;
    vertical-align:middle;
-   width:201px;
+   width:100%;
    overflow: hidden;
    white-space: nowrap;
    text-overflow: ellipsis;
@@ -3509,7 +3509,7 @@ input[name=keyname] {
 }
 .bot-right h2 {
     color:#fff;
-    font-size:20px;
+    font-size:18px;
     font-weight:normal;
     text-align:center;
     width:100%;
