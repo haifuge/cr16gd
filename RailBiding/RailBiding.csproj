@@ -485,6 +485,7 @@
     <Content Include="img\control-icon-on.png" />
     <Content Include="img\control-icon.png" />
     <Content Include="img\datePicker.gif" />
+    <Content Include="img\download.png" />
     <Content Include="img\fancybox-x.png" />
     <Content Include="img\fancybox-y.png" />
     <Content Include="img\fancybox.png" />
@@ -538,6 +539,8 @@
     <Content Include="img\icon-message-on.png" />
     <Content Include="img\icon-message-opt.png" />
     <Content Include="img\icon-message.png" />
+    <Content Include="img\icon-notice.png" />
+    <Content Include="img\icon-notice2.png" />
     <Content Include="img\icon-output.png" />
     <Content Include="img\icon-px.png" />
     <Content Include="img\icon-tongji.png" />

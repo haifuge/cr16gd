@@ -40,7 +40,7 @@ namespace RailBiding.Controllers
         public string GetNotifications()
         {
             NotificationContext nc = new NotificationContext();
-            string res = nc.GetNotifications("10","1","");
+            string res = nc.GetNotifications("9","1","");
             return res;
         }
     }

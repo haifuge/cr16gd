@@ -207,7 +207,6 @@ color:rgba(0, 0, 0, .6)
         $.post("/Notification/GetNotifications", { pageSize: ps, pageIndex: page, pname: SearchCompanyName }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
-            console.log(obj);
             var htm = "";
             var o = "";
             for (var i=0; i < obj.length; i++) {
@@ -217,7 +216,7 @@ color:rgba(0, 0, 0, .6)
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"   onchange="checkedid(this)" onclick="setSelectAll()"/></td>' +
                     '<td>' + o.name + '</td>' +
                     '<td>' + o.publishdate + '</td>' +
-                    '<td><a href="'+o.filename+'"><img src=""</a></td>';
+                    '<td><a href="'+o.filename+'"><img src="/img/download.png" /></a></td>';
                     '</tr >';
             }
             $("#tbCompany").html(htm);

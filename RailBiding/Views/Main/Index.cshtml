@@ -111,27 +111,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/Projects?isactive=1" class="hid4">
-                                    <dl>
-                                        <dt><img src="~/img/icon-index6.png" alt=""></dt>
-                                        <dd>招标内容</dd>
-                                    </dl>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/SystemSetup?activeMenu=itemSS&isactive=1">
-                                    <dl>
-                                        <dt><img src="~/img/icon-index3.png" alt=""></dt>
-                                        <dd>系统设置</dd>
-                                    </dl>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bot-center"><img src="~/img/index-bg.jpg" alt=""></div>
-                    <div class="bot-left bot-right">
-                        <ul>
-                            <li>
                                 <a href="/BidingFile?activeMenu=itemF&isactive=1" name="rightPart" class="hid4">
                                     <dl>
                                         <dt><img src="~/img/index-7.png" alt=""></dt>
@@ -148,23 +127,20 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/MakeBidFile?activeMenu=itemM&isactive=1"name="rightPart" class="hid4">
+                                <a href="/MakeBidFile?activeMenu=itemM&isactive=1" name="rightPart" class="hid4">
                                     <dl>
                                         <dt><img src="~/img/icon-index5.png" alt=""></dt>
                                         <dd>定标管理</dd>
                                     </dl>
                                 </a>
                             </li>
-
-                            @*<li>
-                                <a href="/Statistic?activeMenu=itemS">
-                                    <dl>
-                                        <dt><img src="~/img/icon-index6.png" alt=""></dt>
-                                        <dd>统计分析</dd>
-                                    </dl>
-                                </a>
-                            </li>*@
                         </ul>
+                    </div>
+                    <div class="bot-center"><img src="~/img/index-bg.jpg" alt=""></div>
+                    <div class="bot-right">
+                        <h2>通知公告</h2>
+                        <ul class="main_notice"></ul>
+                        <a href="/Notification?mmenu=Notification" class="main_more">更多>></a>
                     </div>
                 </div>
 
@@ -237,6 +213,21 @@
             }
             $(".num-one").html(cc)
 
+        })
+
+
+
+        $.post("/Main/GetNotifications", {}, function (data) {
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            console.log(obj);
+            var htm = "";
+            var o = "";
+            for (var i=0; i < obj.length; i++) {
+                o = obj[i];
+                htm +='<li><a href="'+o.filename+'"><span class="main_noticename">'+o.name+'</span><span class="main_noticetime">' + o.publishdate + '</span></a></li>';
+            }
+            $(".main_notice").html(htm);
         })
     });
  

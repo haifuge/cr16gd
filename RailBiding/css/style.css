@@ -2407,6 +2407,18 @@ input[name=keyname] {
     background-color:#fff
 }
 
+ .main-nav ul li a i.parent-nav-icon.icon-notice{
+    background-image:url(../img/icon-notice2.png);
+    background-position: center 0px;
+}
+ .main-nav ul li.active a i.parent-nav-icon.icon-notice{
+    background-image:url(../img/icon-notice.png);
+    background-position: center 0px;
+}
+.main-nav ul li a:hover .parent-nav-icon.icon-notice{
+    background-image:url(../img/icon-notice.png);
+    background-color:#fff
+}
 .parent-nav-icon.icon-travelapply {
     background-position: center -350px;
 }
@@ -3390,7 +3402,7 @@ input[name=keyname] {
 
         .index-center .in-box-bottom .bot-left ul li {
             background: #2097df;
-            height: 125px;
+            height: 91.5px;
             width: 314px;
             margin-bottom: 8px;
             float: left
@@ -3409,13 +3421,23 @@ input[name=keyname] {
                 width: 260px;
                 height: 90px;
                 margin: 0 auto;
-                padding-top: 17.5px;
             }
 
                 .index-center .in-box-bottom .bot-left ul li dl dt {
                     float: left;
                     width: 90px;
+                    height:90px;
+                    position:relative
                 }
+                    .index-center .in-box-bottom .bot-left ul li dl dt img {
+                     width:70px;
+                     position:relative;
+                     top:50%;
+                     display: block;
+                     margin: 0 auto;
+                     margin-top:-35px;
+                    
+                    }
 
                 .index-center .in-box-bottom .bot-left ul li dl dd {
                     float: left;
@@ -3456,11 +3478,59 @@ input[name=keyname] {
 
     .index-center .index-box .in-box-bottom .bot-right {
         width: 314px;
+        height: 390px;
+        background: #1095e2;
         float: left;
+        position:relative;
         margin-left: 4px;
         margin-right: 0;
     }
-
+.bot-right ul {
+    font-size:14px;
+    padding:15px;
+}
+.bot-right ul li a {
+    color:#fff;
+    line-height: 28px;
+}
+.main_noticename {
+   display:inline-block;
+   vertical-align:middle;
+   width:201px;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+}
+.main_noticetime {
+   display:inline-block;
+   vertical-align:middle;
+   width: 82px;
+   text-align:right
+}
+.bot-right h2 {
+    color:#fff;
+    font-size:20px;
+    font-weight:normal;
+    text-align:center;
+    width:100%;
+    padding:10px 0px;
+    border-bottom:1px solid #58b5eb
+}
+.main_more {
+    display:block;
+    width:110px;
+    font-size:14px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    color:#fff;
+    background:#0068b7;
+    border-radius:5px;
+    position:absolute;
+    margin-left: -55px;
+    bottom: 10px;
+    left: 50%;
+}
 .top-bottom {
     border-bottom: 1px solid #cacccd;
     padding-bottom: 0;
