@@ -216,7 +216,7 @@ color:rgba(0, 0, 0, .6)
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"   onchange="checkedid(this)" onclick="setSelectAll()"/></td>' +
                     '<td>' + o.name + '</td>' +
                     '<td>' + o.publishdate + '</td>' +
-                    '<td><a href="'+o.filename+'"><img src="/img/download.png" /></a></td>';
+                    '<td><a href="' + o.filename + '" target="blank"><img src="/img/download.png" /></a></td>';
                     '</tr >';
             }
             $("#tbCompany").html(htm);
@@ -374,7 +374,7 @@ color:rgba(0, 0, 0, .6)
             return;
         }
         if(noticefile==""){
-            swal("请填写通知公告内容！")
+            swal("请上传通知公告文件！")
             return;
         }
         $('body').loading({
