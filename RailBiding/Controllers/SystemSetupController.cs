@@ -214,7 +214,7 @@ namespace RailBiding.Controllers
         }
         public string UpdateUserInfo()
         {
-            string uid = Request["uid"].ToString();
+            string uid = Session["UserId"].ToString();
             string uname = Request["uname"].ToString();
             string tel = Request["tel"].ToString();
             string psd;
