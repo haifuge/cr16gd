@@ -87,8 +87,13 @@ namespace DAL.Models
             }
             else
             {
+                where = "";
+                if (ctype != "")
+                {
+                    where = "c.AuditStatus = " + ctype + @" and ";
+                }
                 sql = @"select c.ID, c.Type, c.Name, c.QualificationLevel, c.RegisteredCapital, ct.Name as BusinessType, c.CorporateRepresentative,
-		                        c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, 1 as Approved
+		                        c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, c.AuditStatus as Approved
                         from Company c 
                         left join CompanyType ct on ct.ID=c.BusinessType
                         where " + where + " c.AuditStatus<>2 and c.AuditStatus<>0 and c.Name like '%" + cname + "%' order by c.ID desc";
