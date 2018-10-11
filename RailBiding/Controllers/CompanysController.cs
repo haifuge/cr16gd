@@ -531,8 +531,9 @@ namespace RailBiding.Controllers
                 return "no session";
             }
             string userId = Session["UserId"].ToString();
+            string roleId = Session["RoleId"].ToString();
 
-            return cc.GetMyAudit(userId, pageSize, pageIndex,cname, ctype);
+            return cc.GetMyAudit(userId, pageSize, pageIndex,cname, ctype, roleId);
         }
 
         /// <summary>

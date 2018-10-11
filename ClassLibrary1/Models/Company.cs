@@ -52,7 +52,7 @@ namespace DAL.Models
             
         }
 
-        public string GetMyAudit(string userId, string pageSize, string pageIndex, string cname, string ctype)
+        public string GetMyAudit(string userId, string pageSize, string pageIndex, string cname, string ctype, string roleid)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -63,7 +63,9 @@ namespace DAL.Models
             {
                 where = "a.Approved = " + ctype + @" and ";
             }
-            string sql = @"select top 100 percent * from (
+            string sql = "";
+            if (roleid != "2") {
+                sql = @"select top 100 percent * from (
                             select c.id,c.Type,c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                            c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, case when c.AuditStatus=2 then 4 else a.Approved end as Approved
                             from Company c inner join(
@@ -81,7 +83,16 @@ namespace DAL.Models
                             from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                             left join CompanyType bt on bt.id=c.BusinessType
                             where " + where + " a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5) and c.AuditStatus=1) a 
-                            where a.Name like '%" + cname+"%' order by a.id desc";
+                            where a.Name like '%" + cname + "%' order by a.id desc";
+            }
+            else
+            {
+                sql = @"select c.ID, c.Type, c.Name, c.QualificationLevel, c.RegisteredCapital, ct.Name as BusinessType, c.CorporateRepresentative,
+		                        c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, 1 as Approved
+                        from Company c 
+                        left join CompanyType ct on ct.ID=c.BusinessType
+                        where " + where + " c.AuditStatus<>2 and c.AuditStatus<>0 and c.Name like '%" + cname + "%' order by c.ID desc";
+            }
             DataTable dataTable = DBHelper.GetDataTable(sql);
             DataTable dt = dataTable.Clone();
             int total = dataTable.Rows.Count;
