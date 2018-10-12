@@ -87,11 +87,6 @@ namespace DAL.Models
             }
             else
             {
-                where = "";
-                if (ctype != "")
-                {
-                    where = "c.AuditStatus = " + ctype + @" and ";
-                }
                 sql = @"select top 100 percent * from (
                         select c.id,c.Type,c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
 	                        c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, case when c.AuditStatus=2 then 4 else a.Approved end as Approved
@@ -123,7 +118,7 @@ namespace DAL.Models
                         inner join vw_AppPLevel vap on c.ID = vap.ObjId and vap.AppProcId in (1, 5) and vap.Approved = 2
                         left join CompanyType ct on ct.ID = c.BusinessType
                         where c.AuditStatus = 1) a 
-                        where a.Name like '%" + cname + "%' order by a.id desc";
+                        where " + where + " a.Name like '%" + cname + "%' order by a.id desc";
             }
             DataTable dataTable = DBHelper.GetDataTable(sql);
             DataTable dt = dataTable.Clone();
