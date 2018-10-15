@@ -107,15 +107,15 @@ namespace DAL.Models
                         where " + where + " a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5) and c.AuditStatus=1
                         union
                         select c.ID, c.Type, c.Name, c.QualificationLevel, c.RegisteredCapital, ct.Name as BusinessType, c.CorporateRepresentative,
-                                c.Contact, convert(varchar(20), c.AuditDate, 23) as AuditDate, c.AuditStatus, c.AuditStatus as Approved
+                                c.Contact, convert(varchar(20), c.AuditDate, 23) as AuditDate, c.AuditStatus, 3 as Approved
                         from Company c
                         left join CompanyType ct on ct.ID = c.BusinessType
                         where c.AuditStatus = 3
                         union
                         select c.ID, c.Type, c.Name, c.QualificationLevel, c.RegisteredCapital, ct.Name as BusinessType, c.CorporateRepresentative,
-		                        c.Contact, convert(varchar(20), c.AuditDate, 23) as AuditDate, c.AuditStatus, c.AuditStatus as Approved
+		                        c.Contact, convert(varchar(20), c.AuditDate, 23) as AuditDate, c.AuditStatus, 2 as Approved
                         from Company c
-                        inner join vw_AppPLevel vap on c.ID = vap.ObjId and vap.AppProcId in (1, 5) and vap.Approved = 2
+                        inner join vw_AppPLevel vap on c.ID = vap.ObjId and vap.AppProcId in (1, 5) and vap.Approved = 2 and vap.UserId=" + userId + @"
                         left join CompanyType ct on ct.ID = c.BusinessType
                         where c.AuditStatus = 1) a 
                         where " + where + " a.Name like '%" + cname + "%' order by a.id desc";
