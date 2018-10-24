@@ -2965,7 +2965,7 @@ input[name=keyname] {
     width: 1280px;
     height: 490px;
     background: url(../img/login-bg.png) repeat;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .login-tit {
