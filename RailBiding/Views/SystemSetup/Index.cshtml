@@ -1132,14 +1132,12 @@
         $.post("/SystemSetup/GetDepartmentUsers", { did: cNode.id ,pageIndex: page , pageSize: ps}, function (res) {
             var jsonData = JSON.parse(res);
             var obj = jsonData.List;
-            console.log(obj)
             $("#tbusers").empty();
             var htm = "";
             users = obj;
             var role = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                console.log(o)
                 if (o.roleid == 1) {
                     role = "轨道公司领导";
                 } else if (o.roleid == 2) {
@@ -1197,7 +1195,6 @@
         $(".canvas.canvas3").show();
         for (var i = 0; i < users.length; i++) {
             var o = users[i];
-            console.log(o)
             if (o.id == id) {
                 $('#uid').val(o.id);
                 $('#xgaddpeo').val(o.department);

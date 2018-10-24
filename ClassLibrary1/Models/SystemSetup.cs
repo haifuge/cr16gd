@@ -197,6 +197,25 @@ namespace DAL.Models
             return JsonHelper.DataTableToJSON(dt);
         }
 
+        public string UpdateUserInfo(string account, string uname, string psd, string tel, string email, string roleid)
+        {
+            string sql;
+            if (psd != "")
+            {
+                psd = EncryptHelper.Encrypt(psd, "IamKey12");
+                sql = "update UserInfo set UserName=N'" + uname + "', Password='" + psd + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where UserAccount='" + account + "'";
+            }
+            else
+            {
+                sql = "update UserInfo set UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where UserAccount='" + account + "'";
+            }
+            int i = DBHelper.ExecuteNonQuery(sql);
+            if (i == 1)
+                return "1";
+            else
+                return "0";
+        }
+
         public string SearchUsersByPage(string uname, string pageSize, string pageIndex)
         {
             int pi = int.Parse(pageIndex);

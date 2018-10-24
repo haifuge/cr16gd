@@ -110,7 +110,7 @@
         var email = $("#uemail").val();
         var acc = $("#useraccount").text();
         var obj = { psd: password1, uname: userName, tel: telephone, em: email, account: acc}
-        $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
+        $.post("/SystemSetup/UpdatePersonInfo", obj, function (res) {
             if (res = "1")
                 alert('修改成功')
             else
