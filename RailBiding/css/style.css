@@ -640,6 +640,7 @@ select::-ms-expand {
 
 .main-con {
     padding-left: 150px;
+    min-height:700px
 }
 
 .main-wrap {
@@ -6159,5 +6160,13 @@ div#editor {
     }
     .login-zx {
         margin: 50px auto 130px;
+    }
+}
+@media screen and (max-height:670px) {
+    .main-nav {
+        overflow-x: scroll;
+        overflow-y: scroll;
+        bottom: 0;
+        overflow: auto;
     }
 }
