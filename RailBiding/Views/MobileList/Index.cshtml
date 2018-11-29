@@ -178,6 +178,7 @@
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
+            console.log(obj)
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
                 var auditStatus = "";
@@ -231,6 +232,7 @@
                         '</a>' +
                     '</li>';
             }
+            console.log(htm)
             $("#tab0 div ul.ate2").html(htm);
         })
 
@@ -289,6 +291,7 @@
                           '</a>'+
                       '</li>';
             }
+            console.log(htm)
             $("#tab2 div ul.ate2").html(htm);
         });
 

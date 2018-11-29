@@ -83,7 +83,7 @@ namespace DAL.Models
                         from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                         left join CompanyType bt on bt.id=c.BusinessType
                         where " + where + " a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5) and c.AuditStatus=1) a 
-                        where a.Name like '%" + cname + "%' order by a.id desc";
+                        where a.Name like '%" + cname + "%'  and a.Approved=1  order by a.id desc";
             }
             else
             {

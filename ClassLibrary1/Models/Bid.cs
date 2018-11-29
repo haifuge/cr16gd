@@ -289,7 +289,7 @@ namespace DAL.Models
                                     inner join (select MAX(level) as level,AppProcId, ObjId 
 			                                    from vw_AppPLevel where AppProcId=3 and Approved=1 group by ObjId, AppProcId
                                 ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                                where a.UserId=" + userid + @") a on p.ID=a.ObjId "+where+@"
+                                where a.UserId=" + userid + @") a on p.ID=a.ObjId "+where+@" where b.status<>3
                             ) a
                             order by a.Id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
