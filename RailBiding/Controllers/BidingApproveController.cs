@@ -284,7 +284,7 @@ namespace RailBiding.Controllers
         {
             string[] cid = cids.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
             SendMessage sm = new SendMessage();
-            string sql = "select ID, RepPhone from Company where Id in (" + cids+ ") and ID in (select CompanyId from BidingCompany where ProjId=" + pid + " and VerifyCode is null)";
+            string sql = "select ID, ContactPhone from Company where Id in (" + cids+ ") and ID in (select CompanyId from BidingCompany where ProjId=" + pid + ")";// and VerifyCode is null
             DataTable dt = DBHelper.GetDataTable(sql);
             sql = "select ui.UserName, ui.Telphone from Project p inner join UserInfo ui on p.PublisherId=ui.ID where p.Id=" + pid;
             DataTable dt2 = DBHelper.GetDataTable(sql);

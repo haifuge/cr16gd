@@ -286,7 +286,6 @@ function checkpsd2(){
 
 window.onscroll = function () {
                  var topScroll = $(document).scrollTop(); //滚动的距离,距离顶部的距离
-                 console.log(topScroll)
                  if (topScroll > 80) {  //当滚动距离大于80px时执行下面的东西
     
                      $(".main-nav").css({"position":"fixed","top":"0"})

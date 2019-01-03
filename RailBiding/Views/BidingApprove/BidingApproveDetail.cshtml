@@ -529,10 +529,10 @@
 
     function inviteCompanys()
     {
-        if ($("#inviteCompany span").length < 5){
-            swal("邀标企业少于五家！")
-            return;
-        }
+        //if ($("#inviteCompany span").length < 5){
+        //    swal("邀标企业少于五家！")
+        //    return;
+        //}
         var cid = "";
         for (var i = 1; i <=$("#inviteCompany span").length; i++){
             cid += $("#inviteCompany span:nth-child(" + i + ")").attr("id").replace('company', '') + ',';
