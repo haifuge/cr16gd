@@ -1238,6 +1238,8 @@
             $.post("/Companys/UploadZiZhi", {zz:zzGuids}, function () {
                 uploadWorkHistory();
             });
+        else
+            uploadWorkHistory();
     }
     $(function () {
         $.post("/Common/GetCompanyType", {}, function (data) {

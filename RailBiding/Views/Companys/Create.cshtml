@@ -1209,10 +1209,14 @@
             var cd = lis[i].childNodes;
             zzGuids += cd[4].innerText + "|"
         }
-        if (zzGuids != "")
-            $.post("/Companys/UploadZiZhi", {zz:zzGuids}, function () {
+        if (zzGuids != "") {
+            $.post("/Companys/UploadZiZhi", { zz: zzGuids }, function () {
                 uploadWorkHistory();
             });
+        }
+        else {
+            uploadWorkHistory();
+        }
     }
     $(function () {
         $.post("/Common/GetCompanyType", {}, function (data) {
