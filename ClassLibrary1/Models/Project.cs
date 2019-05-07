@@ -83,7 +83,11 @@ namespace DAL.Models
 
         public bool AddProject(Project p)
         {
-            string sql = @"insert into Project values(N'"+p.Name+"',N'"+p.ProjType+"',N'"+p.Location+"',"+p.PublisherId+", getdate(), N'"+p.ProDescription+ "',N'未发布')";
+            string sql = @"select ID from Department 
+                           where ProjectDp=1 and ID in (
+	                                    select PID from Department where ID in (select du.departmentid from DepartmentUser du where du.UserId=@sid))";
+            string did = DBHelper.ExecuteScalar(sql);
+            sql = @"insert into Project values(N'"+p.Name+"',N'"+p.ProjType+"',N'"+p.Location+"',"+p.PublisherId+", getdate(), N'"+p.ProDescription+ "',N'未发布', "+ did + ")";
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
             {

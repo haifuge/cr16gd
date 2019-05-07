@@ -25,8 +25,8 @@ namespace RailBiding.Mobile
             ViewBag.Publisher = dr["Publisher"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
             ViewBag.ProDescription = dr["ProDescription"].ToString().Replace("\n", "<br/>");
-            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
-            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
+            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
+            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
 
             dt = mc.GetBidingCompany(pid);
             string joinCompanys = "";

@@ -35,8 +35,8 @@ namespace RailBiding.Controllers
             ViewBag.Publisher = dr["Publisher"].ToString();
             ViewBag.ProDescription = dr["ProDescription"].ToString().Replace("\n", "<br/>");
             ViewBag.PublishDate = dr["PublishDate"].ToString();
-            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
-            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
+            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
+            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
 
             dt = mc.GetBidingCompany(pid);
             string joinCompanys = "";
@@ -106,8 +106,8 @@ namespace RailBiding.Controllers
             ViewBag.Publisher= dr["Publisher"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
             ViewBag.ProDescription = dr["ProDescription"].ToString().Replace("\n", "<br/>");
-            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n","</br>");
-            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
+            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n","<br/>");
+            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
 
             dt = mc.GetBidingCompany(pid);
             string joinCompanys = "";
@@ -150,13 +150,13 @@ namespace RailBiding.Controllers
         public string GetAllMakeBidFile(string pageSize, string pageIndex, string pname)
         {
             MakeBidFileContext mc = new MakeBidFileContext();
-            return mc.GetMakeBidFiles(pageSize, pageIndex, pname, Session["UserId"].ToString()).Replace("\r","    ").Replace("\n","</br>");
+            return mc.GetMakeBidFiles(pageSize, pageIndex, pname, Session["UserId"].ToString()).Replace("\r","    ").Replace("\n","<br/>");
         }
         public string GetMyMakeBidFiles(string pageSize, string pageIndex, string pname, string fstatus)
         {
             string uid = Session["UserId"].ToString();
             MakeBidFileContext mc = new MakeBidFileContext();
-            return mc.GetMyMakeBidFiles(uid, pageSize, pageIndex, pname, fstatus).Replace("\r", "    ").Replace("\n", "</br>");
+            return mc.GetMyMakeBidFiles(uid, pageSize, pageIndex, pname, fstatus).Replace("\r", "    ").Replace("\n", "<br/>");
         }
     }
 }

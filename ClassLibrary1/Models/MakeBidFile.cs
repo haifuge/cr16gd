@@ -155,7 +155,7 @@ namespace DAL.Models
 
         public void SaveRichText(string pid, string rtext)
         {
-            string sql = "update MakeBidingFile set FileExplain = N'"+rtext+"' where ProjId="+pid;
+            string sql = "update MakeBidingFile set FileExplain = N'"+rtext.Replace(" ","")+"' where ProjId="+pid;
             DBHelper.ExecuteNonQuery(sql);
         }
 

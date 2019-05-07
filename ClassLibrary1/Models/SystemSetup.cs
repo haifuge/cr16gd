@@ -41,7 +41,7 @@ namespace DAL.Models
         public DataTable GetOrganizations()
         {
             string sql = @"select id,name,pId,Level as splevel,ProjectDp, '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen 
-                            from Department where Status=1";
+                            from Department where Status=1 order by Level";
             return DBHelper.GetDataTable(sql);
         }
         public DataTable GetOrganizationUser(string apid)

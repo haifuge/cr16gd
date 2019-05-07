@@ -253,6 +253,12 @@ namespace DAL.Models
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
 
+            sql = @"declare @did int
+                    select @did=ID from Department where ProjectDp=1 and ID in (
+                        select PID from Department where ID in (select du.departmentid from DepartmentUser du where du.UserId=" + uid + @"))
+                    update Company set DepartmentID = @did where ID=" + i;
+            DBHelper.ExecuteNonQuery(sql);
+
             if (company.AuditStatus == 1)
             {
                 if (company.Type == 1)
@@ -351,12 +357,22 @@ namespace DAL.Models
             {
                 where = "c.AuditStatus = " + ctype + @" and ";
             }
-            string sql = @"select identity(int,1,1) as iid, c.id*1 as id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, 
+            string sql = @"select ID from Department where ProjectDp=1 and ID in (
+	                            select PID from Department where ID in (select du.departmentid from DepartmentUser du where du.UserId="+userid+"))";
+            string did = "";
+            DataTable dataTable = DBHelper.GetDataTable(sql);
+            for(int i=0;i<dataTable.Rows.Count;i++)
+            {
+                did += dataTable.Rows[i][0].ToString() + ",";
+            }
+            if (did.Length > 0)
+                did = did.Substring(0, did.Length - 1);
+            sql = @"select identity(int,1,1) as iid, c.id*1 as id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, 
 	                            convert(varchar(20),c.AuditDate,23) as AuditDate, c.AuditStatus
                             into #temp1
                             from Company c
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where c.status!=-1 and c.SubmitUserId=" + userid + @" and " + where + @" c.Name like '%" + cname+@"%' order by c.id desc
+                            where c.status!=-1 and c.DepartmentID in (" + did + ") and " + where + @" c.Name like '%" + cname+@"%' order by c.id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";

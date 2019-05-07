@@ -208,14 +208,14 @@ namespace RailBiding.Controllers
                 ViewBag.PName = dr["Name"].ToString();
                 ViewBag.Publisher = dr["Publisher"].ToString();
                 ViewBag.PublishDate = dr["PublishDate"].ToString();
-                ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
-                ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
+                ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ");
+                ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace(" ", "");
                 ViewBag.moretime = "";
                 if (Request["status"].ToString() == "3")
                 {
                     if (dr["uid"].ToString() == Session["UserId"].ToString())
                     {
-                        ViewBag.moretime = "<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=3' class='js-cancle-meet' title='再次申请' ><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
+                        ViewBag.moretime = "<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=3' class='js-cancle-meet' title='再次申请'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
                     }
                     else
                     {
@@ -729,8 +729,8 @@ namespace RailBiding.Controllers
             ViewBag.ProDescription = dr["ProDescription"].ToString().Replace("\n", "<br/>");
             ViewBag.Publisher = dr["Publisher"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
-            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
-            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "</br>");
+            ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
+            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
 
             dt = mc.GetBidingCompany(pid);
             string joinCompanys = "";
@@ -782,7 +782,7 @@ namespace RailBiding.Controllers
 
             return View();
         }
-        
+        [ValidateInput(false)]
         public string SaveMakeBidFile()
         {
             MakeBidFileContext mc = new MakeBidFileContext();
@@ -823,6 +823,7 @@ namespace RailBiding.Controllers
             return "1";
         }
 
+        [ValidateInput(false)]
         public void ReapplyMakeBidFile()
         {
             MakeBidFileContext mc = new MakeBidFileContext();

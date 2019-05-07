@@ -143,7 +143,6 @@
         $.post("/BidingFile/GetMyFileApprove", { pageSize: ps, pageIndex: page, pname:cname, status:cStatus }, function (data) {
             if (data == 'no session') {
                 location.href = "/Login";
-
             }
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
