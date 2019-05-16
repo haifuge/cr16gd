@@ -14,6 +14,7 @@ namespace RailBiding.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            //DBHelper.ExecuteSP("UpdatePastDayApply", null);
             return View();
         }
 

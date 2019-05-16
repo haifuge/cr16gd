@@ -189,6 +189,9 @@
                 @*<a href="javascript:;" class="js-cancle-meet" title="驳回">
                     <i class="meet-icon icon-cancel icon-bh">驳回</i>
                 </a>*@
+                <a href='javascript:;' class='js-cancle-meet shanchu' title='删除' onclick="deleteApplication()">
+                    <i class='meet-icon icon-cancel icon-sc' style="background-color:#ff0000">删除</i>
+                </a>
                 @Html.Raw(ViewBag.moretime)
                 <a href='#' onclick="window.history.go(-1)" class="js-cancle-meet" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
@@ -403,9 +406,21 @@
             }
         })
     });
-
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+        var context = "";
+        if (r != null)
+            context = r[2];
+        reg = null;
+        r = null;
+        return context == null || context == "" || context == "undefined" ? "" : context;
+    }
     $(function () {
-
+        var status = getQueryString('status');
+        if (status == "2" || @ViewBag.RoleId != 2) {
+            $(".shanchu").hide();
+        }
         $("#bfup").change(function () {
             if($("#bfup").val()==""){
                 return;
@@ -421,6 +436,25 @@
             });
         })
     })
+        function deleteApplication() {
+        swal({
+                title: '确定删除该申请？',
+                text: '你将无法撤回！',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '确定删除！'
+            }).then(
+        function (cc) {
+            if (cc.dismiss != "cancel") {
+                swal( '成功！', '您以删除该申请。', 'success');
+                $.post("/BidingFile/DeleteApplication", { pid: @ViewBag.pid }, function () {
+                    window.history.go(-1);
+                })
+            }
+        })
+    }
     function bidfileSubmit(ss) {
         var bfc = $("#bfcontent").val();
         if(bfc==""){

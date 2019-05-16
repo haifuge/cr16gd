@@ -32,6 +32,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemB")]
         public ActionResult BidingApproveDetail(string pid)
         {
+            ViewBag.ProjId = pid;
             ViewBag.UserId = Session["UserId"].ToString();
             ViewBag.RoleId = Session["RoleId"].ToString();
             ViewBag.status = Request["status"].ToString();
@@ -314,6 +315,11 @@ namespace RailBiding.Controllers
         {
             string sql = "select count(1) from Company where Id in ("+cids+") and ID in (select CompanyId from BidingCompany where ProjId="+pid+" and VerifyCode is null)";
             return DBHelper.ExecuteScalar(sql);
+        }
+        public void UpdateBidDate(string adate, string odate, string pid)
+        {
+            string sql = "update Bid set ApplyDate='"+adate+"', OpenDate='"+odate+"' where ProjId="+pid;
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }

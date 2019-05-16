@@ -52,6 +52,7 @@ namespace RailBiding.Controllers
             ViewBag.BidFileContent = dr["Content"].ToString().Replace("\r\n", "<br/>");
             ViewBag.BidFileUserName = dr["UserName"].ToString();
             ViewBag.BidFilePublishDate = dr["PublishDate"].ToString();
+            ViewBag.RoleId = Session["RoleId"].ToString();
 
             return View();
         }
@@ -116,6 +117,13 @@ namespace RailBiding.Controllers
         public ActionResult BidingFileApproveProcess()
         {
             return View();
+        }
+
+        public void DeleteApplication()
+        {
+            string pid = Request["pid"].ToString();
+            string sql = "delete Project where Id="+pid+"; delete BidingFile where ProjId="+pid+ "; delete AppProcessing where ObjId="+pid+" and AppProcId=2";
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }

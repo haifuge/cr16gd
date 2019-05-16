@@ -5128,6 +5128,10 @@ h3.fx_tit {
     background: #29a9ef url(../img/icon-daoout.png) no-repeat 10px center;
     padding-left:16px;
 }
+.icon-sc {
+    background: #FF0000 url(../img/icon-bh.png) no-repeat 10px 2px;
+    padding-left: 7px;
+}
 .icon-bh {
     background: #29a9ef url(../img/icon-bh.png) no-repeat 10px 2px;
     padding-left: 7px;

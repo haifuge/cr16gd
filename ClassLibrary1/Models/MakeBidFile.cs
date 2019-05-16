@@ -102,10 +102,19 @@ namespace DAL.Models
         /// 新建定标文件
         /// </summary>
         /// <param name="makeBidFile"></param>
+        /// <param name="ss">定标文件状态，0保存，1提交</param>
         /// <returns></returns>
-        public void AddMakeBidFile(string pid, string abst, string puserid)
+        public void AddMakeBidFile(string pid, string abst, string puserid, string ss)
         {
-            string sql = "insert into MakeBidingFile(ProjId, Abstract, PublisherId, PublishDate, Status) values("+pid+",N'"+abst+"',"+puserid+",getdate(),1)";
+            string sql = "select count(1) from MakeBidingFile where ProjId = " + pid;
+            string n = DBHelper.ExecuteScalar(sql);
+            if (n != "0")
+            {
+                sql = "update MakeBidingFile set Abstract = N'" + abst + "', PublisherId=" + puserid + ", PublishDate=getdate(), Status=" + ss + " where ProjId = " + pid;
+            }
+            else { 
+                sql = "insert into MakeBidingFile(ProjId, Abstract, PublisherId, PublishDate, Status) values("+pid+",N'"+abst+"',"+puserid+",getdate(),"+ss+")";
+            }
             DBHelper.ExecuteNonQuery(sql);
         }
 

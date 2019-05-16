@@ -209,7 +209,7 @@ namespace RailBiding.Controllers
                 ViewBag.Publisher = dr["Publisher"].ToString();
                 ViewBag.PublishDate = dr["PublishDate"].ToString();
                 ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ");
-                ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace(" ", "");
+                ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace(" ", "").Replace(" ", "");
                 ViewBag.moretime = "";
                 if (Request["status"].ToString() == "3")
                 {
@@ -681,6 +681,7 @@ namespace RailBiding.Controllers
         {
             if (pid == null)
                 return View("/Login");
+            ViewBag.RoleId = Session["RoleId"].ToString();
             ViewBag.pid = pid;
             BidingFileContext bc = new BidingFileContext();
             DataTable dt = bc.getBidingFileDetail(pid);
@@ -730,7 +731,7 @@ namespace RailBiding.Controllers
             ViewBag.Publisher = dr["Publisher"].ToString();
             ViewBag.PublishDate = dr["PublishDate"].ToString();
             ViewBag.Abstract = dr["Abstract"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
-            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "<br/>");
+            ViewBag.FileExplain = dr["FileExplain"].ToString().Replace("\r", "    ").Replace("\n", "<br/>").Replace(" ", ""); 
 
             dt = mc.GetBidingCompany(pid);
             string joinCompanys = "";
@@ -788,7 +789,8 @@ namespace RailBiding.Controllers
             MakeBidFileContext mc = new MakeBidFileContext();
             string pid = Request["pid"].ToString();
             string abst = Request["abst"].ToString();
-            mc.AddMakeBidFile(pid, abst, Session["UserId"].ToString());
+            string ss = Request["ss"].ToString();
+            mc.AddMakeBidFile(pid, abst, Session["UserId"].ToString(),ss);
             string joinCompany = Request["joincompany"].ToString();
             string[] companys = joinCompany.Split('|');
             string sql = "";
@@ -810,15 +812,18 @@ namespace RailBiding.Controllers
                 sql += "update BidingCompany set Win=1,biding=1, Comment=N'" + cc[1] + "' where ProjId=" + pid + " and CompanyId=" + cc[0] + "; ";
             }
             DBHelper.ExecuteNonQuery(sql);
-            ProjectContext pc = new ProjectContext();
-            pc.UpdateProjectStatus(pid, "定标文件审核中");
-            pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
+            if (ss == "1")
+            {
+                ProjectContext pc = new ProjectContext();
+                pc.UpdateProjectStatus(pid, "定标文件审核中");
+                pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
 
-            Log l = new Log();
-            l.OperType = OperateType.Create;
-            l.UserId = Session["UserId"].ToString();
-            l.Description = "创建" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 定标文件";
-            LogContext.WriteLog(l);
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = Session["UserId"].ToString();
+                l.Description = "创建" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 定标文件";
+                LogContext.WriteLog(l);
+            }
 
             return "1";
         }

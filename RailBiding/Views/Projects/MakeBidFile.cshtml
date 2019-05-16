@@ -244,8 +244,9 @@
                 </tbody>
             </table>
             <div class="form-tr-btn">
-                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="makebidbtn()">提交</button>
+                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="makebidbtn(1)">提交</button>
                 <button type="reset" class="meet-btn big-btn gray-btn" onclick="window.history.go(-1)">返回</button>
+                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="makebidbtn(0)">保存</button>
             </div>
 
         </div>
@@ -525,7 +526,7 @@
         r= null;
         return context== null || context== "" || context== "undefined" ? "" : context;
     }
-    function makebidbtn() {
+    function makebidbtn(ss) {
         var abstr= $("#abst").val();
         if(abstr==""){
             swal("请简述定标文件！");
@@ -599,7 +600,7 @@
                })
             });
         } else {
-           $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
+           $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc, ss:ss }, function (res) {
                 var rdata= encodeURIComponent(editor.txt.html())
                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
                     removeLoading('test');

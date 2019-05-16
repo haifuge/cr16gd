@@ -413,6 +413,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult AuditDetail(int id)
         {
+            ViewBag.RoleId = Session["RoleId"].ToString();
             ViewBag.SecondMenu = MenuHelper.GetSecondMenu("CompanysMyAudit", Session["RoleId"].ToString());
             ViewBag.UserId = Session["UserId"].ToString();
             CompanyContext cc = new CompanyContext();
@@ -1074,6 +1075,12 @@ namespace RailBiding.Controllers
             {
                 return ex.ToString();
             }
+        }
+
+        public void DeleteCompanyApplication(string cid)
+        {
+            string sql = "delete Company where ID="+cid+"; delete AppProcessing where ObjId="+cid+" and AppProcId in (1,5)";
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }
