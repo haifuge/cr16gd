@@ -834,7 +834,8 @@ namespace RailBiding.Controllers
             MakeBidFileContext mc = new MakeBidFileContext();
             string pid = Request["pid"].ToString();
             string abst = Request["abst"].ToString();
-            mc.UpdateMakeBidFile(pid, abst);
+            string ss = Request["ss"].ToString();
+            mc.UpdateMakeBidFile(pid, abst, ss);
             string joinCompany = Request["joincompany"].ToString();
             string[] companys = joinCompany.Split('|');
             string sql = "";
@@ -866,17 +867,20 @@ namespace RailBiding.Controllers
             }
             if(sql!="")
                 DBHelper.ExecuteNonQuery(sql);
-            ProjectContext pc = new ProjectContext();
-            pc.UpdateProjectStatus(pid, "定标文件审核中");
-            sql = "update AppProcessing set Approved=1 where AppProcId=4 and ObjId=" + pid + " and Approved=3";
-            sql += " update MakeBidingFile set Status = 1 where ProjId = "+pid;
-            DBHelper.ExecuteNonQuery(sql);
+            if (ss == "1")
+            {
+                ProjectContext pc = new ProjectContext();
+                pc.UpdateProjectStatus(pid, "定标文件审核中");
+                sql = "update AppProcessing set Approved=1 where AppProcId=4 and ObjId=" + pid + " and Approved=3";
+                sql += " update MakeBidingFile set Status = 1 where ProjId = " + pid;
+                DBHelper.ExecuteNonQuery(sql);
 
-            Log l = new Log();
-            l.OperType = OperateType.Create;
-            l.UserId = Session["UserId"].ToString();
-            l.Description = "重新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 定标文件";
-            LogContext.WriteLog(l);
+                Log l = new Log();
+                l.OperType = OperateType.Create;
+                l.UserId = Session["UserId"].ToString();
+                l.Description = "重新申请" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 定标文件";
+                LogContext.WriteLog(l);
+            }
         }
 
         public string GetMakeBidFiles(string pageSize, string pageIndex, string pname="")

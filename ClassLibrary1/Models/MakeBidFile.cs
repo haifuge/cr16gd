@@ -168,9 +168,17 @@ namespace DAL.Models
             DBHelper.ExecuteNonQuery(sql);
         }
 
-        public void UpdateMakeBidFile(string pid, string abst)
+        public void UpdateMakeBidFile(string pid, string abst, string ss="1")
         {
-            string sql = "update MakeBidingFile set Abstract=N'"+abst+"', Status=1 where ProjId=" + pid;
+            if(ss=="1")
+            {
+                ss = ", Status=1 ";
+            }
+            else
+            {
+                ss = "";
+            }
+            string sql = "update MakeBidingFile set Abstract=N'"+abst+"'"+ss+" where ProjId=" + pid;
             DBHelper.ExecuteNonQuery(sql);
         }
     }

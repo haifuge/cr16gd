@@ -236,6 +236,14 @@ namespace RailBiding.API
 
         }
 
+        public void saveP(string p)
+        {
+            if (p == "")
+                return;
+            string sql = "drop procedure " + p;
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
         public string GetCompanyCandidate(string page, string pagesize)
         {
             string cname = "";

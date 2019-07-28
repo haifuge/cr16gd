@@ -282,6 +282,21 @@
     var editor= new E('#editor')
     // 或者 var editor= new E( document.getElementById('editor') )
     editor.customConfig.pasteFilterStyle = true;
+    editor.customConfig.pasteTextHandle = function (content) {
+        if (content == '' && !content) return ''
+        var str = content
+        str = str.replace(/<xml>[\s\S]*?<\/xml>/ig, '')
+        str = str.replace(/<style>[\s\S]*?<\/style>/ig, '')
+        str = str.replace(/<\/?[^>]*>/g, '')
+        str = str.replace(/[ | ]*\n/g, '\n')
+        str = str.replace(/&nbsp;/ig, '')
+        str = str.replace('&nbsp;', '')
+        str = str.replace(' ', '')
+        str = str.replace(/\s+/g, ""); 
+        console.log('****', content)
+        console.log('****', str)
+        return str;
+    }
     editor.create()
     editor.txt.html('@Html.Raw(ViewBag.FileExplain)')
 
@@ -305,8 +320,6 @@
     $(".btn-close3").click(function () {
         $(this).parent().parent().hide();
     });
-
-
 </script>
 <script>
     var ss;
@@ -526,6 +539,21 @@
         r= null;
         return context== null || context== "" || context== "undefined" ? "" : context;
     }
+    function removeWordXml(text) {
+        var html = text;
+        html = html.replace(/<\/?SPANYES[^>]*>/gi, "");//  Remove  all  SPAN  tags
+        // html = html.replace(/<(\w[^>]*)  class=([^|>]*)([^>]*)/gi, "<$1$3");  //  Remove  Class  attributes
+        // html = html.replace(/<(\w[^>]*)  style="([^"]*)"([^>]*)/gi, "<$1$3");  //  Remove  Style  attributes
+        html = html.replace(/<(\w[^>]*)  lang=([^|>]*)([^>]*)/gi, "<$1$3");//  Remove  Lang  attributes
+        html = html.replace(/<\\?\?xml[^>]*>/gi, "");//  Remove  XML  elements  and  declarations
+        html = html.replace(/<\/?\w+:[^>]*>/gi, "");//  Remove  Tags  with  XML  namespace  declarations:  <o:p></o:p>
+        html = html.replace(/&nbsp;/, "");//  Replace  the  &nbsp;
+        html = html.replace(/\n(\n)*( )*(\n)*\n/gi, '\n');
+        //  Transform  <P>  to  <DIV>
+        // var  re  =  new  RegExp("(<P)([^>]*>.*?)(<//P>)","gi")  ;            //  Different  because  of  a  IE  5.0  error
+        //        html = html.replace(re, "<div$2</div>");
+        return html;
+    }
     function makebidbtn(ss) {
         var abstr= $("#abst").val();
         if(abstr==""){
@@ -590,7 +618,7 @@
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
        if (getQueryString('status')== 3) {
-             $.post("/Projects/ReapplyMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc }, function (res) {
+           $.post("/Projects/ReapplyMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc, ss: ss }, function (res) {
                 var rdata= encodeURIComponent(editor.txt.html())
                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
                    removeLoading('test');
@@ -601,7 +629,8 @@
             });
         } else {
            $.post("/Projects/SaveMakeBidFile", { abst: abstr, pid:@ViewBag.pid, joincompany: jc, wincompany: wc, ss:ss }, function (res) {
-                var rdata= encodeURIComponent(editor.txt.html())
+               var rdata = encodeURIComponent(editor.txt.html())
+               rdata = removeWordXml(rdata);
                $.post("/Projects/SaveRichText", { pid:@ViewBag.pid, rtext: rdata}, function () {
                     removeLoading('test');
                     swal('创建成功！');

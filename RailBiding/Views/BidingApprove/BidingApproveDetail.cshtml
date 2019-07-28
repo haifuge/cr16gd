@@ -184,6 +184,13 @@
             margin: 0 auto;
             right:auto;
         }
+    #icDiv {
+        width: 1200px;
+        position: relative;
+        top: 15%;
+        margin: 0 auto;
+        right: auto;
+    }
         .page{
             padding:1em;
         }
@@ -314,6 +321,42 @@
                                 </button>
                                 <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('MyDiv','fade')">
                                     取消
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="invCompany" class="black_overlay">
+                    <div id="icDiv" class="white_content white_content3" style="height:80%;">
+                        <div class="btn-close"
+                             style="text-align: right;  height: 20px;">
+                            <span style="font-size: 16px;" onclick="CloseDiv('icDiv','invCompany')">
+                                <img src="~/img/btn-close.png"
+                                     alt="">
+                            </span>
+                        </div>
+                        <h3>参标单位</h3>
+                        <br />
+                        <table class="meet-table text-left">
+                            <thead>
+                                <tr style="background-color:#40cbe16b;line-height: 36px;">
+                                    <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="" name="addcompanybiding" type="checkbox" value="" id="invall-check" /></th>
+                                    <th style="width:250px;padding:0 5px;font-weight:800;text-align:center">劳务承分包企业名称</th>
+                                    <th style="width:120px;padding:0 5px;font-weight:800;text-align:center">短信接收人</th>
+                                    <th style="width:140px;padding:0 5px;font-weight:800;text-align:center">接收人电话</th>
+                                    <th style="width:200px;padding:0 5px;font-weight:800;text-align:center">发送状态</th>
+                                    <th style="width:70px;padding:0 5px;font-weight:800;text-align:center">发送时间</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ichtm"></tbody>
+                        </table>
+                        <div style="bottom:10px;text-align:center">
+                            <div class="form-tr-btn">
+                                <button class="meet-btn big-btn lightblue-btn js-submit" onclick="sendInvitation()">
+                                    发送邀请
+                                </button>
+                                <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('icDiv','invCompany')">
+                                    关闭
                                 </button>
                             </div>
                         </div>
@@ -466,6 +509,13 @@
             $("input.icheck").prop("checked", false)
         }
     })
+    $("#invall-check").click(function () {
+        if ($("#invall-check").is(":checked")) {
+            $("input.invcheck").prop("checked", true)
+        } else {
+            $("input.invcheck").prop("checked", false)
+        }
+    })
 
     //参与单位移除
     $("#inviteCompany span i").click(function ()
@@ -495,6 +545,35 @@
         $("#" + bg_div).height($(window).height());
 
     }
+    function inviteCompanys() {
+        $("#ichtm").html('')
+        $.post('/BidingApprove/GetBidingCandidate', { pid: @ViewBag.pid}, function (data) {
+            var obj = JSON.parse(data);
+            var chtm = "";
+            console.log(obj.length)
+            if (obj!='') {
+                for (var j = 0; j < obj.length; j++) {
+                    var o = obj[j];
+                    chtm += '<tr class="white-bg">' +
+                        '<td style="width:10px;padding:0 0 0 20px" class="check-color">' +
+                        '<input class="invcheck" name = "invcompenycheck" type = "checkbox"  value = "' + o.id + '" /></td>' +
+                        '<td><a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">' + o.name + '</a></td>' +
+                        '<td><a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">' + o.rep + '</a></td>' +
+                        '<td><a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">' + o.repphone + '</a></td>' +
+                        '<td><a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">' + o.status + '</a></td>' +
+                        '<td><a href="/Companys/Details?id=' + o.id + '" target="_blank"  class="comoname" style="display:block;line-height:20px;">' + o.sendtime + '</a></td></tr >'
+                }
+                $("#ichtm").html(chtm)
+            }
+            show_div = 'icDiv'
+            bg_div = 'invCompany'
+            document.getElementById(show_div).style.display = 'block';
+            document.getElementById(bg_div).style.display = 'block';
+            var bgdiv = document.getElementById(bg_div);
+            bgdiv.style.width = document.body.scrollWidth;
+            $("#" + bg_div).height($(window).height());
+        });
+    }
 
     //关闭弹出层
     function CloseDiv(show_div, bg_div)
@@ -503,6 +582,13 @@
         document.getElementById(bg_div).style.display = 'none';
         if ($("input[name='addcompenycheck']").is(":checked")){
             $("input[name='addcompenycheck']").prop("checked", false)
+        }
+        if ($("input[name='invcompenycheck']").is(":checked")) {
+            $("input[name='invcompenycheck']").prop("checked", false)
+        }
+
+        if (bg_div == "invCompany") {
+            window.location.reload();
         }
     }
 </script>
@@ -732,17 +818,20 @@
     function updateDate() {
         $("#updateDateDiv").show();
     }
-    function inviteCompanys()
+    function sendInvitation()
     {
         //if ($("#inviteCompany span").length < 5){
         //    swal("邀标企业少于五家！")
         //    return;
         //}
         var cid = "";
-        for (var i = 1; i <=$("#inviteCompany span").length; i++){
-            cid += $("#inviteCompany span:nth-child(" + i + ")").attr("id").replace('company', '') + ',';
-        }
-        if (cid == "")
+        //for (var i = 1; i <=$("#inviteCompany span").length; i++){
+        //    cid += $("#inviteCompany span:nth-child(" + i + ")").attr("id").replace('company', '') + ',';
+        //}
+        $("input[name='invcompenycheck']:checked").each(function (i) {//把所有被选中的复选框的值存入数组
+            cid += $(this).val() + ',';
+        })
+        if(cid == "")
             return;
         var cids = cid.substr(0, cid.length - 1)
         var pid = @ViewBag.pid;
@@ -762,9 +851,25 @@
             smallLoading: false,
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
-        $.post("/BidingApprove/InviteBiding", { cids: cids,pid: pid,pname: pname}, function() {
-            removeLoading('test');
-            swal("邀标短信已发送！").then(function(){  window.location.reload()});
+        $.post("/BidingApprove/InviteBiding", { cids: cids, pid: pid, pname: pname }, function () {
+            $("#ichtm").html('')
+            $.post('/BidingApprove/GetBidingCandidate', { pid: @ViewBag.pid}, function (data) {
+                var obj = JSON.parse(data);
+                var chtm = "";
+                console.log(obj.length)
+                if (obj != '') {
+                    for (var j = 0; j < obj.length; j++) {
+                        var o = obj[j];
+                        chtm += '<tr class="white-bg">' +
+                            '<td style="width:10px;padding:0 0 0 20px" class="check-color">' +
+                            '<input class="invcheck" name = "invcompenycheck" type = "checkbox"  value = "' + o.id + '" /> ' +
+                            '</td><td>' + o.name + '</td><td>' + o.rep + '</td><td>' + o.repphone + '</td><td>' + o.status + '</td><td>' + o.sendtime + '</td></tr>'
+                    }
+                    $("#ichtm").html(chtm)
+                }
+                removeLoading('test');
+            })
+            //swal("邀标短信已发送！").then(function(){  window.location.reload()});
 
         })
     }
@@ -957,7 +1062,6 @@
             for (var j = 0; j < obj.length; j++)
             {
                 var o = obj[j];
-                console.log(o);
                 var imgjian = "";
                 if (o.type != 1)
                 {

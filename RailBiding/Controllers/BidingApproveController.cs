@@ -321,5 +321,14 @@ namespace RailBiding.Controllers
             string sql = "update Bid set ApplyDate='"+adate+"', OpenDate='"+odate+"' where ProjId="+pid;
             DBHelper.ExecuteNonQuery(sql);
         }
+        public string GetBidingCandidate(string pid)
+        {
+            string sql = @"select c.id, c.Name, c.CorporateRepresentative as Rep, c.RepPhone, 
+	                            case when bc.MsgStatus is null then '' else CONVERT(varchar(20), bc.updatetime, 120) end as 'sendTime', 
+	                            case when bc.MsgStatus is null then '未发送' when bc.MsgStatus='1' then '发送成功' else '发送失败:'+bc.MsgStatus end as 'status'
+                            from BidingCompany bc inner join Company c on bc.CompanyId=c.ID where bc.ProjId="+pid;
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
     }
 }
