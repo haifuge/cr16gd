@@ -91,7 +91,11 @@
     var cur_num = 1
     var clickpagenum = "" //所点击页码
     //当前所在页码
-    var nowpage = 1;
+    var nowpage = $.getUrlParam('cp');
+    if (!nowpage)
+        nowpage = 1;
+    else
+        nowpage = parseInt(nowpage);
     var page_size = 10
     var pagenum = 12
     Paginator(nowpage, page_size, '','')
@@ -172,14 +176,14 @@
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)" onclick="setSelectAll()"/></td >' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.name + '</td>' +
-                    '<td class="texthide3" onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.businesstype + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.contact + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id + '\';\">' + o.contactphone + '</td>'+
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?id=' + o.id + '\';\">' + o.refdepartment + '</td>'
+                    '<td onclick=\"location.href = \'/Companys/Details?cp=' + nowpage+'&id=' + o.id + '\';\">' + o.name + '</td>' +
+                    '<td class="texthide3" onclick=\"location.href = \'/Companys/Details?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.businesstype + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contact + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contactphone + '</td>'+
+                    '<td onclick=\"location.href = \'/Companys/Details?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.refdepartment + '</td>'
                 if ($.cookie("RoleId") == 2)
                     htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
                 // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
@@ -187,7 +191,7 @@
             }
 
             $("#tbCompany").html(htm)
-
+            console.log(page, jsonData.PageCount, jsonData.total, ps)
             pages(page, jsonData.PageCount, jsonData.total, ps)
             setSelectAll()
             var cks = $("input.icheck");

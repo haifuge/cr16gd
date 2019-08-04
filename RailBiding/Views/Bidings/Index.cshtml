@@ -71,7 +71,11 @@ input#searchinput {
     var cur_num = 1
     var clickpagenum = "" //所点击页码
     //当前所在页码
-    var nowpage = 1;
+    var nowpage = $.getUrlParam('cp');
+    if (!nowpage)
+        nowpage = 1;
+    else
+        nowpage = parseInt(nowpage);
     var page_size = 10
     var pagenum = 12
     Paginator(nowpage, page_size)
@@ -100,13 +104,13 @@ input#searchinput {
                 var o = obj[i]
                 htm += '<tr class="white-bg" >'+
                     //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id +'" id="checkbox-1" /></td>'+
-                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\'>' + o.name + '</td>' +
-                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\'>' + o.location + '</td>' +
+                    '<td onclick=\'location.href="/Bidings/BidDetail?cp=' + nowpage +'&pid=' + o.id + '";\'>' + o.name + '</td>' +
+                    '<td onclick=\'location.href="/Bidings/BidDetail?cp=' + nowpage +'&pid=' + o.id + '";\'>' + o.location + '</td>' +
                    // '<td>' + o.content +'</td>'+
-                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\'>' + o.publisher + '</td>' +
-                    '<td onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\' class="gray-time">' + o.publishdate + '</td>' +
-                    '<td  onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\' class="gray-time">' + o.applydate + '</td>' +
-                    '<td  onclick=\'location.href="/Bidings/BidDetail?pid=' + o.id + '";\' class="gray-word gray-time">' + o.opendate + '</td>' +
+                    '<td onclick=\'location.href="/Bidings/BidDetail?cp=' + nowpage +'&pid=' + o.id + '";\'>' + o.publisher + '</td>' +
+                    '<td onclick=\'location.href="/Bidings/BidDetail?cp=' + nowpage +'&pid=' + o.id + '";\' class="gray-time">' + o.publishdate + '</td>' +
+                    '<td  onclick=\'location.href="/Bidings/BidDetail?cp=' + nowpage +'&pid=' + o.id + '";\' class="gray-time">' + o.applydate + '</td>' +
+                    '<td  onclick=\'location.href="/Bidings/BidDetail?cp=' + nowpage +'&pid=' + o.id + '";\' class="gray-word gray-time">' + o.opendate + '</td>' +
                 '</tr>'
             }
             $("#tbBidings").html(htm)

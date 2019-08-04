@@ -101,7 +101,7 @@
                     <div class="yj">必须填写意见</div>
                 </div>
                 <!--弹出层时背景层DIV---end-->
-                <a href="#" onclick="window.history.go(-1)" class='js-cancle-meet' title='返回'>
+                <a href="#" onclick="goback()" class='js-cancle-meet' title='返回'>
                     <i class='meet-icon icon-del icon-tb'>返回</i>
                 </a>
             </div>
@@ -261,8 +261,11 @@
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script src="~/js/wow.min.js"></script>
 <script type='text/javascript' src="~/js/js.js"></script>
- <script src="~/js/sweetalert2.all.js"></script>
-    <script>
+<script src="~/js/sweetalert2.all.js"></script>
+<script>
+    function goback() {
+        window.location.href = "/Companys/MyAudit?cp=" + $.getUrlParam('cp');
+    }
     //资质荣誉 图片放大
     $(function () {
         var abtab2_img = 1;

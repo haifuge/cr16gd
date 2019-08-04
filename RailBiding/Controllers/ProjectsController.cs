@@ -93,7 +93,7 @@ namespace RailBiding.Controllers
                     ViewBag.EditProject = "<a href = '/Projects/Edit?pid="+pid+"' class='js-cancle-meet' title='编辑招标项目'><i class='meet-icon icon-cancel icon-editbtn'>编辑招标项目</i></a>";
                     break;
                 case "招标文件审核通过":
-                    if (dr["uid"].ToString() == Session["UserId"].ToString())
+                    if (Session["RoleId"].ToString()=="4")
                     {
                         ViewBag.Button = @"<a href='#' class='js-cancle-meet' title='招标申请'>
                                             <i class='meet-icon icon-cancel icon-bh2' onclick='bidApply()'>招标申请</i>
@@ -118,7 +118,7 @@ namespace RailBiding.Controllers
                     ViewBag.EditProject = "<a href = '/Projects/Edit?pid=" + pid + "' class='js-cancle-meet' title='编辑招标项目'><i class='meet-icon icon-cancel icon-editbtn'>编辑招标项目</i></a>";
                     break;
                 case "招标审核通过":
-                    if (dr["uid"].ToString() == Session["UserId"].ToString())
+                    if (Session["RoleId"].ToString()=="4")
                     {
                         ViewBag.Button = @"<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=1' class='js-cancle-meet' title='定标文件申请'>
                                             <i class='meet-icon icon-cancel icon-bh2'>定标文件申请</i>
@@ -695,12 +695,19 @@ namespace RailBiding.Controllers
             string spath = Server.MapPath("../");
             dt = bc.GetFiles(pid);
             string fujian = "";
+            string filename = "";
+            string yulan = "";
             for(int i=0;i<dt.Rows.Count;i++)
             {
-                if (i == 0)
-                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+dt.Rows[i]["FileName"].ToString()+ "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath, "/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
+                filename = dt.Rows[i]["FilePath"].ToString().Replace("C:\\web\\cr16gd\\projectFiles\\", "http://cr16gd.saibo.net.cn/projectFiles/");
+                if (filename.IndexOf(".DOC") != -1 || filename.IndexOf(".doc") != -1 || filename.IndexOf(".pdf") != -1)
+                    yulan = "<a href='http://ow365.cn/?i=19177&furl=" + filename + "' target='_blank'>&nbsp;&nbsp;预览</a>";
                 else
-                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div><a href = '" + dt.Rows[i]["FilePath"].ToString().Replace(spath,"/") + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
+                    yulan = "";
+                if (i == 0)
+                    fujian += "<div class='fujian'><i class='meet-icon icon-file'></i></div><div class='cc'><ul><li>"+ dt.Rows[i]["FileName"].ToString() + "<div>"+yulan+"<a href = '" + filename + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
+                else
+                    fujian+= "<li>" + dt.Rows[i]["FileName"].ToString() + "<div>" + yulan + "<a href = '" + filename + "' target='_blank'> &nbsp;&nbsp;下载 </a></li>";
             }
             fujian += "</ul></div>";
             ViewBag.Fujian = fujian;
@@ -900,6 +907,18 @@ namespace RailBiding.Controllers
         {
             ProjectContext pc = new ProjectContext();
             pc.DeleteBidFile(pid);
+        }
+        public string GetProjInfo(string pid)
+        {
+            string sql = "select Name, ProDescription from project where id="+pid;
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
+        }
+
+        public void SaveProjInfo(string pid,string name, string pd)
+        {
+            string sql = "update Project set Name=N'"+name+"', ProDescription=N'"+pd+"' where Id="+pid;
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }

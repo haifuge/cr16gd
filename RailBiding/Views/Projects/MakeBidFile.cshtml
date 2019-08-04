@@ -127,6 +127,7 @@
     <div class="main-wrap">
         <div class="main-top ">
             <span class="page-title">定标文件申请</span>
+            <a href="javascript:;" class="meet-icon" style="position:absolute" title="修改项目信息" onclick="showProjInfo()">修改项目信息</a>
         </div>
         <div class="wc-container app-dt">
             <div class="wc-nav">
@@ -150,17 +151,51 @@
                             </span>
                         </td>
                         <td>
-                            <!--弹出层 begin-->
-                            <div id= "fade" class="black_overlay" >
-                                <div id= "MyDiv" class="white_content white_content3">
+                            <!--修改项目信息 begin-->
+                            <div id="projInfo" class="black_overlay">
+                                <div class="white_content white_content3" style="height:400px" id="projCont">
                                     <div class="btn-close"
                                          style="text-align: right;  height: 20px;">
-                                        <span style= "font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
-                                            <img src= "/img/btn-close.png" alt="">
+                                        <span style="font-size: 16px;" onclick="CloseDiv('projCont','projInfo')">
+                                            <img src="/img/btn-close.png" alt="">
+                                        </span>
+                                    </div>
+                                    <h3>项目信息</h3>
+                                    <div class="canvas_content_text">
+                                        <ul>
+                                            <li style="list-style:none; margin-bottom:10px">
+                                                <span style="float:left;font-size:16px">项目名称</span><input type="text" id="pname" style="margin:5px 10px;width:98%; border:1px solid #ccc;height:22px" />
+                                            </li>
+                                            <li style="list-style:none">
+                                                <span style="vertical-align:top;font-size:16px">招标内容</span> <textarea style="width:98%;height:180px;margin:5px 10px;" id="projContent"></textarea>
+                                                <p class="textinfo" style="color:red;padding-left:90px;display:none;">请简述招标内容！</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div style="bottom:10px;text-align:center;">
+                                        <div class="form-tr-btn">
+                                            <button class="meet-btn big-btn lightblue-btn js-submit" onclick="updateProjInfo()">
+                                                确定
+                                            </button>
+                                            <button class="meet-btn big-btn gray-btn" onclick="CloseDiv('projCont','projInfo')">
+                                                取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--修改项目信息 end-->
+                            <!--弹出层 begin-->
+                            <div id="fade" class="black_overlay">
+                                <div id="MyDiv" class="white_content white_content3">
+                                    <div class="btn-close"
+                                         style="text-align: right;  height: 20px;">
+                                        <span style="font-size: 16px;" onclick="CloseDiv('MyDiv','fade')">
+                                            <img src="/img/btn-close.png" alt="">
                                         </span>
                                     </div>
                                     <h3>劳务单位</h3>
-                                    <table class="meet-table text-left" >
+                                    <table class="meet-table text-left">
                                         <thead>
                                             <tr style="background-color:#40cbe16b;line-height: 36px;">
                                                 <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="icheck" name="addcompanybiding" type="checkbox" value="" id="all-check" /></th>
@@ -173,9 +208,9 @@
                                                 <th style="width:100px;padding:0 5px;font-weight:800;text-align:center">推荐单位</th>
                                             </tr>
                                         </thead>
-                                        <tbody id= "bidingcompanysc" class="mbidcompany"></tbody>
+                                        <tbody id="bidingcompanysc" class="mbidcompany"></tbody>
                                     </table>
-                                    <div style= "bottom:10px;text-align:center;" >
+                                    <div style="bottom:10px;text-align:center;">
                                         <div class="page">
                                         </div>
                                         <div class="form-tr-btn">
@@ -276,6 +311,23 @@
         }
     }
     )
+    function showProjInfo() {
+        $.get("/Projects/GetProjInfo?pid=@ViewBag.pid", function (data) {
+            var obj = JSON.parse(data);
+            $("#pname").val(obj[0].name);
+            $("#projContent").val(obj[0].prodescription);
+            ShowDiv('projCont', 'projInfo', 'win')
+        });
+    }
+    
+    function updateProjInfo() {
+        pname = $("#pname").val()
+        pdes = $("#projContent").val();
+        $.post("/Projects/SaveProjInfo", {pid:@ViewBag.pid, name: pname, pd: pdes }, function (data) {
+            alert('保存成功')
+            CloseDiv('projCont', 'projInfo')
+        });
+    }
 
     // 富文本编辑框
     var E= window.wangEditor
@@ -292,7 +344,7 @@
         str = str.replace(/&nbsp;/ig, '')
         str = str.replace('&nbsp;', '')
         str = str.replace(' ', '')
-        str = str.replace(/\s+/g, ""); 
+        str = str.replace(/\s+/g, "");
         console.log('****', content)
         console.log('****', str)
         return str;

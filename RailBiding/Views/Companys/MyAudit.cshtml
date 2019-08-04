@@ -76,141 +76,145 @@
     </div>
 </div>
 
-    <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
-    <script type='text/javascript' src="~/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
-    <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
-    <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
-    <script type='text/javascript' src="~/js/js.js"></script>
-    <script type='text/javascript'>
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src="~/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src="~/js/js.js"></script>
+<script type='text/javascript'>
 
-        //分页点击
-        var cur_num = 1
-        var clickpagenum = "" //所点击页码
-        //当前所在页码
-        var nowpage = 1;
-        var page_size = 10
-        var pagenum = 12
-        Paginator(nowpage, page_size,"","")
+    //分页点击
+    var cur_num = 1
+    var clickpagenum = "" //所点击页码
+    //当前所在页码
+    var nowpage = $.getUrlParam('cp');
+    if (!nowpage)
+        nowpage = 1;
+    else
+        nowpage = parseInt(nowpage);
+    var page_size = 10
+    var pagenum = 12
+    Paginator(nowpage, page_size,"","")
 
 
-        //全部按钮
-        function allcompany() {
-            $("#searchinput").val("");
-            $("#bType").val("all");
-            Paginator(nowpage, page_size, '', '')
+    //全部按钮
+    function allcompany() {
+        $("#searchinput").val("");
+        $("#bType").val("all");
+        Paginator(nowpage, page_size, '', '')
+    }
+    $("#all-check").click(function () {
+        if ($("#all-check").is(":checked")) {
+            $("input.icheck").prop("checked", true)
+        } else {
+            $("input.icheck").prop("checked", false)
         }
-        $("#all-check").click(function () {
-            if ($("#all-check").is(":checked")) {
-                $("input.icheck").prop("checked", true)
-            } else {
-                $("input.icheck").prop("checked", false)
-            }
-        })
-        var SearchCompanyName = "";
-        var type = "";
-        //下拉菜单
-        $("#bType").change(function () {
-            if ($("#bType").val() == "all") {
-                type = "";
-            } else {
-                type = $("#bType").val();
-            }
-            SearchCompanyName = $("#searchinput").val();
-            Paginator(nowpage, page_size, SearchCompanyName, type)
-        })
-        //输入框内容更改
-        $("#searchinput").change(function () {
-            if ($("#bType").val() == "all") {
-                type = "";
-            } else {
-                type = $("#bType").val();
-            }
-            SearchCompanyName = $("#searchinput").val();
-            Paginator(nowpage, page_size, SearchCompanyName, type)
+    })
+    var SearchCompanyName = "";
+    var type = "";
+    //下拉菜单
+    $("#bType").change(function () {
+        if ($("#bType").val() == "all") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        SearchCompanyName = $("#searchinput").val();
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+    })
+    //输入框内容更改
+    $("#searchinput").change(function () {
+        if ($("#bType").val() == "all") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        SearchCompanyName = $("#searchinput").val();
+        Paginator(nowpage, page_size, SearchCompanyName, type)
             
-        })
+    })
 
-        //点击搜索按钮
-        $(".search-btn").on("click", function () {
-            SearchCompanyName = $("#searchinput").val();
-            if ($("#bType").val() == "all") {
-                type = "";
-            } else {
-                type = $("#bType").val();
-            }
-            Paginator(nowpage, page_size, SearchCompanyName, type)
-        });
+    //点击搜索按钮
+    $(".search-btn").on("click", function () {
+        SearchCompanyName = $("#searchinput").val();
+        if ($("#bType").val() == "all") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+    });
         
 
 
 
-        function Paginator(page, ps, sname, stype) {
+    function Paginator(page, ps, sname, stype) {
         
-            sname = $("#searchinput").val();
-            if ($("#bType").val() == "all") {
-                stype = "";
-            } else {
-                stype = $("#bType").val();
+        sname = $("#searchinput").val();
+        if ($("#bType").val() == "all") {
+            stype = "";
+        } else {
+            stype = $("#bType").val();
+        }
+        $.post("/Companys/GetMyAudit", { pageSize: ps, pageIndex: page, cname: sname, ctype: stype }, function (data) {
+            if (data == 'no session') {
+                location.href = "/Login";
             }
-            $.post("/Companys/GetMyAudit", { pageSize: ps, pageIndex: page, cname: sname, ctype: stype }, function (data) {
-                if (data == 'no session') {
-                    location.href = "/Login";
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                console.log(o)
+                var auditStatus = "";
+                var statusStyle = "";
+                switch (o.approved) {
+                    case 0:
+                        auditStatus = "未发布";
+                        statusStyle = "status-wcl status-wfb";
+                        break;
+                    case 1:
+                        auditStatus = "待处理";
+                        statusStyle = "status-wcl status-shz";
+                        break;
+                    case 2:
+                        auditStatus = "已处理";
+                        statusStyle = "status-wcl status-ytg";
+                        break;
+                    case 3:
+                        auditStatus = "被驳回";
+                        statusStyle = "status-wcl status-bbh";
+                        break;
+                    case 4:
+                        //auditStatus = "被暂停";
+                        //statusStyle = "status-wcl status-bzt";
+                        auditStatus = "已通过";
+                        statusStyle = "status-wcl status-ytg";
+                        break;
                 }
-                var jsonData = JSON.parse(data);
-                var obj = jsonData.List;
-                var htm = "";
-                for (var i = 0; i < obj.length; i++) {
-                    var o = obj[i];
-                    console.log(o)
-                    var auditStatus = "";
-                    var statusStyle = "";
-                    switch (o.approved) {
-                        case 0:
-                            auditStatus = "未发布";
-                            statusStyle = "status-wcl status-wfb";
-                            break;
-                        case 1:
-                            auditStatus = "待处理";
-                            statusStyle = "status-wcl status-shz";
-                            break;
-                        case 2:
-                            auditStatus = "已处理";
-                            statusStyle = "status-wcl status-ytg";
-                            break;
-                        case 3:
-                            auditStatus = "被驳回";
-                            statusStyle = "status-wcl status-bbh";
-                            break;
-                        case 4:
-                            //auditStatus = "被暂停";
-                            //statusStyle = "status-wcl status-bzt";
-                            auditStatus = "已通过";
-                            statusStyle = "status-wcl status-ytg";
-                            break;
-                    }
-                    if (o.type == 0) {
-                        var jianimg="<img src='../img/con-tuijian.png'>";
+                if (o.type == 0) {
+                    var jianimg="<img src='../img/con-tuijian.png'>";
 
-                    } else {
-                        var jianimg="";
-                    }
-                    htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?id=' + o.id + '&approved=' + o.approved + '\';">' +
-                        //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1"/></td >' +
-                        '<td>' + o.name + jianimg + '</td>' +
-                        '<td>' + o.qualificationlevel + '</td>' +
-                        '<td>' + o.registeredcapital + '万元</td>' +
-                        '<td>' + o.businesstype + '</td>' +
-                        '<td>' + o.corporaterepresentative + '</td>' +
-                        '<td>' + o.contact + '</td>' +
-                        '<td class="gray-word gray-time">' + o.auditdate + '</td>' +
-                        '<td class="gray-word "><i class="' + statusStyle + '">' + auditStatus + '</i></td>' +
-                        '</tr>';
+                } else {
+                    var jianimg="";
                 }
-                $("#tCompanys").html(htm);
-                pages(page, jsonData.PageCount, jsonData.total, ps)
-            })
+                htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?cp=' + nowpage +'&id=' + o.id + '&approved=' + o.approved + '\';">' +
+                    //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1"/></td >' +
+                    '<td>' + o.name + jianimg + '</td>' +
+                    '<td>' + o.qualificationlevel + '</td>' +
+                    '<td>' + o.registeredcapital + '万元</td>' +
+                    '<td>' + o.businesstype + '</td>' +
+                    '<td>' + o.corporaterepresentative + '</td>' +
+                    '<td>' + o.contact + '</td>' +
+                    '<td class="gray-word gray-time">' + o.auditdate + '</td>' +
+                    '<td class="gray-word "><i class="' + statusStyle + '">' + auditStatus + '</i></td>' +
+                    '</tr>';
+            }
+            $("#tCompanys").html(htm);
+            pages(page, jsonData.PageCount, jsonData.total, ps)
+        })
             
-        };
-    </script>
+    };
+</script>

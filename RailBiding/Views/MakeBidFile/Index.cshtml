@@ -56,7 +56,11 @@
     var cur_num = 1
     var clickpagenum = "" //所点击页码
     //当前所在页码
-    var nowpage = 1;
+    var nowpage = $.getUrlParam('cp');
+    if (!nowpage)
+        nowpage = 1;
+    else
+        nowpage = parseInt(nowpage);
     var page_size = 10
     var pagenum = 12
     Paginator(nowpage, page_size)
@@ -76,7 +80,7 @@
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
                 htm+='<div class="dbwj-box">'+
-                '<a href="/MakeBidFile/FileDetail?pid=' + o.id + '&status=' + o.status + '">' +
+                    '<a href="/MakeBidFile/FileDetail?cp=' + nowpage +'&pid=' + o.id + '&status=' + o.status + '">' +
                     '<div class="db-con">'+
                         '<ul>'+
                             '<li>'+

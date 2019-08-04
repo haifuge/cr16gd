@@ -10,79 +10,81 @@
     .accordion {
         width: 100%;
     }
+
     .allfileInput2 {
         opacity: 1;
     }
-        .accordion .link {
-            cursor: pointer;
-            display: block;
-            padding:20px 0px;
-            background: #eaf6fd;
-            padding-left: 40px;
+
+    .accordion .link {
+        cursor: pointer;
+        display: block;
+        padding: 20px 0px;
+        background: #eaf6fd;
+        padding-left: 40px;
+        padding-right: 10px;
+        color: #4D4D4D;
+        font-size: 16px;
+        margin-bottom: 5px;
+        position: relative;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+        .accordion .link label {
+            font-size: 14px;
+            color: #999;
             padding-right: 10px;
-            color: #4D4D4D;
+        }
+
+        .accordion .link span {
             font-size: 16px;
-            margin-bottom: 5px;
-            position: relative;
-            -webkit-transition: all 0.4s ease;
-            -o-transition: all 0.4s ease;
-            transition: all 0.4s ease;
+            color: #000;
+            padding-right: 25px;
         }
 
-            .accordion .link label {
-                font-size: 14px;
-                color: #999;
-                padding-right: 10px;
-            }
+    .accordion li:last-child .link {
+        border-bottom: 0;
+    }
 
-            .accordion .link span {
-                font-size: 16px;
-                color: #000;
-                padding-right: 25px;
-            }
+    .accordion li i {
+        position: absolute;
+        top: 16px;
+        left: 12px;
+        font-size: 18px;
+        color: #595959;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
 
-        .accordion li:last-child .link {
-            border-bottom: 0;
+        .accordion li i.fa-chevron-down {
+            right: 12px;
+            left: auto;
+            font-size: 16px;
+            background: url(/img/arrow1.png);
+            width: 26px;
+            height: 26px;
+            -webkit-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
         }
 
-        .accordion li i {
-            position: absolute;
-            top: 16px;
-            left: 12px;
-            font-size: 18px;
-            color: #595959;
-            -webkit-transition: all 0.4s ease;
-            -o-transition: all 0.4s ease;
-            transition: all 0.4s ease;
+    .accordion li.open .link {
+        color: #b63b4d;
+    }
+
+    .accordion li.open i {
+        color: #b63b4d;
+    }
+
+        .accordion li.open i.fa-chevron-down {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
         }
-
-            .accordion li i.fa-chevron-down {
-                right: 12px;
-                left: auto;
-                font-size: 16px;
-                background: url(/img/arrow1.png);
-                width: 26px;
-                height: 26px;
-                -webkit-transform: rotate(-90deg);
-                -ms-transform: rotate(-90deg);
-                -o-transform: rotate(-90deg);
-                transform: rotate(-90deg);
-            }
-
-        .accordion li.open .link {
-            color: #b63b4d;
-        }
-
-        .accordion li.open i {
-            color: #b63b4d;
-        }
-
-            .accordion li.open i.fa-chevron-down {
-                -webkit-transform: rotate(0deg);
-                -ms-transform: rotate(0deg);
-                -o-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
 
     .submenu {
         display: none;
@@ -137,53 +139,54 @@
         top: 0;
         left: 0;
         background: rgba(0, 0, 0, .6);
-        z-index:200;
+        z-index: 200;
         display: none;
     }
 
-        #bidfileapplylayer .canvas_content {
-            width: 790px;
-            height: 530px;
-            background: #fff;
-            position: absolute;
-            top:50%;
-            left:50%;
-            margin-top: -240px;
-            margin-left: -350px;
-            border: 1px solid #008cd6;
-        }
-        #bidapplylayer .canvas_content {
-        
-            background: #fff;
-            position: absolute;
-            top:50%;
-            left:50%;
-            margin-top: -150px;
-            margin-left: -250px;
-            border: 1px solid #008cd6;
-        }
-        .canvas h3 {
-            height: 45px;
-            padding-left: 20px;
-            background: #eaf6fd;
-            line-height: 45px;
-            font-size: 18px;
-            font-weight: normal;
-            color: #008cd6;
-        }
+    #bidfileapplylayer .canvas_content {
+        width: 790px;
+        height: 530px;
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -240px;
+        margin-left: -350px;
+        border: 1px solid #008cd6;
+    }
 
-        .canvas .canvas_close {
-            display: inline-block;
-            width: 35px;
-            height: 35px;
-            font-size: 30px;
-            color: #008cd6;
-            top: 0;
-            text-align: center;
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-        }
+    #bidapplylayer .canvas_content {
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -150px;
+        margin-left: -250px;
+        border: 1px solid #008cd6;
+    }
+
+    .canvas h3 {
+        height: 45px;
+        padding-left: 20px;
+        background: #eaf6fd;
+        line-height: 45px;
+        font-size: 18px;
+        font-weight: normal;
+        color: #008cd6;
+    }
+
+    .canvas .canvas_close {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        font-size: 30px;
+        color: #008cd6;
+        top: 0;
+        text-align: center;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+    }
 
     .canvas_content_text {
         width: 100%;
@@ -387,44 +390,49 @@
     }
 
 
-.con-01 p{
-      overflow : hidden;
-      border-bottom:0px;
-      border-top:0px;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-
-}
-/*.con-01 p::after{   content: "...";
-             position: absolute; 
-             bottom: 0; 
+    .con-01 p {
+        overflow: hidden;
+        border-bottom: 0px;
+        border-top: 0px;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    /*.con-01 p::after{   content: "...";
+             position: absolute;
+             bottom: 0;
              right: 0;              padding-right:10px;}
     */
-.canvas_content_text ul li i{
-    float:left;
-}
-.con-01-1 p {
+    .canvas_content_text ul li i {
+        float: left;
+    }
+
+    .con-01-1 p {
         height: auto
     }
-    #bidapplylayer .canvas_close{
-        background:transparent;
+
+    #bidapplylayer .canvas_close {
+        background: transparent;
     }
+
     #bidapplylayer .canvas_content {
         width: 500px;
         height: 300px;
     }
-   #bidapplylayer .canvas_content_text {
+
+    #bidapplylayer .canvas_content_text {
         height: auto;
     }
-   #bidapplylayer .canvas_btn{
-       padding-top:20px;
-   }
-    .deljs-cancle-meet .icon-bh2{
-       width:50px;
-       background: #29a9ef url(/img/btn-close.png) no-repeat 13px 7px;
-       background-size:15px;
+
+    #bidapplylayer .canvas_btn {
+        padding-top: 20px;
+    }
+
+    .deljs-cancle-meet .icon-bh2 {
+        width: 50px;
+        background: #29a9ef url(/img/btn-close.png) no-repeat 13px 7px;
+        background-size: 15px;
     }
 </style>
 
@@ -444,7 +452,7 @@
                 @Html.Raw(ViewBag.DelButton)
                 @Html.Raw(ViewBag.Button)
                 @Html.Raw(ViewBag.EditProject)
-                <a href = "#" onclick = "window.history.go(-1)" class="js-cancle-meet" title="返回">
+                <a href="#" onclick="goback()" class="js-cancle-meet" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
             </div>
@@ -457,15 +465,15 @@
                 <div class="canvas_content_text">
 
                     <ul>
-                        <li><i>*</i><span style = "width:auto"> 报名截止时间：</span><input id = "applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
-                        <li><i>*</i><span style = "width:auto"> 预计开标时间：</span><input id = "opendate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
-                        <li><i>*</i><span style = "width:auto"> 拟中标单位数量：</span><input id = "bidingnum" type="text" name="" class="input3"></li>
+                        <li><i>*</i><span style="width:auto"> 报名截止时间：</span><input id="applydate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
+                        <li><i>*</i><span style="width:auto"> 预计开标时间：</span><input id="opendate" type="text" name="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})"></li>
+                        <li><i>*</i><span style="width:auto"> 拟中标单位数量：</span><input id="bidingnum" type="text" name="" class="input3"></li>
 
                     </ul>
                 </div>
                 <div class="canvas_btn">
-                    <a href = "#" class="meet-btn big-btn lightblue-btn subm" onclick="bidSubmit(1)">提交</a>
-                    <a href = "#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
+                    <a href="#" class="meet-btn big-btn lightblue-btn subm" onclick="bidSubmit(1)">提交</a>
+                    <a href="#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
                 </div>
             </div>
         </div>
@@ -476,10 +484,11 @@
                 <h3>招标文件申请</h3>
                 <div class="canvas_content_text">
                     <ul>
-                        <li><span>招标文件<br> 内容简述</span> <textarea id = "bfcontent" placeholder= "招标文件简述、主要工程量、预计合同金额" onfocus= "if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur= "if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea>
+                        <li>
+                            <span>招标文件<br> 内容简述</span> <textarea id="bfcontent" placeholder="招标文件简述、主要工程量、预计合同金额" onfocus="if (placeholder == '招标文件简述、主要工程量、预计合同金额') { placeholder = '' }" onblur="if (value == '') { placeholder = '招标文件简述、主要工程量、预计合同金额' }"></textarea>
                         </li>
                         <li>
-                            <i><img src= "~/img/icon-fj.png" alt= ""></i><span style= "float:none"> 招标文件 </span>
+                            <i><img src="~/img/icon-fj.png" alt=""></i><span style="float:none"> 招标文件 </span>
                             @*<input type="file" class="allfileInput allfileInput2" name="fileInput" id="allfileInput" style="cursor: pointer;left:113px;">*@
                             <form id='bfupform' name='bfupform' method="post" target='frameFile' action="/Common/FileUpload" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;left:100px;background:transparent">
                                 <img src="~/img/icon-03.png" alt="" class="up up2" style="position:absolute;vertical-align: middle">
@@ -488,7 +497,7 @@
                                 <input type="text" id="ftype" name="ftype" width="20" value="2" hidden />
                                 <input type="text" id="comment" name="comment" width="20" value="" hidden />
                             </form>
-                            
+
                         </li>
                         <li>
                             <ul id="bffiles"></ul>
@@ -496,7 +505,7 @@
                     </ul>
                 </div>
                 <div class="canvas_btn">
-                    <a href="#" class="meet-btn big-btn lightblue-btn subm"  onclick="bidfileSubmit(1)">提交</a>
+                    <a href="#" class="meet-btn big-btn lightblue-btn subm" onclick="bidfileSubmit(1)">提交</a>
                     <a href="#" class="meet-btn big-btn gray-btn backcolse-btn">返回</a>
                 </div>
             </div>
@@ -533,6 +542,7 @@
 </div>
 
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
 <script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
 <script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
@@ -543,6 +553,14 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" language="javascript">
+    getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    } 
+    function goback() {
+        window.location.href = "/Projects?mmenu=Projects&cp=" + getUrlParam('cp');
+    }
     $(function () {
 
         $("#bfup").change(function () {
@@ -550,7 +568,7 @@
                 return;
             }
             $("#bfupform").ajaxSubmit(function (res) {
-                
+
                 var names = res.split('|')
                 var li = document.createElement("li");
                 li.id = names[0].trim()
@@ -599,7 +617,7 @@
                     swal('提交成功！');
                     $("#bidapplylayer").hide();
                     location.reload(true);
-            
+
         })
     }
 
@@ -638,7 +656,7 @@
             $("#bfcontent").val("");
             $("#bffiles").html("");
             $(".textinfo").css("display","none")
-           
+
         })
         location.reload(true);
     }
@@ -652,14 +670,14 @@
         $("#bidfileapplylayer").hide();
         $("#bfcontent").val("");
         $("#bffiles").html("");
-        $(".canvas").hide();  
+        $(".canvas").hide();
         $(".textinfo").css("display","none")
     })
     $(".backcolse-btn").on("click", function () {
-        
+
         $("#bfcontent").val("");
         $("#bffiles").html("");
-        $(".canvas").hide();  
+        $(".canvas").hide();
         $("#bidfileapplylayer").hide();
         $(".textinfo").css("display","none")
     })

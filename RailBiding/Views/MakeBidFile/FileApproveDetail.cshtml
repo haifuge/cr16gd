@@ -41,7 +41,7 @@
                 <a href="javascript:;" class="js-cancle-meet bohui" title="驳回" onclick="declineApplication()">
                     <i class="meet-icon icon-cancel icon-bh">驳回</i>
                 </a>
-                <a href="#" onclick="window.history.go(-1)" class="js-cancle-meet" title="返回">
+                <a href="#" onclick="goback()" class="js-cancle-meet" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
             </div>
@@ -152,11 +152,17 @@
     <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
     <script type='text/javascript' src='~/js/js.js'></script>
     <script>
+        function goback() {
+            window.location.href = "/MakeBidFile/FileApprove?cp=" + $.getUrlParam('cp');
+        }
         $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=4", function (data) {
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
                 var li = document.createElement('li');
-                li.innerHTML ='<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName+'<a href = "'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
+                var yulan = "";
+                if (obj[i].FileName.indexOf('.DOC') != -1 || obj[i].FileName.indexOf('.doc') != -1 || obj[i].FileName.indexOf('.pdf') != -1)
+                    yulan = '<a href="http://ow365.cn/?i=19177&furl=' + obj[i].FilePath.replace('../projectFiles\\', 'http://cr16gd.saibo.net.cn/projectFiles/') + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">预览</a>&nbsp;&nbsp;';
+                li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + yulan+ '<a href = "'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
                 document.getElementById("bffiles").appendChild(li)
             }
     });

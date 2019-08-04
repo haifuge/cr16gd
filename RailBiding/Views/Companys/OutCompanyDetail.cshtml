@@ -37,7 +37,7 @@
                 <a href='javascript:;' class='js-cancle-meet' title='导出'>
                     <i class='meet-icon icon-cancel icon-dc' id="exportbtn">导出</i>
                 </a>
-                <a href='#' class='js-cancle-meet' onclick="window.history.go(-1)" title='返回'>
+                <a href='#' class='js-cancle-meet' onclick="goback()" title='返回'>
                     <i class='meet-icon icon-del icon-tb'>返回</i>
                 </a>
             </div>
@@ -177,5 +177,7 @@
         window.print();
         document.body.innerHTML = oldstr;   //保持原页面格式   
     }
-
+    function goback() {
+        window.location.href = "/Companys/CompanysOut?cp=" + $.getUrlParam('cp');
+    }
 </script>

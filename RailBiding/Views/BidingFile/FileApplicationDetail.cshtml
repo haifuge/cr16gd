@@ -25,7 +25,7 @@
             <span class="js-page-name">招标文件详情</span>
             <div class="apply-opt">
 
-                <a href='#' onclick="window.history.go(-1)" class='js-cancle-meet' title='返回'>
+                <a href='#' onclick="goback()" class='js-cancle-meet' title='返回'>
                     <i class='meet-icon icon-del icon-tb'>返回</i>
                 </a>
             </div>
@@ -164,6 +164,9 @@
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
 <script type="text/javascript">
+    function goback() {
+        window.location.href = "/Companys?cp=" + $.getUrlParam('cp');
+    }
     $(function () {
         //leftnav_htm(4);
         pages(1, 2, 12, 5)

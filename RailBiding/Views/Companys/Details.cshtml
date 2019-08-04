@@ -36,7 +36,7 @@
                 <a href='#' class='js-cancle-meet' title='导出' id="exportbtn">
                     <i class='meet-icon icon-cancel icon-dc'>导出</i>
                 </a>
-                <a href='#' class='js-cancle-meet' onclick="window.history.go(-1)" title='返回'>
+                <a href='#' class='js-cancle-meet' onclick="goback()" title='返回'>
                     <i class='meet-icon icon-del icon-tb'>返回</i>
                 </a>
             </div>
@@ -161,7 +161,9 @@
             }
         });
     });
-
+    function goback() {
+        window.location.href = "/Companys?cp=" + $.getUrlParam('cp');
+    }
     function submitCompany(){
         swal({
             title: '请仔细确认您的信息是否有误，提交后将不能修改，请确认。',

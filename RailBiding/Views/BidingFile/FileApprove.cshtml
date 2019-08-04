@@ -102,7 +102,11 @@
     var cur_num = 1
     var clickpagenum = "" //所点击页码
     //当前所在页码
-    var nowpage = 1;
+    var nowpage = $.getUrlParam('cp');
+    if (!nowpage)
+        nowpage = 1;
+    else
+        nowpage = parseInt(nowpage);
     var page_size = 10
     var pagenum = 12
     Paginator(nowpage, page_size)
@@ -177,11 +181,11 @@
                 }
                 htm += '<tr class="white-bg">' +
                     //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" /></td>' +
-                    '<td  onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.name + '</td>'+
-                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.content + '</td>' +
-                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.publisher + '</td>' +
-                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'>' + o.publishdate + '</td>' +
-                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '";\'><i class="' + applyStyle+'">' + applyStatus+'</i></td>'+
+                    '<td  onclick =\'location.href=\"/BidingFile/FileApproveDetail?cp=' + nowpage +'&pid=' + o.id + '&status=' + o.status + '";\'>' + o.name + '</td>'+
+                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?cp=' + nowpage +'&pid=' + o.id + '&status=' + o.status + '";\'>' + o.content + '</td>' +
+                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?cp=' + nowpage +'&pid=' + o.id + '&status=' + o.status + '";\'>' + o.publisher + '</td>' +
+                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?cp=' + nowpage +'&pid=' + o.id + '&status=' + o.status + '";\'>' + o.publishdate + '</td>' +
+                    '<td onclick =\'location.href=\"/BidingFile/FileApproveDetail?cp=' + nowpage +'&pid=' + o.id + '&status=' + o.status + '";\'><i class="' + applyStyle+'">' + applyStatus+'</i></td>'+
                     '</tr >'
             }
             $("#tbBidingFiles").html(htm);

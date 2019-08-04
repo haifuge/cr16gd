@@ -106,7 +106,11 @@ i.status-wcl.status-wfb {
         var cur_num = 1
         var clickpagenum = "" //所点击页码
         //当前所在页码
-        var nowpage = 1;
+        var nowpage = $.getUrlParam('cp');
+        if (!nowpage)
+            nowpage = 1;
+        else
+            nowpage = parseInt(nowpage);
         var page_size = 10
         var pagenum = 12
         $(document).ready(function () { Paginator(nowpage, page_size)});
@@ -165,7 +169,7 @@ i.status-wcl.status-wfb {
                             break;
                     }
                     htm += '<div class="dbwj-box">' +
-                                '<a href="/MakeBidFile/FileApproveDetail?pid=' + o.id + '&status=' + o.status + '">' +
+                        '<a href="/MakeBidFile/FileApproveDetail?cp=' + nowpage +'&pid=' + o.id + '&status=' + o.status + '">' +
                                     '<div class="db-con">' +
                                         '<ul>' +
                                             '<li>' +

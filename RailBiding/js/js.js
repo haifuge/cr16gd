@@ -45,7 +45,7 @@ function pages(cur, totalPage, totalRows, setNum) {
 
     htm += '<a data-cur="1" class="js-page-num page-num" style="margin-left:5px;">《</a>' +
         '<a class="js-page-num page-num num-left" data-cur="' + (cur > 1 ? (cur - 1) : 1) + '">&lt;</a>';
-
+    
     if (totalPage != 1) {
         htm += '<a data-cur="' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '" class="js-page-num page-num clickpage ' + (((cur + 1) > totalPage ? (cur - 1) : cur) == cur ? "active" : "") + '">' + ((cur + 1) > totalPage ? (cur - 1) : cur) + '</a>';
     }
@@ -74,7 +74,6 @@ function pages(cur, totalPage, totalRows, setNum) {
         } else {
             nowpage = parseInt(clickpagenum);
         }
-
         Paginator(nowpage, page_size)
     })
     $("#pagego").on("click", function () {
