@@ -209,6 +209,9 @@
             <span class="js-page-name">招标详情</span>
             <div class="apply-opt">
                 @Html.Raw(ViewBag.moretime)
+                <a href='#' class='js-cancle-meet' title='导出' id="exportbtn" onclick="printDiv()" hidden>
+                    <i class='meet-icon icon-cancel icon-dc'>导出</i>
+                </a>
                 <a href="#" class="js-cancle-meet" onclick="window.history.go(-1)" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
@@ -240,10 +243,10 @@
             </div>
             <div class="detail-wrap detail-con">
 
-                <div class="block-left block-left2 block-left4">
+                <div class="block-left block-left2 block-left4" id="printArea">
                     @*<div class="detail-fb">
-                        提交人：<span>@ViewBag.Publisher</span>发布时间：<span>@ViewBag.PublishDate</span>
-                    </div>*@
+            提交人：<span>@ViewBag.Publisher</span>发布时间：<span>@ViewBag.PublishDate</span>
+        </div>*@
                     <table class="meet-form meet-form7">
                         <tbody>
                             <tr class="form-tr form-tr-title-bg">
@@ -287,9 +290,14 @@
                                 <td><ul id="bffiles"></ul></td>
                             </tr>
                             @Html.Raw(ViewBag.comjion)
-                            @Html.Raw(ViewBag.ResponseCompanysHtml) 
+                            @Html.Raw(ViewBag.ResponseCompanysHtml)
+                            @Html.Raw(ViewBag.CompanysPrint)
                         </tbody>
                     </table>
+                    <div class="meet-form meet-form8" style="border:0px;margin-top:28px" id="procs" hidden>
+                        <span style="text-align:center;font-size:24px;color:deepskyblue;">审批记录</span>
+                        <table class="meet-form meet-form8" id="printTab"></table>
+                    </div>
                 </div>
                 <div class="block-right block-right2">
                     <div class="block-right-wrap">
@@ -348,6 +356,27 @@
 <script src="~/js/sweetalert2.all.js"></script>
 
 <script>
+    function printDiv() {
+        $('#procs').show();
+        $('#print-tr1').show();
+        $('#print-tr2').show();
+        $('#print-tr3').show();
+        $('#print-tr4').show();
+        $('#hide_tr1').hide();
+        $('#hide_tr2').hide();
+        var printData = document.getElementById("printArea").innerHTML;
+        var oldstr = document.body.innerHTML;
+        document.body.innerHTML = printData;
+        window.print();
+        document.body.innerHTML = oldstr;   //保持原页面格式
+        $('#procs').hide();
+        $('#print-tr1').hide();
+        $('#print-tr2').hide();
+        $('#print-tr3').hide();
+        $('#print-tr4').hide();
+        $('#hide_tr1').show();
+        $('#hide_tr2').show();
+    }
     //分页
     function pages(cur, totalPage, totalRows, setNum) {
         if (!totalPage) return false;
@@ -401,8 +430,7 @@
         });
 
     }
-</script>
-<script>
+
     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=2", function (data) {          
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
@@ -419,6 +447,7 @@
         if(obj.length==0)
             return;
         var pdepart = obj[0].pname;
+        var printPro = '<tr><td colspan = "5">' + pdepart + '</td ></tr>';
         var dechtm = "";
         var passhtm = "";
         var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
@@ -427,9 +456,19 @@
         for (var i = 0; i < obj.length; i++) {
             var o = obj[i];
             if(i==0){
-                htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
+                    '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
+                    '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
+                    '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">提交申请</span></td>' +
+                    '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                 continue;
             }
+            printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
+                '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
+                '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
+                '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">同意</span></td>' +
+                '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
             if (o.pname == pdepart) {
                 if (o.approved == 2) {
                     if(o.comment!=""){
@@ -470,6 +509,7 @@
                 }
             }
         }
+        $('#printTab').html(printPro)
         htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
         $("#transferInfo").html(htm);
         $("#declineInfo").html(dechtm);
@@ -489,9 +529,25 @@
             $(".feedback-item.decfeedback-item").show()
         }
     })
-
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+        var context = "";
+        if (r != null)
+            context = r[2];
+        reg = null;
+        r = null;
+        return context == null || context == "" || context == "undefined" ? "" : context;
+    }
+    
     $(function () {
-
+        var status = getQueryString('status');
+        if (status != "2") {
+            $('#exportbtn').hide()
+        }
+        else {
+            $('#exportbtn').show()
+        }
         $("#bfup").change(function () {
             if($("#bfup").val()==""){
                 return;

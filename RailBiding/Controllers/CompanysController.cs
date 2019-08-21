@@ -67,6 +67,12 @@ namespace RailBiding.Controllers
             ViewBag.id = dr["id"].ToString();
 
             string rootPath = Server.MapPath("../");
+            dt = cc.GetCompanyReferee(id);
+            if (dt.Rows.Count > 0)
+                ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
+            else
+                ViewBag.RefereFile = "";
+
             string picHtml = "";
             string pic= dr["ReferreIDPic"].ToString();
             //if (pic != "")

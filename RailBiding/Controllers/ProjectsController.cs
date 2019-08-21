@@ -213,7 +213,7 @@ namespace RailBiding.Controllers
                 ViewBag.moretime = "";
                 if (Request["status"].ToString() == "3")
                 {
-                    if (dr["uid"].ToString() == Session["UserId"].ToString())
+                    if ("4" == Session["RoleId"].ToString())
                     {
                         ViewBag.moretime = "<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=3' class='js-cancle-meet' title='再次申请'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
                     }
@@ -602,7 +602,7 @@ namespace RailBiding.Controllers
             ViewBag.moretime = "";
             if (Request["status"].ToString() == "3")
             {
-                if (dr["uid"].ToString() == Session["UserId"].ToString())
+                if ("4" == Session["RoleId"].ToString())
                 {
                     ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='bidApply()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
                 }else
@@ -647,7 +647,7 @@ namespace RailBiding.Controllers
                 }
                 ViewBag.NoResponseCompanys = cHtml.ToString();
 
-                ViewBag.comjion = @"<tr class='form-tr detail-user-con tr-border ifortd'>" +
+                ViewBag.comjion = @"<tr class='form-tr detail-user-con tr-border ifortd' id='hide_tr1'>" +
                                        "<td class='form-lable label2'>" +
                                            "<span style = 'color: #008cd6'> 单位反馈：</span>" +
                                        "</td>" +
@@ -659,7 +659,7 @@ namespace RailBiding.Controllers
                                            "</div>" +
                                        "</td>" +
                                    "</tr>";
-                ViewBag.ResponseCompanysHtml = @"<tr class='form-tr detail-user-con'>" +
+                ViewBag.ResponseCompanysHtml = @"<tr class='form-tr detail-user-con' id='hide_tr2'>" +
                                             "<td colspan ='2' >" +
                                                 "<div class='detail-user-list detail-user-list6' style='overflow: auto;'>" +
                                                     "<div class='meet-user-span' style='display: block;'>" + ViewBag.JoinCompanys + "</div>" +
@@ -668,6 +668,10 @@ namespace RailBiding.Controllers
                                                 "</div>" +
                                             "</td>" +
                                         "</tr>";
+                ViewBag.CompanysPrint = "<tr class='form-tr detail-user-con' id='print-tr1' hidden><td colspan='2' style='text-align:center'><span style='color:deepskyblue;font-size:22px;'>单位反馈</span></td></tr>" +
+                    "<tr class='form-tr detail-user-con' id='print-tr2' hidden><td style='text-align:center;border:1px'>参加:</td><td><div class='detail-user-list detail-user-list6' style='overflow: auto;padding:0px 0px'><div class='meet-user-span' style='display: block;padding:0px,0px'>" + ViewBag.JoinCompanys + "</div></div></td></tr>"+
+                    "<tr class='form-tr detail-user-con' id='print-tr3' hidden><td style='text-align:center;border:1px'>不参加:</td><td><div class='detail-user-list detail-user-list6' style='overflow: auto;padding:0px 0px'><div class='meet-user-span' style='display: block;padding:0px,0px'>" + ViewBag.NoJoinCompanys + "</div></div></td></tr>" +
+                    "<tr class='form-tr detail-user-con' id='print-tr4' hidden><td style='text-align:center;border:1px'>未响应:</td><td><div class='detail-user-list detail-user-list6' style='overflow: auto;padding:0px 0px'><div class='meet-user-span' style='display: block;padding:0px,0px'>" + ViewBag.NoResponseCompanys + "</div></div></td></tr>";
             }else
             {
                 ViewBag.comjion = "";
@@ -714,7 +718,7 @@ namespace RailBiding.Controllers
             ViewBag.moretime = "";
             if (Request["status"].ToString() == "3")
             {
-                if (dr["uid"].ToString() == Session["UserId"].ToString())
+                if ("4" == Session["RoleId"].ToString())
                 {
                     ViewBag.moretime = "<a href = 'javascript:;' class='js-cancle-meet' title='再次申请' onclick='bidFileApply()'><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
                 }else
@@ -778,7 +782,7 @@ namespace RailBiding.Controllers
             ViewBag.moretime = "";
             if (Request["status"].ToString() == "3")
             {
-                if (dr["uid"].ToString() == Session["UserId"].ToString())
+                if ("4" == Session["RoleId"].ToString())
                 {
                     ViewBag.moretime = "<a href='/Projects/MakeBidFile?pid=" + pid + @"&status=3' class='js-cancle-meet' title='再次申请' ><i class='meet-icon icon-cancel icon-daooutbtn'>再次申请</i></a>";
                 }

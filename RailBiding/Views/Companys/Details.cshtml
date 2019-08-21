@@ -118,6 +118,12 @@
                                     </table>
                                 </td>
                             </tr>
+                            <tr class="form-tr detail-user-con gzyj">
+                                <td colspan="6">
+                                    <span style="color: #666;padding-right:20px;">推荐人：</span>@ViewBag.Referre
+                                    <span style="color: #666">推荐书：</span>@Html.Raw(ViewBag.RefereFile)
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -162,7 +168,7 @@
         });
     });
     function goback() {
-        window.location.href = "/Companys?cp=" + $.getUrlParam('cp');
+        window.location.href = "/Companys?cp=" + $.getUrlParam('cp') + "&ct=" + $.getUrlParam('ct');
     }
     function submitCompany(){
         swal({

@@ -99,10 +99,14 @@
         nowpage = 1;
     else
         nowpage = parseInt(nowpage);
-
+    var type = $.getUrlParam('ct');
+    if (!type)
+        type = '';
+    else
+        $("#bType").val(type)
     var page_size = 10
     var pagenum = 12
-    Paginator(nowpage, page_size,"","")
+    //Paginator(nowpage, page_size,"","")
     if ($.cookie("RoleId") == 2)
         $("#cstatus").show()
 
@@ -113,7 +117,6 @@
         Paginator(nowpage, page_size, '', '')
     }
     var SearchCompanyName = "";
-    var type = "";
     //下拉菜单
     $("#bType").change(function () {
         if ($("#bType").val() == "All") {
@@ -122,6 +125,7 @@
             type = $("#bType").val();
         }
         SearchCompanyName = $("#searchinput").val();
+        nowpage = 1;
         Paginator(nowpage, page_size, SearchCompanyName, type)
     })
     //输入框内容更改
@@ -164,14 +168,14 @@
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)" onclick="setSelectAll()"/></td >' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.name + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.businesstype + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contact + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contactphone + '</td>'+
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cp=' + nowpage +'&id=' + o.id + '\';\">' + o.refdepartment + '</td>'
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.name + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.businesstype + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contact + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contactphone + '</td>'+
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.refdepartment + '</td>'
                 if ($.cookie("RoleId") == 2)
                     htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
                 // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
@@ -203,8 +207,7 @@
         $.post("/Companys/ToggleCompany?id=" + comid + "&status=" + s, {}, function () { });
 
     }
-
-
+    
     $.get("/Common/GetCompanyType", function (data) {
         var obj = JSON.parse(data);
         var btype = $("#bType");
@@ -213,6 +216,10 @@
             var o=obj[i]
             btype.append("<option value='"+o.id+"'>"+o.name+"</option>")
         }
+        if (type != '') {
+            $("#bType").val(type)
+        }
+        Paginator(nowpage, page_size, '', type)
     });
 
 

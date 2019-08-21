@@ -320,16 +320,33 @@
                                         <td class="form-lable">邮箱：</td>
                                         <td>
                                             <input type="email" name="roomInfoName" value="" id="xguemail" 
-                                                   class="has-clear-input input  input3 " onBlur="checkmail('xguemail', 'xgmailmess')" />
+                                                   class="has-clear-input input  input3" onBlur="checkmail('xguemail', 'xgmailmess')" />
                                             <span id="xgmailmess"></span>
                                         </td>
                                     </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">签名：</td>
+                                        <td>
+                                            <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadSig" enctype="multipart/form-data" style="cursor: pointer;">
+                                                <input type="file" name="fileInput1" id="allfileInput1" value="">
+                                                <input type="text" id="sigCode"  width="20" value="0" hidden />
+                                                
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div id="sigDiv">
+                                                <img id="sigPic" style="width:150px; height:100px" />
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
-
                             </table>
                             <div class="form-tr-btn">
-                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" onclick="xgUser()">确定</button>
-                                <button type="reset" class="meet-btn big-btn gray-btn canvas_close3">取消</button>
+                                <button type="submit" class="meet-btn big-btn lightblue-btn js-submit" style="margin-top:3px" onclick="xgUser()">确定</button>
+                                <button type="reset" class="meet-btn big-btn gray-btn canvas_close3" style="margin-top:3px">取消</button>
                             </div>
                         </div>
                     </div>
@@ -591,12 +608,21 @@
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
+<script src="~/Scripts/jquery.form.js"></script>
 <script src="~/js/ztree/js/jquery.ztree.core.js"></script>
 <script src="~/js/ztree/js/jquery.ztree.exedit.js"></script>
 <script type="text/javascript" src="~/js/ztree/js/jquery.ztree.excheck.js"></script>
 
 <script type="text/javascript">
-
+    $("#allfileInput1").change(function () {
+        var allfileInput1 = $("#allfileInput1").val();
+        if (allfileInput1 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform1").ajaxSubmit(function (res) {
+            $("#sigCode").val(res);
+        });
+    })
 
     var setting = {
         view: {
@@ -849,6 +875,9 @@
         $("#utel").val("");
         $("#uemail").val("");
         $("#repwd").val("")
+        $("#sigCode").val("")
+        $("#fileInput1").val("")
+        $("#sigDiv").hide()
     })
 
     
@@ -1195,6 +1224,7 @@
         $(".canvas.canvas3").show();
         for (var i = 0; i < users.length; i++) {
             var o = users[i];
+            console.log(o)
             if (o.id == id) {
                 $('#uid').val(o.id);
                 $('#xgaddpeo').val(o.department);
@@ -1203,6 +1233,19 @@
                 $('#xguname').val(o.username);
                 $('#xgutel').val(o.telephone);
                 $('#xguemail').val(o.email);
+                //$('#allfileInput1').val(o.signame);
+                $('#allfileInput1').val('');
+                console.log(o.sigfile)
+                $("#sigCode").val(o.sigfile)
+                if (o.sigfile != '') {
+                    $('#sigDiv').show();
+                    $('#sigPic').attr('src', '/sigs/' + o.sigfile);
+                }
+                else {
+                    $('#sigDiv').hide();
+                    $('#sigPic').attr('src', '');
+                }
+                
                 break;
             }
         }
@@ -1224,7 +1267,10 @@
         var xguname = $('#xguname').val();
         var xgutel = $('#xgutel').val();
         var xguemail = $('#xguemail').val();
-        var obj = {uid:uid,uname: xguname, tel: xgutel, em: xguemail, account: xguaccount, roleid: xgbType }
+        var sigName = $('#allfileInput1').val();
+        sigName = sigName.substr(sigName.lastIndexOf('\\')+1)
+        var sigFile = $('#sigCode').val();
+        var obj = {uid:uid,uname: xguname, tel: xgutel, em: xguemail, account: xguaccount, roleid: xgbType, sn:sigName, sf:sigFile }
         $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
             if (res = "1"){
                 swal(

@@ -97,7 +97,6 @@
                                         @Html.Raw(ViewBag.CompanyPics)
                                     </div>
                                 </td>
-
                             </tr>
                             <tr class="form-tr detail-user-con gzyj">
                                 <td colspan="6">
@@ -106,8 +105,8 @@
                                         <thead class="wc-header">
                                             <tr>
                                                 @*<td class="check-color" style="width: 80px;">
-                                                    序号
-                                                </td>*@
+                                序号
+                            </td>*@
                                                 <td style="width:150px">承包项目</td>
                                                 <td style="width:80px">合同金额</td>
                                                 <td style="width:100px">开工日期</td>
@@ -123,7 +122,12 @@
                                     </table>
                                 </td>
                             </tr>
-
+                            <tr class="form-tr detail-user-con gzyj">
+                                <td colspan="6">
+                                    <span style="color: #666;padding-right:20px;">推荐人：</span>@ViewBag.Referre
+                                    <span style="color: #666">推荐书：</span>@Html.Raw(ViewBag.RefereFile)
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -178,6 +182,6 @@
         document.body.innerHTML = oldstr;   //保持原页面格式   
     }
     function goback() {
-        window.location.href = "/Companys/CompanysOut?cp=" + $.getUrlParam('cp');
+        window.location.href = "/Companys/CompanysOut?cp=" + $.getUrlParam('cp') + "&ct=" + $.getUrlParam('ct');
     }
 </script>

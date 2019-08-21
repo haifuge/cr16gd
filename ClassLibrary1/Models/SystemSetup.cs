@@ -93,16 +93,16 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public string UpdateUserInfo(string uid, string account, string uname, string psd, string tel, string email, string roleid)
+        public string UpdateUserInfo(string uid, string account, string uname, string psd, string tel, string email, string roleid, string sn, string sf)
         {
             string sql;
             if (psd != "") { 
                 psd = EncryptHelper.Encrypt(psd, "IamKey12");
-                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"', RoleId="+roleid+" where ID="+ uid;
+                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"', RoleId="+roleid+", sigName=N'"+sn+"', sigFile=N'"+sf+"' where ID="+ uid;
             }
             else
             {
-                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where ID=" + uid;
+                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + ", sigName=N'" + sn + "', sigFile=N'" + sf + "' where ID=" + uid;
             }
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
@@ -222,7 +222,7 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId,d.id as did
+            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId,d.id as did, ui.sigName, ui.sigFile
                             into #temp
                             from UserInfo ui
                             left join DepartmentUser du on ui.id = du.userid and du.Status=1
