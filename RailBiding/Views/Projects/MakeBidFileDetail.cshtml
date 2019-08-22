@@ -9,6 +9,131 @@
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
+    .detail-con .block-left2.block-left4 {
+        width: 70%;
+        float: left;
+        margin-bottom: 150px;
+    }
+    .block-left {
+        padding-right: 380px;
+    }
+
+        .block-left .meet-form td {
+            color: #3e3a39;
+            padding-right: 10px;
+            font-size: 14px;
+            line-height: 20px;
+            padding: 10px
+        }
+
+        .block-left .meet-form tr.ifortd td {
+            padding: 0px;
+        }
+
+        .block-left .meet-form .form-tr-title-bg td {
+            font-size: 1.2em;
+        }
+
+        .block-left .meet-form td.form-lable {
+            font-size: 14px;
+            color: #666;
+        }
+
+    .meet-form tr td {
+        font-size: 16px;
+    }
+
+    .block-left .meet-form .form-tr label {
+        font-size: 0.8em;
+    }
+    .detail-wrap {
+        position: relative;
+        width: 100%;
+    }
+
+        .detail-wrap .detail-fb {
+            position: absolute;
+            top: 0;
+            right: -5px;
+            height: 35px;
+            line-height: 35px;
+            color: #008cd6;
+        }
+
+            .detail-wrap .detail-fb span {
+                color: #969595;
+                padding-left: 5px;
+                padding-right: 15px;
+            }
+
+     h2 {
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .art-tit {
+        text-align: center;
+        line-height: 24px;
+        margin: 10px 0;
+    }
+
+        .art-tit span {
+            color: #666;
+        }
+
+     h3 {
+        background: #eaf6fd;
+        line-height: 40px;
+        padding-left: 20px;
+        font-weight: normal;
+        margin: 15px 0;
+        height: 40px;
+        display: block;
+    }
+
+    p {
+        line-height: 20px;
+    }
+
+    .dbwj-wz01 {
+        background: #f2f2f2;
+        padding: 10px;
+        line-height: 24px;
+    }
+
+    ul.ull {
+        float: left;
+        width: 100%;
+        overflow: hidden;
+    }
+
+        ul.ull li {
+            width: 29%;
+            float: left;
+            border: 1px solid #ccc;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+     ul.ulll li {
+        width: 40%;
+    }
+
+    ul.ull li p {
+        line-height: 24px;
+        font-size: 14px;
+    }
+
+         ul.ull li p.f16 {
+            font-size: 16px;
+        }
+
+         ul.ull li p .colblue {
+            color: #008cd6;
+            font-size: 20px;
+        }
+
     .download div {
         display: block;
         float: left;
@@ -17,9 +142,27 @@
         .download div.cc {
             margin-bottom: 100px;
         }
-        .nxzbdw li{
-            margin-bottom:20px;
+
+    .nxzbdw li {
+        margin-bottom: 20px;
+    }
+    .meet-form8 .form-tr .art-tit {
+        text-align: center;
+        font-size: 14px;
+        padding: 15px 0;
+    }
+     .art-tit {
+        text-align: center;
+        line-height: 24px;
+        margin: 10px 0;
+    }
+
+         .art-tit span {
+            color: #666;
         }
+    .main-wrap {
+        padding: 20px 20px 40px 20px;
+    }
 </style>
 <div class="left-nav">
     <div class="left-nav-con">
@@ -36,40 +179,92 @@
             <span class="page-title">定标文件详情</span>
             <div class="apply-opt">
                 @Html.Raw(ViewBag.moretime)
+                <a href='#' class='js-cancle-meet' title='导出' id="exportbtn" onclick="printDiv()" hidden>
+                    <i class='meet-icon icon-cancel icon-dc'>导出</i>
+                </a>
                 <a href="#" onclick="window.history.go(-1)" class="js-cancle-meet" title="返回">
                     <i class="meet-icon icon-del icon-tb">返回</i>
                 </a>
             </div>
         </div>
-        <div class="wc-container dbwj-cont">
+        <div class="wc-container">
             <div class="detail-wrap detail-con">
-
-                <div class="block-left block-left2 block-left4">
-                    <h2>
-                        @Html.Raw(ViewBag.PName)
-                    </h2>
-                    <div class="art-tit"><span>发布单位：</span>@ViewBag.Publisher <span>发布时间：</span> @ViewBag.PublishDate</div>
-                    <div class="dbwj-wz01">
-                        <p>@Html.Raw(ViewBag.Abstract)</p>
-                    </div>
-                    <H3>招标内容介绍：</H3>
-                    <p>@Html.Raw(ViewBag.ProDescription)</p>
-                    <h3>参加投标单位及投标报价：</h3>
-                    <div style="display: block;overflow: hidden">
-                        <ul class="ull ulll">
-                            @Html.Raw(ViewBag.JoinCompany)
-                        </ul>
-                    </div>
-                    <h3>拟选中标单位：</h3>
-                    <ul class="nxzbdw">
-                        @Html.Raw(ViewBag.WinCompany)
-                    </ul>
-                    <h3>定标文件详细说明</h3>
-                    @Html.Raw(ViewBag.FileExplain)
-                    <div class="download" style="margin-top: 10px;">
-                        <div><i class="meet-icon icon-file"></i></div>
-                        <div class="cc">
-                            <ul id="bffiles"></ul>
+                <div class="block-left block-left2 block-left4" id="printArea">
+                    <div class="dbwj-cont">
+                        <table>
+                            <tr><td><h2>@Html.Raw(ViewBag.PName)</h2></td></tr>
+                            <tr>
+                                <td>
+                                    <div class="art-tit"><span>发布单位：</span>@ViewBag.Publisher <span>发布时间：</span> @ViewBag.PublishDate</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="dbwj-wz01">
+                                        <p>@Html.Raw(ViewBag.Abstract)</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <H3>招标内容介绍：</H3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Html.Raw(ViewBag.ProDescription)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>参加投标单位及投标报价：</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: block;overflow: hidden">
+                                        <ul class="ull ulll">
+                                            @Html.Raw(ViewBag.JoinCompany)
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>拟选中标单位：</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul class="nxzbdw">
+                                        @Html.Raw(ViewBag.WinCompany)
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3>定标文件详细说明</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.Raw(ViewBag.FileExplain)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="download" style="margin-top: 10px;">
+                                        <div><i class="meet-icon icon-file"></i></div>
+                                        <div class="cc">
+                                            <ul id="bffiles"></ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="meet-form meet-form8" style="border:0px;margin-top:23px" id="procs" hidden>
+                            <span style="text-align:center;font-size:24px;color:deepskyblue;">审批记录</span>
+                            <table class="meet-form meet-form8" id="printTab"></table>
                         </div>
                     </div>
                 </div>
@@ -112,7 +307,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -126,6 +320,16 @@
 <script type='text/javascript' src='~/js/js.js'></script>
 
 <script>
+    function printDiv() {
+        $('#procs').show();
+        var printData = document.getElementById("printArea").innerHTML;
+        var oldstr = document.body.innerHTML;
+        document.body.innerHTML = printData;
+        window.print();
+        document.body.innerHTML = oldstr;   //保持原页面格式
+        $('#procs').hide();
+    }
+
     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=4", function (data) {
             var obj = JSON.parse(data);
             for (var i = 0; i < obj.length; i++) {
@@ -157,11 +361,19 @@
                 $(".right-block").hide();
                 $(".bohui").hide();
             }
+            var status = getQueryString('status');
+            if (status != "2") {
+                $('#exportbtn').hide()
+            }
+            else {
+                $('#exportbtn').show()
+            }
             $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.pid, apid:4}, function (data) {
             var obj = JSON.parse(data);
             if (obj.length == 0)
                 return;
             var pdepart = obj[0].pname;
+            var printPro = '<tr><td colspan = "5">' + pdepart + '</td ></tr>';
             var dechtm = "";
             var passhtm = "";
             var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';//<li><span class="yj06">' + obj[0].name + '</span> <span class="yj02">' + obj[0].username + '</span> <span class="yj03">' + obj[0].dd +'</span> <span class="yj04">提交申请</span></li >';
@@ -171,8 +383,18 @@
                 var o = obj[i];
                 if(i==0){
                     htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                    printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
+                        '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
+                        '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
+                        '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">提交申请</span></td>' +
+                        '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                     continue;
                 }
+                printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
+                    '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
+                    '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
+                    '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">同意</span></td>' +
+                    '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {
                         if (o.comment != "") {
@@ -214,6 +436,7 @@
                 }
             }
             htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+            $('#printTab').html(printPro)
             $("#transferInfo").html(htm);
             $("#declineInfo").html(dechtm);
             $("#passlineInfo").html(passhtm);
