@@ -187,6 +187,7 @@ namespace RailBiding.Controllers
             ViewBag.ContactAddress = dr["ContactAddress"].ToString();
             ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
+            ViewBag.Referre= dr["Referre"].ToString();
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -265,8 +266,12 @@ namespace RailBiding.Controllers
             else
             {
                 ViewBag.editbtn = "";
-
             }
+            dt = cc.GetCompanyReferee(id);
+            if (dt.Rows.Count > 0)
+                ViewBag.RefereFile = "<a href='" + dt.Rows[0]["FilePath"].ToString().Replace(rootPath, "/") + "', target='_blank'>" + dt.Rows[0]["FileName"].ToString() + "</a>";
+            else
+                ViewBag.RefereFile = "";
             return View();
         }
 

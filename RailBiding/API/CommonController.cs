@@ -331,5 +331,66 @@ namespace RailBiding.API
             string sql = "select count(1) from UserInfo where UserAccount='" + uact + "' and Status=1";
             return DBHelper.ExecuteScalar(sql).ToString();
         }
+        public string GetDrawbackStatus(string objid, string appid, string userid)
+        {
+            if (appid == "1")
+                appid = "1, 5";
+            string sql = "select * from vw_AppPLevel where AppProcId in ("+appid+") and ObjId ="+ objid + " and UserId="+ userid + " and Approved=2 ";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            if(dt.Rows.Count==0)
+                return "no";
+            sql = @"select * from vw_AppPLevel where AppProcId in ("+ appid + @") and ObjId =" + objid + @" and Approved=2 and level=(
+                            select MAX(level) from vw_AppPLevel where AppProcId in (" + appid + @") and ObjId =" + objid + @" and Level <(
+                                select max(level) from vw_AppPLevel where AppProcId in (" + appid + @") and ObjId =" + objid + @" and UserId="+ userid + " and Approved=2))";
+            dt = DBHelper.GetDataTable(sql);
+            if (dt.Rows.Count == 0)
+                return "yes";
+            else
+                return "no";
+        }
+
+        public void Drawback(string objid, string appid, string userid)
+        {
+            if (appid == "1")
+                appid = "1, 5";
+            string sql = @"update AppProcessing set Approved=1 where ObjId="+objid+" and AppProcId in ("+appid+") and DUGUID in (select guid from DepartmentUser where UserId="+userid+")";
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public string GetDrawbackStatus_submiter(string objid, string appid)
+        {
+            if (appid == "1")
+                appid = "1, 5";
+            string sql = "select * from AppProcessing where AppProcId in (" + appid + ") and ObjId =" + objid + " and Approved=2 ";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            if (dt.Rows.Count == 0)
+                return "yes";
+            else
+                return "no";
+        }
+        public void Drawback_submiter(string objid, string appid)
+        {
+            string sql = "";
+            switch (appid)
+            {
+                case "1":
+                    sql = "update Company set AuditStatus=0 where ID=" + objid;
+                    break;
+                case "2":
+                    sql = "update BidingFile set Status=0 where ProjId="+objid;
+                    break;
+                case "3":
+                    sql = "update Bid set Status=0 where ProjId=" + objid;
+                    break;
+                case "4":
+                    sql = "update MakeBidingFile set Status=0 where ProjId=" + objid;
+                    break;
+            }
+            DBHelper.ExecuteNonQuery(sql);
+            if (appid == "1")
+                appid = "1, 5";
+            sql = @"delete AppProcessing where ObjId=" + objid + " and AppProcId in (" + appid + ")";
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }

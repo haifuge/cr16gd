@@ -72,7 +72,7 @@ namespace DAL.Models
                             select distinct a.ObjId, a.Approved 
                             from vw_AppPLevel a 
                             inner join (select MAX(level) as level,AppProcId, ObjId 
-			                            from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
+			                            from vw_AppPLevel where AppProcId=1 and Approved="+ctype+@" group by ObjId, AppProcId
                         ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                         where a.UserId=" + userId + @") a on c.ID=a.ObjId
                         left join CompanyType bt on bt.id=c.BusinessType
@@ -83,7 +83,7 @@ namespace DAL.Models
                         from Company c inner join vw_AppPLevel a on c.ID=a.ObjId
                         left join CompanyType bt on bt.id=c.BusinessType
                         where " + where + " a.UserId=" + userId + @" and (a.Approved=3 or a.AppProcId=5) and c.AuditStatus=1) a 
-                        where a.Name like '%" + cname + "%'  and a.Approved=1  order by a.id desc";
+                        where a.Name like '%" + cname + "%'  and a.Approved=" + ctype + @"  order by a.id desc";
             }
             else
             {

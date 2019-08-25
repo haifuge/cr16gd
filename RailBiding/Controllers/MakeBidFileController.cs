@@ -57,7 +57,7 @@ namespace RailBiding.Controllers
                     {
                         secondprice = string.Format(@"<p> 二次报价：<span class='colblue'>" + row["SecondPrice"].ToString()+"万元</span></p>");
                     }
-                    joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
+                    joinCompanys += string.Format(@"<li><p class='f16'><a href='/Companys/Details?id="+row["CompanyId"].ToString()+@"' target='_blank'>{0}</a></p>
                                 <p>投标报价：<span class='colblue'>{1}万元</span></p>
                                 {2}
                                 <p>资质等级：{3}</p>
@@ -67,7 +67,7 @@ namespace RailBiding.Controllers
                 }
                 if (row["Win"].ToString() == "1")
                 {
-                    winCompanys += string.Format(@"<li><h3>{0}</h3><p>{1}</p></li>", row["Name"].ToString(), row["Comment"].ToString());
+                    winCompanys += string.Format(@"<li><h3><a href='/Companys/Details?id=" + row["CompanyId"].ToString() + @"' target='_blank'>{0}</a></h3><p>{1}</p></li>", row["Name"].ToString(), row["Comment"].ToString());
                 }
             }
             ViewBag.JoinCompany = joinCompanys;
@@ -129,7 +129,7 @@ namespace RailBiding.Controllers
                     {
                         secondprice = string.Format(@"<p> 二次报价：<span class='colblue'>" + row["SecondPrice"].ToString() + "万元</span></p>");
                     }
-                    joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
+                    joinCompanys += string.Format(@"<li><p class='f16'><a href='/Companys/Details?id=" + row["CompanyId"].ToString() + @"' target='_blank'>{0}</a></p>
                                 <p>投标报价：<span class='colblue'>{1}万元</span></p>
                                 {2}
                                 <p>资质等级：{3}</p>
@@ -139,7 +139,7 @@ namespace RailBiding.Controllers
                 }
                 if(row["Win"].ToString()=="1")
                 {
-                    winCompanys += string.Format(@"<li><h3>{0}</h3><p>{1}</p></li>", row["Name"].ToString(), row["Comment"].ToString());
+                    winCompanys += string.Format(@"<li><h3><a href='/Companys/Details?id=" + row["CompanyId"].ToString() + @"' target='_blank'>{0}</a></h3><p>{1}</p></li>", row["Name"].ToString(), row["Comment"].ToString());
                 }
             }
             ViewBag.JoinCompany = joinCompanys;

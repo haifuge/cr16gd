@@ -239,6 +239,9 @@
         <div class="main-top">
             <span class="js-page-name">招标详情</span>
             <div class="apply-opt">
+                <a href="javascript:;" class="js-cancle-meet chehui" title="撤回" onclick="drawback()" hidden>
+                    <i class="meet-icon icon-cancel">撤回</i>
+                </a>
                 <a href="javascript:;" class="js-cancle-meet xgsj" title="修改时间" onclick="updateDate()">
                     <i class="meet-icon icon-cancel">修改时间</i>
                 </a>
@@ -299,7 +302,7 @@
                         </div>
                         <table class="meet-table text-left">
                             <thead>
-                                <tr style="background-color:#40cbe16b;line-height: 36px;">
+                                <tr style="background-color:#40cbe1;line-height: 36px;">
                                     <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="" name="addcompanybiding" type="checkbox" value="" id="all-check" /></th>
                                     <th style="width:250px;padding:0 5px;font-weight:800;text-align:center">劳务承分包企业名称</th>
                                     <th style="width:150px;padding:0 5px;font-weight:800;text-align:center">企业类型</th>
@@ -339,7 +342,7 @@
                         <br />
                         <table class="meet-table text-left">
                             <thead>
-                                <tr style="background-color:#40cbe16b;line-height: 36px;">
+                                <tr style="background-color:#40cbe1;line-height: 36px;">
                                     <th style="width:10px;padding:0 0 0 20px;font-weight:800;text-align:center"><input class="" name="addcompanybiding" type="checkbox" value="" id="invall-check" /></th>
                                     <th style="width:250px;padding:0 5px;font-weight:800;text-align:center">劳务承分包企业名称</th>
                                     <th style="width:120px;padding:0 5px;font-weight:800;text-align:center">短信接收人</th>
@@ -500,6 +503,19 @@
     }
     else {
         $(".xgsj").hide();
+    }
+    $.post('/Common/GetDrawbackStatus', { objid: @ViewBag.pid, appid: 3, userid: @ViewBag.UserId }, function (res) {
+        if (res == "yes")
+            $(".chehui").show();
+        else
+            $(".chehui").hide();
+    });
+    function drawback() {
+        $.post('/Common/Drawback', { objid: @ViewBag.pid, appid: 3, userid: @ViewBag.UserId }, function (res) {
+            url = window.location.href;
+            url = url.substr(0, url.length - 1) + "1"
+            window.location.assign(url)
+        });
     }
 
     $("#updateDateDiv").hide();
