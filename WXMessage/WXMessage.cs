@@ -8,5 +8,9 @@ namespace WXMessage
 {
     public class WXMessage
     {
+        public void SendMessage()
+        {
+            //AccessTokenHelper.AccessToken;
+        }
     }
 }

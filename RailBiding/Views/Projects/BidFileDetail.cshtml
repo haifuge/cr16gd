@@ -186,9 +186,9 @@
 
             <span class="js-page-name">招标文件详情</span>
             <div class="apply-opt">
-                @*<a href="javascript:;" class="js-cancle-meet" title="驳回">
-            <i class="meet-icon icon-cancel icon-bh">驳回</i>
-        </a>*@
+                <a href="javascript:;" class="js-cancle-meet chehui" title="撤回" onclick="drawback()" hidden>
+                    <i class="meet-icon icon-cancel">撤回</i>
+                </a>
                 <a href='javascript:;' class='js-cancle-meet shanchu' title='删除' onclick="deleteApplication()" hidden>
                     <i class='meet-icon icon-cancel icon-sc' style="background-color:#ff0000">删除</i>
                 </a>
@@ -333,6 +333,17 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
 <script type="text/javascript">
+    $.post('/Common/GetDrawbackStatus_submiter', { objid: @ViewBag.pid, appid: 2 }, function (res) {
+            if (res == "yes")
+                $(".chehui").show();
+            else
+                $(".chehui").hide();
+        });
+        function drawback() {
+            $.post('/Common/Drawback_submiter', { objid: @ViewBag.pid, appid: 2 }, function (res) {
+                window.location.assign('/Projects/Detail?pid=@ViewBag.pid')
+            });
+        }
     function printDiv() {
         $('#procs').show();
         var printData = document.getElementById("printArea").innerHTML;

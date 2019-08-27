@@ -54,6 +54,8 @@ namespace DAL.Models
 
         public string GetMyAudit(string userId, string pageSize, string pageIndex, string cname, string ctype, string roleid)
         {
+            if (ctype == "")
+                ctype = "1";
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps;
@@ -72,7 +74,7 @@ namespace DAL.Models
                             select distinct a.ObjId, a.Approved 
                             from vw_AppPLevel a 
                             inner join (select MAX(level) as level,AppProcId, ObjId 
-			                            from vw_AppPLevel where AppProcId=1 and Approved="+ctype+@" group by ObjId, AppProcId
+			                            from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
                         ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
                         where a.UserId=" + userId + @") a on c.ID=a.ObjId
                         left join CompanyType bt on bt.id=c.BusinessType

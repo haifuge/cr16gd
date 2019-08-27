@@ -116,7 +116,7 @@ namespace RailBiding.Controllers
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         var cid = "company" + dt.Rows[i]["id"].ToString();
-                        cHtml.Append("<span id='" + cid + "'>" + dt.Rows[i]["Name"].ToString() + string.Format(removebtn, cid) + "</span>");
+                        cHtml.Append("<span id='" + cid + "'><a href='/Companys/Details?id="+ dt.Rows[i]["id"].ToString()+"' target='_blank'>" + dt.Rows[i]["Name"].ToString() + string.Format(removebtn, cid) + "</a></span>");
                     }
                     cHtml.Append(@"</div></div></td></tr>");
                     ViewBag.inviteJoinCompanys = cHtml.ToString();
