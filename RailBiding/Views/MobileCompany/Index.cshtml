@@ -244,7 +244,7 @@
       }
 
     var apstatus = getQueryString('approved');
-    if (apstatus == "2" || apstatus == "3" || apstatus == "4") {
+        if (apstatus == "2" || apstatus == "3" || apstatus == "4" || apstatus == "5") {
         $(".row.btn-row").hide();
     }
     $.get("/Common/GetApproveProcessingInfo", { oid: @ViewBag.cid, apid: @ViewBag.apid}, function (data) {
@@ -395,7 +395,7 @@
     })
 
         function winHistory(){
-            window.location.href = "/MobileList?type=1";
+            window.location.href = "/MobileList?type=1&pid=" + getQueryString('pid');
         }
         function logout() {
             if (confirm("要确定系统么？")) {

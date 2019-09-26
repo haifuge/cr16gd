@@ -75,7 +75,7 @@
             </header>
             <div class="content native-scroll con1 tbq" style="padding-bottom: 3rem;">
                 <div class="buttons-tab meetp-buttons-tab meetp-buttons-tab2 tb2 shxt u-buttons-tab-list">
-                    <a href="#tab0" class="tab-link button button2" id="type1">企业审批</a>
+                    <a href="#tab0" class="tab-link button button2" id="type1">企业审批</a> @*onclick="getProjs()"*@
                     <a href="#tab2" class="tab-link button button2" id="type3">文件审批</a>
                     <a href="#tab1" class="tab-link button button2" id="type2">招标审批</a>
                     <a href="#tab3" class="tab-link button button2" id="type4">定标审批</a>
@@ -149,28 +149,30 @@
                 $("#tab3").siblings().removeClass("active");
             }
         })
-            function getQueryString(name) {
-                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-                var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
-                var context = "";
-                if (r != null)
-                    context = r[2];
-                reg = null;
-                r = null;
-                return context == null || context == "" || context == "undefined" ? "" : context;
-            }
-    </script>
-
-<script type="text/javascript">
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
+            var context = "";
+            if (r != null)
+                context = r[2];
+            reg = null;
+            r = null;
+            return context == null || context == "" || context == "undefined" ? "" : context;
+        }
     var cur_num = 1
     var clickpagenum = "" //所点击页码
     //当前所在页码
     var nowpage = 1;
-    var page_size = 10
+    var page_size = 100
     var pagenum = 12
     Paginator(nowpage, page_size)
-    function Paginator(page, ps) {
-        //企业审批
+        function Paginator(page, ps) {
+            var pid = getQueryString('pid')
+            //console.log(pid)
+            //if (pid == null||pid=='')
+            //    getProjs();
+            //else
+            //    getoutCompanys(pid)
         $.post("/Companys/GetMyAudit", { pageSize: ps, pageIndex: page, cname:"", ctype:"" }, function (data) {
             if (data == 'no session') {
                 location.href = "/MobileLogin";
@@ -178,7 +180,6 @@
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
-            console.log(obj)
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
                 var auditStatus = "";
@@ -232,7 +233,6 @@
                         '</a>' +
                     '</li>';
             }
-            console.log(htm)
             $("#tab0 div ul.ate2").html(htm);
         })
 
@@ -291,7 +291,6 @@
                           '</a>'+
                       '</li>';
             }
-            console.log(htm)
             $("#tab2 div ul.ate2").html(htm);
         });
 
@@ -416,10 +415,104 @@
             }
             $("#tab3 div ul.ate2").html(htm);
         })
-    }
-</script>
+        }
 
-<script>
+    function getProjs() {
+        //企业审批
+        $.post("/Companys/GetPtojects?", { pageSize: 100, pageIndex: 1, cname: '', ptype: '' }, function (data) {
+
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                htm += '<li class="onling">' +
+                    '<a href="#" onclick="getoutCompanys(' + o.id + ')" class="item-link item-content">' +
+                    ' <div class="item-inner">' +
+                    '<div class="item-title-row">' +
+                    '<div class="item-title">' + o.projname + '</div>' +
+                    '</div>' +
+                    '<div class="item-text">' + o.ctype + '</div>' +
+                    '<div class="item-text">' + o.deptname + '&nbsp;&nbsp;&nbsp;&nbsp;' + o.username + '</div>' +
+                    '<div class="item-text" style="float:left">' + o.datetime + '</div>' +
+                    '<div class="item-text deal-num" style="float:right; font-size:25px; color:red">' + o.cn +' </div>' +
+                    ' </div>' +
+                    '</a>' +
+                    '</li>';
+            }
+            $("#tab0 div ul.ate2").html(htm);
+        });
+        }
+
+    function getoutCompanys(pid) {
+        $.post("/Companys/GetProjCompanys?pid="+pid, { }, function (data) {
+            if (data == 'no session') {
+                location.href = "/Login";
+            }
+            var obj = JSON.parse(data);
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i];
+                var auditStatus = "";
+                var statusStyle = "";
+                console.log(o.approved)
+                switch (o.approved) {
+                    case 0:
+                        auditStatus = "未发布";
+                        statusStyle = "";
+                        break;
+                    case 1:
+                        auditStatus = "待处理";
+                        statusStyle = "button-fill";
+                        break;
+                    case 2:
+                        auditStatus = "已处理";
+                        statusStyle = "button-green";
+                        break;
+                    case 3:
+                        auditStatus = "被驳回";
+                        statusStyle = "button-red";
+                        break;
+                    case 4:
+                        //auditStatus = "被暂停";
+                        //statusStyle = "status-wcl status-bzt";
+                        auditStatus = "已通过";
+                        statusStyle = "button-green";
+                        break;
+                    case 5:
+                        //auditStatus = "被暂停";
+                        //statusStyle = "status-wcl status-bzt";
+                        auditStatus = "审核中";
+                        statusStyle = "button-wcl";
+                        break;
+                }
+                htm += '<li class="onling">' +
+                            '<a href="#" onclick="gotoMobileCompany('+o.id+','+o.approved+','+pid+')" class="item-link item-content">' +
+                                ' <div class="item-inner">' +
+                                    '<div class="item-title-row">' +
+                                        '<div class="item-title">' + o.name + '</div>' +
+                                    '</div>' +
+                                    '<div class="item-text">' +
+                                        '资质等级：<span>' + o.qualificationlevel + '</span></span>' +
+                                    '</div>' +
+                                    '<div class="item-text">' +
+                                        '业务类型：<span>' + o.businesstype + '</span>注册资金：<span>' + o.registeredcapital + '万元</span>' +
+                                    '</div>' +
+                                    '<div class="item-text">' +
+                                        '法定代表：<span>' + o.corporaterepresentative + '</span>现场负责人：<span>' + o.contact + '</span>' +
+                                    '</div>' +
+                                    '<div class="item-text deal-num">' +
+                                        '<i class="feed-icon feed-xsicon "></i>' +
+                                        '<button href="#" class="button ' + statusStyle + ' button-end pull-right">' + auditStatus + '</button>' +
+                                ' </div>' +
+                            ' </div>' +
+                        '</a>' +
+                    '</li>';
+            }
+            console.log(htm)
+            $("#tab0 div ul.ate2").html(htm);
+        })
+    }
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
@@ -444,8 +537,8 @@
     }
 
     //进入企业审批详情页
-    function gotoMobileCompany(id,approved) {
-        window.location.href = '/MobileCompany?id=' + id + '&approved=' + approved ;
+    function gotoMobileCompany(id,approved, pid) {
+        window.location.href = '/MobileCompany?id=' + id + '&approved=' + approved +'&pid='+pid;
         gotoCompany()
     }
 
@@ -472,6 +565,6 @@
     function logindex() {
         window.location.href = "/MobileMain";
     }
-</script>
+    </script>
 
     

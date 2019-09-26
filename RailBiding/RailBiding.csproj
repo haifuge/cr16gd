@@ -630,6 +630,10 @@
     <Content Include="js\upload.js" />
     <Content Include="js\validate\jquery.validate.min.js" />
     <Content Include="js\validate\messages_zh.min.js" />
+    <Content Include="js\viewer\jquery.min.js" />
+    <Content Include="js\viewer\viewer-jquery.min.js" />
+    <Content Include="js\viewer\viewer.min.css" />
+    <Content Include="js\viewer\viewer.min.js" />
     <Content Include="js\WangEditor\wangEditor.css" />
     <Content Include="js\WangEditor\wangEditor.js" />
     <Content Include="js\WangEditor\wangEditor.min.css" />
@@ -804,6 +808,8 @@
     <Content Include="Views\MobileMakeBidFile\AuditAction.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Companys\MyAuditOut.cshtml" />
+    <Content Include="Views\Companys\OutCompanys.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

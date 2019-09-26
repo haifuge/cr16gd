@@ -2,12 +2,12 @@
 @{
     ViewBag.Title = "公司审批详情";
 }
-
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
-
+<link href="~/js/viewer/viewer.min.css" rel="stylesheet" />
 <style>
+
     .black_overlay {
         display: none;
         position: absolute;
@@ -55,27 +55,19 @@
         color: #008cd6;
     }
 
-    .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2){
-        color:#3e3a39;
+    .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2) {
+        color: #3e3a39;
     }
-
-
 </style>
-
 
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>劳务承分包企业</h1>
         <ul class="left-nav-list">
-            @*<li><a href='Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
-        <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-        <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
-        <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>*@
             @Html.Raw(ViewBag.SecondMenu)
         </ul>
     </div>
 </div>
-
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top top-bottom">
@@ -189,14 +181,14 @@
                                     </table>
                                 </td>
                             </tr>
+                            <tr class="form-tr detail-user-con gzyj">
+                                <td colspan="6">
+                                    <span style="color: #666;padding-right:5px;">推荐人：</span>@ViewBag.Referre
+                                    <span style="color: #666;padding-left:15px;">推荐书：</span>@Html.Raw(ViewBag.RefereFile)
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-                    <div style="margin-top: 30px;">
-                        <p>
-                            <span style="color: #666;padding-right:5px;">推荐人：</span>@ViewBag.Referre 
-                            <span style="color: #666;padding-left:15px;">推荐书：</span>@Html.Raw(ViewBag.RefereFile)
-                        </p>
-                    </div>
                 </div>
                 <div class="block-right block-right2">
                     <div class="right-block" style="margin-left:20px">
@@ -254,7 +246,6 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type='text/javascript' src="~/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
@@ -263,7 +254,28 @@
 <script src="~/js/wow.min.js"></script>
 <script type='text/javascript' src="~/js/js.js"></script>
 <script src="~/js/sweetalert2.all.js"></script>
+<script src="~/js/viewer/viewer.min.js"></script>
 <script>
+    function showPic(pic) {
+        var viewer = new Viewer(pic, {
+            navbar: false,
+            title: false,
+            keyboard: false,
+            toolbar: {
+                zoomIn: 0,
+                zoomOut: 0,
+                oneToOne: 0,
+                reset: 1,
+                prev: 0,
+                play: 0,
+                next: 0,
+                rotateLeft: 1,
+                rotateRight: 1,
+                flipHorizontal: 1,
+                flipVertical: 1,
+            }
+        });
+    }
     $.post('/Common/GetDrawbackStatus', { objid: @ViewBag.cid, appid: 1, userid: @ViewBag.UserId }, function (res) {
             if (res == "yes")
                 $(".chehui").show();
@@ -278,32 +290,37 @@
             });
         }
     function goback() {
-        window.location.href = "/Companys/MyAudit?cp=" + $.getUrlParam('cp');
+        var f = $.getUrlParam('outP')
+        var pid = $.getUrlParam('pid')
+        if (f != null)
+            window.location.href = "/Companys/OutCompanys?id=" + pid + "&cp=" + $.getUrlParam('cp');
+        else
+            window.location.href = "/Companys/MyAudit?cp=" + $.getUrlParam('cp');
     }
     //资质荣誉 图片放大
-    $(function () {
-        var abtab2_img = 1;
-        $("a[rel=group]").fancybox({
-            'titlePosition': 'over',
-            'cyclic': true,
-            'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
-                return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
-            },
-            onComplete: function () {
-                var w = $(window).width(),
-                    pc = w > 1200 ? 1 : 2;
-                if (abtab2_img && pc === 1) {
-                    abtab2_img = 0;
-                    $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
-                }
-                if (abtab2_img && pc === 2) {
-                    abtab2_img = 0;
-                    $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({'margin-left': -140}).fadeIn().delay(2000).fadeOut();
-                }
+    //$(function () {
+    //    var abtab2_img = 1;
+    //    $("a[rel=group]").fancybox({
+    //        'titlePosition': 'over',
+    //        'cyclic': true,
+    //        'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
+    //            return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
+    //        },
+    //        onComplete: function () {
+    //            var w = $(window).width(),
+    //                pc = w > 1200 ? 1 : 2;
+    //            if (abtab2_img && pc === 1) {
+    //                abtab2_img = 0;
+    //                $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
+    //            }
+    //            if (abtab2_img && pc === 2) {
+    //                abtab2_img = 0;
+    //                $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({'margin-left': -140}).fadeIn().delay(2000).fadeOut();
+    //            }
 
-            }
-        });
-    });
+    //        }
+    //    });
+    //});
     function getQueryString(name) {
              var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = window.location.search.substr(1).match(reg); //获取url中"?"符后的字符串并正则匹配
@@ -319,7 +336,7 @@
     $(function () {
 
         var apstatus = getQueryString('approved');
-        if(apstatus=="2"||apstatus=="3"||apstatus=="4"){
+        if (apstatus == "2" || apstatus == "3" || apstatus == "4" || apstatus == "5"){
             $(".deal-apply-btn.deal-apply-btn2").hide();
             $(".right-block").hide();
             $(".bohui").hide();
@@ -344,7 +361,7 @@
                     htm+='<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
                     continue;
                 }
-            
+
                 if(o.uid==cuid)
                     $("#feedback-area").val(o.comment);
                 if(o.pname == pdepart) {
@@ -506,25 +523,25 @@
 
 
 
-    </script>
-    <script>
-        //弹出隐藏层
-        function ShowDiv(show_div, bg_div) {
-            var scrollHeight = document.body.scrollHeight; //文档高度
-            document.getElementById(bg_div).style.height = scrollHeight + 'px';
+</script>
+<script>
+    //弹出隐藏层
+    function ShowDiv(show_div, bg_div) {
+        var scrollHeight = document.body.scrollHeight; //文档高度
+        document.getElementById(bg_div).style.height = scrollHeight + 'px';
 
-            document.getElementById(show_div).style.display = 'block';
-            document.getElementById(bg_div).style.display = 'block';
-        };
-        //关闭弹出层
-        function CloseDiv(show_div, bg_div) {
-            document.getElementById("label").value = '';
-            document.getElementById(show_div).style.display = 'none';
-            document.getElementById(bg_div).style.display = 'none';
-        };
-        //关闭弹出层
-        function CloseDiv2() {
-            document.getElementById("MyDiv").style.display = 'none';
-            document.getElementById("fade").style.display = 'none';
-        };
-    </script>
+        document.getElementById(show_div).style.display = 'block';
+        document.getElementById(bg_div).style.display = 'block';
+    };
+    //关闭弹出层
+    function CloseDiv(show_div, bg_div) {
+        document.getElementById("label").value = '';
+        document.getElementById(show_div).style.display = 'none';
+        document.getElementById(bg_div).style.display = 'none';
+    };
+    //关闭弹出层
+    function CloseDiv2() {
+        document.getElementById("MyDiv").style.display = 'none';
+        document.getElementById("fade").style.display = 'none';
+    };
+</script>

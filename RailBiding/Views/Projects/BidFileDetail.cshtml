@@ -333,17 +333,22 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script type="text/javascript" src="~/js/js.js"></script>
 <script type="text/javascript">
-    $.post('/Common/GetDrawbackStatus_submiter', { objid: @ViewBag.pid, appid: 2 }, function (res) {
+    var status = getQueryString('status');
+    if (status == "0")
+        $(".chehui").hide();
+    else {
+        $.post('/Common/GetDrawbackStatus_submiter', { objid: @ViewBag.pid, appid: 2 }, function (res) {
             if (res == "yes")
                 $(".chehui").show();
             else
                 $(".chehui").hide();
         });
-        function drawback() {
-            $.post('/Common/Drawback_submiter', { objid: @ViewBag.pid, appid: 2 }, function (res) {
-                window.location.assign('/Projects/Detail?pid=@ViewBag.pid')
-            });
-        }
+    }
+    function drawback() {
+        $.post('/Common/Drawback_submiter', { objid: @ViewBag.pid, appid: 2 }, function (res) {
+            window.location.assign('/Projects/Detail?pid=@ViewBag.pid')
+        });
+    }
     function printDiv() {
         $('#procs').show();
         var printData = document.getElementById("printArea").innerHTML;
@@ -377,14 +382,14 @@
                         '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
                         '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
                         '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">提交申请</span></td>' +
-                        '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
+                        '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                     continue;
                 }
                 printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
                     '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
                     '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
                     '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">同意</span></td>' +
-                    '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
+                    '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {
                         if(o.comment!=""){
@@ -457,7 +462,7 @@
         return context == null || context == "" || context == "undefined" ? "" : context;
     }
     $(function () {
-        var status = getQueryString('status');
+        
         if (status == "2" || @ViewBag.RoleId != 2) {
             $(".shanchu").hide();
         }

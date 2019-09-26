@@ -51,19 +51,38 @@
                     <tr class="form-tr">
                         <td class="form-lable">姓名：</td>
                         <td>
-                            <input id="uname" name="roomInfoName" type="text" value="" class="has-clear-input input input3"/>
+                            <input id="uname" name="roomInfoName" type="text" value="" class="has-clear-input input input3" />
                         </td>
                     </tr>
                     <tr class="form-tr">
                         <td class="form-lable">手机：</td>
                         <td>
-                            <input id="utelphone" name="roomInfoName" type="text" value="" class="has-clear-input input input3"/>
+                            <input id="utelphone" name="roomInfoName" type="text" value="" class="has-clear-input input input3" />
                         </td>
                     </tr>
                     <tr class="form-tr">
                         <td class="form-lable">邮箱：</td>
                         <td>
-                            <input id="uemail" name="roomInfoName" type="text" value="" class="has-clear-input input input3"/>
+                            <input id="uemail" name="roomInfoName" type="text" value="" class="has-clear-input input input3" />
+                        </td>
+                    </tr>
+                    <tr class="form-tr">
+                        <td class="form-lable">签名：</td>
+                        <td>
+                            <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadSig" enctype="multipart/form-data" style="cursor: pointer;">
+                                <input type="file" name="fileInput1" id="allfileInput1" value="" style="width:190px">
+                                <input type="text" id="sigCode" width="20" value="0" hidden />
+                                <span style="font-size:10px; margin:0px">签名文件大小190*60，jpg格式</span>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="form-lable">
+                            <div id="sigDiv">
+                                <img id="sigPic" style="width:190px; height:60px" />
+                            </div>
                         </td>
                     </tr>
                     <tr class="form-tr">
@@ -93,8 +112,20 @@
     <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
     <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
     <script type='text/javascript' src='~/js/js.js'></script>
+    <script src="~/Scripts/jquery.form.js"></script>
 
 <script>
+    $("#allfileInput1").change(function () {
+        var allfileInput1 = $("#allfileInput1").val();
+        if (allfileInput1 == "") { //点击取消，取消事件的编写
+            return;
+        }
+        $("#bfupform1").ajaxSubmit(function (res) {
+            console.log(res)
+            $("#sigCode").val(res);
+        });
+    })
+
     $.get("/SystemSetup/GetPersenalInfo", {}, function (data) {
         var obj = JSON.parse(data)[0];
         $("#dname").text(obj.departmentname);
@@ -102,6 +133,17 @@
         $("#uname").val(obj.username);
         $("#utelphone").val(obj.telphone);
         $("#uemail").val(obj.email);
+        $('#allfileInput1').val('');
+        console.log(obj.sigfile)
+        $("#sigCode").val(obj.sigfile)
+        if (obj.sigfile != '' && obj.sigfile != '' &&obj.sigfile.length>10) {
+            $('#sigDiv').show();
+            $('#sigPic').attr('src', '/sigs/' + obj.sigfile);
+        }
+        else {
+            $('#sigDiv').hide();
+            $('#sigPic').attr('src', '');
+        }
     })
     $(".js-submit").on("click", function () {
         var password1 = $("#psd1").val();
@@ -109,12 +151,16 @@
         var telephone = $("#utelphone").val();
         var email = $("#uemail").val();
         var acc = $("#useraccount").text();
-        var obj = { psd: password1, uname: userName, tel: telephone, em: email, account: acc}
+        var sigName = $('#allfileInput1').val();
+        sigName = sigName.substr(sigName.lastIndexOf('\\') + 1)
+        var sigFile = $('#sigCode').val();
+        var obj = { psd: password1, uname: userName, tel: telephone, em: email, account: acc, sn: sigName, sf: sigFile }
         $.post("/SystemSetup/UpdatePersonInfo", obj, function (res) {
             if (res = "1")
                 alert('修改成功')
             else
                 alert('修改失败')
+            location.reload();
         })
     })
 </script>

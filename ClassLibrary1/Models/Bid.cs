@@ -278,7 +278,8 @@ namespace DAL.Models
                             into #temp1 
                             from( select distinct p.Id*1 as Id, p.Name, p.Location, bf.Content, d.name+' '+ui.UserName as Publisher, Convert(varchar(20),b.PublishDate, 23) as PublishDate,
 	                                convert(varchar(20),b.ApplyDate,23) as ApplyDate, CONVERT(varchar(20), b.OpenDate ,23) as OpenDate, a.Approved as Status
-                                from project p inner join Bid b on p.Id=b.ProjId
+                                from project p 
+                                inner join Bid b on p.Id=b.ProjId and b.Status<>0
                                 inner join BidingFile bf on bf.ProjId=p.Id
                                 left join UserInfo ui on b.PublisherId=ui.ID
                                 left join DepartmentUser du on du.UserId=ui.ID and du.Status=1

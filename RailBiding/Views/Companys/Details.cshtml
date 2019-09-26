@@ -3,10 +3,12 @@
     ViewBag.Title = "名录内单位详情";
 }
 
+<link href="~/js/viewer/viewer.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link href="~/css/sweetalert2.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/css/style.css" />
 <link href="~/css/loading.css" rel="stylesheet" />
+<link href="~/js/viewer/viewer.min.css" rel="stylesheet" />
 <style>
     .form-tr:nth-child(1) td:nth-child(2), .form-tr:nth-child(2) td:nth-child(2) {
         color: #3e3a39;
@@ -16,10 +18,6 @@
     <div class="left-nav-con">
         <h1>劳务承分包企业</h1>
         <ul class="left-nav-list">
-            @*<li><a href='Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
-        <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-        <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
-        <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>*@
             @Html.Raw(ViewBag.SecondMenu)
         </ul>
     </div>
@@ -143,46 +141,54 @@
 <script type='text/javascript' src='~/js/js.js'></script>
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script src="~/js/wow.min.js"></script>
+<script src="~/js/viewer/viewer.min.js"></script>
 <script>
-    @*$.post('/Common/GetDrawbackStatus', { objid: @ViewBag.cid, appid: 1, userid: @ViewBag.UserId }, function (res) {
-        if (res == "yes")
-            $(".chehui").show();
-        else
-            $(".chehui").hide();
-    });
-    function drawback() {
-        $.post('/Common/Drawback', { objid: @ViewBag.cid, appid: 1, userid: @ViewBag.UserId }, function (res) {
-            url = window.location.href;
-            url = url.substr(0, url.length - 1) + "1"
-            window.location.assign(url)
-        });
-    }*@
-    //资质荣誉 图片放大
-    $(function () {
-        var abtab2_img = 1;
-        $("a[rel=group]").fancybox({
-            'titlePosition': 'over',
-            'scrolling': 'yes',
-            'centerOnScroll': true,
-            'cyclic': true,
-            'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
-                return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
-            },
-            onComplete: function () {
-                var w = $(window).width(),
-                    pc = w > 1200 ? 1 : 2;
-                if (abtab2_img && pc === 1) {
-                    abtab2_img = 0;
-                    $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
-                }
-                if (abtab2_img && pc === 2) {
-                    abtab2_img = 0;
-                    $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({ 'margin-left': -140 }).fadeIn().delay(2000).fadeOut();
-                }
-
+    function showPic(pic) {
+        var viewer = new Viewer(pic, {
+            navbar: false,
+            title: false,
+            keyboard: false,
+            toolbar: {
+                zoomIn: 0,
+                zoomOut: 0,
+                oneToOne: 0,
+                reset: 1,
+                prev: 0,
+                play: 0,
+                next: 0,
+                rotateLeft: 1,
+                rotateRight: 1,
+                flipHorizontal: 1,
+                flipVertical: 1,
             }
         });
-    });
+    }
+    //资质荣誉 图片放大
+    //$(function () {
+    //    var abtab2_img = 1;
+    //    $("a[rel=group]").fancybox({
+    //        'titlePosition': 'over',
+    //        'scrolling': 'yes',
+    //        'centerOnScroll': true,
+    //        'cyclic': true,
+    //        'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
+    //            return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
+    //        },
+    //        onComplete: function () {
+    //            var w = $(window).width(),
+    //                pc = w > 1200 ? 1 : 2;
+    //            if (abtab2_img && pc === 1) {
+    //                abtab2_img = 0;
+    //                $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
+    //            }
+    //            if (abtab2_img && pc === 2) {
+    //                abtab2_img = 0;
+    //                $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({ 'margin-left': -140 }).fadeIn().delay(2000).fadeOut();
+    //            }
+
+    //        }
+    //    });
+    //});
     function goback() {
         window.location.href = "/Companys?cp=" + $.getUrlParam('cp') + "&ct=" + $.getUrlParam('ct');
     }
@@ -214,7 +220,7 @@
         var oldstr = document.body.innerHTML;
         document.body.innerHTML = printData;
         window.print();
-        document.body.innerHTML = oldstr;   //保持原页面格式   
+        document.body.innerHTML = oldstr;   //保持原页面格式
     }
 
 </script>

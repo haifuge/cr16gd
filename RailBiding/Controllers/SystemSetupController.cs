@@ -243,8 +243,10 @@ namespace RailBiding.Controllers
             string email = Request["em"].ToString();
             string account = Request["account"].ToString();
             string roleid = Request["roleid"].ToString();
+            string sname = Request["sn"].ToString();
+            string sfile = Request["sf"].ToString();
             SystemSetup ss = new SystemSetup();
-            return ss.UpdateUserInfo(account, uname, psd, tel, email, roleid);
+            return ss.UpdatePersonInfo(account, uname, psd, tel, email, roleid, sname, sfile);
         }
         public string CreateUser()
         {

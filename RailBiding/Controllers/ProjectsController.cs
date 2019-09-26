@@ -152,7 +152,12 @@ namespace RailBiding.Controllers
                     ViewBag.MBFitem = getMakeBidItem(pid);
                     break;
             }
-
+            if(Session["RoleId"].ToString()=="3")
+            {
+                ViewBag.DelButton = "";
+                ViewBag.Button = "";
+                ViewBag.EditProject = "";
+            }
             return View();
         }
 
@@ -600,7 +605,7 @@ namespace RailBiding.Controllers
 
 
             ViewBag.moretime = "";
-            if (Request["status"].ToString() == "3")
+            if (Request["status"].ToString() == "3"|| Request["status"].ToString() == "0")
             {
                 if ("4" == Session["RoleId"].ToString())
                 {
@@ -611,7 +616,7 @@ namespace RailBiding.Controllers
                 }
              }
 
-            if (Request["status"].ToString() == "2")
+            if (Request["status"].ToString() == "2"|| Request["status"].ToString() == "1")
             {
                 //单位反馈
                 dt = bc.GetBidingCompanys(pid);
@@ -716,7 +721,7 @@ namespace RailBiding.Controllers
             fujian += "</ul></div>";
             ViewBag.Fujian = fujian;
             ViewBag.moretime = "";
-            if (Request["status"].ToString() == "3")
+            if (Request["status"].ToString() == "3"|| Request["status"].ToString()=="0")
             {
                 if ("4" == Session["RoleId"].ToString())
                 {
@@ -780,7 +785,7 @@ namespace RailBiding.Controllers
             ViewBag.JoinCompany = joinCompanys;
             ViewBag.WinCompany = winCompanys;
             ViewBag.moretime = "";
-            if (Request["status"].ToString() == "3")
+            if (Request["status"].ToString() == "3"|| Request["status"].ToString() == "0")
             {
                 if ("4" == Session["RoleId"].ToString())
                 {

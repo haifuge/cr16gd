@@ -309,6 +309,9 @@
                                             id="bType"></select>
 
                                 </div>
+                                <div class="form-item  sel-required" id="projDiv">
+                                    <span class="td-cer">所属项目：</span><select class="select radius-sel dropdown" id="projs" />
+                                </div>
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -581,7 +584,22 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
-    function businessScope(){
+    var io = $.getUrlParam('inout')
+    if (io == "0")
+        $("#projDiv").show();
+    else
+        $("#projDiv").hide();
+    $.post("/Companys/GetProjs", {}, function (res) {
+        var obj = JSON.parse(res);
+        var ps = $("#projs");
+        ps.append("<option value='0'></option>");
+        for (var i = 0; i < obj.length; i++) {
+            var o = obj[i]
+            ps.append("<option value='" + o.id + "'>" + o.name + "</option>")
+        }
+    })
+    function businessScope() {
+
         if($("#businessScope").val()!=""){
             $("#businessScope").css('border','1px solid green');
         }else{
@@ -1077,9 +1095,10 @@
         var rsfz = document.getElementById("repSFZ").value
         var ctsfz = document.getElementById("conSFZ").value
         var tdfilename = $("#tworkhistory tr td:last-child").html();
+        var projid = $("#projs").val()
         
         var data = {
-            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt, status: 1
+            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt, status: 1, pi:projid
         }
 
 

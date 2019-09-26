@@ -62,7 +62,7 @@ namespace DAL.Models
                             select distinct p.Id*1 as Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, a.Approved as Status
                             from project p inner join Bid b on p.Id=b.ProjId
-                            inner join MakeBidingFile mb on mb.ProjId=p.Id
+                            inner join MakeBidingFile mb on mb.ProjId=p.Id and mb.Status<>0
                             left join UserInfo ui on b.PublisherId=ui.ID
                             left join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                             left join Department d on du.DepartmentId=d.ID

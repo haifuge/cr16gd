@@ -208,6 +208,9 @@
         <div class="main-top">
             <span class="js-page-name">招标详情</span>
             <div class="apply-opt">
+                <a href="javascript:;" class="js-cancle-meet chehui" title="撤回" onclick="drawback()" hidden>
+                    <i class="meet-icon icon-cancel">撤回</i>
+                </a>
                 @Html.Raw(ViewBag.moretime)
                 <a href='#' class='js-cancle-meet' title='导出' id="exportbtn" onclick="printDiv()" hidden>
                     <i class='meet-icon icon-cancel icon-dc'>导出</i>
@@ -355,6 +358,23 @@
 <script src="~/js/sweetalert2.all.js"></script>
 
 <script>
+        var status = getQueryString('status');
+    if (status == "0")
+        $(".chehui").hide();
+    else {
+        $.post('/Common/GetDrawbackStatus_submiter', { objid: @ViewBag.pid, appid: 3 }, function (res) {
+            if (res == "yes")
+                $(".chehui").show();
+            else
+                $(".chehui").hide();
+        });
+    }
+    function drawback() {
+        $.post('/Common/Drawback_submiter', { objid: @ViewBag.pid, appid: 3 }, function (res) {
+            window.location.assign('/Projects/Detail?pid=@ViewBag.pid')
+        });
+    }
+
     function printDiv() {
         $('#procs').show();
         $('#print-tr1').show();
@@ -460,14 +480,14 @@
                     '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
                     '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
                     '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">提交申请</span></td>' +
-                    '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
+                    '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                 continue;
             }
             printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
                 '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
                 '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
                 '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">同意</span></td>' +
-                '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
+                '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
             if (o.pname == pdepart) {
                 if (o.approved == 2) {
                     if(o.comment!=""){

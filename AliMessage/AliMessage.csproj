@@ -42,6 +42,10 @@
     <Reference Include="Aliyun.MNS">
       <HintPath>bin\Aliyun.MNS.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,6 +58,10 @@
   <ItemGroup>
     <Compile Include="SendMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TXMessage\SmsMultiSender.cs" />
+    <Compile Include="TXMessage\SmsSenderUtil.cs" />
+    <Compile Include="TXMessage\SmsSingleSender.cs" />
+    <Compile Include="TXMessage\SmsSingleSenderResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

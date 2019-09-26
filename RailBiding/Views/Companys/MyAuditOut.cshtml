@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "名录外审批";
+}
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/loading.css" rel="stylesheet" />
+<style>
+    .meet-select {
+        width: 150px;
+        padding-right: 10px;
+        background: url(../img/icon-arrow.png) no-repeat right center;
+    }
+</style>
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>劳务承分包企业</h1>
+        <ul class="left-nav-list">
+            @Html.Raw(ViewBag.SecondMenu)
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <a class="meet-btn blue-btn sm-btn" href="javascript:;" onclick="allcompany()">全部</a>
+            <select class="meet-select js-meet-state" style="width:180px" id="bType"></select>
+            <div class="search-con2">
+                <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
+                <a class="search-btn"><i class="search-icon meet-icon"></i></a>
+            </div>
+        </div>
+        <div class="wc-container">
+            <table class="meet-table text-left">
+                <thead class="wc-header">
+                    <tr>
+                        <td style="width:200px;padding:0px 5px">项目名称</td>
+                        <td style="width:240px;padding:0px 5px">业务类型</td>
+                        <td style="width:100px;padding:0px 5px">提交单位</td>
+                        <td style="width:130px;padding:0px 5px">提交人</td>
+                        <td style="width:100px;padding:0px 5px">推荐数量</td>
+                        <td style="width:100px;padding:0px 5px">提交时间</td>
+                    </tr>
+                </thead>
+                <tbody id="tbCompany"></tbody>
+            </table>
+            <div class="page">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script src="~/js/sweetalert2.all.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
+<script src="~/js/jquery.cookie.js"></script>
+
+<script type='text/javascript'>
+    //分页点击
+    var cur_num = 1
+    var clickpagenum = "" //所点击页码
+    //当前所在页码
+    var nowpage = $.getUrlParam('cp');
+    if (!nowpage)
+        nowpage = 1;
+    else
+        nowpage = parseInt(nowpage);
+    var type = $.getUrlParam('ct');
+    if (!type)
+        type = '';
+    else
+        $("#bType").val(type)
+    var page_size = 10
+    var pagenum = 12
+    Paginator(1, 10, '','')
+    $.get("/Common/GetCompanyType", function (data) {
+        var obj = JSON.parse(data);
+        var btype = $("#bType");
+        btype.append("<option value='All'>业务类型</option>");
+        for (var i = 0; i < obj.length; i++) {
+            var o = obj[i]
+            btype.append("<option value='" + o.id + "'>" + o.name + "</option>")
+        }
+        if (type != '') {
+            $("#bType").val(type)
+        }
+    });
+
+    //下拉菜单
+    $("#bType").change(function () {
+        if ($("#bType").val() == "All") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        SearchCompanyName = $("#searchinput").val();
+        nowpage = 1;
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+    })
+
+    //全部按钮
+    function allcompany() {
+        $("#searchinput").val("");
+        $("#bType").val("All")
+        Paginator(nowpage, page_size, '', '')
+    }
+
+    //点击搜索按钮
+    $(".search-btn").on("click", function () {
+        SearchCompanyName = $("#searchinput").val();
+        if ($("#bType").val() == "All") {
+            type = "";
+        } else {
+            type = $("#bType").val();
+        }
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+    });
+
+    function Paginator(page, ps, sname, tp) {
+
+        sname = $("#searchinput").val();
+
+        $.post("/Companys/GetPtojects?", { pageSize: ps, pageIndex: page, cname: sname, ptype: tp}, function (data) {
+
+            var jsonData = JSON.parse(data);
+            var obj = jsonData.List;
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                htm += "<tr class='white-bg'>" +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanys?cp=' + nowpage + '&id=' + o.id + '\';\">' + o.projname + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanys?cp=' + nowpage + '&id=' + o.id + '\';\">' + o.ctype + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanys?cp=' + nowpage + '&id=' + o.id + '\';\">' + o.deptname + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanys?cp=' + nowpage + '&id=' + o.id + '\';\">' + o.username + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanys?cp=' + nowpage + '&id=' + o.id + '\';\">' + o.cn + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanys?cp=' + nowpage + '&id=' + o.id + '\';\">' + o.datetime + '</td>'
+                '</tr > ';
+            }
+
+            $("#tbCompany").html(htm)
+            pages(page, jsonData.PageCount, jsonData.total, ps)
+        });
+    };
+</script>

@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "名录外企业";
+}
+
+
+
+<link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
+<link href="~/css/sweetalert2.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/style.css" />
+<link href="~/css/loading.css" rel="stylesheet" />
+<style>
+    .meet-select {
+        width: 150px;
+        padding-right: 10px;
+        background: url(../img/icon-arrow.png) no-repeat right center;
+    }
+</style>
+<div class="left-nav">
+    <div class="left-nav-con">
+        <h1>劳务承分包企业</h1>
+        <ul class="left-nav-list">
+            @Html.Raw(ViewBag.SecondMenu)
+        </ul>
+    </div>
+</div>
+
+<div class="main-con">
+    <div class="main-wrap">
+        <div class="main-top">
+            <span style="font-size:24px; color:dimgray; margin-left:10px">@ViewBag.ProjectName</span>
+            <div class="apply-opt">
+                <a href='#' class='js-cancle-meet' title='导出' id="exportbtn" onclick="printArea()">
+                    <i class='meet-icon icon-cancel icon-dc'>导出</i>
+                </a>
+                <a href='#' class='js-cancle-meet' style="margin-right:7px" onclick="goback()" title='返回'>
+                    <i class='meet-icon icon-del icon-tb'>返回</i>
+                </a>
+            </div>
+        </div>
+        <div class="wc-container" id="printArea">
+            <span id="ptitle" style="font-size:24px; color:dimgray; margin-left:10px" hidden>@ViewBag.ProjectName</span>
+            <table class="meet-table text-left meet-table2">
+                <thead class="wc-header">
+                    <tr>
+                        <td style="width:200px;padding:0px 5px">劳务承包企业名称</td>
+                        <td style="width:240px;padding:0px 5px">资质等级</td>
+                        <td style="width:100px;padding:0px 5px">注册资本</td>
+                        <td style="width:100px;padding:0px 5px">业务类型</td>
+                        <td style="width:80px;padding:0px 5px">法人代表</td>
+                        <td style="width:80px;padding:0px 5px">现场负责人</td>
+                        <td style="width:100px;padding:0px 5px">审核时间</td>
+                        <td style="width:80px;padding:0px 5px">状态</td>
+                    </tr>
+                </thead>
+                <tbody id="tCompanys"></tbody>
+            </table>
+            <div class="page">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
+<script type='text/javascript' src='~/js/jquery-ui.min.js'></script>
+<script src="~/js/sweetalert2.all.js"></script>
+<script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
+<script type='text/javascript' src='~/js/js.js'></script>
+<script type="text/javascript" src="~/js/loading.js"></script>
+<script src="~/js/jquery.cookie.js"></script>
+
+<script type='text/javascript'>
+    Paginator();
+    function goback() {
+        window.location.href = "/Companys/MyAuditOut?cp=" + $.getUrlParam('cp');
+    }
+
+    function Paginator() {
+        $.post("/Companys/GetProjCompanys", { pid:@ViewBag.pid }, function (data) {
+            if (data == 'no session') {
+                location.href = "/Login";
+            }
+            console.log(data)
+            var obj = JSON.parse(data);
+            var htm = "";
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                var auditStatus = "";
+                var statusStyle = "";
+                switch (o.approved) {
+                    case 0:
+                        auditStatus = "未提交";
+                        statusStyle = "status-wcl status-wfb";
+                        break;
+                    case 1:
+                        auditStatus = "待处理";
+                        statusStyle = "status-wcl status-shz";
+                        break;
+                    case 2:
+                        auditStatus = "已通过";
+                        statusStyle = "status-wcl status-ytg";
+                        break;
+                    case 3:
+                        auditStatus = "被驳回";
+                        statusStyle = "status-wcl status-bbh";
+                        break;
+                    case 4:
+                        auditStatus = "被暂停";
+                        statusStyle = "status-wcl status-bzt";
+                        break;
+                    case 5:
+                        auditStatus = "审核中";
+                        statusStyle = "status-wcl";
+                        break;
+                }
+                if (o.auditstatus == 0) {
+                    auditStatus = "未提交";
+                    statusStyle = "status-wcl status-wfb";
+                    htm += '<tr class="white-bg" onclick="location.href=\'/Companys/Details?id=' + o.id + '\';">'
+                }
+                else {
+                    htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?outP=1&pid=@ViewBag.pid&id=' + o.id + '&approved=' + o.approved + '\';">'
+                }
+                htm += '<td>' + o.name + '</td>' +
+                    '<td>' + o.qualificationlevel + '</td>' +
+                    '<td>' + o.registeredcapital + '万元</td>' +
+                    '<td>' + o.businesstype + '</td>' +
+                    '<td>' + o.corporaterepresentative + '</td>' +
+                    '<td>' + o.contact + '</td>' +
+                    '<td class="gray-word gray-time">' + o.auditdate + '</td>' +
+                    '<td class="gray-word "><i class="' + statusStyle + '">' + auditStatus + '</i></td>' +
+                    '</tr>';
+            }
+            $("#tCompanys").html(htm);
+        })
+    };
+
+    function printArea(){
+        $("#ptitle").show()
+        var printData = document.getElementById("printArea").innerHTML;
+        var oldstr = document.body.innerHTML;
+        document.body.innerHTML = printData;
+        window.print();
+        document.body.innerHTML = oldstr;   //保持原页面格式   
+        $("#ptitle").hide()
+    }
+</script>

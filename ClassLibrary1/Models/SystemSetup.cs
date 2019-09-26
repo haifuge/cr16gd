@@ -86,7 +86,7 @@ namespace DAL.Models
 
         public DataTable GetPersenalInfo(string uid)
         {
-            string sql = @"select ui.ID, ui.UserAccount, ui.UserName, ui.Telphone, ui.Email, d.Name as DepartmentName
+            string sql = @"select ui.ID, ui.UserAccount, ui.UserName, ui.Telphone, ui.Email, d.Name as DepartmentName, ui.sigFile, ui.sigName
                            from UserInfo ui 
                            left join DepartmentUser du on ui.ID=du.UserId and du.Status=1
                            left join Department d on du.DepartmentId = d.ID where ui.ID =" + uid;
@@ -119,7 +119,7 @@ namespace DAL.Models
             DataTable dt = DBHelper.GetDataTable(sql);
             if (dt.Rows.Count > 0)
                 return "该用户已存在！";
-            sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,"+ roleid + "); ";
+            sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,"+ roleid + ",null, null); ";
             sql += @"declare @uid int
                      select @uid=max(id) from UserInfo
                      insert into DepartmentUser values(NEWID(), "+did+", @uid, 1, 1)";
@@ -197,17 +197,17 @@ namespace DAL.Models
             return JsonHelper.DataTableToJSON(dt);
         }
 
-        public string UpdateUserInfo(string account, string uname, string psd, string tel, string email, string roleid)
+        public string UpdatePersonInfo(string account, string uname, string psd, string tel, string email, string roleid, string sname, string sfile)
         {
             string sql;
             if (psd != "")
             {
                 psd = EncryptHelper.Encrypt(psd, "IamKey12");
-                sql = "update UserInfo set UserName=N'" + uname + "', Password='" + psd + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where UserAccount='" + account + "'";
+                sql = "update UserInfo set UserName=N'" + uname + "', Password='" + psd + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + ", sigName=N'"+sname+"', sigFile=N'"+sfile+"' where UserAccount='" + account + "'";
             }
             else
             {
-                sql = "update UserInfo set UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + " where UserAccount='" + account + "'";
+                sql = "update UserInfo set UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + ", sigName=N'" + sname + "', sigFile=N'" + sfile + "' where UserAccount='" + account + "'";
             }
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)

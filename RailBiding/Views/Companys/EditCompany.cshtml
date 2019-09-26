@@ -270,10 +270,6 @@
     <div class="left-nav-con">
         <h1>劳务承分包企业</h1>
         <ul class="left-nav-list">
-            @*<li><a href='Companys' class='active'><i class='icon icon-eye'></i>名录内单位</a></li>
-                <li><a href='/Companys/CompanysOut'><i class='icon icon-hand'></i>名录外单位</a></li>
-                <li><a href='/Companys/MyAudit'><i class='icon icon-edit'></i>我审核的</a></li>
-                <li><a href='/Companys/MyRecommend'><i class='icon icon-user'></i>我提交的</a></li>*@
             @Html.Raw(ViewBag.SecondMenu)
         </ul>
     </div>
@@ -308,6 +304,9 @@
                                     <select class="select radius-sel dropdown" name="iofnName"
                                             id="bType" value="@ViewBag.BusinessType"></select>
                                 </div>
+                                <div class="form-item  sel-required" id="projDiv">
+                                    <span class="td-cer">所属项目：</span><select class="select radius-sel dropdown" style="width:180px;background: url(../img/icon-arrow.png) no-repeat 159px center;" id="projs" value="@ViewBag.projId"/>
+                                </div>
                             </td>
                         </tr>
                         <tr class="form-tr">
@@ -331,7 +330,7 @@
                             <td class="form-lable"><span class="red-word">*</span>营业执照：</td>
                             <td>
                                 <div class="upload-btn upload-btn2 upload-btn4">
-                                    <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/d" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
+                                    <form id='bfupform2' name='bfupform' method="post" target='frameFile' action="/Common/UploadReference" enctype="multipart/form-data" class="allfileInput allfileInput2" style="cursor: pointer;">
                                         <input type="file" name="fileInput" id="allfileInput2" value="" style="opacity:0;">
                                         <input id="busiLicPic" type="text" name="foreRef" value="@ViewBag.BusinessLicensePic" hidden>
                                     </form>
@@ -582,7 +581,23 @@
     if (@ViewBag.roleid == 2){
         $(".tijiaobth").hide()
     }
-    
+    //var io = $.getUrlParam('inout')
+    //if (io == "0")
+    //    $("#projDiv").show();
+    //else
+    //    $("#projDiv").hide();
+    $.post("/Companys/GetProjs", {}, function (res) {
+        var obj = JSON.parse(res);
+        var ps = $("#projs");
+        ps.append("<option value='0'></option>");
+        for (var i = 0; i < obj.length; i++) {
+            var o = obj[i]
+            if (o.id == "@ViewBag.projId")
+                ps.append("<option value='" + o.id + "' selected>" + o.name + "</option>")
+            else
+                ps.append("<option value='" + o.id + "'>" + o.name + "</option>")
+        }
+    })
     //function businessScope(){
     //    if($("#businessScope").val()!=""){
     //        $("#businessScope").css('border','1px solid green');
@@ -622,8 +637,12 @@
     //}
 
 
-    if(@ViewBag.inout=="0"){
+    if (@ViewBag.inout== "0") {
         $(".yuijianred").html("*")
+        $("#projDiv").show();
+    }
+    else {
+        $("#projDiv").hide();
     }
         $("#fileInfoName").change(function () {
             var fileInfoName = $("#fileInfoName").val();
@@ -1096,9 +1115,10 @@
         var scPic = document.getElementById("scPic").value
         var rsfz = document.getElementById("repSFZ").value
         var ctsfz = document.getElementById("conSFZ").value
+        var projid = $("#projs").val()
 
         var data = { id:@ViewBag.cid,
-            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt, status: 1
+            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt, status: 1, pi: projid
         }
         if(submitType==0){
             // show
@@ -1119,7 +1139,7 @@
             });
             $.post("/Companys/SaveCompany", data, function (res) {
                 res = res + "";
-                if (res.length < 5) {
+                if (res.length < 6) {
                     data = { rep: sr, rtel: rt, contact: ct, cphone: ctp, caddress: caddress, construction: construct, note: nn }
                     $.post("/Companys/AppendCompanyInfo", data, function () {
                         data = { refd: refdoc, blpic: blpic, scPic: scPic, rsfz: rsfz, ctsfz: ctsfz, id: res }

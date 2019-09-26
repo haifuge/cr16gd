@@ -36,6 +36,7 @@ namespace DAL.Models
         public int Status { get { return status; } set { status = value; } }
         public string AuditDate { get; set; }
         public int AuditStatus { get; set; }
+        public int OutCompanyProjId { get; set; }
         private int type = 1;
         public int Type {
             get { return type; }
@@ -170,7 +171,7 @@ namespace DAL.Models
         {
             string sql = @"select c.id, c.Name,c.CreditNo,c.CorporateRepresentative, c.RepPhone,c.RegisteredCapital, c.BusinessScope,c.SecurityCertificateNo,
                                   c.Contact,c.ContactPhone, bt.name as BusinessType, c.ContactAddress,c.QualificationLevel, c.ConstructionContent, c.Note,
-								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.AuditStatus,c.Type
+								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.AuditStatus,c.Type, c.OutCompanyProjId
                            from Company c
                            left join CompanyType bt on bt.id=c.BusinessType 
                            where c.id = " + id;
@@ -212,7 +213,7 @@ namespace DAL.Models
             sql = "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
                 "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
                 "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', Status=" + company.Status + ", " +
-                " Referre = N'" + company.Referrer + "',  AuditStatus=" +company.AuditStatus+ " where id=" + company.Id;
+                " Referre = N'" + company.Referrer + "',  AuditStatus=" +company.AuditStatus+ ", OutCompanyProjId=" + company.OutCompanyProjId+" where id=" + company.Id;
             int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
 
             // 非管理员修改要重新走审批流程
@@ -245,13 +246,13 @@ namespace DAL.Models
             sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, CreateDate)" +
+                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, CreateDate, OutCompanyProjId)" +
             "values(N'" + company.Name + "', N'" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
             "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
             "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
             "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
             "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " +
-            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", getdate());";
+            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", getdate(),"+company.OutCompanyProjId+");";
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
 
@@ -368,13 +369,16 @@ namespace DAL.Models
                 did += dataTable.Rows[i][0].ToString() + ",";
             }
             if (did.Length > 0)
+            { 
                 did = did.Substring(0, did.Length - 1);
+                did = "and c.DepartmentID in (" + did + ")";
+            }
             sql = @"select identity(int,1,1) as iid, c.id*1 as id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.Name as BusinessType, c.CorporateRepresentative, c.Contact, 
 	                            convert(varchar(20),c.AuditDate,23) as AuditDate, c.AuditStatus
                             into #temp1
                             from Company c
                             left join CompanyType bt on bt.id=c.BusinessType
-                            where c.status!=-1 and c.DepartmentID in (" + did + ") and " + where + @" c.Name like '%" + cname+@"%' order by c.id desc
+                            where c.status!=-1 "+did+" and " + where + @" c.Name like '%" + cname+@"%' order by c.id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";
@@ -441,6 +445,51 @@ namespace DAL.Models
             l.UserId = uid;
             l.Description = "创建公司" + type == "1" ? "名录内" : "名录外" + " - " + cid;
             LogContext.WriteLog(l);
+        }
+
+        public string GetPtojects(string pageSize, string pageIndex, string cname, string ptype, string userid, string roleId)
+        {
+            int pi = int.Parse(pageIndex);
+            int ps = int.Parse(pageSize);
+            int startIndex = (pi - 1) * ps + 1;
+            int endIndex = pi * ps;
+            string where = "";
+            if(ptype!="")
+            {
+                where = " oc.ProjType = "+ ptype+ " and  ";
+            }
+            string sql = @"select ID from Department where ProjectDp=1 and ID in (
+	                            select PID from Department where ID in (select du.departmentid from DepartmentUser du where du.UserId=" + userid + "))";
+            string did = "";
+            DataTable dataTable = DBHelper.GetDataTable(sql);
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                did += dataTable.Rows[i][0].ToString() + ",";
+            }
+            if (did.Length > 0)
+                did = did.Substring(0, did.Length - 1);
+            if(did!="")
+            {
+                did = " oc.PublisherDept in (" + did + ") and ";
+            }
+            sql = @"select identity(int,1,1) as iid, oc.ID*1 as id,oc.ProjName, ct.Name as ctype, d.Name as deptname, ui.UserName, CONVERT(varchar(20), oc.CreateDatetime, 23) as datetime, count(c.id) as cn
+                        into #temp1
+                        from OutCompanyProject oc 
+                        inner join CompanyType ct on oc.ProjType=ct.ID
+                        inner join Department d on d.ID=oc.PublisherDept
+                        inner join UserInfo ui on ui.ID=oc.PublisherId
+                        inner join Company c on c.OutCompanyProjId=oc.id and c.AuditStatus<>0
+                        where " + did + where+" oc.ProjName like '%" + cname + @"%' 
+                        group by oc.ID, oc.ProjName, ct.Name, d.Name, ui.UserName, oc.CreateDatetime
+                        order by oc.id desc
+                        select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
+                        select count(1) from #temp1
+                        drop table #temp1";
+            DataSet ds = DBHelper.GetDataSet(sql);
+            string data = JsonHelper.DataTableToJSON(ds.Tables[0]).Replace("\r", "").Replace("\n", "").Replace("	", "");
+            string total = ds.Tables[1].Rows[0][0].ToString();
+            int pagecount = (int)Math.Ceiling(decimal.Parse(total) / ps);
+            return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
     }
 }

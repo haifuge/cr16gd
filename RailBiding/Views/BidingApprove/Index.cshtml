@@ -101,9 +101,6 @@
     <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
     <script type="text/javascript" src="~/js/js.js"></script>
     <script type="text/javascript">
-        //分页点击
-        var cur_num = 1
-        var clickpagenum = "" //所点击页码
         //当前所在页码
         var nowpage = $.getUrlParam('cp');
         if (!nowpage)
@@ -111,7 +108,6 @@
         else
             nowpage = parseInt(nowpage);
         var page_size = 10
-        var pagenum = 12
         Paginator(nowpage, page_size)
 
 

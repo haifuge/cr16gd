@@ -10,6 +10,7 @@ using DAL.Tools;
 using System.Text;
 using RailBiding.Common;
 using OperateExcel;
+using System.Data.SqlClient;
 
 namespace RailBiding.Controllers
 {
@@ -44,7 +45,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult Details(int id)
         {
-            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("Companys", Session["RoleId"].ToString());
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("CompanysMyRecommend", Session["RoleId"].ToString());
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
@@ -87,42 +88,42 @@ namespace RailBiding.Controllers
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='营业执照'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='营业执照'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>营业执照</p><p style='text-align: center;'></p></div>";
-            }
+            }//<a href = '" + pic + @"' rel='group' class='pirobox_gall' title='营业执照'></a>
             pic = dr["SecurityCertificatePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='安全证书'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>安全证书</p><p style='text-align: center;'>" + dr["SecurityCertificateNo"].ToString() + @"<p></div>";
-            }
+            }//href = '" + pic + @"' rel='group' 
             pic = dr["RepIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>法人身份证</p><p style='text-align: center;'></p></div>";
-            }
+            }//href = '" + pic + @"' rel='group' 
             pic = dr["ContactIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>现场负责人身份证</p><p style='text-align: center;'></p></div>";
-            }
+            }//href = '" + pic + @"' rel='group' 
             dt = cc.GetZiZhiPics(id);
             for(int i = 0; i < dt.Rows.Count; i++)
             {
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                                    <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"'></a>
+                                    <a class='pirobox_gall' title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                                  </div><p style='text-align:center; margin-bottom: 2px;'>" + dt.Rows[i]["ZZName"].ToString() + @"</p><p style='text-align: center;'>" + dt.Rows[i]["ZZCode"].ToString() + @"</p></div>";
-            }
+            }// href = '" + pic + @"' rel='group'
             ViewBag.CompanyPics = picHtml;
             dt = cc.GetWorkHistory(id);
             StringBuilder sb = new StringBuilder();
@@ -149,7 +150,7 @@ namespace RailBiding.Controllers
 
             }
 
-            if (ViewBag.AuditStatus == "0")
+            if (ViewBag.AuditStatus == "0"&& Session["RoleId"].ToString() != "2")
             {
                 ViewBag.addeditbtn = @"<a href ='#' class='js-cancle-meet' onclick='submitCompany()' title='提交'>
                                     <i class='meet-icon icon-cancel icon-edits'>提交</i>
@@ -290,7 +291,9 @@ namespace RailBiding.Controllers
             {
                 ViewBag.delebtn = "";
                 ViewBag.createbtn = @"<a class='meet-btn green-btn small-size sm-btn' href='/Companys/Create?inout=0'>
-                <i class='xs-meet-icon icon-add'></i>添加</a>";
+                                                    <i class='xs-meet-icon icon-add'></i>添加</a>
+                                    <a class='meet-btn green-btn small-size sm-btn' style='width:90px' onclick='addProj()'>
+                                                    <i class='xs-meet-icon icon-add'></i>添加项目</a>";
             }
             else
             {
@@ -463,44 +466,44 @@ namespace RailBiding.Controllers
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='营业执照'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='营业执照'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>营业执照</p><p style='text-align: center;'></p></div>";
-            }
+            }// href = '" + pic + @"' rel='group'
             pic = dr["SecurityCertificatePic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='安全证书'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='安全证书'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>安全证书</p><p style='text-align: center;'>" + dr["SecurityCertificateNo"].ToString() + @"</p></div>";
-            }
+            }// href = '" + pic + @"' rel='group'
             pic = dr["RepIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='法人身份证'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>法人身份证</p><p style='text-align: center;'></p></div>";
-            }
+            }// href = '" + pic + @"' rel='group'
             pic = dr["ContactIDPic"].ToString();
             if (pic != "")
             {
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                             <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"'></a>
+                             <a class='pirobox_gall' title='现场负责人身份证'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                              </div><p style='text-align: center; margin-bottom: 2px;'>现场负责人身份证</p><p style='text-align: center;'></p></div>";
-            }
+            }// href = '" + pic + @"' rel='group'
             dt = cc.GetZiZhiPics(id);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 pic = dt.Rows[i]["PicPath"].ToString();
                 pic = pic.Replace(rootPath, "/");
                 picHtml += @"<div class='ab_tab2_img'><div>
-                                    <a href = '" + pic + @"' rel='group' class='pirobox_gall' title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"'></a>
+                                    <a class='pirobox_gall' title='" + dt.Rows[i]["ZZName"].ToString() + @"'><img src = '" + pic + @"' onclick='showPic(this)'></a>
                                  </div><p style='text-align: center; margin-bottom: 2px;'>" + dt.Rows[i]["ZZName"].ToString() + @"</p>
                                  <p style='text-align: center;'>" + dt.Rows[i]["ZZCode"].ToString() + @"</p>
                             </div>";
-            }
+            }// href = '" + pic + @"' rel='group'
             ViewBag.CompanyPics = picHtml;
 
 
@@ -579,6 +582,27 @@ namespace RailBiding.Controllers
             }
             return View();
         }
+        // 名录外审批
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName ="itemC")]
+        public ActionResult MyAuditOut()
+        {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("MyAuditOut", Session["RoleId"].ToString());
+            return View();
+        }
+
+        [VerifyLoginFilter]
+        [ActiveMenuFilter(MenuName = "itemC")]
+        public ActionResult OutCompanys()
+        {
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("MyAuditOut", Session["RoleId"].ToString());
+            string pid= Request["id"].ToString();
+            string sql = "select ProjName from OutCompanyProject where ID="+pid;
+            ViewBag.ProjectName = DBHelper.ExecuteScalar(sql);
+            ViewBag.pid = pid;
+            return View();
+        }
+
         // POST: Companys/Create
         [HttpPost]
         public string CreateCompany()
@@ -599,6 +623,7 @@ namespace RailBiding.Controllers
                 company.Type = int.Parse(Request["inout"]==null? "1": Request["inout"].ToString());
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
                 company.Status = int.Parse(Request["status"].ToString());
+                company.OutCompanyProjId = int.Parse(Request["pi"].ToString());
                 
                 Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
 
@@ -905,6 +930,8 @@ namespace RailBiding.Controllers
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             ViewBag.inout = dr["Type"].ToString();
+            string projid = dr["OutCompanyProjId"].ToString();
+            ViewBag.projId = projid == "" ? "0" : projid;
             Session["inout"]= dr["Type"].ToString();
 
             ViewBag.roleid = Session["RoleId"].ToString();
@@ -1020,6 +1047,8 @@ namespace RailBiding.Controllers
                 company.Type = int.Parse(Request["inout"] == null ? "1" : Request["inout"].ToString());
                 company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
                 company.Status = int.Parse(Request["status"].ToString());
+                company.OutCompanyProjId = int.Parse(Request["pi"].ToString()==""?"0": Request["pi"].ToString());
+
                 cc.UpdateCompany(company, Session["UserId"].ToString());
                 Session["newCid"] = company.Id;
                 return company.Id.ToString();
@@ -1092,6 +1121,66 @@ namespace RailBiding.Controllers
         {
             string sql = "delete Company where ID="+cid+"; delete AppProcessing where ObjId="+cid+" and AppProcId in (1,5)";
             DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public void AddProject(string pn, string pt)
+        {
+            SqlParameter[] paras = new SqlParameter[1];
+            paras[0] = new SqlParameter("@uid", Session["UserId"].ToString());
+            string dpid = DBHelper.ExecuteSP("findProjectDepartment", paras).Tables[0].Rows[0][0].ToString();
+
+
+            string sql = "insert into OutCompanyProject values(N'"+pn+"',"+pt+", "+Session["UserId"].ToString()+","+dpid+ ", GETDATE());";
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public string GetProjs()
+        {
+            SqlParameter[] paras = new SqlParameter[1];
+            paras[0] = new SqlParameter("@uid", Session["UserId"].ToString());
+            try
+            {
+                string dpid = DBHelper.ExecuteSP("findProjectDepartment", paras).Tables[0].Rows[0][0].ToString();
+
+                string sql = "select ID, ProjName as name from OutCompanyProject where PublisherDept=" + dpid + " order by ID desc";
+                DataTable dt = DBHelper.GetDataTable(sql);
+                return JsonHelper.DataTableToJSON(dt);
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public string GetPtojects(string pageSize, string pageIndex, string cname, string ptype)
+        {
+            CompanyContext cc = new CompanyContext();
+            if (Session["UserId"] == null)
+            {
+                return "no session";
+            }
+            string userId = Session["UserId"].ToString();
+            string roleId = Session["RoleId"].ToString();
+            return cc.GetPtojects(pageSize, pageIndex, cname, ptype, userId, roleId);
+        }
+
+        public string GetProjCompanys(string pid)
+        {
+            string sql = @"select c.id,c.Type,c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative,  
+	                        c.Contact, convert(varchar(20), c.AuditDate,23) as AuditDate, c.AuditStatus, case when c.AuditStatus=2 then 2 else isnull(a.Approved, 5) end as Approved
+                        from Company c 
+                        left join(
+                            select distinct a.ObjId, a.Approved 
+                            from vw_AppPLevel a 
+                            inner join (select MAX(level) as level,AppProcId, ObjId 
+			                            from vw_AppPLevel where AppProcId=1 and Approved=1 group by ObjId, AppProcId
+                            ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
+                            where a.UserId=" + Session["UserId"].ToString() + @"
+                        ) a on c.ID=a.ObjId
+                        left join CompanyType bt on bt.id=c.BusinessType
+                        where c.AuditStatus<>0 and c.OutCompanyProjId=" + pid;
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt).Replace("	", "");
         }
     }
 }

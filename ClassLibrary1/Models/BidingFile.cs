@@ -45,7 +45,14 @@ namespace DAL.Models
         {
             string where = "";
             if (status != "")
-                where += " and a.Approved = " + status;
+            {
+                if (status == "1")
+                    where += " and a.Approved = " + status + " and bf.Status= " + status;
+                else if(status=="3")
+                    where += " and bf.Status= " + status;
+                else if (status == "2")
+                    where += " and a.Approved = " + status;
+            }
             if (pname != "")
                 where += " and p.Name like '%" + pname + "%'";
             int pi = int.Parse(pageIndex);
@@ -55,9 +62,9 @@ namespace DAL.Models
             string sql = @" select identity(int,1,1) as iid, a.* into #temp1 from (
                                 select distinct top 100 percent p.Id, p.Name, SUBSTRING(bf.Content, 0, 120) as Content, 
                                         d.Name+' '+ui.UserName as Publisher, CONVERT(varchar(20), 
-                                        bf.PublishDate, 23) as PublishDate, a.Approved as Status
+                                        bf.PublishDate, 23) as PublishDate, case when bf.Status=3 then 3 else a.Approved end as Status
                                 from BidingFile bf 
-                                inner join Project p on bf.ProjId=p.Id
+                                inner join Project p on bf.ProjId=p.Id and bf.Status<>0
                                 left join UserInfo ui on ui.ID=bf.PublisherId
                                 inner join DepartmentUser du on du.UserId=ui.ID and du.Status=1
                                 left join Department d on du.DepartmentId=d.ID
@@ -67,7 +74,7 @@ namespace DAL.Models
                                     inner join (select MAX(level) as level,AppProcId, ObjId 
 			                                    from vw_AppPLevel where AppProcId=2 and Approved=1 group by ObjId, AppProcId
                                 ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                                where a.UserId=" + userid+ @") a on p.ID=a.ObjId "+where+ @" where bf.Status<>3) a order by a.Id desc
+                                where a.UserId=" + userid+ @") a on p.ID=a.ObjId "+where+ @") a order by a.Id desc
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1
                             drop table #temp1";

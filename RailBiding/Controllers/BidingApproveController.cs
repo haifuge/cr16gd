@@ -167,7 +167,7 @@ namespace RailBiding.Controllers
                                             "</td>" +
                                         "</tr>";
             }
-            else if (Session["RoleId"].ToString() == "1" )
+            else if (Session["RoleId"].ToString() == "1"|| Session["RoleId"].ToString() == "3")
             {
                 //参与单位-单位显示框
                 dt = bc.GetBidingCompanys(pid);
@@ -283,7 +283,6 @@ namespace RailBiding.Controllers
         }
         public void InviteBiding(string cids, string pid, string pname)
         {
-            string[] cid = cids.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
             SendMessage sm = new SendMessage();
             string sql = "select ID, RepPhone from Company where Id in (" + cids+ ") and ID in (select CompanyId from BidingCompany where CompanyResponse = 0 and ProjId=" + pid + ")";// and VerifyCode is null
             DataTable dt = DBHelper.GetDataTable(sql);
@@ -310,6 +309,43 @@ namespace RailBiding.Controllers
             if(sql!="")
                 DBHelper.ExecuteNonQuery(sql);
         }
+        
+        public void SendMessageByTX(string cids, string pid, string pname)
+        {
+            AliMessage.TXMessage.SmsSingleSender msgSender = new AliMessage.TXMessage.SmsSingleSender();
+            string sql = "select ID, RepPhone from Company where Id in (" + cids + ") and ID in (select CompanyId from BidingCompany where CompanyResponse = 0 and ProjId=" + pid + ")";// and VerifyCode is null
+            DataTable dt = DBHelper.GetDataTable(sql);
+            sql = "select ui.UserName, ui.Telphone from Project p inner join UserInfo ui on p.PublisherId=ui.ID where p.Id=" + pid;
+            DataTable dt2 = DBHelper.GetDataTable(sql);
+            string number = "";
+            string cid = "";
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                cid = dt.Rows[i][0].ToString();
+                number= dt.Rows[i][1].ToString();
+                List<string> msgParams = new List<string>();
+                string guid = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 19);
+                pname = pname.Length > 20 ? pname.Substring(0, 20) : pname;
+                msgParams.Add(pname);
+                msgParams.Add(guid);
+                msgParams.Add(pid);
+                msgParams.Add(cid);
+                msgParams.Add(dt2.Rows[0]["UserName"].ToString());
+                msgParams.Add(dt2.Rows[0]["Telphone"].ToString());
+
+                AliMessage.TXMessage.SmsSingleSenderResult res = msgSender.SendMsgTemplate(number, 413525, msgParams);
+                
+                Log l = new Log();
+                l.UserId = Session["UserId"].ToString();
+                l.OperType = OperateType.InviteBiding;
+                l.OperateDate = DateTime.Now.ToShortDateString();
+                l.Description = res.result == 0 ? "1" : res.errmsg;
+                LogContext.WriteLog(l);
+
+                sql = " update BidingCompany set VerifyCode='" + guid + "', UpdateTime = getdate(), MsgStatus=N'" + l.Description + "' where ProjId = " + pid + " and CompanyId =" + cid + "; ";
+                DBHelper.ExecuteNonQuery(sql);
+            }
+        }
 
         public string CheckCompanyInvited(string cids, string pid)
         {
@@ -329,6 +365,14 @@ namespace RailBiding.Controllers
                             from BidingCompany bc inner join Company c on bc.CompanyId=c.ID where bc.ProjId="+pid;
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
+        }
+        public void ReInviteCompany(string apid, string oid)
+        {
+            string sql = @"update AppProcessing set Approved=1 
+                           from (select * from vw_AppPLevel where ObjId=411 and AppProcId=3 and Level < 11) a 
+                           where AppProcessing.ObjId="+ oid + " and AppProcessing.AppProcId="+apid+" and AppProcessing.DUGUID=a.DUGUID;";
+            sql += "update Project set Status=N'定标文件审核中' where Id="+oid+"; update MakeBidingFile set Status = 1 where ProjId = "+oid;
+            DBHelper.ExecuteNonQuery(sql);
         }
     }
 }

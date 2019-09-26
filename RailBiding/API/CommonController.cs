@@ -83,14 +83,32 @@ namespace RailBiding.API
                         inner join Department d on d.ID=du.DepartmentId
                         where c.ID=" + oid;
             }
-            else
+            else if(apid=="2")
             {
                 sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.PublishDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid, ui.sigFile
-                        from Project c 
+                        from BidingFile c 
                         inner join UserInfo ui on c.PublisherId=ui.ID 
                         inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 and du.Status=1
                         inner join Department d on d.ID=du.DepartmentId
-                        where c.ID=" + oid;
+                        where c.ProjId=" + oid;
+            }
+            else if (apid == "3")
+            {
+                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.PublishDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid, ui.sigFile
+                        from Bid c 
+                        inner join UserInfo ui on c.PublisherId=ui.ID 
+                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 and du.Status=1
+                        inner join Department d on d.ID=du.DepartmentId
+                        where c.ProjId=" + oid;
+            }
+            else if (apid == "4")
+            {
+                sql = @"select top 1 0 as Approved,'' as Comment, CONVERT(varchar(20),c.PublishDate,20) as dd, d.Name, ui.UserName,dbo.GetRootName(d.id) as pName, 1000 as Level, ui.id as uid, ui.sigFile
+                        from MakeBidingFile c 
+                        inner join UserInfo ui on c.PublisherId=ui.ID 
+                        inner join DepartmentUser du on du.UserId=ui.ID and du.MainDeparment=1 and du.Status=1
+                        inner join Department d on d.ID=du.DepartmentId
+                        where c.ProjId=" + oid;
             }
             DataTable dt2 = DBHelper.GetDataTable(sql);
             DataRow dr = dt.NewRow();
@@ -353,15 +371,26 @@ namespace RailBiding.API
         {
             if (appid == "1")
                 appid = "1, 5";
-            string sql = @"update AppProcessing set Approved=1 where ObjId="+objid+" and AppProcId in ("+appid+") and DUGUID in (select guid from DepartmentUser where UserId="+userid+")";
+            string roleid = Session["RoleId"].ToString();
+            string sql = "";
+            if (roleid=="2")
+            {
+                sql = "update AppProcessing set Approved=1 where ObjId=" + objid + " and AppProcId in (" + appid + ") and DUGUID in (select Guid from DepartmentUser where DepartmentId in(select DepartmentId from DepartmentUser where UserId" + userid + ")";
+            }
+            else
+            {
+                sql = @"update AppProcessing set Approved=1 where ObjId="+objid+" and AppProcId in ("+appid+") and DUGUID in (select guid from DepartmentUser where UserId="+userid+")";
+            }
             DBHelper.ExecuteNonQuery(sql);
         }
 
         public string GetDrawbackStatus_submiter(string objid, string appid)
         {
+            if (Session["RoleId"].ToString() != "4")
+                return "no";
             if (appid == "1")
                 appid = "1, 5";
-            string sql = "select * from AppProcessing where AppProcId in (" + appid + ") and ObjId =" + objid + " and Approved=2 ";
+            string sql = "select * from AppProcessing where AppProcId in (" + appid + ") and ObjId =" + objid + " and Approved in (2,3) ";
             DataTable dt = DBHelper.GetDataTable(sql);
             if (dt.Rows.Count == 0)
                 return "yes";
@@ -378,19 +407,24 @@ namespace RailBiding.API
                     break;
                 case "2":
                     sql = "update BidingFile set Status=0 where ProjId="+objid;
+                    sql += "; update Project set Status=N'未提交' where Id=" + objid;
                     break;
                 case "3":
                     sql = "update Bid set Status=0 where ProjId=" + objid;
+                    //sql += "; update Project set Status=N'招标文件审核通过' where Id=" + objid;
                     break;
                 case "4":
                     sql = "update MakeBidingFile set Status=0 where ProjId=" + objid;
+                    //sql += "; update Project set Status=N'招标审核通过' where Id=" + objid;
                     break;
             }
             DBHelper.ExecuteNonQuery(sql);
             if (appid == "1")
+            {
                 appid = "1, 5";
-            sql = @"delete AppProcessing where ObjId=" + objid + " and AppProcId in (" + appid + ")";
-            DBHelper.ExecuteNonQuery(sql);
+                sql = @"delete AppProcessing where ObjId=" + objid + " and AppProcId in (" + appid + ")";
+                DBHelper.ExecuteNonQuery(sql);
+            }
         }
     }
 }

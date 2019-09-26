@@ -114,10 +114,11 @@
         //待审核记录
         $.get("/Main/GetToBeDone", {}, function (data) {
             var obj = JSON.parse(data);
+            var cc = 0;
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                if (o.appprocid == 1) {
-                    $(".company").html(o.company)
+                if (o.appprocid == 1 || o.appprocid == 5) {
+                    cc = cc + o.company;
                 }
                 if (o.appprocid == 2) {
                     $(".bidfile").html(o.bidfile)
@@ -129,7 +130,7 @@
                     $(".makebid").html(o.mb)
                 }
             }
-
+            $(".company").html(cc)
         })
         function gotolist(type) {
             window.location.href = '/MobileList?type=' + type;
