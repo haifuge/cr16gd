@@ -335,7 +335,7 @@ namespace RailBiding.API
             string biding = "0";
             if (res == "1")
                 biding = "1";
-            string sql = @"update BidingCompany set CompanyResponse=" + res + ", Biding=" + biding + " where ProjId=" + pid + " and CompanyId=" + cid + " and VerifyCode='" + token + "'; ";
+            string sql = @"update BidingCompany set CompanyResponse=" + res + ", Biding=" + biding + " where ProjId=" + pid + " and CompanyId=" + cid;// + " and VerifyCode='" + token + "'; ";
             DBHelper.ExecuteNonQuery(sql);
         }
         public string GetUserRoles()
@@ -375,7 +375,7 @@ namespace RailBiding.API
             string sql = "";
             if (roleid=="2")
             {
-                sql = "update AppProcessing set Approved=1 where ObjId=" + objid + " and AppProcId in (" + appid + ") and DUGUID in (select Guid from DepartmentUser where DepartmentId in(select DepartmentId from DepartmentUser where UserId" + userid + ")";
+                sql = "update AppProcessing set Approved=1 where ObjId=" + objid + " and AppProcId in (" + appid + ") and DUGUID in (select Guid from DepartmentUser where DepartmentId in(select DepartmentId from DepartmentUser where UserId=" + userid + "))";
             }
             else
             {
@@ -407,7 +407,7 @@ namespace RailBiding.API
                     break;
                 case "2":
                     sql = "update BidingFile set Status=0 where ProjId="+objid;
-                    sql += "; update Project set Status=N'未提交' where Id=" + objid;
+                    sql += "; update Project set Status=N'未发布' where Id=" + objid;
                     break;
                 case "3":
                     sql = "update Bid set Status=0 where ProjId=" + objid;

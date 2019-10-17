@@ -59,7 +59,8 @@ namespace DAL.Models
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
             string sql = @" select identity(int,1,1) as iid, a.* into #temp1 from (
-                            select distinct p.Id*1 as Id, p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
+                            select distinct p.Id*1 as Id, case when mb.pname is null then p.name when mb.pname='' then p.name else mb.pname end as name, 
+                            dbo.GetProjectDepartmentByUserId(p.PublisherId) as PubDepartment, mb.Abstract, 
                             convert(varchar(20),mb.PublishDate,23) as PublishDate, a.Approved as Status
                             from project p inner join Bid b on p.Id=b.ProjId
                             inner join MakeBidingFile mb on mb.ProjId=p.Id and mb.Status<>0
@@ -87,7 +88,9 @@ namespace DAL.Models
 
         public DataTable GetMakeBidFileDetail(string id)
         {
-            string sql = @"select p.Name, dbo.GetProjectDepartmentByUserId(p.PublisherId) as Publisher,p.ProDescription,p.PublisherId as uid, CONVERT(varchar(20), p.PublishDate, 23) as PublishDate, mf.Abstract,mf.FileExplain,mf.Status 
+            string sql = @"select case when mf.pname is null then p.name when mf.pname='' then p.name else mf.pname end as name, 
+                                  dbo.GetProjectDepartmentByUserId(p.PublisherId) as Publisher,p.ProDescription,p.PublisherId as uid, 
+                                  CONVERT(varchar(20), p.PublishDate, 23) as PublishDate, mf.Abstract,mf.FileExplain,mf.Status 
                             from MakeBidingFile mf inner join Project p on mf.ProjId=p.Id
                             where p.Id=" + id;
             DataTable dt = DBHelper.GetDataTable(sql);

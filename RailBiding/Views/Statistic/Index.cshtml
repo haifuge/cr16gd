@@ -2,11 +2,27 @@
 @{
     ViewBag.Title = "数据统计";
 }
-
 <link rel="stylesheet" href="~/css/icheck/minimal/minimal.css" />
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
 <link href="~/css/loading.css" rel="stylesheet" />
+<style>
+    .tt02 .Wdate {
+        height: 25px;
+        width: 100px;
+    }
+    .search-con2 {
+        width: 330px;
+        position: relative;
+        display: inline-block;
+        margin-right: 25px;
+        /* float: left; */
+    }
+    .main-top a.meet-btn {
+        margin-right: 8px;
+        /* float: left; */
+    }
+</style>
 <div class="left-nav">
     <div class="left-nav-con">
         <h1>统计分析</h1>
@@ -16,17 +32,24 @@
     </div>
 </div>
 
-
 <div class="main-con">
     <div class="main-wrap">
         <div class="main-top tt02">
             <a class="meet-btn blue-btn sm-btn" href="#" id="allsearch" onclick="allcompany()">全部</a>
+            <div style="display:inline; float:left">
+                <span>开始日期：</span><input name="userTimeBegin" id="timeBegin"
+                                         class="date-input radius-sel Wdate"
+                                         type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
+                <span>结束日期：</span><input name="userTimeBegin" id="timeEnd"
+                                         class="date-input radius-sel Wdate"
+                                         type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'',maxDate:''})">
+            </div>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
             </div>
             &nbsp;&nbsp;
-            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle"  onclick="exportExcel()">
+            <a href="#" class="meet-btn orange-btn small-size sm-btn js-output-excle" onclick="exportExcel()">
                 <i class="xs-meet-icon icon-daoout"></i>导出
             </a>
         </div>
@@ -38,7 +61,7 @@
                             <span class="table-all-check">
                                 <input type="checkbox"
                                        name="all-check"
-                                        id="checkall"
+                                       id="checkall"
                                        onclick="selectAll()" />
                             </span>
                         </td>
@@ -50,10 +73,9 @@
                         <td>最后参与时间</td>
                     </tr>
                 </thead>
-                <tbody id="tbCompany">
-                </tbody>
+                <tbody id="tbCompany"></tbody>
             </table>
-            
+
         </div>
         <div class="page">
         </div>
@@ -67,7 +89,7 @@
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
 <script type='text/javascript' src='~/js/js.js'></script>
 <script type="text/javascript" src="~/js/loading.js"></script>
-
+<script type="text/javascript" src="~/js/My97DatePicker/WdatePicker.js"></script>
 <script>
     //分页点击
     var cur_num = 1
@@ -80,25 +102,29 @@
 
     //全部按钮
     function allcompany() {
+        $("#timeBegin").val("")
+        $("#timeEnd").val("")
         $("#searchinput").val("");
         Paginator(nowpage, page_size)
     }
 
     //点击搜索按钮
     $(".search-btn").on("click", function () {
-       Paginator(nowpage, page_size)
+        Paginator(nowpage, page_size)
     });
 
     function Paginator(page, ps) {
         var SearchCompanyName = $("#searchinput").val();
-        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page, pname: SearchCompanyName }, function (data) {
+        var bd = $("#timeBegin").val();
+        var ed = $("#timeEnd").val();
+        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page, pname: SearchCompanyName, ddate:bd, edate:ed }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
             var o = "";
-            for (var i=0; i < obj.length; i++) {
+            for (var i = 0; i < obj.length; i++) {
                 o = obj[i];
-              
+
                 htm += '<tr class="white-bg" style = "cursor: pointer" >' +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"   onchange="checkedid(this)" onclick="setSelectAll()"/></td>' +
                     '<td  onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.name + '</td>' +
@@ -113,49 +139,48 @@
             pages(page, jsonData.pagecount, jsonData.total, ps)
             setSelectAll()
             var cks = $("input.icheck");
-            for(var i= 0; i < cks.length;i++){
-                for(var j= 0; j < checkID.length; j++) {
-                    if (cks[i].value == checkID[j])
-                    {
+            for (var i = 0; i < cks.length; i++) {
+                for (var j = 0; j < checkID.length; j++) {
+                    if (cks[i].value == checkID[j]) {
                         cks[i].checked = true;
                         break;
                     }
-                   
+
                 }
             }
-            
+
         });
-        
+
     }
     var checkID = [];
     var cids = "";
 
-    //全选、取消全选的事件  
+    //全选、取消全选的事件
     function selectAll() {
         if ($("#checkall").prop("checked")) {
             $("input.icheck").prop("checked", true);//全选
-            for (var i = 0 ; i < $("input.icheck:checked").length; i++) {
-                if(!checkID.contains($("input.icheck:checked")[i].value))
-                checkID.push($("input.icheck:checked")[i].value)
+            for (var i = 0; i < $("input.icheck:checked").length; i++) {
+                if (!checkID.contains($("input.icheck:checked")[i].value))
+                    checkID.push($("input.icheck:checked")[i].value)
             }
 
         } else {
-            $("input.icheck").prop("checked", false);  //取消全选   
-            for (var i = 0 ; i < $("input.icheck").length; i++) {
+            $("input.icheck").prop("checked", false);  //取消全选
+            for (var i = 0; i < $("input.icheck").length; i++) {
                 checkID.remove($("input.icheck")[i].value)
             }
         }
-        
+
     }
-    //子复选框的事件  
+    //子复选框的事件
     function setSelectAll() {
-        //当没有选中某个子复选框时，SelectAll取消选中  
+        //当没有选中某个子复选框时，SelectAll取消选中
         if (!$("input.icheck").checked) {
             $("#checkall").prop("checked", false);
-            
+
         }
-        var chsub = $("input.icheck").length; //获取subcheck的个数  
-        var checkedsub = $("input.icheck:checked").length; //获取选中的subcheck的个数  
+        var chsub = $("input.icheck").length; //获取subcheck的个数
+        var checkedsub = $("input.icheck:checked").length; //获取选中的subcheck的个数
         if (chsub != 0) {
             if (checkedsub == chsub) {
                 $("#checkall").prop("checked", true);
@@ -165,19 +190,19 @@
     function checkedid(boxid) {
 
         if (boxid.checked) {
-            if(!checkID.contains(boxid.value))
+            if (!checkID.contains(boxid.value))
                 checkID.push(boxid.value)
         } else {
             checkID.remove(boxid.value)
         }
     }
-    Array.prototype.remove = function(b) { 
-        var a = this.indexOf(b); 
-        if (a >= 0) { 
-            this.splice(a, 1); 
-            return true; 
-        } 
-        return false; 
+    Array.prototype.remove = function (b) {
+        var a = this.indexOf(b);
+        if (a >= 0) {
+            this.splice(a, 1);
+            return true;
+        }
+        return false;
     };
 
     Array.prototype.contains = function (obj) {
@@ -189,11 +214,11 @@
         }
         return false;
     }
-    
+
     function exportExcel() {
-        
+
         cids = checkID.join(",")
-         if (cids == "") {
+        if (cids == "") {
             swal("请选择要导出的企业！")
             return;
         }

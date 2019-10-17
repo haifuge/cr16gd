@@ -23,10 +23,10 @@ namespace RailBiding.Controllers
             return View();
         }
 
-        public string GetCompaniesStatistic(string pageSize, string pageIndex, string pname)
+        public string GetCompaniesStatistic(string pageSize, string pageIndex, string pname, string bdate, string edate)
         {
             BidContext bc = new BidContext();
-            return bc.GetCompanyStats(pageSize, pageIndex, pname);
+            return bc.GetCompanyStats(pageSize, pageIndex, pname, bdate, edate);
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemS")]
@@ -38,7 +38,7 @@ namespace RailBiding.Controllers
             if (dt.Rows.Count > 0)
             {
                 ViewBag.Name = dt.Rows[0]["Name"].ToString();
-                ViewBag.Total = (int.Parse(dt.Rows[0]["JoinBiding"].ToString()) +int.Parse(dt.Rows[0]["NoJoin"].ToString())).ToString();
+                ViewBag.Total = (int.Parse(dt.Rows[0]["JoinBiding"].ToString()) +int.Parse(dt.Rows[0]["NoJoin"].ToString()) + int.Parse(dt.Rows[0]["NoResponse"].ToString())).ToString();
                 ViewBag.JoinBiding = dt.Rows[0]["JoinBiding"].ToString();
                 ViewBag.NoJoin = dt.Rows[0]["NoJoin"].ToString();
                 ViewBag.NoResponse = dt.Rows[0]["NoResponse"].ToString();

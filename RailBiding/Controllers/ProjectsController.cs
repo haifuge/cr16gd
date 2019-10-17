@@ -919,14 +919,18 @@ namespace RailBiding.Controllers
         }
         public string GetProjInfo(string pid)
         {
-            string sql = "select Name, ProDescription from project where id="+pid;
+            string sql = @"select case when mb.pname is null then p.name when mb.pname='' then p.name else mb.pname end as name, 
+                                  p.ProDescription 
+                          from Project p 
+                          inner join MakeBidingFile mb on p.Id=mb.ProjId 
+                          where p.Id=" + pid;
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
         }
 
         public void SaveProjInfo(string pid,string name, string pd)
         {
-            string sql = "update Project set Name=N'"+name+"', ProDescription=N'"+pd+"' where Id="+pid;
+            string sql = @"update MakeBidingFile set pname=N'"+name+"' where ProjId="+pid+"; update Project set ProDescription = N'"+pd+"' where Id = "+pid;
             DBHelper.ExecuteNonQuery(sql);
         }
     }
