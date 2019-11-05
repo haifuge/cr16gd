@@ -227,8 +227,9 @@ namespace RailBiding.Controllers
             string roleid = Request["roleid"].ToString();
             string sn = Request["sn"].ToString();
             string sf = Request["sf"].ToString();
+            string openid= Request["openid"].ToString();
             SystemSetup ss = new SystemSetup();
-            return ss.UpdateUserInfo(uid, account, uname, psd, tel, email, roleid, sn, sf);
+            return ss.UpdateUserInfo(uid, account, uname, psd, tel, email, roleid, sn, sf, openid);
         }
 
         public string UpdatePersonInfo()

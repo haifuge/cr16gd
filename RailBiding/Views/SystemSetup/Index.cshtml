@@ -275,7 +275,7 @@
                             <table class="meet-form meet-form2 meet-form5">
                                 <tbody>
                                     <input name="roomInfoName" type="text" value="" id="uid"
-                                           class="has-clear-input input input3" hidden/>
+                                           class="has-clear-input input input3" hidden />
                                     <tr class="form-tr">
                                         <td class="form-lable">部门：</td>
                                         <td>
@@ -288,8 +288,7 @@
                                     <tr class="form-tr">
                                         <td class="form-lable">角色：</td>
                                         <td>
-                                            <select class="has-clear-input input input3 xgrol" name="xgiofnName" id="xgbType">
-                                            </select>
+                                            <select class="has-clear-input input input3 xgrol" name="xgiofnName" id="xgbType"></select>
                                         </td>
                                     </tr>
                                     <tr class="form-tr">
@@ -303,7 +302,7 @@
                                     <tr class="form-tr">
                                         <td class="form-lable">姓名：</td>
                                         <td>
-                                            <input name="roomInfoName" type="text" value="" id="xguname" 
+                                            <input name="roomInfoName" type="text" value="" id="xguname"
                                                    class="has-clear-input input input3  " onBlur="yzxm('xguname', 'xgxm')" />
                                             <span id="xgxm"></span>
                                         </td>
@@ -319,7 +318,7 @@
                                     <tr class="form-tr">
                                         <td class="form-lable">邮箱：</td>
                                         <td>
-                                            <input type="email" name="roomInfoName" value="" id="xguemail" 
+                                            <input type="email" name="roomInfoName" value="" id="xguemail"
                                                    class="has-clear-input input  input3" onBlur="checkmail('xguemail', 'xgmailmess')" />
                                             <span id="xgmailmess"></span>
                                         </td>
@@ -329,7 +328,7 @@
                                         <td>
                                             <form id='bfupform1' name='bfupform' method="post" target='frameFile' action="/Common/UploadSig" enctype="multipart/form-data" style="cursor: pointer;">
                                                 <input type="file" name="fileInput1" id="allfileInput1" value="">
-                                                <input type="text" id="sigCode"  width="20" value="0" hidden />
+                                                <input type="text" id="sigCode" width="20" value="0" hidden />
                                             </form>
                                         </td>
                                     </tr>
@@ -339,6 +338,12 @@
                                             <div id="sigDiv">
                                                 <img id="sigPic" style="width:150px; height:100px" />
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="form-lable">openid：</td>
+                                        <td>
+                                            <input type="text" name="roomInfoName" value="" id="xguopenid" class="has-clear-input input  input3"/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -386,8 +391,8 @@
             </div>
         </div><!--添加选择人员结束-->
 
-                <!-- 添加人员 -->
-                <div class="canvas canvas1">
+        <!-- 添加人员 -->
+        <div class="canvas canvas1">
                     <div class="canvas_content">
                         <span class="canvas_close canvas_close1">×</span>
                         <h3 >添加人员</h3>
@@ -1231,6 +1236,7 @@
                 $('#xguname').val(o.username);
                 $('#xgutel').val(o.telephone);
                 $('#xguemail').val(o.email);
+                $('#xguopenid').val(o.openid);
                 //$('#allfileInput1').val(o.signame);
                 $('#allfileInput1').val('');
                 console.log(o.sigfile)
@@ -1268,7 +1274,8 @@
         var sigName = $('#allfileInput1').val();
         sigName = sigName.substr(sigName.lastIndexOf('\\')+1)
         var sigFile = $('#sigCode').val();
-        var obj = {uid:uid,uname: xguname, tel: xgutel, em: xguemail, account: xguaccount, roleid: xgbType, sn:sigName, sf:sigFile }
+        var opid = $('#xguopenid').val();
+        var obj = {uid:uid,uname: xguname, tel: xgutel, em: xguemail, account: xguaccount, roleid: xgbType, sn:sigName, sf:sigFile, openid:opid }
         $.post("/SystemSetup/UpdateUserInfo", obj, function (res) {
             if (res = "1"){
                 swal(

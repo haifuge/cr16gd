@@ -465,7 +465,12 @@ namespace RailBiding.Controllers
                 {
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(pid, "招标文件审核中");
-                    pc.CreateApproveProcess(userid, pid, 2);
+                    DataTable dt = pc.CreateApproveProcess(userid, pid, 2);
+
+                    WXMessage.WXMessage message = new WXMessage.WXMessage();
+                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                    message.sendInfoByWinXin(dt, "2", pid, pname, puser);
 
                     Log l = new Log();
                     l.OperType = OperateType.Create;
@@ -517,7 +522,12 @@ namespace RailBiding.Controllers
                 {
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
-                    pc.CreateApproveProcess(userid, pid, 3);
+                    DataTable dt = pc.CreateApproveProcess(userid, pid, 3);
+
+                    WXMessage.WXMessage message = new WXMessage.WXMessage();
+                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                    message.sendInfoByWinXin(dt, "3", pid, pname, puser);
 
                     Log l = new Log();
                     l.OperType = OperateType.Create;
@@ -832,7 +842,13 @@ namespace RailBiding.Controllers
             {
                 ProjectContext pc = new ProjectContext();
                 pc.UpdateProjectStatus(pid, "定标文件审核中");
-                pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
+                DataTable dt = pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
+
+                WXMessage.WXMessage message = new WXMessage.WXMessage();
+                string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                string userid = Session["UserId"].ToString();
+                string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                message.sendInfoByWinXin(dt, "4", pid, pname, puser);
 
                 Log l = new Log();
                 l.OperType = OperateType.Create;

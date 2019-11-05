@@ -264,12 +264,16 @@ namespace DAL.Models
 
             if (company.AuditStatus == 1)
             {
+                DataTable dt = null;
                 if (company.Type == 1)
                     // 名录内企业
-                    CreateApproveProcess(i, uid, "5");
+                    dt=CreateApproveProcess(i, uid, "5");
                 else
                     // 名录外企业
-                    CreateApproveProcess(i, uid, "1");
+                    dt=CreateApproveProcess(i, uid, "1");
+                string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
+                WXMessage.WXMessage message = new WXMessage.WXMessage();
+                message.sendInfoByWinXin(dt, company.Type==0?"1":"5", i, company.Name, "");
 
                 Log l = new Log();
                 l.OperType = OperateType.Create;
@@ -390,13 +394,13 @@ namespace DAL.Models
         }
         
 
-        private void CreateApproveProcess(string cid, string uid, string apid)
+        private DataTable CreateApproveProcess(string cid, string uid, string apid)
         {
             SqlParameter[] paras = new SqlParameter[3];
             paras[0] = new SqlParameter("@uid",uid);
             paras[1] = new SqlParameter("@objid",cid);
             paras[2] = new SqlParameter("@apid", apid);
-            DBHelper.ExecuteSP("CreateApproveProcessing", paras);
+            return DBHelper.ExecuteSP("CreateApproveProcessing", paras).Tables[0];
         }
 
         public string CheckCompanyNameUsed(string cName)
@@ -431,14 +435,20 @@ namespace DAL.Models
 
         public void SubmitCompany(string cid, string type, string uid)
         {
-            string sql = "update Company set AuditStatus=1 where Id="+cid;
+            string sql = "update Company set AuditStatus=1, CreateDate=getdate() where Id="+cid;
             DBHelper.ExecuteNonQuery(sql);
+            DataTable dt = null;
             if (type == "1")
                 // 名录内企业
-                CreateApproveProcess(cid, uid, "5");
+                dt=CreateApproveProcess(cid, uid, "5");
             else
                 // 名录外企业
-                CreateApproveProcess(cid, uid, "1");
+                dt=CreateApproveProcess(cid, uid, "1");
+
+            string cname = DBHelper.ExecuteScalar("select name from company where id = " + cid);
+            string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
+            WXMessage.WXMessage message = new WXMessage.WXMessage();
+            message.sendInfoByWinXin(dt, type == "0" ? "1" : "5", cid, cname, puser);
 
             Log l = new Log();
             l.OperType = OperateType.Create;

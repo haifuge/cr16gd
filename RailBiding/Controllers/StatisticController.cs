@@ -30,11 +30,11 @@ namespace RailBiding.Controllers
         }
         [VerifyLoginFilter]
         [ActiveMenuFilter(MenuName = "itemS")]
-        public ActionResult StatisticDetail(string cid)
+        public ActionResult StatisticDetail(string cid, string bd, string ed)
         {
             ViewBag.cid = cid;
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetCompanyStatById(cid);
+            DataTable dt = bc.GetCompanyStatById(cid, bd, ed);
             if (dt.Rows.Count > 0)
             {
                 ViewBag.Name = dt.Rows[0]["Name"].ToString();
@@ -48,10 +48,10 @@ namespace RailBiding.Controllers
             }
             return View();
         }
-        public string GetCompanyStatById(string cid)
+        public string GetCompanyStatById(string cid, string bd, string ed)
         {
             BidContext bc = new BidContext();
-            DataTable dt = bc.GetCompanyStatById(cid);
+            DataTable dt = bc.GetCompanyStatById(cid, bd, ed);
             return JsonHelper.DataTableToJSON(dt);
         }
         public string GetCompanyBidDetail(string cid)
@@ -77,7 +77,12 @@ namespace RailBiding.Controllers
                         order by c.Name";
             DataTable dt = DBHelper.GetDataTable(sql);
             string tempPath = Server.MapPath("/");
-            string file = ExcelOperator.ExportCompanysStat(dt, tempPath);
+            string file = "";
+            try
+            {
+                file = ExcelOperator.ExportCompanysStat(dt, tempPath);
+            }
+            catch(Exception ex) { file = ex.Message; }
             return file.Replace(tempPath, "/");
         }
     }

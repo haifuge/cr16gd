@@ -46,7 +46,7 @@ namespace DAL.Models
         }
         public DataTable GetOrganizationUser(string apid)
         {
-            string sql = @"select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked, '' as duguid, 
+            string sql = @"select * from (select convert(varchar(10),d.id) as id,d.name,d.pId,d.Level, dbo.GetRootName(d.id) as rName, 0 as checked, '' as duguid, 
                                 '/img/icon-fclose.png' as icon, '/img/icon-fclose.png' as iconClose, '/img/icon-fopen.png' as iconOpen, d.ProjectDp
                             from Department d left join DepartmentUser du on d.ID=du.DepartmentId and du.Status=1 left join APDetail ad on du.Guid=ad.DUGUID where d.Status=1
                             union
@@ -54,7 +54,7 @@ namespace DAL.Models
                                 case when ad.APID is null then 0 else 1 end as checked, du.guid, 
                                 '/img/icon-treeuser.png' as icon, '/img/icon-treeuser.png' as iconClose, '/img/icon-treeuser.png' as iconOpen, 0 as ProjectDp
                             from UserInfo ui inner join DepartmentUser du on ui.ID=du.UserId and du.Status=1 inner join Department d on du.DepartmentId = d.ID
-                            left join APDetail ad on du.Guid=ad.DUGUID and ad.APID=" + apid+" where ui.Status=1 and du.Status=1";
+                            left join APDetail ad on du.Guid=ad.DUGUID and ad.APID=" + apid+" where ui.Status=1 and du.Status=1) a order by a.level";
             return DBHelper.GetDataTable(sql);
         }
 
@@ -93,16 +93,16 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public string UpdateUserInfo(string uid, string account, string uname, string psd, string tel, string email, string roleid, string sn, string sf)
+        public string UpdateUserInfo(string uid, string account, string uname, string psd, string tel, string email, string roleid, string sn, string sf, string openid)
         {
             string sql;
             if (psd != "") { 
                 psd = EncryptHelper.Encrypt(psd, "IamKey12");
-                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"', RoleId="+roleid+", sigName=N'"+sn+"', sigFile=N'"+sf+"' where ID="+ uid;
+                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname+"', Password='"+psd+"', Telphone='"+tel+"',Email='"+email+"', RoleId="+roleid+", sigName=N'"+sn+"', sigFile=N'"+sf+"', openid='"+openid+"' where ID="+ uid;
             }
             else
             {
-                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + ", sigName=N'" + sn + "', sigFile=N'" + sf + "' where ID=" + uid;
+                sql = "update UserInfo set UserAccount='" + account + "', UserName=N'" + uname + "', Telphone='" + tel + "',Email='" + email + "', RoleId=" + roleid + ", sigName=N'" + sn + "', sigFile=N'" + sf + "', openid='" + openid + "' where ID=" + uid;
             }
             int i = DBHelper.ExecuteNonQuery(sql);
             if (i == 1)
@@ -119,7 +119,7 @@ namespace DAL.Models
             DataTable dt = DBHelper.GetDataTable(sql);
             if (dt.Rows.Count > 0)
                 return "该用户已存在！";
-            sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,"+ roleid + ",null, null); ";
+            sql = "insert into UserInfo values('" + acc + "', N'" + nam + "', '" + pasd + "','" + telephone+"', '"+em+"', getdate(),1,"+ roleid + ",null, null, null); ";
             sql += @"declare @uid int
                      select @uid=max(id) from UserInfo
                      insert into DepartmentUser values(NEWID(), "+did+", @uid, 1, 1)";

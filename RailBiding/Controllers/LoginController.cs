@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAL.Models;
 using DAL.Tools;
+using WXMessage;
 
 namespace RailBiding.Controllers
 {
@@ -15,6 +16,8 @@ namespace RailBiding.Controllers
         public ActionResult Index()
         {
             DBHelper.ExecuteSP("UpdatePastDayApply", null);
+            //WXMessage.WXMessage message = new WXMessage.WXMessage();
+            //message.SendTempletMessge("oZjA7xOB9RJwNka0IAymH-pwcBBA", "www.baidu.com", "招标文件审批", "广州市域铁路S2线一期工程土建SG6标段地基加固（二期）工程");
             return View();
         }
 

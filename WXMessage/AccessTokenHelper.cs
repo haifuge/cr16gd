@@ -11,8 +11,8 @@ namespace WXMessage
     public class AccessTokenHelper
     {
         //填写自己微信的秘钥
-        private static string appId = "wx29f254742a61dceb";
-        private static string appSecret = "7cbebf147616b5ca77a7306fe093c79d";//7cbebf147616b5ca77a7306fe093c79d
+        private static string appId = "wxe1b146eaa5796cc2";
+        private static string appSecret = "6721578a1cf1993a747b508f97f32815";//7cbebf147616b5ca77a7306fe093c79d
 
         private static DateTime GetAccessToken_Time;
         /// <summary>

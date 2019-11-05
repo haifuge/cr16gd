@@ -130,13 +130,13 @@ namespace DAL.Models
         /// <param name="uid"></param>
         /// <param name="pid"></param>
         /// <param name="apid">1：公司；2：发表文件；3：发表；4：定标文件</param>
-        public void CreateApproveProcess(string uid, string pid, int apid)
+        public DataTable CreateApproveProcess(string uid, string pid, int apid)
         {
             SqlParameter[] paras = new SqlParameter[3];
             paras[0] = new SqlParameter("@uid", uid);
             paras[1] = new SqlParameter("@objid", pid);
             paras[2] = new SqlParameter("@apid", apid);
-            DBHelper.ExecuteSP("CreateApproveProcessing", paras);
+            return DBHelper.ExecuteSP("CreateApproveProcessing", paras).Tables[0];
         }
 
         public void DeleteBidFile(string pid)

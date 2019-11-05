@@ -845,6 +845,10 @@
       <Project>{ce80dae8-442f-4542-85e8-0fea491beb29}</Project>
       <Name>OperateExcel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WXMessage\WXMessage.csproj">
+      <Project>{7371c239-3325-4f9d-9152-5072bbd1717a}</Project>
+      <Name>WXMessage</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -66,10 +66,10 @@
                             </span>
                         </td>
                         <td>劳务承包企业名称</td>
-                        <td>参加次数<span><img src="img/icon-px.png" alt=""></span></td>
-                        <td>未参加次数<span><img src="img/icon-px.png" alt=""></span></td>
-                        <td>中标次数<span><img src="img/icon-px.png" alt=""></span></td>
-                        <td>未中标次数<span><img src="img/icon-px.png" alt=""></span></td>
+                        <td>参加次数</td>
+                        <td>未参加次数</td>
+                        <td>中标次数</td>
+                        <td>未中标次数</td>
                         <td>最后参与时间</td>
                     </tr>
                 </thead>
@@ -117,7 +117,7 @@
         var SearchCompanyName = $("#searchinput").val();
         var bd = $("#timeBegin").val();
         var ed = $("#timeEnd").val();
-        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page, pname: SearchCompanyName, ddate:bd, edate:ed }, function (data) {
+        $.post("/Statistic/GetCompaniesStatistic", { pageSize: ps, pageIndex: page, pname: SearchCompanyName, bdate:bd, edate:ed }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
@@ -127,12 +127,12 @@
 
                 htm += '<tr class="white-bg" style = "cursor: pointer" >' +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"   onchange="checkedid(this)" onclick="setSelectAll()"/></td>' +
-                    '<td  onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.name + '</td>' +
-                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.jointimes + '</td>' +
-                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.nojointimes + '</td>' +
-                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.winbids + '</td>' +
-                    '<td class="gray-time" onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.nowinbids + '</td>' +
-                    '<td class="gray-time" onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '";\'>' + o.lastjoindate + '</td>' +
+                    '<td  onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '&bd='+bd+'&ed='+ed+'";\'>' + o.name + '</td>' +
+                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '&bd=' + bd + '&ed=' + ed +'";\'>' + o.jointimes + '</td>' +
+                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '&bd=' + bd + '&ed=' + ed +'";\'>' + o.nojointimes + '</td>' +
+                    '<td onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '&bd=' + bd + '&ed=' + ed +'";\'>' + o.winbids + '</td>' +
+                    '<td class="gray-time" onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '&bd=' + bd + '&ed=' + ed +'";\'>' + o.nowinbids + '</td>' +
+                    '<td class="gray-time" onclick=\'location.href=\"/Statistic/StatisticDetail?cid=' + o.id + '&bd=' + bd + '&ed=' + ed +'";\'>' + o.lastjoindate + '</td>' +
                     '</tr >';
             }
             $("#tbCompany").html(htm);
@@ -238,8 +238,9 @@
             loadingMaskBg: 'rgba(0,0,0,0.2)'
         });
         $.post("/Statistic/ExportCompanysStat", { cids: cids }, function (expfile) {
+            console.log(expfile);
             var fpath = String(expfile)
-            $(".js-output-excle").attr("href", fpath)
+            //$(".js-output-excle").attr("href", fpath)
             window.open(fpath)
             removeLoading('test');
         })

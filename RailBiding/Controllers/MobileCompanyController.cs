@@ -13,10 +13,16 @@ namespace RailBiding.Mobile
     public class MobileCompanyController : Controller
     {
         // GET: MobileCompany
-        [VerifyMobileLoginFilter]
+        //[VerifyMobileLoginFilter]
         public ActionResult Index(int id)
         {
-            ViewBag.UserId = Session["UserId"].ToString();
+            if (!string.IsNullOrEmpty(Request["userid"]))
+            { 
+                ViewBag.UserId = Request["userid"].ToString();
+                Session["UserId"]= Request["userid"].ToString();
+            }
+            else
+                ViewBag.UserId = Session["UserId"].ToString();
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];

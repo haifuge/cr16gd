@@ -129,9 +129,21 @@ namespace RailBiding.API
             parameters[2] = new SqlParameter("@oid", oid);
             parameters[3] = new SqlParameter("@status", aStatus);
             parameters[4] = new SqlParameter("@comment", comment);
-            DBHelper.ExecuteSP("UpdateApproveProcess", parameters);
+            DataTable dt= DBHelper.ExecuteSP("UpdateApproveProcess", parameters).Tables[0];
+
+            string pname = "";
+            if (apid == "1" || apid == "5")
+                pname = DBHelper.ExecuteScalar("select name from Company where ID=" + oid);
+            else
+                pname = DBHelper.ExecuteScalar("select name from Project where ID=" + oid);
+
+            WXMessage.WXMessage message = new WXMessage.WXMessage();
+            string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
+            message.sendInfoByWinXin(dt, apid, oid, pname, puser);
+
             ApproveProcessLog(apid, oid, aStatus, uid);
         }
+        
         public void ProjectReapply(string apid, string oid)
         {
             string sql = "update AppProcessing set Approved=1 where AppProcId="+ apid + " and ObjId="+ oid + " and Approved=3";

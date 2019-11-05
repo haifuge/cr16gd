@@ -66,5 +66,11 @@
     <Compile Include="Tools\JsonHelper.cs" />
     <Compile Include="Tools\MenuHelper.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WXMessage\WXMessage.csproj">
+      <Project>{7371c239-3325-4f9d-9152-5072bbd1717a}</Project>
+      <Name>WXMessage</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

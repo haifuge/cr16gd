@@ -12,10 +12,16 @@ namespace RailBiding.Mobile
     public class MobileMakeBidFileController : Controller
     {
         // GET: MobileMakeBidFile
-        [VerifyMobileLoginFilter]
+        //[VerifyMobileLoginFilter]
         public ActionResult Index(string pid)
         {
-            ViewBag.UserId = Session["UserId"].ToString();
+            if (!string.IsNullOrEmpty(Request["userid"]))
+            {
+                ViewBag.UserId = Request["userid"].ToString();
+                Session["UserId"] = Request["userid"].ToString();
+            }
+            else
+                ViewBag.UserId = Session["UserId"].ToString();
             ViewBag.pid = pid;
             MakeBidFileContext mc = new MakeBidFileContext();
             DataTable dt = mc.GetMakeBidFileDetail(pid);

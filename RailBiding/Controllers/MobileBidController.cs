@@ -13,10 +13,16 @@ namespace RailBiding.Mobile
     public class MobileBidController : Controller
     {
         // GET: MobileBid
-        [VerifyMobileLoginFilter]
+        //[VerifyMobileLoginFilter]
         public ActionResult Index(string pid)
         {
-            ViewBag.UserId = Session["UserId"].ToString();
+            if (!string.IsNullOrEmpty(Request["userid"]))
+            {
+                ViewBag.UserId = Request["userid"].ToString();
+                Session["UserId"] = Request["userid"].ToString();
+            }
+            else
+                ViewBag.UserId = Session["UserId"].ToString();
             if (pid == null)
                 return View("\\MobileLogin");
             ViewBag.pid = pid;
