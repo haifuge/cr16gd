@@ -65,9 +65,9 @@ namespace DAL.Models
                                         bf.PublishDate, 23) as PublishDate, case when bf.Status=3 then 3 else a.Approved end as Status
                                 from BidingFile bf 
                                 inner join Project p on bf.ProjId=p.Id and bf.Status<>0
-                                left join UserInfo ui on ui.ID=bf.PublisherId
+                                inner join UserInfo ui on ui.ID=bf.PublisherId and RoleId=4
                                 inner join DepartmentUser du on du.UserId=ui.ID and du.Status=1
-                                left join Department d on du.DepartmentId=d.ID
+                                inner join Department d on du.DepartmentId=d.ID
                                 inner join(
                                     select distinct a.ObjId, a.Approved 
                                     from vw_AppPLevel a 

@@ -43,6 +43,7 @@ namespace DAL.Models
             set { type = value; }
         }
         public int SubmitUserId { get; set; }
+        public int AddYear { get; set; }
     }
     public class CompanyContext
     {
@@ -55,8 +56,6 @@ namespace DAL.Models
 
         public string GetMyAudit(string userId, string pageSize, string pageIndex, string cname, string ctype, string roleid)
         {
-            if (ctype == "")
-                ctype = "1";
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps;
@@ -136,7 +135,7 @@ namespace DAL.Models
             return "{\"List\":" + data + ", \"total\":" + total + ", \"PageCount\":" + pagecount + ",\"CurrentPage\":" + pageIndex + "}";
         }
 
-        public string GetAllCompanies(string cType, string pageSize, string pageIndex, string cname, string cctype, string roleid)
+        public string GetAllCompanies(string cType, string pageSize, string pageIndex, string cname, string cctype, string roleid, string cy)
         {
             int pi = int.Parse(pageIndex);
             int ps = int.Parse(pageSize);
@@ -152,11 +151,11 @@ namespace DAL.Models
                 where += " c.Status=1 and ";
             }
             string sql = @"select identity(int,1,1) as iid,c.id, c.Name, c.QualificationLevel, c.RegisteredCapital, bt.name as BusinessType, c.CorporateRepresentative, 
-                                  c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status, [dbo].[GetProjectDepartmentByUserId](c.SubmitUserId) as refDepartment
+                                  c.Contact,c.ContactPhone,c.ContactAddress, c.AuditStatus, c.Status, [dbo].[GetProjectDepartmentByUserId](c.SubmitUserId) as refDepartment, CONVERT(varchar(20),AuditDate, 23) as AuditDate
                            into #temp1
                            from Company c
                            left join CompanyType bt on bt.id=c.BusinessType
-                           where c.AuditStatus=2 and c.Type = " + cType+" and "+where+" c.Name like '%"+cname+@"%' order by c.id desc;
+                           where c.AuditStatus=2 and c.Type = " + cType+" and "+where+" c.Name like '%"+cname+@"%' and c.AddYear="+cy+@" order by c.auditdate desc;
                            select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                            select count(1) from #temp1
                            drop table #temp1";
@@ -171,7 +170,8 @@ namespace DAL.Models
         {
             string sql = @"select c.id, c.Name,c.CreditNo,c.CorporateRepresentative, c.RepPhone,c.RegisteredCapital, c.BusinessScope,c.SecurityCertificateNo,
                                   c.Contact,c.ContactPhone, bt.name as BusinessType, c.ContactAddress,c.QualificationLevel, c.ConstructionContent, c.Note,
-								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.AuditStatus,c.Type, c.OutCompanyProjId
+								  c.ReferreIDPic, c.BusinessLicensePic,c.SecurityCertificatePic,c.RepIDPic,c.ContactIDPic,c.Referre,c.AuditStatus,c.Type, 
+                                  c.OutCompanyProjId, c.AddYear
                            from Company c
                            left join CompanyType bt on bt.id=c.BusinessType 
                            where c.id = " + id;
@@ -213,7 +213,7 @@ namespace DAL.Models
             sql = "update Company set Name=N'" + company.Name + "', CreditNo=N'" + company.CreditNo + "', RegisteredCapital=" + company.RegisteredCapital + ", " +
                 "BusinessType=N'" + company.BusinessType + "', BusinessScope=N'" + company.BusinessScope + "', QualificationLevel=N'" + company.QualificationLevel + "', " +
                 "SecurityCertificateNo=N'" + company.SecurityCertificateNo + "', Status=" + company.Status + ", " +
-                " Referre = N'" + company.Referrer + "',  AuditStatus=" +company.AuditStatus+ ", OutCompanyProjId=" + company.OutCompanyProjId+" where id=" + company.Id;
+                " Referre = N'" + company.Referrer + "',  AuditStatus=" +company.AuditStatus+ ", OutCompanyProjId=" + company.OutCompanyProjId+", AddYear="+company.AddYear+" where id=" + company.Id;
             int i = DBHelper.ExecuteNonQuery(CommandType.Text, sql);
 
             // 非管理员修改要重新走审批流程
@@ -246,13 +246,13 @@ namespace DAL.Models
             sql += @"insert into Company(Name, CreditNo, RegisteredCapital, BusinessType, BusinessScope, QualificationLevel,  
                                                SecurityCertificateNo, CorporateRepresentative, RepPhone, 
                                                Contact, ContactPhone, ContactAddress, ConstructionContent, Note, 
-                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, CreateDate, OutCompanyProjId)" +
+                                               Status, Type, Referre,AuditDate, AuditStatus, SubmitUserId, CreateDate, OutCompanyProjId, AddYear)" +
             "values(N'" + company.Name + "', N'" + company.CreditNo + "', " + company.RegisteredCapital + ", " +
             "N'" + company.BusinessType + "', N'" + company.BusinessScope + "', N'" + company.QualificationLevel + "', " +
             "'" + company.SecurityCertificateNo + "', N'" + company.CorporateRepresentive + "', '" + company.RepPhone + "', " +
             "N'" + company.Contact + "', '" + company.ContactPhone + "', N'" + company.ContactAddress + "', " +
             "N'" + company.ConstructionContent + "', N'" + company.Note + "', " + company.Status + ", " +
-            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", getdate(),"+company.OutCompanyProjId+");";
+            company.Type + ", N'" + company.Referrer + "', getdate(), " + company.AuditStatus + ", " + uid + @", getdate(),"+company.OutCompanyProjId+", "+company.AddYear+");";
             sql += "select max(id) from Company;";
             string i = DBHelper.ExecuteScalar(CommandType.Text, sql);
 
@@ -272,9 +272,37 @@ namespace DAL.Models
                     // 名录外企业
                     dt=CreateApproveProcess(i, uid, "1");
                 string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
-                WXMessage.WXMessage message = new WXMessage.WXMessage();
-                message.sendInfoByWinXin(dt, company.Type==0?"1":"5", i, company.Name, "");
-
+                try {
+                    string reurl = "";
+                    string aptype = "";
+                    switch (company.Type == 0 ? "1" : "5")
+                    {
+                        case "1":
+                            aptype = "名录外企业审批";
+                            reurl = "http://cr16gd.saibo.net.cn/MobileCompany?id=" + i + "&approved=1&userid=";
+                            break;
+                        case "5":
+                            aptype = "名录内企业审批";
+                            reurl = "http://cr16gd.saibo.net.cn/MobileCompany?id=" + i + "&approved=1&userid=";
+                            break;
+                    }
+                    WXMessage.WXMessage message = new WXMessage.WXMessage();
+                    for(int j = 0; j < dt.Rows.Count; j++) {
+                        uid = dt.Rows[j][1].ToString();
+                        string guid = Guid.NewGuid().ToString().Replace("-", "");
+                        reurl += uid + "&lcode=" + guid;
+                        message.SendTempletMessge(dt.Rows[j][0].ToString(), reurl, aptype, company.Name, puser);
+                        DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid) values('" + guid + "',getdate()," + uid + ", 0)");
+                    }
+                }
+                catch(Exception e)
+                {
+                    Log ll = new Log();
+                    ll.OperType = OperateType.SendWXInfo;
+                    ll.UserId = uid;
+                    ll.Description = "发送短信失败:" + e.ToString();
+                    LogContext.WriteLog(ll);
+                }
                 Log l = new Log();
                 l.OperType = OperateType.Create;
                 l.UserId = uid;
@@ -403,9 +431,9 @@ namespace DAL.Models
             return DBHelper.ExecuteSP("CreateApproveProcessing", paras).Tables[0];
         }
 
-        public string CheckCompanyNameUsed(string cName)
+        public string CheckCompanyNameUsed(string cName, string cyear)
         {
-            string sql = "select count(1) from Company where Name = '" + cName + "' and status<>-1;";
+            string sql = "select count(1) from Company where Name = '" + cName + "' and status<>-1 and AddYear = "+cyear+";";
             return DBHelper.ExecuteScalar(sql);
         }
 
@@ -415,9 +443,9 @@ namespace DAL.Models
             return DBHelper.GetDataTable(sql);
         }
 
-        public string CheckUpdateCompanyNameUsed(string cName, string cid)
+        public string CheckUpdateCompanyNameUsed(string cName, string cid, string cyear)
         {
-            string sql = "select count(1) from Company where Name = '" + cName + "' and status<>-1 and Id<>"+cid;
+            string sql = "select count(1) from Company where Name = '" + cName + "' and status<>-1 and Id<>" + cid + " and AddYear = " + cyear;
             return DBHelper.ExecuteScalar(sql);
         }
 
@@ -446,9 +474,45 @@ namespace DAL.Models
                 dt=CreateApproveProcess(cid, uid, "1");
 
             string cname = DBHelper.ExecuteScalar("select name from company where id = " + cid);
-            string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
-            WXMessage.WXMessage message = new WXMessage.WXMessage();
-            message.sendInfoByWinXin(dt, type == "0" ? "1" : "5", cid, cname, puser);
+            string puser = DBHelper.ExecuteScalar(@"select UserName from UserInfo where id in(
+select UserId from vw_AppPLevel where ObjId = "+cid+" and AppProcId = "+type+" and Approved = 2 and DealDatetime in (select MAX(dealdatetime) from AppProcessing where ObjId = "+cid+" and AppProcId = "+type+" and Approved = 2))");
+            if(puser=="")
+                puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
+
+            try
+            {
+                string reurl = "";
+                string aptype = "";
+                switch (type == "0" ? "1" : "5")
+                {
+                    case "1":
+                        aptype = "名录外企业审批";
+                        reurl = "http://cr16gd.saibo.net.cn/MobileCompany?id=" +cid + "&approved=1&userid=";
+                        break;
+                    case "5":
+                        aptype = "名录内企业审批";
+                        reurl = "http://cr16gd.saibo.net.cn/MobileCompany?id=" + cid + "&approved=1&userid=";
+                        break;
+                }
+
+                WXMessage.WXMessage message = new WXMessage.WXMessage();
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
+                    uid = dt.Rows[j][1].ToString();
+                    string guid = Guid.NewGuid().ToString().Replace("-", "");
+                    reurl += uid + "&lcode=" + guid;
+                    message.SendTempletMessge(dt.Rows[j][0].ToString(), reurl, aptype, cname, puser);
+                    DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid, visited) values('" + guid + "',getdate()," + uid + ", 0)");
+                }
+            }
+            catch (Exception e)
+            {
+                Log ll = new Log();
+                ll.OperType = OperateType.SendWXInfo;
+                ll.UserId = uid;
+                ll.Description = "发送短信失败:" + e.ToString();
+                LogContext.WriteLog(ll);
+            }
 
             Log l = new Log();
             l.OperType = OperateType.Create;

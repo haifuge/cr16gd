@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="~/css/sweetalert/sweetalert.css" />
 <link rel="stylesheet" href="~/css/style.css" />
 <style>
-        .submenu {
+    .submenu {
         display: none;
         font-size: 14px;
     }
@@ -34,7 +34,8 @@
                 line-height: 24px;
                 text-align: justify;
             }
-                .canvas {
+
+    .canvas {
         width: 100%;
         height: 100%;
         position: fixed;
@@ -50,8 +51,8 @@
             height: 530px;
             background: #fff;
             position: absolute;
-            top:50%;
-            left:50%;
+            top: 50%;
+            left: 50%;
             margin-top: -240px;
             margin-left: -350px;
             border: 1px solid #008cd6;
@@ -189,9 +190,9 @@
                 <a href="javascript:;" class="js-cancle-meet chehui" title="撤回" onclick="drawback()" hidden>
                     <i class="meet-icon icon-cancel">撤回</i>
                 </a>
-                <a href='javascript:;' class='js-cancle-meet shanchu' title='删除' onclick="deleteApplication()" hidden>
+                @*<a href='javascript:;' class='js-cancle-meet shanchu' title='删除' onclick="deleteApplication()" hidden>
                     <i class='meet-icon icon-cancel icon-sc' style="background-color:#ff0000">删除</i>
-                </a>
+                </a>*@
                 <a href='#' class='js-cancle-meet' title='导出' id="exportbtn" onclick="printDiv()" hidden>
                     <i class='meet-icon icon-cancel icon-dc'>导出</i>
                 </a>
@@ -202,7 +203,7 @@
             </div>
         </div>
 
- <!--发标文件申请-->
+        <!--发标文件申请-->
         <div class="canvas" id="bidfileapplylayer">
             <div class="canvas_content">
                 <span class="canvas_close">×</span>
@@ -274,10 +275,9 @@
 
                         </tbody>
                     </table>
-                    <div  class="meet-form meet-form8" style="border:0px;margin-top:23px" id="procs"  hidden>
+                    <div class="meet-form meet-form8" style="border:0px;margin-top:23px" id="procs" hidden>
                         <span style="text-align:center;font-size:24px;color:deepskyblue;">审批记录</span>
-                        <table class="meet-form meet-form8" id="printTab">
-                        </table>
+                        <table class="meet-form meet-form8" id="printTab"></table>
                     </div>
                 </div>
 
@@ -327,6 +327,7 @@
 <script type="text/javascript" src="~/js/jquery-1.11.0.js"></script>
 <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="~/js/sweetalert/sweetalert.min.js"></script>
+<script src="~/js/sweetalert2.all.js"></script>
 <script type="text/javascript" src="~/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="~/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="~/js/icheck/icheck.min.js"></script>
@@ -375,7 +376,7 @@
             var ulstyle= 'uc01'; //uc02
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                
+
                 if(i==0){
                     htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
                     printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
@@ -462,7 +463,7 @@
         return context == null || context == "" || context == "undefined" ? "" : context;
     }
     $(function () {
-        
+
         if (status == "2" || @ViewBag.RoleId != 2) {
             $(".shanchu").hide();
         }
@@ -490,7 +491,7 @@
             });
         })
     })
-        function deleteApplication() {
+    function deleteApplication() {
         swal({
                 title: '确定删除该申请？',
                 text: '你将无法撤回！',
@@ -504,7 +505,7 @@
             if (cc.dismiss != "cancel") {
                 swal( '成功！', '您以删除该申请。', 'success');
                 $.post("/BidingFile/DeleteApplication", { pid: @ViewBag.pid }, function () {
-                    window.history.go(-1);
+                    window.location.href = "/Projects?mmenu=Projects";
                 })
             }
         })

@@ -37,6 +37,7 @@
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="javascript:;" onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bType"></select>
+            <select class="meet-select js-meet-state" style="float:left; width:100px" id="addyear" onchange="ayearchange()"></select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
@@ -53,7 +54,7 @@
                     <tr>
                         <td class="check-color" style="width:30px;padding:0px 5px">
                             <span class="table-all-check">
-                                <input type="checkbox" value="" name="all-check" id="checkall" onclick="selectAll()" >
+                                <input type="checkbox" value="" name="all-check" id="checkall" onclick="selectAll()">
                             </span>
                         </td>
                         <td style="width:200px;padding:0px 5px">劳务承包企业名称</td>
@@ -64,7 +65,8 @@
                         <td style="width:100px;padding:0px 5px">项场负责人</td>
                         <td style="width:100px;padding:0px 5px">联系电话</td>
                         <td style="width:100px;padding:0px 5px">推荐单位</td>
-                        <td style="width:100px;padding:0px 5px; display:none" id="cstatus">状态</td>
+                        <td style="width:100px;padding:0px 5px">入库日期</td>
+                        @*<td style="width:100px;padding:0px 5px; display:none" id="cstatus">状态</td>*@
                         <!--<td style="width:180px;padding:0px 5px">联系地址</td>-->
                     </tr>
                 </thead>
@@ -101,6 +103,9 @@
         type = '';
     else 
         $("#bType").val(type)
+    var cy = $.getUrlParam('cy');
+    if (!cy)
+        cy = '';
     var page_size = 10
     var pagenum = 12
     //Paginator(nowpage, page_size, '', type)
@@ -135,6 +140,7 @@
             type = $("#bType").val();
         }
         SearchCompanyName = $("#searchinput").val();
+        
         nowpage = 1;
         Paginator(nowpage, page_size, SearchCompanyName, type)
     })
@@ -161,7 +167,7 @@
     });
 
     function Paginator(page, ps, sname, stype) {
-        
+        y = $("#addyear").val();
         sname = $("#searchinput").val();
         if ($("#bType").val() == "All") {
             stype = "";
@@ -169,7 +175,7 @@
             stype = $("#bType").val();
         }
 
-        $.post("/Companys/GetCompanies?ctype=1", { pageSize: ps, pageIndex: page, cname: sname, cctype:stype }, function (data) {
+        $.post("/Companys/GetCompanies?ctype=1", { pageSize: ps, pageIndex: page, cname: sname, cctype:stype, cy:y }, function (data) {
            
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
@@ -180,16 +186,17 @@
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)" onclick="setSelectAll()"/></td >' +
-                    '<td onclick=\"location.href = \'/Companys/Details?ct='+type+'&cp=' + nowpage+'&id=' + o.id + '\';\">' + o.name + '</td>' +
-                    '<td class="texthide3" onclick=\"location.href = \'/Companys/Details?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?ct=' + type +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.businesstype + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contact + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/Details?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contactphone + '</td>'+
-                    '<td onclick=\"location.href = \'/Companys/Details?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.refdepartment + '</td>'
-                if ($.cookie("RoleId") == 2)
-                    htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
+                    '<td onclick=\"location.href = \'/Companys/Details?cy='+y+'&ct='+type+'&cp=' + nowpage+'&id=' + o.id + '\';\">' + o.name + '</td>' +
+                    '<td class="texthide3" onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.businesstype + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contact + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contactphone + '</td>'+
+                    '<td onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type + '&cp=' + nowpage + '&id=' + o.id + '\';\">' + o.refdepartment + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/Details?cy=' + y +'&ct=' + type + '&cp=' + nowpage + '&id=' + o.id + '\';\">' + o.auditdate + '</td>'
+                //if ($.cookie("RoleId") == 2)
+                //    htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
                 // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
                 '</tr > ';
             }
@@ -224,7 +231,23 @@
         if (type != '') {
             $("#bType").val(type)
         }
-        Paginator(nowpage, page_size, '', type)
+        $.post("/Companys/GetMYears", {}, function (data) {
+            var obj = JSON.parse(data);
+            var ay = $("#addyear");
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                ay.append("<option value='" + o.addyear + "'>" + o.addyear + "</option>")
+            }
+            if (cy != "") {
+                $("#addyear").val(cy)
+            }
+            else {
+                yy = new Date;
+                cyy = yy.getFullYear() - 1;
+                $("#addyear").val(cyy)
+            }
+            Paginator(nowpage, page_size, '', type)
+        });
     });
     function comischecked(comid, chk) {
         var s = 0;
@@ -234,7 +257,11 @@
             s = 0;
         $.post("/Companys/ToggleCompany?id=" + comid + "&status=" + s, {}, function () { });
     }
-
+    function ayearchange() {
+        type = $("#bType").val();
+        SearchCompanyName = $("#searchinput").val();
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+    }
     //删除按钮
     function deleCompany() {
         if (!$("input.icheck").is(":checked")) {

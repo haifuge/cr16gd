@@ -466,11 +466,30 @@ namespace RailBiding.Controllers
                     ProjectContext pc = new ProjectContext();
                     pc.UpdateProjectStatus(pid, "招标文件审核中");
                     DataTable dt = pc.CreateApproveProcess(userid, pid, 2);
-
-                    WXMessage.WXMessage message = new WXMessage.WXMessage();
-                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
-                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
-                    message.sendInfoByWinXin(dt, "2", pid, pname, puser);
+                    try
+                    {
+                        WXMessage.WXMessage message = new WXMessage.WXMessage();
+                        string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                        string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                        string aptype = "招标文件审批";
+                        string reurl = "http://cr16gd.saibo.net.cn/MobileBidingFile?pid=" + pid + "&approved=1&userid=";
+                        for (int j = 0; j < dt.Rows.Count; j++)
+                        {
+                            userid = dt.Rows[j][1].ToString();
+                            string guid = Guid.NewGuid().ToString().Replace("-", "");
+                            reurl += userid + "&lcode=" + guid;
+                            message.SendTempletMessge(dt.Rows[j][0].ToString(), reurl, aptype, pname, puser);
+                            DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid, visited) values('" + guid + "',getdate()," + userid + ", 0)");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Log ll = new Log();
+                        ll.OperType = OperateType.SendWXInfo;
+                        ll.UserId = userid;
+                        ll.Description = "发送短信失败:" + e.ToString();
+                        LogContext.WriteLog(ll);
+                    }
 
                     Log l = new Log();
                     l.OperType = OperateType.Create;
@@ -492,9 +511,37 @@ namespace RailBiding.Controllers
             {
                 ProjectContext pc = new ProjectContext();
                 pc.UpdateProjectStatus(pid, "招标文件审核中");
-                string sql = "update AppProcessing set Approved=1 where AppProcId=2 and ObjId=" + pid + " and Approved=3; ";
+                string sql = @"select id, openid from UserInfo where ID in (select UserId from DepartmentUser where Guid in(
+                                        select DUGUID from AppProcessing where AppProcId = 2 and ObjId = " + pid + " and Approved = 3))";
+                DataTable dt = DBHelper.GetDataTable(sql);
+                
+                sql = "update AppProcessing set Approved=1 where AppProcId=2 and ObjId=" + pid + " and Approved=3; ";
                 sql += " update BidingFile set Status = 1 where ProjId = "+pid;
                 DBHelper.ExecuteNonQuery(sql);
+
+                try
+                {
+                    WXMessage.WXMessage message = new WXMessage.WXMessage();
+                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                    string aptype = "招标文件审批";
+                    string reurl = "http://cr16gd.saibo.net.cn/MobileBidingFile?pid=" + pid + "&approved=1&userid=";
+                    
+                    userid = dt.Rows[0][0].ToString();
+                    string guid = Guid.NewGuid().ToString().Replace("-", "");
+                    reurl += userid + "&lcode=" + guid;
+                    message.SendTempletMessge(dt.Rows[0][1].ToString(), reurl, aptype, pname, puser);
+                    DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid, visited) values('" + guid + "',getdate()," + userid + ", 0)");
+                    
+                }
+                catch (Exception e)
+                {
+                    Log ll = new Log();
+                    ll.OperType = OperateType.SendWXInfo;
+                    ll.UserId = userid;
+                    ll.Description = "发送短信失败:" + e.ToString();
+                    LogContext.WriteLog(ll);
+                }
 
                 Log l = new Log();
                 l.OperType = OperateType.Create;
@@ -524,11 +571,30 @@ namespace RailBiding.Controllers
                     pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
                     DataTable dt = pc.CreateApproveProcess(userid, pid, 3);
 
-                    WXMessage.WXMessage message = new WXMessage.WXMessage();
-                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
-                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
-                    message.sendInfoByWinXin(dt, "3", pid, pname, puser);
-
+                    try
+                    {
+                        WXMessage.WXMessage message = new WXMessage.WXMessage();
+                        string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                        string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                        string aptype = "招标审批";
+                        string reurl = "http://cr16gd.saibo.net.cn/MobileBid?pid=" + pid + "&approved=1&userid=";
+                        for (int j = 0; j < dt.Rows.Count; j++)
+                        {
+                            userid = dt.Rows[j][1].ToString();
+                            string guid = Guid.NewGuid().ToString().Replace("-", "");
+                            reurl += userid + "&lcode=" + guid;
+                            message.SendTempletMessge(dt.Rows[j][0].ToString(), reurl, aptype, pname, puser);
+                            DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid, visited) values('" + guid + "',getdate()," + userid + ", 0)");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Log ll = new Log();
+                        ll.OperType = OperateType.SendWXInfo;
+                        ll.UserId = userid;
+                        ll.Description = "发送短信失败:" + e.ToString();
+                        LogContext.WriteLog(ll);
+                    }
                     Log l = new Log();
                     l.OperType = OperateType.Create;
                     l.UserId = userid;
@@ -553,9 +619,37 @@ namespace RailBiding.Controllers
             {
                 ProjectContext pc = new ProjectContext();
                 pc.UpdateProjectStatus(bid.ProjId.ToString(), "招标审核中");
-                string sql = "update AppProcessing set Approved=1 where AppProcId=3 and ObjId=" + pid + " and Approved=3; ";
+                string sql = @"select id, openid from UserInfo where ID in (select UserId from DepartmentUser where Guid in(
+                                        select DUGUID from AppProcessing where AppProcId = 3 and ObjId = " + pid + " and Approved = 3))";
+                DataTable dt = DBHelper.GetDataTable(sql);
+                sql = "update AppProcessing set Approved=1 where AppProcId=3 and ObjId=" + pid + " and Approved=3; ";
                 sql += " update Bid set Status = 1 where ProjId = "+pid;
                 DBHelper.ExecuteNonQuery(sql);
+
+                try
+                {
+                    WXMessage.WXMessage message = new WXMessage.WXMessage();
+                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                    string aptype = "招标审批";
+                    string reurl = "http://cr16gd.saibo.net.cn/MobileBid?pid=" + pid + "&approved=1&userid=";
+                    
+                    userid = dt.Rows[0][0].ToString();
+                    string guid = Guid.NewGuid().ToString().Replace("-", "");
+                    reurl += userid + "&lcode=" + guid;
+                    message.SendTempletMessge(dt.Rows[0][1].ToString(), reurl, aptype, pname, puser);
+                    DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid, visited) values('" + guid + "',getdate()," + userid + ", 0)");
+                   
+                }
+                catch (Exception e)
+                {
+                    Log ll = new Log();
+                    ll.OperType = OperateType.SendWXInfo;
+                    ll.UserId = userid;
+                    ll.Description = "发送短信失败:" + e.ToString();
+                    LogContext.WriteLog(ll);
+                }
+
 
                 Log l = new Log();
                 l.OperType = OperateType.Create;
@@ -720,7 +814,7 @@ namespace RailBiding.Controllers
             {
                 filename = dt.Rows[i]["FilePath"].ToString().Replace("C:\\web\\cr16gd\\projectFiles\\", "http://cr16gd.saibo.net.cn/projectFiles/");
                 if (filename.IndexOf(".DOC") != -1 || filename.IndexOf(".doc") != -1 || filename.IndexOf(".pdf") != -1)
-                    yulan = "<a href='http://ow365.cn/?i=19177&furl=" + filename + "' target='_blank'>&nbsp;&nbsp;预览</a>";
+                    yulan = "<a href='/pdfViewer.html?file=" + filename + "' target='_blank'>&nbsp;&nbsp;预览</a>";
                 else
                     yulan = "";
                 if (i == 0)
@@ -773,11 +867,11 @@ namespace RailBiding.Controllers
                     string secondprice = "";
                     if (row["SecondPrice"].ToString() == "")
                     {
-                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'></span></p>");
+                        secondprice = string.Format(@"<p name='erci'> 二次报价：<span class='colblue'></span></p>");
                     }
                     else
                     {
-                        secondprice = string.Format(@"<p> 二次报价：<span class='colblue'>" + row["SecondPrice"].ToString() + "万元</span></p>");
+                        secondprice = string.Format(@"<p name='erci'> 二次报价：<span class='colblue'>" + row["SecondPrice"].ToString() + "万元</span></p>");
                     }
                     joinCompanys += string.Format(@"<li><p class='f16'>{0}</p>
                                 <p>投标报价：<span class='colblue'>{1}万元</span></p>
@@ -843,16 +937,34 @@ namespace RailBiding.Controllers
                 ProjectContext pc = new ProjectContext();
                 pc.UpdateProjectStatus(pid, "定标文件审核中");
                 DataTable dt = pc.CreateApproveProcess(Session["UserId"].ToString(), pid, 4);
-
-                WXMessage.WXMessage message = new WXMessage.WXMessage();
-                string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
                 string userid = Session["UserId"].ToString();
-                string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
-                message.sendInfoByWinXin(dt, "4", pid, pname, puser);
-
+                try
+                {
+                    WXMessage.WXMessage message = new WXMessage.WXMessage();
+                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                    string aptype = "定标文件审批";
+                    string reurl = "http://cr16gd.saibo.net.cn/MobileMakeBidFile?pid=" + pid + "&approved=1&userid=";
+                    for (int j = 0; j < dt.Rows.Count; j++)
+                    {
+                        userid = dt.Rows[j][1].ToString();
+                        string guid = Guid.NewGuid().ToString().Replace("-", "");
+                        reurl += userid + "&lcode=" + guid;
+                        message.SendTempletMessge(dt.Rows[j][0].ToString(), reurl, aptype, pname, puser);
+                        DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid, visited) values('" + guid + "',getdate()," + userid + ", 0)");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log ll = new Log();
+                    ll.OperType = OperateType.SendWXInfo;
+                    ll.UserId = userid;
+                    ll.Description = "发送短信失败:" + e.ToString();
+                    LogContext.WriteLog(ll);
+                }
                 Log l = new Log();
                 l.OperType = OperateType.Create;
-                l.UserId = Session["UserId"].ToString();
+                l.UserId = userid;
                 l.Description = "创建" + DBHelper.ExecuteScalar("select Name from Project where Id = " + pid) + " - 定标文件";
                 LogContext.WriteLog(l);
             }
@@ -903,9 +1015,39 @@ namespace RailBiding.Controllers
             {
                 ProjectContext pc = new ProjectContext();
                 pc.UpdateProjectStatus(pid, "定标文件审核中");
+
+                sql = @"select id, openid from UserInfo where ID in (select UserId from DepartmentUser where Guid in(
+                                        select DUGUID from AppProcessing where AppProcId = 4 and ObjId = " + pid + " and Approved = 3))";
+                DataTable dt = DBHelper.GetDataTable(sql);
+
                 sql = "update AppProcessing set Approved=1 where AppProcId=4 and ObjId=" + pid + " and Approved=3";
                 sql += " update MakeBidingFile set Status = 1 where ProjId = " + pid;
                 DBHelper.ExecuteNonQuery(sql);
+
+                string userid = Session["UserId"].ToString();
+                try
+                {
+                    WXMessage.WXMessage message = new WXMessage.WXMessage();
+                    string pname = DBHelper.ExecuteScalar("select name from Project where id =" + pid);
+                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + userid);
+                    string aptype = "定标文件审批";
+                    string reurl = "http://cr16gd.saibo.net.cn/MobileMakeBidFile?pid=" + pid + "&approved=1&userid=";
+
+                    userid = dt.Rows[0][0].ToString();
+                    string guid = Guid.NewGuid().ToString().Replace("-", "");
+                    reurl += userid + "&lcode=" + guid;
+                    message.SendTempletMessge(dt.Rows[0][1].ToString(), reurl, aptype, pname, puser);
+                    DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid, visited) values('" + guid + "',getdate()," + userid + ", 0)");
+
+                }
+                catch (Exception e)
+                {
+                    Log ll = new Log();
+                    ll.OperType = OperateType.SendWXInfo;
+                    ll.UserId = userid;
+                    ll.Description = "发送短信失败:" + e.ToString();
+                    LogContext.WriteLog(ll);
+                }
 
                 Log l = new Log();
                 l.OperType = OperateType.Create;
@@ -938,7 +1080,7 @@ namespace RailBiding.Controllers
             string sql = @"select case when mb.pname is null then p.name when mb.pname='' then p.name else mb.pname end as name, 
                                   p.ProDescription 
                           from Project p 
-                          inner join MakeBidingFile mb on p.Id=mb.ProjId 
+                          left join MakeBidingFile mb on p.Id=mb.ProjId 
                           where p.Id=" + pid;
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);

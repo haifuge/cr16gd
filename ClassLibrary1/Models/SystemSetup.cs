@@ -182,7 +182,12 @@ namespace DAL.Models
 
         public void DeleteUser(string uid, string did)
         {
-            string sql = "delete DepartmentUser where UserId = " + uid+ " and DepartmentId = "+did;
+
+            string sql = "";
+            if(did!="")
+                sql="delete DepartmentUser where UserId = " + uid+ " and DepartmentId = "+did;
+            else
+                sql = "delete userinfo where id = " + uid;
             DBHelper.ExecuteNonQuery(sql);
         }
 
@@ -222,7 +227,7 @@ namespace DAL.Models
             int ps = int.Parse(pageSize);
             int startIndex = (pi - 1) * ps + 1;
             int endIndex = pi * ps;
-            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId,d.id as did, ui.sigName, ui.sigFile
+            string sql = @"select identity(int,1,1) as iid, 1*ui.ID as id, UserAccount, UserName, Telphone as telephone, Email, d.Name as department,ui.RoleId,d.id as did, ui.sigName, ui.sigFile, ui.openid
                             into #temp
                             from UserInfo ui
                             left join DepartmentUser du on ui.id = du.userid and du.Status=1
@@ -232,6 +237,24 @@ namespace DAL.Models
                             drop table #temp";
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt);
+        }
+
+        public void DeleteYearManagement(string id)
+        {
+            string sql = "delete MYear where id = " + id;
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public void UpdateYearManagement(string id, string name)
+        {
+            string sql = "update MYear set AddYear=" + name + " where id = " + id;
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public string AddYearManagement(string bt)
+        {
+            string sql = "insert into MYear values(" + bt + "); select max(id) from MYear; ";
+            return DBHelper.ExecuteScalar(sql);
         }
 
         public void UpdateCompanyBusinessType(string id, string name)
@@ -264,6 +287,12 @@ namespace DAL.Models
         {
             string sql = "delete CompanyType where ID = "+id;
             DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public DataTable GetYearManagement()
+        {
+            string sql = "select * from MYear order by addyear desc";
+            return DBHelper.GetDataTable(sql);
         }
     }
 }

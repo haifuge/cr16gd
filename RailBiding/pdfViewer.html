@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div id="layer"></div>
+</body>
+</html>
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+<script src="js/jquery-1.11.0.js"></script>
+<script src="js/js.js"></script>
+<script type="text/javascript">
+    var url = $.getUrlParam('file')
+    window.onload = function () {
+        pdfsee(url)
+    }
+    function pdfsee(uul) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                type: 2,
+                area: ['1000px', '750px'],
+                fixed: true, //不固定
+                maxmin: false,
+                title: false,
+                closeBtn: 0,
+                content: uul
+            });
+        });
+    };
+</script>

@@ -119,6 +119,7 @@
         <div class="main-top">
             <a class="meet-btn blue-btn sm-btn" href="javascript:;" onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bType"></select>
+            <select class="meet-select js-meet-state" style="float:left; width:100px" id="addyear" onchange="ayearchange()"></select>
             <div class="search-con2">
                 <input type="text" name="keyname" placeholder="请输入关键字" id="searchinput">
                 <a class="search-btn"><i class="search-icon meet-icon"></i></a>
@@ -166,7 +167,8 @@
                         <td style="width:100px;padding:0px 5px">联系电话</td>
                         <!--<td style="width:180px;padding:0px 5px">联系地址</td>-->
                         <td style="width:100px;padding:0px 5px">推荐单位</td>
-                        <td style="width:100px;padding:0px 5px; display:none" id="cstatus">状态</td>
+                        <td style="width:100px;padding:0px 5px">入库日期</td>
+                        @*<td style="width:100px;padding:0px 5px; display:none" id="cstatus">状态</td>*@
                     </tr>
                 </thead>
                 <tbody id="tbCompany"></tbody>
@@ -201,12 +203,21 @@
         type = '';
     else
         $("#bType").val(type)
+    var cy = $.getUrlParam('cy');
+    if (!cy)
+        cy = '';
     var page_size = 10
     var pagenum = 12
     //Paginator(nowpage, page_size,"","")
     if ($.cookie("RoleId") == 2)
         $("#cstatus").show()
 
+    function ayearchange()
+    {
+        type = $("#bType").val();
+        SearchCompanyName = $("#searchinput").val();
+        Paginator(nowpage, page_size, SearchCompanyName, type)
+    }
     //全部按钮
     function allcompany() {
         $("#searchinput").val("");
@@ -249,13 +260,14 @@
 
 
     function Paginator(page, ps, sname, stype) {
+        y = $("#addyear").val();
         sname = $("#searchinput").val();
         if ($("#bType").val() == "All") {
             stype = "";
         } else {
             stype = $("#bType").val();
         }
-        $.post("/Companys/GetCompanies?ctype=0", { pageSize: ps, pageIndex: page,cname:sname,cctype:stype }, function (data) {
+        $.post("/Companys/GetCompanies?ctype=0", { pageSize: ps, pageIndex: page,cname:sname,cctype:stype, cy:y }, function (data) {
             var jsonData = JSON.parse(data);
             var obj = jsonData.List;
             var htm = "";
@@ -265,16 +277,17 @@
                 var chk = o.status == 1 ? "checked" : "";
                 htm += "<tr class='white-bg'>" +
                     '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1" onchange="checkedid(this)" onclick="setSelectAll()"/></td >' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.name + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.businesstype + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contact + '</td>' +
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contactphone + '</td>'+
-                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.refdepartment + '</td>'
-                if ($.cookie("RoleId") == 2)
-                    htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy='+y+'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.name + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.qualificationlevel + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.registeredcapital + '万元</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.businesstype + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.corporaterepresentative + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contact + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type +'&cp=' + nowpage +'&id=' + o.id + '\';\">' + o.contactphone + '</td>'+
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type + '&cp=' + nowpage + '&id=' + o.id + '\';\">' + o.refdepartment + '</td>' +
+                    '<td onclick=\"location.href = \'/Companys/OutCompanyDetail?cy=' + y +'&ct=' + type + '&cp=' + nowpage + '&id=' + o.id + '\';\">' + o.auditdate + '</td>'
+                //if ($.cookie("RoleId") == 2)
+                //    htm += '<td class="gray-word"><div class="model-15"><div class="checkbox-switch label:after"><input type="checkbox" id="companyischecked" value="' + o.id + '" onclick="comischecked(' + o.id + ',this)" ' + chk + '><label></label></div></div></td>'
                 // '<td onclick=\"location.href = \'/Companys/Details?id=' + o.id +'\';\" class="gray-word">' + o.contactaddress + '</td>' +
                 '</tr > ';
             }
@@ -319,7 +332,23 @@
         if (type != '') {
             $("#bType").val(type)
         }
-        Paginator(nowpage, page_size, '', type)
+        $.post("/Companys/GetMYears", {}, function (data) {
+            var obj = JSON.parse(data);
+            var ay = $("#addyear");
+            for (var i = 0; i < obj.length; i++) {
+                var o = obj[i]
+                ay.append("<option value='" + o.addyear + "'>" + o.addyear + "</option>")
+            }
+            if (cy != "") {
+                $("#addyear").val(cy)
+            }
+            else {
+                yy = new Date;
+                cyy = yy.getFullYear()-1;
+                $("#addyear").val(cyy)
+            }
+            Paginator(nowpage, page_size, '', type)
+        });
     });
 
 

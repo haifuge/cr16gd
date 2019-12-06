@@ -116,7 +116,7 @@ namespace RailBiding.Controllers
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         var cid = "company" + dt.Rows[i]["id"].ToString();
-                        cHtml.Append("<span id='" + cid + "'><a href='/Companys/Details?id="+ dt.Rows[i]["id"].ToString()+"' target='_blank'>" + dt.Rows[i]["Name"].ToString() + string.Format(removebtn, cid) + "</a></span>");
+                        cHtml.Append("<span id='" + cid + "'><a href='/Companys/Details?id="+ dt.Rows[i]["id"].ToString()+"' target='_blank'>" + dt.Rows[i]["Name"].ToString()+"</a>" + string.Format(removebtn, cid) + "</span>");
                     }
                     cHtml.Append(@"</div></div></td></tr>");
                     ViewBag.inviteJoinCompanys = cHtml.ToString();
@@ -372,6 +372,12 @@ namespace RailBiding.Controllers
                            from (select * from vw_AppPLevel where ObjId=411 and AppProcId=3 and Level < 11) a 
                            where AppProcessing.ObjId="+ oid + " and AppProcessing.AppProcId="+apid+" and AppProcessing.DUGUID=a.DUGUID;";
             sql += "update Project set Status=N'定标文件审核中' where Id="+oid+"; update MakeBidingFile set Status = 1 where ProjId = "+oid;
+            DBHelper.ExecuteNonQuery(sql);
+        }
+
+        public void DeleteApplication(string pid)
+        {
+            string sql = "delete Bid where ProjId="+pid+ "; delete AppProcessing where ObjId="+pid+ " and AppProcId=3; update project set status=N'招标文件审核通过' where id=" + pid;
             DBHelper.ExecuteNonQuery(sql);
         }
     }

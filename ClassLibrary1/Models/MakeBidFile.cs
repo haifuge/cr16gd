@@ -73,7 +73,7 @@ namespace DAL.Models
                                 inner join (select MAX(level) as level,AppProcId, ObjId 
 			                                from vw_AppPLevel where AppProcId=4 and Approved=1 group by ObjId, AppProcId
                                 ) b on a.AppProcId=b.AppProcId and a.Level>=b.level and a.ObjId=b.ObjId
-                            where a.UserId=" + uid + @") a on p.ID=a.ObjId " + where + @" where mb.status<>3
+                            where a.UserId=" + uid + @") a on p.ID=a.ObjId " + where + @" 
                             ) a order by a.Id desc;
                             select * from #temp1 where iid between " + startIndex + " and " + endIndex + @"
                             select count(1) from #temp1

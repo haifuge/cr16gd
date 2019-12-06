@@ -553,13 +553,18 @@
 <script src="~/Scripts/jquery.form.js"></script>
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" language="javascript">
+    getUrlParam1 = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = decodeURIComponent(window.location).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    } 
     getUrlParam = function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]); return null;
-    } 
+    }
     function goback() {
-        window.location.href = "/Projects?mmenu=Projects&cp=" + getUrlParam('cp');
+        window.location.href = "/Projects?mmenu=Projects&cp=" + getUrlParam('cp') + '&pt=' + getUrlParam1('pt') + '&st=' + getUrlParam1('st');
     }
     $(function () {
 

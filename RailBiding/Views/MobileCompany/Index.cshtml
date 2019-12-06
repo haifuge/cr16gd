@@ -72,7 +72,7 @@
                                 <dl>
                                     <dt>企业名称:</dt>
                                     <dd>
-                                        @ViewBag.Name  
+                                        @ViewBag.Name
                                         @if (ViewBag.apid == "1")
                                         {
                                             <span class="tjqy">推荐企业</span>
@@ -114,6 +114,10 @@
                                 <dl>
                                     <dt>备注:</dt>
                                     <dd>@Html.Raw(ViewBag.Note)</dd>
+                                </dl>
+                                <dl>
+                                    <dt>推荐书:</dt>
+                                    <dd>@Html.Raw(ViewBag.RefereFile)</dd>
                                 </dl>
                             </div>
 
@@ -173,7 +177,7 @@
                     </div>
                 </div>
 
-                <div class="row btn-row">
+                <div class="row btn-row" id="actionbtn">
                     <div class="buttons-row col-80 meetp-buttons-row">
                         <a href="#" onclick="greenbtn()" class="button active">同意</a>
                         <a href="#" onclick="redbtn()" class="button active">驳回</a>
@@ -185,7 +189,12 @@
 
 
     <script>
-
+        $.get("/Common/GetProcessStatus", { oid: @ViewBag.cid, apid: @ViewBag.apid, uid: @ViewBag.UserId}, function (data) {
+            if (data == "0")
+                $("#actionbtn").hide();
+            else
+                $("#actionbtn").show();
+        });
     //资质荣誉 图片放大
     $(function () {
         var abtab2_img = 1;

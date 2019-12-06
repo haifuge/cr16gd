@@ -304,8 +304,11 @@
                                     <select class="select radius-sel dropdown" name="iofnName"
                                             id="bType" value="@ViewBag.BusinessType"></select>
                                 </div>
+                                <div class="form-item  sel-required">
+                                    <span class="td-cer">年度：</span><select class="select radius-sel dropdown" id="addyear"  onchange="CheckCompanyNameUsed()"></select>
+                                </div>
                                 <div class="form-item  sel-required" id="projDiv">
-                                    <span class="td-cer">所属项目：</span><select class="select radius-sel dropdown" style="width:180px;background: url(../img/icon-arrow.png) no-repeat 159px center;" id="projs" value="@ViewBag.projId"/>
+                                    <span class="td-cer">所属项目：</span><select class="select radius-sel dropdown" style="width:180px;background: url(../img/icon-arrow.png) no-repeat 159px center;" id="projs" value="@ViewBag.projId" />
                                 </div>
                             </td>
                         </tr>
@@ -578,6 +581,22 @@
 <script type="text/javascript" src="~/js/loading.js"></script>
 <script type="text/javascript" src="~/js/up.js"></script>
 <script type='text/javascript'>
+    
+    $.post("/Companys/GetMYears", {}, function (data) {
+        var obj = JSON.parse(data);
+        var ay = $("#addyear");
+        for (var i = 0; i < obj.length; i++) {
+            var o = obj[i]
+            if (o.addyear ==@ViewBag.AddYear) {
+                ay.append("<option value='" + o.addyear + "' selected>" + o.addyear + "</option>")
+            }
+            else {
+                ay.append("<option value='" + o.addyear + "'>" + o.addyear + "</option>")
+            }
+            
+        }
+    });
+
     if (@ViewBag.roleid == 2){
         $(".tijiaobth").hide()
     }
@@ -597,6 +616,7 @@
             else
                 ps.append("<option value='" + o.id + "'>" + o.name + "</option>")
         }
+
     })
     //function businessScope(){
     //    if($("#businessScope").val()!=""){
@@ -1118,7 +1138,8 @@
         var projid = $("#projs").val()
 
         var data = { id:@ViewBag.cid,
-            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm, auditstatus: auditSt, status: 1, pi: projid
+            cname: comName, btype: bt, rname: refname, scno: scno, qlevel: ql, inout:@ViewBag.inout, lno: lno, bscope: bs, rmoney: rm,
+            auditstatus: auditSt, status: 1, pi: projid, cyear: $("#addyear").val()
         }
         if(submitType==0){
             // show
@@ -1537,7 +1558,7 @@
             })
             return;
         }else{
-            $.post("/Companys/CheckUpdateCompanyNameUsed", {cid:@ViewBag.cid, cName: companyName }, function (data) {
+            $.post("/Companys/CheckUpdateCompanyNameUsed", { cid:@ViewBag.cid, cName: companyName, cyear: $("#addyear").val() }, function (data) {
                 if (data != "1") {
                     swal("该企业已在库里，请重新录入企业名称！");
                     $("#companyName").css('border','1px solid red');

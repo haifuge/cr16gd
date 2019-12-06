@@ -45,7 +45,7 @@ namespace RailBiding.Controllers
         [ActiveMenuFilter(MenuName = "itemC")]
         public ActionResult Details(int id)
         {
-            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("CompanysMyRecommend", Session["RoleId"].ToString());
+            ViewBag.SecondMenu = MenuHelper.GetSecondMenu("Companys", Session["RoleId"].ToString());
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
@@ -66,6 +66,7 @@ namespace RailBiding.Controllers
             ViewBag.AuditStatus = dr["AuditStatus"].ToString();
             ViewBag.Type = dr["Type"].ToString();
             ViewBag.id = dr["id"].ToString();
+            ViewBag.AddYear = int.Parse(dr["AddYear"].ToString());
 
             string rootPath = Server.MapPath("../");
             dt = cc.GetCompanyReferee(id);
@@ -161,9 +162,12 @@ namespace RailBiding.Controllers
             else
             {
                 ViewBag.addeditbtn = "";
-
             }
-
+            if (ViewBag.AuditStatus == "0")
+            {
+                ViewBag.deletebtn = @"<a href ='#' class='js-cancle-meet' onclick='deleteCompany()' title='删除'>
+                                    <i class='meet-icon icon-cancel icon-edits delete-edit' style='background:#ff0000'>删除</i>";
+            }
 
             return View();
         }
@@ -189,6 +193,7 @@ namespace RailBiding.Controllers
             ViewBag.QualificationLevel = dr["QualificationLevel"].ToString();
             ViewBag.ConstructionContent = dr["ConstructionContent"].ToString();
             ViewBag.Referre= dr["Referre"].ToString();
+            ViewBag.AddYear = int.Parse(dr["AddYear"].ToString());
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -335,7 +340,9 @@ namespace RailBiding.Controllers
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             ViewBag.inout= dr["Type"].ToString();
             ViewBag.AuditStatus = dr["AuditStatus"].ToString();
-            
+            ViewBag.AddYear = dr["AddYear"].ToString();
+
+
             string rootPath = Server.MapPath("../");
             string picHtml = "";
             string pic = dr["ReferreIDPic"].ToString();
@@ -449,6 +456,7 @@ namespace RailBiding.Controllers
             ViewBag.Note = dr["Note"].ToString();
             ViewBag.Referre = dr["Referre"].ToString();
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
+            ViewBag.AddYear = int.Parse(dr["AddYear"].ToString());
 
             string rootPath = Server.MapPath("../");
             string picHtml = "";
@@ -556,11 +564,11 @@ namespace RailBiding.Controllers
         /// </summary>
         /// <param name="ctype">0:名录外；1:名录内</param>
         /// <returns></returns>
-        public string GetCompanies(string ctype, string pageSize, string pageIndex, string cname, string cctype)
+        public string GetCompanies(string ctype, string pageSize, string pageIndex, string cname, string cctype, string cy)
         {
             CompanyContext cc = new CompanyContext();
 
-            return cc.GetAllCompanies(ctype, pageSize, pageIndex, cname, cctype, Session["RoleId"].ToString());
+            return cc.GetAllCompanies(ctype, pageSize, pageIndex, cname, cctype, Session["RoleId"].ToString(), cy);
         }
 
         // GET: Companys/Create
@@ -624,6 +632,7 @@ namespace RailBiding.Controllers
                 company.AuditStatus= int.Parse(Request["auditstatus"].ToString());
                 company.Status = int.Parse(Request["status"].ToString());
                 company.OutCompanyProjId = int.Parse(Request["pi"].ToString());
+                company.AddYear = int.Parse(Request["cyear"].ToString());
                 
                 Session["newCid"] = cc.CreateCompany(company, Session["UserId"].ToString());
 
@@ -645,9 +654,9 @@ namespace RailBiding.Controllers
             Company company = new Company();
             company.Id = int.Parse(Session["newCid"].ToString());
             company.CorporateRepresentive = Request["rep"] == null ? "" : Request["rep"].ToString();
-            company.RepPhone = Request["rtel"] == null ? "" : Request["rtel"].ToString();
+            company.RepPhone = Request["rtel"] == null ? "" : Request["rtel"].ToString().Trim();
             company.Contact = Request["contact"] == null ? "" : Request["contact"].ToString();
-            company.ContactPhone = Request["cphone"] == null ? "" : Request["cphone"].ToString();
+            company.ContactPhone = Request["cphone"] == null ? "" : Request["cphone"].ToString().Trim();
             company.ContactAddress = Request["caddress"] == null ? "" : Request["caddress"].ToString();
             company.ConstructionContent = Request["construction"] == null ? "" : Request["construction"].ToString();
             company.Note = Request["note"] == null ? "" : Request["note"].ToString();
@@ -875,10 +884,10 @@ namespace RailBiding.Controllers
             cc.ToggleCompany(id, status);
         }
 
-        public string CheckCompanyNameUsed(string cName)
+        public string CheckCompanyNameUsed(string cName, string cyear)
         {
             CompanyContext cc = new CompanyContext();
-            string i = cc.CheckCompanyNameUsed(cName);
+            string i = cc.CheckCompanyNameUsed(cName, cyear);
             if (i != "0")
                 //返回“0”该公司名不可用
                 return "0";
@@ -935,6 +944,7 @@ namespace RailBiding.Controllers
             Session["inout"]= dr["Type"].ToString();
 
             ViewBag.roleid = Session["RoleId"].ToString();
+            ViewBag.AddYear = dr["AddYear"].ToString();
             // 上传图片和文件
             DataTable pics = cc.GetCompanyPics(id);
             string rootPath = Server.MapPath("../");
@@ -1048,6 +1058,7 @@ namespace RailBiding.Controllers
                 company.AuditStatus = int.Parse(Request["auditstatus"].ToString());
                 company.Status = int.Parse(Request["status"].ToString());
                 company.OutCompanyProjId = int.Parse(Request["pi"].ToString()==""?"0": Request["pi"].ToString());
+                company.AddYear = int.Parse(Request["cyear"].ToString());
 
                 cc.UpdateCompany(company, Session["UserId"].ToString());
                 Session["newCid"] = company.Id;
@@ -1071,11 +1082,11 @@ namespace RailBiding.Controllers
             cc.UpdateCompanyPics(company);
         }
 
-        public string CheckUpdateCompanyNameUsed(string cName, string cid)
+        public string CheckUpdateCompanyNameUsed(string cName, string cid, string cyear)
         {
 
             CompanyContext cc = new CompanyContext();
-            string i = cc.CheckUpdateCompanyNameUsed(cName, cid);
+            string i = cc.CheckUpdateCompanyNameUsed(cName, cid, cyear);
             if (i != "0")
                 //返回“0”该公司名不可用
                 return "0";
@@ -1181,6 +1192,12 @@ namespace RailBiding.Controllers
                         where c.AuditStatus<>0 and c.OutCompanyProjId=" + pid;
             DataTable dt = DBHelper.GetDataTable(sql);
             return JsonHelper.DataTableToJSON(dt).Replace("	", "");
+        }
+        public string GetMYears()
+        {
+            string sql = "select * from MYear order by addyear desc";
+            DataTable dt = DBHelper.GetDataTable(sql);
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

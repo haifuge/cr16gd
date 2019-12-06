@@ -134,7 +134,7 @@ namespace RailBiding.Mobile
 
         public string GetVerifyCode()
         {
-            return Session["VerifyCode"].ToString();
+            return Session["VerifyCode"].ToString().ToLower();
         }
     }
 }

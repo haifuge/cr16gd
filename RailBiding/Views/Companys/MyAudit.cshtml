@@ -36,7 +36,7 @@
             <a class="meet-btn blue-btn sm-btn" href="#" onclick="allcompany()">全部</a>
             <select class="meet-select js-meet-state" id="bType">
                 <option value="all">状态</option>
-                <option value="1" selected="selected">待处理</option>
+                <option value="1">待处理</option>
                 <option value="2">已通过</option>
                 <option value="3">被驳回</option>
             </select>
@@ -96,6 +96,11 @@
         nowpage = parseInt(nowpage);
     var page_size = 10
     var pagenum = 12
+    var st = $.getUrlParam('st')
+    if (st)
+        $("#bType").val(st);
+    else
+        $("#bType").val(1);
     Paginator(nowpage, page_size,"","")
 
 
@@ -167,7 +172,6 @@
             var htm = "";
             for (var i = 0; i < obj.length; i++) {
                 var o = obj[i];
-                console.log(o)
                 var auditStatus = "";
                 var statusStyle = "";
                 switch (o.approved) {
@@ -200,7 +204,7 @@
                 } else {
                     var jianimg="";
                 }
-                htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?cp=' + nowpage +'&id=' + o.id + '&approved=' + o.approved + '\';">' +
+                htm += '<tr class="white-bg" onclick="location.href=\'/Companys/AuditDetail?st=' + $("#bType").val()+'&cp=' + nowpage +'&id=' + o.id + '&approved=' + o.approved + '\';">' +
                     //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="1" id="checkbox-1"/></td >' +
                     '<td>' + o.name + jianimg + '</td>' +
                     '<td>' + o.qualificationlevel + '</td>' +

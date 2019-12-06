@@ -295,15 +295,33 @@ namespace RailBiding.Controllers
             SystemSetup ss = new SystemSetup();
             return ss.AddBusinessType(bt);
         }
+
+        public string AddYearManagement(string bt)
+        {
+            SystemSetup ss = new SystemSetup();
+            return ss.AddYearManagement(bt);
+        }
+
         public void DeleteBusinessType(string id)
         {
             SystemSetup ss = new SystemSetup();
             ss.DeleteBusinessType(id);
         }
+        public void DeleteYearManagement(string id)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.DeleteYearManagement(id);
+        }
+
         public void UpdateBusinessType(string id, string name)
         {
             SystemSetup ss = new SystemSetup();
             ss.UpdateBusinessType(id, name);
+        }
+        public void UpdateYearManagement(string id, string name)
+        {
+            SystemSetup ss = new SystemSetup();
+            ss.UpdateYearManagement(id, name);
         }
         public void DeleteUser(string uid, string did)
         {
@@ -341,6 +359,13 @@ namespace RailBiding.Controllers
         {
             SystemSetup ss = new SystemSetup();
             return ss.SearchUsersByPage(uname, pageSize, pageIndex);
+        }
+
+        public string GetYearManagement()
+        {
+            SystemSetup ss = new SystemSetup();
+            DataTable dt = ss.GetYearManagement();
+            return JsonHelper.DataTableToJSON(dt);
         }
     }
 }

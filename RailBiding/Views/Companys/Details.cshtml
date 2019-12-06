@@ -31,10 +31,11 @@
                 <a href="javascript:;" class="js-cancle-meet chehui" title="撤回" onclick="drawback()" hidden>
                     <i class="meet-icon icon-cancel">撤回</i>
                 </a>
+                @Html.Raw(ViewBag.deletebtn)
                 @Html.Raw(ViewBag.addeditbtn)
                 @Html.Raw(ViewBag.editbtn)
 
-                <a href='#' class='js-cancle-meet' title='导出' id="exportbtn">
+                <a href='#' class='js-cancle-meet' title='导出' id="exportbtn" onclick="exportCompany()">
                     <i class='meet-icon icon-cancel icon-dc'>导出</i>
                 </a>
                 <a href='#' class='js-cancle-meet' onclick="goback()" title='返回'>
@@ -42,91 +43,138 @@
                 </a>
             </div>
         </div>
-        <div class="wc-container  ccata" id="printArea">
-            <div class="wc-nav">
-            </div>
-            <div class="detail-wrap detail-con">
-                <div class="block-left ">
-                    <div class="detail-fb">
-                        统一社会信用代码号：<span>@ViewBag.CreditNo</span>
+        <div class="detail-wrap detail-con">
+            <div class="block-left block-left2  block-left3 block-left4">
+                <div class="wc-container  ccata" id="printArea">
+                    <div class="wc-nav">
                     </div>
-                    <table class="meet-form">
-                        <tbody>
-                            <tr class="form-tr form-tr-title-bg" id="companyInfo">
-                                <td class="blue-word form-lable">企业名称：</td>
-                                <td colspan="5">@ViewBag.Name</td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="blue-word form-lable">法人代表：</td>
-                                <td>@ViewBag.CorporateRepresentative</td>
-                                <td class="blue-word form-lable">联系电话：</td>
-                                <td>@ViewBag.RepPhone</td>
-                                <td class="blue-word form-lable">注册资金：</td>
-                                <td>
-                                    @ViewBag.RegisteredCapital 万元
-                                </td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="blue-word form-lable">现场负责人：</td>
-                                <td>@ViewBag.Contact</td>
-                                <td class="blue-word form-lable">联系电话：</td>
-                                <td>@ViewBag.ContactPhone</td>
-                                <td class="blue-word form-lable">业务类型：</td>
-                                <td>@ViewBag.BusinessType</td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="blue-word form-lable">联系地址：</td>
-                                <td colspan="5">@ViewBag.ContactAddress</td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="blue-word form-lable">资质等级：</td>
-                                <td colspan="5">@ViewBag.QualificationLevel</td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="blue-word form-lable">业务范围：</td>
-                                <td colspan="5">@ViewBag.BusinessScope</td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="blue-word form-lable">施工内容：</td>
-                                <td class="f14" colspan="5">@ViewBag.ConstructionContent</td>
-                            </tr>
-                            <tr class="form-tr">
-                                <td class="blue-word form-lable  ab_con" colspan="6">
-                                    <div class="ab_con">
-                                        <div class="ab_con_tip">提示：方向键切换图片，点击外侧关闭图片。</div>
-                                        @Html.Raw(ViewBag.CompanyPics)
+                    <div class="detail-wrap detail-con">
+                        <div class="block-left ">
+                            <div class="detail-fb">
+                                统一社会信用代码号：<span>@ViewBag.CreditNo</span>
+                            </div>
+                            <table class="meet-form">
+                                <tbody>
+                                    <tr class="form-tr form-tr-title-bg" id="companyInfo">
+                                        <td class="blue-word form-lable">企业名称：</td>
+                                        <td colspan="5">@ViewBag.Name</td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="blue-word form-lable">法人代表：</td>
+                                        <td>@ViewBag.CorporateRepresentative</td>
+                                        <td class="blue-word form-lable">联系电话：</td>
+                                        <td>@ViewBag.RepPhone</td>
+                                        <td class="blue-word form-lable">注册资金：</td>
+                                        <td>
+                                            @ViewBag.RegisteredCapital 万元
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="blue-word form-lable">现场负责人：</td>
+                                        <td>@ViewBag.Contact</td>
+                                        <td class="blue-word form-lable">联系电话：</td>
+                                        <td>@ViewBag.ContactPhone</td>
+                                        <td class="blue-word form-lable">业务类型：</td>
+                                        <td>@ViewBag.BusinessType</td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="blue-word form-lable">联系地址：</td>
+                                        <td colspan="3">@ViewBag.ContactAddress</td>
+                                        <td class="blue-word form-lable">年度：</td>
+                                        <td>@ViewBag.AddYear</td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="blue-word form-lable">资质等级：</td>
+                                        <td colspan="5">@ViewBag.QualificationLevel</td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="blue-word form-lable">业务范围：</td>
+                                        <td colspan="5">@ViewBag.BusinessScope</td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="blue-word form-lable">施工内容：</td>
+                                        <td class="f14" colspan="5">@ViewBag.ConstructionContent</td>
+                                    </tr>
+                                    <tr class="form-tr">
+                                        <td class="blue-word form-lable  ab_con" colspan="6">
+                                            <div class="ab_con">
+                                                <div class="ab_con_tip">提示：方向键切换图片，点击外侧关闭图片。</div>
+                                                @Html.Raw(ViewBag.CompanyPics)
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr detail-user-con gzyj">
+                                        <td colspan="6">
+                                            <h3 class="yj-tit">工作业绩</h3>
+                                            <table style="width: 100%">
+                                                <thead class="wc-header">
+                                                    <tr>
+                                                        <td style="width:150px">承包项目</td>
+                                                        <td style="width:80px">合同金额</td>
+                                                        <td style="width:100px">开工日期</td>
+                                                        <td style="width:100px">竣工日期</td>
+                                                        <td style="width:60px">状态</td>
+                                                        <td style="width:80px">结算金额</td>
+                                                        <td style="width:100px">合同扫描附件</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @Html.Raw(ViewBag.WorkHistory)
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr detail-user-con gzyj">
+                                        <td colspan="6">
+                                            <span style="color: #666;padding-right:5px;">推荐人：</span>@ViewBag.Referre
+                                            <span style="color: #666;padding-left:15px;">推荐书：</span>@Html.Raw(ViewBag.RefereFile)
+                                        </td>
+                                    </tr>
+                                    <tr class="form-tr detail-user-con gzyj" id="procs" hidden>
+                                        <td colspan="6">
+                                            <span style="text-align:center;font-size:24px;color:deepskyblue;">审批记录</span>
+                                            <table class="meet-form meet-form8" id="printTab"></table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-right block-right2">
+                <div class="block-rigt" style="margin-left:20px">
+                    <div class="detail-user">
+                        <a class="meet-btn medium-btn">审核意见</a>
+                        <a class="meet-btn medium-btn active">流转信息</a>
+                    </div>
+                    <div class="detail-user-list right-ss" style="min-height:215px;overflow: auto;">
+                        <div class="meet-user-span" style="display: none;">
+                            <div class="feedback-con feedback-con2">
+                                <div class="feedback-item decfeedback-item">
+                                    <div class="feedback-item-title">
+                                        <i class="meet-icon icon-message-on"></i>
+                                        驳回理由
                                     </div>
-                                </td>
-                            </tr>
-                            <tr class="form-tr detail-user-con gzyj">
-                                <td colspan="6">
-                                    <h3 class="yj-tit">工作业绩</h3>
-                                    <table style="width: 100%">
-                                        <thead class="wc-header">
-                                            <tr>
-                                                <td style="width:150px">承包项目</td>
-                                                <td style="width:80px">合同金额</td>
-                                                <td style="width:100px">开工日期</td>
-                                                <td style="width:100px">竣工日期</td>
-                                                <td style="width:60px">状态</td>
-                                                <td style="width:80px">结算金额</td>
-                                                <td style="width:100px">合同扫描附件</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @Html.Raw(ViewBag.WorkHistory)
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr class="form-tr detail-user-con gzyj">
-                                <td colspan="6">
-                                    <span style="color: #666;padding-right:5px;">推荐人：</span>@ViewBag.Referre
-                                    <span style="color: #666;padding-left:15px;">推荐书：</span>@Html.Raw(ViewBag.RefereFile)
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <ul class="feedback-list feedback-admin">
+                                        <li id="declineInfo"></li>
+                                    </ul>
+                                </div>
+                                <div class="feedback-item js-myattend">
+                                    <div class="feedback-item-title">
+                                        <i class="meet-icon icon-message"></i>
+                                        共<span class="js-feed-count"></span>条回复消息
+                                    </div>
+                                    <ul class="feedback-list feedback-users">
+                                        <li id="passlineInfo"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="transferInfo" class="meet-user-span" style="display: block;">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -163,34 +211,16 @@
             }
         });
     }
-    //资质荣誉 图片放大
-    //$(function () {
-    //    var abtab2_img = 1;
-    //    $("a[rel=group]").fancybox({
-    //        'titlePosition': 'over',
-    //        'scrolling': 'yes',
-    //        'centerOnScroll': true,
-    //        'cyclic': true,
-    //        'titleFormat': function (title, currentArray, currentIndex, currentOpts) {
-    //            return '<span id="fancybox-title-over">' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? '   ' + title : '') + '</span>';
-    //        },
-    //        onComplete: function () {
-    //            var w = $(window).width(),
-    //                pc = w > 1200 ? 1 : 2;
-    //            if (abtab2_img && pc === 1) {
-    //                abtab2_img = 0;
-    //                $('.ab_con_tip').fadeIn().delay(2000).fadeOut();
-    //            }
-    //            if (abtab2_img && pc === 2) {
-    //                abtab2_img = 0;
-    //                $('.ab_con_tip').text('提示：点击图片两侧可切换，外侧关闭').css({ 'margin-left': -140 }).fadeIn().delay(2000).fadeOut();
-    //            }
 
-    //        }
-    //    });
-    //});
+    function deleteCompany() {
+        $.post("/Companys/DeleteCompany", { ids:@ViewBag.id}, function () {
+            swal('删除成功。').then(function () {
+                window.location.href = "/Companys/MyRecommend";
+            });
+        })
+    }
     function goback() {
-        window.location.href = "/Companys?cp=" + $.getUrlParam('cp') + "&ct=" + $.getUrlParam('ct');
+        window.location.href = "/Companys?cp=" + $.getUrlParam('cp') + "&ct=" + $.getUrlParam('ct') + "&cy=" + $.getUrlParam('cy');
     }
     function submitCompany(){
         swal({
@@ -214,13 +244,90 @@
             })
     }
 
-    var downPdf = document.getElementById("exportbtn");
-    downPdf.onclick = function () {
+    function exportCompany() {
+        $('#procs').show();
         var printData = document.getElementById("printArea").innerHTML;
         var oldstr = document.body.innerHTML;
         document.body.innerHTML = printData;
         window.print();
         document.body.innerHTML = oldstr;   //保持原页面格式
+        $('#procs').hide();
     }
+    var passhtm=""
+    $.get("/Common/GetApproveProcessingInfo", { oid:@ViewBag.id, apid: @ViewBag.Type==1?5:1 }, function (data) {
+        var obj = JSON.parse(data);
+        if (obj.length == 0)
+            return;
+        var pdepart = obj[0].pname;
+        var printPro = '<tr><td colspan = "5" style="text-align:left;">' + pdepart + '</td ></tr>';
+        var htm = '<h4 class="cp01"><span></span>' + pdepart + '</h4><ul>';
+        var hstyle = 'cp01'; //cp02
+        var ulstyle = 'uc01'; //uc02
+        for (var i = 0; i < obj.length; i++) {
+            var o = obj[i];
+            if (i == 0) {
+                htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">提交申请</span></div></li >'
+                printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
+                    '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
+                    '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
+                    '<td width="12%" style="border-right:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">提交申请</span></td>' +
+                    '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
+                continue;
+            }
+            printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
+                '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
+                '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
+                '<td width="12%" style="border-right:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">同意</span></td>' +
+                '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
+            if (o.pname == pdepart) {
+                if (o.approved == 2) {
+                    if (o.comment != "") {
+                        passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg"  id="comlenght" > ' + o.comment + '</p >'
+                    }
+                    htm += '<li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li >'
+                }
+                else if (o.approved == 3) {
+                    dechtm = '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >' + dechtm
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<li ><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                } else {
+                    if (o.comment != "") {
+                        dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                    }
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                }
+            }
+            else {
+                htm += '</ul>';
+                pdepart = o.pname;
+                htm += '<h4 class="' + hstyle + '"><span></span>' + pdepart + '</h4>';
+                if (o.approved == 2) {
+                    if (o.comment != "") {
+                        passhtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="passbjg" id="comlenght" > ' + o.comment + '</p >'
+                    }
+                    htm += '<ul class="' + ulstyle + '"><li class="li-blue2"><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj04">同意</span></div></li>'
+                }
+                else if (o.approved == 3) {
+                    dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span> <span class="yj03">' + o.dd + '</span> <span class="yj05">驳回</span></div></li >'
+                } else {
+                    if (o.comment != "") {
+                        dechtm += '<h3>' + o.name + ' <i>' + o.username + '</i> <span>' + o.dd + '</span></h3><p class="bjg" > ' + o.comment + '</p >'
+                    }
+                    hstyle = 'cp02'
+                    ulstyle = 'uc02'
+                    htm += '<ul class="' + ulstyle + '"><li><div style="clear:both"><span class="yj06">' + o.name + '</span> <span class="yj02">' + o.username + '</span></div></li >'
+                }
+            }
+        }
+        $('#printTab').html(printPro)
+        htm += '</ul><h4 class="' + hstyle + '"><span></span>结束</h4>';
+        $("#transferInfo").html(htm);
+    })
 
 </script>

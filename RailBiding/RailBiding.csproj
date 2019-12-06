@@ -690,6 +690,7 @@
     <Content Include="js\ztree\zTreeStyle\img\zTreeStandard.gif" />
     <Content Include="js\ztree\zTreeStyle\img\zTreeStandard.png" />
     <Content Include="js\ztree\zTreeStyle\zTreeStyle.css" />
+    <Content Include="pdfViewer.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

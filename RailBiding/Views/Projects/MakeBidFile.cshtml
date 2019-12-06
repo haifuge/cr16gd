@@ -314,6 +314,7 @@
     function showProjInfo() {
         $.get("/Projects/GetProjInfo?pid=@ViewBag.pid", function (data) {
             var obj = JSON.parse(data);
+            console.log(obj)
             $("#pname").val(obj[0].name);
             $("#projContent").val(obj[0].prodescription);
             ShowDiv('projCont', 'projInfo', 'win')

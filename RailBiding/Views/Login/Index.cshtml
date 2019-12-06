@@ -145,7 +145,7 @@
         $("#txtCode").val(vcode);
         if (vcode.length == 5) {
             $.ajax({
-                url: "Login/GetVerifyCode?id=" + Math.random(), //url  action是方法的名称
+                url: "/Login/GetVerifyCode?id=" + Math.random(), //url  action是方法的名称
                 data: {},
                 type: 'GET',
                 dataType: "text", //可以是text，如果用text，返回的结果为字符串；如果需要json格式的，可是设置为json

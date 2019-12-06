@@ -52,6 +52,7 @@ namespace DAL.Models
         Insert=4,
         Approve=5,
         Decline=6,
-        InviteBiding=7
+        InviteBiding=7,
+        SendWXInfo=8
     }
 }

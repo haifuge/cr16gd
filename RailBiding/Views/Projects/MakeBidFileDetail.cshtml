@@ -341,12 +341,14 @@
     }
     function printDiv() {
         $('#procs').show();
+        $("p[name='erci']").hide()
         var printData = document.getElementById("printArea").innerHTML;
         var oldstr = document.body.innerHTML;
         document.body.innerHTML = printData;
         window.print();
         document.body.innerHTML = oldstr;   //保持原页面格式
         $('#procs').hide();
+        $("p[name='erci']").show()
     }
 
     $.get("/Projects/GetFiles?pid=@ViewBag.pid&ftype=4", function (data) {
@@ -355,7 +357,7 @@
                 var li = document.createElement('li');
                 var yulan = "";
                 if (obj[i].FileName.indexOf('.DOC') != -1 || obj[i].FileName.indexOf('.doc') != -1 || obj[i].FileName.indexOf('.pdf') != -1)
-                    yulan = '<a href="http://ow365.cn/?i=19177&furl=' + obj[i].FilePath.replace('../projectFiles\\', 'http://cr16gd.saibo.net.cn/projectFiles/') + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">预览</a>&nbsp;&nbsp;';
+                    yulan = '<a href="/pdfViewer.html?file=' + obj[i].FilePath.replace('../projectFiles\\', 'http://cr16gd.saibo.net.cn/projectFiles/') + '" style = "color:#008cd6;margin-left: 5px;" target="_blank">预览</a>&nbsp;&nbsp;';
                 li.innerHTML = '<span style = "color:#3e3a39;margin-left: 5px;" >' + obj[i].FileName + yulan+'<a href = "'+obj[i].FilePath+'" style = "color:#008cd6;margin-left: 5px;" target="_blank">下载</a><span>'
                 document.getElementById("bffiles").appendChild(li)
             }
@@ -405,14 +407,14 @@
                     printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
                         '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
                         '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
-                        '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">提交申请</span></td>' +
+                        '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">提交申请</span></td>'+
                         '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                     continue;
                 }
                 printPro += '<tr><td width="20%" style="border:0px;text-align:center;vertical-align:central">' + o.name + '</td>' +
                     '<td width = "12%" style = "border:0px;text-align:center;vertical-align:central">' + o.username + '</td>' +
                     '<td width="25%" style="border:0px;text-align:center;vertical-align:central">' + o.dd + '</td>' +
-                    '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">同意</span></td>' +
+                    '<td width="12%" style="border:0px;text-align:center;vertical-align:central"><span style="color:deepskyblue">同意</span></td>'+
                     '<td width="30%" style="border:0px;text-align:center;padding:0px;vertical-align:central"><img src="/sigs/' + o.sigfile + '" style="height:80px;width:150px; margin:0px"></td></tr>';
                 if (o.pname == pdepart) {
                     if (o.approved == 2) {

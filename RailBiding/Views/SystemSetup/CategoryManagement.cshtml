@@ -127,7 +127,8 @@
     <div class="main-wrap">
         <div class="main-top typemain-top">
             <a href="#" class="active" onclick="initBusinessType()">项目类别</a>
-            <a href="#" class="" onclick="companyBusinessType()">公司业务类别</a>  
+            <a href="#" class="" onclick="companyBusinessType()">公司业务类别</a>
+            <a href="#" class="" onclick="yearManagement()">年度管理</a>
             <div class="catt">
                 <span>输入名称：<input name="roomInfoName" type="text" id="btype" value="" class="has-clear-input input input3"></span>
                 <a href="#" class="bmgl" onclick="addBtype()">添加</a>
@@ -204,6 +205,23 @@
             addtype="1"
         }
 
+        function yearManagement()
+        {
+            $.post("/SystemSetup/GetYearManagement", {}, function (data) {
+                $("#tbType").empty()
+                var obj = JSON.parse(data);
+                var htm = ""
+                for (var i = 0; i < obj.length; i++) {
+                    var o = obj[i]
+                    htm += '<tr class="white-bg">' +
+                        //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + o.id + '" id="checkbox-1"/></td>' +
+                        '<td>' + o.addyear + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + o.addyear + '\',' + o.id + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + o.id + ')">删除</a></td>' +
+                        '</tr>';
+                }
+                $("#tbType").html(htm)
+            });
+            addtype = "3"
+        }
         //公司业务类型
         function companyBusinessType() {
             $.post("/SystemSetup/GetCompanyBusinessTypes", {}, function (data) {
@@ -233,23 +251,32 @@
                 $("#btype").focus();
                 return;
             }
-            if(addtype=="1"){
+            if (addtype == "1") {
                 $.post("/SystemSetup/AddBusinessType", { bt: btval }, function (bid) {
                     var htm = '<tr class="white-bg">' +
-                        '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '"/></td>' +
-                        '<td>' + btval + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + btval + '\',' + bid + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + bid +')">删除</a></td>' +
+                        //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '"/></td>' +
+                        '<td>' + btval + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + btval + '\',' + bid + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + bid + ')">删除</a></td>' +
                         '</tr>';
                     $("#tbType").append(htm);
                 })
-            } else {
-                $.post("/SystemSetup/AddCompanyBusinessType", { bt: btval }, function (bid) {     
+            } else if (addtype == "2") {
+                $.post("/SystemSetup/AddCompanyBusinessType", { bt: btval }, function (bid) {
                     var htm = '<tr class="white-bg">' +
-                        '<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '" /></td>' +
+                        //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '" /></td>' +
                         '<td>' + btval + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + btval + '\',' + bid + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + bid + ')">删除</a></td>' +
                         '</tr>';
                     $("#tbType").append(htm);
                 })
 
+            }
+            else if (addtype == "3") {
+                $.post("/SystemSetup/AddYearManagement", { bt: btval }, function (bid) {
+                    var htm = '<tr class="white-bg">' +
+                        //'<td class="check-color"><input class="icheck" name="id" type="checkbox" value="' + bid + '" /></td>' +
+                        '<td>' + btval + '</td><td><a href="#" class="xg add-img " style="display: inline-block" onclick="changename(\'' + btval + '\',' + bid + ')">修改</a>&nbsp;&nbsp;<a href="#" class="xg add-img" style="display: inline-block" onclick="delname(this,' + bid + ')">删除</a></td>' +
+                        '</tr>';
+                    $("#tbType").append(htm);
+                })
             }
         }
         $(".canvas_close.canvas_close1").on("click", function () {
@@ -270,7 +297,11 @@
                 
                 $(".canvas.canvas1").hide();
             }
-           
+            if (addtype == "3") {
+                $.post("/SystemSetup/UpdateYearManagement", { id: bti, name: btn }, function () { yearManagement(); });
+
+                $(".canvas.canvas1").hide();
+            }
             
         }
 
@@ -294,8 +325,10 @@
                 row.parentNode.removeChild(row);
                 if (addtype == "1") {
                     $.post("/SystemSetup/DeleteBusinessType", {id:btid}, function () { })
-                } else {
+                } else if (addtype == "2") {
                     $.post("/SystemSetup/DeleteCompanyBusinessType", { id: btid }, function () { })
+                } else if (addtype == "3") {
+                    $.post("/SystemSetup/DeleteYearManagement", { id: btid }, function () { })
                 }
             }
         }

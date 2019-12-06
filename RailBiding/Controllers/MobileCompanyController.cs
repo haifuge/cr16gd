@@ -1,8 +1,10 @@
 ﻿using DAL.Models;
+using DAL.Tools;
 using RailBiding.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -16,13 +18,27 @@ namespace RailBiding.Mobile
         //[VerifyMobileLoginFilter]
         public ActionResult Index(int id)
         {
-            if (!string.IsNullOrEmpty(Request["userid"]))
-            { 
+            if(!string.IsNullOrEmpty(Request["lcode"]))
+            {
+                string code = Request["lcode"].ToString();
                 ViewBag.UserId = Request["userid"].ToString();
-                Session["UserId"]= Request["userid"].ToString();
+                SqlParameter[] paras = new SqlParameter[2];
+                paras[0] = new SqlParameter("@uid", ViewBag.UserId);
+                paras[1] = new SqlParameter("@code", code);
+                string s = DBHelper.ExecuteSP("CheckLoginStatus", paras).Tables[0].Rows[0][0].ToString();
+                if(s=="1")
+                    Session["UserId"] = Request["userid"].ToString();
+                else
+                    Response.Redirect("/MobileLogin");
+            }
+            else if(Session["UserId"]!=null)
+            {
+                ViewBag.UserId = Session["UserId"].ToString();
             }
             else
-                ViewBag.UserId = Session["UserId"].ToString();
+            {
+                Response.Redirect("/MobileLogin");
+            }
             CompanyContext cc = new CompanyContext();
             DataTable dt = cc.GetCompany(id);
             DataRow dr = dt.Rows[0];
@@ -130,5 +146,6 @@ namespace RailBiding.Mobile
             ViewBag.apid = dr["Type"].ToString() == "1" ? "5" : "1";
             return View();
         }
+
     }
 }

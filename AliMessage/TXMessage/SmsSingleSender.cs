@@ -89,9 +89,7 @@ namespace AliMessage.TXMessage
             data.Add("tel", tel);
             data.Add("msg", msg);
             data.Add("type", type);
-            data.Add("sig", util.StrToHash(String.Format(
-                "appkey={0}&random={1}&time={2}&mobile={3}",
-                appkey, random, curTime, phoneNumber)));
+            data.Add("sig", util.StrToHash(String.Format("appkey={0}&random={1}&time={2}&mobile={3}",appkey, random, curTime, phoneNumber)));
             data.Add("time", curTime);
             data.Add("extend", extend);
             data.Add("ext", ext);
@@ -128,7 +126,7 @@ namespace AliMessage.TXMessage
 
         public SmsSingleSenderResult SendMsgTemplate(string phoneNumber, int tempId, List<string> param)
         {
-            return SendWithParam("86", phoneNumber, tempId, param, "", "", "");
+            return SendWithParam("86", phoneNumber.Trim(), tempId, param, "", "", "");
         }
         /**
          * 指定模板单发

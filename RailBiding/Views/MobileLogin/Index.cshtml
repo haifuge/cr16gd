@@ -116,7 +116,7 @@
                 setCookie('txtPassword', oPswd.value, 7); //保存密码到cookie，有效期7天
             }
             $.post("/MobileLogin/GetVerifyCode", {}, function (res) {
-                if (res != $("#txtCode").val()) {
+                if (res != $("#txtCode").val().toLowerCase()) {
                     alert('验证码不正确')
                     return;
                 }

@@ -158,5 +158,10 @@ namespace RailBiding.Controllers
             MakeBidFileContext mc = new MakeBidFileContext();
             return mc.GetMyMakeBidFiles(uid, pageSize, pageIndex, pname, fstatus).Replace("\r", "    ").Replace("\n", "<br/>");
         }
+        public void DeleteApplication(string pid)
+        {
+            string sql = "delete MakeBidingFile where ProjId=" + pid + "; delete AppProcessing where ObjId=" + pid + " and AppProcId=4; update Project set status=N'招标审核通过' where Id=" + pid;
+            DBHelper.ExecuteNonQuery(sql);
+        }
     }
 }

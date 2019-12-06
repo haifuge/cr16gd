@@ -137,9 +137,59 @@ namespace RailBiding.API
             else
                 pname = DBHelper.ExecuteScalar("select name from Project where ID=" + oid);
 
-            WXMessage.WXMessage message = new WXMessage.WXMessage();
-            string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
-            message.sendInfoByWinXin(dt, apid, oid, pname, puser);
+            try
+            {
+                WXMessage.WXMessage message = new WXMessage.WXMessage();
+                if(aStatus=="3")
+                {
+                    message.sendRefuseNotification(dt.Rows[0][0].ToString(), apid, pname);
+                }
+                else
+                {
+                    string reurl = "";
+                    string aptype = "";
+                    switch (apid)
+                    {
+                        case "1":
+                            aptype = "名录外企业审批";
+                            reurl = "http://cr16gd.saibo.net.cn/MobileCompany?id=" + oid + "&approved=1&userid=";
+                            break;
+                        case "5":
+                            aptype = "名录内企业审批";
+                            reurl = "http://cr16gd.saibo.net.cn/MobileCompany?id=" + oid + "&approved=1&userid=";
+                            break;
+                        case "2":
+                            aptype = "招标文件审批";
+                            reurl = "http://cr16gd.saibo.net.cn/MobileBidingFile?pid=" + oid + "&approved=1&userid=";
+                            break;
+                        case "3":
+                            aptype = "招标审批";
+                            reurl = "http://cr16gd.saibo.net.cn/MobileBid?pid=" + oid + "&approved=1&userid=";
+                            break;
+                        case "4":
+                            aptype = "定标文件审批";
+                            reurl = "http://cr16gd.saibo.net.cn/MobileMakeBidFile?pid=" + oid + "&approved=1&userid=";
+                            break;
+                    }
+                    string puser = DBHelper.ExecuteScalar("select UserName from userinfo where id=" + uid);
+                    for (int j = 0; j < dt.Rows.Count; j++)
+                    {
+                        uid = dt.Rows[j][1].ToString();
+                        string guid = Guid.NewGuid().ToString().Replace("-", "");
+                        string url = reurl + uid + "&lcode=" + guid;
+                        message.SendTempletMessge(dt.Rows[j][0].ToString(), url, aptype, pname, puser);
+                        DBHelper.ExecuteNonQuery("insert into WXLoginSession(code, dtime, userid,visited) values('" + guid + "',getdate()," + uid + ", 0)");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log ll = new Log();
+                ll.OperType = OperateType.SendWXInfo;
+                ll.UserId = uid;
+                ll.Description = "发送短信失败:" + e.ToString();
+                LogContext.WriteLog(ll);
+            }
 
             ApproveProcessLog(apid, oid, aStatus, uid);
         }
@@ -299,6 +349,11 @@ namespace RailBiding.API
             string inout = "";
             if (Request["inout"] != null)
                 inout = Request["inout"].ToString();
+            string addyear = "";
+            if(Request["cyear"]!=null)
+            {
+                addyear = Request["cyear"].ToString();
+            }
 
             string where = "";
             if (cname != "")
@@ -307,6 +362,8 @@ namespace RailBiding.API
                 where += " c.BusinessType = "+ctype+" and ";
             if (inout != "")
                 where += " c.Type = "+inout+" and ";
+            if (addyear != "")
+                where += " c.AddYear = " + addyear + " and ";
 
 
             int pi = int.Parse(page);
@@ -437,6 +494,11 @@ namespace RailBiding.API
                 sql = @"delete AppProcessing where ObjId=" + objid + " and AppProcId in (" + appid + ")";
                 DBHelper.ExecuteNonQuery(sql);
             }
+        }
+        public string GetProcessStatus(string oid, string apid, string uid)
+        {
+            string sql = "select COUNT(1) from AppProcessing where ObjId=" + oid + " and AppProcId=" + apid + " and DUGUID in (select guid from DepartmentUser where UserId=" + uid + ") and Approved=1";
+            return DBHelper.ExecuteScalar(sql);
         }
     }
 }

@@ -123,7 +123,7 @@ namespace RailBiding.Controllers
         public void DeleteApplication()
         {
             string pid = Request["pid"].ToString();
-            string sql = "delete Project where Id="+pid+"; delete BidingFile where ProjId="+pid+ "; delete AppProcessing where ObjId="+pid+" and AppProcId=2";
+            string sql = "update Project set status=N'未发布' where Id=" + pid+"; delete BidingFile where ProjId="+pid+ "; delete AppProcessing where ObjId="+pid+" and AppProcId=2";
             DBHelper.ExecuteNonQuery(sql);
         }
     }

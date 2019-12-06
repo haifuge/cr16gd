@@ -26,18 +26,15 @@ namespace WXMessage
         /// <summary>
         /// 
         /// </summary>
-        public static string AccessToken
+        public static string AccessToken(Boolean getA=false)
         {
-            get
+            //如果为空，或者过期，需要重新获取
+            if (string.IsNullOrEmpty(mAccessToken) || HasExpired()||getA)
             {
-                //如果为空，或者过期，需要重新获取
-                if (string.IsNullOrEmpty(mAccessToken) || HasExpired())
-                {
-                    //获取
-                    mAccessToken = GetAccessToken(appId, appSecret);
-                }
-                return mAccessToken;
+                //获取
+                mAccessToken = GetAccessToken(appId, appSecret);
             }
+            return mAccessToken;
         }
         /// <summary>
         /// 
@@ -49,8 +46,11 @@ namespace WXMessage
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}", appId, appSecret);
             string result = HttpUtility.GetData(url);
-            var obj = JsonConvert.DeserializeAnonymousType(result, new {access_token="access_token", expires_in=7200});
-            GetAccessToken_Time = DateTime.Now.AddSeconds(obj.expires_in);
+            var obj = JsonConvert.DeserializeAnonymousType(result, new { errcode=0,errmsg="",access_token ="access_token", expires_in=7200});
+            if (obj.errcode == 0)
+                GetAccessToken_Time = DateTime.Now.AddSeconds(obj.expires_in);
+            else
+                throw new Exception(obj.errmsg);
             return obj.access_token;
         }
 
